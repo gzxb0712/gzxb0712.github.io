@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Bill World</title>
+    <link>https://xiebiao.top/categories/</link>
+    <description>Recent content in Categories on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 12 Oct 2019 20:28:04 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>golang</title>
+      <link>https://xiebiao.top/categories/golang/</link>
+      <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/categories/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://xiebiao.top/categories/linux/</link>
+      <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>生活</title>
+      <link>https://xiebiao.top/categories/%E7%94%9F%E6%B4%BB/</link>
+      <pubDate>Thu, 08 Aug 2019 22:25:24 +0800</pubDate>
+      
+      <guid>https://xiebiao.top/categories/%E7%94%9F%E6%B4%BB/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

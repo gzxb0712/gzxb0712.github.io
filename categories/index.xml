@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 12 Oct 2019 20:28:04 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 Nov 2019 19:21:33 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>linux</title>
+      <link>https://xiebiao.top/categories/linux/</link>
+      <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/categories/linux/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>golang</title>
@@ -17,15 +26,6 @@
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
       <guid>https://xiebiao.top/categories/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>https://xiebiao.top/categories/linux/</link>
-      <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/categories/linux/</guid>
       <description></description>
     </item>
     

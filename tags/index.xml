@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 12 Oct 2019 20:28:04 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 Nov 2019 19:21:33 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>centos</title>
+      <link>https://xiebiao.top/tags/centos/</link>
+      <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/centos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dns</title>
+      <link>https://xiebiao.top/tags/dns/</link>
+      <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/dns/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Blog</title>
@@ -26,15 +44,6 @@
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/Hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>centos</title>
-      <link>https://xiebiao.top/tags/centos/</link>
-      <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/centos/</guid>
       <description></description>
     </item>
     

@@ -6,10 +6,25 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 12 Oct 2019 20:28:04 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 Nov 2019 19:21:33 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>dns在centos中安装</title>
+      <link>https://xiebiao.top/post/dns_centos_install/</link>
+      <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/dns_centos_install/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;参考博客
+&lt;a href=&#34;https://bynss.com/2020/300275.html&#34;&gt;https://bynss.com/2020/300275.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;由80年代伯克利大学的学生开发， &lt;strong&gt;揉&lt;/strong&gt; （&lt;strong&gt;伯克利互联网名称域名&lt;/strong&gt;）是开源的 &lt;strong&gt;DNS服务器&lt;/strong&gt; 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 &lt;strong&gt;域名解析&lt;/strong&gt; 服务器是一项有助于解析完全限定域名的服务（&lt;strong&gt;完整域名&lt;/strong&gt;A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。&lt;/p&gt;
+&lt;p&gt;为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。&lt;/p&gt;
+&lt;p&gt;本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</title>
@@ -30,11 +45,11 @@ Hugo 官方的定义是：&lt;/p&gt;
     </item>
     
     <item>
-      <title>dhcp在centos8中安装</title>
-      <link>https://xiebiao.top/post/dncp_centos8_install/</link>
+      <title>dhcp在centos中安装</title>
+      <link>https://xiebiao.top/post/dncp_centos_install/</link>
       <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/dncp_centos8_install/</guid>
+      <guid>https://xiebiao.top/post/dncp_centos_install/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;参考博客&lt;br&gt;
 &lt;a href=&#34;https://www.helplib.cn/%E6%9C%88%E6%9C%88/install-and-setup-dhcp-server-on-centos-8&#34;&gt;https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8  &lt;/a&gt;&lt;br&gt;

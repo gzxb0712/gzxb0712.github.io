@@ -3,28 +3,56 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-01-08T22:05:33+00:00</lastmod>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-01-08T22:05:33+00:00</lastmod>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/tags/centos/</loc>
-    <lastmod>2020-01-08T22:05:33+00:00</lastmod>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/linux/</loc>
-    <lastmod>2020-01-08T22:05:33+00:00</lastmod>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/</loc>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/samba/</loc>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/samba_centos_install/</loc>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -38,20 +66,6 @@
   
   <url>
     <loc>https://xiebiao.top/post/openvpn_client_connect/</loc>
-    <lastmod>2020-01-08T22:05:33+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-01-08T22:05:33+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
     <lastmod>2020-01-08T22:05:33+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

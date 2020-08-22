@@ -6,10 +6,24 @@
     <description>Recent content in centos on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 11 Nov 2019 19:21:33 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Dec 2019 22:21:37 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/centos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ftp在centos中安装</title>
+      <link>https://xiebiao.top/post/ftp_centos_install/</link>
+      <pubDate>Tue, 17 Dec 2019 22:21:37 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/ftp_centos_install/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;参考博客
+&lt;a href=&#34;https://segmentfault.com/a/1190000021457476&#34;&gt;https://segmentfault.com/a/1190000021457476&lt;/a&gt;
+&lt;a href=&#34;https://segmentfault.com/a/1190000008161400&#34;&gt;https://segmentfault.com/a/1190000008161400&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>dns在centos中安装</title>

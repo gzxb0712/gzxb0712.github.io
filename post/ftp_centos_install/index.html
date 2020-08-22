@@ -62,7 +62,7 @@ https://segmentfault.com/a/1190000008161400
 安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程">
 <meta itemprop="datePublished" content="2019-12-17T22:21:37+00:00" />
 <meta itemprop="dateModified" content="2019-12-17T22:21:37+00:00" />
-<meta itemprop="wordCount" content="5481">
+<meta itemprop="wordCount" content="3826">
 
 
 
@@ -148,8 +148,8 @@ https://segmentfault.com/a/1190000008161400
         <div class="post-category">
             <a href="/categories/linux/"> linux </a>
             </div>
-          <span class="more-meta"> 约 5481 字 </span>
-          <span class="more-meta"> 预计阅读 11 分钟 </span>
+          <span class="more-meta"> 约 3826 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -184,27 +184,6 @@ https://segmentfault.com/a/1190000008161400
       </ul>
     </li>
     <li><a href="#状态码">状态码</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#71-浏览器测试">7.1 浏览器测试</a>
-      <ul>
-        <li><a href="#711-匿名测试">7.1.1 匿名测试</a></li>
-        <li><a href="#712-用户登录测试">7.1.2 用户登录测试</a></li>
-      </ul>
-    </li>
-    <li><a href="#72-ftp命令测试">7.2 ftp命令测试</a>
-      <ul>
-        <li><a href="#721-匿名测试">7.2.1 匿名测试</a></li>
-        <li><a href="#722-用户登录测试">7.2.2 用户登录测试</a></li>
-      </ul>
-    </li>
-    <li><a href="#73-wget测试">7.3 wget测试</a>
-      <ul>
-        <li><a href="#731-匿名测试">7.3.1 匿名测试</a></li>
-        <li><a href="#732-用户登录测试">7.3.2 用户登录测试</a></li>
-      </ul>
-    </li>
   </ul>
 </nav>
   </div>
@@ -791,260 +770,6 @@ ftp&gt; mput *.txt           # 可以上传多个文件
 <p>226 - 关闭数据连接端口，请求的文件操作成功</p>
 </li>
 </ul>
-<p>#################################################</p>
-<h1 id="ftp简单图文设置如下">FTP简单图文设置如下:</h1>
-<h1 id="1-概述">1 概述</h1>
-<p>文章主要讲了CentOS8如何利用vsftpd搭建一个FTP服务器,然后进行简单的匿名上传/下载与用户上传/下载测试,还有使用了wget测试.</p>
-<h1 id="2-安装vsftpd">2 安装vsftpd</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install -y vsftpd
-</code></pre></td></tr></table>
-</div>
-</div><h1 id="3-开启服务">3 开启服务</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">service httpd start
-</code></pre></td></tr></table>
-</div>
-</div><h1 id="4-设置开机启动">4 设置开机启动</h1>
-<p>可以用</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl list-unit-files | grep vsftpd
-</code></pre></td></tr></table>
-</div>
-</div><p>查看是否开机启动.显示disabled.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457480" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>通过</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">chkconfig vsftpd on
-</code></pre></td></tr></table>
-</div>
-</div><p>开启自启,再次执行systemctl,可以看到变成了enabled.</p>
-<h1 id="5-修改etcvsftpdvsftpdconf">5 修改/etc/vsftpd/vsftpd.conf</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo vim /etc/vsftpd/vsftpd.conf
-</code></pre></td></tr></table>
-</div>
-</div><p>首先修改</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457483" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>为YES.</p>
-<p>再添加一行anon_upload_enable=YES</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457481" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>第一行的意思是允许匿名登录,第二行的意思是允许匿名上传.
-重启服务.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">service vsftpd restart
-</code></pre></td></tr></table>
-</div>
-</div><h1 id="6-创建测试文件">6 创建测试文件</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /var/ftp/pub
-sudo vim test
-</code></pre></td></tr></table>
-</div>
-</div><p><img src="https://segmentfault.com/img/remote/1460000021457482" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<h1 id="7-测试">7 测试</h1>
-<h2 id="71-浏览器测试">7.1 浏览器测试</h2>
-<h3 id="711-匿名测试">7.1.1 匿名测试</h3>
-<p>ifconfig获取内网ip,在浏览器中输入ftp://ip.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457488" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>可以看到有一个pub文件夹,里面有刚才新建的test文件.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457486" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457484" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>右键保存即可下载文件.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457494" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>下载完成.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457499" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>去终端看看.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457485" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<h3 id="712-用户登录测试">7.1.2 用户登录测试</h3>
-<p>输入</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ftp://username@ip
-</code></pre></td></tr></table>
-</div>
-</div><p><img src="https://segmentfault.com/img/remote/1460000021457487" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>再输入用户密码.</p>
-<p>默认访问的是用户根目录下的文件,这里显示出来了.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457498" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>下载的话同上,右键选择即可.</p>
-<h2 id="72-ftp命令测试">7.2 ftp命令测试</h2>
-<p>首先安装ftp:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo yum install ftp
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="721-匿名测试">7.2.1 匿名测试</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ftp ip
-</code></pre></td></tr></table>
-</div>
-</div><p>这里用户名选择ftp,密码为空,表示匿名登录.ftp为默认的匿名登录用户名,至于密码,可以在/etc/vsftpd/vsftpd.conf中设置一个</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">no_anon_password=YES
-</code></pre></td></tr></table>
-</div>
-</div><p>这样匿名用户可以不用密码登录.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457502" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<h4 id="7211-上传测试">7.2.1.1 上传测试</h4>
-<p>直接使用put命令,后面接上文件,这里的upload.txt是执行ftp之前的所在文件夹下的upload.txt</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457489" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>这里提示不能创建文件,是权限的原因,要确保/var/ftp/pub对&quot;other&quot;用户有写权限.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457490" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>默认的/var/ftp/pub的权限是644,修改成647.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo chmod 647 /var/ftp/pub
-</code></pre></td></tr></table>
-</div>
-</div><p>同时修改上传文件的权限,允许other用户可读.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo chmod 644 /root/upload.txt
-</code></pre></td></tr></table>
-</div>
-</div><p>如果不行,使用selinux设置.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">getsebool -a | grep ftp
-</code></pre></td></tr></table>
-</div>
-</div><p><img src="https://segmentfault.com/img/remote/1460000021457492" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>把ftpd_full_access开启:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">setsebool ftpd_full_access on
-</code></pre></td></tr></table>
-</div>
-</div><p><img src="https://segmentfault.com/img/remote/1460000021457491" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>再进入upload.txt所在的文件夹,执行ftp,再次put.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457493" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>成功!</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457497" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<h4 id="7212-下载测试">7.2.1.2 下载测试</h4>
-<p>直接get文件即可,由于上面已经设置好了权限,所以不会出现问题.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457495" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457496" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>若出现权限问题可从三方面入手:</p>
-<ul>
-<li>(1)<strong>/var/ftp/pub的对other用户的可读权限:因为是下载,而且匿名,所以只需要对other用户的可读权限</strong></li>
-<li>(2)<strong>被下载文件的对other用户的可读权限</strong></li>
-<li>(3)<strong>selinux的问题,设置ftpd_full_access为on</strong></li>
-</ul>
-<h3 id="722-用户登录测试">7.2.2 用户登录测试</h3>
-<p>执行ftp时用对应用户名与密码登录.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457500" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>默认进入了用户根目录.</p>
-<h4 id="7221-上传测试">7.2.2.1 上传测试</h4>
-<p>直接put即可.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457501" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457503" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>若出现权限问题参照上面7.2.1.2的那三条方法.</p>
-<h4 id="7222-下载测试">7.2.2.2 下载测试</h4>
-<p>随便在用户根目录新建一个文件,这里是kr.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457505" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>直接get即可.</p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457504" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457506" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<h2 id="73-wget测试">7.3 wget测试</h2>
-<p>wget用来下载文件,初始下载的目录与ftp登录时的目录一致,比如匿名登录ftp,登录的是/var/ftp目录,则wget会从这个/var/ftp目录下载文件,下载到执行wget命令所在的目录.使用用户&quot;kr&quot;登录ftp,则登录的是/home/kr目录,wget会从/home/kr下载文件.</p>
-<h3 id="731-匿名测试">7.3.1 匿名测试</h3>
-<p>注意,请确保被下载文件对other用户有可读权限.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo chmod o+w xxxxxx
-</code></pre></td></tr></table>
-</div>
-</div><p>然后使用wget</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">wget ftp://ip/pub/xxxx
-</code></pre></td></tr></table>
-</div>
-</div><p><img src="https://segmentfault.com/img/remote/1460000021457507" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p><img src="https://segmentfault.com/img/remote/1460000021457508" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<h3 id="732-用户登录测试">7.3.2 用户登录测试</h3>
-<p>使用&ndash;ftp-user,&ndash;ftp-password指定用户名与密码,其余同上.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">wget ftp://ip/xxx --ftp-user=xxxx --ftp-password=xxxx
-</code></pre></td></tr></table>
-</div>
-</div><p><img src="https://segmentfault.com/img/remote/1460000021457509" alt="在这里插入图片描述" title="在这里插入图片描述"></p>
-<p>成功.</p>
-<h1 id="8-总结">8 总结</h1>
-<p>呃&hellip;.简单来说,就是先安装好ftp与vsftpd,然后修改/etc/vsftpd/vsftpd.conf添加相应权限,对于不能上传与下载的原因,基本上都是权限的问题,主要就是三方面:</p>
-<ul>
-<li><strong>(1)ftp目录的权限:比如可以是/var/ftp/pub没有对应的写权限导致上传失败,没有对应读权限导致下载失败.</strong></li>
-<li><strong>(2)被上传文件的权限:比如上传的文件没有读权限导致上传失败.</strong></li>
-<li><strong>(3)selinux:使用setsebool设置为on.</strong></li>
-</ul>
-<p>解决权限问题后,基本就可以通过ftp或wget顺利地使用这个ftp服务器上传/下载文件了.</p>
     </div>
 
     <div class="post-copyright">

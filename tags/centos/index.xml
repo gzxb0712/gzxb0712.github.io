@@ -13,10 +13,10 @@
     
     <item>
       <title>samba在centos中安装</title>
-      <link>https://xiebiao.top/post/samba_centos_install/</link>
+      <link>https://xiebiao.top/post/base/samba_centos_install/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/samba_centos_install/</guid>
+      <guid>https://xiebiao.top/post/base/samba_centos_install/</guid>
       <description>&lt;h2 id=&#34;一简介&#34;&gt;一、简介&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -51,10 +51,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>openvpn客户端连接设置</title>
-      <link>https://xiebiao.top/post/openvpn_client_connect/</link>
+      <link>https://xiebiao.top/post/base/openvpn_client_connect/</link>
       <pubDate>Wed, 08 Jan 2020 22:05:33 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/openvpn_client_connect/</guid>
+      <guid>https://xiebiao.top/post/base/openvpn_client_connect/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;参考博客&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -71,10 +71,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>openvpn在centos搭建实现内网互通</title>
-      <link>https://xiebiao.top/post/openvpn_centos_install/</link>
+      <link>https://xiebiao.top/post/base/openvpn_centos_install/</link>
       <pubDate>Tue, 07 Jan 2020 21:05:33 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/openvpn_centos_install/</guid>
+      <guid>https://xiebiao.top/post/base/openvpn_centos_install/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;参考博客
 &lt;a href=&#34;https://luanlengli.github.io/2019/11/25/CentOS7%E9%83%A8%E7%BD%B2OpenVPN%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%BA%92%E9%80%9A.html&#34;&gt;https://luanlengli.github.io/2019/11/25/CentOS7%E9%83%A8%E7%BD%B2OpenVPN%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%BA%92%E9%80%9A.html&lt;/a&gt;&lt;/p&gt;
@@ -93,10 +93,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>ftp在centos中安装</title>
-      <link>https://xiebiao.top/post/ftp_centos_install/</link>
+      <link>https://xiebiao.top/post/base/ftp_centos_install/</link>
       <pubDate>Tue, 17 Dec 2019 22:21:37 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/ftp_centos_install/</guid>
+      <guid>https://xiebiao.top/post/base/ftp_centos_install/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;参考博客
 &lt;a href=&#34;https://segmentfault.com/a/1190000021457476&#34;&gt;https://segmentfault.com/a/1190000021457476&lt;/a&gt;
@@ -107,10 +107,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>dns在centos中安装</title>
-      <link>https://xiebiao.top/post/dns_centos_install/</link>
+      <link>https://xiebiao.top/post/base/dns_centos_install/</link>
       <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/dns_centos_install/</guid>
+      <guid>https://xiebiao.top/post/base/dns_centos_install/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;参考博客
 &lt;a href=&#34;https://bynss.com/2020/300275.html&#34;&gt;https://bynss.com/2020/300275.html&lt;/a&gt;&lt;/p&gt;
@@ -122,10 +122,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>dhcp在centos中安装</title>
-      <link>https://xiebiao.top/post/dncp_centos_install/</link>
+      <link>https://xiebiao.top/post/base/dncp_centos_install/</link>
       <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/dncp_centos_install/</guid>
+      <guid>https://xiebiao.top/post/base/dncp_centos_install/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;参考博客&lt;br&gt;
 &lt;a href=&#34;https://www.helplib.cn/%E6%9C%88%E6%9C%88/install-and-setup-dhcp-server-on-centos-8&#34;&gt;https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8  &lt;/a&gt;&lt;br&gt;

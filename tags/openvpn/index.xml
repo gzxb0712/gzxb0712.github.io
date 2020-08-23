@@ -13,10 +13,10 @@
     
     <item>
       <title>openvpn客户端连接设置</title>
-      <link>https://xiebiao.top/post/openvpn_client_connect/</link>
+      <link>https://xiebiao.top/post/base/openvpn_client_connect/</link>
       <pubDate>Wed, 08 Jan 2020 22:05:33 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/openvpn_client_connect/</guid>
+      <guid>https://xiebiao.top/post/base/openvpn_client_connect/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;参考博客&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -33,10 +33,10 @@
     
     <item>
       <title>openvpn在centos搭建实现内网互通</title>
-      <link>https://xiebiao.top/post/openvpn_centos_install/</link>
+      <link>https://xiebiao.top/post/base/openvpn_centos_install/</link>
       <pubDate>Tue, 07 Jan 2020 21:05:33 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/openvpn_centos_install/</guid>
+      <guid>https://xiebiao.top/post/base/openvpn_centos_install/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;参考博客
 &lt;a href=&#34;https://luanlengli.github.io/2019/11/25/CentOS7%E9%83%A8%E7%BD%B2OpenVPN%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%BA%92%E9%80%9A.html&#34;&gt;https://luanlengli.github.io/2019/11/25/CentOS7%E9%83%A8%E7%BD%B2OpenVPN%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%BA%92%E9%80%9A.html&lt;/a&gt;&lt;/p&gt;

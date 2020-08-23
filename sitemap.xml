@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://xiebiao.top/tags/base/</loc>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/base/</loc>
+    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://xiebiao.top/</loc>
     <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -44,7 +58,7 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/samba_centos_install/</loc>
+    <loc>https://xiebiao.top/post/base/samba_centos_install/</loc>
     <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -65,14 +79,14 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/openvpn_client_connect/</loc>
+    <loc>https://xiebiao.top/post/base/openvpn_client_connect/</loc>
     <lastmod>2020-01-08T22:05:33+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/openvpn_centos_install/</loc>
+    <loc>https://xiebiao.top/post/base/openvpn_centos_install/</loc>
     <lastmod>2020-01-07T21:05:33+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -86,7 +100,7 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/ftp_centos_install/</loc>
+    <loc>https://xiebiao.top/post/base/ftp_centos_install/</loc>
     <lastmod>2019-12-17T22:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -100,35 +114,35 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/dns_centos_install/</loc>
+    <loc>https://xiebiao.top/post/base/dns_centos_install/</loc>
     <lastmod>2019-11-11T19:21:33+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://xiebiao.top/tags/Blog/</loc>
+    <loc>https://xiebiao.top/tags/blog/</loc>
     <lastmod>2019-10-12T20:28:04+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://xiebiao.top/categories/golang/</loc>
+    <loc>https://xiebiao.top/categories/blog/</loc>
     <lastmod>2019-10-12T20:28:04+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://xiebiao.top/tags/Hugo/</loc>
+    <loc>https://xiebiao.top/tags/hugo/</loc>
     <lastmod>2019-10-12T20:28:04+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/creat-hugo-blog/</loc>
+    <loc>https://xiebiao.top/post/blog/creat-hugo-blog/</loc>
     <lastmod>2019-10-12T20:28:04+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -142,7 +156,7 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/dncp_centos_install/</loc>
+    <loc>https://xiebiao.top/post/base/dncp_centos_install/</loc>
     <lastmod>2019-10-11T20:22:22+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

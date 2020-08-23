@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>dhcp在centos中安装 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content=" 参考博客
+https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8 
+https://ywnz.com/linuxyffq/6322.html
+ 运行系统更新 首先将系统包重新同步到它最新版本。
+1  dnf update   在CentOS 8中，DHCP服务器是dhcp-server 软件包，可以通过运行下面的命令来安装此软件包;
+1 2 3  dnf install dhcp-server   " /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/base/dncp_centos_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="dhcp在centos中安装" />
+<meta property="og:description" content="
+参考博客
+https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8  
+https://ywnz.com/linuxyffq/6322.html
+
+运行系统更新
+首先将系统包重新同步到它最新版本。
+
+
+1
+
+
+dnf update
+
+
+在CentOS 8中，DHCP服务器是dhcp-server 软件包，可以通过运行下面的命令来安装此软件包;
+
+
+1
+2
+3
+
+
+
+dnf install dhcp-server
+
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/base/dncp_centos_install/" />
+<meta property="article:published_time" content="2019-10-11T20:22:22+00:00" />
+<meta property="article:modified_time" content="2019-10-11T20:22:22+00:00" />
+<meta itemprop="name" content="dhcp在centos中安装">
+<meta itemprop="description" content="
+参考博客
+https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8  
+https://ywnz.com/linuxyffq/6322.html
+
+运行系统更新
+首先将系统包重新同步到它最新版本。
+
+
+1
+
+
+dnf update
+
+
+在CentOS 8中，DHCP服务器是dhcp-server 软件包，可以通过运行下面的命令来安装此软件包;
+
+
+1
+2
+3
+
+
+
+dnf install dhcp-server
+
+
+
+">
+<meta itemprop="datePublished" content="2019-10-11T20:22:22+00:00" />
+<meta itemprop="dateModified" content="2019-10-11T20:22:22+00:00" />
+<meta itemprop="wordCount" content="1935">
+
+
+
+<meta itemprop="keywords" content="dhcp,centos,base," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="dhcp在centos中安装"/>
+<meta name="twitter:description" content="
+参考博客
+https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8  
+https://ywnz.com/linuxyffq/6322.html
+
+运行系统更新
+首先将系统包重新同步到它最新版本。
+
+
+1
+
+
+dnf update
+
+
+在CentOS 8中，DHCP服务器是dhcp-server 软件包，可以通过运行下面的命令来安装此软件包;
+
+
+1
+2
+3
+
+
+
+dnf install dhcp-server
+
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">dhcp在centos中安装</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-11 20:22 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            <a href="/categories/base/"> base </a>
+            </div>
+          <span class="more-meta"> 约 1935 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#运行系统更新">运行系统更新</a></li>
+        <li><a href="#在centos-8上配置dhcp服务器">在CentOS 8上配置DHCP服务器</a></li>
+        <li><a href="#使用dhcp定义静态ip地址">使用dhcp定义静态ip地址</a></li>
+        <li><a href="#运行dhcp守护进程">运行dhcp守护进程</a></li>
+        <li><a href="#在防火墙上打开dhcp-udp端口">在防火墙上打开DHCP UDP端口</a></li>
+        <li><a href="#在centos-8上配置dhcp客户端">在CentOS 8上配置DHCP客户端</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客<br>
+<a href="https://www.helplib.cn/%E6%9C%88%E6%9C%88/install-and-setup-dhcp-server-on-centos-8">https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8  </a><br>
+<a href="https://ywnz.com/linuxyffq/6322.html">https://ywnz.com/linuxyffq/6322.html</a></p>
+</blockquote>
+<h3 id="运行系统更新">运行系统更新</h3>
+<p>首先将系统包重新同步到它最新版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">dnf update
+</code></pre></td></tr></table>
+</div>
+</div><p>在CentOS 8中，DHCP服务器是<code>dhcp-server</code> 软件包，可以通过运行下面的命令来安装此软件包;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+dnf install dhcp-server
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+Dependencies resolved.
+==============================================================
+ Package Arch Version Repository Size
+==============================================================
+Installing:
+ dhcp-server x86_64 12:4.3.6-30.el8 BaseOS 529 k
+
+Transaction Summary
+==============================================================
+Install 1 Package
+
+Total download size: 529 k
+...
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="在centos-8上配置dhcp服务器">在CentOS 8上配置DHCP服务器</h3>
+<p>安装后，dhcp服务器软件包将创建一个空配置文件，<code>/etc/dhcp/dhcpd.conf</code>。</p>
+<p>它还会在下面为ISC dhcpd创建一个例子配置文件 <code>/usr/share/doc/dhcp-server/dhcpd.conf.example</code> 。</p>
+<p>注:本指南仅为ipv4地址提供dhcp服务器配置。</p>
+<p>首先，你需要定义存储dhcp客户机网络信息的参数和声明选项，这些参数和声明应在DHCPd配置文件上进行<code>/etc/dhcp/dhcpd.conf</code>。</p>
+<p>使用示例配置文件，</p>
+<p>首先，请注意dhcpd仅监听在dhcpd.conf中找到子网声明的接口。</p>
+<p>如果声明的子网与dhcp服务器侦听的接口无关，则启动dhcp服务器守护进程将失败，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+No subnet declaration for enp0sX (x.x.x.x).
+** Ignoring requests on enp0sX. If this is not what
+you want, please write a subnet declaration
+in your dhcpd.conf file for the network segment
+to which interface enp0s3 is attached. **
+...
+
+</code></pre></td></tr></table>
+</div>
+</div><p>例如，要将dhcp服务器设置为侦听接口，<code>enp0s8</code> 的IP地址详细信息如下所示;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+ip add sh dev enp0s8
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+ link/ether 08:00:27:36:48:ae brd ff:ff:ff:ff:ff:ff
+ inet 192.168.10.13/24 brd 192.168.10.255 scope global dynamic enp0s8
+ valid_lft 1032sec preferred_lft 1032sec
+
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来，打开dhcp服务器配置文件进行编辑。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+vim /etc/dhcp/dhcpd.conf
+
+</code></pre></td></tr></table>
+</div>
+</div><p>配置dhcp服务器以使配置看起来像;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+#
+# DHCP Server Configuration file.
+# see /usr/share/doc/dhcp-server/dhcpd.conf.example
+# see dhcpd.conf(5) man page
+#
+######################################################
+#Define the domain name of your DHCP server
+option domain-name &#34;kifarunix-demo.com&#34;;
+
+# Define the IP address or Hostname of your DNS server
+option domain-name-servers ns1.kifarunix-demo.com;
+
+#If you have multiple DNS servers, specify them as;
+# option domain-name-servers ns1.kifarunix-demo.com, ns2.kifarunix-demo.com;
+
+# Define how long should an endpoint use the assigned IP address
+default-lease-time 3600; # One hour
+
+# Define the maximum lease time
+max-lease-time 7200; # Two hours
+
+# Other values you can use are 86400 (one day), 604800 (one week) and 2592000 (30 days).
+#
+# Declare the DHCP server official for the local network
+authoritative;
+
+# Change the default log file for DHCP server.
+log-facility local7;
+
+#### Subnet Declaration ####
+# The subnet declaration includes a range of IP addresses that a DHCP server can assign to clients.
+# and global options to apply for every DHCP client.
+#
+# Define the subnet of the DHCP server interface (Network address and subnet mask)
+subnet 192.168.10.0 netmask 255.255.255.0 {
+ # Define the broadcast address
+ option broadcast-address 192.168.10.255;
+ # Define the gateway
+ option routers 192.168.10.1;
+ # Define the range of IP addresses to be leased
+ range 192.168.10.110 192.168.10.120;
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用dhcp定义静态ip地址">使用dhcp定义静态ip地址</h3>
+<p>如果需要为网络中的特定主机使用dhcp定义静态ip地址，则需要主机获取，在此之后，你可以将主机声明配置添加到dhcp服务器配置文件中。</p>
+<p>例如，要为主机分配静态ip地址，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+# Fixed Host IP Address assigning
+host webdev01 {
+ # Define the MAC address
+ hardware ethernet 08:00:27:57:57:ad;
+ # Define Fixed IP address
+ fixed-address 192.168.10.125;
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果将dhcp配置为登录到特定设备，而不是使用默认值，<code>/var/log/messages</code>，你需要创建日志目录，这可以通过修改rsyslog配置来完成。</p>
+<p>例如，将dhcp服务器配置为登录 <code>/var/log/dhcpd/dhcpd.log</code> 你需要创建目录 <code>/var/log/dhcpd</code> 。</p>
+<p>因此，因为我们配置了登录功能 <code>local7</code>，只需将下面的行添加到Rsyslog.conf 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+echo &#34;local7.debug /var/log/dhcpd/dhcpd.log&#34; &gt;&gt; /etc/rsyslog.conf
+
+</code></pre></td></tr></table>
+</div>
+</div><p>检查rsyslog的语法错误;</p>
+<p>rsyslogd -N1</p>
+<p>创建日志目录。</p>
+<p>mkdir /var/log/dhcpd</p>
+<p>重启rsyslog</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+systemctl restart rsyslog
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="运行dhcp守护进程">运行dhcp守护进程</h3>
+<p>配置完成后，通过执行以下命令启动并启用DHCPd ；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+systemctl enable --now dhcpd
+
+</code></pre></td></tr></table>
+</div>
+</div><p>检查状态;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+systemctl status dhcpd
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+● dhcpd.service - DHCPv4 Server Daemon
+ Loaded: loaded (/usr/lib/systemd/system/dhcpd.service; enabled; vendor preset: disabled)
+ Active: active (running) since Sat 2019-10-20 10:01:59 EAT; 2min ago
+ Docs: man:dhcpd(8)
+ man:dhcpd.conf(5)
+ Main PID: 6598 (dhcpd)
+ Status: &#34;Dispatching packets...&#34;
+ Tasks: 1 (limit: 5072)
+ Memory: 5.3M
+ CGroup: /system.slice/dhcpd.service
+ └─6598 /usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -user dhcpd -group dhcpd --no-pid
+...
+
+</code></pre></td></tr></table>
+</div>
+</div><p>还要检查日志 <code>/var/log/dhcpd/dhcpd.log</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+tail /var/log/dhcpd/dhcpd.log
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="在防火墙上打开dhcp-udp端口">在防火墙上打开DHCP UDP端口</h3>
+<p>要允许远程客户端向你的DHCP服务器查询IP地址，如果firewalld正在运行，则需要打开DHCP UDP端口67.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+firewall-cmd --add-port=67/udp --permanent
+
+</code></pre></td></tr></table>
+</div>
+</div><p>重新加载防火墙</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+firewall-cmd --reload
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="在centos-8上配置dhcp客户端">在CentOS 8上配置DHCP客户端</h3>
+<p>要验证dhcp服务器是否正常工作，需要配置dhcp客户机，在本指南中，使用另一台CentOS 8服务器作为DHCP客户端。</p>
+<p>如果尚未安装dhcp客户机软件包，请运行以下命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+dnf install dhcp-client
+
+</code></pre></td></tr></table>
+</div>
+</div><p>一旦安装了DHCP客户端，只需运行dhclient命令即可获取DHCP IP 。</p>
+<p><code>dhclient</code></p>
+<p>现在检查分配的ip地址。</p>
+<p>对于情况，在有DHCP静态IP映射（webdev01 ）的主机上；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ip add
+
+
+3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc fq_codel state UP group default qlen <span class="m">1000</span>
+ link/ether 08:00:27:57:57:ad brd ff:ff:ff:ff:ff:ff
+ inet 192.168.10.125/24 brd 192.168.56.255 scope global dynamic enp0s8
+ valid_lft 3059sec preferred_lft 3059sec
+ inet6 fe80::76d2:60c9:4cea:3ec8/64 scope link noprefixroute
+ valid_lft forever preferred_lft forever
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">在另一台主机上，分配的地址应在定义的范围内。
+
+
+nmcli dev show enp0s8
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+GENERAL.DEVICE: enp0s8
+GENERAL.TYPE: ethernet
+GENERAL.HWADDR: 08:00:27:5A:86:69
+GENERAL.MTU: <span class="m">1500</span>
+GENERAL.STATE: <span class="m">100</span> <span class="o">(</span>connected<span class="o">)</span>
+GENERAL.CONNECTION: Wired connection <span class="m">1</span>
+GENERAL.CON-PATH: /org/freedesktop/NetworkManager/ActiveConnection/1
+WIRED-PROPERTIES.CARRIER: on
+IP4.ADDRESS<span class="o">[</span>1<span class="o">]</span>: 192.168.10.113/24
+IP4.GATEWAY: 192.168.10.5
+IP4.ROUTE<span class="o">[</span>1<span class="o">]</span>: <span class="nv">dst</span> <span class="o">=</span> 192.168.10.0/24, <span class="nv">nh</span> <span class="o">=</span> 0.0.0.0, <span class="nv">mt</span> <span class="o">=</span> <span class="m">0</span>
+IP4.ROUTE<span class="o">[</span>2<span class="o">]</span>: <span class="nv">dst</span> <span class="o">=</span> 0.0.0.0/0, <span class="nv">nh</span> <span class="o">=</span> 192.168.56.2, <span class="nv">mt</span> <span class="o">=</span> <span class="m">0</span>
+IP4.DOMAIN<span class="o">[</span>1<span class="o">]</span>: kifarunix-demo.com
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat /etc/dhcp/dhcpd.conf
+option domain-name <span class="s2">&#34;dhcp.xxx.com&#34;</span><span class="p">;</span>
+option domain-name-servers 192.168.10.2, 202.96.128.86 <span class="p">;</span>
+default-lease-time 43200<span class="p">;</span>
+log-facility local7<span class="p">;</span>
+authoritative<span class="p">;</span>
+subnet 192.168.11.0 netmask 255.255.255.0 <span class="o">{</span>
+
+        range dynamic-bootp  192.168.11.10  192.168.11.250<span class="p">;</span>
+<span class="c1">#       range  192.168.11.10  192.168.11.250;</span>
+
+        option routers 192.168.11.1<span class="p">;</span>
+
+        option broadcast-address 192.168.11.255<span class="p">;</span>
+
+        default-lease-time 43200<span class="p">;</span>
+
+       host xiebiao-vm <span class="o">{</span>
+                hardware ethernet 00:0c:29:43:03:11 <span class="p">;</span>
+                fixed-address 192.168.11.188<span class="p">;</span>
+           <span class="o">}</span>
+<span class="o">}</span>
+subnet 192.168.12.0 netmask 255.255.255.0 <span class="o">{</span>
+
+        range dynamic-bootp  192.168.12.10  192.168.12.254<span class="p">;</span>
+<span class="c1">#       range  192.168.12.10  192.168.12.254;</span>
+
+        option routers 192.168.12.1<span class="p">;</span>
+        option broadcast-address 192.168.12.255<span class="p">;</span>
+        default-lease-time 43200<span class="p">;</span>
+        host wangweikang220 <span class="o">{</span>
+                hardware ethernet 20:47:47:78:89:71 <span class="p">;</span>
+                fixed-address 192.168.12.242<span class="p">;</span>
+           <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>已成功安装dhcp服务器和客户端。</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-10-11 20:22
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/dhcp/">dhcp</a>
+          <a href="/tags/centos/">centos</a>
+          <a href="/tags/base/">base</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/blog/creat-hugo-blog/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

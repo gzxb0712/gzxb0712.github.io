@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>base</title>
+      <link>https://xiebiao.top/categories/base/</link>
+      <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/categories/base/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>linux</title>
       <link>https://xiebiao.top/categories/linux/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
@@ -21,11 +30,11 @@
     </item>
     
     <item>
-      <title>golang</title>
-      <link>https://xiebiao.top/categories/golang/</link>
+      <title>blog</title>
+      <link>https://xiebiao.top/categories/blog/</link>
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/golang/</guid>
+      <guid>https://xiebiao.top/categories/blog/</guid>
       <description></description>
     </item>
     

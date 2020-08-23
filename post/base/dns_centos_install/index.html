@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>dns在centos中安装 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content=" 参考博客 https://bynss.com/2020/300275.html
+ 由80年代伯克利大学的学生开发， 揉 （伯克利互联网名称域名）是开源的 DNS服务器 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 域名解析 服务器是一项有助于解析完全限定域名的服务（完整域名A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。
+为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。
+本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。
+" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/base/dns_centos_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="dns在centos中安装" />
+<meta property="og:description" content="
+参考博客
+https://bynss.com/2020/300275.html
+
+由80年代伯克利大学的学生开发， 揉 （伯克利互联网名称域名）是开源的 DNS服务器 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 域名解析 服务器是一项有助于解析完全限定域名的服务（完整域名A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。
+为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。
+本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/base/dns_centos_install/" />
+<meta property="article:published_time" content="2019-11-11T19:21:33+00:00" />
+<meta property="article:modified_time" content="2019-11-11T19:21:33+00:00" />
+<meta itemprop="name" content="dns在centos中安装">
+<meta itemprop="description" content="
+参考博客
+https://bynss.com/2020/300275.html
+
+由80年代伯克利大学的学生开发， 揉 （伯克利互联网名称域名）是开源的 DNS服务器 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 域名解析 服务器是一项有助于解析完全限定域名的服务（完整域名A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。
+为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。
+本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。">
+<meta itemprop="datePublished" content="2019-11-11T19:21:33+00:00" />
+<meta itemprop="dateModified" content="2019-11-11T19:21:33+00:00" />
+<meta itemprop="wordCount" content="2744">
+
+
+
+<meta itemprop="keywords" content="dns,centos,base," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="dns在centos中安装"/>
+<meta name="twitter:description" content="
+参考博客
+https://bynss.com/2020/300275.html
+
+由80年代伯克利大学的学生开发， 揉 （伯克利互联网名称域名）是开源的 DNS服务器 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 域名解析 服务器是一项有助于解析完全限定域名的服务（完整域名A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。
+为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。
+本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">dns在centos中安装</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-11 19:21 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            <a href="/categories/base/"> base </a>
+            </div>
+          <span class="more-meta"> 约 2744 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#namedconf-列表">named.conf 列表</a></li>
+    <li><a href="#权威dns服务器列表">权威DNS服务器列表</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客
+<a href="https://bynss.com/2020/300275.html">https://bynss.com/2020/300275.html</a></p>
+</blockquote>
+<p>由80年代伯克利大学的学生开发， <strong>揉</strong> （<strong>伯克利互联网名称域名</strong>）是开源的 <strong>DNS服务器</strong> 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 <strong>域名解析</strong> 服务器是一项有助于解析完全限定域名的服务（<strong>完整域名</strong>A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。</p>
+<p>为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。</p>
+<p>本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。</p>
+<p><strong>实验室设置：</strong></p>
+<ul>
+<li>服务器：CentOS 8（最低服务器）</li>
+<li>IP地址：192.168.43.35</li>
+<li>热点名称：dns-primary.linuxtechi.local</li>
+<li>域：linuxtechi.local</li>
+</ul>
+<p>现在，配置DNS绑定服务器。</p>
+<p>步骤1：在CentOS 8 / RHEL 8上安装绑定DNS</p>
+<p>首先安装bind和bind-utils软件包。这些软件包组成了DNS服务器和用于查询名称服务器或DNS服务器的实用程序。</p>
+<p>执行命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="c1"># yum install bind bind-utils</span>
+
+成功安装后，使用以下命令启动DNS服务器：
+
+<span class="c1"># systemctl start named</span>
+
+接下来，启用它即使在重新启动后也能够启动
+
+<span class="c1"># systemctl enable named</span>
+
+检查其状态以确保服务按预期运行
+
+<span class="c1"># systemctl status named</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://static.bynss.com/uploads/1578922502.png" alt="启动启用绑定CentOS8-RHEL8 "></p>
+<p>DNS服务器运行正常。让我们继续配置绑定DNS服务器。</p>
+<p>步骤2：配置绑定DNS服务器</p>
+<p>通常，最佳实践建议您在进行任何更改之前备份配置文件。这样一来，如果出现问题，您始终可以还原到原始的未编辑文件。这里没有区别。</p>
+<p>备份配置文件/etc/named.conf</p>
+<p><code># cp /etc/named.conf  /etc/named.bak</code>
+接下来，使用您喜欢的文本编辑器打开文件。在这种情况下，我们使用vim编辑器。</p>
+<p><code># vim /etc/named.conf</code></p>
+<p>低于“<strong>选件</strong>’部分，请注释掉以下行，以便绑定DNS服务器可以侦听所有IP：</p>
+<p>// listen-on port 53 { 127.0.0.1; };
+// listen-on-v6 port 53 { ::1; };</p>
+<p>另外，找到allow-query参数并针对您的网络子网进行调整。</p>
+<p>allow-query { localhost; 192.168.43.0/24; };</p>
+<p><img src="https://static.bynss.com/uploads/1578922509.png" alt="编辑名为conf-centos8 "></p>
+<p>此设置可确保只有定义的网络中的主机可以访问DNS服务器，而不仅仅是其他主机。</p>
+<p>一 <strong>前向查询DNS区域</strong> 存储主机名和IP地址之间的关系。查询时，使用主机名提供主机系统的IP地址。相反，相反 <strong>DNS区域</strong> 返回与IP地址关联的服务器的标准域名（FQDN）。</p>
+<p>要定义反向和正向查找区域，请复制以下配置， <strong>/etc/named.conf</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">//forward zone
+zone &#34;linuxtechi.local&#34; IN {
+     type master;
+     file &#34;linuxtechi.local.db&#34;;
+     allow-update { none; };
+     allow-query { any; };
+};
+
+//backward zone
+zone &#34;43.168.192.in-addr.arpa&#34; IN {
+     type master;
+     file &#34;linuxtechi.local.rev&#34;;
+     allow-update { none; };
+     allow-query { any; };
+};
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://static.bynss.com/uploads/1578922516.png" alt="正向反向区域文件绑定centos8 "></p>
+<ul>
+<li><strong>型式</strong>：定义特定区域的服务器角色。属性“ master”表示这是一台权威服务器。</li>
+<li><strong>档案</strong>：指域的正向/反向区域文件。</li>
+<li><strong>允许更新</strong>答：此属性定义了允许转发动态DNS更新的主机系统。在这种情况下，什么都没有。</li>
+</ul>
+<p>保存后，退出/etc/named.conf配置文件。</p>
+<p>步骤3：为域创建一个转发DNS区域文件</p>
+<p>为域linuxtechi.local创建一个转发DNS区域文件，如下所示，并添加以下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[[email protected] ~]# vim /var/named/linuxtechi.local.db
+$TTL 86400
+@ IN SOA dns-primary.linuxtechi.local. admin.linuxtechi.local. (
+                                                2020011800 ;Serial
+                                                3600 ;Refresh
+                                                1800 ;Retry
+                                                604800 ;Expire
+                                                86400 ;Minimum TTL
+)
+
+;Name Server Information
+@ IN NS dns-primary.linuxtechi.local.
+
+;IP Address for Name Server
+dns-primary IN A 192.168.43.35
+
+;Mail Server MX (Mail exchanger) Record
+linuxtechi.local. IN MX 10 mail.linuxtechi.local.
+
+;A Record for the following Host name
+www  IN   A   192.168.43.50
+mail IN   A   192.168.43.60
+
+;CNAME Record
+ftp  IN   CNAME www.linuxtechi.local.
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://static.bynss.com/uploads/1578922523.png" alt="DNS记录转发区域绑定CentOS8 "></p>
+<p>让我们定义配置文件中显示的一些参数。</p>
+<ul>
+<li><strong>TTL</strong>：这是生存时间的缩写。 TTL是网络中数据包存在并最终被路由器丢弃后的时间（或跃点）。</li>
+<li><strong>到</strong>答：这就是互联网。</li>
+<li><strong>SOA</strong>答：这代表着权威的开始。基本上，它定义了一个权威的名称服务器，在本例中为dns-primary.linuxtechi.local和联系信息– admin.linuxtechi.local</li>
+<li><strong>NS</strong>：这是名称服务器的缩写。</li>
+<li><strong>一</strong>：这是A记录。指的是指向IP地址的域名/子域名</li>
+<li><strong>麦片</strong>答：这是DNS服务器用来确保更新某些区域文件的内容的属性。</li>
+<li><strong>刷新</strong>：定义从DNS服务器从主DNS传输区域的次数。</li>
+<li><strong>重试</strong>：定义从站重试无响应区域传输的次数。</li>
+<li><strong>已过期</strong>：指定在主服务器不可用时等待从服务器响应客户端查询的时间。</li>
+<li><strong>最低要求</strong>答：它负责为区域设置最小TTL。</li>
+<li><strong>MX</strong>答：这是一个邮件交换器记录。指定发送和接收邮件的邮件服务器</li>
+<li><strong>CNAME</strong>：这是一个规范名称。将别名域名映射到另一个域名。</li>
+<li><strong>PTR</strong>：指针的缩写，此属性将IP地址解析为与该域名相反的域名。</li>
+</ul>
+<p>步骤4：为网域建立反向DNS区域档案</p>
+<p>同样，您需要为反向DNS查找创建文件。将以下内容粘贴到文件中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[[email protected] ~]# vim /var/named/linuxtechi.local.rev
+$TTL 86400
+@ IN SOA dns-primary.linuxtechi.local. admin.linuxtechi.local. (
+                                            2020011800 ;Serial
+                                            3600 ;Refresh
+                                            1800 ;Retry
+                                            604800 ;Expire
+                                            86400 ;Minimum TTL
+)
+;Name Server Information
+@ IN NS dns-primary.linuxtechi.local.
+dns-primary     IN      A       192.168.43.35
+
+;Reverse lookup for Name Server
+35 IN PTR dns-primary.linuxtechi.local.
+
+;PTR Record IP address to Hostname
+50      IN      PTR     www.linuxtechi.local
+60      IN      PTR     mail.linuxtechi.local
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://static.bynss.com/uploads/1578922529.png" alt="反向区域绑定CentOS8 "></p>
+<p>接下来，将所需的文件权限分配给两个配置文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># chown named:named /var/named/linuxtechi.local.db</span>
+
+<span class="c1"># chown named:named /var/named/linuxtechi.local.rev</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>要验证DNS区域查找文件中没有语法错误，请运行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># named-checkconf</span>
+<span class="c1"># named-checkzone linuxtechi.local /var/named/linuxtechi.local.db</span>
+<span class="c1"># named-checkzone 192.168.43.35 /var/named/linuxtechi.local.rev</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果没有错误，您将看到以下输出：</p>
+<p><img src="https://static.bynss.com/uploads/1578922536.png" alt="Check-Zone-conf-Bind-CentOS8 "></p>
+<p>重新启动绑定DNS服务器，以使更改在系统上生效</p>
+<p><code># systemctl restart named</code></p>
+<p>为了使客户端系统能够访问系统，您需要将DNS服务添加到防火墙，然后重新加载防火墙。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># firewall-cmd  --add-service=dns --zone=public  --permanent</span>
+<span class="c1"># firewall-cmd --reload</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://static.bynss.com/uploads/1578922541.png" alt="防火墙规则绑定centos8 "></p>
+<p>步骤5：从客户端系统测试绑定DNS服务器</p>
+<p>完成DNS服务器配置后，在客户端计算机上运行一些测试。</p>
+<p>在客户端计算机（CentOS 8 / RHEL 8）上， <strong>/etc/resolv.conf</strong> 归档并编辑以下参数：</p>
+<p><strong>名称服务器192.168.43.35</strong></p>
+<p>照常保存并关闭配置文件。</p>
+<p>最后，输入绑定DNS服务器的IP地址 <strong>/ etc / sysconfig /网络脚本/ ifcfg-enp0s3</strong> 显示的文件。</p>
+<p><img src="https://static.bynss.com/uploads/1578922546.jpg" alt="add-dns-server-ip-centos8-interface "></p>
+<p>保存并关闭配置文件，然后重新启动网络管理器服务，以使更改生效。</p>
+<p><code># systemctl restart NetworkManager</code></p>
+<p>使用nslookup命令测试绑定DNS服务器，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># nslookup dns-primary.linuxtechi.local</span>
+<span class="c1"># nslookup mail.linuxtechi.local</span>
+<span class="c1"># nslookup www.linuxtechi.local</span>
+<span class="c1"># nslookup ftp.linuxtechi.local</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://static.bynss.com/uploads/1578922551.png" alt="nslookup-commands-examples-bind-centos8"></p>
+<p><code># nslookup 192.168.43.35</code></p>
+<p><img src="https://static.bynss.com/uploads/1578922558.png" alt="nslookup-centos8 "></p>
+<p>nslookup命令的输出确认正向DNS查找按预期运行。</p>
+<p>您还可以如下使用dig命令</p>
+<p><code># dig dns-primary.linuxtechi.local</code></p>
+<p><img src="https://static.bynss.com/uploads/1578922564.png" alt="dig-command-output-centos8 "></p>
+<p>要执行反向DNS查找，请按以下方式使用dig命令：</p>
+<p><code># dig -x 192.168.43.35</code></p>
+<p><img src="https://static.bynss.com/uploads/1578922571.png" alt="反向dns查找查找命令centos8 "></p>
+<p>太好了！反向DNS查找也可以按预期工作。</p>
+<p>####转发</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"> cat /etc/named.conf 
+
+        forward    first<span class="p">;</span>
+
+        //转发DNS查询的权威DNS服务器列表
+
+        forwarders <span class="o">{</span>
+                119.29.29.29<span class="p">;</span>
+                223.6.6.6<span class="p">;</span>
+                8.8.8.8<span class="p">;</span>
+                114.114.114.114<span class="p">;</span>
+        <span class="o">}</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>转发单个区域到另外个dns服务器解析</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat /etc/named.conf 
+include <span class="s2">&#34;/etc/named.cluster.local.zones&#34;</span><span class="p">;</span>
+cat /etc/named.cluster.local.zones 
+zone <span class="s2">&#34;cluster.local&#34;</span>  IN <span class="o">{</span>
+
+        <span class="nb">type</span> forward<span class="p">;</span>
+        forwarders <span class="o">{</span> 10.254.0.2<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+
+<span class="o">}</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="namedconf-列表">named.conf 列表</h2>
+<p>cat named.conf  | grep -v &ldquo;^$&rdquo; | grep -v &ldquo;^#&rdquo; |grep -v &ldquo;^//&rdquo;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">acl privateNet { 192.168.0.0/16; 172.16.0.0/16; 10.0.0.0/8; 127.0.0.1;  };
+options {
+        listen-on port 53 { any; };
+        directory       &#34;/var/named&#34;;
+        dump-file       &#34;/var/named/data/cache_dump.db&#34;;
+        statistics-file &#34;/var/named/data/named_stats.txt&#34;;
+        memstatistics-file &#34;/var/named/data/named_mem_stats.txt&#34;;
+        allow-query     { privateNet;  };
+        recursion yes;
+        //allow-recursion { privateNet; };
+        allow-query-cache {any;};
+        datasize 4G;
+        max-cache-size 3G;
+        forward    first;
+        //转发DNS查询的权威DNS服务器列表
+        forwarders {
+                114.114.114.114;
+                119.29.29.29;
+                223.6.6.6;
+                8.8.8.8;
+        };
+        dnssec-enable no;
+        dnssec-validation no;
+        /* Path to ISC DLV key */
+        bindkeys-file &#34;/etc/named.iscdlv.key&#34;;
+        managed-keys-directory &#34;/var/named/dynamic&#34;;
+};
+logging {
+        channel default_debug {
+               file &#34;data/named.run&#34;;
+               severity dynamic;
+        };
+};
+zone &#34;.&#34; IN {
+        type hint;
+        file &#34;named.ca&#34;;
+};
+include &#34;/etc/named.rfc1912.zones&#34;;
+include &#34;/etc/named.root.key&#34;;
+
+include &#34;/etc/named.cluster.local.zones&#34;;
+key &#34;rndc-key&#34; {
+        algorithm hmac-md5;
+        secret &#34;l5MLpxxA==&#34;;
+ };
+controls {
+        inet 127.0.0.1 port 953
+                allow { 127.0.0.1; } keys { &#34;rndc-key&#34;; };
+ };
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="权威dns服务器列表">权威DNS服务器列表</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">测试:
+180.76.76.76 #time=3.77 ms
+223.6.6.6 #time=5.65 ms
+119.29.29.29 #time=6.89 ms
+
+腾讯 DNS
+IP：119.29.29.29
+
+备用：182.254.116.116
+
+阿里DNS
+IP：223.5.5.5 223.6.6.6
+
+百度DNS
+IP:180.76.76.76
+
+</code></pre></td></tr></table>
+</div>
+</div><p>到此结束本教程。本指南描述了如何在CentOS 8上使用绑定安装DNS服务器。</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-11-11 19:21
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/dns/">dns</a>
+          <a href="/tags/centos/">centos</a>
+          <a href="/tags/base/">base</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/base/ftp_centos_install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">ftp在centos中安装</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/blog/creat-hugo-blog/">
+            <span class="next-text nav-default">Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

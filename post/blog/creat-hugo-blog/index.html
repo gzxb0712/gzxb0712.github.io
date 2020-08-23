@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Hugo &#43; Github Pages &#43; picgo搭建个人技术博客 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content=" 参考博客
+http://www.yangc.top/archives/hugoblog
+https://spongecaptain.cool/post/hugo/howtousehugo/
+ 尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。
+后来看到 Hugo ,号称最快的静态站点生成器后。
+尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。 Hugo 官方的定义是：
+Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)
+" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/blog/creat-hugo-blog/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Hugo &#43; Github Pages &#43; picgo搭建个人技术博客" />
+<meta property="og:description" content="
+参考博客
+http://www.yangc.top/archives/hugoblog
+https://spongecaptain.cool/post/hugo/howtousehugo/
+
+尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。
+后来看到 Hugo ,号称最快的静态站点生成器后。
+尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
+Hugo 官方的定义是：
+Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/blog/creat-hugo-blog/" />
+<meta property="article:published_time" content="2019-10-12T20:28:04+00:00" />
+<meta property="article:modified_time" content="2019-10-12T20:28:04+00:00" />
+<meta itemprop="name" content="Hugo &#43; Github Pages &#43; picgo搭建个人技术博客">
+<meta itemprop="description" content="
+参考博客
+http://www.yangc.top/archives/hugoblog
+https://spongecaptain.cool/post/hugo/howtousehugo/
+
+尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。
+后来看到 Hugo ,号称最快的静态站点生成器后。
+尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
+Hugo 官方的定义是：
+Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)">
+<meta itemprop="datePublished" content="2019-10-12T20:28:04+00:00" />
+<meta itemprop="dateModified" content="2019-10-12T20:28:04+00:00" />
+<meta itemprop="wordCount" content="1725">
+
+
+
+<meta itemprop="keywords" content="hugo,blog," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hugo &#43; Github Pages &#43; picgo搭建个人技术博客"/>
+<meta name="twitter:description" content="
+参考博客
+http://www.yangc.top/archives/hugoblog
+https://spongecaptain.cool/post/hugo/howtousehugo/
+
+尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。
+后来看到 Hugo ,号称最快的静态站点生成器后。
+尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
+Hugo 官方的定义是：
+Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-10-12 20:28 </span>
+        <div class="post-category">
+            <a href="/categories/blog/"> blog </a>
+            </div>
+          <span class="more-meta"> 约 1725 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装-hugo">安装 Hugo</a>
+      <ul>
+        <li><a href="#mac-安装-hugo">Mac 安装 Hugo</a></li>
+        <li><a href="#windows-安装-hugo">Windows 安装 Hugo</a></li>
+        <li><a href="#linux-安装-hugo">linux 安装 Hugo</a></li>
+      </ul>
+    </li>
+    <li><a href="#建立-hugo-项目">建立 Hugo 项目</a></li>
+    <li><a href="#添加主题">添加主题</a></li>
+    <li><a href="#启动-hugo">启动 Hugo</a></li>
+    <li><a href="#配置主题">配置主题</a></li>
+    <li><a href="#添加新博客">添加新博客</a></li>
+    <li><a href="#打包">打包</a></li>
+    <li><a href="#部署到-github-pages">部署到 Github Pages</a></li>
+    <li><a href="#部署到-coding-pages">部署到 Coding Pages</a></li>
+    <li><a href="#图片压缩">图片压缩</a></li>
+    <li><a href="#图床与cdn">图床与cdn</a></li>
+    <li><a href="#自定义域名强制https">自定义域名强制https</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客<br>
+<a href="http://www.yangc.top/archives/hugoblog">http://www.yangc.top/archives/hugoblog</a><br>
+<a href="https://spongecaptain.cool/post/hugo/howtousehugo/">https://spongecaptain.cool/post/hugo/howtousehugo/</a></p>
+</blockquote>
+<p>尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。</p>
+<p>后来看到 <a href="https://gohugo.io/">Hugo</a> ,号称最快的静态站点生成器后。</p>
+<p>尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
+Hugo 官方的定义是：</p>
+<p>Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)</p>
+<h2 id="安装-hugo">安装 Hugo</h2>
+<p>Hugo 搭建个人博客前，需要先安装 Git 和 Go 语言开发环境。</p>
+<p>分别在 <a href="https://golang.org/dl/">https://golang.org/dl/</a> 、<a href="http://git-scm.com/">http://git-scm.com/</a> 下载二进制安装包，点击默认设置安装即可。</p>
+<h3 id="mac-安装-hugo">Mac 安装 Hugo</h3>
+<p>既可以使用 HomeBrew 安装，也可以在 <a href="https://github.com/gohugoio/hugo/releases">https://github.com/gohugoio/hugo/releases</a> 下载二进制包安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">brew install hugo
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="windows-安装-hugo">Windows 安装 Hugo</h3>
+<p>在 <a href="https://github.com/gohugoio/hugo/releases">https://github.com/gohugoio/hugo/releases</a> 下载二进制包安装</p>
+<p>安装完成后，在命令行输入以下命令验证安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">hugo version
+</code></pre></td></tr></table>
+</div>
+</div><p>输出版本信息表示安装成功，更多安装方式查看 <a href="https://gohugo.io/getting-started/installing">https://gohugo.io/getting-started/installing</a></p>
+<h3 id="linux-安装-hugo">linux 安装 Hugo</h3>
+<p>参考博客
+<a href="http://www.yangc.top/archives/hugoblog">http://www.yangc.top/archives/hugoblog</a></p>
+<h2 id="建立-hugo-项目">建立 Hugo 项目</h2>
+<p>一个 Hugo 项目就是一个站点，创建命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">hugo new site <span class="o">[</span>project-name<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>例如我的站点名称是 <strong>blog</strong>,创建命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">hugo new site blog
+</code></pre></td></tr></table>
+</div>
+</div><p>创建完成后，在 <strong>blog</strong> 文件夹下会生成以下文件结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">.
+├── archetypes # 存放生成博客的模版
+├── assets # 存放被 Hugo Pipes 处理的文件
+├── config # 存放 hugo 配置文件 支持 JSON YAML TOML 三种格式配置文件
+├── content # 存放 markdown 文件
+├── data # 存放 Hugo 处理的数据
+├── layouts # 存放布局文件
+├── static # 存放静态文件 图片 CSS JS文件
+└── themes # 存放主题
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="添加主题">添加主题</h2>
+<p>为了快速搭建博客，可以使用主题。使用主题后，只需要向 <strong>content</strong> 文件夹添加 Markdown 文件即可。</p>
+<p>Hugo 有主题市场 <a href="https://themes.gohugo.io/">https://themes.gohugo.io/</a> ，挑选了半天，选出了两个自认为好看的主题：</p>
+<ol>
+<li><a href="https://github.com/olOwOlo/hugo-theme-even">https://github.com/olOwOlo/hugo-theme-even</a></li>
+<li><a href="https://github.com/yoshiharuyamashita/blackburn">https://github.com/yoshiharuyamashita/blackburn</a></li>
+</ol>
+<p>第一个更好看、功能更加强大，选择了第一个。进入根目录，克隆主题文件就是安装主题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> blog
+git clone https://github.com/olOwOlo/hugo-theme-even themes/even
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="启动-hugo">启动 Hugo</h2>
+<p>进入 <strong>blog/themes/even/exampleSite</strong> 文件夹，将 <strong>config.tom</strong> 文件拷贝到项目根目录下，同时将 <strong>blog/themes/even/exampleSite/content</strong> 文件夹覆盖掉根目录下的 <strong>content</strong> 。</p>
+<p>命令行输入以下命令，启动 Hugo :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">hugo server --bind 192.168.12.xxx --disableFastRender
+</code></pre></td></tr></table>
+</div>
+</div><p>在浏览器打开 <code>http://localhost:1313/</code> 即可查看效果。</p>
+<h2 id="配置主题">配置主题</h2>
+<p>为了个人使用，需要修改 <strong>config.tom</strong> 文件，根据说明修改配置即可。</p>
+<p><a href="https://github.com/gzxb0712/blog/blob/master/config.toml">我的主题配置文件</a></p>
+<p>进入 <strong>blog/themes/even</strong> 文件夹，会发现文件结构与新建的 Hugo 项目的文件结构几乎是一样的。这样设置是为了用户的配置可以覆盖掉主题的配置。</p>
+<p>比如我要自定义底部的显示，<strong>hugo-theme-even</strong> 底部配置由 <strong>blog/themes/even/layouts/partials/footer.html</strong> 控制。</p>
+<p>为了覆盖掉主题的配置，在项目根目录下新建 <strong>blog/layouts/partials/footer.html</strong> 文件，填入自定义内容即可覆盖掉主题配置。其他文件的覆盖是一样的。</p>
+<p><strong>hugo-theme-even</strong> 使用了 Webpack 打包 js,css,并且文件名加入 hash 值，这种 css,js 是无法覆盖的，不过 <strong>hugo-theme-even</strong> 配置中有覆盖这种 css,js 的参数，详情参考我的文件配置。</p>
+<h2 id="添加新博客">添加新博客</h2>
+<p>添加新博客命令比较简单，命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">hugo new post/my-first-blog.md
+</code></pre></td></tr></table>
+</div>
+</div><p>这个命令会使用模板创建文件，首先查找用户的模板文件，没有就会查找主题的模板文件。</p>
+<p><strong>hugo-theme-even</strong> 的模版文件 <strong>blog/themes/even/archetypes/default.md</strong> 比较复杂，新建 <strong>blog/archetypes/default.md</strong> 文件覆盖掉即可。</p>
+<p>我的模板配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+---
+title: &#34;{{ replace .TranslationBaseName &#34;-&#34; &#34; &#34; | title }}&#34;
+date: {{ .Date }}
+description: &#34;&#34;
+draft: true
+tags: []
+categories: []
+---
+
+&lt;!--more--&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>draft</strong> 参数控制网站上该页面是否显示。设置为 false 或者去掉该参数才显示。<code>&lt;!--more--&gt;</code> 之前的内容会自动作为页面摘要。</p>
+<h2 id="打包">打包</h2>
+<p>为了部署到线上，需要将 Markdown 文件打包成 HTML 文件。打包命令如下，<strong>even</strong> 是主题名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">hugo -t even
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="部署到-github-pages">部署到 Github Pages</h2>
+<p>打包之后就是纯 HTML 文件，理论上所有支持部署静态页面的网站都是支持的。</p>
+<p>我的部署命令如下，更多部署方式查看 <a href="https://gohugo.io/hosting-and-deployment/">https://gohugo.io/hosting-and-deployment/</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1"># 部署到 github pages 脚本</span>
+<span class="c1"># 错误时终止脚本</span>
+<span class="nb">set</span> -e
+
+<span class="c1"># 删除打包文件夹</span>
+rm -rf public
+
+<span class="c1"># 打包。even 是主题</span>
+hugo -t even <span class="c1"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
+
+<span class="c1"># 进入打包文件夹</span>
+<span class="nb">cd</span> public
+
+<span class="c1"># Add changes to git.</span>
+
+git init
+git add -A
+
+<span class="c1"># Commit changes.</span>
+<span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;building site `date`&#34;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]</span>
+  <span class="k">then</span> <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+<span class="k">fi</span>
+git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
+
+<span class="c1"># 推送到githu</span>
+<span class="c1"># gzxb0712.github.io 只能使用 master分支</span>
+git push -f git@github.com:gzxb0712/gzxb0712.github.io.git master
+
+<span class="c1"># 回到原文件夹</span>
+<span class="nb">cd</span> ..
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="部署到-coding-pages">部署到 Coding Pages</h2>
+<p>gzxb.coding.net</p>
+<ul>
+<li>创建devops项目</li>
+<li>创建并添加公钥，并制定配置，参考以下链接
+<a href="https://www.jianshu.com/p/82aa1678411e">https://www.jianshu.com/p/82aa1678411e</a></li>
+<li>静态网站-立即创建，设置那里并绑定个性化域名cn.xiebiao.top，强制https，并立即部署</li>
+<li>到腾讯云添加cname记录</li>
+<li>部署脚本</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"> coding<span class="o">(){</span>
+<span class="nb">cd</span> /data/hugo
+scp -rp /data/hugo/config.toml.coding /data/hugo/config.toml
+hugo -t even
+scp -pr /data/hugo/gits/.git_coding   /data/hugo/public/.git  
+<span class="c1">#git remote add origin git@e.coding.net:gzxb/hugo/hugo.git</span>
+<span class="nb">cd</span> /data/hugo/public <span class="o">&amp;&amp;</span> git add -A
+
+<span class="c1"># Commit changes.</span>
+<span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;building site `date`&#34;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]</span>
+  <span class="k">then</span> <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+<span class="k">fi</span>
+git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
+
+<span class="c1"># 推送到 github pages</span>
+<span class="c1"># gzxb0712.github.io 只能使用 master分支</span>
+<span class="c1"># -f 强制推送</span>
+<span class="c1"># 制定key需要在github添加一个部署key https://www.jianshu.com/p/82aa1678411e</span>
+git push  git@e.coding.net:gzxb/hugo/hugo.git master &gt; /dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+<span class="o">}</span> 
+coding
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="图片压缩">图片压缩</h2>
+<p><a href="https://www.v2ex.com/t/594476">https://www.v2ex.com/t/594476</a><br>
+<a href="https://blog.csdn.net/hanshileiai/article/details/50835349">https://blog.csdn.net/hanshileiai/article/details/50835349</a></p>
+<h2 id="图床与cdn">图床与cdn</h2>
+<p>VSCode + Github + Picgo + jsDelivr 搭建稳定快速高效图床<br>
+<a href="https://zhuanlan.zhihu.com/p/131584831">https://zhuanlan.zhihu.com/p/131584831</a></p>
+<h2 id="自定义域名强制https">自定义域名强制https</h2>
+<p><a href="https://likfe.com/2018/05/03/github-pages-custom-domains-support-https/">https://likfe.com/2018/05/03/github-pages-custom-domains-support-https/</a></p>
+<blockquote>
+<p>文章首发 <a href="https://xiebiao.top/">https://xiebiao.top/</a></p>
+</blockquote>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-10-12 20:28
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/hugo/">hugo</a>
+          <a href="/tags/blog/">blog</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/base/dns_centos_install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">dns在centos中安装</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/base/dncp_centos_install/">
+            <span class="next-text nav-default">dhcp在centos中安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

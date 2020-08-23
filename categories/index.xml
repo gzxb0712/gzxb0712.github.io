@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 01 Feb 2020 20:21:37 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Feb 2020 21:28:04 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>blog</title>
+      <link>https://xiebiao.top/categories/blog/</link>
+      <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/categories/blog/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>base</title>
@@ -26,15 +35,6 @@
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/categories/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>blog</title>
-      <link>https://xiebiao.top/categories/blog/</link>
-      <pubDate>Sun, 12 Jan 2020 21:28:04 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/categories/blog/</guid>
       <description></description>
     </item>
     

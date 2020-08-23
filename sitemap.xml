@@ -2,6 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://xiebiao.top/</loc>
+    <lastmod>2020-02-02T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/blog/</loc>
+    <lastmod>2020-02-02T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/blog/</loc>
+    <lastmod>2020-02-02T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/</loc>
+    <lastmod>2020-02-02T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/blog/github_jsdelivr_ops/</loc>
+    <lastmod>2020-02-02T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/jsDelivr/</loc>
+    <lastmod>2020-02-02T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/</loc>
+    <lastmod>2020-02-02T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-02-02T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://xiebiao.top/tags/base/</loc>
     <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -10,20 +66,6 @@
   
   <url>
     <loc>https://xiebiao.top/categories/base/</loc>
-    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/categories/</loc>
     <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -44,13 +86,6 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://xiebiao.top/tags/samba/</loc>
     <lastmod>2020-02-01T20:21:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -60,41 +95,6 @@
   <url>
     <loc>https://xiebiao.top/post/base/samba_centos_install/</loc>
     <lastmod>2020-02-01T20:21:37+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
-    <lastmod>2020-02-01T20:21:37+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/blog/</loc>
-    <lastmod>2020-01-12T21:28:04+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/categories/blog/</loc>
-    <lastmod>2020-01-12T21:28:04+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/post/blog/github_jsdelivr_ops/</loc>
-    <lastmod>2020-01-12T21:28:04+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/jsDelivr/</loc>
-    <lastmod>2020-01-12T21:28:04+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

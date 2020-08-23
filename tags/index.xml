@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 01 Feb 2020 20:21:37 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Feb 2020 21:28:04 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>blog</title>
+      <link>https://xiebiao.top/tags/blog/</link>
+      <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jsDelivr</title>
+      <link>https://xiebiao.top/tags/jsDelivr/</link>
+      <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/jsDelivr/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>base</title>
@@ -35,24 +53,6 @@
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/samba/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>blog</title>
-      <link>https://xiebiao.top/tags/blog/</link>
-      <pubDate>Sun, 12 Jan 2020 21:28:04 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/blog/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>jsDelivr</title>
-      <link>https://xiebiao.top/tags/jsDelivr/</link>
-      <pubDate>Sun, 12 Jan 2020 21:28:04 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/jsDelivr/</guid>
       <description></description>
     </item>
     

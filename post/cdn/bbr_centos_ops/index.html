@@ -50,7 +50,7 @@
 <meta itemprop="description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过">
 <meta itemprop="datePublished" content="2020-02-20T22:39:09+00:00" />
 <meta itemprop="dateModified" content="2020-02-20T22:39:09+00:00" />
-<meta itemprop="wordCount" content="1615">
+<meta itemprop="wordCount" content="1671">
 
 
 
@@ -131,7 +131,7 @@
         <div class="post-category">
             <a href="/categories/cdn/"> cdn </a>
             </div>
-          <span class="more-meta"> 约 1615 字 </span>
+          <span class="more-meta"> 约 1671 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -271,37 +271,69 @@ grubby --default-kernel
 </code></pre></td></tr></table>
 </div>
 </div><p>列表：</p>
-<blockquote>
-<p>index=0
-kernel=&rdquo;/boot/vmlinuz-5.3.8-1.el8.elrepo.x86_64&rdquo;
-args=&quot;ro consoleblank=0 crashkernel=auto rhgb quiet $tuned_params&rdquo;
-root=&quot;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&rdquo;
-initrd=&rdquo;/boot/initramfs-5.3.8-1.el8.elrepo.x86_64.img $tuned_initrd&rdquo;
-title=&quot;Red Hat Enterprise Linux (5.3.8-1.el8.elrepo.x86_64) 8.0 (Ootpa)&rdquo;
-id=&quot;6e9de0df25a04991b05aa3980b4a01ef-5.3.8-1.el8.elrepo.x86_64&rdquo;
-index=1
-kernel=&rdquo;/vmlinuz-0-rescue-6e9de0df25a04991b05aa3980b4a01ef&rdquo;
-args=&quot;ro consoleblank=0 crashkernel=auto rhgb quiet&rdquo;
-root=&quot;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&rdquo;
-initrd=&rdquo;/initramfs-0-rescue-6e9de0df25a04991b05aa3980b4a01ef.img&rdquo;
-title=&quot;Red Hat Enterprise Linux (0-rescue-6e9de0df25a04991b05aa3980b4a01ef) 8.0 (Ootpa)&rdquo;
-id=&quot;6e9de0df25a04991b05aa3980b4a01ef-0-rescue&rdquo;
-index=2
-kernel=&rdquo;/boot/vmlinuz-4.18.0-80.11.2.el8_0.x86_64&rdquo;
-args=&quot;ro consoleblank=0 crashkernel=auto rhgb quiet $tuned_params&rdquo;
-root=&quot;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&rdquo;
-initrd=&rdquo;/boot/initramfs-4.18.0-80.11.2.el8_0.x86_64.img $tuned_initrd&rdquo;
-title=&quot;CentOS Linux (4.18.0-80.11.2.el8_0.x86_64) 8 (Core)&rdquo;
-id=&quot;cad5aebed85947769a25cf534d8f4e59-4.18.0-80.11.2.el8_0.x86_64&rdquo;
-index=3
-kernel=&rdquo;/vmlinuz-0-rescue-cad5aebed85947769a25cf534d8f4e59&rdquo;
-args=&quot;ro consoleblank=0 crashkernel=auto rhgb quiet&rdquo;
-root=&quot;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&rdquo;
-initrd=&rdquo;/initramfs-0-rescue-cad5aebed85947769a25cf534d8f4e59.img&rdquo;
-title=&quot;CentOS Linux (0-rescue-cad5aebed85947769a25cf534d8f4e59) 8 (Core)&rdquo;
-id=&quot;cad5aebed85947769a25cf534d8f4e59-0-rescue&rdquo;</p>
-</blockquote>
-<p>然后指定新内核启动：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; index=0
+&gt; kernel=&#34;/boot/vmlinuz-5.3.8-1.el8.elrepo.x86_64&#34;
+&gt; args=&#34;ro consoleblank=0 crashkernel=auto rhgb quiet $tuned_params&#34;
+&gt; root=&#34;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&#34;
+&gt; initrd=&#34;/boot/initramfs-5.3.8-1.el8.elrepo.x86_64.img $tuned_initrd&#34;
+&gt; title=&#34;Red Hat Enterprise Linux (5.3.8-1.el8.elrepo.x86_64) 8.0 (Ootpa)&#34;
+&gt; id=&#34;6e9de0df25a04991b05aa3980b4a01ef-5.3.8-1.el8.elrepo.x86_64&#34;
+&gt; index=1
+&gt; kernel=&#34;/vmlinuz-0-rescue-6e9de0df25a04991b05aa3980b4a01ef&#34;
+&gt; args=&#34;ro consoleblank=0 crashkernel=auto rhgb quiet&#34;
+&gt; root=&#34;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&#34;
+&gt; initrd=&#34;/initramfs-0-rescue-6e9de0df25a04991b05aa3980b4a01ef.img&#34;
+&gt; title=&#34;Red Hat Enterprise Linux (0-rescue-6e9de0df25a04991b05aa3980b4a01ef) 8.0 (Ootpa)&#34;
+&gt; id=&#34;6e9de0df25a04991b05aa3980b4a01ef-0-rescue&#34;
+&gt; index=2
+&gt; kernel=&#34;/boot/vmlinuz-4.18.0-80.11.2.el8_0.x86_64&#34;
+&gt; args=&#34;ro consoleblank=0 crashkernel=auto rhgb quiet $tuned_params&#34;
+&gt; root=&#34;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&#34;
+&gt; initrd=&#34;/boot/initramfs-4.18.0-80.11.2.el8_0.x86_64.img $tuned_initrd&#34;
+&gt; title=&#34;CentOS Linux (4.18.0-80.11.2.el8_0.x86_64) 8 (Core)&#34;
+&gt; id=&#34;cad5aebed85947769a25cf534d8f4e59-4.18.0-80.11.2.el8_0.x86_64&#34;
+&gt; index=3
+&gt; kernel=&#34;/vmlinuz-0-rescue-cad5aebed85947769a25cf534d8f4e59&#34;
+&gt; args=&#34;ro consoleblank=0 crashkernel=auto rhgb quiet&#34;
+&gt; root=&#34;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&#34;
+&gt; initrd=&#34;/initramfs-0-rescue-cad5aebed85947769a25cf534d8f4e59.img&#34;
+&gt; title=&#34;CentOS Linux (0-rescue-cad5aebed85947769a25cf534d8f4e59) 8 (Core)&#34;
+&gt; id=&#34;cad5aebed85947769a25cf534d8f4e59-0-rescue&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>然后指定新内核启动：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1

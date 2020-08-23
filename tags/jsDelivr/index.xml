@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>blog on Bill World</title>
-    <link>https://xiebiao.top/categories/blog/</link>
-    <description>Recent content in blog on Bill World</description>
+    <title>jsDelivr on Bill World</title>
+    <link>https://xiebiao.top/tags/jsDelivr/</link>
+    <description>Recent content in jsDelivr on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sun, 12 Jan 2020 21:28:04 +0000</lastBuildDate>
     
-	<atom:link href="https://xiebiao.top/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xiebiao.top/tags/jsDelivr/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -31,24 +31,6 @@
 所谓图床，就是将图片储存到第三方静态资源库中，其返回给你一个 URL 进行获取图片。&lt;code&gt;MarkDown&lt;/code&gt; 支持使用 URL 的方式显示图片，我想这也是程序员为什么对其偏爱的原因之一。
 作为程序员，你会发现，现在很多论坛和社区都开始支持使用 &lt;code&gt;MarkDown&lt;/code&gt;，如果你没使用图床的情况下，你分享同一篇文章，你要在不同的平台，各自重新编辑排版一遍和上传图片一次。
 有了图床，情况就不一样了，&lt;code&gt;Ctrl+C&lt;/code&gt; 的方式就搞定了，根本不用再 Check 文章内容一遍。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</title>
-      <link>https://xiebiao.top/post/blog/creat-hugo-blog/</link>
-      <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/post/blog/creat-hugo-blog/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客&lt;br&gt;
-&lt;a href=&#34;http://www.yangc.top/archives/hugoblog&#34;&gt;http://www.yangc.top/archives/hugoblog&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;https://spongecaptain.cool/post/hugo/howtousehugo/&#34;&gt;https://spongecaptain.cool/post/hugo/howtousehugo/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。&lt;/p&gt;
-&lt;p&gt;后来看到 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; ,号称最快的静态站点生成器后。&lt;/p&gt;
-&lt;p&gt;尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
-Hugo 官方的定义是：&lt;/p&gt;
-&lt;p&gt;Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)&lt;/p&gt;</description>
     </item>
     
   </channel>

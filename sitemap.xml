@@ -72,6 +72,34 @@
   </url>
   
   <url>
+    <loc>https://xiebiao.top/tags/blog/</loc>
+    <lastmod>2020-01-12T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/blog/</loc>
+    <lastmod>2020-01-12T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/blog/github_jsdelivr_ops/</loc>
+    <lastmod>2020-01-12T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/jsDelivr/</loc>
+    <lastmod>2020-01-12T21:28:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://xiebiao.top/tags/openvpn/</loc>
     <lastmod>2020-01-08T22:05:33+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -116,20 +144,6 @@
   <url>
     <loc>https://xiebiao.top/post/base/dns_centos_install/</loc>
     <lastmod>2019-11-11T19:21:33+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/blog/</loc>
-    <lastmod>2019-10-12T20:28:04+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/categories/blog/</loc>
-    <lastmod>2019-10-12T20:28:04+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

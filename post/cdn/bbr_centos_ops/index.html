@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>centos7/8开启bbr加速 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cdn/bbr_centos_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="centos7/8开启bbr加速" />
+<meta property="og:description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cdn/bbr_centos_ops/" />
+<meta property="article:published_time" content="2020-02-20T22:39:09+00:00" />
+<meta property="article:modified_time" content="2020-02-20T22:39:09+00:00" />
+<meta itemprop="name" content="centos7/8开启bbr加速">
+<meta itemprop="description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过">
+<meta itemprop="datePublished" content="2020-02-20T22:39:09+00:00" />
+<meta itemprop="dateModified" content="2020-02-20T22:39:09+00:00" />
+<meta itemprop="wordCount" content="1615">
+
+
+
+<meta itemprop="keywords" content="bbr,cdn," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="centos7/8开启bbr加速"/>
+<meta name="twitter:description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">centos7/8开启bbr加速</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-20 22:39 </span>
+        <div class="post-category">
+            <a href="/categories/cdn/"> cdn </a>
+            </div>
+          <span class="more-meta"> 约 1615 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#centos-8-开启-bbr">CentOS 8 开启 BBR</a></li>
+    <li><a href="#检查-bbr-是否开启成功">检查 BBR 是否开启成功</a></li>
+    <li><a href="#centos-8-升级内核">CentOS 8 升级内核</a>
+      <ul>
+        <li><a href="#查看当前内核版本">查看当前内核版本</a></li>
+        <li><a href="#升级内核">升级内核</a></li>
+        <li><a href="#修改-grub-配置使用新内核版本启动">修改 grub 配置使用新内核版本启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#centos8启用bbr">CentOS8启用BBR</a></li>
+    <li><a href="#bbr相关问题">BBR相关问题</a>
+      <ul>
+        <li><a href="#centos8启用bbr是否需要更换内核">CentOS8启用BBR是否需要更换内核</a></li>
+        <li><a href="#bbr如何卸载">BBR如何卸载</a></li>
+        <li><a href="#bbr对速度提升大不大">BBR对速度提升大不大？</a></li>
+        <li><a href="#开启bbr失败">开启BBR失败</a></li>
+        <li><a href="#bbr对udp流量是否有效">BBR对UDP流量是否有效</a></li>
+        <li><a href="#国内的服务器是否有必要启用bbr">国内的服务器是否有必要启用BBR</a></li>
+        <li><a href="#centos7系统怎么启用bbr">CentOS7系统怎么启用BBR</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客
+<a href="https://nodeedge.com/centos8-bbr.html">https://nodeedge.com/centos8-bbr.html</a>
+<a href="https://cyhour.com/1090/">https://cyhour.com/1090/</a>
+<a href="https://blog.csdn.net/KnYoboy/article/details/104147009">https://blog.csdn.net/KnYoboy/article/details/104147009</a>
+<a href="https://loukky.com/archives/479">https://loukky.com/archives/479</a></p>
+</blockquote>
+<p>CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。<a href="https://cyhour.com/out/vultr">Vultr VPS</a> CentOS Linux release 8.0.1905 系统测试通过。</p>
+<h2 id="centos-8-开启-bbr">CentOS 8 开启 BBR</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">echo &#34;net.core.default_qdisc=fq&#34; &gt;&gt; /etc/sysctl.conf
+echo &#34;net.ipv4.tcp_congestion_control=bbr&#34; &gt;&gt; /etc/sysctl.conf
+sysctl -p
+</code></pre></td></tr></table>
+</div>
+</div><p>然后重启一下系统。</p>
+<h2 id="检查-bbr-是否开启成功">检查 BBR 是否开启成功</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sysctl -n net.ipv4.tcp_congestion_control
+lsmod | grep bbr
+</code></pre></td></tr></table>
+</div>
+</div><p>如果输出包含 BBR，说明启用成功。</p>
+<h2 id="centos-8-升级内核">CentOS 8 升级内核</h2>
+<p>参考资料：<a href="https://cyhour.com/go/aHR0cHM6Ly93d3cudnBzZXIubmV0L21hbmFnZS9jZW50b3MtcmhlbC11cGdyYWRlLWtlcm5lbC5odG1s" title="https://www.vpser.net/manage/centos-rhel-upgrade-kernel.html">https://www.vpser.net/manage/centos-rhel-upgrade-kernel.html</a>、 <a href="https://cyhour.com/go/aHR0cHM6Ly93d3cuYWlrYWl5dWFuLmNvbS8xMjUzMi5odG1s" title="https://www.aikaiyuan.com/12532.html">https://www.aikaiyuan.com/12532.html</a></p>
+<h3 id="查看当前内核版本">查看当前内核版本</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">uname -r
+</code></pre></td></tr></table>
+</div>
+</div><p>Linux 内核最新稳定版可以从 <a href="https://www.kernel.org">https://www.kernel.org</a> 查看，当前最新稳定版为 5.2.13 ，ELRepo 上版本也是 5.2.13。</p>
+<h3 id="升级内核">升级内核</h3>
+<p>安装 ELRepo 源：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+rpm -Uvh https://www.elrepo.org/elrepo-release-8.0-2.el8.elrepo.noarch.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p>启用 ELRepo 源仓库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum --disablerepo=&#34;*&#34; --enablerepo=&#34;elrepo-kernel&#34; list available
+</code></pre></td></tr></table>
+</div>
+</div><p>安装新内核：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum -y --enablerepo=elrepo-kernel install kernel-ml kernel-ml-devel
+</code></pre></td></tr></table>
+</div>
+</div><p>如无意外，最新内核已经安装好。</p>
+<h3 id="修改-grub-配置使用新内核版本启动">修改 grub 配置使用新内核版本启动</h3>
+<p>查看当前默认启动内核：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">dnf install grubby
+grubby --default-kernel
+</code></pre></td></tr></table>
+</div>
+</div><p>当前最新版本 5.3.8，一般安装完就会以最新内核启动，回返回信息：</p>
+<blockquote>
+<p>/boot/vmlinuz-5.3.8-1.el8.elrepo.x86_64</p>
+</blockquote>
+<p>如不是，查看所有内核：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">grubby --info=ALL
+</code></pre></td></tr></table>
+</div>
+</div><p>列表：</p>
+<blockquote>
+<p>index=0
+kernel=&rdquo;/boot/vmlinuz-5.3.8-1.el8.elrepo.x86_64&rdquo;
+args=&quot;ro consoleblank=0 crashkernel=auto rhgb quiet $tuned_params&rdquo;
+root=&quot;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&rdquo;
+initrd=&rdquo;/boot/initramfs-5.3.8-1.el8.elrepo.x86_64.img $tuned_initrd&rdquo;
+title=&quot;Red Hat Enterprise Linux (5.3.8-1.el8.elrepo.x86_64) 8.0 (Ootpa)&rdquo;
+id=&quot;6e9de0df25a04991b05aa3980b4a01ef-5.3.8-1.el8.elrepo.x86_64&rdquo;
+index=1
+kernel=&rdquo;/vmlinuz-0-rescue-6e9de0df25a04991b05aa3980b4a01ef&rdquo;
+args=&quot;ro consoleblank=0 crashkernel=auto rhgb quiet&rdquo;
+root=&quot;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&rdquo;
+initrd=&rdquo;/initramfs-0-rescue-6e9de0df25a04991b05aa3980b4a01ef.img&rdquo;
+title=&quot;Red Hat Enterprise Linux (0-rescue-6e9de0df25a04991b05aa3980b4a01ef) 8.0 (Ootpa)&rdquo;
+id=&quot;6e9de0df25a04991b05aa3980b4a01ef-0-rescue&rdquo;
+index=2
+kernel=&rdquo;/boot/vmlinuz-4.18.0-80.11.2.el8_0.x86_64&rdquo;
+args=&quot;ro consoleblank=0 crashkernel=auto rhgb quiet $tuned_params&rdquo;
+root=&quot;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&rdquo;
+initrd=&rdquo;/boot/initramfs-4.18.0-80.11.2.el8_0.x86_64.img $tuned_initrd&rdquo;
+title=&quot;CentOS Linux (4.18.0-80.11.2.el8_0.x86_64) 8 (Core)&rdquo;
+id=&quot;cad5aebed85947769a25cf534d8f4e59-4.18.0-80.11.2.el8_0.x86_64&rdquo;
+index=3
+kernel=&rdquo;/vmlinuz-0-rescue-cad5aebed85947769a25cf534d8f4e59&rdquo;
+args=&quot;ro consoleblank=0 crashkernel=auto rhgb quiet&rdquo;
+root=&quot;UUID=017899bc-0f07-4d05-825c-15f1f8e84d6a&rdquo;
+initrd=&rdquo;/initramfs-0-rescue-cad5aebed85947769a25cf534d8f4e59.img&rdquo;
+title=&quot;CentOS Linux (0-rescue-cad5aebed85947769a25cf534d8f4e59) 8 (Core)&rdquo;
+id=&quot;cad5aebed85947769a25cf534d8f4e59-0-rescue&rdquo;</p>
+</blockquote>
+<p>然后指定新内核启动：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">grubby --set-default /boot/vmlinuz-5.3.8-1.el8.elrepo.x86_64
+</code></pre></td></tr></table>
+</div>
+</div><p>重启系统 reboot，然后 uname -r 查看就是新内核。</p>
+<p>还是前几天，因为需要测试手上的程序，于是开了个海外的CentOS8系统的虚拟机，但是国内环境大家都知道，跨了个太平洋，网路颠簸，要传点啥数据简直是煎熬，不借助一些手段还真没办法舒服的使用，作为Linux内核自带的一个TCP拥塞控制算法，不折腾的前提下这个肯定是首选方案了。</p>
+<p>内容导航</p>
+<ul>
+<li><a href="#CentOS8BBR" title="CentOS8启用BBR">CentOS8启用BBR</a></li>
+<li><a href="#BBR" title="BBR相关问题">BBR相关问题</a>
+<ul>
+<li><a href="#CentOS8BBR-2" title="CentOS8启用BBR是否需要更换内核">CentOS8启用BBR是否需要更换内核</a></li>
+<li><a href="#BBR-2" title="BBR如何卸载">BBR如何卸载</a></li>
+<li><a href="#BBR-3" title="BBR对速度提升大不大？">BBR对速度提升大不大？</a></li>
+<li><a href="#BBR-4" title="开启BBR失败">开启BBR失败</a></li>
+<li><a href="#BBRUDP" title="BBR对UDP流量是否有效">BBR对UDP流量是否有效</a></li>
+<li><a href="#BBR-5" title="国内的服务器是否有必要启用BBR">国内的服务器是否有必要启用BBR</a></li>
+<li><a href="#CentOS7BBR" title="CentOS7系统怎么启用BBR">CentOS7系统怎么启用BBR</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="centos8启用bbr">CentOS8启用BBR</h2>
+<p>其实CentOS8启用BBR非常简单，只需要简单几行代码就能启用，命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">echo &#34;net.core.default_qdisc=fq&#34; &gt;&gt; /etc/sysctl.conf
+echo &#34;net.ipv4.tcp_congestion_control=bbr&#34; &gt;&gt; /etc/sysctl.conf
+sysctl -p
+
+</code></pre></td></tr></table>
+</div>
+</div><p>就这么简单三行命令就能启用。</p>
+<p>如果对结果不放心，还可以通过如下命令验证下是否启用成功：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sysctl -n net.ipv4.tcp_congestion_control
+lsmod | grep bbr
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果输出字样包含BBR，说明启用成功了。需要注意的是，OpenVZ架构的VPS不一定支持BBR启用的，因为启用BBR的一个前提条件就是内核版本高于4.9。</p>
+<h2 id="bbr相关问题">BBR相关问题</h2>
+<h3 id="centos8启用bbr是否需要更换内核">CentOS8启用BBR是否需要更换内核</h3>
+<p>因为得益于CentOS8自带的内核版本足够新，我们在CentOS8系统上启用BBR再也不需要像之前的CentOS6/7那样需要先更新内核再启用了，CentOS8默认的内核版本为<strong>4.18.x</strong>，比4.9新，已经包含了BBR模块，所以直接启用就好了。</p>
+<h3 id="bbr如何卸载">BBR如何卸载</h3>
+<p>因为启用BBR除了修改配置文件之外，还修改了系统使用内核，如果不再需要BBR，可以按照上面的操作步骤删除相关配置并更改启用内核及卸载相关内核软件包，最直接的办法是备份好服务器数据之后重装系统。</p>
+<h3 id="bbr对速度提升大不大">BBR对速度提升大不大？</h3>
+<p>BBR只是一种拥塞控制算法，只能优化数据包的传输，一定程度上是能提高我们的使用体验的，如果本地到服务器的线路实在是差，建议还是更换服务器节点或者更换线路更好的商家，比如说全程CN2 GIA直连的<a href="https://affu.me/bwh">搬瓦工</a>或者节点众多的<a href="https://affu.me/vultr">Vultr</a>。</p>
+<h3 id="开启bbr失败">开启BBR失败</h3>
+<p>正常来说，按照上面的步骤执行是不会有问题的，如果启用失败，建议检查当前使用的VPS是否支持更换内核，并且服务器的内存、硬盘等资源是否足够，如果还是有问题，可在评论区留下详细的报错信息。</p>
+<h3 id="bbr对udp流量是否有效">BBR对UDP流量是否有效</h3>
+<p>BBR是Google开发的针对TCP的拥塞控制算法，对UDP是无效的。</p>
+<h3 id="国内的服务器是否有必要启用bbr">国内的服务器是否有必要启用BBR</h3>
+<p>BBR是针对网络拥堵的情况开发的，国内来说目前至少阿里云、腾讯云在国内访问是没有明显的拥塞情况，启不启用效果都差不多。</p>
+<h3 id="centos7系统怎么启用bbr">CentOS7系统怎么启用BBR</h3>
+<p>这是CentOS8的启用方法，如果系统是CentOS7，可以移步这里：<a href="https://nodeedge.com/centos7-update-kernel-bbr.html">CentOS7升级内核并启用BBR</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-20 22:39
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/bbr/">bbr</a>
+          <a href="/tags/cdn/">cdn</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/cdn/varish_ops/">
+            <span class="next-text nav-default">varnish高速CDN部署与管理</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

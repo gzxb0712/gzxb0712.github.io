@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>cdn · Bill World</title>
+  <title>Bill World</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -26,9 +26,9 @@
 <meta name="generator" content="Hugo 0.74.3 with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/categories/cdn/" />
-  <link href="https://xiebiao.top/categories/cdn/index.xml" rel="alternate" type="application/rss+xml" title="Bill World" />
-  <link href="https://xiebiao.top/categories/cdn/index.xml" rel="feed" type="application/rss+xml" title="Bill World" />
+<link rel="canonical" href="https://xiebiao.top/" />
+  <link href="https://xiebiao.top/index.xml" rel="alternate" type="application/rss+xml" title="Bill World" />
+  <link href="https://xiebiao.top/index.xml" rel="feed" type="application/rss+xml" title="Bill World" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -42,15 +42,15 @@
 <link rel="stylesheet" href="/css/reset-even.css">
 
 
-<meta property="og:title" content="cdn" />
+<meta property="og:title" content="Bill World" />
 <meta property="og:description" content="gzxb0712&#39;s Blog" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://xiebiao.top/categories/cdn/" />
+<meta property="og:url" content="https://xiebiao.top/" />
 <meta property="og:updated_time" content="2020-02-20T22:39:09+00:00" />
-<meta itemprop="name" content="cdn">
+<meta itemprop="name" content="Bill World">
 <meta itemprop="description" content="gzxb0712&#39;s Blog">
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="cdn"/>
+<meta name="twitter:title" content="Bill World"/>
 <meta name="twitter:description" content="gzxb0712&#39;s Blog"/>
 
 <!--[if lte IE 9]>
@@ -115,45 +115,68 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          <section id="archive" class="archive">
-  <div class="archive-title category">
-        <h2 class="archive-name">cdn</h2>
-      </div>
-
-  <div class="archive-post">
-      <span class="archive-post-time">
-        2020-02-20 22:39
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/cdn/bbr_centos_ops/" class="archive-post-link">
-          centos7/8开启bbr加速
-        </a>
-      </span>
-    </div><div class="archive-post">
-      <span class="archive-post-time">
-        2020-02-15 21:39
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/cdn/varish_ops/" class="archive-post-link">
-          varnish高速CDN部署与管理
-        </a>
-      </span>
-    </div><div class="archive-post">
-      <span class="archive-post-time">
-        2020-02-08 21:32
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/cdn/ats_install_ops/" class="archive-post-link">
-          ansible实现ATS高速CDN安装与管理
-        </a>
-      </span>
+          <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/base/dncp_centos_install/">dhcp在centos中安装</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-10-11 20:22 </span>
+      <div class="post-category">
+          <a href="/categories/linux/"> linux </a>
+          <a href="/categories/base/"> base </a>
+          </div>
+        <span class="more-meta"> 约 1935 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
     </div>
-</section>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <blockquote>
+<p>参考博客<br>
+<a href="https://www.helplib.cn/%E6%9C%88%E6%9C%88/install-and-setup-dhcp-server-on-centos-8">https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8  </a><br>
+<a href="https://ywnz.com/linuxyffq/6322.html">https://ywnz.com/linuxyffq/6322.html</a></p>
+</blockquote>
+<h3 id="运行系统更新">运行系统更新</h3>
+<p>首先将系统包重新同步到它最新版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">dnf update
+</code></pre></td></tr></table>
+</div>
+</div><p>在CentOS 8中，DHCP服务器是<code>dhcp-server</code> 软件包，可以通过运行下面的命令来安装此软件包;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+dnf install dhcp-server
 
-<nav class="pagination">
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+    <div class="read-more">
+      <a href="/post/base/dncp_centos_install/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    </section>
   
-  
-</nav>
+  <nav class="pagination">
+    <a class="prev" href="/page/2/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">上一页</span>
+      </a>
+    
+  </nav>
         </div>
         
 
@@ -206,6 +229,13 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
 
 
 

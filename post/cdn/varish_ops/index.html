@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>varnish高速CDN部署与管理 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content=" 参考博客 https://www.affdalao.com/635.html https://www.rultr.com/tutorials/proxy/3677.html https://www.mscto.com/linux/225146.html
+ Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其采用全新的软件体系机构，和现在的硬件体系紧密配合。与传统的squid相比，Varnish具有高性能、速度快、管理更加方便等优点，目前很多大型的网站都开始尝试使用Varnish来代替squid，这便是Varnish迅速发展的最根本的原因。
+" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cdn/varish_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="varnish高速CDN部署与管理" />
+<meta property="og:description" content="
+参考博客
+https://www.affdalao.com/635.html
+https://www.rultr.com/tutorials/proxy/3677.html
+https://www.mscto.com/linux/225146.html
+
+
+Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其采用全新的软件体系机构，和现在的硬件体系紧密配合。与传统的squid相比，Varnish具有高性能、速度快、管理更加方便等优点，目前很多大型的网站都开始尝试使用Varnish来代替squid，这便是Varnish迅速发展的最根本的原因。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cdn/varish_ops/" />
+<meta property="article:published_time" content="2020-02-15T21:39:09+00:00" />
+<meta property="article:modified_time" content="2020-02-15T21:39:09+00:00" />
+<meta itemprop="name" content="varnish高速CDN部署与管理">
+<meta itemprop="description" content="
+参考博客
+https://www.affdalao.com/635.html
+https://www.rultr.com/tutorials/proxy/3677.html
+https://www.mscto.com/linux/225146.html
+
+
+Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其采用全新的软件体系机构，和现在的硬件体系紧密配合。与传统的squid相比，Varnish具有高性能、速度快、管理更加方便等优点，目前很多大型的网站都开始尝试使用Varnish来代替squid，这便是Varnish迅速发展的最根本的原因。">
+<meta itemprop="datePublished" content="2020-02-15T21:39:09+00:00" />
+<meta itemprop="dateModified" content="2020-02-15T21:39:09+00:00" />
+<meta itemprop="wordCount" content="8238">
+
+
+
+<meta itemprop="keywords" content="varnish,cdn," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="varnish高速CDN部署与管理"/>
+<meta name="twitter:description" content="
+参考博客
+https://www.affdalao.com/635.html
+https://www.rultr.com/tutorials/proxy/3677.html
+https://www.mscto.com/linux/225146.html
+
+
+Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其采用全新的软件体系机构，和现在的硬件体系紧密配合。与传统的squid相比，Varnish具有高性能、速度快、管理更加方便等优点，目前很多大型的网站都开始尝试使用Varnish来代替squid，这便是Varnish迅速发展的最根本的原因。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">varnish高速CDN部署与管理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-15 21:39 </span>
+        <div class="post-category">
+            <a href="/categories/cdn/"> cdn </a>
+            </div>
+          <span class="more-meta"> 约 8238 字 </span>
+          <span class="more-meta"> 预计阅读 17 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#varnish架构图">Varnish架构图</a></li>
+        <li><a href="#集群实验环境centos-76-varnish-62-nginx-1160">集群实验环境：Centos-7.6  Varnish-6.2  Nginx-1.16.0</a></li>
+        <li><a href="#流程">流程:</a></li>
+        <li><a href="#由于varnish-暂不支持-https协议收费版支持https协议所以我们用nginx来反代实现https协议nginx负载均衡鸡配置如下">由于Varnish 暂不支持 https协议，收费版支持https协议，所以我们用Nginx来反代实现HTTPS协议，Nginx负载均衡鸡配置如下：</a></li>
+        <li><a href="#varnish节点只需要安装varnish即可并按以下进行varnish节点配置varnish1-n配置文件一致唯一不一致的是运行配置文件运行配置文件需要指定监听varnish节点外网ip配置如下">Varnish节点，只需要安装Varnish即可，并按以下进行Varnish节点配置，Varnish（1-N）配置文件一致，唯一不一致的是运行配置文件，运行配置文件需要指定监听Varnish节点外网IP，配置如下：</a></li>
+        <li><a href="#varnish运行配置文件">Varnish运行配置文件：</a></li>
+        <li><a href="#源站nginx配置文件">源站Nginx配置文件：</a></li>
+        <li><a href="#检验varnish集群是否生效关闭任意一台varnish机器网站正常运行">检验Varnish集群是否生效，关闭任意一台Varnish机器，网站正常运行：</a></li>
+        <li><a href="#至此varnish集群搭建完毕">至此Varnish集群搭建完毕。</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客
+<a href="https://www.affdalao.com/635.html">https://www.affdalao.com/635.html</a>
+<a href="https://www.rultr.com/tutorials/proxy/3677.html">https://www.rultr.com/tutorials/proxy/3677.html</a>
+<a href="https://www.mscto.com/linux/225146.html">https://www.mscto.com/linux/225146.html</a></p>
+</blockquote>
+<p><img src="https://img.affdalao.com/wp-content/uploads/2019/04/varnish.jpg" alt="">
+Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其采用全新的软件体系机构，和现在的硬件体系紧密配合。与传统的squid相比，Varnish具有高性能、速度快、管理更加方便等优点，目前很多大型的网站都开始尝试使用Varnish来代替squid，这便是Varnish迅速发展的最根本的原因。</p>
+<h3 id="varnish架构图">Varnish架构图</h3>
+<p><img src="https://img.affdalao.com/wp-content/uploads/2019/05/QQ%E6%88%AA%E5%9B%BE20190505145741.png" alt=""></p>
+<h3 id="集群实验环境centos-76-varnish-62-nginx-1160">集群实验环境：Centos-7.6  Varnish-6.2  Nginx-1.16.0</h3>
+<p>一般情况下，会在Nginx或者Haproxy负载均衡层，进行心跳检测和浮动IP，而且会加上健康检测，来避免宕机的危险，正常流程是外网映射内网，内网机器之间实现LVS的VIP功能，由于本站小鸡全部是外网，没有内网所以只能实现在外网之间的通信。</p>
+<h3 id="流程">流程:</h3>
+<p>http-&gt;https-&gt;varnish集群-&gt;源站
+https-&gt;varnish集群-&gt;源站</p>
+<h3 id="由于varnish-暂不支持-https协议收费版支持https协议所以我们用nginx来反代实现https协议nginx负载均衡鸡配置如下">由于Varnish 暂不支持 https协议，收费版支持https协议，所以我们用Nginx来反代实现HTTPS协议，Nginx负载均衡鸡配置如下：</h3>
+<p><img src="https://img.affdalao.com/wp-content/uploads/2019/05/varnish-cache.png" alt=""></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+cat /etc/nginx/conf.d/affdalao.conf
+
+server <span class="o">{</span>
+    listen 80<span class="p">;</span>
+    server_name  www.affdalao.com affdalao.com<span class="p">;</span>
+
+    rewrite ^/<span class="o">(</span>.*<span class="o">)</span> https://www.affdalao.com/<span class="nv">$1</span> permanent<span class="p">;</span>
+<span class="o">}</span>
+
+upstream affdalao_com<span class="o">{</span>
+<span class="c1">#    ip_hash;</span>
+    server 127.0.0.1:6081<span class="p">;</span>
+    server Varnish节点外网IP:6081<span class="p">;</span>
+<span class="o">}</span>
+
+server <span class="o">{</span>
+        listen <span class="m">443</span> ssl http2 <span class="nv">fastopen</span><span class="o">=</span><span class="m">3</span> reuseport<span class="p">;</span>
+
+	server_name  www.affdalao.com affdalao.com<span class="p">;</span>
+
+	error_log  /var/log/nginx/error.log  crit<span class="p">;</span>
+        ssl_certificate      /etc/letsencrypt/live/affdalao.com/fullchain.pem<span class="p">;</span>
+        ssl_certificate_key  /etc/letsencrypt/live/affdalao.com/privkey.pem<span class="p">;</span>
+        ssl_trusted_certificate /etc/letsencrypt/live/affdalao.com/chain.pem<span class="p">;</span>
+	ssl_dhparam /etc/nginx/ssl/dhparam.pem<span class="p">;</span>
+
+	ssl_protocols TLSv1.2<span class="p">;</span>
+	ssl_prefer_server_ciphers on<span class="p">;</span>
+
+	ssl_ciphers <span class="s2">&#34;ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS&#34;</span><span class="p">;</span>
+
+	ssl_session_cache shared:SSL:10m<span class="p">;</span>
+	ssl_session_timeout 10m<span class="p">;</span>
+
+	<span class="c1"># OCSP Stapling ---</span>
+	<span class="c1"># fetch OCSP records from URL in ssl_certificate and cache them</span>
+	ssl_stapling on<span class="p">;</span>
+	ssl_stapling_verify on<span class="p">;</span>
+
+	location /status <span class="o">{</span>
+            stub_status on<span class="p">;</span>
+            access_log off<span class="p">;</span>
+	<span class="o">}</span>
+
+        location / <span class="o">{</span>
+            proxy_pass http://affdalao_com<span class="p">;</span>
+            proxy_set_header X-Real-IP  <span class="nv">$remote_addr</span><span class="p">;</span>
+            proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+            proxy_set_header X-Forwarded-Proto https<span class="p">;</span>
+            proxy_set_header X-Forwarded-Port 443<span class="p">;</span>
+            proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+
+        <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="varnish节点只需要安装varnish即可并按以下进行varnish节点配置varnish1-n配置文件一致唯一不一致的是运行配置文件运行配置文件需要指定监听varnish节点外网ip配置如下">Varnish节点，只需要安装Varnish即可，并按以下进行Varnish节点配置，Varnish（1-N）配置文件一致，唯一不一致的是运行配置文件，运行配置文件需要指定监听Varnish节点外网IP，配置如下：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="c1">###Varnish配置文件：</span>
+
+cat /etc/varnish/default.vcl
+vcl 4.0<span class="p">;</span>
+
+backend default <span class="o">{</span>
+  .host <span class="o">=</span> <span class="s2">&#34;源站外网IP&#34;</span><span class="p">;</span>
+  .port <span class="o">=</span> <span class="s2">&#34;8081&#34;</span><span class="p">;</span>
+  .connect_timeout <span class="o">=</span> 600s<span class="p">;</span>
+  .first_byte_timeout <span class="o">=</span> 600s<span class="p">;</span>
+  .between_bytes_timeout <span class="o">=</span> 600s<span class="p">;</span>
+  .max_connections <span class="o">=</span> 128<span class="p">;</span>
+<span class="o">}</span>
+
+acl purger <span class="o">{</span>
+   <span class="s2">&#34;localhost&#34;</span><span class="p">;</span>
+   <span class="s2">&#34;127.0.0.1&#34;</span><span class="p">;</span>
+<span class="o">}</span>
+
+sub vcl_recv <span class="o">{</span>
+
+	<span class="k">if</span> <span class="o">(</span>req.method <span class="o">==</span> <span class="s2">&#34;PURGE&#34;</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span>!client.ip ~ purger<span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span><span class="o">(</span>synth<span class="o">(</span>405, <span class="s2">&#34;This IP is not allowed to send PURGE requests.&#34;</span><span class="o">))</span><span class="p">;</span>
+  		<span class="o">}</span>
+		<span class="k">return</span> <span class="o">(</span>purge<span class="o">)</span><span class="p">;</span>
+	<span class="o">}</span>
+
+	<span class="k">if</span> <span class="o">(</span>req.restarts <span class="o">==</span> 0<span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span>req.http.X-Forwarded-For<span class="o">)</span> <span class="o">{</span>
+		<span class="nb">set</span> req.http.X-Forwarded-For <span class="o">=</span> client.ip<span class="p">;</span>
+  		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="k">if</span> <span class="o">(</span>req.http.Authorization <span class="o">||</span> req.http.Cookie ~ <span class="s2">&#34;wordpress_logged&#34;</span> <span class="o">||</span> req.http.Cookie ~ <span class="s2">&#34;comment_&#34;</span><span class="o">)</span> <span class="o">{</span>
+         /* Not cacheable by default */
+         	<span class="k">return</span> <span class="o">(</span>pass<span class="o">)</span><span class="p">;</span>
+	<span class="o">}</span>
+
+	<span class="k">if</span> <span class="o">(</span>req.url ~ <span class="s2">&#34;/feed&#34;</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="o">(</span>pass<span class="o">)</span><span class="p">;</span>
+	<span class="o">}</span>
+	<span class="k">if</span> <span class="o">(</span>req.url ~ <span class="s2">&#34;wp-admin|wp-login&#34;</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="o">(</span>pass<span class="o">)</span><span class="p">;</span>
+	<span class="o">}</span>
+
+	<span class="k">if</span> <span class="o">(</span>req.url ~ <span class="s2">&#34;^(.*).(jpg|png|gif|jpeg|flv|bmp|gz|tgz|bz2|tbz|js|css|html|htm)(</span>$<span class="s2">|?)&#34;</span> <span class="o">)</span> <span class="o">{</span>
+         <span class="c1">#移除cookie,以便能缓存到varnish</span>
+        <span class="nb">unset</span> req.http.cookie<span class="p">;</span>
+	<span class="o">}</span>
+
+	<span class="nb">set</span> req.http.cookie <span class="o">=</span> regsuball<span class="o">(</span>req.http.cookie, <span class="s2">&#34;wp-settings-d+=[^;]+(; )?&#34;</span>, <span class="s2">&#34;&#34;</span><span class="o">)</span><span class="p">;</span>
+	<span class="nb">set</span> req.http.cookie <span class="o">=</span> regsuball<span class="o">(</span>req.http.cookie, <span class="s2">&#34;wp-settings-time-d+=[^;]+(; )?&#34;</span>, <span class="s2">&#34;&#34;</span><span class="o">)</span><span class="p">;</span>
+
+	<span class="k">if</span> <span class="o">(</span>req.http.cookie <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nb">unset</span> req.http.cookie<span class="p">;</span>
+  	<span class="o">}</span>
+
+<span class="o">}</span>
+
+sub vcl_purge <span class="o">{</span>
+ 	<span class="nb">set</span> req.method <span class="o">=</span> <span class="s2">&#34;GET&#34;</span><span class="p">;</span>
+ 	<span class="nb">set</span> req.http.X-Purger <span class="o">=</span> <span class="s2">&#34;Purged&#34;</span><span class="p">;</span>
+	<span class="k">return</span> <span class="o">(</span>restart<span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+
+sub vcl_backend_response <span class="o">{</span>
+
+	<span class="nb">set</span> beresp.ttl <span class="o">=</span> 24h<span class="p">;</span>
+ 	<span class="nb">set</span> beresp.grace <span class="o">=</span> 1h<span class="p">;</span>
+	<span class="k">if</span> <span class="o">(</span>bereq.url !~ <span class="s2">&#34;wp-admin|wp-login|product|cart|checkout|my-account|/?remove_item=&#34;</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nb">unset</span> beresp.http.set-cookie<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+sub vcl_deliver <span class="o">{</span>
+
+	<span class="nb">unset</span> resp.http.Via<span class="p">;</span>
+	<span class="nb">unset</span> resp.http.X-Varnish<span class="p">;</span>
+
+	<span class="k">if</span> <span class="o">(</span>obj.hits &gt; 0<span class="o">)</span> <span class="o">{</span>
+	<span class="nb">set</span> resp.http.X-Cache <span class="o">=</span>  <span class="s2">&#34;HIT from &#34;</span> + server.hostname<span class="p">;</span>
+	<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+	<span class="nb">set</span> resp.http.X-Cache <span class="o">=</span>  <span class="s2">&#34;MISS from &#34;</span> + server.hostname<span class="p">;</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+
+sub vcl_synth <span class="o">{</span>
+
+<span class="k">if</span> <span class="o">(</span>resp.status <span class="o">==</span> 404<span class="o">)</span> <span class="o">{</span>
+
+    <span class="nb">set</span> resp.http.Content-Type <span class="o">=</span> <span class="s2">&#34;text/html; charset=utf-8&#34;</span><span class="p">;</span>
+    <span class="nb">set</span> resp.http.Retry-After <span class="o">=</span> <span class="s2">&#34;5&#34;</span><span class="p">;</span>
+    synthetic<span class="o">(</span> <span class="o">{</span><span class="s2">&#34;&lt;!DOCTYPE html&gt;
+</span><span class="s2">&lt;html&gt;
+</span><span class="s2">  &lt;head&gt;
+</span><span class="s2">    &lt;title&gt;&#34;</span><span class="o">}</span> + resp.status + <span class="s2">&#34; &#34;</span> + resp.reason + <span class="o">{</span><span class="s2">&#34;&lt;/title&gt;
+</span><span class="s2">  &lt;/head&gt;
+</span><span class="s2">  &lt;body&gt;
+</span><span class="s2">    &lt;h1&gt;Error &#34;</span><span class="o">}</span> + resp.status + <span class="s2">&#34; &#34;</span> + resp.reason + <span class="o">{</span><span class="s2">&#34;&lt;/h1&gt;
+</span><span class="s2">    &lt;p&gt;&#34;</span><span class="o">}</span> + resp.reason + <span class="o">{</span><span class="s2">&#34;&lt;/p&gt;
+</span><span class="s2">    &lt;h3&gt;Guru Meditation:&lt;/h3&gt;
+</span><span class="s2">    &lt;p&gt;XID: &#34;</span><span class="o">}</span> + req.xid + <span class="o">{</span><span class="s2">&#34;&lt;/p&gt;
+</span><span class="s2">    &lt;hr&gt;
+</span><span class="s2">    &lt;p&gt;Varnish cache server&lt;/p&gt;
+</span><span class="s2">  &lt;/body&gt;
+</span><span class="s2">&lt;/html&gt;
+</span><span class="s2">&#34;</span><span class="o">}</span> <span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+    <span class="k">return</span> <span class="o">(</span>deliver<span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="varnish运行配置文件">Varnish运行配置文件：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="c1">### Varnish运行配置文件，如果Nginx负载均衡鸡和Varnish在同台机器，那么Varnish鸡运行配置文件不需要指定IP，默认是127.0.0.1：</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/sbin/varnishd -a :6081 -f /etc/varnish/default.vcl -s file,/tmp/varnish/cache.bin,5G
+
+<span class="c1">### Varnish运行配置文件，如果Nginx负载均衡鸡和Varnish不在同台机器，那么Varnish鸡需要指定运行配置文件的外网IP：</span>
+cat /usr/lib/systemd/system/varnish.service
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/sbin/varnishd -a 外网IP:6081 -f /etc/varnish/default.vcl -s file,/tmp/varnish/cache.bin,5G
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="源站nginx配置文件">源站Nginx配置文件：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+cat /etc/nginx/conf.d/affdalao.conf
+    server <span class="o">{</span>
+        listen 8081<span class="p">;</span>
+        server_name  affdalao.com<span class="p">;</span>
+	port_in_redirect off<span class="p">;</span>
+
+    location / <span class="o">{</span>
+        root   /home/affdalao<span class="p">;</span>
+        index   index.php index.html index.htm<span class="p">;</span>
+      try_files <span class="nv">$uri</span> <span class="nv">$uri</span>/ /index.php?<span class="nv">$args</span><span class="p">;</span>
+
+    <span class="o">}</span>
+
+    <span class="c1">#error_page  404              /404.html;</span>
+
+    <span class="c1"># redirect server error pages to the static page /50x.html</span>
+    #
+    error_page   <span class="m">500</span> <span class="m">502</span> <span class="m">503</span> <span class="m">504</span>  /50x.html<span class="p">;</span>
+    <span class="nv">location</span> <span class="o">=</span> /50x.html <span class="o">{</span>
+        root   /usr/share/nginx/html<span class="p">;</span>
+    <span class="o">}</span>
+
+    <span class="c1"># proxy the PHP scripts to Apache listening on 127.0.0.1:80</span>
+    #
+    <span class="c1">#location ~ .php$ {</span>
+    <span class="c1">#    proxy_pass   http://127.0.0.1;</span>
+    <span class="c1">#}</span>
+
+    <span class="c1"># pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span>
+    #
+<span class="c1">#    location ~ .php$ {</span>
+    location ~ .*.php<span class="o">(</span>/.*<span class="o">)</span>*$ <span class="o">{</span>
+        root           /home/affdalao<span class="p">;</span>
+
+<span class="c1">#       try_files $uri =404;</span>
+<span class="c1">#       fastcgi_split_path_info ^(.+.php)(/.+)$;</span>
+        fastcgi_index index.php<span class="p">;</span>
+        fastcgi_param HTTPS on<span class="p">;</span>
+
+	fastcgi_pass   unix:/dev/shm/php7-fpm.sock<span class="p">;</span>
+        fastcgi_param  SCRIPT_FILENAME  /home/affdalao<span class="nv">$fastcgi_script_name</span><span class="p">;</span>
+        include        fastcgi_params<span class="p">;</span>
+    <span class="o">}</span>
+
+    <span class="c1"># deny access to .htaccess files, if Apache&#39;s document root</span>
+    <span class="c1"># concurs with nginx&#39;s one</span>
+    #
+    <span class="c1">#location ~ /.ht {</span>
+    <span class="c1">#    deny  all;</span>
+    <span class="c1">#}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="检验varnish集群是否生效关闭任意一台varnish机器网站正常运行">检验Varnish集群是否生效，关闭任意一台Varnish机器，网站正常运行：</h3>
+<p>Varnish关闭命令：systemctl stop varnish</p>
+<p><img src="https://img.affdalao.com/wp-content/uploads/2019/05/120190506103420.png" alt=""></p>
+<p><img src="https://img.affdalao.com/wp-content/uploads/2019/05/QQ%E6%88%AA%E5%9B%BE20190506103506.png" alt=""></p>
+<h3 id="至此varnish集群搭建完毕">至此Varnish集群搭建完毕。</h3>
+<p>###################</p>
+<p><strong>.Varnish概述</strong></p>
+<p><strong>1.Varnish 简介</strong></p>
+<p>Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其采用全新的软件体系机构，和现在的硬件体系紧密配合。与传统的squid相比，Varnish具有高性能、速度快、管理更加方便等优点，目前很多大型的网站都开始尝试使用Varnish来代替squid，这便是Varnish迅速发展的最根本的原因。</p>
+<p>Varnish的主要特征：</p>
+<p>（1）缓存代理位置：可以使用内存也可以使用磁盘；
+（2）日志存储：日志存储在内存中；
+（3）支持虚拟内存的使用；
+（4）有精确的时间管理机制，即缓存的时间属性控制；
+（5）状态引擎架构：在不同的引擎上完成对不同的缓存和代理数据进行处理；
+（6）缓存管理：以二叉堆管理缓存数据，做到数据的及时清理；</p>
+<p><strong>2.Varnish 与 Squid 的对比相同点</strong></p>
+<p>都是开源软件；
+都是一个反向代理服务器；</p>
+<p>Varnish 的优势</p>
+<p>（1）稳定性：Varnish和Squid在完成相同负载的工作时，Squid服务器发生故障的几率要高于Varnish，因为使用Squid需要经常重启；
+（2）访问速度更快：Varnish所有缓存的数据都是直接从内存中读取，而Squid是从硬盘中读取；
+（3）支持更多的并发连接：因为Varnish的TCP连接和释放的速度比Squid快很多</p>
+<p>Varnish 的劣势</p>
+<p>（1）Varnish进程一旦重启，缓存数据都会从内存中完全释放，此时所有请求都会发送到后端服务器，在高并发情况下，会给后端服务器造成很大压力；
+（2）在Varnish使用中如果使用单个URL的请求通过负载均衡时，则每次请求都会落在不同的Varnish服务器中，造成请求都会到后端服务器；而且同样的秦桂在多台服务器上缓存，也会造成Varnish的缓存资源的浪费，造成性能下降；</p>
+<p>Varnish 劣势的解决方案</p>
+<p>针对劣势一：在访问量很大的情况下推荐使用 varnish 的内存缓存方式启动，而且后面需要 跟多台 squid/nginx 服务器。主要为了防止前面的 varnish 服 务、服务器被重启的情况下， 大量请求穿透 varnish，这样 squid/nginx 可以就担当第二层 CACHE，而且也弥补了 varnish 缓 存在内存中重启都会释放的问题；
+针对劣势二：可以在负载均衡上做 url 哈希，让单个 url 请求固定请求到一台 varnish 服务器 上;</p>
+<p><strong>3.Varnish的工作原理</strong></p>
+<p>当Varnish服务器收到客户端的请求时，首选检查缓存中是否有数据，如果有，则直接响应客户端；如果没有则向后端服务器请求相应的资源，缓存到Varnish服务器本地，再响应客户端；</p>
+<p>根据规则和请求页面的类型选择数据是否需要进行缓存，可以根据请求头中Cache-Contorl判断是否缓存，以及cookis是否有标记，这些功能都可以通过编写配置文件的方式来实现。</p>
+<p><strong>4.Varnish简单架构</strong></p>
+<p>Varnish分为management进程和child进程</p>
+<p>management进程：对child进程进行管理，同事对VCL配置进行编译，并应用到不同的状态引擎中；
+child进程：生成线程池，负责对用户请求进行处理，并通过hash查找返回用户结果；</p>
+<p>child进程生成的常见线程有</p>
+<p>accept线程：接收新的连接请求并响应；
+worker线程：会话，处理请求资源；
+expiry线程：清除缓存中过期的内容；</p>
+<p><strong>5.varnish 主要配置部分</strong></p>
+<p>后端配置：给Varnish添加反向代理服务器节点，最少配置一个；
+ACL配置：给Varnish添加访问控制列表，可以指定这些列表访问或禁止访问；
+probes配置：给Varnish添加探测后端服务器是否正常的规则，方便切换或禁止对应后端服务器；
+directors配置：给Varnish添加负载均衡模式管理多个后端服务器；
+核心子程序配置：给Varnish添加后端服务器切换，请求缓存、访问控制、错误处理等规则；</p>
+<p><strong>6.VCL 中内置预设变量：变量(也叫 object)：</strong></p>
+<p>如图</p>
+<p><img src="http://huoche.7234.cn/images/jb51/fdddkx1je3g.jpg" alt=""></p>
+<p>（1）req：客户端请求Varnish服务器时可用的变量；
+（2）bereq：Varnish服务器请求后端服务器可用的变量；
+（3）beresp：后端服务器响应Varnish服务器请求，并返回结果时，使用的变量；
+（4）resp：Varnish服务器响应客户端请求是使用的变量；
+（5）obj：高速缓存对象，缓存后端响应请求内容；
+（6）now：作用就是返回当前的时间戳；</p>
+<p>客户端</p>
+<p>Clienet.ip：返回客户端的IP地址
+Client.port：获取客户端请求的端口号（在vatnish4.0以后需要调取std模块才能使用）语法为 import std； std.port(client.ip)
+Client.identiy 获取客户端标识码，软件在安装过程中会生成一个序列号，用来标识身份</p>
+<p>服务器</p>
+<p>Server.hostname：服务器主机名
+Server.identiy：获取服务器标识码
+Server.ip：获取服务器IP地址
+Server.prot：获取服务器IP端口号，需要调用std模块</p>
+<p>客户端请求req （客户端请求发送的对象）</p>
+<p>Req：整个请求的数据结构
+req.bachend_hint：指定请求后端节点 如gif 给图片服务器
+Req.can_gzip：客户端是否接受gzip传输编码（通常浏览器支持所有压缩格式）
+req.hash_always_miss：是否从缓存中读取数据
+req.hash_ignore_busy： 忽略缓存中忙碌的数据 死锁（如两台varnish服务器在处理过程中共同争抢一个资源造成堵塞，如果不手动停止则会僵持支持僵持下去）
+req.http：对应请求http的header
+req.method ：请求类型或者请求的方式（如gt，post）
+req.proto：客户端请求使用的http协议的版本
+req.restarts：重新启动次数，默认最大值是4（通常用于判断是否访问过服务器）
+req.url：请求的url
+req.xid：唯一id，varnish服务器访问时在头部增加了X-varnish，后面的数字是varnish的id，第一个数据是请求的标识id，第二个数据是缓存的标识id</p>
+<p>varnish请求后端服务器（bereq）</p>
+<p>bereq：整个后端请求的数据结构
+bereq.backend：所请求后端节点的配置
+bereq.between_bytes_timeout：从后端每接收一个字节之间的等待时间或者超时时间
+bereq.http：对应发送到后端的http的头部信息
+bereq.method： 发送到后端的请求类型或者请求方式
+bereq.proto：发送到后端的请求的http协议版本
+bereq.retires：相同请求重试计数
+bereq.uncacheable：请求数据没有被缓存，或者请求不缓存
+bereq.url：发送到后端请求的url
+bereq.xid：请求唯一id</p>
+<p>后端服务器向varnish返回数据beresq</p>
+<p>Beresp：后端服务器响应数据
+Beresp.backend.ip：后端响应（处理请求数据）服务器的IP地址
+Beresp.backend.name：后端响应服务器的节点名
+Beresp.do_gunzip：默认为false，缓存前解压改对象
+Beresp.grace：设置缓存过期的额外宽限时间
+Beresp.http：响应时http的头部
+Beresp.keep：对象缓存后带保持时间
+Beresp.proto：响应的http版本
+Beresp.reason ：后端服务器返回的http状态信息
+Beresp.status：后端服务器返回的在状态码
+Beresp.storage_hint：指定保存的的特定存储器（内存）
+Beresp.ttl：改对象缓存的剩余时间，指定统一缓存剩余时间
+Beresp,uncacheable：对数据不进行缓存</p>
+<p>存储</p>
+<p>Storage.<!-- raw HTML omitted -->.free_space：存储可用空间（字节数）
+Storage.<!-- raw HTML omitted -->.used_space：存储剩余时间（字节数）
+Storage.<!-- raw HTML omitted -->.happy：存储节点状态
+deliver将数据发送给客户端，返回的数据
+fetch从后端获取数据，并将数据缓存到本地</p>
+<p><strong>7.特定功能语句</strong></p>
+<p>Ban（expression）：清除指定对象缓存；
+Call(subroutine)：调用子程序；
+Hash_data（input）：根据input的子程序的值生成hash键；
+New（）：创建新的vcl对象，只能在vcl_init 子进程中；
+Return（）：结束当前子程序，并指定继续下一步动作；
+Rollback()：恢复 HTTP 头到原来状态，已经弃用，使用 std.rollback() 代替；
+Synthetic （STRING）：合成器，定义返回给客户端页面和状态码；
+Regsub（str，regex，sub）使用正则表达式替换第一次出现的字符串；
+Regsuball（str，regex,sub）替换所有出现的字符串；</p>
+<p><strong>8.varnish请求处理的步骤</strong></p>
+<p>如图</p>
+<p><img src="http://huoche.7234.cn/images/jb51/zbaq10ixuys.jpg" alt=""></p>
+<p><img src="http://huoche.7234.cn/images/jb51/vybzb1vi5yh.jpg" alt=""></p>
+<p>varnish请求处理的步骤</p>
+<p>Receive 状态（vcl_recv）。也就是请求处理的入口状态，根据 VCL 规则判断该请求应该 pass（vcl_pass）或是 pipe（vcl_pipe），还是进入 lookup（本地查询）。
+Lookup 状态。进入该状态后，会在 hash 表中查找数据，若找到，则进入 hit（vcl_hit）状态，否则进入 miss（vcl_miss）状态。
+Pass（vcl_pass）状态。在此状态下，会直接进入后端请求，即进入 fetch（vcl_fetch）状态
+Fetch（vcl_fetch）状态。在 fetch 状态下，对请求进行后端获取，发送请求，获得数据，并根据设置进行本地存储。
+Deliver（vcl_deliver）状态。将获取到的数据发给客户端，然后完成本次请求。
+Pipe状态。建立客户端和服务器之间的直接连接，从后端服务器调取数据</p>
+<p>vcl_recv 子程序： 开始处理请求，通过 return (动作);
+vcl_pipe 子程序： pipe 模式处理，该模式主要用于直接取后端响应内容返回客户端，可定义响应内容返回客户端。
+vcl_pass 子程序： pass 模式处理，该模式类似 hash 缓存模式，仅不做缓存处理.
+vcl_hit 子程序： hash 缓存模式时，存在 hash 缓存时调用，用于缓存处理，可放弃或修改缓存.
+vcl_miss 子程序： hash 缓存模式时，不存在 hash 缓存时调用，用于判断性的选择进入后端取响应内容，可以 修改为 pass 模式。
+vcl_hash 子程序： hash缓存模式，生成hash值作为缓存查找键名提取缓存内容，主要用于缓存hash键值处理， 可使用 hash_data(string) 指定键值组成结构，可在同一个页面通过 IP 或 cookie 生成不同的 缓存键值。
+vcl_purge 子程序： 清理模式，当查找到对应的缓存时清除并调用，用于请求方法清除缓存，并报告
+vcl_deliver 子程序： 客户端交付子程序，在 vcl_backend_response 子程序后调用（非 pipe 模式），或 vcl_hit 子程 序后调用，可用于追加响应头信息，cookie 等内容。
+vcl_backend_fetch 子程序： 发送后端请求之前调用，可用于改变请求地址或其它信息，或放弃请求。
+vcl_backend_response 子程序： 后端响应后调用，可用于修改缓存时间及缓存相关信息。
+vcl_backend_error 子程序： 后端处理失败调用，异常页面展示效果处理，可自定义错误响应内容，或修改 beresp.status 与 beresp.http.Location 重定向等。
+vcl_synth 子程序： 自定义响应内容。可以通过 synthetic（）和返回值 synth 调用，这里可以自定义异常显示 内容，也可以修改 resp.status 与 resp.http.Location 重定向。
+vcl_init 子程序： 加载 vcl 时最先调用，用于初始化 VMODs，该子程序不参与请求处理，仅在 vcl 加载时调用 一次。
+vcl_fini 子程序： 卸载当前 vcl 配置时调用，用于清理 VMODs，该子程序不参与请求处理，仅在 vcl 正常丢弃 后调用。</p>
+<p>** 二.安装Varnish**</p>
+<p>下载varnish软件包 链接: <a href="https://pan.baidu.com/s/1OfnyR-5xFuxMUYJTnhQesA">https://pan.baidu.com/s/1OfnyR-5xFuxMUYJTnhQesA</a> 提取码: m9q4</p>
+<p>除了一台varnish服务器，可以再开俩台web服务器，提供web页面就可以。</p>
+<p><code>[root@localhost ~]# yum -y install autoconf automake libedit-devel libtool ncurses-devel pcre-devel pkgconfig python-docutils python-sphinx [root@localhost ~]# tar zxf varnish-4.0.3.tar.gz [root@localhost ~]# cd varnish-4.0.3/ [root@localhost varnish-4.0.3]# ./configure &amp;&amp; make &amp;&amp; make install [root@localhost varnish-4.0.3]# cp etc/example.vcl /usr/local/var/varnish/ //复制Varnish主配置文件 [root@localhost /]# vim /usr/local/var/varnish/example.vcl //编辑Varnish主配 看原来的修改 vcl 4.0; import directors; import std; backend default { .host = &quot;127.0.0.1&quot;; .port = &quot;80&quot;; } probe backend_healthcheck { .url=&quot;/&quot;; .interval = 5s; .timeout = 1s; .window = 5; .threshold = 3; } backend web1 { .host = &quot;192.168.148.132&quot;; .port = &quot;80&quot;; .probe = backend_healthcheck; } backend web2 { .host = &quot;192.168.148.133&quot;; .port = &quot;80&quot;; .probe = backend_healthcheck; } acl purgers { &quot;127.0.0.1&quot;; &quot;localhost&quot;; &quot;192.168.148.0/24&quot;; !&quot;192.168.148.133&quot;; } sub vcl_init { new web_cluster=directors.round_robin(); web_cluster.add_backend(web1); web_cluster.add_backend(web2); } //把原来的全部删除添加如下 sub vcl_recv { set req.backend_hint = web_cluster.backend(); if (req.method == &quot;PURGE&quot;) { if (!client.ip ~ purgers) { return (synth(405, &quot;Not Allowed.&quot;)); } return (purge); } if (req.method != &quot;GET&quot; &amp;&amp; req.method != &quot;HEAD&quot; &amp;&amp; req.method != &quot;PUT&quot; &amp;&amp; req.method != &quot;POST&quot; &amp;&amp; req.method != &quot;TRACE&quot; &amp;&amp; req.method != &quot;OPTIONS&quot; &amp;&amp; req.method != &quot;PATCH&quot; &amp;&amp; req.method != &quot;DELETE&quot;) { return (pipe); } if (req.method != &quot;GET&quot; &amp;&amp; req.method != &quot;HEAD&quot;) { return (pass); } if (req.url ~ &quot;.(php|asp|aspx|jsp|do|ashx|shtml)($|?)&quot;) { return (pass); } if (req.http.Accept-Encoding) { if (req.url ~ &quot;.(bmp|png|gif|jpg|jpeg|ico|gz|tgz|bz2|tbz|zip|rar|mp3|mp4|ogg|swf|flv)$&quot;) { unset req.http.Accept-Encoding; } elseif (req.http.Accept-Encoding ~ &quot;gzip&quot;) { set req.http.Accept-Encoding = &quot;gzip&quot;; } elseif (req.http.Accept-Encoding ~ &quot;deflate&quot;) { set req.http.Accept-Encoding = &quot;deflate&quot;; } else { unset req.http.Accept-Encoding; } } if (req.url ~ &quot;.(css|js|html|htm|bmp|png|gif|jpg|jpeg|ico|gz|tgz|bz2|tbz|zip|rar|mp3|mp4|ogg|swf|flv)($|?)&quot;) { unset req.http.cookie; return (hash); } if (req.restarts == 0) { if (req.http.X-Forwarded-For) { set req.http.X-Forwarded-For = req.http.X-Forwarded-For + &quot;, &quot; + client.ip; } else { set req.http.X-Forwarded-For = client.ip; } } return (hash); } sub vcl_hash { hash_data(req.url); if (req.http.host) { hash_data(req.http.host); } else { hash_data(server.ip); } return (lookup); } sub vcl_hit { if (req.method == &quot;PURGE&quot;) { return (synth(200, &quot;Purged.&quot;)); } return (deliver); } sub vcl_miss { if (req.method == &quot;PURGE&quot;) { return (synth(404, &quot;Purged.&quot;)); } return (fetch); } sub vcl_deliver { if (obj.hits &gt; 0) { set resp.http.CXK = &quot;HIT-from-varnish&quot;; set resp.http.X-Cache-Hits = obj.hits; } else { set resp.http.X-Cache = &quot;MISS&quot;; } unset resp.http.X-Powered-By; unset resp.http.Server; unset resp.http.X-Drupal-Cache; unset resp.http.Via; unset resp.http.Link; unset resp.http.X-Varnish; set resp.http.xx_restarts_count = req.restarts; set resp.http.xx_Age = resp.http.Age; set resp.http.hit_count = obj.hits; unset resp.http.Age; return (deliver); }</code></p>
+<p><code>sub vcl_purge { return (synth(200,&quot;success&quot;)); } sub vcl_backend_error { if (beresp.status == 500 || beresp.status == 501 || beresp.status == 502 || beresp.status == 503 || beresp.status == 504) { return (retry); } } sub vcl_fini { return (ok); } [root@localhost /]# varnishd -f /usr/local/var/varnish/example.vcl -s malloc,200M -a 0.0.0.0:80 //启动服务</code></p>
+<p>第一台web提供页面</p>
+<p><code>[root@localhost ~]# yum -y install httpd [root@localhost ~]# echo aaa &gt; /var/www/html/index.html [root@localhost ~]# systemctl stop firewalld [root@localhost ~]# systemctl start httpd</code></p>
+<p>第二台</p>
+<p><code>[root@localhost ~]# yum -y install httpd [root@localhost ~]# echo bbb &gt; /var/www/html/index.html [root@localhost ~]# systemctl stop firewalld [root@localhost ~]# systemctl start httpd</code></p>
+<p>如果重启Varnishd如下：</p>
+<p><code>[root@localhost /]# netstat -anpt | grep 80 [root@localhost /]# killall -9 varnishd [root@localhost /]# varnishd -f /usr/local/var/varnish/example.vcl -s malloc,200M -a 0.0.0.0:80</code></p>
+<p>客户端访问如下：</p>
+<p><img src="http://huoche.7234.cn/images/jb51/qyywq5eyfc5.jpg" alt=""></p>
+<p>刷新一下</p>
+<p><img src="http://huoche.7234.cn/images/jb51/31kw5duq43m.jpg" alt=""></p>
+<p><code>[root@localhost /]# curl -X &quot;PURGE&quot; 192.168.148.130 //清除缓存</code></p>
+<p><img src="http://huoche.7234.cn/images/jb51/1jsuf3fm2qu.jpg" alt=""></p>
+<p>Varnish配置文件解释</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">vcl 4.0;
+import directors;
+import std;
+# Default backend definition. Set this to point to your content server.
+probe backend_healthcheck {
+.url=&#34;/&#34;; #访问后端服务器根路径
+.interval = 5s; #请求时间间隔
+.timeout = 1s; #请求超时时间
+.window = 5; #指定轮询次数5次
+.threshold = 3; #如果出现3次失败则表示后端服务器异常
+}
+backend web1 { #定义后端服务器
+.host = &#34;192.168.1.7&#34;; #要转向主机（即后端主机）的 IP 或域名
+.port = &#34;80&#34;; #指定后端服务器的端口号
+.probe = backend_healthcheck; #健康检查调用backend_healthcheck定义的内容
+}
+backend web2 {
+.host = &#34;192.168.1.8&#34;;
+.port = &#34;80&#34;;
+.probe = backend_healthcheck;
+}
+acl purgers { #定义访问控制列表
+&#34;127.0.0.1&#34;;
+&#34;localhost&#34;;
+&#34;192.168.1.0/24&#34;;
+!&#34;192.168.1.8&#34;;
+}
+sub vcl_init { #调用 vcl_init 初始化子程序创建后端主机组，即 directors
+new web_cluster=directors.round_robin(); #使用 new 关键字创建 drector 对象,使用 round_robin(轮询) 算法
+web_cluster.add_backend(web1); #添加后端服务器节点
+web_cluster.add_backend(web2);
+}
+sub vcl_recv {
+set req.backend_hint = web_cluster.backend(); #指定请求的后端节点web_cluster定义的后端节点
+if (req.method == &#34;PURGE&#34;) { #判断客户端的请求头部是否是PURGE
+if (!client.ip ~ purgers) { #如果是，再判断客户端的IP地址是不是在ACL访问控制列表中.
+return (synth(405, &#34;Not Allowed.&#34;)); #如果不是，返回给客户端405状态码并且返回定义的页面.
+}
+return (purge); #如果是ACL定义的，则交给purge处理.
+}
+if (req.method != &#34;GET&#34; &amp;&amp;
+req.method != &#34;HEAD&#34; &amp;&amp;
+req.method != &#34;PUT&#34; &amp;&amp;
+req.method != &#34;POST&#34; &amp;&amp;
+req.method != &#34;TRACE&#34; &amp;&amp;
+req.method != &#34;OPTIONS&#34; &amp;&amp;
+req.method != &#34;PATCH&#34; &amp;&amp;
+req.method != &#34;DELETE&#34;) { #判断客户端的请求类型
+return (pipe);
+}
+if (req.method != &#34;GET&#34; &amp;&amp; req.method != &#34;HEAD&#34;) {
+return (pass); #如果不是GET及HEAD则交给pass.
+}
+if (req.url ~ &#34;.(php|asp|aspx|jsp|do|ashx|shtml)($|?)&#34;) {
+return (pass); #当客户端访问的是.php等结尾的交给pass处理.
+}
+if (req.http.Accept-Encoding) {
+if (req.url ~ &#34;.(bmp|png|gif|jpg|jpeg|ico|gz|tgz|bz2|tbz|zip|rar|mp3|mp4|ogg|swf|flv)$&#34;) {
+unset req.http.Accept-Encoding; #取消客户端接收的压缩类型
+} elseif (req.http.Accept-Encoding ~ &#34;gzip&#34;) {
+set req.http.Accept-Encoding = &#34;gzip&#34;; #如果有gzip类型，标记gzip类型.
+} elseif (req.http.Accept-Encoding ~ &#34;deflate&#34;) {
+set req.http.Accept-Encoding = &#34;deflate&#34;;
+} else {
+unset req.http.Accept-Encoding; #其他未定义的页面也取消客户但接收的压缩类型.
+}
+}
+if (req.url ~ &#34;.(css|js|html|htm|bmp|png|gif|jpg|jpeg|ico|gz|tgz|bz2|tbz|zip|rar|mp3|mp4|ogg|swf|flv)($|?)&#34;) {
+unset req.http.cookie; #取消客户端的cookie值.
+return (hash); #将请求转发给hash子程序，也就是查看本地缓存.
+}
+if (req.restarts == 0) { #判断客户端是不是第一次请求
+if (req.http.X-Forwarded-For) { #如果是第一次请求，设置获取客户端的IP地址.
+set req.http.X-Forwarded-For = req.http.X-Forwarded-For + &#34;, &#34; + client.ip;
+} else {
+set req.http.X-Forwarded-For = client.ip;
+}
+}
+return (hash);
+}
+sub vcl_hash {
+hash_data(req.url); #查看客户端请求的页面，并且进行hash
+if (req.http.host) {
+hash_data(req.http.host); #设置客户端的主机
+} else {
+hash_data(server.ip); #设置服务器的IP
+}
+return (lookup);
+}
+sub vcl_hit {
+if (req.method == &#34;PURGE&#34;) { #如果是HIT并且当客户端请求的类型是PURGE返回的200的状态码，并返回相应页面.
+return (synth(200, &#34;Purged.&#34;));
+}
+return (deliver);
+}
+sub vcl_miss {
+if (req.method == &#34;PURGE&#34;) {
+return (synth(404, &#34;Purged.&#34;)); #如果是miss返回404
+}
+return (fetch);
+}
+sub vcl_deliver {
+if (obj.hits &gt; 0) {
+set resp.http.CXK = &#34;HIT-from-varnish&#34;; #设置http头部X-Cache =hit
+set resp.http.X-Cache-Hits = obj.hits; #返回命令的次数
+} else {
+set resp.http.X-Cache = &#34;MISS&#34;;
+}
+unset resp.http.X-Powered-By; #取消显示web版本
+unset resp.http.Server; #取消显示varnish服务
+unset resp.http.X-Drupal-Cache; #取消显示缓存的框架
+unset resp.http.Via; #取消显示文件内容来源
+unset resp.http.Link; #取消显示HTML的超链接地址
+unset resp.http.X-Varnish; #取消显示varnish的id
+set resp.http.xx_restarts_count = req.restarts; #设置客户端请求的次数
+set resp.http.xx_Age = resp.http.Age; #显示缓存文件的时长
+#set resp.http.hit_count = obj.hits; #显示缓存命中的次数
+#unset resp.http.Age;
+return (deliver);
+}
+sub vcl_pass {
+return (fetch); #将后端服务器返回的数据缓存到本地
+}
+sub vcl_backend_response {
+set beresp.grace = 5m; #缓存额外宽限时间
+if (beresp.status == 499 || beresp.status == 404 || beresp.status == 502) {
+set beresp.uncacheable = true; #当后端服务器相应状态码是449等，不缓存
+}
+if (bereq.url ~ &#34;.(php|jsp)(?|$)&#34;) {
+set beresp.uncacheable = true; #当是PHP的页面不缓存
+} else {
+if (bereq.url ~ &#34;.(css|js|html|htm|bmp|png|gif|jpg|jpeg|ico)($|?)&#34;) {
+set beresp.ttl = 15m; #当是上面结尾的，缓存15分钟
+unset beresp.http.Set-Cookie;
+} elseif (bereq.url ~ &#34;.(gz|tgz|bz2|tbz|zip|rar|mp3|mp4|ogg|swf|flv)($|?)&#34;) {
+set beresp.ttl = 30m; #缓存30分钟
+unset beresp.http.Set-Cookie;
+} else {
+set beresp.ttl = 10m; #生存时间10分钟
+unset beresp.http.Set-Cookie;
+}
+}
+return (deliver);
+}
+sub vcl_purge {
+return (synth(200,&#34;success&#34;));
+}
+sub vcl_backend_error {
+if (beresp.status == 500 ||
+beresp.status == 501 ||
+beresp.status == 502 ||
+beresp.status == 503 ||
+beresp.status == 504) {
+return (retry); #如果状态码是上述其中之一，则重新请求
+}
+}
+sub vcl_fini {
+return (ok);
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-15 21:39
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/varnish/">varnish</a>
+          <a href="/tags/cdn/">cdn</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cdn/bbr_centos_ops/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">centos7/8开启bbr加速</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cdn/ats_install_ops/">
+            <span class="next-text nav-default">ansible实现ATS高速CDN安装与管理</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

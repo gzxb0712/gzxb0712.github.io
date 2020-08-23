@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ansible实现ATS高速CDN安装与管理 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content=" 参考博客 https://www.affdalao.com/2194.html https://zhuanlan.zhihu.com/p/46512241 https://blog.51cto.com/13555423/2371917
+https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md
+  ATS下载地址： http://trafficserver.apache.org/
+ 1、Apache Traffic Server简介 Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非常成熟的代理/缓存/CDN系统。早在2009年，雅虎使用Traffic Server就可以用150台服务器实现每天400 TB的高速流量分发。经过多年的发展，ATS已经用于非常多的商业CDN分发与大型网络。Traffic Server与Nginx, Varnish三者几乎称霸了世界上所有CDN运营商，而Traffic Server又是这三者之中使用量最大的。与Nginx相比，Traffic Server拥有同样优异的性能显著的更多的功能，更丰富的接口，以及高度自定义的配置。与Varnish相比，Traffic Server对于高并发高负载的处理更为出色。 使用Traffic Server的CDN/大型网络有Apple, Comcast, Yahoo, Akamai, 以及国内的又拍云等等。
+" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cdn/ats_install_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="ansible实现ATS高速CDN安装与管理" />
+<meta property="og:description" content="
+参考博客
+https://www.affdalao.com/2194.html
+https://zhuanlan.zhihu.com/p/46512241
+https://blog.51cto.com/13555423/2371917
+https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md
+
+
+ATS下载地址： http://trafficserver.apache.org/
+
+1、Apache Traffic Server简介
+Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非常成熟的代理/缓存/CDN系统。早在2009年，雅虎使用Traffic Server就可以用150台服务器实现每天400 TB的高速流量分发。经过多年的发展，ATS已经用于非常多的商业CDN分发与大型网络。Traffic Server与Nginx, Varnish三者几乎称霸了世界上所有CDN运营商，而Traffic Server又是这三者之中使用量最大的。与Nginx相比，Traffic Server拥有同样优异的性能显著的更多的功能，更丰富的接口，以及高度自定义的配置。与Varnish相比，Traffic Server对于高并发高负载的处理更为出色。
+使用Traffic Server的CDN/大型网络有Apple, Comcast, Yahoo, Akamai, 以及国内的又拍云等等。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cdn/ats_install_ops/" />
+<meta property="article:published_time" content="2020-02-08T21:32:09+00:00" />
+<meta property="article:modified_time" content="2020-02-08T21:32:09+00:00" />
+<meta itemprop="name" content="ansible实现ATS高速CDN安装与管理">
+<meta itemprop="description" content="
+参考博客
+https://www.affdalao.com/2194.html
+https://zhuanlan.zhihu.com/p/46512241
+https://blog.51cto.com/13555423/2371917
+https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md
+
+
+ATS下载地址： http://trafficserver.apache.org/
+
+1、Apache Traffic Server简介
+Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非常成熟的代理/缓存/CDN系统。早在2009年，雅虎使用Traffic Server就可以用150台服务器实现每天400 TB的高速流量分发。经过多年的发展，ATS已经用于非常多的商业CDN分发与大型网络。Traffic Server与Nginx, Varnish三者几乎称霸了世界上所有CDN运营商，而Traffic Server又是这三者之中使用量最大的。与Nginx相比，Traffic Server拥有同样优异的性能显著的更多的功能，更丰富的接口，以及高度自定义的配置。与Varnish相比，Traffic Server对于高并发高负载的处理更为出色。
+使用Traffic Server的CDN/大型网络有Apple, Comcast, Yahoo, Akamai, 以及国内的又拍云等等。">
+<meta itemprop="datePublished" content="2020-02-08T21:32:09+00:00" />
+<meta itemprop="dateModified" content="2020-02-08T21:32:09+00:00" />
+<meta itemprop="wordCount" content="3317">
+
+
+
+<meta itemprop="keywords" content="ats,cdn," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ansible实现ATS高速CDN安装与管理"/>
+<meta name="twitter:description" content="
+参考博客
+https://www.affdalao.com/2194.html
+https://zhuanlan.zhihu.com/p/46512241
+https://blog.51cto.com/13555423/2371917
+https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md
+
+
+ATS下载地址： http://trafficserver.apache.org/
+
+1、Apache Traffic Server简介
+Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非常成熟的代理/缓存/CDN系统。早在2009年，雅虎使用Traffic Server就可以用150台服务器实现每天400 TB的高速流量分发。经过多年的发展，ATS已经用于非常多的商业CDN分发与大型网络。Traffic Server与Nginx, Varnish三者几乎称霸了世界上所有CDN运营商，而Traffic Server又是这三者之中使用量最大的。与Nginx相比，Traffic Server拥有同样优异的性能显著的更多的功能，更丰富的接口，以及高度自定义的配置。与Varnish相比，Traffic Server对于高并发高负载的处理更为出色。
+使用Traffic Server的CDN/大型网络有Apple, Comcast, Yahoo, Akamai, 以及国内的又拍云等等。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ansible实现ATS高速CDN安装与管理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-08 21:32 </span>
+        <div class="post-category">
+            <a href="/categories/cdn/"> cdn </a>
+            </div>
+          <span class="more-meta"> 约 3317 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1apache-traffic-server简介">1、Apache Traffic Server简介</a></li>
+        <li><a href="#3创建ats编译安装的playbook脚本">3、创建ATS编译安装的playbook脚本</a></li>
+        <li><a href="#4测试atsyml脚本的执行情况干跑并不执行">4、测试ats.yml脚本的执行情况（干跑并不执行），</a></li>
+        <li><a href="#5执行ansible的playbook脚本">5、执行ansible的playbook脚本</a></li>
+        <li><a href="#6批量清理ats缓存和重载配置文件">6、批量清理ATS缓存和重载配置文件：</a></li>
+        <li><a href="#7附件ats配置文件httpswwwaffdalaocomsoftatstgz">7、附件：ats配置文件：https://www.affdalao.com/soft/ats.tgz</a></li>
+      </ul>
+    </li>
+    <li><a href="#0安装环境">0.安装环境</a></li>
+    <li><a href="#1下载源代码">1.下载源代码</a></li>
+    <li><a href="#2安装ats的必须的环境">2.安装ATS的必须的环境</a></li>
+    <li><a href="#3准备开始编译ats">3.准备开始编译ATS</a></li>
+    <li><a href="#4常用的命令">4.常用的命令</a></li>
+    <li><a href="#5修改配置文件">5.修改配置文件</a></li>
+    <li><a href="#6跨域问题">6.跨域问题</a></li>
+    <li><a href="#7缓存清楚问题">7.缓存清楚问题</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客
+<a href="https://www.affdalao.com/2194.html">https://www.affdalao.com/2194.html</a>
+<a href="https://zhuanlan.zhihu.com/p/46512241">https://zhuanlan.zhihu.com/p/46512241</a>
+<a href="https://blog.51cto.com/13555423/2371917">https://blog.51cto.com/13555423/2371917</a><br>
+<a href="https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md">https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md</a></p>
+</blockquote>
+<blockquote>
+<p>ATS下载地址： <a href="http://trafficserver.apache.org/">http://trafficserver.apache.org/</a></p>
+</blockquote>
+<h3 id="1apache-traffic-server简介">1、Apache Traffic Server简介</h3>
+<p>Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非常成熟的代理/缓存/CDN系统。早在2009年，雅虎使用Traffic Server就可以用150台服务器实现每天400 TB的高速流量分发。经过多年的发展，ATS已经用于非常多的商业CDN分发与大型网络。Traffic Server与Nginx, Varnish三者几乎称霸了世界上所有CDN运营商，而Traffic Server又是这三者之中使用量最大的。与Nginx相比，Traffic Server拥有同样优异的性能显著的更多的功能，更丰富的接口，以及高度自定义的配置。与Varnish相比，Traffic Server对于高并发高负载的处理更为出色。
+使用Traffic Server的CDN/大型网络有Apple, Comcast, Yahoo, Akamai, 以及国内的又拍云等等。</p>
+<h3 id="3创建ats编译安装的playbook脚本">3、创建ATS编译安装的playbook脚本</h3>
+<p>目录结构：
+<img src="https://img.affdalao.com/wp-content/uploads/2020/07/QQ%E6%88%AA%E5%9B%BE20200725204720.jpg" alt=""></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="o">[</span>root@us ansible<span class="o">]</span><span class="c1"># vi ats.yml</span>
+---
+- hosts: ats
+  remote_user: root
+
+  tasks:
+
+<span class="c1">#安装依赖包</span>
+  - name: install package
+    shell: yum install epel-release -y
+  - name: install package
+    shell: yum install -y pkgconfig libtool gcc make tcl-devel openssl-devel pcre libcap flex hwloc lua zlib curl  ncurses-devel ncurses gcc-c++ bzip2 tcl-devel
+
+<span class="c1">#创建安装目录</span>
+  - name: <span class="s2">&#34;create installation dirs&#34;</span>
+    file: <span class="nv">path</span><span class="o">=</span>/usr/local/ats <span class="nv">state</span><span class="o">=</span>directory
+
+<span class="c1">#创建存储目录</span>
+  - name: <span class="s2">&#34;create storage dirs&#34;</span>
+    file: <span class="nv">path</span><span class="o">=</span>/var/cache/trafficserver <span class="nv">state</span><span class="o">=</span>directory <span class="nv">owner</span><span class="o">=</span>nobody <span class="nv">group</span><span class="o">=</span>nobody
+
+<span class="c1">#解压并拷贝ats文件</span>
+  - name: <span class="s2">&#34;copy and unpack source tar ball&#34;</span>
+    unarchive: <span class="nv">src</span><span class="o">=</span>trafficserver-7.1.11.tar.bz2 <span class="nv">dest</span><span class="o">=</span>/usr/local/src <span class="nv">copy</span><span class="o">=</span>yes
+
+<span class="c1">#编译安装ats</span>
+  - name: configure
+    shell: ./configure --prefix<span class="o">=</span>/usr/local/ats --with-user<span class="o">=</span>nobody --with-group<span class="o">=</span>nobody --enable-experimental-plugins <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> make install
+    args:
+     chdir: /usr/local/src/trafficserver-7.1.11
+
+ <span class="c1">#创建软连接</span>
+  - name: create links
+    shell: ln -s /usr/local/ats/etc/trafficserver /etc/trafficserver
+
+<span class="c1">#创建ssl证书存放目录和</span>
+  - name: <span class="s2">&#34;create ssl dirs&#34;</span>
+    file: <span class="nv">path</span><span class="o">=</span>/etc/trafficserver/ssl <span class="nv">state</span><span class="o">=</span>directory
+
+<span class="c1">#拷贝证书和ats配置文件到指定目录</span>
+  - name: copy ats confs
+    copy: <span class="nv">src</span><span class="o">=</span>/home/ansible/ats/ <span class="nv">dest</span><span class="o">=</span>/etc/trafficserver/
+  - name: copy ssl keys
+    copy: <span class="nv">src</span><span class="o">=</span>/home/ansible/ssl/ <span class="nv">dest</span><span class="o">=</span>/etc/trafficserver/ssl/
+
+<span class="c1">#启动ats服务</span>
+  - name: start trafficserver
+    shell: /usr/local/ats/bin/trafficserver restart
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4测试atsyml脚本的执行情况干跑并不执行">4、测试ats.yml脚本的执行情况（干跑并不执行），</h3>
+<p><code>ansible-playbook -C ats.yml</code></p>
+<h3 id="5执行ansible的playbook脚本">5、执行ansible的playbook脚本</h3>
+<p><code>ansible-playbook ats.yml</code></p>
+<h3 id="6批量清理ats缓存和重载配置文件">6、批量清理ATS缓存和重载配置文件：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="c1">### ATS重载配置文件</span>
+<span class="o">[</span>root@us ats<span class="o">]</span><span class="c1"># ansible ats -m shell -a &#34;/usr/local/ats/bin/traffic_ctl config reload&#34;</span>
+
+<span class="c1">### 停服清理ATS缓存</span>
+<span class="o">[</span>root@us ats<span class="o">]</span><span class="c1"># ansible ats -m shell -a &#34;/usr/local/ats/bin/trafficserver stop</span>
+<span class="o">[</span>root@us ats<span class="o">]</span><span class="c1"># ansible ats -m shell -a &#34;/usr/local/ats/bin/traffic_server -Cclear&#34;</span>
+<span class="o">[</span>root@us ats<span class="o">]</span><span class="c1"># ansible ats -m shell -a &#34;/usr/local/ats/bin/trafficserver start&#34;</span>
+
+<span class="c1">### 由于生产环境是不允许停止服务清理缓存的，所以推荐下面的不停服务清理ATS缓存</span>
+<span class="o">[</span>root@us ats<span class="o">]</span><span class="c1"># ansible ats -m shell -a &#34;curl -vX PURGE -H &#39;Host:www.affdalao.com&#39; http://127.0.0.1:80&#34;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="7附件ats配置文件httpswwwaffdalaocomsoftatstgz">7、附件：ats配置文件：https://www.affdalao.com/soft/ats.tgz</h3>
+<p>###################</p>
+<h2 id="0安装环境">0.安装环境</h2>
+<p>系统:CentOS 7.4</p>
+<h2 id="1下载源代码">1.下载源代码</h2>
+<p>我这里下载的是 7.1版本的源代码 最新的已经有8.0版本</p>
+<p><a href="https://link.zhihu.com/?target=https%3A//www.apache.org/dyn/closer.cgi/trafficserver/trafficserver-7.1.4.tar.bz2">https://www.apache.org/dyn/closer.cgi/trafficserver/trafficserver-7.1.4.tar.bz2</a></p>
+<p>需要访问这个url里面有链接 用wget 下载</p>
+<p><img src="https://pic3.zhimg.com/v2-b54586f96a96b9cfed1bcc4b7087c88e_b.jpg" alt=""></p>
+<p>下载后解压缩</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">tar -xvf trafficserver-7.1.4.tar.bz2
+</code></pre></td></tr></table>
+</div>
+</div><p>下载完成后不要着急编译 先优化下系统 如果是美国机器做视频站用的话 最好做个锐速</p>
+<p>开始优化Linux参数</p>
+<p>执行下面这些命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">cat &lt;&lt; &#39;EOT&#39; &gt;&gt; /etc/sysctl.conf
+fs.file-max=655350
+net.ipv4.tcp_max_tw_buckets = 300000
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_max_syn_backlog = 65536
+net.core.netdev_max_backlog = 32768
+net.core.somaxconn = 32768
+net.core.rmem_default=98304
+net.core.wmem_default=98304
+net.core.rmem_max=2097152
+net.core.wmem_max=2097152
+net.ipv4.tcp_rmem=4096 98304 2097152
+net.ipv4.tcp_wmem=4096 98304 2097152
+net.ipv4.tcp_low_latency=1
+net.ipv4.tcp_slow_start_after_idle=0
+net.ipv4.tcp_timestamps = 1
+net.ipv4.tcp_fin_timeout = 20
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.tcp_syn_retries = 2
+net.ipv4.tcp_syncookies = 0
+#net.ipv4.tcp_tw_len = 1
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_mem = 94500000 915000000 927000000
+net.ipv4.tcp_max_orphans = 3276800
+net.ipv4.ip_local_port_range = 1024 65000
+EOT
+</code></pre></td></tr></table>
+</div>
+</div><p>修改完参数执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text"> sysctl -p /etc/sysctl.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>继续修改文件最大打开数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">cat &lt;&lt; &#39;EOT&#39; &gt;&gt; /etc/security/limits.d/nofile.conf
+* soft nofile 655350
+* hard nofile 655350
+EOT
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">cat &lt;&lt;EOF&gt;&gt;/etc/rc.local
+#open files
+ulimit -HSn 655350
+#stack size
+ulimit -s 655350
+EOF
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2安装ats的必须的环境">2.安装ATS的必须的环境</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">yum install -y gcc gcc-c++ pkgconfig pcre-devel tcl-devel expat-devel openssl-devel perl-ExtUtils-MakeMaker bzip2
+yum install -y libcap libcap-devel hwloc hwloc-devel ncurses-devel libcurl-devel nwind libunwind-devel autoconf automake libtool
+yum install centos-release-scl -y
+yum install devtoolset-6-gcc* -y
+scl enable devtoolset-6 bash
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3准备开始编译ats">3.准备开始编译ATS</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">创建属组和用户
+groupadd ats
+useradd -g ats ats
+</code></pre></td></tr></table>
+</div>
+</div><p>进入ATS目录开始编译 编译安装需要一会时间 请耐心等待</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">cd /root/trafficserver-7.1.4
+ ./configure --prefix=/ --with-user=ats --with-group=ats --enable-experimental-plugins
+make -j $(nproc)
+make install
+</code></pre></td></tr></table>
+</div>
+</div><p>等待编译完成 执行启动下看看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">trafficserver start
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://pic1.zhimg.com/v2-e3e00bf8703e17efeec44938fa46ff20_b.jpg" alt=""></p>
+<p>这样显示 代表安装成功</p>
+<h2 id="4常用的命令">4.常用的命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">1.启动
+trafficserver start
+2.关闭
+trafficserver stop
+3.重启
+trafficserver restart
+4.重载配置文件(很多情况下好像都没有生效)
+traffic_ctl config reload
+5.监控ats的状况 类似于top命令
+traffic_top
+6.清理所有缓存
+traffic_server -Cclear
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="5修改配置文件">5.修改配置文件</h2>
+<p>cache.config 【缓存类型配置】</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text"> cd /etc/trafficserver/
+vim cache.config
+
+增加缓存类型 这里可以根据自己需求增加
+
+url_regex=.* suffix=xml  ttl-in-cache=5d
+url_regex=.* suffix=ts  ttl-in-cache=5d
+url_regex=.* suffix=jpeg  ttl-in-cache=5d
+url_regex=.* suffix=mp4  ttl-in-cache=5d
+url_regex=.* suffix=zip  ttl-in-cache=5d
+url_regex=.* suffix=gif  ttl-in-cache=5d
+url_regex=.* suffix=ppt  ttl-in-cache=5d
+url_regex=.* suffix=jpg  ttl-in-cache=5d
+url_regex=.* suffix=swf  ttl-in-cache=5d
+url_regex=.* scheme=http  ttl-in-cache=1h
+url_regex=.* scheme=m3u8  ttl-in-cache=5d
+url_regex=.* scheme=js  ttl-in-cache=5d
+url_regex=.* scheme=css  ttl-in-cache=5d
+
+</code></pre></td></tr></table>
+</div>
+</div><p>record.config</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">#保持默认
+CONFIG proxy.config.exec_thread.autoconfig INT 1
+CONFIG proxy.config.exec_thread.autoconfig.scale FLOAT 1.500000
+CONFIG proxy.config.exec_thread.limit INT 2
+CONFIG proxy.config.accept_threads INT 1
+CONFIG proxy.config.task_threads INT 2
+CONFIG proxy.config.cache.threads_per_disk INT 8
+CONFIG proxy.config.exec_thread.affinity INT 1
+
+#这个地方代表开放的端口 这里是开发80作为web端口 443作为ssl端口 可以根据自己需求更改
+CONFIG proxy.config.http.server_ports STRING 80 443:ssl
+
+#VIA 啥的 这个地方可以修改默认的server
+CONFIG proxy.config.http.insert_request_via_str INT 0
+CONFIG proxy.config.http.insert_response_via_str INT 2
+#这个地方修改默认的server还有via头 待会下面放效果图
+CONFIG proxy.config.http.response_server_str STRING chasel_cdn/1.0
+CONFIG proxy.config.http.response_via_str STRING chasel_cdn
+
+#这个地方还是默认
+CONFIG proxy.config.http.parent_proxy_routing_enable INT 0
+CONFIG proxy.config.http.parent_proxy.retry_time INT 300
+CONFIG proxy.config.http.parent_proxy.connect_attempts_timeout INT 30
+CONFIG proxy.config.http.forward.proxy_auth_to_parent INT 0
+CONFIG proxy.config.http.uncacheable_requests_bypass_parent INT 1
+
+#链接超时啥的
+CONFIG proxy.config.http.keep_alive_no_activity_timeout_in INT 60
+CONFIG proxy.config.http.keep_alive_no_activity_timeout_out INT 60
+CONFIG proxy.config.http.transaction_no_activity_timeout_in INT 20
+CONFIG proxy.config.http.transaction_no_activity_timeout_out INT 20
+CONFIG proxy.config.http.transaction_active_timeout_in INT 900
+CONFIG proxy.config.http.transaction_active_timeout_out INT 0
+CONFIG proxy.config.http.accept_no_activity_timeout INT 60
+CONFIG proxy.config.net.default_inactivity_timeout INT 86400
+
+##############################################################################
+# Origin server connect attempts. Docs:
+#    https://docs.trafficserver.apache.org/records.config#origin-server-connect-attempts
+##############################################################################
+CONFIG proxy.config.http.connect_attempts_max_retries INT 3
+CONFIG proxy.config.http.connect_attempts_max_retries_dead_server INT 1
+CONFIG proxy.config.http.connect_attempts_rr_retries INT 3
+CONFIG proxy.config.http.connect_attempts_timeout INT 30
+CONFIG proxy.config.http.post_connect_attempts_timeout INT 1800
+CONFIG proxy.config.http.down_server.cache_time INT 60
+CONFIG proxy.config.http.down_server.abort_threshold INT 10
+##############################################################################
+# Negative response caching, for redirects and errors. Docs:
+#    https://docs.trafficserver.apache.org/records.config#negative-response-caching
+##############################################################################
+CONFIG proxy.config.http.negative_caching_enabled INT 1
+CONFIG proxy.config.http.negative_caching_lifetime INT 10
+##############################################################################
+# Proxy users variables. Docs:
+#    https://docs.trafficserver.apache.org/records.config#proxy-user-variables
+##############################################################################
+CONFIG proxy.config.http.insert_client_ip INT 1
+CONFIG proxy.config.http.insert_squid_x_forwarded_for INT 1
+##############################################################################
+# Security. Docs:
+#    https://docs.trafficserver.apache.org/records.config#security
+##############################################################################
+CONFIG proxy.config.http.push_method_enabled INT 0
+##############################################################################
+# Enable / disable HTTP caching. Useful for testing, but also as an
+# overridable (per remap) config
+##############################################################################
+CONFIG proxy.config.http.cache.http INT 1
+##############################################################################
+# Cache control. Docs:
+#    https://docs.trafficserver.apache.org/records.config#cache-control
+#    https://docs.trafficserver.apache.org/en/latest/admin-guide/files/cache.config.en.html
+##############################################################################
+CONFIG proxy.config.http.cache.ignore_client_cc_max_age INT 1
+CONFIG proxy.config.http.normalize_ae_gzip INT 1
+CONFIG proxy.config.http.cache.cache_responses_to_cookies INT 1
+CONFIG proxy.config.http.cache.cache_urls_that_look_dynamic INT 1
+    # https://docs.trafficserver.apache.org/records.config#proxy-config-http-cache-when-to-revalidate
+CONFIG proxy.config.http.cache.when_to_revalidate INT 0
+    # https://docs.trafficserver.apache.org/records.config#proxy-config-http-cache-required-headers
+CONFIG proxy.config.http.cache.required_headers INT 0
+##############################################################################
+# Heuristic cache expiration. Docs:
+#    https://docs.trafficserver.apache.org/records.config#heuristic-expiration
+##############################################################################
+CONFIG proxy.config.http.cache.heuristic_min_lifetime INT 3600
+CONFIG proxy.config.http.cache.heuristic_max_lifetime INT 86400
+CONFIG proxy.config.http.cache.heuristic_lm_factor FLOAT 0.100000
+##############################################################################
+# Network. Docs:
+#    https://docs.trafficserver.apache.org/records.config#network
+##############################################################################
+CONFIG proxy.config.net.connections_throttle INT 80000
+CONFIG proxy.config.net.max_connections_in INT 80000
+CONFIG proxy.config.net.max_connections_active_in INT 30000
+##############################################################################
+# RAM and disk cache configurations. Docs:
+#    https://docs.trafficserver.apache.org/records.config#ram-cache
+#    https://docs.trafficserver.apache.org/en/latest/admin-guide/files/storage.config.en.html
+##############################################################################
+
+#这个地方定义内存缓存空间 我只有2G内存 所以就设置20M了 内存肯定是越大越好来
+CONFIG proxy.config.cache.ram_cache.size INT 20M
+CONFIG proxy.config.cache.ram_cache_cutoff INT 4194304
+    # https://docs.trafficserver.apache.org/records.config#proxy-config-cache-limits-http-max-alts
+CONFIG proxy.config.cache.limits.http.max_alts INT 5
+    # https://docs.trafficserver.apache.org/records.config#proxy-config-cache-max-doc-size
+CONFIG proxy.config.cache.max_doc_size INT 0
+CONFIG proxy.config.cache.min_average_object_size INT 8000
+
+#日志 这里修改成3了 待会为了格式化日志 其他就不看了 复制粘贴吧 看着头疼
+CONFIG proxy.config.log.logging_enabled INT 3
+CONFIG proxy.config.log.max_space_mb_for_logs INT 5000
+CONFIG proxy.config.log.max_space_mb_headroom INT 1000
+CONFIG proxy.config.log.rolling_enabled INT 1
+CONFIG proxy.config.log.rolling_interval_sec INT 86400
+CONFIG proxy.config.log.rolling_size_mb INT 100
+CONFIG proxy.config.log.auto_delete_rolled_files INT 1
+CONFIG proxy.config.log.periodic_tasks_interval INT 5
+##############################################################################
+# These settings control remapping, and if the proxy allows (open) forward proxy or not. Docs:
+#    https://docs.trafficserver.apache.org/records.config#url-remap-rules
+#    https://docs.trafficserver.apache.org/en/latest/admin-guide/files/remap.config.en.html
+##############################################################################
+CONFIG proxy.config.url_remap.remap_required INT 1
+    # https://docs.trafficserver.apache.org/records.config#proxy-config-url-remap-pristine-host-hdr
+CONFIG proxy.config.url_remap.pristine_host_hdr INT 1
+    # https://docs.trafficserver.apache.org/records.config#reverse-proxy
+CONFIG proxy.config.reverse_proxy.enabled INT 1
+##############################################################################
+# SSL Termination. Docs:
+#    https://docs.trafficserver.apache.org/records.config#client-related-configuration
+#    https://docs.trafficserver.apache.org/en/latest/admin-guide/files/ssl_multicert.config.en.html
+##############################################################################
+CONFIG proxy.config.ssl.client.verify.server INT 0
+CONFIG proxy.config.ssl.client.CA.cert.filename STRING NULL
+CONFIG proxy.config.ssl.server.cipher_suite STRING ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-DSS-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
+##############################################################################
+# Debugging. Docs:
+#    https://docs.trafficserver.apache.org/records.config#diagnostic-logging-configuration
+##############################################################################
+CONFIG proxy.config.diags.debug.enabled INT 0
+CONFIG proxy.config.diags.debug.tags STRING http.*|dns.*
+# ToDo: Undocumented
+CONFIG proxy.config.dump_mem_info_frequency INT 0
+CONFIG proxy.config.http.slow.log.threshold INT 0
+
+CONFIG proxy.config.http_ui_enabled INT 3
+CONFIG proxy.config.http.enable_http_info INT 1
+CONFIG proxy.config.http.server_max_connections INT 0
+CONFIG proxy.config.http.origin_max_connections INT 0
+CONFIG proxy.config.http.cache.ignore_accept_mismatch INT 1
+CONFIG proxy.config.http.cache.ignore_accept_language_mismatch INT 1
+CONFIG proxy.config.http.cache.ignore_accept_encoding_mismatch INT 1
+CONFIG proxy.config.http.cache.ignore_accept_charset_mismatch INT 1
+CONFIG proxy.config.http.insert_squid_x_forwarded_for INT 1
+CONFIG proxy.config.http.anonymize_insert_client_ip INT 1
+CONFIG proxy.config.log.logfile_dir STRING /var/log/trafficserver
+
+#定义证书的位置配合 ssl_multicert.config  使用 不加证书可以注释掉这几行
+CONFIG proxy.config.ssl.server.ticket_key.filename STRING NULL
+CONFIG proxy.config.ssl.server.cert.path STRING /etc/trafficserver/certs
+CONFIG proxy.config.ssl.server.private_key.path STRING /etc/trafficserver/certs
+</code></pre></td></tr></table>
+</div>
+</div><p>修改的 VIA 和Server</p>
+<p><img src="https://pic1.zhimg.com/v2-0ab1414d3a7e20ad1238c5449ed49dd4_b.jpg" alt=""></p>
+<p>logging.config</p>
+<p>刚刚在records.config中设置了关于日志的参数 现在我们修改一下日志的配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">vim logging.config
+增加
+log.ascii {
+  Format = squid,
+  Filename = &#39;squid&#39;,
+  RollingEnabled = 1,
+  RollingIntervalSec = 86400,
+  RollingOffsetHr = 0
+}
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://pic2.zhimg.com/v2-7da22f0aee0ba8f2e0cd5478e2cf84a5_b.jpg" alt=""></p>
+<p>![](data:image/svg+xml;utf8,<!-- raw HTML omitted --><!-- raw HTML omitted -->)</p>
+<p>保存文件 重启ats</p>
+<p>然后访问一次 可以看到生成的日志</p>
+<p><img src="https://pic1.zhimg.com/v2-3a514715f5b6a6af0f5c4b22dc947194_b.jpg" alt=""></p>
+<p>storage.config</p>
+<p>这里是指定ats文件缓存的位置 我这里设置200M缓存 正式环境要大很多</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">/home/ats/cache  200M
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://pic4.zhimg.com/v2-556bf6848fb63e69fde9c965423a469f_b.jpg" alt=""></p>
+<p>这个地方还可以直接用硬盘 没研究这个 有时间在找找资料看看</p>
+<p>remap.conf 这个是配置反向代理的地方 我这里测试环境 用host配合一个nginx测试页面做演示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">vim remap.conf
+增加下面的内容
+
+map http://test.com http://127.0.0.1:81
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://pic4.zhimg.com/v2-f5176ba3e472e3973b08d74657c67d57_b.jpg" alt=""></p>
+<p>![](data:image/svg+xml;utf8,<!-- raw HTML omitted --><!-- raw HTML omitted -->)</p>
+<p>保存配置文件 重载配置【重载配置有时候不生效 建议直接重启】下面演示图片</p>
+<p><img src="https://pic1.zhimg.com/v2-46db8739c0b5eb2d322492a2f01fd348_b.jpg" alt=""></p>
+<p>这样http请求的就配置好了 https 咋整呢</p>
+<p>ssl_multicert.config 这个是配置证书的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">先创建个存储证书的文件夹 然后属组属主改成ats
+mkdir -p /etc/trafficserver/certs
+chown ats.ats /etc/trafficserver/certs
+刚才records.config 已经增加好了证书的路径
+然后丢个证书和key进去 我这里修改下域名 丢一个进去
+丢进去然后开始配置
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://pic4.zhimg.com/v2-a133760f9871eb088b9457bf79c27b7b_b.jpg" alt=""></p>
+<p>修改配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">vim ssl_multicert.config
+dest_ip=127.0.0.1:81   ssl_hostname=test.xxxx.cn   ssl_cert_name=star.xxxx.cn.crt ssl_key_name=star.xxxx.cn.key
+</code></pre></td></tr></table>
+</div>
+</div><p>注意这里的 ssl_hostname 是隐藏属性 好像官方文档都没有写 因为这个坑货是用IP判断证书的 万一同一个IP上面有2个网站咋整 后来询问了下 还有ssl_hostname 这个属性可以用于绑定域名</p>
+<blockquote>
+<p>切记要在remap.config 中增加https的url</p>
+</blockquote>
+<p><img src="https://pic1.zhimg.com/v2-d94eeb919e94db1efc86c7a088cc35c0_b.jpg" alt=""></p>
+<p>![](data:image/svg+xml;utf8,<!-- raw HTML omitted --><!-- raw HTML omitted -->)</p>
+<p>然后重启ats 访问网址</p>
+<p><img src="https://pic2.zhimg.com/v2-f64e27acaf565aa3059bdde687199029_b.jpg" alt=""></p>
+<p>如果需要强制ssl的话 只需要在配置文件增加一行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">CONFIG proxy.config.ssl.client.certification_level INT 2
+</code></pre></td></tr></table>
+</div>
+</div><p>证书差不多完结了 记得 ssl_hostname 是隐藏属性</p>
+<h2 id="6跨域问题">6.跨域问题</h2>
+<p>有些站点是需要跨域的 所以设置下跨域 默认是使用插件设置跨域的</p>
+<p>首先增加一个配置文件在 /etc/trafficserver/下面</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">vim add_header.config
+填入下面的内容
+add-header Access-Control-Allow-Origin *
+#这样添加 如果源站也有跨域属性的话 会出现 Access-Control-Allow-Origin *,* 这种问题 为了避免
+所以增加一步
+
+然后编辑plugin.config
+vim plugin.config
+增加下面一行
+header_rewrite.so add_header.config
+
+然后重载配置文件 清除浏览器缓存 清除ats缓存
+就可以看到这个跨域加上了
+
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://pic2.zhimg.com/v2-fd778d0099ac9e764d4e4a9a699b23d1_b.jpg" alt=""></p>
+<p>如果源站也有 跨域的 header 会出现的问题</p>
+<p><img src="https://pic3.zhimg.com/v2-3eee955d2bc78e7510b7d2eddf96961a_b.jpg" alt=""></p>
+<p>所以继续修改 add_header.config</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">vim add_header.config
+将 add_header改为下面这样 但是我就是简单测试了下 正式环境 建议仔细测试
+rm-header Access-Control-Allow-Origin *
+add-header Access-Control-Allow-Origin *
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="7缓存清楚问题">7.缓存清楚问题</h2>
+<p>全部缓存清理 需要停止ats</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">traffic_server -Cclear
+</code></pre></td></tr></table>
+</div>
+</div><p>单个缓存清理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">curl -vX PURGE --resolve example.com:80:127.0.0.1http://example.com/remove_me.jpg
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-08 21:32
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ats/">ats</a>
+          <a href="/tags/cdn/">cdn</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/blog/github_jsdelivr_ops/">
+            <span class="next-text nav-default">GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine 打造稳定快速、高效免费图床</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

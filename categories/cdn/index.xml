@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cdn on Bill World</title>
+    <link>https://xiebiao.top/categories/cdn/</link>
+    <description>Recent content in cdn on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 08 Feb 2020 21:32:09 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/categories/cdn/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ansible实现ATS高速CDN安装与管理</title>
+      <link>https://xiebiao.top/post/cdn/ats_install_ops/</link>
+      <pubDate>Sat, 08 Feb 2020 21:32:09 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cdn/ats_install_ops/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;参考博客
+&lt;a href=&#34;https://www.affdalao.com/2194.html&#34;&gt;https://www.affdalao.com/2194.html&lt;/a&gt;
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/46512241&#34;&gt;https://zhuanlan.zhihu.com/p/46512241&lt;/a&gt;
+&lt;a href=&#34;https://blog.51cto.com/13555423/2371917&#34;&gt;https://blog.51cto.com/13555423/2371917&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md&#34;&gt;https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ATS下载地址： &lt;a href=&#34;http://trafficserver.apache.org/&#34;&gt;http://trafficserver.apache.org/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;1apache-traffic-server简介&#34;&gt;1、Apache Traffic Server简介&lt;/h3&gt;
+&lt;p&gt;Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非常成熟的代理/缓存/CDN系统。早在2009年，雅虎使用Traffic Server就可以用150台服务器实现每天400 TB的高速流量分发。经过多年的发展，ATS已经用于非常多的商业CDN分发与大型网络。Traffic Server与Nginx, Varnish三者几乎称霸了世界上所有CDN运营商，而Traffic Server又是这三者之中使用量最大的。与Nginx相比，Traffic Server拥有同样优异的性能显著的更多的功能，更丰富的接口，以及高度自定义的配置。与Varnish相比，Traffic Server对于高并发高负载的处理更为出色。
+使用Traffic Server的CDN/大型网络有Apple, Comcast, Yahoo, Akamai, 以及国内的又拍云等等。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

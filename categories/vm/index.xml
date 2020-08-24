@@ -6,10 +6,19 @@
     <description>Recent content in vm on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 06 Mar 2020 21:18:30 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Mar 2020 22:18:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/categories/vm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vagrant 入门指引</title>
+      <link>https://xiebiao.top/post/vm/learning-vagrant/</link>
+      <pubDate>Fri, 06 Mar 2020 22:18:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/vm/learning-vagrant/</guid>
+      <description>目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac</description>
+    </item>
     
     <item>
       <title>WebVirtCloud部署笔记</title>

@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Vagrant 入门指引 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/vm/learning-vagrant/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Vagrant 入门指引" />
+<meta property="og:description" content="目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/vm/learning-vagrant/" />
+<meta property="article:published_time" content="2020-03-06T22:18:30+00:00" />
+<meta property="article:modified_time" content="2020-03-06T22:18:30+00:00" />
+<meta itemprop="name" content="Vagrant 入门指引">
+<meta itemprop="description" content="目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac">
+<meta itemprop="datePublished" content="2020-03-06T22:18:30+00:00" />
+<meta itemprop="dateModified" content="2020-03-06T22:18:30+00:00" />
+<meta itemprop="wordCount" content="4192">
+
+
+
+<meta itemprop="keywords" content="vagrant,vm," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vagrant 入门指引"/>
+<meta name="twitter:description" content="目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Vagrant 入门指引</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-06 22:18 </span>
+        <div class="post-category">
+            <a href="/categories/vm/"> vm </a>
+            </div>
+          <span class="more-meta"> 约 4192 字 </span>
+          <span class="more-meta"> 预计阅读 9 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#目录">目录</a></li>
+        <li><a href="#1-vagrant-介绍">1. Vagrant 介绍</a></li>
+        <li><a href="#2-安装-vagrant-和-virtualbox">2. 安装 Vagrant 和 VirtualBox</a></li>
+        <li><a href="#3-配置启动-vagrant">3. 配置、启动 Vagrant</a></li>
+        <li><a href="#4-常用命令">4. 常用命令</a></li>
+        <li><a href="#5-附录">5. 附录</a></li>
+        <li><a href="#vagrant-配置案例">vagrant 配置案例</a></li>
+        <li><a href="#6-常见问题处理">6. 常见问题处理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="目录">目录</h3>
+<ol>
+<li><a href="#1-vagrant-%E4%BB%8B%E7%BB%8D">Vagrant 介绍</a></li>
+<li><a href="#2-%E5%AE%89%E8%A3%85-vagrant-%E5%92%8C-virtualbox">安装 Vagrant 和 VirtualBox</a>
+<ul>
+<li>2.1. <a href="#21-%E5%AE%89%E8%A3%85-virtualbox%E6%94%AF%E6%8C%81-windowsmacoslinux">安装 VirtualBox（支持 Windows/macOS/Linux）</a></li>
+<li>2.2. <a href="#22-%E5%AE%89%E8%A3%85-vagrant%E6%94%AF%E6%8C%81-windowsmacosdebiancentos">安装 Vagrant（支持 Windows/macOS/Debian/CentOS）</a></li>
+</ul>
+</li>
+<li><a href="#3-%E9%85%8D%E7%BD%AE%E5%90%AF%E5%8A%A8-vagrant">配置、启动 Vagrant</a>
+<ul>
+<li>3.1. <a href="#31-%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA-box">添加一个 box</a></li>
+<li>3.2. <a href="#32-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%90%AF%E5%8A%A8">初始化、启动</a></li>
+<li>3.3. <a href="#33-ssh-%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA">ssh 到虚拟机</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">常用命令</a></li>
+<li><a href="#5-%E9%99%84%E5%BD%95">附录</a>
+<ul>
+<li>5.1. <a href="#51-vagrantfile-%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE">Vagrantfile 常用配置</a></li>
+<li>5.2. <a href="#52-%E5%85%B3%E9%97%AD%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E7%BC%93%E5%AD%98">关闭静态文件缓存</a></li>
+<li>5.3. <a href="#53-%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E8%AE%BE%E7%BD%AE">虚拟机与宿主机时间同步设置</a></li>
+<li>5.4. <a href="#54-%E5%AE%89%E8%A3%85-virtualbox-%E6%89%A9%E5%B1%95%E5%B7%A5%E5%85%B7">安装 VirtualBox 扩展工具</a></li>
+</ul>
+</li>
+<li><a href="#6-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86">常见问题处理</a>
+<ul>
+<li>6.1. <a href="#61-mount-unknown-filesystem-type-vboxsf">mount: unknown filesystem type &lsquo;vboxsf&rsquo;</a></li>
+<li>6.2. <a href="#62-vagrant19216812711-permission-denied-publickeygssapi-keyexgssapi-with-mic">vagrant@192.168.127.11: Permission denied (publickey,gssapi-keyex,gssapi-with-mic)</a></li>
+<li>6.3. <a href="#63-sbinmountvboxsf-mounting-failed-with-the-error-no-such-device">/sbin/mount.vboxsf: mounting failed with the error: No such device</a></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="1-vagrant-介绍">1. Vagrant 介绍</h3>
+<p>相关资源</p>
+<ul>
+<li>官网：<a href="https://www.vagrantup.com" title="Vagrant homepage">https://www.vagrantup.com</a></li>
+<li>文档（英文）：<a href="https://www.vagrantup.com/docs" title="Vagrant docs">https://www.vagrantup.com/docs</a></li>
+<li>文档（中文）：<a href="https://tangbaoping.github.io/vagrant_doc_zh/v2">https://tangbaoping.github.io/vagrant_doc_zh/v2</a></li>
+<li>官方 box 仓库：<a href="https://app.vagrantup.com/boxes/search" title="Vagrant box">https://app.vagrantup.com/boxes/search</a></li>
+<li>第三方 box 仓库：<a href="http://www.vagrantbox.es" title="Vagrant box">http://www.vagrantbox.es</a></li>
+<li>CentOS 官方 box 地址：<a href="http://cloud.centos.org/centos/7/vagrant/x86_64/images/">http://cloud.centos.org/centos/7/vagrant/x86_64/images/</a></li>
+<li>Ubuntu 官方 box 地址：<a href="http://cloud-images.ubuntu.com">http://cloud-images.ubuntu.com</a></li>
+</ul>
+<p>下面是节选自官方对 Vagrant 的说明：</p>
+<blockquote>
+<p><strong>WHY VAGRANT?</strong></p>
+<p>Vagrant provides easy to configure, reproducible, and portable work environments built on top of industry-standard technology and controlled by a single consistent workflow to help maximize the productivity and flexibility of you and your team.</p>
+<p>To achieve its magic, Vagrant stands on the
+oulders of giants. Machines are provisioned on top of <strong>VirtualBox</strong>, <strong>VMware</strong>, <strong>AWS</strong>, or any other provider. Then, industry-standard provisioning tools such as shell scripts, Chef, or Puppet, can be used to automatically install and configure software on the machine.</p>
+</blockquote>
+<p>其实，说白了 Vagrant 就是一个普普通通的装了 Linux 的 VirtualBox 虚拟机，配以 Vagrant  团队为之开发的一系列套件，辅助完成诸如安装初始化、文件同步、ssh、部署环境升级、功能插件安装等等一些列问题的开发环境部署套件。</p>
+<p>参见知乎话题：<a href="https://www.zhihu.com/question/32324376" title="Vagrant Docker">Vagrant 和 Docker的使用场景和区别?</a></p>
+<p><strong>解决的痛点</strong>：</p>
+<ul>
+<li>开发环境快速部署</li>
+<li>开发环境更迭</li>
+</ul>
+<h3 id="2-安装-vagrant-和-virtualbox">2. 安装 Vagrant 和 VirtualBox</h3>
+<blockquote>
+<p>官方说明中，Vagrant 是支持 VirtualBox/VMware/AWS 等虚拟软件的，选择 VirtualBox 主要是因为开源、免费、轻便。</p>
+</blockquote>
+<h4 id="21-安装-virtualbox">2.1. 安装 VirtualBox</h4>
+<p>VirtualBox 支持 Windows、macOS、Linux 等系统。</p>
+<p>下载地址：<a href="https://www.virtualbox.org/wiki/Downloads" title="Virtualbox Download">https://www.virtualbox.org/wiki/Downloads</a></p>
+<p>建议同时安装扩展 <strong>VirtualBox xxxx Oracle VM VirtualBox Extension Pack</strong></p>
+<h4 id="22-安装-vagrant">2.2. 安装 Vagrant</h4>
+<p>Vagrant 支持 Windows、CentOS、Linux x64、macOS 等系统。</p>
+<p>下载地址：<a href="https://www.vagrantup.com/downloads.html" title="Vagrant Download">https://www.vagrantup.com/downloads.html</a></p>
+<p>安装包是二进制文件，根据提示一步一步安装即可。安装程序会将 <code>vagrant</code> 命令添加到系统环境（path）变量，安装结束后可通过下面到命令检查：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 在终端下验证 Vagrant 是否安装成功</span>
+$ vagrant --version
+Vagrant 2.2.4
+
+<span class="c1"># 或者执行以下命令</span>
+<span class="c1"># 该命令在查看软件版本的同时，会检测是否有新版本可更新</span>
+$ vagrant version
+Installed Version: 2.2.4
+Latest Version: 2.2.6
+
+You<span class="err">&#39;</span>re running an up-to-date version of Vagrant!
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>⚠️ 关于软件升级：</p>
+<ol>
+<li>不要单独升级 VirtualBox 或 Vagrant ，二者需要版本匹配，如果你的 VirtualBox 升级了最新版本，那么一定要检查 Vagrant 是否也做了更新。</li>
+<li>升级 VirtualBox 时，需同时升级扩展。</li>
+<li>升级 Vagrant 时候，推荐先卸载，再安装最新版本。</li>
+</ol>
+</blockquote>
+<h3 id="3-配置启动-vagrant">3. 配置、启动 Vagrant</h3>
+<h4 id="31-添加一个-box">3.1. 添加一个 box</h4>
+<p>从头开始创建一个虚拟机，是一个漫长而乏味的过程，因此 Vagrant 是通过基础镜像包来实现快速克隆创建虚拟机的。这些基础镜像包在 Vagrant 中被称为 <code>boxes</code> ， 而在创建 <code>Vagrantfile</code> 文件后的第一件事情就是指定 Vagrant 环境使用哪一个 Box。</p>
+<p>原始的 box 是一个包含了基本系统和设置的镜像包，你可以通过基础包安装软件或做一些自定义配置，然后导出来成为新的基础包，再次使用的时候，直接导入你之前导出的这个 box 即可。</p>
+<p>如何添加？</p>
+<ul>
+<li>
+<p>方式一：使用 <a href="https://app.vagrantup.com/boxes/search" title="Vagrant box">Vagrant 官方仓库</a> 中对应的 box 名称</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 此种方式无法修改添加的 box 名称</span>
+<span class="c1"># 并且在某些情况下，下载速度可能比较缓慢，所以推荐使用方式二</span>
+$ vagrant box add ubuntu/xenial64
+<span class="o">==</span>&gt; box: Loading metadata <span class="k">for</span> box <span class="s1">&#39;ubuntu/xenial64&#39;</span>
+        box: URL: https://vagrantcloud.com/ubuntu/xenial64
+<span class="o">==</span>&gt; box: Adding box <span class="s1">&#39;ubuntu/xenial64&#39;</span> <span class="o">(</span>v20190807.0.0<span class="o">)</span> <span class="k">for</span> provider: virtualbox
+        box: Downloading: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20190807.0.0/providers/virtualbox.box
+        box: Download redirected to host: cloud-images.ubuntu.com
+<span class="o">==</span>&gt; box: Successfully added box <span class="s1">&#39;ubuntu/xenial64&#39;</span> <span class="o">(</span>v20190807.0.0<span class="o">)</span> <span class="k">for</span> <span class="s1">&#39;virtualbox&#39;</span>!
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>方式二：使用 <a href="http://www.vagrantbox.es" title="Vagrant box">第三方仓库</a>，速度相对快一些，也更灵活</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 使用 box 的绝对路径</span>
+$ vagrant box add centos7 https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box
+<span class="o">==</span>&gt; box: Box file was not detected as metadata. Adding it directly...
+<span class="o">==</span>&gt; box: Adding box <span class="s1">&#39;centos7&#39;</span> <span class="o">(</span>v0<span class="o">)</span> <span class="k">for</span> provider:
+        box: Downloading: https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box
+        box: Download redirected to host: github-production-release-asset-2e65be.s3.amazonaws.com
+<span class="o">==</span>&gt; box: Successfully added box <span class="s1">&#39;centos7&#39;</span> <span class="o">(</span>v0<span class="o">)</span> <span class="k">for</span> <span class="s1">&#39;virtualbox&#39;</span>!
+
+<span class="c1"># 使用之前导出的 box 或离线下载好的 box</span>
+<span class="c1"># 导出方式详见下文的常用命令</span>
+$ vagrant box add ubuntu1604 ./boxs/xenial-server-cloudimg-amd64-vagrant.box
+<span class="o">==</span>&gt; box: Box file was not detected as metadata. Adding it directly...
+<span class="o">==</span>&gt; box: Adding box <span class="s1">&#39;ubuntu1604&#39;</span> <span class="o">(</span>v0<span class="o">)</span> <span class="k">for</span> provider:
+    box: Unpacking necessary files from: file:///Users/sunqiang/myvagrant/boxs/xenial-server-cloudimg-amd64-vagrant.box
+<span class="o">==</span>&gt; box: Successfully added box <span class="s1">&#39;ubuntu1604&#39;</span> <span class="o">(</span>v0<span class="o">)</span> <span class="k">for</span> <span class="s1">&#39;virtualbox&#39;</span>!
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>检查 box 是否添加成功</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant box list
+centos7         <span class="o">(</span>virtualbox, 0<span class="o">)</span>
+ubuntu/xenial64 <span class="o">(</span>virtualbox, 20190807.0.0<span class="o">)</span>
+ubuntu1604      <span class="o">(</span>virtualbox, 0<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="32-初始化启动">3.2. 初始化、启动</h4>
+<ol>
+<li>
+<p>创建一个工作目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p ~/vagrant/lamp
+$ <span class="nb">cd</span> ~/vagrant/lamp
+</code></pre></td></tr></table>
+</div>
+</div><p>``</p>
+</li>
+<li>
+<p>以名字为 <em>ubuntu/xeninal64</em> 的 box 初始化 Vagrant</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant init ubuntu/xeninal64
+
+
+A <span class="sb">`</span>Vagrantfile<span class="sb">`</span> has been placed in this directory. You are now
+ready to <span class="sb">`</span>vagrant up<span class="sb">`</span> your first virtual environment! Please <span class="nb">read</span>
+the comments in the Vagrantfile as well as documentation on
+<span class="sb">`</span>vagrantup.com<span class="sb">`</span> <span class="k">for</span> more information on using Vagrant.
+
+$ ls -la
+total <span class="m">8</span>
+drwxr-xr-x  <span class="m">3</span> 用户名  staff   <span class="m">102</span>  <span class="m">3</span>  <span class="m">2</span> 21:13 .
+drwxr-xr-x  <span class="m">5</span> 用户名  staff   <span class="m">170</span>  <span class="m">3</span>  <span class="m">2</span> 18:47 ..
+-rw-r--r--  <span class="m">1</span> 用户名  staff  <span class="m">3011</span>  <span class="m">3</span>  <span class="m">2</span> 21:13 Vagrantfile
+</code></pre></td></tr></table>
+</div>
+</div><p>``</p>
+</li>
+<li>
+<p>启动 Vagrant</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant up
+Bringing machine <span class="s1">&#39;default&#39;</span> up with <span class="s1">&#39;virtualbox&#39;</span> provider...
+<span class="o">==</span>&gt; default: Importing base box <span class="s1">&#39;ubuntu/xenial64&#39;</span>...
+<span class="o">==</span>&gt; default: Matching MAC address <span class="k">for</span> NAT networking...
+<span class="o">==</span>&gt; default: Setting the name of the VM: <span class="nv">lamp_default_1488461535325_84495</span>
+<span class="o">==</span>&gt; default: Fixed port collision <span class="k">for</span> <span class="nv">22</span> <span class="o">=</span>&gt; 2222. Now on port 2201.
+<span class="o">==</span>&gt; default: Clearing any previously <span class="nb">set</span> network interfaces...
+<span class="o">==</span>&gt; default: Preparing network interfaces based on configuration...
+    default: Adapter 1: <span class="nv">nat</span>
+<span class="o">==</span>&gt; default: Forwarding ports...
+    default: <span class="m">22</span> <span class="o">(</span>guest<span class="o">)</span> <span class="o">=</span>&gt; <span class="m">2201</span> <span class="o">(</span>host<span class="o">)</span> <span class="o">(</span>adapter 1<span class="o">)</span>
+<span class="o">==</span>&gt; default: Booting VM...
+<span class="o">==</span>&gt; default: Waiting <span class="k">for</span> machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2201
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Remote connection disconnect. Retrying...
+    default:
+    default: Vagrant insecure key detected. Vagrant will automatically replace
+    default: this with a newly generated keypair <span class="k">for</span> better security.
+    default:
+    default: Inserting generated public key within guest...
+    default: Removing insecure key from the guest <span class="k">if</span> it<span class="s1">&#39;s present...
+</span><span class="s1">    default: Key inserted! Disconnecting and reconnecting using new SSH key...
+</span><span class="s1">==&gt; default: Machine booted and ready!
+</span><span class="s1">==&gt; default: Checking for guest additions in VM...
+</span><span class="s1">    default: No guest additions were detected on the base box for this VM! Guest
+</span><span class="s1">    default: additions are required for forwarded ports, shared folders, host only
+</span><span class="s1">    default: networking, and more. If SSH fails on this machine, please install
+</span><span class="s1">    default: the guest additions and repackage the box to continue.
+</span><span class="s1">    default:
+</span><span class="s1">    default: This is not an error message; everything may continue to work properly,
+</span><span class="s1">    default: in which case you may ignore this message.
+</span><span class="s1">==&gt; default: Mounting shared folders...
+</span><span class="s1">    default: /vagrant =&gt; /Users/用户名/myvagrant/lamp
+</span><span class="s1">Vagrant was unable to mount VirtualBox shared folders. This is usually
+</span><span class="s1">because the filesystem &#34;vboxsf&#34; is not available. This filesystem is
+</span><span class="s1">made available via the VirtualBox Guest Additions and kernel module.
+</span><span class="s1">Please verify that these guest additions are properly installed in the
+</span><span class="s1">guest. This is not a bug in Vagrant and is usually caused by a faulty
+</span><span class="s1">Vagrant box. For context, the command attempted was:
+</span><span class="s1">
+</span><span class="s1">mount -t vboxsf -o uid=1000,gid=1000 vagrant /vagrant
+</span><span class="s1">
+</span><span class="s1">The error output from the command was:
+</span><span class="s1">
+</span><span class="s1">mount: unknown filesystem type &#39;</span>vboxsf<span class="err">&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>``</p>
+</li>
+<li>
+<p>查看当前目录下（Vagrant配置文件）对应的虚拟机的运行状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant status
+Current machine states:
+
+default                   running <span class="o">(</span>virtualbox<span class="o">)</span>
+
+The VM is running. To stop this VM, you can run <span class="sb">`</span>vagrant halt<span class="sb">`</span> to
+shut it down forcefully, or you can run <span class="sb">`</span>vagrant <span class="nb">suspend</span><span class="sb">`</span> to simply
+<span class="nb">suspend</span> the virtual machine. In either <span class="k">case</span>, to restart it again,
+simply run <span class="sb">`</span>vagrant up<span class="sb">`</span>.
+</code></pre></td></tr></table>
+</div>
+</div><p>``</p>
+</li>
+</ol>
+<p>完成上面的步骤，其实一个由 Vagrant 管理的虚拟机已经启动起来了。</p>
+<p>此时，如果我们打开 VirtualBox 软件，在左侧的列表我们可以看到一个被新添加、并且<strong>正在运行</strong>状态的虚拟机。所以，并不需要打开 VirtualBox 软件，全部由 Vagrant 在命令行进行管理会更方便，参见附录部分：<a href="#4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">4. 常用命令</a></p>
+<blockquote>
+<p>⚠️ <strong>注意</strong>：</p>
+<p>虽然 Vagrant 已经启动运行了，但是在启动过程可能会报错（一般存在于使用第三方下载的 box 时）：</p>
+<p><code>mount: unknown filesystem type 'vboxsf'</code></p>
+<p>这主要是下载的 box 里面 VirtualBox 扩展有问题，需要重新处理一下，参见常见问题部分：<a href="#61-mount-unknown-filesystem-type-vboxsf">6.1. mount: unknown filesystem type &lsquo;vboxsf&rsquo;</a></p>
+</blockquote>
+<h4 id="33-ssh-到虚拟机">3.3. ssh 到虚拟机</h4>
+<p>在工作目录下使用如下命令 ssh 登录到正在运行的虚拟机</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant ssh
+Welcome to Ubuntu 16.04.3 LTS <span class="o">(</span>GNU/Linux 4.4.0-97-generic x86_64<span class="o">)</span>
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+<span class="m">0</span> packages can be updated.
+<span class="m">0</span> updates are security updates.
+
+
+_____________________________________________________________________
+WARNING! Your environment specifies an invalid locale.
+ The unknown environment variables are:
+   <span class="nv">LC_CTYPE</span><span class="o">=</span>zh_CN.UTF-8 <span class="nv">LC_ALL</span><span class="o">=</span>
+ This can affect your user experience significantly, including the
+ ability to manage packages. You may install the locales by running:
+
+   sudo apt-get install language-pack-zh
+     or
+   sudo locale-gen zh_CN.UTF-8
+
+To see all available language packs, run:
+   apt-cache search <span class="s2">&#34;^language-pack-[a-z][a-z]</span>$<span class="s2">&#34;</span>
+To disable this message <span class="k">for</span> all users, run:
+   sudo touch /var/lib/cloud/instance/locale-check.skip
+_____________________________________________________________________
+ubuntu@ubuntu-xenial:~$ sudo locale-gen zh_CN.UTF-8
+Generating locales <span class="o">(</span>this might take a <span class="k">while</span><span class="o">)</span>...
+  zh_CN.UTF-8... <span class="k">done</span>
+Generation complete.
+ubuntu@ubuntu-xenial:~$ cat /etc/os-release
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&#34;Ubuntu&#34;</span>
+<span class="nv">VERSION</span><span class="o">=</span><span class="s2">&#34;16.04.3 LTS (Xenial Xerus)&#34;</span>
+<span class="nv">ID</span><span class="o">=</span>ubuntu
+<span class="nv">ID_LIKE</span><span class="o">=</span>debian
+<span class="nv">PRETTY_NAME</span><span class="o">=</span><span class="s2">&#34;Ubuntu 16.04.3 LTS&#34;</span>
+<span class="nv">VERSION_ID</span><span class="o">=</span><span class="s2">&#34;16.04&#34;</span>
+<span class="nv">HOME_URL</span><span class="o">=</span><span class="s2">&#34;http://www.ubuntu.com/&#34;</span>
+<span class="nv">SUPPORT_URL</span><span class="o">=</span><span class="s2">&#34;http://help.ubuntu.com/&#34;</span>
+<span class="nv">BUG_REPORT_URL</span><span class="o">=</span><span class="s2">&#34;http://bugs.launchpad.net/ubuntu/&#34;</span>
+<span class="nv">VERSION_CODENAME</span><span class="o">=</span>xenial
+<span class="nv">UBUNTU_CODENAME</span><span class="o">=</span>xenial
+ubuntu@ubuntu-xenial:~$ <span class="nb">exit</span>
+<span class="nb">logout</span>
+Connection to 127.0.0.1 closed.
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>root 默认密码，通常为 vagrant</p>
+</blockquote>
+<h3 id="4-常用命令">4. 常用命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 添加 box</span>
+$ vagrant box add new-box-name box文件地址（本地、远程）
+
+<span class="c1"># 删除 box</span>
+$ vagrant box remove box-name
+
+<span class="c1"># 以指定的 box 初始化</span>
+$ vagrant init new-box-name
+
+<span class="c1"># 启动</span>
+$ vagrant up
+
+<span class="c1"># 关闭</span>
+$ vagrant halt
+
+<span class="c1"># 重启，重新加载配置文件</span>
+$ vagrant reload
+
+<span class="c1"># 挂起</span>
+$ vagrant <span class="nb">suspend</span>
+
+<span class="c1"># 创建快照（vm 名称使用 vagrant status 查看）</span>
+$ vagrant snapshot save <span class="o">[</span>vm名称<span class="o">]</span> <span class="o">[</span>快照名称<span class="o">]</span>
+
+<span class="c1"># 查看快照列表</span>
+$ vagrant snapshot list
+
+<span class="c1"># 还原到指定快照</span>
+$ vagrant snapshot restore <span class="o">[</span>vm名称<span class="o">]</span> <span class="o">[</span>快照名称<span class="o">]</span>
+
+<span class="c1"># 删除快照</span>
+$ vagrant snapshot delete <span class="o">[</span>快照名称<span class="o">]</span>
+
+<span class="c1"># 关闭、删除 Vagrant 创建的虚拟机资源</span>
+$ vagrant destroy
+    default: Are you sure you want to destroy the <span class="s1">&#39;default&#39;</span> VM? <span class="o">[</span>y/N<span class="o">]</span> <span class="nv">y</span>
+<span class="o">==</span>&gt; default: Forcing shutdown of VM...
+<span class="o">==</span>&gt; default: Destroying VM and associated drives...
+
+<span class="c1"># 打包</span>
+$ vagrant package --output 自定义的包名.box
+
+<span class="c1"># 更多详细说明</span>
+$ vagrant -h
+$ vagrant 命令名 -h
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5-附录">5. 附录</h3>
+<h4 id="51-vagrantfile-常用配置">5.1. Vagrantfile 常用配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 虚拟机中 linux 的 hostname</span>
+config.vm.hostname <span class="o">=</span> <span class="s2">&#34;ubuntu1604-lamp&#34;</span>
+
+<span class="c1"># 网络设置1 - 公有（public_network）网络（允许局域网中其他机器访问）</span>
+config.vm.network <span class="s2">&#34;public_network&#34;</span>, ip: <span class="s2">&#34;192.168.1.223&#34;</span>
+
+<span class="c1"># 网络设置2 - 私有（private_network）网络（只允许主机访问虚拟机）</span>
+<span class="c1"># 此时我们可以使用指定的 IP 加 端口号进行访问，比如使用 192.168.127.11:81 即可访问虚拟机里的 81 端口</span>
+config.vm.network <span class="s2">&#34;private_network&#34;</span>, ip: <span class="s2">&#34;192.168.127.11&#34;</span>
+
+<span class="c1"># 网络设置3 - 将端口映射到宿主机</span>
+<span class="c1"># 在宿主机使用 127.0.0.1:8080 即可访问虚拟机里的 80 端口</span>
+config.vm.network <span class="s2">&#34;forwarded_port&#34;</span>, guest: 80, host: <span class="m">8080</span>
+
+<span class="c1"># 共享目录</span>
+<span class="c1"># 注意：这里的 owner 和 group，与你搭建的 LAMP 环境运行用户一致（在 phpinfo() 页面中搜索 “user”）</span>
+config.vm.synced_folder <span class="s2">&#34;/Users/用户名/www&#34;</span>, <span class="s2">&#34;/var/www/html&#34;</span>, create:true, owner:<span class="s2">&#34;www-data&#34;</span>, group:<span class="s2">&#34;www-data&#34;</span>
+
+<span class="c1"># VirtualBox 虚拟机配置（内存、CPU、显示名称等）</span>
+config.vm.provider <span class="s2">&#34;virtualbox&#34;</span> <span class="k">do</span> <span class="p">|</span>vb<span class="p">|</span>
+<span class="c1">#   # Display the VirtualBox GUI when booting the machine</span>
+<span class="c1">#   vb.gui = true</span>
+#
+<span class="c1">#   # Customize the amount of memory on the VM:</span>
+    vb.memory <span class="o">=</span> <span class="s2">&#34;512&#34;</span>
+    vb.name <span class="o">=</span> <span class="s2">&#34;ubuntu1604-lamp&#34;</span>
+end
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="52-关闭静态文件缓存">5.2. 关闭静态文件缓存</h4>
+<p>使用 Apache/Nginx 时会出现诸如图片修改后但页面刷新仍然是旧文件的情况，是由于静态文件缓存造成的。需要对虚拟机里的 Apache/Nginx 配置文件进行修改：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Apache 配置（httpd.conf 或者 apache.conf）添加：</span>
+EnableSendfile off
+
+<span class="c1"># Nginx 配置（nginx.conf）添加：</span>
+sendfile off<span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="53-虚拟机与宿主机时间同步设置">5.3. 虚拟机与宿主机时间同步设置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">#
+$ VBoxManage list vms
+<span class="s2">&#34;win7&#34;</span> <span class="o">{</span>87fd57f0-ef1f-4e6d-8529-0fee472ba76a<span class="o">}</span>
+<span class="s2">&#34;win10&#34;</span> <span class="o">{</span>a7edfd3b-0706-43f6-bd3d-b79dc796eb28<span class="o">}</span>
+<span class="s2">&#34;ubuntu1604&#34;</span> <span class="o">{</span>72329a00-87e3-40be-b5fc-a4417ce2aecb<span class="o">}</span>
+
+#
+$ VBoxManage getextradata <span class="s2">&#34;ubuntu1604&#34;</span> <span class="s2">&#34;VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled&#34;</span>
+No value set!
+
+#
+$ VBoxManage setextradata <span class="s2">&#34;ubuntu1604&#34;</span> <span class="s2">&#34;VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled&#34;</span> <span class="m">0</span>
+
+<span class="c1"># 已经设置成功</span>
+$ VBoxManage getextradata <span class="s2">&#34;ubuntu1604&#34;</span> <span class="s2">&#34;VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled&#34;</span>
+Value: <span class="m">0</span>
+
+<span class="c1"># 重新启动虚拟机以加载修改的配置</span>
+$ vagrant reload
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="54-安装-virtualbox-扩展工具">5.4. 安装 VirtualBox 扩展工具</h4>
+<p>如果使用官方 box 初始化虚拟机，其实得到的是一个纯净的镜像，一些基础工具和设置需要你自己来配置（所以，还是推荐使用方式二）。</p>
+<p>比如想要实现文件夹共享、网络、端口映射等，必须要安装 VirtualBox 扩展工具，具体安装方式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入虚拟机</span>
+$ vagrant ssh
+
+<span class="c1"># 安装所需开发工具</span>
+ubuntu@ubuntu1604:~$ sudo apt-get install linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span> build-essential dkms
+
+<span class="c1"># VBoxGuestAdditions 扩展的版本，取前三位，如：5.2.20</span>
+<span class="c1"># 所有可用版本：http://download.virtualbox.org/virtualbox</span>
+ubuntu@ubuntu1604:~$  <span class="nb">cd</span> /tmp
+ubuntu@ubuntu1604:~$  wget http://download.virtualbox.org/virtualbox/5.2.20/VBoxGuestAdditions_5.2.20.iso
+ubuntu@ubuntu1604:~$  sudo mkdir /media/VBoxGuestAdditions
+ubuntu@ubuntu1604:~$  sudo mount -o loop,ro VBoxGuestAdditions_5.2.20.iso /media/VBoxGuestAdditions
+ubuntu@ubuntu1604:~$  sudo sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run
+ubuntu@ubuntu1604:~$  rm VBoxGuestAdditions_5.2.20.iso
+ubuntu@ubuntu1604:~$  sudo umount /media/VBoxGuestAdditions
+ubuntu@ubuntu1604:~$  sudo rmdir /media/VBoxGuestAdditions
+ubuntu@ubuntu1604:~$ <span class="nb">exit</span>
+
+<span class="c1"># 重启虚拟机</span>
+$ vagrant reload
+</code></pre></td></tr></table>
+</div>
+</div><p>参照：<a href="https://www.vagrantup.com/docs/virtualbox/boxes.html">https://www.vagrantup.com/docs/virtualbox/boxes.html</a></p>
+<p><strong>自动检查同步新版本</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant plugin install vagrant-vbguest
+</code></pre></td></tr></table>
+</div>
+</div><p>之后，每次 <code>vagrant up</code> 过程中，如果发现虚拟机的 VBoxGuestAdditions 与宿主机不一致，则进行更新。</p>
+<h3 id="vagrant-配置案例">vagrant 配置案例</h3>
+<p><a href="https://github.com/fenbox/Vagrantfile">https://github.com/fenbox/Vagrantfile</a>
+<a href="https://github.com/adlawson/vagrantfiles">https://github.com/adlawson/vagrantfiles</a></p>
+<h3 id="6-常见问题处理">6. 常见问题处理</h3>
+<h4 id="61-mount-unknown-filesystem-type-vboxsf">6.1. <code>mount: unknown filesystem type 'vboxsf'</code></h4>
+<ul>
+<li>
+<p>关闭虚拟机 <code>$ vagrant halt</code></p>
+</li>
+<li>
+<p>使用 VirtualBox 启动虚拟机</p>
+</li>
+<li>
+<p>添加虚拟机增强工具：依次单击菜单【设备】→【安装增强功能】</p>
+</li>
+<li>
+<p>在 VirtualBox 中登录虚拟机，并执行以下命令挂载、安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo mount /dev/cdrom /media/cdrom
+$ <span class="nb">cd</span> /media/cdrom/
+$ sudo ./VBoxLinuxAddtions.run
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>安装成功后，重新启动 <code>$ vagrant up</code></p>
+</li>
+</ul>
+<h4 id="62-vagrant19216812711-permission-denied-publickeygssapi-keyexgssapi-with-mic">6.2. <code>vagrant@192.168.127.11: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).</code></h4>
+<p>SSH默认禁用密码连接，只允许使用密钥登录，需修改文件 <code>/etc/ssh/sshd_config</code> 中如下部分：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">PasswordAuthentication yes
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="63-sbinmountvboxsf-mounting-failed-with-the-error-no-such-device">6.3. <code>/sbin/mount.vboxsf: mounting failed with the error: No such device</code></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum clean all
+yum update
+yum install -y kernel kernel-devel kernel-headers gcc make
+reboot
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt/VBoxGuestAdditions-*/init
+./vboxadd setup
+reboot
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">vagrant reload
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-06 22:18
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/vagrant/">vagrant</a>
+          <a href="/tags/vm/">vm</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/vm/WebVirtCloud_deploy/">
+            <span class="next-text nav-default">WebVirtCloud部署笔记</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

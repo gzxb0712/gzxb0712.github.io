@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 06 Mar 2020 21:18:30 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Mar 2020 22:18:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>vagrant</title>
+      <link>https://xiebiao.top/tags/vagrant/</link>
+      <pubDate>Fri, 06 Mar 2020 22:18:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/vagrant/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vm</title>
+      <link>https://xiebiao.top/tags/vm/</link>
+      <pubDate>Fri, 06 Mar 2020 22:18:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/vm/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>kvm</title>
@@ -17,15 +35,6 @@
       <pubDate>Fri, 06 Mar 2020 21:18:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/kvm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>vm</title>
-      <link>https://xiebiao.top/tags/vm/</link>
-      <pubDate>Fri, 06 Mar 2020 21:18:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/vm/</guid>
       <description></description>
     </item>
     

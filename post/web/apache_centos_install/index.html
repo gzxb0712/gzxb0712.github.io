@@ -50,7 +50,7 @@
 <meta itemprop="description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64">
 <meta itemprop="datePublished" content="2020-02-28T19:11:30+00:00" />
 <meta itemprop="dateModified" content="2020-02-28T19:11:30+00:00" />
-<meta itemprop="wordCount" content="3069">
+<meta itemprop="wordCount" content="3081">
 
 
 
@@ -131,7 +131,7 @@
         <div class="post-category">
             <a href="/categories/web/"> web </a>
             </div>
-          <span class="more-meta"> 约 3069 字 </span>
+          <span class="more-meta"> 约 3081 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -198,15 +198,25 @@
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -qa | grep mysql
 </code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<p>可能的显示：
-mysql-community-libs-8.0.12-1.el7.x86_64
-mysql80-community-release-el7-1.noarch
-mysql-community-client-8.0.12-1.el7.x86_64
-mysql-community-common-8.0.12-1.el7.x86_64
-mysql-community-server-8.0.12-1.el7.x86_64</p>
-</blockquote>
-<p>如果有的话，通过下面的命令进行删除</p>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt; 可能的显示：
+&gt; mysql-community-libs-8.0.12-1.el7.x86_64
+&gt; mysql80-community-release-el7-1.noarch
+&gt; mysql-community-client-8.0.12-1.el7.x86_64
+&gt; mysql-community-common-8.0.12-1.el7.x86_64
+&gt; mysql-community-server-8.0.12-1.el7.x86_64
+</code></pre></td></tr></table>
+</div>
+</div><p>如果有的话，通过下面的命令进行删除</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -256,9 +266,7 @@ mysql-community-server-8.0.12-1.el7.x86_64</p>
 </div>
 </div><h3 id="2-下载安装mysql">2. 下载安装mysql</h3>
 <p>(1)进入<a href="https://dev.mysql.com/downloads/repo/yum/">mysql yum源</a>选择linux7跳转，</p>
-<p><img src="https://segmentfault.com/img/remote/1460000019978794?w=933&amp;h=351" alt="1564933276.jpg" title="1564933276.jpg"></p>
 <p>不管login和sign up，右键点击下方的<strong>No thanks, just start my download.<strong>选择</strong>复制链接地址</strong></p>
-<p><img src="https://segmentfault.com/img/remote/1460000019978795?w=576&amp;h=483" alt="1564933588.jpg" title="1564933588.jpg"></p>
 <p>选择下载存放的地址，比如</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

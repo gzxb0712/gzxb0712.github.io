@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 03 Mar 2020 19:11:30 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Mar 2020 21:18:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>WebVirtCloud部署笔记</title>
+      <link>https://xiebiao.top/post/vm/WebVirtCloud_deploy/</link>
+      <pubDate>Fri, 06 Mar 2020 21:18:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/vm/WebVirtCloud_deploy/</guid>
+      <description>系统配置 # SELinux 允许WebVirtCloud通行 1 sudo semanage fcontext -a -t httpd_sys_content_t &amp;#34;/srv/webvirtcloud(/.*)&amp;#34; 或关闭SELINUX 1 2 vi /etc/selinux/config 1 2 SELINUX=disabled # 防火墙 允许nginx和novnc通行。 1 2 3</description>
+    </item>
+    
+    <item>
+      <title>CentOS7安装KVM虚拟机详解</title>
+      <link>https://xiebiao.top/post/vm/CentOS7_install_KVM/</link>
+      <pubDate>Thu, 05 Mar 2020 19:18:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/vm/CentOS7_install_KVM/</guid>
+      <description>CentOS7安装KVM虚拟机详解 基于 CentOS Linux release 7.2的环境下命令行的方式安装KVM的详细过程。 目录 检测是否支持KVM 安装 KVM 环境 安装虚拟机 命令行</description>
+    </item>
     
     <item>
       <title>Centos部署tomcat9</title>

@@ -3,34 +3,76 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-03-03T19:11:30+00:00</lastmod>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-03-03T19:11:30+00:00</lastmod>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/web/tomcat_centos_install/</loc>
-    <lastmod>2020-03-03T19:11:30+00:00</lastmod>
+    <loc>https://xiebiao.top/tags/kvm/</loc>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-03-03T19:11:30+00:00</lastmod>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/vm/</loc>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/vm/</loc>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/WebVirtCloud/</loc>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/vm/WebVirtCloud_deploy/</loc>
+    <lastmod>2020-03-06T21:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/vm/CentOS7_install_KVM/</loc>
+    <lastmod>2020-03-05T19:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/web/tomcat_centos_install/</loc>
     <lastmod>2020-03-03T19:11:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

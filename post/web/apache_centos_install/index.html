@@ -537,7 +537,6 @@ yum -y install php70w.x86_64 php70w-cli.x86_64 php70w-common.x86_64 php70w-gd.x8
 </code></pre></td></tr></table>
 </div>
 </div><p>重启httpd服务，<code>systemctl restart httpd</code>后查看ip:80/index.php，出现如下界面就算成功。</p>
-<p><img src="https://segmentfault.com/img/remote/1460000019978796?w=985&amp;h=281" alt="1564997622.jpg" title="1564997622.jpg"></p>
 <p>如果原样输出，或者直接下载则失败，失败检查
 可尝试更改/etc/httpd/conf/httpd.conf重启</p>
 <div class="highlight"><div class="chroma">

@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Centos部署apache2&#43;mysql8&#43;php7 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/web/apache_centos_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Centos部署apache2&#43;mysql8&#43;php7" />
+<meta property="og:description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/web/apache_centos_install/" />
+<meta property="article:published_time" content="2020-02-28T19:11:30+00:00" />
+<meta property="article:modified_time" content="2020-02-28T19:11:30+00:00" />
+<meta itemprop="name" content="Centos部署apache2&#43;mysql8&#43;php7">
+<meta itemprop="description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64">
+<meta itemprop="datePublished" content="2020-02-28T19:11:30+00:00" />
+<meta itemprop="dateModified" content="2020-02-28T19:11:30+00:00" />
+<meta itemprop="wordCount" content="3069">
+
+
+
+<meta itemprop="keywords" content="apache,web," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Centos部署apache2&#43;mysql8&#43;php7"/>
+<meta name="twitter:description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Centos部署apache2&#43;mysql8&#43;php7</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-28 19:11 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            </div>
+          <span class="more-meta"> 约 3069 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mysql安装">mysql安装</a>
+      <ul>
+        <li><a href="#1-清理原来的mysql文件">1. 清理原来的mysql文件</a></li>
+        <li><a href="#2-下载安装mysql">2. 下载安装mysql</a></li>
+        <li><a href="#3-更改mysql默认的随机密码">3. 更改mysql默认的随机密码</a></li>
+        <li><a href="#4-远程连接设置">4. 远程连接设置</a></li>
+      </ul>
+    </li>
+    <li><a href="#apache安装">apache安装</a></li>
+    <li><a href="#php安装">php安装</a></li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#安装apache">安装Apache</a></li>
+    <li><a href="#启动apache服务">启动Apache服务</a></li>
+    <li><a href="#验证安装">验证安装</a></li>
+    <li><a href="#使用systemctl管理apache服务">使用systemctl管理Apache服务</a></li>
+    <li><a href="#配置apache">配置Apache</a></li>
+    <li><a href="#httpdconf">httpd.conf</a>
+      <ul>
+        <li><a href="#配置扩展名解析成-php">配置扩展名解析成 PHP</a></li>
+        <li><a href="#支持htaccess规则重写">支持.htaccess规则重写</a></li>
+      </ul>
+    </li>
+    <li><a href="#虚拟主机">虚拟主机</a></li>
+    <li><a href="#安全配置">安全配置</a>
+      <ul>
+        <li><a href="#隐藏http请求头web服务器信息">隐藏HTTP请求头web服务器信息</a></li>
+      </ul>
+    </li>
+    <li><a href="#centos7-编译安装php72apache篇">Centos7 编译安装PHP7.2（Apache篇）</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客</p>
+</blockquote>
+<p><a href="https://segmentfault.com/a/1190000019978791">https://segmentfault.com/a/1190000019978791</a><br>
+<a href="https://zhuanlan.zhihu.com/p/59467244">https://zhuanlan.zhihu.com/p/59467244</a><br>
+<a href="https://zhuanlan.zhihu.com/p/59466324">https://zhuanlan.zhihu.com/p/59466324</a></p>
+<blockquote>
+<p>本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~
+安装的mysql版本为Ver 8.0.17 for Linux on x86_64 (MySQL Community Server - GPL)
+安装的php版本为PHP 7.0.33</p>
+</blockquote>
+<h2 id="mysql安装">mysql安装</h2>
+<h3 id="1-清理原来的mysql文件">1. 清理原来的mysql文件</h3>
+<p>(1)查看是否有已安装的mysql版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -qa | grep mysql
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>可能的显示：
+mysql-community-libs-8.0.12-1.el7.x86_64
+mysql80-community-release-el7-1.noarch
+mysql-community-client-8.0.12-1.el7.x86_64
+mysql-community-common-8.0.12-1.el7.x86_64
+mysql-community-server-8.0.12-1.el7.x86_64</p>
+</blockquote>
+<p>如果有的话，通过下面的命令进行删除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum remove mysql-xxx-xxx-
+</code></pre></td></tr></table>
+</div>
+</div><p>(2)查找mysql的相关文件（如有建议删除）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">find / -name mysql
+</code></pre></td></tr></table>
+</div>
+</div><p>(3)根据自身的需求决定是否删除mysql的配置文件信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rm -rf /var/lib/mysql
+</code></pre></td></tr></table>
+</div>
+</div><p>(4)查找并删除数据库mariadb</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -qa | grep mariadb
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>可能出现的结果mariadb-libs-5.5.56-2.el7.x86_64</p>
+</blockquote>
+<p>将查找出来的结果进行强制删除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-下载安装mysql">2. 下载安装mysql</h3>
+<p>(1)进入<a href="https://dev.mysql.com/downloads/repo/yum/">mysql yum源</a>选择linux7跳转，</p>
+<p><img src="https://segmentfault.com/img/remote/1460000019978794?w=933&amp;h=351" alt="1564933276.jpg" title="1564933276.jpg"></p>
+<p>不管login和sign up，右键点击下方的<strong>No thanks, just start my download.<strong>选择</strong>复制链接地址</strong></p>
+<p><img src="https://segmentfault.com/img/remote/1460000019978795?w=576&amp;h=483" alt="1564933588.jpg" title="1564933588.jpg"></p>
+<p>选择下载存放的地址，比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /usr/local
+</code></pre></td></tr></table>
+</div>
+</div><p>(2)使用复制的链接地址yum源，如 <a href="https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm">https://dev.mysql.com/get/mys&hellip;</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p>(3)安装yum源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum localinstall mysql80-community-release-el7-3.noarch.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p>(4)更新yum源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum clean all
+yum makecache
+</code></pre></td></tr></table>
+</div>
+</div><p>(5)开始安装MySQL</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install mysql-community-server
+</code></pre></td></tr></table>
+</div>
+</div><p>(6)启动MySQL</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl start mysqld
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-更改mysql默认的随机密码">3. 更改mysql默认的随机密码</h3>
+<p>启动成功后可以查看初始化密码随机生成的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cat /var/log/mysqld.log | grep password
+</code></pre></td></tr></table>
+</div>
+</div><p>登录MySQL，输入刚刚的随机密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql -u root -p
+Enter password:
+</code></pre></td></tr></table>
+</div>
+</div><p>更改密码，密码要求必须包含大小写字母数字及一个特殊字符！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4-远程连接设置">4. 远程连接设置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; use mysql;
+mysql&gt; update user set host=&#39;%&#39; where user=&#39;root&#39;;
+</code></pre></td></tr></table>
+</div>
+</div><p>授权用户名的权限，赋予任何主机访问数据的权限</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; WITH GRANT OPTION;
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre></td></tr></table>
+</div>
+</div><p>注意：centos7需要在云服务器管理后台和服务器防火墙都要开启mysql服务端口，默认为3306，<a href="https://segmentfault.com/a/1190000019978741">防火墙配置方式查看</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --permanent --zone=public --add-service=mysql
+firewall-cmd --reload
+</code></pre></td></tr></table>
+</div>
+</div><p>可通过远程连接工具Navicat等连接尝试，如连接失败<code>2003... unknown error 1006</code>则为防火墙问题，其他问题可以尝试更改<code>/etc/my.cnf</code>再重启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[mysqld]
+
+# 表示允许任何主机登陆MySQL
+bind-address = 0.0.0.0
+port=3306
+
+default-authentication-plugin=mysql_native_password
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="apache安装">apache安装</h2>
+<p>（1）安装之前先检查一下系统是否有默认安装的apache</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -qa | grep httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>有的话，删除</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -e * * * *(包名)
+</code></pre></td></tr></table>
+</div>
+</div><p>（2）安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 更新
+yum update
+
+# 安装必备的包
+yum -y install gcc gcc-c++ make
+
+# 安装apache
+yum install httpd
+
+# apache 服务开启
+systemctl start httpd
+
+# 设置apache开机启动
+systemctl enable httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>（3）配置防火墙，开启80端口。注意：centos7需要在云服务器管理后台和服务器防火墙都要开启http服务端口，默认为80，<a href="https://segmentfault.com/a/1190000019978741">防火墙配置方式查看</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --reload
+</code></pre></td></tr></table>
+</div>
+</div><p>（4）现在通过服务器ip:80端口访问，就可以看见默认的apache界面就算成功。</p>
+<blockquote>
+<p>如果不行，可尝试更改vi /etc/httpd/conf/httpd.conf 配置文件再重启</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ServerName localhost:80
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="php安装">php安装</h2>
+<p>（1）查看是否有以前的文件，yum默认安装的不是7.0，如果有尝试，需要完全删除以前的版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -qa|grep php
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>可能有如下的包
+php-pdo-5.1.6-27.el5_5.3
+php-mysql-5.1.6-27.el5_5.3
+php-xml-5.1.6-27.el5_5.3
+php-cli-5.1.6-27.el5_5.3
+php-common-5.1.6-27.el5_5.3
+php-gd-5.1.6-27.el5_5.3</p>
+</blockquote>
+<p>如果有的话需要删除。注意包之间可能会有互相依赖，先删除无依赖的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -e * * * *(包名)
+</code></pre></td></tr></table>
+</div>
+</div><p>（2）安装。更改yum源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+yum -y install php70w.x86_64 php70w-cli.x86_64 php70w-common.x86_64 php70w-gd.x86_64 php70w-ldap.x86_64 php70w-mbstring.x86_64 php70w-mysql.x86_64 php70w-pdo.x86_64 php70w-pear.noarch php70w-process.x86_64 php70w-xml.x86_64 php70w-xmlrpc.x86_64
+</code></pre></td></tr></table>
+</div>
+</div><p>php环境测试，在<code>/var/www/html</code>目录下，<code>vi index.php</code>输入如下内容保存。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+  phpinfo();
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>重启httpd服务，<code>systemctl restart httpd</code>后查看ip:80/index.php，出现如下界面就算成功。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000019978796?w=985&amp;h=281" alt="1564997622.jpg" title="1564997622.jpg"></p>
+<p>如果原样输出，或者直接下载则失败，失败检查
+可尝试更改/etc/httpd/conf/httpd.conf重启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;IfModule mime_module&gt;
+....
+AddType application/x-compress .Z
+AddType application/x-gzip .gz .tgz
+下添加
+AddType application/x-httpd-php .php
+</code></pre></td></tr></table>
+</div>
+</div><p>############</p>
+<h2 id="前言">前言</h2>
+<p>在安装Apache前，推荐先阅读<a href="https://link.zhihu.com/?target=http%3A//httpd.apache.org/docs/current/">Apache 文档</a>，了解一下 Apache 2.x 服务器，以及详细的安装参数。</p>
+<h2 id="安装apache">安装Apache</h2>
+<p>Apache可以使用Centos7的yum命令安装，Apache软件包和服务称为httpd。 要安装软件包，请运行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum -y install httpd
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="启动apache服务">启动Apache服务</h2>
+<p>安装完成后，启用并启动Apache服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> httpd
+systemctl start httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>如果您正在运行防火墙(<strong>firewalld</strong>)，则还需要打开HTTP和HTTPS端口80和443：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">firewall-cmd --permanent --zone<span class="o">=</span>public --add-service<span class="o">=</span>http
+firewall-cmd --permanent --zone<span class="o">=</span>public --add-service<span class="o">=</span>https
+firewall-cmd --reload
+</code></pre></td></tr></table>
+</div>
+</div><p>我们可以通过以下方式检查Apache服务的状态和版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl status httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Sun 2019-03-10 14:14:53 CST; 4min 6s ago
+     Docs: man:httpd(8)
+           man:apachectl(8)
+ Main PID: 1062 (httpd)
+   Status: &#34;Total requests: 15; Current requests/sec: 0; Current traffic:   0 B/sec&#34;
+   CGroup: /system.slice/httpd.service
+           ├─1062 /usr/sbin/httpd -DFOREGROUND
+           ├─1170 /usr/sbin/httpd -DFOREGROUND
+           ├─1171 /usr/sbin/httpd -DFOREGROUND
+           ├─1172 /usr/sbin/httpd -DFOREGROUND
+           ├─1173 /usr/sbin/httpd -DFOREGROUND
+           ├─1174 /usr/sbin/httpd -DFOREGROUND
+           ├─1221 /usr/sbin/httpd -DFOREGROUND
+           ├─1222 /usr/sbin/httpd -DFOREGROUND
+           └─1223 /usr/sbin/httpd -DFOREGROUND
+</code></pre></td></tr></table>
+</div>
+</div><p>再输入如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">httpd -v
+</code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">Server version: Apache/2.4.6 (CentOS)
+Server built:   Nov  5 2018 01:47:09
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="验证安装">验证安装</h2>
+<p>要验证安装，在您所选择的浏览器中打开您的服务器IP地址，您将看到默认的Apache欢迎页面，如下所示：</p>
+<p><img src="https://picb.zhimg.com/v2-4f961339fce3b6145c28f10f1635a351_b.jpg" alt=""></p>
+<h2 id="使用systemctl管理apache服务">使用systemctl管理Apache服务</h2>
+<p>我们可以像任何其他系统单元一样管理Apache服务。</p>
+<p>要停止Apache服务，请运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl stop httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>要再次启动，请键入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl start httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>重新启动Apache服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl restart httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>在进行一些配置更改后重新加载Apache服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl reload httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>如果您想禁用Apache服务以在启动时启动：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl disable httpd
+</code></pre></td></tr></table>
+</div>
+</div><p>并重新启用它：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> httpd
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置apache">配置Apache</h2>
+<p>Apache配置文件路径默认位于<code>/etc/httpd</code></p>
+<h2 id="httpdconf">httpd.conf</h2>
+<p>httpd.conf配置文件位于：<code>/etc/httpd/conf/httpd.conf</code></p>
+<h3 id="配置扩展名解析成-php">配置扩展名解析成 PHP</h3>
+<p>关于安装PHP，请查看<a href="https://zhuanlan.zhihu.com/p/59466324">《Centos7.4 编译安装PHP7.2（Apache篇）》</a> 在httpd.conf尾部加入下面的配置，然后重启Apache服务，使其生效。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&lt;FilesMatch .php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="支持htaccess规则重写">支持.htaccess规则重写</h3>
+<p>先检查rewrite模块是否打开，模块配置文件位于：<code>/etc/httpd/conf.modules.d/00-base.conf</code> 使用vim命令打开文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">vim /etc/httpd/conf.modules.d/00-base.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>在文件里搜索<code>rewrite_module modules/mod_rewrite.so</code>，在所在行前面是否有<code>#</code>，如果有的话，将<code>#</code>删除，然后保存文件。 查看httpd.conf文件是否已打开允许重写功能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">vim /etc/httpd/conf/httpd.conf
+</code></pre></td></tr></table>
+</div>
+</div><p>在文件里搜索<code>.htaccess</code>，我们找到 如下注释对应的<code>AllowOverride None</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">#
+    # AllowOverride controls what directives may be placed in .htaccess files.
+    # It can be &#34;All&#34;, &#34;None&#34;, or any combination of the keywords:
+    #   Options FileInfo AuthConfig Limit
+    #
+    AllowOverride None
+</code></pre></td></tr></table>
+</div>
+</div><p>然后将</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">AllowOverride None
+</code></pre></td></tr></table>
+</div>
+</div><p>改成</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">AllowOverride All
+</code></pre></td></tr></table>
+</div>
+</div><p>注意改动的位置 因为该文件 有多处 <code>AllowOverride None</code>，只有找到正确的位置才有效。</p>
+<p>检查完前面两步，重启Apache服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl restart httpd
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="虚拟主机">虚拟主机</h2>
+<p>Apache默认项目读取目录位于<code>var/www/html</code>，可通过httpd.conf配置文件里的<code>DocumentRoot</code>参数进行修改。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">#
+# DocumentRoot: The directory out of which you will serve your
+# documents. By default, all requests are taken from this directory, but
+# symbolic links and aliases may be used to point to other locations.
+#
+DocumentRoot &#34;/var/www/html&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>关于虚拟主机项目配置文件，位于<code>/etc/httpd/conf.d</code>目录，建议一个域名一个配置文件 虚拟主机配置文件规范：[域名].conf</p>
+<p>虚拟主机配置文件范例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&lt;VirtualHost *:80&gt;
+    ServerName <span class="o">[</span>域名<span class="o">]</span>
+    ServerAlias <span class="o">[</span>域名<span class="o">]</span>
+    DocumentRoot <span class="s2">&#34;/var/www/html/[项目目录]&#34;</span>
+&lt;/VirtualHost&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安全配置">安全配置</h2>
+<h3 id="隐藏http请求头web服务器信息">隐藏HTTP请求头web服务器信息</h3>
+<p>没作任何设置前，查看web服务器请求文件头：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">Connection:Keep-Alive
+Date:Sun, 10 Mar 2019 17:15:20 GMT
+ETag:&#34;18-583bffda946f5&#34;
+Keep-Alive:timeout=5, max=100
+Server:Apache/2.4.6 (CentOS)
+</code></pre></td></tr></table>
+</div>
+</div><p>几乎把web服务器详细信息都暴出来了，如果没个版本的apache和php爆出严重漏洞，会给攻击者提供最有攻击价值的安全信息，这是非常危险的。</p>
+<p>将Apache的配置文件加上：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 禁止在http请求头暴露服务器信息</span>
+ServerTokens ProductOnly
+ServerSignature Off
+</code></pre></td></tr></table>
+</div>
+</div><p>然后重启Apache服务，再次发出Apache头信息请求：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">Connection:Keep-Alive
+Date:Sun, 10 Mar 2019 17:18:52 GMT
+ETag:&#34;18-583bffda946f5&#34;
+Keep-Alive:timeout=5, max=100
+Server:Apache
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到apache版本号于已经没有了。</p>
+<h2 id="centos7-编译安装php72apache篇">Centos7 编译安装PHP7.2（Apache篇）</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/59466324">https://zhuanlan.zhihu.com/p/59466324</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-28 19:11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/apache/">apache</a>
+          <a href="/tags/web/">web</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/lb/lvs_ops/">
+            <span class="next-text nav-default">LVS 实现四层负载均衡项目实战</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 25 Feb 2020 19:21:30 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Feb 2020 19:11:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>apache</title>
+      <link>https://xiebiao.top/tags/apache/</link>
+      <pubDate>Fri, 28 Feb 2020 19:11:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/apache/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://xiebiao.top/tags/web/</link>
+      <pubDate>Fri, 28 Feb 2020 19:11:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/web/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>lb</title>

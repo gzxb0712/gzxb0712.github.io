@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 25 Feb 2020 19:21:30 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Feb 2020 19:11:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Centos部署apache2&#43;mysql8&#43;php7</title>
+      <link>https://xiebiao.top/post/web/apache_centos_install/</link>
+      <pubDate>Fri, 28 Feb 2020 19:11:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/web/apache_centos_install/</guid>
+      <description>参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64</description>
+    </item>
     
     <item>
       <title>LVS 实现四层负载均衡项目实战</title>

@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>centos部署haproxy</title>
+      <link>https://xiebiao.top/post/lb/haproxy_ops/</link>
+      <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/lb/haproxy_ops/</guid>
+      <description>参考博客 https://sulao.cn/post/746.html https://hewanyue.com/blog/5aeb7732.html haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运</description>
+    </item>
+    
+    <item>
       <title>varnish高速CDN部署与管理</title>
       <link>https://xiebiao.top/post/cdn/varish_ops/</link>
       <pubDate>Sat, 15 Feb 2020 21:39:09 +0000</pubDate>

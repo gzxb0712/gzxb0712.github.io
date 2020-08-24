@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>centos部署haproxy - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="参考博客 https://sulao.cn/post/746.html https://hewanyue.com/blog/5aeb7732.html haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/lb/haproxy_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="centos部署haproxy" />
+<meta property="og:description" content="参考博客 https://sulao.cn/post/746.html https://hewanyue.com/blog/5aeb7732.html haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/lb/haproxy_ops/" />
+<meta property="article:published_time" content="2020-02-19T20:21:37+00:00" />
+<meta property="article:modified_time" content="2020-02-19T20:21:37+00:00" />
+<meta itemprop="name" content="centos部署haproxy">
+<meta itemprop="description" content="参考博客 https://sulao.cn/post/746.html https://hewanyue.com/blog/5aeb7732.html haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运">
+<meta itemprop="datePublished" content="2020-02-19T20:21:37+00:00" />
+<meta itemprop="dateModified" content="2020-02-19T20:21:37+00:00" />
+<meta itemprop="wordCount" content="3462">
+
+
+
+<meta itemprop="keywords" content="haproxy,lb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="centos部署haproxy"/>
+<meta name="twitter:description" content="参考博客 https://sulao.cn/post/746.html https://hewanyue.com/blog/5aeb7732.html haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">centos部署haproxy</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-19 20:21 </span>
+        <div class="post-category">
+            <a href="/categories/lb/"> lb </a>
+            </div>
+          <span class="more-meta"> 约 3462 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本操作">基本操作</a></li>
+    <li><a href="#haproxy服务器安装及配置">haproxy服务器安装及配置</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#相关的配置说明">相关的配置说明</a>
+      <ul>
+        <li><a href="#k8s-haproxy的配置">k8s haproxy的配置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客
+<a href="https://sulao.cn/post/746.html">https://sulao.cn/post/746.html</a><br>
+<a href="https://hewanyue.com/blog/5aeb7732.html">https://hewanyue.com/blog/5aeb7732.html</a></p>
+</blockquote>
+<p>haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运行于大部分主流的Linux操作系统上。</p>
+<p>本次实验用到三台服务器，一台服务器安装haproxy实现调度，另两台服务器搭建nginx提供web服务，两台web服务器的部署这里暂时不再介绍，如需要搭建请查看之前的nginx相关笔记</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">haproxy服务器：172.26.61.51
+web服务器1：172.26.61.52
+web服务器2：172.26.61.53
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="基本操作">基本操作</h2>
+<p>首先关闭selinux</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sed -i <span class="s1">&#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39;</span>/etc/selinux/config
+setenforce <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>关闭防火墙并停用开机启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl stop firewalld.service
+systemctl disable firewalld.service
+</code></pre></td></tr></table>
+</div>
+</div><p>更换阿里云yum源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo_bak
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+</code></pre></td></tr></table>
+</div>
+</div><p>更新yum缓存</p>
+<p><code>yum makecache</code></p>
+<p>打IP转发功能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;net.ipv4.ip_forward = 1&#34;</span>&gt;&gt;/etc/sysctl.conf
+sysctl -p
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="haproxy服务器安装及配置">haproxy服务器安装及配置</h2>
+<p><code>yum install haproxy -y</code></p>
+<p>我们先来看看haproxy默认配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#cat /etc/haproxy/haproxy.cfg | egrep -v &#34;^$|#&#34;</span>
+global
+    log         127.0.0.1 local2 <span class="c1">#指定服务器的日志级别</span>
+    chroot      /var/lib/haproxy <span class="c1">#改变工作目录</span>
+    pidfile     /var/run/haproxy.pid 
+    maxconn     <span class="m">4000</span> <span class="c1">#最大连接数</span>
+    user        haproxy <span class="c1">#用户</span>
+    group       haproxy <span class="c1">#用户组</span>
+    daemon <span class="c1">#以守护进程的方式运行</span>
+    stats socket /var/lib/haproxy/stats
+defaults
+    mode                    http <span class="c1">#默认的模式mode { tcp|http|health }，tcp是4层，http是7层，health只会返回OK</span>
+    log                     global <span class="c1">#应用全局的日志配置</span>
+    option                  httplog <span class="c1">#启用日志记录HTTP请求，默认haproxy日志记录是不记录HTTP请求日志</span>
+    option                  dontlognull <span class="c1">#启用该项，日志中将不会记录空连接。所谓空连接就是在上游的负载均衡器或者监控系统为了探测该服务是否存活可用时，需要定期的连接或者获取某一固定的组件或页面，或者探测扫描端口是否在监听或开放等动作被称为空连接；官方文档中标注，如果该服务上游没有其他的负载均衡器的话，建议不要使用该参数，因为互联网上的恶意扫描或其他动作就不会被记录下来</span>
+    option http-server-close <span class="c1">#每次请求完毕后主动关闭http通道</span>
+    option forwardfor       except 127.0.0.0/8 <span class="c1">##如果服务器上的应用程序想记录发起请求的客户端的IP地址，需要在HAProxy上配置此选项， 这样 HAProxy会把客户端的IP信息发送给服务器，在HTTP请求中添加&#34;X-Forwarded-For&#34;字段。启用X-Forwarded-For，在requests头部插入客户端IP发送给后端的server，使后端server获取到客户端的真实IP</span>
+    option                  redispatch <span class="c1">#当使用了cookie时，haproxy将会将其请求的后端服务器的serverID插入到cookie中，以保证会话的SESSION持久性；而此时，如果后端的服务器宕掉了， 但是客户端的cookie是不会刷新的，如果设置此参数，将会将客户的请求强制定向到另外一个后端server上，以保证服务的正常</span>
+    retries                 <span class="m">3</span>   <span class="c1">#定义连接后端服务器的失败重连次数，连接失败次数超过此值后将会将对应后端服务器标记为不可用</span>
+    timeout http-request    10s <span class="c1">#一次完整的HTTP请求的最大等待时长</span>
+    timeout queue           1m  <span class="c1">#一个请求在队列里的超时时间</span>
+    timeout connect         10s <span class="c1">#连接超时(毫秒)</span>
+    timeout client          1m  <span class="c1">#客户端超时(毫秒)</span>
+    timeout server          1m  <span class="c1">#服务器超时(毫秒)</span>
+    timeout http-keep-alive 10s <span class="c1">#设置http-keep-alive的超时时间</span>
+    timeout check           10s <span class="c1">#检测超时时间</span>
+    maxconn                 <span class="m">3000</span> <span class="c1">#最大连接数</span>
+frontend  main *:5000
+    acl url_static       path_beg       -i /static /images /javascript /stylesheets
+    acl url_static       path_end       -i .jpg .gif .png .css .js
+    use_backend static          <span class="k">if</span> url_static
+    default_backend             app <span class="c1">#定义一个名为app前端部分。此处将对应的请求转发给后端</span>
+backend static
+    balance     roundrobin <span class="c1">#负载均衡算法</span>
+    server      static 127.0.0.1:4331 check <span class="c1">#静态文件部署在本机（也可以部署在其他机器或者squid缓存服务器）</span>
+backend app <span class="c1">#定义一个名为app后端部分,需要和frontend中default_backend对应</span>
+    balance     roundrobin <span class="c1">#负载均衡算法，最后支持4095个backend</span>
+    server  app1 127.0.0.1:5001 check <span class="c1">#定义的多个后端</span>
+    server  app2 127.0.0.1:5002 check <span class="c1">#定义的多个后端</span>
+    server  app3 127.0.0.1:5003 check <span class="c1">#定义的多个后端</span>
+    server  app4 127.0.0.1:5004 check <span class="c1">#定义的多个后端</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>保存退出
+我们看到默认的配置项已经大致有了我们需要的配置，加上上述配置说明，我们可以稍作修改来适合我们的使用场景</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">global
+    log         127.0.0.1 local2
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     <span class="m">4000</span>
+    user        haproxy
+    group       haproxy
+    daemon
+    stats socket /var/lib/haproxy/stats
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option http-server-close
+    option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 <span class="m">3</span>
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           10s
+    maxconn                 <span class="m">3000</span>
+listen stats <span class="c1">#haproxy监控页</span>
+    mode http
+    <span class="nb">bind</span> 0.0.0.0:10080
+    option httplog
+    stats <span class="nb">enable</span>
+    stats hide-version
+    stats uri /stats
+    stats admin <span class="k">if</span> TRUE
+frontend web <span class="c1">#前端配置</span>
+    <span class="nb">bind</span> 0.0.0.0:80 <span class="c1">#发起的http请求到80端口，会转发到设置的ip及端口</span>
+    mode http
+    log global
+    option httplog <span class="c1">#启用http日志</span>
+    default_backend app
+backend app
+    option httpchk GET /index.html <span class="c1">#设置健康检查页面</span>
+    option forwardfor header X-Forwarded-For <span class="c1">#传递客户端真实IP</span> 
+    balance     roundrobin
+    server  app1 172.26.61.52:80 check
+    server  app2 172.26.61.53:80 check
+</code></pre></td></tr></table>
+</div>
+</div><p>添加haproxy的日志
+修改日志配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#vi /etc/rsyslog.conf</span>  
+<span class="c1">#去掉下面两行前面的#号</span> 
+<span class="nv">$ModLoad</span> imudp
+<span class="nv">$UDPServerRun514</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>添加haproxy日志配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#vi /etc/rsyslog.d/haproxy.conf</span> 
+local2.<span class="o">=</span>info     /var/log/haproxy-access.log    <span class="c1"># 访问日志 local2.notice    /var/log/haproxy-info.log      # haproxy执行信息</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>重启rsyslog</p>
+<p><code>systemctl restart rsyslog</code></p>
+<h1 id="haproxy-运行">haproxy 运行</h1>
+<p>启动haproxy</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl start haproxy
+systemctl <span class="nb">enable</span> haproxy
+</code></pre></td></tr></table>
+</div>
+</div><p>我们访问haproxy的IP地址看看</p>
+<p><img src="https://sulao.cn/zb_users/upload/2019/11/201911041572853278774593.jpg" alt="{74300AA8-0064-426B-9E8C-DB91C84E891F}_20191104154033.jpg" title="{74300AA8-0064-426B-9E8C-DB91C84E891F}_20191104154033.jpg"></p>
+<p>已经代理访问到app1的网站了，我们多刷新几次看看</p>
+<p><img src="https://sulao.cn/zb_users/upload/2019/11/201911041572853311230373.jpg" alt="{1F10EC47-7131-4699-A30A-EAFF02D67ABF}_20191104154021.jpg" title="{1F10EC47-7131-4699-A30A-EAFF02D67ABF}_20191104154021.jpg"></p>
+<p>有时访问到app2的后端网站，说明我们的配置基本没有问题了</p>
+<p>我们访问下haproxy状态统计页面http://ip:10080/stats，显示如下</p>
+<p><img src="https://sulao.cn/zb_users/upload/2019/11/201911041572852544247888.jpg" alt="{2D504EC7-7DAA-49C8-92A9-C5BC5F2015D3}_20191104152607.jpg" title="{2D504EC7-7DAA-49C8-92A9-C5BC5F2015D3}_20191104152607.jpg"></p>
+<h2 id="相关的配置说明">相关的配置说明</h2>
+<p>Balance 配置调度算法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">balance：后端服务器组内的服务器调度算法 
+balance &lt;algorithm&gt; <span class="o">[</span>&lt;arguments&gt;<span class="o">]</span> 
+balance url_param &lt;param&gt; <span class="o">[</span>check_post<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>haproxy中调度算法同样分为动态调度算法和静态调度算法，与nginx调度算法中区分动静态调度算法的概念不同，nginx用能不能根据后端服务器的负载状况进行调度来区分动静态调度算法的差别，而haproxy中则根据该算法支不支持运行时的即时生效来区分动静态算法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">roundrobin：基于权重轮询，动态算法，支持权重的运行时调整，支持慢启动；每个后端backend中最多支持4095个server，server <span class="o">[</span>标识<span class="o">]</span> ip check weight num
+static-rr：基于权重轮询，静态算法，不支持权重的运行时调整及慢启动；后端主机数量无上限
+leastconn：加权最少连接，动态算法，最少连接的后端服务器优先分配接收新连接，相同连接时轮询，适用于长连接场景，例如 MySQL、LDAP等，不适合http
+first：根据服务器在列表中的位置，自上而下进行调度；前面服务器的连接数达到上限，新请求才会分配给下一台服务
+source：源地址hash，新连接先按权重分配，后续连接按source分配请求
+</code></pre></td></tr></table>
+</div>
+</div><p>server设置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">server &lt;name&gt; &lt;address&gt;<span class="o">[</span>:<span class="o">[</span>port<span class="o">]]</span> <span class="o">[</span>param*<span class="o">]</span>
+定义后端主机的各服务器及其选项 server &lt;name&gt; &lt;address&gt;<span class="o">[</span>:port<span class="o">]</span> <span class="o">[</span>settings ...<span class="o">]</span> default-server <span class="o">[</span>settings ...<span class="o">]</span>
+&lt;name&gt;：服务器在haproxy上的内部名称；出现在日志及警告信息
+&lt;address&gt;：服务器地址，支持使用主机名
+<span class="o">[</span>:<span class="o">[</span>port<span class="o">]]</span>：端口映射；省略时，表示同bind中绑定的端口
+<span class="o">[</span>param*<span class="o">]</span>：参数
+check：对当前server做健康状态检测，只用于四层检测
+注意：httpchk，“smtpchk”, “mysql-check”, “pgsql-check” and “sslhello-chk” 用于定义应用层检测方法
+addr ：检测时使用的IP地址
+port ：针对此端口进行检测
+inter &lt;delay&gt;：连续两次检测之间的时间间隔，默认为2000ms
+rise &lt;count&gt;：连续多少次检测结果为“成功”才标记服务器为可用 ；默认为2
+fall &lt;count&gt;：连续多少次检测结果为“失败”才标记服务器为不可 用；默认为3
+cookie &lt;value&gt;：为当前server指定cookie值，实现基于cookie的会话黏性
+disabled：标记为不可用
+redir &lt;prefix&gt;：将发往此server的所有GET和HEAD类的请求重定向至指 定的URL
+weight &lt;weight&gt;：权重，默认为1最大值为256，0表示不参与负载均衡（不被调度）
+backlog &lt;backlog&gt;：当server的连接数达到上限后的后援队列长度
+backup：设定当前server为备用服务器
+default-server <span class="o">[</span>param*<span class="o">]</span> 为backend中的各server设定默认选项
+</code></pre></td></tr></table>
+</div>
+</div><p>统计接口启用相关的参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">stats enable启用统计页；基于默认的参数启用stats page
+stats uri : /haproxy?stats uri默认值
+stats realm : HAProxy Statistics启用统计信息并设置身份验证领域
+stats auth : no authentication 带有身份验证和授予访问帐户权限的统计信息
+stats uri &lt;prefix&gt; 自定义stats page uri
+stats auth &lt;user&gt;:&lt;passwd&gt; 认证时的账号和密码，可使用多次
+stats realm &lt;realm&gt; 认证时的realm
+stats hide-version 隐藏版本
+stats refresh &lt;delay&gt; 设定自动刷新时间间隔
+stats admin { if | unless } &lt;cond&gt; 启用stats page中的管理功能
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="k8s-haproxy的配置">k8s haproxy的配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cfg" data-lang="cfg"><span class="na">cat /etc/haproxy/haproxy.cfg </span>
+<span class="na">global</span>
+        <span class="na">log /dev/log    local1 warning</span>
+        <span class="na">chroot /var/lib/haproxy</span>
+        <span class="na">user haproxy</span>
+        <span class="na">group haproxy</span>
+        <span class="na">daemon</span>
+        <span class="na">nbproc 1</span>
+
+<span class="na">defaults</span>
+        <span class="na">log     global</span>
+        <span class="na">timeout connect 5s</span>
+        <span class="na">timeout client  10m</span>
+        <span class="na">timeout server  10m</span>
+
+<span class="na">listen kube-master</span>
+        <span class="na">bind 127.0.0.1:6443</span>
+        <span class="na">mode tcp</span>
+        <span class="na">option tcplog</span>
+        <span class="na">option dontlognull</span>
+        <span class="na">option dontlog-normal</span>
+        <span class="na">balance roundrobin </span>
+        <span class="na">server 192.168.10.126 192.168.10.126:6443 check inter 10s fall 2 rise 2 weight 1</span>
+        <span class="na">server 192.168.12.102 192.168.12.102:6443 check inter 10s fall 2 rise 2 weight 1</span>
+        <span class="na">server 192.168.12.228 192.168.12.228:6443 check inter 10s fall 2 rise 2 weight 1</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-19 20:21
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/haproxy/">haproxy</a>
+          <a href="/tags/lb/">lb</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cdn/bbr_centos_ops/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">centos7/8开启bbr加速</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cdn/varish_ops/">
+            <span class="next-text nav-default">varnish高速CDN部署与管理</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

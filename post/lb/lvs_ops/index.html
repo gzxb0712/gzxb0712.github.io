@@ -50,7 +50,7 @@
 <meta itemprop="description" content="参考博客 https://www.jianshu.com/p/c7158e5348ff 1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点">
 <meta itemprop="datePublished" content="2020-02-25T19:21:30+00:00" />
 <meta itemprop="dateModified" content="2020-02-25T19:21:30+00:00" />
-<meta itemprop="wordCount" content="8048">
+<meta itemprop="wordCount" content="7907">
 
 
 
@@ -131,8 +131,8 @@
         <div class="post-category">
             <a href="/categories/lb/"> lb </a>
             </div>
-          <span class="more-meta"> 约 8048 字 </span>
-          <span class="more-meta"> 预计阅读 17 分钟 </span>
+          <span class="more-meta"> 约 7907 字 </span>
+          <span class="more-meta"> 预计阅读 16 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -165,17 +165,17 @@
 <a href="https://www.jianshu.com/p/c7158e5348ff">https://www.jianshu.com/p/c7158e5348ff</a></p>
 </blockquote>
 <h3 id="1lvs-介绍">1、LVS 介绍</h3>
-<p>（1）LVS 是<code>Linux Virtual Server</code>的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是**<a href="https://links.jianshu.com/go?to=www.linuxvirtualserver.org">www.linuxvirtualserver.org</a>。**现在LVS已经是 Linux标准内核的一部分，因此性能较高。</p>
+<p>（1）LVS 是<code>Linux Virtual Server</code>的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是  <strong><a href="https://links.jianshu.com/go?to=www.linuxvirtualserver.org">www.linuxvirtualserver.org</a></strong>  现在LVS已经是 Linux标准内核的一部分，因此性能较高。</p>
 <p><strong>（2）LVS软件作用：通过LVS提供的负载均衡技术和Linux操作系统实现一个高性能、高可用的服务器群集，它具有良好可靠性、可扩展性和可操作性。从而以低廉的成本实现最优的服务性能。</strong></p>
 <h3 id="2lvs-优势与不足">2、LVS 优势与不足</h3>
 <h5 id="1优势">1、优势</h5>
-<p>**高并发连接：**LVS基于内核网络层面工作，有超强的承载能力和并发处理能力。单台LVS负载均衡器，可支持上万并发连接。</p>
-<p>**稳定性强：**是工作在网络4层之上仅作分发之用，这个特点也决定了它在负载均衡软件里的性能最强，稳定性最好，对内存和cpu资源消耗极低。</p>
-<p>**成本低廉：**硬件负载均衡器少则十几万，多则几十万上百万，LVS只需一台服务器和就能免费部署使用，性价比极高。</p>
-<p>**配置简单：**LVS配置非常简单，仅需几行命令即可完成配置，也可写成脚本进行管理。</p>
-<p>**支持多种算法：**支持多种论调算法，可根据业务场景灵活调配进行使用</p>
-<p>**支持多种工作模型：**可根据业务场景，使用不同的工作模式来解决生产环境请求处理问题。</p>
-<p>**应用范围广：**因为LVS工作在4层，所以它几乎可以对所有应用做负载均衡，包括http、数据库、DNS、ftp服务等等</p>
+<p><strong>高并发连接：</strong> LVS基于内核网络层面工作，有超强的承载能力和并发处理能力。单台LVS负载均衡器，可支持上万并发连接。</p>
+<p><strong>稳定性强：</strong> 是工作在网络4层之上仅作分发之用，这个特点也决定了它在负载均衡软件里的性能最强，稳定性最好，对内存和cpu资源消耗极低。</p>
+<p><strong>成本低廉：</strong> 硬件负载均衡器少则十几万，多则几十万上百万，LVS只需一台服务器和就能免费部署使用，性价比极高。</p>
+<p><strong>配置简单：</strong> LVS配置非常简单，仅需几行命令即可完成配置，也可写成脚本进行管理。</p>
+<p><strong>支持多种算法：</strong> 支持多种论调算法，可根据业务场景灵活调配进行使用</p>
+<p><strong>支持多种工作模型：</strong> 可根据业务场景，使用不同的工作模式来解决生产环境请求处理问题。</p>
+<p><strong>应用范围广：</strong> 因为LVS工作在4层，所以它几乎可以对所有应用做负载均衡，包括http、数据库、DNS、ftp服务等等</p>
 <h5 id="2不足">2、不足</h5>
 <p>工作在4层，不支持7层规则修改，机制过于庞大，不适合小规模应用。</p>
 <h3 id="3lvs-核心组件和专业术语">3、LVS 核心组件和专业术语</h3>
@@ -190,20 +190,19 @@
 <p>ipvs：工作于内核上的程序，可根据用户定义的集群实现请求转发；</p>
 </blockquote>
 <h5 id="2专业术语">2、专业术语</h5>
-<p>**VS：**Virtual Server #虚拟服务</p>
+<p><strong>VS：</strong> Virtual Server #虚拟服务</p>
 <p><strong>Director, Balancer</strong> #负载均衡器、分发器</p>
-<p>**RS：**Real Server #后端请求处理服务器</p>
+<p><strong>RS：</strong> Real Server #后端请求处理服务器</p>
 <p><strong>CIP:</strong> Client IP #用户端IP</p>
-<p>**VIP：**Director Virtual IP #负载均衡器虚拟IP</p>
-<p>**DIP：**Director IP #负载均衡器IP</p>
-<p>**RIP：**Real Server IP #后端请求处理服务器IP</p>
+<p><strong>VIP：</strong> Director Virtual IP #负载均衡器虚拟IP</p>
+<p><strong>DIP：</strong> Director IP #负载均衡器IP</p>
+<p><strong>RIP：</strong> Real Server IP #后端请求处理服务器IP</p>
 <h5 id="3具体图解">3、具体图解</h5>
 <p><img src="https://upload-images.jianshu.io/upload_images/20482597-91069efd8dde527e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/852/format/webp" alt=""></p>
-<p>1562677582545.png</p>
 <h3 id="4lvs负载均衡四种工作模式">4、LVS负载均衡四种工作模式</h3>
 <blockquote>
-<p>LVS/NAT：网络地址转换模式，进站/出站的数据流量经过分发器(IP负载均衡，他修改的是IP地址) --利用三层功能
-LVS/DR ：直接路由模式，只有进站的数据流量经过分发器(数据链路层负载均衡，因为他修改的是目的mac地址)--利用二层功能mac地址
+<p>LVS/NAT：网络地址转换模式，进站/出站的数据流量经过分发器(IP负载均衡，他修改的是IP地址) &ndash;利用三层功能
+LVS/DR ：直接路由模式，只有进站的数据流量经过分发器(数据链路层负载均衡，因为他修改的是目的mac地址)&ndash;利用二层功能mac地址
 LVS/TUN： 隧道模式，只有进站的数据流量经过分发器
 LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来实现转发：对于响应报文而言，修改源地址为VIP，目标地址为CIP来实现转发</p>
 </blockquote>
@@ -219,7 +218,6 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <p>缺点：扩展性有限。当服务器节点（普通PC服务器）增长过多时,负载均衡器将成为整个系统的瓶颈，因为所有的请求包和应答包的流向都经过负载均衡器。当服务器节点过多时，大量的数据包都交汇在负载均衡器那，速度就会变慢！</p>
 </blockquote>
 <p><img src="https://upload-images.jianshu.io/upload_images/20482597-40d4727791536c38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/985/format/webp" alt=""></p>
-<p>1564358958845.png</p>
 <p><strong>2、直接路由(Direct routing)模式（LVS-DR）</strong></p>
 <blockquote>
 <p>原理：负载均衡器和RS都使用同一个IP对外服务｡但只有DR对ARP请求进行响应,所有RS对本身这个IP的ARP请求保持静默｡也就是说,网关会把对这个服务IP的请求全部定向给DR,而DR收到数据包后根据调度算法,找出对应的RS,把目的MAC地址改为RS的MAC（因为IP一致）并将请求分发给这台RS｡这时RS收到这个数据包,处理完成之后，由于IP一致，可以直接将数据返给客户，则等于直接从客户端收到这个数据包无异,处理后直接返回给客户端｡</p>
@@ -231,7 +229,6 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <p>缺点：（不能说缺点，只能说是不足）要求负载均衡器的网卡必须与物理网卡在一个物理段上。</p>
 </blockquote>
 <p><img src="https://upload-images.jianshu.io/upload_images/20482597-25aa5125f41f296c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/908/format/webp" alt=""></p>
-<p>1564358987844.png</p>
 <p><strong>3、IP隧道(Tunnel)模式（LVS-TUN）</strong></p>
 <blockquote>
 <p>原理：互联网上的大多Internet服务的请求包很短小，而应答包通常很大。那么隧道模式就是，把客户端发来的数据包，封装一个新的IP头标记(仅目的IP)发给RS,RS收到后,先把数据包的头解开,还原数据包,处理后,直接返回给客户端,不需要再经过负载均衡器｡注意,由于RS需要对负载均衡器发过来的数据包进行还原,所以说必须支持IPTUNNEL协议｡所以,在RS的内核中,必须编译支持IPTUNNEL这个选项</p>
@@ -243,13 +240,11 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <p>缺点：隧道模式的RS节点需要合法IP，这种方式需要所有的服务器支持”IP Tunneling”(IP Encapsulation)协议，服务器可能只局限在部分Linux系统上。</p>
 </blockquote>
 <p><img src="https://upload-images.jianshu.io/upload_images/20482597-7684d2ed26e29a6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/898/format/webp" alt=""></p>
-<p>1564359021882.png</p>
 <p><strong>4、FULL-NAT模式</strong></p>
 <blockquote>
 <p>原理:客户端对VIP发起请求，Director接过请求发现是请求后端服务。Direcrot对请求报文做full-nat，把源ip改为Dip，把目标ip转换为任意后端RS的rip，然后发往后端，rs接到请求后，进行响应，相应源ip为Rip目标ip还是DIP，又内部路由路由到Director,Director接到响应报文，进行full-nat。将源地址为VIP，目标地址改为CIP</p>
 </blockquote>
 <p><img src="https://upload-images.jianshu.io/upload_images/20482597-ec5d9442fa190b84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/553/format/webp" alt=""></p>
-<p>1216496-20171104195649951-2027809396.png</p>
 <p>请求使用DNAT，响应使用SNAT</p>
 <h5 id="6四者的区别">6、四者的区别</h5>
 <p>| lvs-nat与lvs-fullnat： | 请求和响应报文都经由Director |
@@ -455,7 +450,6 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <li>虚拟机上网卡使用半虚拟化驱动，如果半虚拟化驱动异常，可以使用default/rtl8139</li>
 </ol>
 <p><img src="https://upload-images.jianshu.io/upload_images/20482597-812424e2665535d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/775/format/webp" alt=""></p>
-<p>lvs-02.png</p>
 <p><strong>1、LVS/NAT网络拓朴</strong></p>
 <table>
 <thead>
@@ -581,7 +575,6 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </div>
 </div><h5 id="4lvsdr-模式">4、LVS/DR 模式</h5>
 <p><img src="https://upload-images.jianshu.io/upload_images/20482597-7c053d3cef776b68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/814/format/webp" alt=""></p>
-<p>lvs-03.png</p>
 <p><strong>1、实验说明：</strong></p>
 <p>1.DR模式要求Director DIP 和 所有RealServer RIP必须在同一个网段及广播域
 2.所有节点网关均指定真实网关</p>
@@ -835,21 +828,21 @@ rr：轮循
 <p>LVS的调度算法分为静态与动态两类。</p>
 <h5 id="1静态算法4种">1、静态算法（4种）</h5>
 <p>只根据算法进行调度 而不考虑后端服务器的实际连接情况和负载情况</p>
-<p>**①.RR：**轮叫调度（Round Robin）</p>
+<p><strong>①.RR：</strong> 轮叫调度（Round Robin）</p>
 <p>调度器通过”轮叫”调度算法将外部请求按顺序轮流分配到集群中的真实服务器上，它均等地对待每一台服务器，而不管服务器上实际的连接数和系统负载｡</p>
-<p>**②.WRR：**加权轮叫（Weight RR）</p>
+<p><strong>②.WRR：</strong> 加权轮叫（Weight RR）</p>
 <p>调度器通过“加权轮叫”调度算法根据真实服务器的不同处理能力来调度访问请求。这样可以保证处理能力强的服务器处理更多的访问流量。调度器可以自动问询真实服务器的负载情况,并动态地调整其权值。</p>
-<p>**③.DH：**目标地址散列调度（Destination Hash ）</p>
+<p><strong>③.DH：</strong> 目标地址散列调度（Destination Hash ）</p>
 <p>根据请求的目标IP地址，作为散列键(HashKey)从静态分配的散列表找出对应的服务器，若该服务器是可用的且未超载，将请求发送到该服务器，否则返回空。</p>
-<p>**④.SH：**源地址 hash（Source Hash）</p>
+<p><strong>④.SH：</strong> 源地址 hash（Source Hash）</p>
 <p>源地址散列”调度算法根据请求的源IP地址，作为散列键(HashKey)从静态分配的散列表找出对应的服务器，若该服务器是可用的且未超载，将请求发送到该服务器，否则返回空｡</p>
 <h5 id="2动态算法6种">2、动态算法（6种）</h5>
 <p>前端的调度器会根据后端真实服务器的实际连接情况来分配请求</p>
-<p>**①.LC：**最少链接（Least Connections）</p>
+<p><strong>①.LC：</strong> 最少链接（Least Connections）</p>
 <p>调度器通过”最少连接”调度算法动态地将网络请求调度到已建立的链接数最少的服务器上。如果集群系统的真实服务器具有相近的系统性能，采用”最小连接”调度算法可以较好地均衡负载。</p>
-<p>**②.WLC：**加权最少连接(默认采用的就是这种)（Weighted Least Connections）</p>
+<p><strong>②.WLC：</strong> 加权最少连接(默认采用的就是这种)（Weighted Least Connections）</p>
 <p>在集群系统中的服务器性能差异较大的情况下，调度器采用“加权最少链接”调度算法优化负载均衡性能，具有较高权值的服务器将承受较大比例的活动连接负载｡调度器可以自动问询真实服务器的负载情况,并动态地调整其权值。</p>
-<p>**③.SED：**最短期望延迟调度（Shortest Expected Delay ）</p>
+<p><strong>③.SED：</strong> 最短期望延迟调度（Shortest Expected Delay ）</p>
 <p>在WLC基础上改进，Overhead = （ACTIVE+1）*256/加权，不再考虑非活动状态，把当前处于活动状态的数目+1来实现，数目最小的，接受下次请求，+1的目的是为了考虑加权的时候，非活动连接过多缺陷：当权限过大的时候，会倒置空闲服务器一直处于无连接状态。</p>
 <blockquote>
 <p>A B C 服务器
@@ -858,11 +851,11 @@ rr：轮循
 (1+2)/2=1.5 B
 (1+3)/2=4/3 C (最小)</p>
 </blockquote>
-<p>**④.NQ：**永不排队/最少队列调度（Never Queue Scheduling NQ）</p>
+<p><strong>④.NQ：</strong> 永不排队/最少队列调度（Never Queue Scheduling NQ）</p>
 <p>无需队列。如果有台 realserver的连接数＝0就直接分配过去，不需要再进行sed运算，保证不会有一个主机很空间。</p>
-<p>**⑤.LBLC：**基于局部性的最少链接（locality-Based Least Connections）</p>
+<p><strong>⑤.LBLC：</strong> 基于局部性的最少链接（locality-Based Least Connections）</p>
 <p>基于局部性的最少链接”调度算法是针对目标IP地址的负载均衡，目前主要用于Cache集群系统｡该算法根据请求的目标IP地址找出该目标IP地址最近使用的服务器，若该服务器是可用的且没有超载，将请求发送到该服务器;若服务器不存在，或者该服务器超载且有服务器处于一半的工作负载，则用“最少链接”的原则选出一个可用的服务器，将请求发送到该服务器｡</p>
-<p>**⑥. LBLCR：**带复制的基于局部性最少连接（Locality-Based Least Connections with Replication）</p>
+<p><strong>⑥. LBLCR：</strong> 带复制的基于局部性最少连接（Locality-Based Least Connections with Replication）</p>
 <p>带复制的基于局部性最少链接”调度算法也是针对目标IP地址的负载均衡，目前主要用于Cache集群系统｡它与LBLC算法的不同之处是它要维护从一个目标IP地址到一组服务器的映射，而LBLC算法维护从一个目标IP地址到一台服务器的映射｡该算法根据请求的目标IP地址找出该目标IP地址对应的服务器组，按”最小连接”原则从服务器组中选出一台服务器，若服务器没有超载，将请求发送到该服务器；若服务器超载，则按“最小连接”原则从这个集群中选出一台服务器，将该服务器加入到服务器组中，将请求发送到该服务器｡同时，当该服务器组有一段时间没有被修改，将最忙的服务器从服务器组中删除，以降低复制的程度。</p>
 
     </div>

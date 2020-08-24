@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="gzxb0712" /><meta name="description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+<meta name="author" content="gzxb0712" /><meta name="description" content="本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64 (MySQL Community Server - GPL) 安装" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
 
 
 
@@ -41,23 +41,23 @@
 
 
 <meta property="og:title" content="Centos部署apache2&#43;mysql8&#43;php7" />
-<meta property="og:description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64" />
+<meta property="og:description" content="本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64 (MySQL Community Server - GPL) 安装" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xiebiao.top/post/web/apache_centos_install/" />
 <meta property="article:published_time" content="2020-02-28T19:11:30+00:00" />
 <meta property="article:modified_time" content="2020-02-28T19:11:30+00:00" />
 <meta itemprop="name" content="Centos部署apache2&#43;mysql8&#43;php7">
-<meta itemprop="description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64">
+<meta itemprop="description" content="本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64 (MySQL Community Server - GPL) 安装">
 <meta itemprop="datePublished" content="2020-02-28T19:11:30+00:00" />
 <meta itemprop="dateModified" content="2020-02-28T19:11:30+00:00" />
-<meta itemprop="wordCount" content="3081">
+<meta itemprop="wordCount" content="3074">
 
 
 
 <meta itemprop="keywords" content="apache,web," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Centos部署apache2&#43;mysql8&#43;php7"/>
-<meta name="twitter:description" content="参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64"/>
+<meta name="twitter:description" content="本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64 (MySQL Community Server - GPL) 安装"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -131,7 +131,7 @@
         <div class="post-category">
             <a href="/categories/web/"> web </a>
             </div>
-          <span class="more-meta"> 约 3081 字 </span>
+          <span class="more-meta"> 约 3074 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -176,12 +176,8 @@
   </div>
 </div>
     <div class="post-content">
-      <blockquote>
-<p>参考博客</p>
-</blockquote>
-<p><a href="https://segmentfault.com/a/1190000019978791">https://segmentfault.com/a/1190000019978791</a><br>
-<a href="https://zhuanlan.zhihu.com/p/59467244">https://zhuanlan.zhihu.com/p/59467244</a><br>
-<a href="https://zhuanlan.zhihu.com/p/59466324">https://zhuanlan.zhihu.com/p/59466324</a></p>
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <blockquote>
 <p>本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~
 安装的mysql版本为Ver 8.0.17 for Linux on x86_64 (MySQL Community Server - GPL)
@@ -940,7 +936,11 @@ Server:Apache
           <a href="/tags/web/">web</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/web/nginx_base/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">nginx从入门到实战</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/lb/lvs_ops/">
             <span class="next-text nav-default">LVS 实现四层负载均衡项目实战</span>
             <span class="next-text nav-mobile">下一篇</span>

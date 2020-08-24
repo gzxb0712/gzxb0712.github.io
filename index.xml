@@ -6,10 +6,19 @@
     <description>Recent content on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 28 Feb 2020 19:11:30 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2020 19:18:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>nginx从入门到实战</title>
+      <link>https://xiebiao.top/post/web/nginx_base/</link>
+      <pubDate>Sun, 01 Mar 2020 19:18:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/web/nginx_base/</guid>
+      <description>前言 Nginx 现在几乎是众多大型网站的必用技术，大家应该都知道 Nginx 被 F5 收购 的大事件，章亦春也在专心维护 OpenResty 项目构建和谐家园，无论你选择 Nginx 还是 OpenRe</description>
+    </item>
     
     <item>
       <title>Centos部署apache2&#43;mysql8&#43;php7</title>
@@ -17,7 +26,7 @@
       <pubDate>Fri, 28 Feb 2020 19:11:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/web/apache_centos_install/</guid>
-      <description>参考博客 https://segmentfault.com/a/1190000019978791 https://zhuanlan.zhihu.com/p/59467244 https://zhuanlan.zhihu.com/p/59466324 本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64</description>
+      <description>本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64 (MySQL Community Server - GPL) 安装</description>
     </item>
     
     <item>

@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 20 Feb 2020 22:39:09 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Feb 2020 22:21:37 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>keepalived</title>
+      <link>https://xiebiao.top/tags/keepalived/</link>
+      <pubDate>Sat, 22 Feb 2020 22:21:37 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/keepalived/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lb</title>
+      <link>https://xiebiao.top/tags/lb/</link>
+      <pubDate>Sat, 22 Feb 2020 22:21:37 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/lb/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>bbr</title>
@@ -35,15 +53,6 @@
       <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/haproxy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>lb</title>
-      <link>https://xiebiao.top/tags/lb/</link>
-      <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/lb/</guid>
       <description></description>
     </item>
     

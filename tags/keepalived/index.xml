@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>lb on Bill World</title>
-    <link>https://xiebiao.top/categories/lb/</link>
-    <description>Recent content in lb on Bill World</description>
+    <title>keepalived on Bill World</title>
+    <link>https://xiebiao.top/tags/keepalived/</link>
+    <description>Recent content in keepalived on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 22 Feb 2020 22:21:37 +0000</lastBuildDate>
     
-	<atom:link href="https://xiebiao.top/categories/lb/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xiebiao.top/tags/keepalived/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://xiebiao.top/post/lb/keepalived_nginx_ops/</guid>
       <description>参考博客 https://juejin.im/post/5d9066e06fb9a04e2c014e3d 前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实</description>
-    </item>
-    
-    <item>
-      <title>centos部署haproxy</title>
-      <link>https://xiebiao.top/post/lb/haproxy_ops/</link>
-      <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/post/lb/haproxy_ops/</guid>
-      <description>参考博客 https://sulao.cn/post/746.html https://hewanyue.com/blog/5aeb7732.html haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运</description>
     </item>
     
   </channel>

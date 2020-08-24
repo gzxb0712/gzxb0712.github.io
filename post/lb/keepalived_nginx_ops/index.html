@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>centos部署keepalived - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="参考博客 https://juejin.im/post/5d9066e06fb9a04e2c014e3d 前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/lb/keepalived_nginx_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="centos部署keepalived" />
+<meta property="og:description" content="参考博客 https://juejin.im/post/5d9066e06fb9a04e2c014e3d 前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/lb/keepalived_nginx_ops/" />
+<meta property="article:published_time" content="2020-02-22T22:21:37+00:00" />
+<meta property="article:modified_time" content="2020-02-22T22:21:37+00:00" />
+<meta itemprop="name" content="centos部署keepalived">
+<meta itemprop="description" content="参考博客 https://juejin.im/post/5d9066e06fb9a04e2c014e3d 前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实">
+<meta itemprop="datePublished" content="2020-02-22T22:21:37+00:00" />
+<meta itemprop="dateModified" content="2020-02-22T22:21:37+00:00" />
+<meta itemprop="wordCount" content="4583">
+
+
+
+<meta itemprop="keywords" content="keepalived,lb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="centos部署keepalived"/>
+<meta name="twitter:description" content="参考博客 https://juejin.im/post/5d9066e06fb9a04e2c014e3d 前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">centos部署keepalived</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-22 22:21 </span>
+        <div class="post-category">
+            <a href="/categories/lb/"> lb </a>
+            </div>
+          <span class="more-meta"> 约 4583 字 </span>
+          <span class="more-meta"> 预计阅读 10 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#环境说明">环境说明</a></li>
+    <li><a href="#部署">部署</a>
+      <ul>
+        <li><a href="#更换服务器源仓库">更换服务器源仓库</a></li>
+        <li><a href="#安装keepalived">安装Keepalived</a></li>
+        <li><a href="#配置keepalived">配置Keepalived</a></li>
+        <li><a href="#启动服务">启动服务</a></li>
+        <li><a href="#测试keepalived">测试Keepalived</a></li>
+        <li><a href="#配置日志">配置日志</a></li>
+        <li><a href="#keepalivednginx">Keepalived+Nginx</a></li>
+      </ul>
+    </li>
+    <li><a href="#问题处理">问题处理</a>
+      <ul>
+        <li><a href="#unable-to-access-script">Unable to access script</a></li>
+        <li><a href="#default-user">default user&hellip;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客
+<a href="https://juejin.im/post/5d9066e06fb9a04e2c014e3d">https://juejin.im/post/5d9066e06fb9a04e2c014e3d</a></p>
+</blockquote>
+<h2 id="前言">前言</h2>
+<p><a href="https://www.keepalived.org/">Keepalived</a>是以<a href="https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E8%B7%AF%E7%94%B1%E5%99%A8%E5%86%97%E4%BD%99%E5%8D%8F%E8%AE%AE/2991482?fromtitle=VRRP&amp;fromid=932628&amp;fr=aladdin">VRRP</a>（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器高可用的协议，将多台提供相同功能的路由器组成一个路由器组。</p>
+<p><strong>原理</strong>：在整个Keepalived集群中会有一个<code>MASTER</code>和多个<code>BACKUP</code>，<code>master</code>节点上有一个对外提供服务的<code>Virtual IP(VIP)</code>，并且<code>MASTER</code>会发组播的心跳信息，当<code>BACKUP</code>收不到VRRP包时就认为<code>MASTER</code>宕掉了，这时就需要根据VRRP优先级来选举一个<code>BACKUP</code>作为<code>MASTER</code>，当<code>MASTER</code>恢复时，<code>BACKUP</code>又会释放在<code>MASTER</code>故障时自身接管的IP资源和服务，恢复到原来的备用角色，这样就可以保证路由器的高可用。</p>
+<h2 id="环境说明">环境说明</h2>
+<ul>
+<li>操作系统：CentOS 7 (Minimal Install)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># cat /etc/redhat-release
+CentOS Linux release 7.6.1810 (Core)
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>演示环境</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>VIP</th>
+<th>IP</th>
+<th>主机名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.10.0.10</td>
+<td>10.10.0.11</td>
+<td>master</td>
+</tr>
+<tr>
+<td>10.10.0.10</td>
+<td>10.10.0.12</td>
+<td>backup</td>
+</tr>
+</tbody>
+</table>
+<h2 id="部署">部署</h2>
+<h3 id="更换服务器源仓库">更换服务器源仓库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+# curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+# yum makecache
+# yum -y update
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="安装keepalived">安装Keepalived</h3>
+<h4 id="yum安装">yum安装</h4>
+<p>Keepalived可以使用yum直接安装，在master服务器和backup服务器执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install keepalived
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="源码编译安装">源码编译安装</h4>
+<p>参考文档：<a href="https://github.com/acassen/keepalived/blob/master/INSTALL">Keepalived官方文档</a></p>
+<p>安装依赖库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install openssl-devel libnl3-devel ipset-devel iptables-devel file-devel net-snmp-devel glib2-devel json-c-devel pcre2-devel libnftnl-devel libmnl-devel
+
+</code></pre></td></tr></table>
+</div>
+</div><p>下载Keepalived</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># wget https://github.com/acassen/keepalived/archive/v2.0.18.tar.gz
+
+</code></pre></td></tr></table>
+</div>
+</div><p>解压Keepalived</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># tar -zxvf v2.0.18.tar.gz
+# cd keepalived-2.0.18
+
+</code></pre></td></tr></table>
+</div>
+</div><p>开始安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ./build_setup
+./build_setup:行3: aclocal: 未找到命令
+./build_setup:行4: autoheader: 未找到命令
+./build_setup:行5: automake: 未找到命令
+./build_setup:行6: autoreconf: 未找到命令
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果出现如上报错，安装autotools系列工具</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install aclocal autoheader automake autoreconf
+
+</code></pre></td></tr></table>
+</div>
+</div><p>继续</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ./configure
+# make &amp;&amp; make install
+
+</code></pre></td></tr></table>
+</div>
+</div><p>最后复制相关配置文件到系统默认路径</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># mkdir /etc/keepalived
+# cp ./keepalived/etc/keepalived/keepalived.conf /etc/keepalived/
+# cp ./keepalived/etc/init.d/keepalived /etc/init.d/
+# cp ./keepalived/etc/sysconfig/keepalived /etc/sysconfig/
+
+</code></pre></td></tr></table>
+</div>
+</div><p>修改<code>/usr/lib/systemd/system/keepalived.service</code>中<code>PIDFile</code>的值为<code>/var/run/keepalived.pid</code>。</p>
+<h3 id="配置keepalived">配置Keepalived</h3>
+<p>Keepalived提供了两种模式</p>
+<ul>
+<li><strong>抢占式</strong>：MASTER与BACKUP节点上<code>state</code>配置不同，当MASTER节点宕掉后由BACKUP节点接手MASTER节点的VIP与服务，在MASTER节点恢复后重新由MASTER节点来接手VIP与服务，BACKUP节点继续回到备用状态。</li>
+<li><strong>非抢占式</strong>：MASTER与BACKUP节点上<code>state</code>配置都为<code>BACKUP</code>，且在<code>vrrp_instance</code>块下两个节点都增加<code>nopreempt</code>，表示不争抢VIP。两个节点启动后默认都为<code>BACKUP</code>状态，双方在发送组播信息后，会根据优先级来选举一个<code>MASTER</code>出来，由于两者都配置了<code>nopreempt</code>，所以<code>MASTER</code>从故障中恢复后不会抢占VIP，这样会<strong>避免VIP切换可能造成的服务延迟</strong>。</li>
+</ul>
+<h4 id="master节点">MASTER节点</h4>
+<p>首先，我们先确认下网卡及IP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host
+    inet 10.10.0.11/8 brd 10.255.255.255 scope global noprefixroute ens192
+    inet6 fd08:815:48b2::e91/128 scope global noprefixroute
+    inet6 fd08:815:48b2:0:d419:f3f5:85de:b72/64 scope global noprefixroute
+    inet6 fe80::49a2:321d:8cf6:651a/64 scope link noprefixroute
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到本次使用的是<code>ens192</code>这块网卡，IP为：10.10.0.11，然后我们编辑keepalived配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># vim /etc/keepalived/keepalived.conf
+
+</code></pre></td></tr></table>
+</div>
+</div><p>配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
+
+global_defs {
+   # email 收件人
+   notification_email {
+     acassen@firewall.loc
+     failover@firewall.loc
+     sysadmin@firewall.loc
+   }
+   # email 发件人
+   notification_email_from Alexandre.Cassen@firewall.loc
+   # email SMTP服务器地址
+   smtp_server 192.168.200.1
+   smtp_connect_timeout 30
+   # 标识本节点的ID,通常为hostname
+   router_id akiya01
+   vrrp_skip_check_adv_addr
+   vrrp_strict
+   vrrp_garp_interval 0
+   vrrp_gna_interval 0
+}
+# vrrp实例，相同实例的备节点名字要相同
+vrrp_instance VI_1 {
+    # 指定keepalived的角色，“MASTER”表示此主机是主服务器，“BACKUP”表示此主机是备用服务器
+    state MASTER
+    # 指定网卡接口，这里改为我们当前使用的网卡“ens192”
+    interface ens192
+    # 虚拟路由标识，这个标识是一个数字，同一个vrrp实例使用唯一的标识
+    # 即同一vrrp_instance下，MASTER和BACKUP必须是一致的
+    virtual_router_id 51
+     # 定义优先级；数字越大，优先级越高（0-255）
+    # 在同一个vrrp_instance下，“MASTER”的优先级必须大于“BACKUP”的优先级
+    priority 100
+    # 设定MASTER与BACKUP负载均衡器之间同步检查的时间间隔，单位是秒
+    advert_int 1
+    # 设置验证类型和密码
+    authentication {
+        # 设置验证类型，主要有PASS和AH两种
+        auth_type PASS
+        # 设置验证密码，在同一个vrrp_instance下，MASTER与BACKUP必须使用相同的密码才能正常通信
+        auth_pass akiya
+    }
+    # 有故障时是否激活邮件通知
+    #smtp_alert
+    # 禁止抢占服务
+    # 默认情况，当MASTER服务挂掉之后，BACKUP自动升级为MASTER并接替它的任务
+    # 当MASTER服务恢复后，升级为MASTER的BACKUP服务又自动降为BACKUP，把工作权交给原MASTER
+    # 当配置了nopreempt，MASTER从挂掉到恢复，不再将服务抢占过来。
+    #nopreempt
+    # 虚拟IP，两个节点设置必须一样。可以设置多个，一行写一个
+    virtual_ipaddress {
+        # 虚拟IP为10.10.0.10/8;绑定接口为ens192;别名ha:net，主备相同
+        10.10.0.10/8 dev ens192 label ha:net
+    }
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="backup节点">BACKUP节点</h4>
+<p>BACKUP配置基本与Master一致，仅有部分地方变动</p>
+<ul>
+<li>state角色为<code>BACKUP</code></li>
+<li>interface为网卡的ID，需要根据机器实际情况确认填写</li>
+<li>virtual_route_id要和<code>MASTER</code>一致，默认为51</li>
+<li>priority要比<code>MASTER</code>小</li>
+</ul>
+<p>修改BACKUP节点Keepalived配置，部署配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
+
+rrp_instance VI_1 {
+    # 指定Keepalived的角色，BACKUP表示此主机是备用节点
+    state BACKUP
+    # 确认网卡的ID
+    interface ens192
+    # 即同一vrrp_instance下，“MASTER”和“BACKUP”必须是一致的
+    virtual_router_id 51
+    # 优先级，比MASTER小
+    priority 99
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    # 虚拟IP，两个节点设置必须一样。可以设置多个，一行写一个
+    virtual_ipaddress {
+        # 虚拟IP为10.10.0.10/8;绑定接口为ens192;别名ha:net，主备相同
+        10.10.0.10/8 dev ens192 label ha:net
+    }
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="启动服务">启动服务</h3>
+<p>配置完<code>MASTER</code>与<code>BACKUP</code>节点后，我们就可以启动并测试服务了</p>
+<h4 id="添加防火墙规则">添加防火墙规则</h4>
+<p>因为vrrp使用<code>224.0.0.18</code>这个组播地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --in-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+# firewall-cmd --direct --permanent --add-rule ipv4 filter OUTPUT 0 --out-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+# firewall-cmd --reload
+
+</code></pre></td></tr></table>
+</div>
+</div><p>查看规则</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># firewall-cmd --direct --get-rules ipv4 filter INPUT
+0 --in-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+# firewall-cmd --direct --get-rules ipv4 filter OUTPUT
+0 --out-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="启动keepalived">启动Keepalived</h4>
+<p>启动Keepalived并添加到开机自启</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl start keepalived
+# systemctl enable keepalived
+
+</code></pre></td></tr></table>
+</div>
+</div><p>然后我们再次查看<code>MASTER</code>节点IP可以发现新增了一个</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host
+    inet 10.10.0.11/8 brd 10.255.255.255 scope global noprefixroute ens192
+    inet 10.10.0.10/32 scope global ha:net
+    inet6 fd08:815:48b2::e91/128 scope global noprefixroute
+    inet6 fd08:815:48b2:0:d419:f3f5:85de:b72/64 scope global noprefixroute
+    inet6 fe80::49a2:321d:8cf6:651a/64 scope link noprefixroute
+
+</code></pre></td></tr></table>
+</div>
+</div><p>同样在<code>BACKUP</code>节点上查看IP结果为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host
+    inet 10.10.0.12/8 brd 10.255.255.255 scope global noprefixroute ens192
+    inet6 fd08:815:48b2::1ca/128 scope global noprefixroute
+    inet6 fd08:815:48b2:0:b840:33aa:f6de:253b/64 scope global noprefixroute
+    inet6 fe80::a96d:fe89:d95:3dfd/64 scope link noprefixroute
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="测试keepalived">测试Keepalived</h3>
+<p>安装tcpdump工具</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install tcpdump
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在<code>MASTER</code>节点上执行如下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># tcpdump -i ens192 vrrp -n
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on ens192, link-type EN10MB (Ethernet), capture size 262144 bytes
+10:10:24.193943 IP 10.10.0.11 &gt; 224.0.0.18: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
+10:10:25.194972 IP 10.10.0.11 &gt; 224.0.0.18: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
+10:10:26.196009 IP 10.10.0.11 &gt; 224.0.0.18: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
+10:10:27.197038 IP 10.10.0.11 &gt; 224.0.0.18: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
+...
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果关闭<code>MASTER</code>上的Keepalived则无包可抓，并且VIP会对应的漂移到<code>BACKUP</code>上去。</p>
+<h3 id="配置日志">配置日志</h3>
+<p>Keepalived默认日志输出到系统日志<code>/var/log/messages</code>中，因为系统日志很多，在查询时相对麻烦。</p>
+<p>我们可以将Keepalived日志单独拿出来，这里需要修改日志输出路径。</p>
+<ol>
+<li>修改Keepalived配置</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># vim /etc/sysconfig/keepalived
+
+</code></pre></td></tr></table>
+</div>
+</div><p>更改如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Options for keepalived. See `keepalived --help&#39; output and keepalived(8) and
+# keepalived.conf(5) man pages for a list of all options. Here are the most
+# common ones :
+#
+# --vrrp               -P    Only run with VRRP subsystem.
+# --check              -C    Only run with Health-checker subsystem.
+# --dont-release-vrrp  -V    Dont remove VRRP VIPs &amp; VROUTEs on daemon stop.
+# --dont-release-ipvs  -I    Dont remove IPVS topology on daemon stop.
+# --dump-conf          -d    Dump the configuration data.
+# --log-detail         -D    Detailed log messages.
+# --log-facility       -S    0-7 Set local syslog facility (default=LOG_DAEMON)
+#
+
+KEEPALIVED_OPTIONS=&#34;-D&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>修改<code>KEEPALIVED_OPTIONS=&quot;-D&quot;</code>为<code>KEEPALIVED_OPTIONS=&quot;-D -d -S 0&quot;</code>，<code>-S</code>指定syslog的facility</p>
+<ol start="2">
+<li>修改<code>/etc/rsyslog.conf</code>，在末尾添加</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+local0.*            /var/log/keepalived.log
+
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>重启日志记录服务</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl restart rsyslog
+
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>重启Keepalived</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl restart keepalived
+
+</code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>查看日志</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ls -lh /var/log/keepalived.log
+-rw-------. 1 root root 14K 9月  30 13:22 /var/log/keepalived.log
+# head -n 10 /var/log/keepalived.log
+Sep 30 13:22:52 master Keepalived[30707]: Starting Keepalived v1.3.5 (03/19,2017), git commit v1.3.5-6-g6fa32f2
+Sep 30 13:22:52 master Keepalived[30707]: Opening file &#39;/etc/keepalived/keepalived.conf&#39;.
+Sep 30 13:22:52 master Keepalived[30708]: Starting Healthcheck child process, pid=30709
+Sep 30 13:22:52 master Keepalived[30708]: Starting VRRP child process, pid=30710
+Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Initializing ipvs
+Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Opening file &#39;/etc/keepalived/keepalived.conf&#39;.
+Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: ------&lt; Global definitions &gt;------
+Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Router ID = ha01
+Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server = 192.168.200.1
+Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="keepalivednginx">Keepalived+Nginx</h3>
+<p>在实际情况中，业务停止而Keepalived服务还在工作的情况会导致VIP无法找到对应的服务，这时就需要写守护进程脚本，下面以Nginx为例。</p>
+<h4 id="nginx安装">Nginx安装</h4>
+<ul>
+<li>增加对应的Nginx源</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>yum安装Nginx</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install nginx
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>NGINX启动、停止、重启、开机自启</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl start nginx   # 启动Nginx服务
+# systemctl stop nginx    # 停止Nginx服务
+# systemctl restart nginx # 重启Nginx服务
+# systemctl enable nginx  # 开机自启Nginx服务
+# nginx -t                # 检查配置文件正确性
+# nginx -s reload         # 平滑重载配置
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>检查启动是否成功启动</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># curl -i localhost
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="创建nginx服务检测脚本">创建Nginx服务检测脚本</h4>
+<p>分别在主备服务器的<code>/etc/keepalived</code>目录下创建<code>nginx_check.sh</code>脚本，脚本如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1"># author:akiya</span>
+<span class="nv">A</span><span class="o">=</span><span class="k">$(</span>ps -C nginx --no-header <span class="p">|</span> wc -l<span class="k">)</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$A</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    systemctl start nginx
+    sleep <span class="m">2</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="k">$(</span>ps -C nginx --no-header <span class="p">|</span> wc -l<span class="k">)</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        systemctl stop keepalived
+    <span class="k">fi</span>
+<span class="k">fi</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>为脚本添加可执行权限</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># chmod +x /etc/keepalived/nginx_check.sh
+
+</code></pre></td></tr></table>
+</div>
+</div><p>此脚本用于Keepalived定时检测Nginx的服务状态，如果Nginx停止，会尝试重新启动Nginx，如果启动失败，会将Keepalived服务停止，使IP漂移到备用节点上。</p>
+<h4 id="修改keepalived配置">修改Keepalived配置</h4>
+<p>在<code>/etc/keepalived/keepalived.conf</code>中增加检测脚本配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">global_defs {
+   ...
+   }
+...
+# keepalived会定时执行脚本并对脚本执行的结果进行分析,动态调整vrrp_instance的优先级
+# 如果脚本执行结果为0,并且weight配置的值大于0,则优先级相应的增加。
+# 如果脚本执行结果非0,并且weight配置的值小于 0,则优先级相应的减少。
+# 其他情况,维持原本配置的优先级,即配置文件中priority对应的值。
+vrrp_script chk_nginx {
+       script &#34;/etc/keepalived/nginx_check.sh&#34;
+       interval 2  #每2秒检测一次nginx的运行状态
+       weight -20  #失败一次，将自己的优先级-20
+}
+vrrp_instance VI_1 {
+    ...
+    virtual_ipaddress {
+        10.10.0.10/8 dev ens192 label ha:net
+    }
+    track_script {
+        # Nginx存活状态监测脚本
+        chk_nginx
+    }
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="问题处理">问题处理</h2>
+<h3 id="unable-to-access-script">Unable to access script</h3>
+<p><a href="https://juejin.im/user/5cd2b6c4f265da036023c923/posts">我</a>在使用yum安装的版本为<code>1.3.5</code>，在配置文件中编写<code>vrrp_script</code>块后，启动服务遇到一个问题<code>Unable to access script</code>，经查资料发现<a href="https://github.com/acassen/keepalived/issues/653">Git Issues</a>中有提到这个问题，新版本目前已解决。</p>
+<p>部分报错相关日志如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Sep 30 14:25:42 master Keepalived_vrrp[30930]:     chk_nginx no match, ignoring...
+Sep 30 14:26:04 master Keepalived_vrrp[30944]:     nginx_check no match, ignoring...
+Sep 30 14:44:18 master Keepalived_vrrp[30980]: Unable to access script `/etc/keepalived/nginx_check.sh`
+Sep 30 14:44:18 master Keepalived_vrrp[30980]: Disabling track script chk_nginx since not found
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果使用yum安装可以在安装前查看下对应的包信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum info keepalived
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="default-user">default user&hellip;</h3>
+<p>使用编译安装后（安装版本<code>2.0.18</code>），添加Nginx检测脚本并启动Keepalived服务后，日志显示 <code>default user 'keepalived_script' for script execution does not exist - please create.</code></p>
+<p>解决方法：在配置文件中添加运行检测脚本的用户或组即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
+
+global_defs {
+...
+   script_user root
+   enable_script_security
+}
+...
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-22 22:21
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/keepalived/">keepalived</a>
+          <a href="/tags/lb/">lb</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/cdn/bbr_centos_ops/">
+            <span class="next-text nav-default">centos7/8开启bbr加速</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

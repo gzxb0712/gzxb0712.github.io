@@ -217,7 +217,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <blockquote>
 <p>缺点：扩展性有限。当服务器节点（普通PC服务器）增长过多时,负载均衡器将成为整个系统的瓶颈，因为所有的请求包和应答包的流向都经过负载均衡器。当服务器节点过多时，大量的数据包都交汇在负载均衡器那，速度就会变慢！</p>
 </blockquote>
-<p><img src="https://upload-images.jianshu.io/upload_images/20482597-40d4727791536c38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/985/format/webp" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/lvs-nat.jpg" alt=""></p>
 <p><strong>2、直接路由(Direct routing)模式（LVS-DR）</strong></p>
 <blockquote>
 <p>原理：负载均衡器和RS都使用同一个IP对外服务｡但只有DR对ARP请求进行响应,所有RS对本身这个IP的ARP请求保持静默｡也就是说,网关会把对这个服务IP的请求全部定向给DR,而DR收到数据包后根据调度算法,找出对应的RS,把目的MAC地址改为RS的MAC（因为IP一致）并将请求分发给这台RS｡这时RS收到这个数据包,处理完成之后，由于IP一致，可以直接将数据返给客户，则等于直接从客户端收到这个数据包无异,处理后直接返回给客户端｡</p>
@@ -228,7 +228,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <blockquote>
 <p>缺点：（不能说缺点，只能说是不足）要求负载均衡器的网卡必须与物理网卡在一个物理段上。</p>
 </blockquote>
-<p><img src="https://upload-images.jianshu.io/upload_images/20482597-25aa5125f41f296c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/908/format/webp" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/lvs-dr.png" alt=""></p>
 <p><strong>3、IP隧道(Tunnel)模式（LVS-TUN）</strong></p>
 <blockquote>
 <p>原理：互联网上的大多Internet服务的请求包很短小，而应答包通常很大。那么隧道模式就是，把客户端发来的数据包，封装一个新的IP头标记(仅目的IP)发给RS,RS收到后,先把数据包的头解开,还原数据包,处理后,直接返回给客户端,不需要再经过负载均衡器｡注意,由于RS需要对负载均衡器发过来的数据包进行还原,所以说必须支持IPTUNNEL协议｡所以,在RS的内核中,必须编译支持IPTUNNEL这个选项</p>
@@ -239,12 +239,12 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <blockquote>
 <p>缺点：隧道模式的RS节点需要合法IP，这种方式需要所有的服务器支持”IP Tunneling”(IP Encapsulation)协议，服务器可能只局限在部分Linux系统上。</p>
 </blockquote>
-<p><img src="https://upload-images.jianshu.io/upload_images/20482597-7684d2ed26e29a6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/898/format/webp" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/lvs-tun.png" alt=""></p>
 <p><strong>4、FULL-NAT模式</strong></p>
 <blockquote>
 <p>原理:客户端对VIP发起请求，Director接过请求发现是请求后端服务。Direcrot对请求报文做full-nat，把源ip改为Dip，把目标ip转换为任意后端RS的rip，然后发往后端，rs接到请求后，进行响应，相应源ip为Rip目标ip还是DIP，又内部路由路由到Director,Director接到响应报文，进行full-nat。将源地址为VIP，目标地址改为CIP</p>
 </blockquote>
-<p><img src="https://upload-images.jianshu.io/upload_images/20482597-ec5d9442fa190b84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/553/format/webp" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/lvs-fullnat.png" alt=""></p>
 <p>请求使用DNAT，响应使用SNAT</p>
 <h5 id="6四者的区别">6、四者的区别</h5>
 <p>| lvs-nat与lvs-fullnat： | 请求和响应报文都经由Director |
@@ -449,7 +449,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <li>client、调度器、Real Server都使用虚拟机或使用真实服务器</li>
 <li>虚拟机上网卡使用半虚拟化驱动，如果半虚拟化驱动异常，可以使用default/rtl8139</li>
 </ol>
-<p><img src="https://upload-images.jianshu.io/upload_images/20482597-812424e2665535d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/775/format/webp" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/lvs-nat-mode.png" alt=""></p>
 <p><strong>1、LVS/NAT网络拓朴</strong></p>
 <table>
 <thead>

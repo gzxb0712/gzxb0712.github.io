@@ -6,10 +6,19 @@
     <description>Recent content in lb on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 22 Feb 2020 22:21:37 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Feb 2020 19:21:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/lb/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LVS 实现四层负载均衡项目实战</title>
+      <link>https://xiebiao.top/post/lb/lvs_ops/</link>
+      <pubDate>Tue, 25 Feb 2020 19:21:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/lb/lvs_ops/</guid>
+      <description>参考博客 https://www.jianshu.com/p/c7158e5348ff 1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点</description>
+    </item>
     
     <item>
       <title>centos部署keepalived</title>

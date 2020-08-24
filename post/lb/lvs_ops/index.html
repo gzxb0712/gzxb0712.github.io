@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>LVS 实现四层负载均衡项目实战 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="参考博客 https://www.jianshu.com/p/c7158e5348ff 1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/lb/lvs_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="LVS 实现四层负载均衡项目实战" />
+<meta property="og:description" content="参考博客 https://www.jianshu.com/p/c7158e5348ff 1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/lb/lvs_ops/" />
+<meta property="article:published_time" content="2020-02-25T19:21:30+00:00" />
+<meta property="article:modified_time" content="2020-02-25T19:21:30+00:00" />
+<meta itemprop="name" content="LVS 实现四层负载均衡项目实战">
+<meta itemprop="description" content="参考博客 https://www.jianshu.com/p/c7158e5348ff 1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点">
+<meta itemprop="datePublished" content="2020-02-25T19:21:30+00:00" />
+<meta itemprop="dateModified" content="2020-02-25T19:21:30+00:00" />
+<meta itemprop="wordCount" content="8048">
+
+
+
+<meta itemprop="keywords" content="lvs,lb," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LVS 实现四层负载均衡项目实战"/>
+<meta name="twitter:description" content="参考博客 https://www.jianshu.com/p/c7158e5348ff 1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">LVS 实现四层负载均衡项目实战</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-25 19:21 </span>
+        <div class="post-category">
+            <a href="/categories/lb/"> lb </a>
+            </div>
+          <span class="more-meta"> 约 8048 字 </span>
+          <span class="more-meta"> 预计阅读 17 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1lvs-介绍">1、LVS 介绍</a></li>
+        <li><a href="#2lvs-优势与不足">2、LVS 优势与不足</a></li>
+        <li><a href="#3lvs-核心组件和专业术语">3、LVS 核心组件和专业术语</a></li>
+        <li><a href="#4lvs负载均衡四种工作模式">4、LVS负载均衡四种工作模式</a></li>
+        <li><a href="#5lvs-四种工作模式原理以及优缺点比较">5、LVS 四种工作模式原理、以及优缺点比较</a></li>
+        <li><a href="#6lvs-ipvsadm-命令的使用">6、LVS ipvsadm 命令的使用</a></li>
+        <li><a href="#实现lvs持久连接了解">实现LVS持久连接(了解)</a></li>
+        <li><a href="#7lvs-负载均衡集群企业级应用实战">7、LVS 负载均衡集群企业级应用实战</a></li>
+        <li><a href="#lvs的调度算法">LVS的调度算法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>参考博客
+<a href="https://www.jianshu.com/p/c7158e5348ff">https://www.jianshu.com/p/c7158e5348ff</a></p>
+</blockquote>
+<h3 id="1lvs-介绍">1、LVS 介绍</h3>
+<p>（1）LVS 是<code>Linux Virtual Server</code>的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是**<a href="https://links.jianshu.com/go?to=www.linuxvirtualserver.org">www.linuxvirtualserver.org</a>。**现在LVS已经是 Linux标准内核的一部分，因此性能较高。</p>
+<p><strong>（2）LVS软件作用：通过LVS提供的负载均衡技术和Linux操作系统实现一个高性能、高可用的服务器群集，它具有良好可靠性、可扩展性和可操作性。从而以低廉的成本实现最优的服务性能。</strong></p>
+<h3 id="2lvs-优势与不足">2、LVS 优势与不足</h3>
+<h5 id="1优势">1、优势</h5>
+<p>**高并发连接：**LVS基于内核网络层面工作，有超强的承载能力和并发处理能力。单台LVS负载均衡器，可支持上万并发连接。</p>
+<p>**稳定性强：**是工作在网络4层之上仅作分发之用，这个特点也决定了它在负载均衡软件里的性能最强，稳定性最好，对内存和cpu资源消耗极低。</p>
+<p>**成本低廉：**硬件负载均衡器少则十几万，多则几十万上百万，LVS只需一台服务器和就能免费部署使用，性价比极高。</p>
+<p>**配置简单：**LVS配置非常简单，仅需几行命令即可完成配置，也可写成脚本进行管理。</p>
+<p>**支持多种算法：**支持多种论调算法，可根据业务场景灵活调配进行使用</p>
+<p>**支持多种工作模型：**可根据业务场景，使用不同的工作模式来解决生产环境请求处理问题。</p>
+<p>**应用范围广：**因为LVS工作在4层，所以它几乎可以对所有应用做负载均衡，包括http、数据库、DNS、ftp服务等等</p>
+<h5 id="2不足">2、不足</h5>
+<p>工作在4层，不支持7层规则修改，机制过于庞大，不适合小规模应用。</p>
+<h3 id="3lvs-核心组件和专业术语">3、LVS 核心组件和专业术语</h3>
+<h5 id="1核心组件">1、核心组件</h5>
+<blockquote>
+<p>LVS的管理工具和内核模块 ipvsadm/ipvs</p>
+</blockquote>
+<blockquote>
+<p>ipvsadm：用户空间的命令行工具，用于管理集群服务及集群服务上的RS等；</p>
+</blockquote>
+<blockquote>
+<p>ipvs：工作于内核上的程序，可根据用户定义的集群实现请求转发；</p>
+</blockquote>
+<h5 id="2专业术语">2、专业术语</h5>
+<p>**VS：**Virtual Server #虚拟服务</p>
+<p><strong>Director, Balancer</strong> #负载均衡器、分发器</p>
+<p>**RS：**Real Server #后端请求处理服务器</p>
+<p><strong>CIP:</strong> Client IP #用户端IP</p>
+<p>**VIP：**Director Virtual IP #负载均衡器虚拟IP</p>
+<p>**DIP：**Director IP #负载均衡器IP</p>
+<p>**RIP：**Real Server IP #后端请求处理服务器IP</p>
+<h5 id="3具体图解">3、具体图解</h5>
+<p><img src="https://upload-images.jianshu.io/upload_images/20482597-91069efd8dde527e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/852/format/webp" alt=""></p>
+<p>1562677582545.png</p>
+<h3 id="4lvs负载均衡四种工作模式">4、LVS负载均衡四种工作模式</h3>
+<blockquote>
+<p>LVS/NAT：网络地址转换模式，进站/出站的数据流量经过分发器(IP负载均衡，他修改的是IP地址) --利用三层功能
+LVS/DR ：直接路由模式，只有进站的数据流量经过分发器(数据链路层负载均衡，因为他修改的是目的mac地址)--利用二层功能mac地址
+LVS/TUN： 隧道模式，只有进站的数据流量经过分发器
+LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来实现转发：对于响应报文而言，修改源地址为VIP，目标地址为CIP来实现转发</p>
+</blockquote>
+<h3 id="5lvs-四种工作模式原理以及优缺点比较">5、LVS 四种工作模式原理、以及优缺点比较</h3>
+<p><strong>1、NAT模式（LVS-NAT）</strong>（网络地址转换模式）</p>
+<blockquote>
+<p>原理：就是把客户端发来的数据包的IP头的目的地址，在负载均衡器上换成其中一台RS的IP地址，并发至此RS来处理,RS处理完成后把数据交给经过负载均衡器,负载均衡器再把数据包的原IP地址改为自己的IP，将目的地址改为客户端IP地址即可｡期间,无论是进来的流量,还是出去的流量,都必须经过负载均衡器｡</p>
+</blockquote>
+<blockquote>
+<p>优点：集群中的物理服务器可以使用任何支持TCP/IP操作系统，只有负载均衡器需要一个合法的IP地址。</p>
+</blockquote>
+<blockquote>
+<p>缺点：扩展性有限。当服务器节点（普通PC服务器）增长过多时,负载均衡器将成为整个系统的瓶颈，因为所有的请求包和应答包的流向都经过负载均衡器。当服务器节点过多时，大量的数据包都交汇在负载均衡器那，速度就会变慢！</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/20482597-40d4727791536c38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/985/format/webp" alt=""></p>
+<p>1564358958845.png</p>
+<p><strong>2、直接路由(Direct routing)模式（LVS-DR）</strong></p>
+<blockquote>
+<p>原理：负载均衡器和RS都使用同一个IP对外服务｡但只有DR对ARP请求进行响应,所有RS对本身这个IP的ARP请求保持静默｡也就是说,网关会把对这个服务IP的请求全部定向给DR,而DR收到数据包后根据调度算法,找出对应的RS,把目的MAC地址改为RS的MAC（因为IP一致）并将请求分发给这台RS｡这时RS收到这个数据包,处理完成之后，由于IP一致，可以直接将数据返给客户，则等于直接从客户端收到这个数据包无异,处理后直接返回给客户端｡</p>
+</blockquote>
+<blockquote>
+<p>优点：和TUN（隧道模式）一样，负载均衡器也只是分发请求，应答包通过单独的路由方法返回给客户端。与VS-TUN相比，VS-DR这种实现方式不需要隧道结构，因此可以使用大多数操作系统做为物理服务器。</p>
+</blockquote>
+<blockquote>
+<p>缺点：（不能说缺点，只能说是不足）要求负载均衡器的网卡必须与物理网卡在一个物理段上。</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/20482597-25aa5125f41f296c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/908/format/webp" alt=""></p>
+<p>1564358987844.png</p>
+<p><strong>3、IP隧道(Tunnel)模式（LVS-TUN）</strong></p>
+<blockquote>
+<p>原理：互联网上的大多Internet服务的请求包很短小，而应答包通常很大。那么隧道模式就是，把客户端发来的数据包，封装一个新的IP头标记(仅目的IP)发给RS,RS收到后,先把数据包的头解开,还原数据包,处理后,直接返回给客户端,不需要再经过负载均衡器｡注意,由于RS需要对负载均衡器发过来的数据包进行还原,所以说必须支持IPTUNNEL协议｡所以,在RS的内核中,必须编译支持IPTUNNEL这个选项</p>
+</blockquote>
+<blockquote>
+<p>优点：负载均衡器只负责将请求包分发给后端节点服务器，而RS将应答包直接发给用户。所以，减少了负载均衡器的大量数据流动，负载均衡器不再是系统的瓶颈，就能处理很巨大的请求量，这种方式，一台负载均衡器能够为很多RS进行分发。而且跑在公网上就能进行不同地域的分发。</p>
+</blockquote>
+<blockquote>
+<p>缺点：隧道模式的RS节点需要合法IP，这种方式需要所有的服务器支持”IP Tunneling”(IP Encapsulation)协议，服务器可能只局限在部分Linux系统上。</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/20482597-7684d2ed26e29a6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/898/format/webp" alt=""></p>
+<p>1564359021882.png</p>
+<p><strong>4、FULL-NAT模式</strong></p>
+<blockquote>
+<p>原理:客户端对VIP发起请求，Director接过请求发现是请求后端服务。Direcrot对请求报文做full-nat，把源ip改为Dip，把目标ip转换为任意后端RS的rip，然后发往后端，rs接到请求后，进行响应，相应源ip为Rip目标ip还是DIP，又内部路由路由到Director,Director接到响应报文，进行full-nat。将源地址为VIP，目标地址改为CIP</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/20482597-ec5d9442fa190b84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/553/format/webp" alt=""></p>
+<p>1216496-20171104195649951-2027809396.png</p>
+<p>请求使用DNAT，响应使用SNAT</p>
+<h5 id="6四者的区别">6、四者的区别</h5>
+<p>| lvs-nat与lvs-fullnat： | 请求和响应报文都经由Director |
+| lvs-nat： | RIP的网关要指向DIP |
+| lvs-fullnat： | RIP和DIP未必在同一IP网络，但要能通信 |
+| lvs-dr与lvs-tun： | 请求报文要经由Director，但响应报文由RS直接发往Client |
+| lvs-dr： | 通过封装新的MAC首部实现，通过MAC网络转发 |
+| lvs-tun： | 通过在原IP报文外封装新IP头实现转发，支持远距离通信 |</p>
+<h3 id="6lvs-ipvsadm-命令的使用">6、LVS ipvsadm 命令的使用</h3>
+<h5 id="1lvs-server安装lvs管理软件">1、LVS-server安装lvs管理软件</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum -y install ipvsadm
+
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>程序包：ipvsadm（LVS管理工具）</p>
+</blockquote>
+<blockquote>
+<p>主程序：/usr/sbin/ipvsadm</p>
+</blockquote>
+<blockquote>
+<p>规则保存工具：/usr/sbin/ipvsadm-save &gt; /path/to/file</p>
+</blockquote>
+<blockquote>
+<p>配置文件：/etc/sysconfig/ipvsadm-config</p>
+</blockquote>
+<h5 id="2命令选项">2、命令选项</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="p">-</span><span class="n">A</span> <span class="p">--</span><span class="k">add</span><span class="p">-</span><span class="n">service</span> <span class="err">#在服务器列表中新添加一条新的虚拟服务器记录</span>
+<span class="p">-</span><span class="n">s</span> <span class="p">--</span><span class="n">scheduler</span> <span class="err">#使用的调度算法，</span> <span class="n">rr</span> <span class="p">|</span> <span class="n">wrr</span> <span class="p">|</span> <span class="n">lc</span> <span class="p">|</span> <span class="n">wlc</span> <span class="p">|</span> <span class="n">lblb</span> <span class="p">|</span> <span class="n">lblcr</span> <span class="p">|</span> <span class="n">dh</span> <span class="p">|</span> <span class="n">sh</span> <span class="p">|</span> <span class="n">sed</span> <span class="p">|</span> <span class="n">nq</span> <span class="err">默认调度算法是</span> <span class="n">wlc</span>
+<span class="err">例：</span><span class="n">ipvsadm</span> <span class="p">-</span><span class="n">A</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">1.2</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">s</span> <span class="n">wrr</span>
+
+<span class="p">-</span><span class="n">a</span> <span class="p">--</span><span class="k">add</span><span class="p">-</span><span class="n">server</span>  <span class="err">#在服务器表中添加一条新的真实主机记录</span>
+<span class="p">-</span><span class="n">t</span> <span class="p">--</span><span class="n">tcp</span><span class="p">-</span><span class="n">service</span> <span class="err">#说明虚拟服务器提供</span><span class="n">tcp服务</span>
+<span class="p">-</span><span class="n">u</span> <span class="p">--</span><span class="n">udp</span><span class="p">-</span><span class="n">service</span> <span class="err">#说明虚拟服务器提供</span><span class="n">udp服务</span>
+<span class="p">-</span><span class="n">r</span> <span class="p">--</span><span class="n">real</span><span class="p">-</span><span class="n">server</span> <span class="err">#真实服务器地址</span>
+<span class="p">-</span><span class="n">m</span> <span class="p">--</span><span class="n">masquerading</span> <span class="err">#指定</span><span class="n">LVS工作模式为NAT模式</span>
+<span class="p">-</span><span class="n">w</span> <span class="p">--</span><span class="n">weight</span> <span class="err">#真实服务器的权值</span>
+<span class="p">-</span><span class="n">g</span> <span class="p">--</span><span class="n">gatewaying</span> <span class="err">#指定</span><span class="n">LVS工作模式为直接路由器模式</span><span class="err">（也是</span><span class="n">LVS默认的模式</span><span class="err">）</span>
+<span class="p">-</span><span class="n">i</span> <span class="p">--</span><span class="n">ip</span> <span class="err">#指定</span><span class="n">LVS的工作模式为隧道模式</span>
+<span class="p">-</span><span class="n">p</span> <span class="err">#会话保持时间，定义流量呗转到同一个</span><span class="n">realserver的会话存留时间</span>
+<span class="err">例：</span><span class="n">ipvsadm</span> <span class="p">-</span><span class="n">a</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">1.2</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">r</span> <span class="m">192.168</span><span class="p">.</span><span class="m">2.10</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">m</span> <span class="p">-</span><span class="n">w</span> <span class="m">1</span>
+
+<span class="p">-</span><span class="n">E</span> <span class="p">-</span><span class="n">edit</span><span class="p">-</span><span class="n">service</span> <span class="err">#编辑内核虚拟服务器表中的一条虚拟服务器记录。</span>
+<span class="p">-</span><span class="n">D</span> <span class="p">-</span><span class="n">delete</span><span class="p">-</span><span class="n">service</span> <span class="err">#删除内核虚拟服务器表中的一条虚拟服务器记录。</span>
+<span class="p">-</span><span class="n">C</span> <span class="p">-</span><span class="n">clear</span> <span class="err">#清除内核虚拟服务器表中的所有记录。</span>
+<span class="p">-</span><span class="n">R</span> <span class="p">-</span><span class="n">restore</span> <span class="err">#恢复虚拟服务器规则</span>
+<span class="p">-</span><span class="n">S</span> <span class="p">-</span><span class="n">save</span> <span class="err">#保存虚拟服务器规则到标准输出，输出为</span><span class="p">-</span><span class="n">R</span> <span class="err">选项可读的格式</span>
+<span class="p">-</span><span class="n">e</span> <span class="p">-</span><span class="n">edit</span><span class="p">-</span><span class="n">server</span> <span class="err">#编辑一条虚拟服务器记录中的某条真实服务器记录</span>
+<span class="p">-</span><span class="n">d</span> <span class="p">-</span><span class="n">delete</span><span class="p">-</span><span class="n">server</span> <span class="err">#删除一条虚拟服务器记录中的某条真实服务器记录</span>
+<span class="p">-</span><span class="n">L</span><span class="p">|-</span><span class="n">l</span> <span class="err">–</span><span class="n">list</span> <span class="err">#显示内核虚拟服务器表</span>
+
+<span class="p">--</span><span class="n">numeric</span><span class="p">,</span> <span class="p">-</span><span class="n">n</span><span class="err">：#以数字形式输出地址和端口号</span>
+<span class="p">--</span><span class="n">exact</span><span class="err">：</span> <span class="err">#扩展信息，精确值</span>
+<span class="p">--</span><span class="n">connection</span><span class="err">，</span><span class="p">-</span><span class="n">c</span><span class="err">：</span> <span class="err">#当前</span><span class="n">IPVS连接输出</span>
+<span class="p">--</span><span class="n">stats</span><span class="err">：</span> <span class="err">#统计信息</span>
+<span class="p">--</span><span class="n">rate</span> <span class="err">：</span> <span class="err">#输出速率信息</span>
+
+<span class="err">参数也可以从</span><span class="p">/</span><span class="n">proc</span><span class="p">/</span><span class="n">net</span><span class="p">/</span><span class="n">ip_vs</span><span class="p">*</span><span class="err">映射文件中查看</span>
+<span class="p">-</span><span class="n">Z</span> <span class="err">–</span><span class="n">zero</span> <span class="err">#虚拟服务表计数器清零（清空当前的连接数量等）</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="实现lvs持久连接了解">实现LVS持久连接(了解)</h3>
+<h5 id="1定义">1、定义</h5>
+<p>由于HTTP是一种无状态协议，每次请求完毕之后就立即断开了，当用户浏览购物网站挑选商品的时候，看到一件商品加入购物车，此过程被重定向到了REALSERVER1上面来，当把第二件商品加入购物车又被重定向到了REALSERVER2上面，最后结账的时候在REALSERVER2上面，只有一件商品，这显然是用户无法接受的，此时就需要一种持久连接机制，来把同一用户的HTTP请求在超时时间内都重定向到同一台REALSERVER，超时时间可以自己定义，比如说2个小时，在超时时间内服务器会不断追踪用户的访问请求，把某一用户的所有请求都转发到同一台REALSERVER上面</p>
+<p>对于电子商务网站来说，用户在挑选商品的时候使用的是80端口来浏览的，当付款的时候则是通过443的ssl加密的方式，当然当用户挑选完商品付款的时候我们当然不希望https的443跳转到另外一台REALSERVER，很显然应该是同一REALSERVER才对，这时候就要用到基于防火墙标记的持久连接，通过定义端口的姻亲关系来实现</p>
+<h5 id="2功能">2、功能</h5>
+<p>无论ipvs使用何种scheduler，其都能够实现在指定时间范围内始终将来自同一个ip地址的请求发往同一个RS；此功能是通过lvs持久连接模板实现，其与调度方法无关；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">iptables</span> <span class="nt">-t</span> <span class="nt">mangle</span> <span class="nt">-A</span> <span class="nt">PREROUTING</span> <span class="nt">-d</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">100</span> <span class="nt">-p</span> <span class="nt">tcp</span> <span class="nt">--dport</span> <span class="nt">80</span> <span class="nt">-j</span> <span class="nt">MARK</span> <span class="nt">--set-mark</span> <span class="nt">99</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在iptables 打上标记，把80端口标记为99</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"> <span class="nt">iptables</span> <span class="nt">-t</span> <span class="nt">mangle</span> <span class="nt">-A</span> <span class="nt">PREROUTING</span> <span class="nt">-d</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">100-p</span> <span class="nt">tcp</span> <span class="nt">--dport</span> <span class="nt">443</span> <span class="nt">-j</span> <span class="nt">MARK</span> <span class="nt">--set-mark</span> <span class="nt">99</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在iptables打上标记，把443端口标记为99</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ipvsadm -A -f 99 -s rr -p
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在lvs上建立基于99号标记的虚拟服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">ipvsadm</span> <span class="nt">-a</span> <span class="nt">-f</span> <span class="nt">99</span> <span class="nt">-r</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">2</span> <span class="nt">-g</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>设置后端服务地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">ipvsadm</span> <span class="nt">-a</span> <span class="nt">-f</span> <span class="nt">99</span> <span class="nt">-r</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">3</span> <span class="nt">-g</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="7lvs-负载均衡集群企业级应用实战">7、LVS 负载均衡集群企业级应用实战</h3>
+<p><strong>业务需求</strong></p>
+<p>随着业务的发展，网站的访问量越来越大，网站访问量已经从原来的1000QPS，变为3000QPS，网站已经不堪重负，响应缓慢，面对此场景，单纯靠单台LNMP的架构已经无法承载更多的用户访问，此时需要用负载均衡技术，对网站容量进行扩充，来解决承载的问题。</p>
+<p><strong>考虑解决方案？</strong></p>
+<p>横向：scale out 对磁盘等资源</p>
+<p>纵向：scale up 增加新的机器</p>
+<h5 id="1环境准备">1、环境准备</h5>
+<p>准备 3 台纯净的虚拟机，一台LVS，两台 web 服务器</p>
+<h5 id="2lvs-server-安装lvs管理软件">2、LVS-server 安装lvs管理软件</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs-server ~]</span><span class="err">#</span> <span class="n">yum</span> <span class="p">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">ipvsadm</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>ipvsadm启不启动都可以，但建议还是启动</strong></p>
+<blockquote>
+<p>程序包：ipvsadm（LVS管理工具）</p>
+</blockquote>
+<blockquote>
+<p>主程序：/usr/sbin/ipvsadm</p>
+</blockquote>
+<blockquote>
+<p>规则保存工具：/usr/sbin/ipvsadm-save &gt; /path/to/file（ /etc/sysconfig/ipvsadm） (没有配置的话后面启动将会报错)</p>
+</blockquote>
+<blockquote>
+<p>配置文件：/etc/sysconfig/ipvsadm-config</p>
+</blockquote>
+<h5 id="3lvsnat模式">3、LVS/NAT模式</h5>
+<p>实验说明：</p>
+<ol>
+<li>虚拟机网络使用NAT模式</li>
+<li>client、调度器、Real Server都使用虚拟机或使用真实服务器</li>
+<li>虚拟机上网卡使用半虚拟化驱动，如果半虚拟化驱动异常，可以使用default/rtl8139</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/20482597-812424e2665535d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/775/format/webp" alt=""></p>
+<p>lvs-02.png</p>
+<p><strong>1、LVS/NAT网络拓朴</strong></p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>ip</th>
+<th>系统</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client</td>
+<td>192.168.0.105 桥接</td>
+<td>Windows</td>
+<td>客户端</td>
+</tr>
+<tr>
+<td>lvs-server</td>
+<td>192.168.0.108 桥接</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>192.168.72.130 仅主机</td>
+<td>centos7.5</td>
+<td>分发器</td>
+<td></td>
+</tr>
+<tr>
+<td>real-server1</td>
+<td>192.168.72.128 仅主机</td>
+<td>centos7.5</td>
+<td>web1</td>
+</tr>
+<tr>
+<td>real-server2</td>
+<td>192.168.72.129 仅主机</td>
+<td>centos7.5</td>
+<td>web2</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># 配置real-server （两服务器相同）</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real</span><span class="o">-</span><span class="n">server1</span> <span class="o">~]</span><span class="c1"># yum install httpd -y</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real</span><span class="o">-</span><span class="n">server1</span> <span class="o">~]</span><span class="c1"># echo lvs-web1 &gt; /var/www/html/index.html</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real</span><span class="o">-</span><span class="n">server1</span> <span class="o">~]</span><span class="c1"># systemctl start httpd</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real</span><span class="o">-</span><span class="n">server1</span> <span class="o">~]</span><span class="c1"># ip route add default via 192.168.72.130  # 配置默认路由</span>
+<span class="err">网卡配置文件中有一条</span><span class="no">GATEWAY</span> <span class="err">就是永久指定网关的配置</span>
+
+<span class="c1"># 配置lvs-server  开启路由转发</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># vim /etc/sysctl.conf</span>
+<span class="n">net</span><span class="o">.</span><span class="n">ipv4</span><span class="o">.</span><span class="n">ip_forward</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># sysctl -p                          //确保打开路由转发</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># yum install ipvsadm -y</span>
+<span class="err">设置集群调度算法，（便于验证，此处使用轮询算法）：</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># ipvsadm -A -t 192.168.0.108:80 -s rr</span>
+<span class="err">设置后端服务器：</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># ipvsadm -a -t 192.168.0.108:80 -r 192.168.72.128:80 -m</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># ipvsadm -a -t 192.168.0.108:80 -r 192.168.72.129:80 -m</span>
+<span class="err">查看</span><span class="n">ipvsadm规则</span><span class="err">：</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># ipvsadm -Ln</span>
+<span class="no">IP</span> <span class="no">Virtual</span> <span class="no">Server</span> <span class="n">version</span> <span class="mi">1</span><span class="o">.</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
+<span class="no">Prot</span> <span class="ss">LocalAddress</span><span class="p">:</span><span class="no">Port</span> <span class="no">Scheduler</span> <span class="no">Flags</span>
+  <span class="o">-&gt;</span> <span class="ss">RemoteAddress</span><span class="p">:</span><span class="no">Port</span>           <span class="no">Forward</span> <span class="no">Weight</span> <span class="no">ActiveConn</span> <span class="no">InActConn</span>
+<span class="no">TCP</span>  <span class="mi">192</span><span class="o">.</span><span class="mi">168</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">108</span><span class="p">:</span><span class="mi">80</span> <span class="n">rr</span>
+  <span class="o">-&gt;</span> <span class="mi">192</span><span class="o">.</span><span class="mi">168</span><span class="o">.</span><span class="mi">72</span><span class="o">.</span><span class="mi">128</span><span class="p">:</span><span class="mi">80</span>            <span class="no">Masq</span>    <span class="mi">1</span>      <span class="mi">0</span>          <span class="mi">7</span>
+  <span class="o">-&gt;</span> <span class="mi">192</span><span class="o">.</span><span class="mi">168</span><span class="o">.</span><span class="mi">72</span><span class="o">.</span><span class="mi">129</span><span class="p">:</span><span class="mi">80</span>            <span class="no">Masq</span>    <span class="mi">1</span>      <span class="mi">0</span>          <span class="mi">7</span>
+<span class="err">这些规则没有保存在配置文件，重启失效</span>
+<span class="c1"># 做开启启动</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># systemctl enable ipvsadm</span>
+<span class="no">Created</span> <span class="n">symlink</span> <span class="n">from</span> <span class="sr">/etc/s</span><span class="n">ystemd</span><span class="o">/</span><span class="nb">system</span><span class="o">/</span><span class="n">multi</span><span class="o">-</span><span class="n">user</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">wants</span><span class="o">/</span><span class="n">ipvsadm</span><span class="o">.</span><span class="n">service</span> <span class="n">to</span> <span class="sr">/usr/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="nb">system</span><span class="o">/</span><span class="n">ipvsadm</span><span class="o">.</span><span class="n">service</span><span class="o">.</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># ipvsadm -Ln</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># ipvsadm-save &gt; /etc/sysconfig/ipvsadm</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># systemctl start ipvsadm</span>
+
+<span class="c1"># 测试</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@client</span> <span class="o">~]</span><span class="c1"># elinks -dump http://192.168.0.108/</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@client</span> <span class="o">~]</span><span class="c1"># ab -c 1000 -n 1000 http://192.168.0.108/</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="4lvsdr-模式">4、LVS/DR 模式</h5>
+<p><img src="https://upload-images.jianshu.io/upload_images/20482597-7c053d3cef776b68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/814/format/webp" alt=""></p>
+<p>lvs-03.png</p>
+<p><strong>1、实验说明：</strong></p>
+<p>1.DR模式要求Director DIP 和 所有RealServer RIP必须在同一个网段及广播域
+2.所有节点网关均指定真实网关</p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>ip</th>
+<th>系统</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client</td>
+<td>192.168.0.110</td>
+<td>centos7.5</td>
+<td>客户端</td>
+</tr>
+<tr>
+<td>lvs_server</td>
+<td>192.168.0.107</td>
+<td>centos7.5</td>
+<td>分发器</td>
+</tr>
+<tr>
+<td>real_server1</td>
+<td>192.168.0.108</td>
+<td>centos7.5</td>
+<td>web1</td>
+</tr>
+<tr>
+<td>real_server2</td>
+<td>192.168.0.019</td>
+<td>centos7.5</td>
+<td>web2</td>
+</tr>
+<tr>
+<td>vip for dr</td>
+<td>192.168.0.200/32</td>
+<td>生产中是公网ip</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>2、LVS/DR模式实施</strong></p>
+<p>1、准备工作（集群中所有主机）关闭防火墙和selinux</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># cat /etc/hosts</span>
+<span class="mi">127</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span>   <span class="n">localhost</span> <span class="n">localhost</span><span class="o">.</span><span class="n">localdomain</span> <span class="n">localhost4</span> <span class="n">localhost4</span><span class="o">.</span><span class="n">localdomain4</span>
+<span class="o">::</span><span class="mi">1</span>         <span class="n">localhost</span> <span class="n">localhost</span><span class="o">.</span><span class="n">localdomain</span> <span class="n">localhost6</span> <span class="n">localhost6</span><span class="o">.</span><span class="n">localdomain6</span>
+<span class="mi">192</span><span class="o">.</span><span class="mi">168</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">107</span> <span class="n">lvs_server</span>
+<span class="mi">192</span><span class="o">.</span><span class="mi">168</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">108</span> <span class="n">real_server1</span>
+<span class="mi">192</span><span class="o">.</span><span class="mi">168</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">109</span> <span class="n">real_server2</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>2、Director分发器配置</p>
+<p>配置VIP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ip</span> <span class="n">addr</span> <span class="k">add</span> <span class="n">dev</span> <span class="n">ens32</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">/</span><span class="m">32</span> <span class="err">#设置</span><span class="n">VIP</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">yum</span> <span class="n">install</span> <span class="p">-</span><span class="n">y</span> <span class="n">ipvsadm</span>   <span class="err">#</span><span class="n">RHEL确保LoadBalancer仓库可用</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">ipvsadm</span> <span class="err">#启动</span>
+<span class="err">注意</span><span class="p">:</span><span class="err">启动如果报错</span><span class="p">:</span> <span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">bash</span><span class="p">:</span> <span class="p">/</span><span class="n">etc</span><span class="p">/</span><span class="n">sysconfig</span><span class="p">/</span><span class="n">ipvsadm</span><span class="p">:</span> <span class="err">没有那个文件或目录</span>
+<span class="err">需要手动生成文件</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span><span class="p">-</span><span class="n">save</span> <span class="p">&gt;</span> <span class="p">/</span><span class="n">etc</span><span class="p">/</span><span class="n">sysconfig</span><span class="p">/</span><span class="n">ipvsadm</span>
+<span class="err">启动之后一定要查看</span><span class="n">ipvsadm状态</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="n">ipvsadm</span>
+<span class="err">确保是正常启动的</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>定义LVS分发策略</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">-A：添加VIP
+-t：用的是tcp协议
+-a：添加的是lo的vip地址
+-r：转发到realserverip
+-s：算法
+-L|-l –list #显示内核虚拟服务器表
+--numeric, -n：#以数字形式输出地址和端口号
+-g --gatewaying #指定LVS工作模式为直接路由器模式（也是LVS默认的模式）
+-S -save #保存虚拟服务器规则到标准输出，输出为-R 选项可读的格式
+rr：轮循
+如果添加ip错了，删除命令如下:
+# ip addr del dev ens33 192.168.0.200/32
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">C</span>  <span class="err">#清除内核虚拟服务器表中的所有记录。</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">A</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">s</span> <span class="n">rr</span>    <span class="c1">//wrr加权轮询
+</span><span class="c1"></span><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">a</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">r</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.108</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">g</span>   <span class="p">/-</span><span class="n">w</span> <span class="m">2</span> <span class="err">权重为</span><span class="m">2</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">a</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">r</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.109</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">g</span>   <span class="p">/-</span><span class="n">w</span> <span class="m">1</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">service</span> <span class="n">ipvsadm</span> <span class="n">save</span> <span class="err">#保存方式一，使用下面的保存方式，版本</span><span class="m">7</span><span class="err">已经不支持了</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">S</span> <span class="p">&gt;</span> <span class="p">/</span><span class="n">etc</span><span class="p">/</span><span class="n">sysconfig</span><span class="p">/</span><span class="n">ipvsadm</span>  <span class="err">#保存方式二，保存到一个文件中</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">Ln</span>
+<span class="n">IP</span> <span class="n">Virtual</span> <span class="n">Server</span> <span class="n">version</span> <span class="m">1.2</span><span class="p">.</span><span class="m">1</span> <span class="p">(</span><span class="n">size</span><span class="p">=</span><span class="m">4096</span><span class="p">)</span>
+<span class="n">Prot</span> <span class="n">LocalAddress</span><span class="p">:</span><span class="n">Port</span> <span class="n">Scheduler</span> <span class="n">Flags</span>
+  <span class="p">-&gt;</span> <span class="n">RemoteAddress</span><span class="p">:</span><span class="n">Port</span>           <span class="n">Forward</span> <span class="n">Weight</span> <span class="n">ActiveConn</span> <span class="n">InActConn</span>
+<span class="n">TCP</span>  <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">:</span><span class="m">80</span> <span class="n">rr</span>
+  <span class="p">-&gt;</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.108</span><span class="p">:</span><span class="m">80</span>             <span class="n">Route</span>   <span class="m">1</span>      <span class="m">0</span>          <span class="m">0</span>
+  <span class="p">-&gt;</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.109</span><span class="p">:</span><span class="m">80</span>             <span class="n">Route</span>   <span class="m">1</span>      <span class="m">0</span>          <span class="m">0</span>
+<span class="na">
+</span><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">L</span> <span class="p">-</span><span class="n">n</span>
+<span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">L</span> <span class="p">-</span><span class="n">n</span> <span class="p">--</span><span class="n">stats</span>    <span class="err">#显示统计信息</span>
+<span class="m">1.</span> <span class="n">Conns</span>    <span class="p">(</span><span class="n">connections</span> <span class="n">scheduled</span><span class="p">)</span>  <span class="err">已经转发过的连接数</span>
+<span class="m">2.</span> <span class="n">InPkts</span>   <span class="p">(</span><span class="n">incoming</span> <span class="n">packets</span><span class="p">)</span>       <span class="err">入包个数</span>
+<span class="m">3.</span> <span class="n">OutPkts</span>  <span class="p">(</span><span class="n">outgoing</span> <span class="n">packets</span><span class="p">)</span>       <span class="err">出包个数</span>
+<span class="m">4.</span> <span class="n">InBytes</span>  <span class="p">(</span><span class="n">incoming</span> <span class="n">bytes</span><span class="p">)</span>         <span class="err">入流量（字节）</span>
+<span class="m">5.</span> <span class="n">OutBytes</span> <span class="p">(</span><span class="n">outgoing</span> <span class="n">bytes</span><span class="p">)</span>         <span class="err">出流量（字节）</span>
+<span class="na">[root@lvs-server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">L</span> <span class="p">-</span><span class="n">n</span> <span class="p">--</span><span class="n">rate</span>   <span class="err">#看速率</span>
+<span class="m">1.</span> <span class="n">CPS</span>      <span class="p">(</span><span class="n">current</span> <span class="n">connection</span> <span class="n">rate</span><span class="p">)</span>   <span class="err">每秒连接数</span>
+<span class="m">2.</span> <span class="n">InPPS</span>    <span class="p">(</span><span class="n">current</span> <span class="k">in</span> <span class="n">packet</span> <span class="n">rate</span><span class="p">)</span>    <span class="err">每秒的入包个数</span>
+<span class="m">3.</span> <span class="n">OutPPS</span>   <span class="p">(</span><span class="n">current</span> <span class="k">out</span> <span class="n">packet</span> <span class="n">rate</span><span class="p">)</span>   <span class="err">每秒的出包个数</span>
+<span class="m">4.</span> <span class="n">InBPS</span>    <span class="p">(</span><span class="n">current</span> <span class="k">in</span> <span class="kt">byte</span> <span class="n">rate</span><span class="p">)</span>      <span class="err">每秒入流量（字节）</span>
+<span class="m">5.</span> <span class="n">OutBPS</span>   <span class="p">(</span><span class="n">current</span> <span class="k">out</span> <span class="kt">byte</span> <span class="n">rate</span><span class="p">)</span>      <span class="err">每秒出流量（字节）</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>3、所有RS配置</p>
+<p>配置好网站服务器，测试所有RS #为了测试效果，提供不同的页面（以下两台real-server都操作）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># yum install -y nginx</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># echo &#34;real-server1&#34; &gt;&gt; /usr/share/nginx/html/index.html</span>
+<span class="err">两台机器都安装，按顺序添加不同的主机名以示区分</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># ip addr add dev lo 192.168.0.200/32   #在lo接口上绑定VIP</span>
+<span class="c1">#永久：rc.local 或者 复制ifcfg-lo文件，重新配置</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># echo 1 &gt; /proc/sys/net/ipv4/conf/all/arp_ignore  #忽略arp广播</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># echo 2 &gt; /proc/sys/net/ipv4/conf/all/arp_announce #匹配精确ip地址回包</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># systemctl start nginx</span>
+<span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># systemctl enable  nginx</span>
+<span class="o">=============================================================================</span>
+<span class="err">因为：</span><span class="n">realServer的vip有了</span><span class="err">，接着就是同一个网段中拥有两个</span><span class="n">vip</span><span class="p">,</span> <span class="err">客户端在网关发送</span><span class="n">arp广播需找vip时需要让realServer不接受响应</span><span class="o">.</span>
+<span class="err">解决：</span>
+<span class="n">echo</span> <span class="mi">1</span> <span class="o">&gt;</span><span class="sr">/proc/s</span><span class="n">ys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">conf</span><span class="o">/</span><span class="n">eth0</span><span class="o">/</span><span class="n">arp_ignore</span>
+<span class="n">arp_ignore</span> <span class="err">设置为</span><span class="mi">1</span><span class="err">，意味着当别人的</span><span class="n">arp请求过来的时候</span><span class="err">，如果接收的设备没有这个</span><span class="n">ip</span><span class="err">，就不做出响应</span><span class="p">(</span><span class="err">这个</span><span class="n">ip在lo上</span><span class="err">，</span><span class="n">lo不是接收设备的进口</span><span class="p">)</span>
+<span class="n">echo</span> <span class="mi">2</span> <span class="o">&gt;</span><span class="sr">/proc/s</span><span class="n">ys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">conf</span><span class="o">/</span><span class="n">eth0</span><span class="o">/</span><span class="n">arp_announce</span>
+<span class="err">使用最好的</span><span class="n">ip来回应</span><span class="err">，什么是最好的</span><span class="n">ip</span><span class="err">？同一个网段内子网掩码最长的</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>4、测试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">root</span><span class="p">@</span><span class="k">client</span> <span class="o">~]</span><span class="err">#</span> <span class="nt">curl</span> <span class="nt">192</span><span class="p">.</span><span class="nc">168</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">200</span>
+<span class="nt">real-server1</span>
+<span class="o">[</span><span class="nt">root</span><span class="p">@</span><span class="k">client</span> <span class="o">~]</span><span class="err">#</span> <span class="nt">curl</span> <span class="nt">192</span><span class="p">.</span><span class="nc">168</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">200</span>
+<span class="nt">real-server2</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="lvs的调度算法">LVS的调度算法</h3>
+<p>LVS的调度算法分为静态与动态两类。</p>
+<h5 id="1静态算法4种">1、静态算法（4种）</h5>
+<p>只根据算法进行调度 而不考虑后端服务器的实际连接情况和负载情况</p>
+<p>**①.RR：**轮叫调度（Round Robin）</p>
+<p>调度器通过”轮叫”调度算法将外部请求按顺序轮流分配到集群中的真实服务器上，它均等地对待每一台服务器，而不管服务器上实际的连接数和系统负载｡</p>
+<p>**②.WRR：**加权轮叫（Weight RR）</p>
+<p>调度器通过“加权轮叫”调度算法根据真实服务器的不同处理能力来调度访问请求。这样可以保证处理能力强的服务器处理更多的访问流量。调度器可以自动问询真实服务器的负载情况,并动态地调整其权值。</p>
+<p>**③.DH：**目标地址散列调度（Destination Hash ）</p>
+<p>根据请求的目标IP地址，作为散列键(HashKey)从静态分配的散列表找出对应的服务器，若该服务器是可用的且未超载，将请求发送到该服务器，否则返回空。</p>
+<p>**④.SH：**源地址 hash（Source Hash）</p>
+<p>源地址散列”调度算法根据请求的源IP地址，作为散列键(HashKey)从静态分配的散列表找出对应的服务器，若该服务器是可用的且未超载，将请求发送到该服务器，否则返回空｡</p>
+<h5 id="2动态算法6种">2、动态算法（6种）</h5>
+<p>前端的调度器会根据后端真实服务器的实际连接情况来分配请求</p>
+<p>**①.LC：**最少链接（Least Connections）</p>
+<p>调度器通过”最少连接”调度算法动态地将网络请求调度到已建立的链接数最少的服务器上。如果集群系统的真实服务器具有相近的系统性能，采用”最小连接”调度算法可以较好地均衡负载。</p>
+<p>**②.WLC：**加权最少连接(默认采用的就是这种)（Weighted Least Connections）</p>
+<p>在集群系统中的服务器性能差异较大的情况下，调度器采用“加权最少链接”调度算法优化负载均衡性能，具有较高权值的服务器将承受较大比例的活动连接负载｡调度器可以自动问询真实服务器的负载情况,并动态地调整其权值。</p>
+<p>**③.SED：**最短期望延迟调度（Shortest Expected Delay ）</p>
+<p>在WLC基础上改进，Overhead = （ACTIVE+1）*256/加权，不再考虑非活动状态，把当前处于活动状态的数目+1来实现，数目最小的，接受下次请求，+1的目的是为了考虑加权的时候，非活动连接过多缺陷：当权限过大的时候，会倒置空闲服务器一直处于无连接状态。</p>
+<blockquote>
+<p>A B C 服务器
+1 2 3 权重
+(1+1)/1=2 A
+(1+2)/2=1.5 B
+(1+3)/2=4/3 C (最小)</p>
+</blockquote>
+<p>**④.NQ：**永不排队/最少队列调度（Never Queue Scheduling NQ）</p>
+<p>无需队列。如果有台 realserver的连接数＝0就直接分配过去，不需要再进行sed运算，保证不会有一个主机很空间。</p>
+<p>**⑤.LBLC：**基于局部性的最少链接（locality-Based Least Connections）</p>
+<p>基于局部性的最少链接”调度算法是针对目标IP地址的负载均衡，目前主要用于Cache集群系统｡该算法根据请求的目标IP地址找出该目标IP地址最近使用的服务器，若该服务器是可用的且没有超载，将请求发送到该服务器;若服务器不存在，或者该服务器超载且有服务器处于一半的工作负载，则用“最少链接”的原则选出一个可用的服务器，将请求发送到该服务器｡</p>
+<p>**⑥. LBLCR：**带复制的基于局部性最少连接（Locality-Based Least Connections with Replication）</p>
+<p>带复制的基于局部性最少链接”调度算法也是针对目标IP地址的负载均衡，目前主要用于Cache集群系统｡它与LBLC算法的不同之处是它要维护从一个目标IP地址到一组服务器的映射，而LBLC算法维护从一个目标IP地址到一台服务器的映射｡该算法根据请求的目标IP地址找出该目标IP地址对应的服务器组，按”最小连接”原则从服务器组中选出一台服务器，若服务器没有超载，将请求发送到该服务器；若服务器超载，则按“最小连接”原则从这个集群中选出一台服务器，将该服务器加入到服务器组中，将请求发送到该服务器｡同时，当该服务器组有一段时间没有被修改，将最忙的服务器从服务器组中删除，以降低复制的程度。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-25 19:21
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/lvs/">lvs</a>
+          <a href="/tags/lb/">lb</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/lb/keepalived_nginx_ops/">
+            <span class="next-text nav-default">centos部署keepalived</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

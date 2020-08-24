@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Centos部署tomcat9 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="Apache Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/web/tomcat_centos_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Centos部署tomcat9" />
+<meta property="og:description" content="Apache Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/web/tomcat_centos_install/" />
+<meta property="article:published_time" content="2020-02-28T19:11:30+00:00" />
+<meta property="article:modified_time" content="2020-02-28T19:11:30+00:00" />
+<meta itemprop="name" content="Centos部署tomcat9">
+<meta itemprop="description" content="Apache Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试">
+<meta itemprop="datePublished" content="2020-02-28T19:11:30+00:00" />
+<meta itemprop="dateModified" content="2020-02-28T19:11:30+00:00" />
+<meta itemprop="wordCount" content="2013">
+
+
+
+<meta itemprop="keywords" content="tomcat,web," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Centos部署tomcat9"/>
+<meta name="twitter:description" content="Apache Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Centos部署tomcat9</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-28 19:11 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> web </a>
+            </div>
+          <span class="more-meta"> 约 2013 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#安装java">安装Java</a></li>
+        <li><a href="#创建一个系统用户">创建一个系统用户</a></li>
+        <li><a href="#下载和安装tomcat-9">下载和安装Tomcat 9</a></li>
+        <li><a href="#创建系统服务文件">创建系统服务文件</a></li>
+        <li><a href="#配置防火墙规则">配置防火墙规则</a></li>
+        <li><a href="#配置tomcat-web管理界面">配置Tomcat Web管理界面</a></li>
+        <li><a href="#测试安装效果">测试安装效果</a></li>
+        <li><a href="#写在最后">写在最后</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Apache Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。</p>
+<p>本教程主要讲解如何在<a href="https://linux265.com/distro/8.html">CentOS 8</a>上安装Tomcat 9。</p>
+<h3 id="安装java">安装Java</h3>
+<p>Tomcat 9 需要Java SE 8或更高版本，这里我们使用开源的Java版本OpenJDK 11。使用root账号或者具有<a href="https://linux265.com/news/3480.html">sudo权限的账号</a>执行如下命令在<a href="https://linux265.com/distro/8.html">CentOS 8</a>中进行安装OpenJDK。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo dnf install java-11-openjdk-devel
+
+</code></pre></td></tr></table>
+</div>
+</div><p>一旦安装完成，使用如下命令校验是否正确安装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">java -version
+
+</code></pre></td></tr></table>
+</div>
+</div><p>输出内容类似如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">openjdk version &#34;11.0.5&#34; 2019-10-15 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.5+10-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.5+10-LTS, mixed mode, sharing)
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建一个系统用户">创建一个系统用户</h3>
+<p>如果tomcat直接使用root账号运行会存在一定的安全风险，这里创建一个系统用户<code>tomcat</code>用来运行tomcat。设置改<code>/opt/tomcat</code>为新账号<code>tomcat</code>的家目录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo useradd -m -U -d /opt/tomcat -s /bin/false tomcat
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="下载和安装tomcat-9">下载和安装Tomcat 9</h3>
+<p>可以从Tomcat官方网站下载<a href="https://tomcat.apache.org/download-90.cgi">最新的Apache Tomcat 9</a>的版本，这里9.0.30版本为例。</p>
+<p>这里使用<a href="https://linux265.com/news/3823.html"><code>wget</code></a>命令下载tomcat的<code>tar.gz</code>文件到<code>/tmp</code>目录。打开终端，输入如下命令进行下载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">VERSION=9.0.30
+wget https://www-eu.apache.org/dist/tomcat/tomcat-9/v${VERSION}/bin/apache-tomcat-${VERSION}.tar.gz -P /tmp
+
+</code></pre></td></tr></table>
+</div>
+</div><p>下载完成后，通过<a href="https://linux265.com/news/3833.html">tar命令</a>进行压缩文件的解压。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo tar -xf /tmp/apache-tomcat-${VERSION}.tar.gz -C /opt/tomcat/
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Tomcat会定期进行更新。 为了更好地控制版本和更新，我们将创建一个名为最新的符号链接，该链接指向Tomcat安装目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo ln -s /opt/tomcat/apache-tomcat-${VERSION} /opt/tomcat/latest
+
+</code></pre></td></tr></table>
+</div>
+</div><p>为了能运行tomcat，先前创建的系统用户必须有权访问tomcat安装目录。 将目录所有权更改为用户和组tomcat：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo chown -R tomcat: /opt/tomcat
+
+</code></pre></td></tr></table>
+</div>
+</div><p>确定tomcat的安装目录下<code>/bin</code>目录中的脚本都具备执行权限，可以通过以下命令修改执行权限。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo sh -c &#39;chmod +x /opt/tomcat/latest/bin/*.sh&#39;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这些脚本里面包括了启动和停止tomcat的脚本。</p>
+<h3 id="创建系统服务文件">创建系统服务文件</h3>
+<p>与其手动启动和停止Tomcat服务器，不如将其设置为作为服务运行。 打开文本编辑器，然后在<code>/etc/systemd/system/</code>目录中创建<code>tomcat.service</code>单元文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo vi /etc/systemd/system/tomcat.service
+
+</code></pre></td></tr></table>
+</div>
+</div><p>粘贴如下内容到文件中:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[Unit]
+Description=Tomcat 9 servlet container
+After=network.target
+
+[Service]
+Type=forking
+
+User=tomcat
+Group=tomcat
+
+Environment=&#34;JAVA_HOME=/usr/lib/jvm/jre&#34;
+Environment=&#34;JAVA_OPTS=-Djava.security.egd=file:///dev/urandom&#34;
+
+Environment=&#34;CATALINA_BASE=/opt/tomcat/latest&#34;
+Environment=&#34;CATALINA_HOME=/opt/tomcat/latest&#34;
+Environment=&#34;CATALINA_PID=/opt/tomcat/latest/temp/tomcat.pid&#34;
+Environment=&#34;CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC&#34;
+
+ExecStart=/opt/tomcat/latest/bin/startup.sh
+ExecStop=/opt/tomcat/latest/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target
+
+</code></pre></td></tr></table>
+</div>
+</div><p>保存文件后，关闭编辑器。</p>
+<p>通过键入以下命令，通知systemd一个新的服务文件存在并加载它：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo systemctl daemon-reload
+
+</code></pre></td></tr></table>
+</div>
+</div><p>启用并启动Tomcat服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo systemctl enable --now tomcat
+
+</code></pre></td></tr></table>
+</div>
+</div><p>通过以下命令检查服务状态:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo systemctl status tomcat
+
+</code></pre></td></tr></table>
+</div>
+</div><p>输入内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">tomcat.service - Tomcat 9 servlet container
+   Loaded: loaded (/etc/systemd/system/tomcat.service; enabled; vendor preset: disabled)
+   Active: active (running) since Wed 2020-01-16 20:38:07 UTC; 30s ago
+  Process: 3957 ExecStart=/opt/tomcat/latest/bin/startup.sh (code=exited, status=0/SUCCESS)
+  ...
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="配置防火墙规则">配置防火墙规则</h3>
+<p>如果您的服务器受防火墙保护，并且您想从本地网络的外部访问tomcat接口，则需要打开端口8080。</p>
+<p>使用以下命令打开必要的端口：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo firewall-cmd --permanent --zone=public --add-port=8080/tcp
+sudo firewall-cmd --reload
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="配置tomcat-web管理界面">配置Tomcat Web管理界面</h3>
+<p>可以使用端口8080上的Web浏览器访问Tomcat管理界面，但无法登录管理，因为我们尚未创建用户。</p>
+<p>你需要知道Tomcat用户和角色在tomcat-users.xml文件中定义。</p>
+<p>下面打开<code>/opt/tomcat/latest/conf/tomcat-users.xml</code>文件，您会注意到该文件中充满了注释和描述如何配置文件的示例。你需要编辑文件，如下所示，确保将用户名和密码更改为更安全的名称：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;tomcat-users&gt;
+&lt;!--
+    Comments
+--&gt;
+   &lt;role rolename=&#34;admin-gui&#34;/&gt;
+   &lt;role rolename=&#34;manager-gui&#34;/&gt;
+   &lt;user username=&#34;admin&#34; password=&#34;admin_password&#34; roles=&#34;admin-gui,manager-gui&#34;/&gt;
+&lt;/tomcat-users&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>默认情况下，Tomcat Web管理界面配置为仅允许从本地主机访问。</p>
+<p>如果您需要从任何地方访问Web界面，请打开以下文件并注释或删除以黄色突出显示的行：</p>
+<p><code>/opt/tomcat/latest/webapps/manager/META-INF/context.xml</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Context antiResourceLocking=&#34;false&#34; privileged=&#34;true&#34; &gt;
+&lt;!--
+  &lt;Valve className=&#34;org.apache.catalina.valves.RemoteAddrValve&#34;
+         allow=&#34;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&#34; /&gt;
+--&gt;
+&lt;/Context&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>/opt/tomcat/latest/webapps/host-manager/META-INF/context.xml</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Context antiResourceLocking=&#34;false&#34; privileged=&#34;true&#34; &gt;
+&lt;!--
+  &lt;Valve className=&#34;org.apache.catalina.valves.RemoteAddrValve&#34;
+         allow=&#34;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&#34; /&gt;
+--&gt;
+&lt;/Context&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>请注意，不建议允许从任何地方访问，因为这存在安全风险。</p>
+<p>如果您只想从特定IP访问Web界面，而不是注释这些块，则将您的公共IP添加到列表中。</p>
+<p>假设您的公共IP为41.41.41.41，并且您只想允许从该IP访问：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Context antiResourceLocking=&#34;false&#34; privileged=&#34;true&#34; &gt;
+  &lt;Valve className=&#34;org.apache.catalina.valves.RemoteAddrValve&#34;
+         allow=&#34;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1|41.41.41.41&#34; /&gt;
+&lt;/Context&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Context antiResourceLocking=&#34;false&#34; privileged=&#34;true&#34; &gt;
+  &lt;Valve className=&#34;org.apache.catalina.valves.RemoteAddrValve&#34;
+         allow=&#34;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1|41.41.41.41&#34; /&gt;
+&lt;/Context&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>允许的IP地址列表是用竖线|分隔的列表。 您可以添加单个IP地址或使用正则表达式。</p>
+<p>完成后，重新启动Tomcat服务以使更改生效：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo systemctl restart tomcat
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="测试安装效果">测试安装效果</h3>
+<p>打开浏览器并输入：<code>http:// &lt;您的域或IP地址&gt;:8080</code>，成功安装后，将显示类似于以下内容的屏幕：</p>
+<p><img src="https://linux265.com/static/images/upload/tomcat-home_hua0c1dc9f1bf53c0fbd05e2613a861aea_165227_600x0_resize_q75_box.jpg" alt="img"></p>
+<p>Tomcat Web应用程序管理器仪表板允许您部署，取消部署，启动，停止和重新加载应用程序。 可以从以下地址获得：<code>http://&lt;your_domain_or_ip_address&gt;:8080/manager/html</code>。</p>
+<p><img src="https://linux265.com/static/images/upload/tomcat-manager_hua7e0ba10fe249e1b0d2c056363e99af5_158139_600x0_resize_q75_box.jpg" alt="img"></p>
+<p>Tomcat虚拟主机管理器仪表板允许您创建，删除和管理Tomcat虚拟主机。可以通过以下网址：<code>http://&lt;your_domain_or_ip_address&gt;:8080/host-manager/html</code>.</p>
+<p><img src="https://linux265.com/static/images/upload/tomcat-host-manager_hu916ac88cac82e86991056b4c1ff76dc4_101950_600x0_resize_q75_box.jpg" alt="img"></p>
+<h3 id="写在最后">写在最后</h3>
+<p>我们已经向您展示了如何在CentOS 8上安装Tomcat 9.0以及如何访问Tomcat管理界面。</p>
+<p>有关Apache Tomcat的更多信息，请访问<a href="https://tomcat.apache.org/tomcat-9.0-doc/index.html">官方文档页面</a>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-28 19:11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/tomcat/">tomcat</a>
+          <a href="/tags/web/">web</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/web/apache_centos_install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Centos部署apache2&#43;mysql8&#43;php7</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/lb/lvs_ops/">
+            <span class="next-text nav-default">LVS 实现四层负载均衡项目实战</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

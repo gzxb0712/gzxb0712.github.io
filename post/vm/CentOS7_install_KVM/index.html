@@ -50,7 +50,7 @@
 <meta itemprop="description" content="CentOS7安装KVM虚拟机详解 基于 CentOS Linux release 7.2的环境下命令行的方式安装KVM的详细过程。 目录 检测是否支持KVM 安装 KVM 环境 安装虚拟机 命令行">
 <meta itemprop="datePublished" content="2020-03-05T19:18:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-05T19:18:30+00:00" />
-<meta itemprop="wordCount" content="8416">
+<meta itemprop="wordCount" content="8420">
 
 
 
@@ -131,7 +131,7 @@
         <div class="post-category">
             <a href="/categories/vm/"> vm </a>
             </div>
-          <span class="more-meta"> 约 8416 字 </span>
+          <span class="more-meta"> 约 8420 字 </span>
           <span class="more-meta"> 预计阅读 17 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -323,11 +323,20 @@ kvm                   <span class="m">525259</span>  <span class="m">1</span> kv
 </div>
 </div><p>##重要：
 先设置网卡为桥接模式，参考这里
-<a href="https://www.cnblogs.com/kevingrace/p/8377645.html">https://www.cnblogs.com/kevingrace/p/8377645.html</a>
-mkdir /data/network/
-cp -pr ifcfg-em1  /data/network/
-cp  ifcfg-em1 ifcfg-br0</p>
+<a href="https://www.cnblogs.com/kevingrace/p/8377645.html">https://www.cnblogs.com/kevingrace/p/8377645.html</a></p>
 <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/network/
+cp -pr ifcfg-em1  /data/network/
+cp  ifcfg-em1 ifcfg-br0
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2054,6 +2063,7 @@ systemctl restart libvirtd.service</li>
 </ol>
 <h2 id="图形管理工具">图形管理工具</h2>
 <h3 id="webvirtcloud">webvirtcloud</h3>
+<p><a href="https://cn.xiebiao.top/post/vm/WebVirtCloud_deploy/">https://cn.xiebiao.top/post/vm/WebVirtCloud_deploy/</a></p>
 <h3 id="cockpit">cockpit</h3>
 <blockquote>
 <p>参考博客

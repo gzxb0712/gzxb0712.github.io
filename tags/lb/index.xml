@@ -17,7 +17,7 @@
       <pubDate>Tue, 25 Feb 2020 19:21:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/lb/lvs_ops/</guid>
-      <description>参考博客 https://www.jianshu.com/p/c7158e5348ff 1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点</description>
+      <description>1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是 www.linuxvirtualserver.org 现在L</description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@
       <pubDate>Sat, 22 Feb 2020 22:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/lb/keepalived_nginx_ops/</guid>
-      <description>参考博客 https://juejin.im/post/5d9066e06fb9a04e2c014e3d 前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实</description>
+      <description>前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器</description>
     </item>
     
     <item>
@@ -35,7 +35,7 @@
       <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/lb/haproxy_ops/</guid>
-      <description>参考博客 https://sulao.cn/post/746.html https://hewanyue.com/blog/5aeb7732.html haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运</description>
+      <description>haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运行于大部分主</description>
     </item>
     
   </channel>

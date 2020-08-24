@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="gzxb0712" /><meta name="description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+<meta name="author" content="gzxb0712" /><meta name="description" content="CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过。 CentOS 8 开启 BBR 1 2" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
 
 
 
@@ -41,23 +41,23 @@
 
 
 <meta property="og:title" content="centos7/8开启bbr加速" />
-<meta property="og:description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过" />
+<meta property="og:description" content="CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过。 CentOS 8 开启 BBR 1 2" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xiebiao.top/post/cdn/bbr_centos_ops/" />
 <meta property="article:published_time" content="2020-02-20T22:39:09+00:00" />
 <meta property="article:modified_time" content="2020-02-20T22:39:09+00:00" />
 <meta itemprop="name" content="centos7/8开启bbr加速">
-<meta itemprop="description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过">
+<meta itemprop="description" content="CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过。 CentOS 8 开启 BBR 1 2">
 <meta itemprop="datePublished" content="2020-02-20T22:39:09+00:00" />
 <meta itemprop="dateModified" content="2020-02-20T22:39:09+00:00" />
-<meta itemprop="wordCount" content="1671">
+<meta itemprop="wordCount" content="1663">
 
 
 
 <meta itemprop="keywords" content="bbr,cdn," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="centos7/8开启bbr加速"/>
-<meta name="twitter:description" content="参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过"/>
+<meta name="twitter:description" content="CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过。 CentOS 8 开启 BBR 1 2"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -131,7 +131,7 @@
         <div class="post-category">
             <a href="/categories/cdn/"> cdn </a>
             </div>
-          <span class="more-meta"> 约 1671 字 </span>
+          <span class="more-meta"> 约 1663 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -168,13 +168,8 @@
   </div>
 </div>
     <div class="post-content">
-      <blockquote>
-<p>参考博客
-<a href="https://nodeedge.com/centos8-bbr.html">https://nodeedge.com/centos8-bbr.html</a>
-<a href="https://cyhour.com/1090/">https://cyhour.com/1090/</a>
-<a href="https://blog.csdn.net/KnYoboy/article/details/104147009">https://blog.csdn.net/KnYoboy/article/details/104147009</a>
-<a href="https://loukky.com/archives/479">https://loukky.com/archives/479</a></p>
-</blockquote>
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <p>CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。<a href="https://cyhour.com/out/vultr">Vultr VPS</a> CentOS Linux release 8.0.1905 系统测试通过。</p>
 <h2 id="centos-8-开启-bbr">CentOS 8 开启 BBR</h2>
 <div class="highlight"><div class="chroma">

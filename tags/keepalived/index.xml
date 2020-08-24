@@ -17,7 +17,7 @@
       <pubDate>Sat, 22 Feb 2020 22:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/lb/keepalived_nginx_ops/</guid>
-      <description>参考博客 https://juejin.im/post/5d9066e06fb9a04e2c014e3d 前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实</description>
+      <description>前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器</description>
     </item>
     
   </channel>

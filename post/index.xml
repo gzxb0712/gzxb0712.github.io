@@ -35,7 +35,7 @@
       <pubDate>Tue, 25 Feb 2020 19:21:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/lb/lvs_ops/</guid>
-      <description>参考博客 https://www.jianshu.com/p/c7158e5348ff 1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点</description>
+      <description>1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是 www.linuxvirtualserver.org 现在L</description>
     </item>
     
     <item>
@@ -44,7 +44,7 @@
       <pubDate>Sat, 22 Feb 2020 22:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/lb/keepalived_nginx_ops/</guid>
-      <description>参考博客 https://juejin.im/post/5d9066e06fb9a04e2c014e3d 前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实</description>
+      <description>前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器</description>
     </item>
     
     <item>
@@ -53,7 +53,7 @@
       <pubDate>Thu, 20 Feb 2020 22:39:09 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/cdn/bbr_centos_ops/</guid>
-      <description>参考博客 https://nodeedge.com/centos8-bbr.html https://cyhour.com/1090/ https://blog.csdn.net/KnYoboy/article/details/104147009 https://loukky.com/archives/479 CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过</description>
+      <description>CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过。 CentOS 8 开启 BBR 1 2</description>
     </item>
     
     <item>
@@ -62,7 +62,7 @@
       <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/lb/haproxy_ops/</guid>
-      <description>参考博客 https://sulao.cn/post/746.html https://hewanyue.com/blog/5aeb7732.html haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运</description>
+      <description>haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运行于大部分主</description>
     </item>
     
     <item>
@@ -71,12 +71,8 @@
       <pubDate>Sat, 15 Feb 2020 21:39:09 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/cdn/varish_ops/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客
-&lt;a href=&#34;https://www.affdalao.com/635.html&#34;&gt;https://www.affdalao.com/635.html&lt;/a&gt;
-&lt;a href=&#34;https://www.rultr.com/tutorials/proxy/3677.html&#34;&gt;https://www.rultr.com/tutorials/proxy/3677.html&lt;/a&gt;
-&lt;a href=&#34;https://www.mscto.com/linux/225146.html&#34;&gt;https://www.mscto.com/linux/225146.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;&lt;img src=&#34;https://img.affdalao.com/wp-content/uploads/2019/04/varnish.jpg&#34; alt=&#34;&#34;&gt;
 Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其采用全新的软件体系机构，和现在的硬件体系紧密配合。与传统的squid相比，Varnish具有高性能、速度快、管理更加方便等优点，目前很多大型的网站都开始尝试使用Varnish来代替squid，这便是Varnish迅速发展的最根本的原因。&lt;/p&gt;</description>
     </item>
@@ -87,13 +83,8 @@ Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其
       <pubDate>Sat, 08 Feb 2020 21:32:09 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/cdn/ats_install_ops/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客
-&lt;a href=&#34;https://www.affdalao.com/2194.html&#34;&gt;https://www.affdalao.com/2194.html&lt;/a&gt;
-&lt;a href=&#34;https://zhuanlan.zhihu.com/p/46512241&#34;&gt;https://zhuanlan.zhihu.com/p/46512241&lt;/a&gt;
-&lt;a href=&#34;https://blog.51cto.com/13555423/2371917&#34;&gt;https://blog.51cto.com/13555423/2371917&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md&#34;&gt;https://github.com/yanghao-zh/trafficserver-admin-books-zh_CN/blob/master/doc/catalog.md&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;blockquote&gt;
 &lt;p&gt;ATS下载地址： &lt;a href=&#34;http://trafficserver.apache.org/&#34;&gt;http://trafficserver.apache.org/&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -108,11 +99,8 @@ Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其
       <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/blog/github_jsdelivr_ops/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客
-&lt;a href=&#34;https://sitoi.cn&#34;&gt;https://sitoi.cn&lt;/a&gt;
-&lt;a href=&#34;https://chinatianyunfeng.github.io/posts/39161.html&#34;&gt;https://chinatianyunfeng.github.io/posts/39161.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;h2 id=&#34;前言-前言前言&#34;&gt;&lt;a href=&#34;#%E5%89%8D%E8%A8%80&#34; title=&#34;前言&#34;&gt;&lt;/a&gt;前言&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;为什么要使用图床呢？&lt;/p&gt;
@@ -167,10 +155,8 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
       <pubDate>Wed, 08 Jan 2020 22:05:33 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/base/openvpn_client_connect/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://luanlengli.github.io/2019/11/25/OpenVPN%E5%AE%A2%E6%88%B7%E7%AB%AF-Windows-Linux-MacOS-%E8%BF%9E%E6%8E%A5OpenVPN%E6%9C%8D%E5%8A%A1%E5%99%A8.html&#34;&gt;https://luanlengli.github.io/2019/11/25/OpenVPN%E5%AE%A2%E6%88%B7%E7%AB%AF-Windows-Linux-MacOS-%E8%BF%9E%E6%8E%A5OpenVPN%E6%9C%8D%E5%8A%A1%E5%99%A8.html&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;使用社区版的OpenVPN客户端连接社区版OpenVPN服务器&lt;/li&gt;
@@ -187,10 +173,8 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
       <pubDate>Tue, 07 Jan 2020 21:05:33 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/base/openvpn_centos_install/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客
-&lt;a href=&#34;https://luanlengli.github.io/2019/11/25/CentOS7%E9%83%A8%E7%BD%B2OpenVPN%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%BA%92%E9%80%9A.html&#34;&gt;https://luanlengli.github.io/2019/11/25/CentOS7%E9%83%A8%E7%BD%B2OpenVPN%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%BA%92%E9%80%9A.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;此法用于多个客户端通过OpenVPN服务器实现内网访问&lt;/li&gt;
@@ -209,11 +193,8 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
       <pubDate>Tue, 17 Dec 2019 22:21:37 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/base/ftp_centos_install/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客
-&lt;a href=&#34;https://segmentfault.com/a/1190000021457476&#34;&gt;https://segmentfault.com/a/1190000021457476&lt;/a&gt;
-&lt;a href=&#34;https://segmentfault.com/a/1190000008161400&#34;&gt;https://segmentfault.com/a/1190000008161400&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程&lt;/p&gt;</description>
     </item>
     
@@ -223,10 +204,8 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
       <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/base/dns_centos_install/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客
-&lt;a href=&#34;https://bynss.com/2020/300275.html&#34;&gt;https://bynss.com/2020/300275.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;由80年代伯克利大学的学生开发， &lt;strong&gt;揉&lt;/strong&gt; （&lt;strong&gt;伯克利互联网名称域名&lt;/strong&gt;）是开源的 &lt;strong&gt;DNS服务器&lt;/strong&gt; 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 &lt;strong&gt;域名解析&lt;/strong&gt; 服务器是一项有助于解析完全限定域名的服务（&lt;strong&gt;完整域名&lt;/strong&gt;A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。&lt;/p&gt;
 &lt;p&gt;为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。&lt;/p&gt;
 &lt;p&gt;本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。&lt;/p&gt;</description>
@@ -238,11 +217,8 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/blog/creat-hugo-blog/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客&lt;br&gt;
-&lt;a href=&#34;http://www.yangc.top/archives/hugoblog&#34;&gt;http://www.yangc.top/archives/hugoblog&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;https://spongecaptain.cool/post/hugo/howtousehugo/&#34;&gt;https://spongecaptain.cool/post/hugo/howtousehugo/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。&lt;/p&gt;
 &lt;p&gt;后来看到 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; ,号称最快的静态站点生成器后。&lt;/p&gt;
 &lt;p&gt;尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
@@ -256,11 +232,8 @@ Hugo 官方的定义是：&lt;/p&gt;
       <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/base/dncp_centos_install/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客&lt;br&gt;
-&lt;a href=&#34;https://www.helplib.cn/%E6%9C%88%E6%9C%88/install-and-setup-dhcp-server-on-centos-8&#34;&gt;https://www.helplib.cn/月月/install-and-setup-dhcp-server-on-centos-8  &lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;https://ywnz.com/linuxyffq/6322.html&#34;&gt;https://ywnz.com/linuxyffq/6322.html&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;h3 id=&#34;运行系统更新&#34;&gt;运行系统更新&lt;/h3&gt;
 &lt;p&gt;首先将系统包重新同步到它最新版本。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

@@ -17,11 +17,8 @@
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/blog/creat-hugo-blog/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;参考博客&lt;br&gt;
-&lt;a href=&#34;http://www.yangc.top/archives/hugoblog&#34;&gt;http://www.yangc.top/archives/hugoblog&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;https://spongecaptain.cool/post/hugo/howtousehugo/&#34;&gt;https://spongecaptain.cool/post/hugo/howtousehugo/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。&lt;/p&gt;
 &lt;p&gt;后来看到 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; ,号称最快的静态站点生成器后。&lt;/p&gt;
 &lt;p&gt;尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prometheus on Bill World</title>
+    <link>https://xiebiao.top/tags/Prometheus/</link>
+    <description>Recent content in Prometheus on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 16 Mar 2020 21:05:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/tags/Prometheus/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>搭建docker版Prometheus监控报警系统</title>
+      <link>https://xiebiao.top/post/monitor/prometheus_ops/</link>
+      <pubDate>Mon, 16 Mar 2020 21:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/monitor/prometheus_ops/</guid>
+      <description>什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu</description>
+    </item>
+    
+  </channel>
+</rss>

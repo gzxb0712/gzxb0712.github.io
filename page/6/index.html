@@ -118,135 +118,14 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/base/openvpn_client_connect/">openvpn客户端连接设置</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/base/dncp_centos_install/">dhcp在centos中安装</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-01-08 22:05 </span>
+      <span class="post-time"> 2019-10-11 20:22 </span>
       <div class="post-category">
           <a href="/categories/linux/"> linux </a>
           <a href="/categories/base/"> base </a>
           </div>
-        <span class="more-meta"> 约 942 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h1 id="说明">说明</h1>
-<ul>
-<li>使用社区版的OpenVPN客户端连接社区版OpenVPN服务器</li>
-<li>OpenVPN版本 <code>2.4.8</code></li>
-<li>Linux版本 <code>CentOS-7.7</code></li>
-<li>Windows版本 <code>Windows 10 1903</code></li>
-<li>MacOS版本 <code>本人没有MacOS平台，这里简单参考官网的指南</code></li>
-</ul>
-    </div>
-    <div class="read-more">
-      <a href="/post/base/openvpn_client_connect/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/base/openvpn_centos_install/">openvpn在centos搭建实现内网互通</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-01-07 21:05 </span>
-      <div class="post-category">
-          <a href="/categories/linux/"> linux </a>
-          <a href="/categories/base/"> base </a>
-          </div>
-        <span class="more-meta"> 约 3189 字 </span>
-        <span class="more-meta"> 预计阅读 7 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h1 id="说明">说明</h1>
-<ul>
-<li>此法用于多个客户端通过OpenVPN服务器实现内网访问</li>
-<li>OpenVPN服务器操作系统 <code>CentOS-7.7</code></li>
-<li>OpenVPN版本 <code>2.4.8</code></li>
-<li>easy-rsa版本 <code>3.0.6</code></li>
-<li>使用 <code>tap</code> 模式</li>
-<li>客户端IP地址池 <code>10.8.0.0/24</code></li>
-<li>多个客户端直接可以通过OpenVPN实现内网通信</li>
-</ul>
-    </div>
-    <div class="read-more">
-      <a href="/post/base/openvpn_centos_install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/base/ftp_centos_install/">ftp在centos中安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-12-17 22:21 </span>
-      <div class="post-category">
-          <a href="/categories/linux/"> linux </a>
-          <a href="/categories/base/"> base </a>
-          </div>
-        <span class="more-meta"> 约 3820 字 </span>
-        <span class="more-meta"> 预计阅读 8 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程</p>
-    </div>
-    <div class="read-more">
-      <a href="/post/base/ftp_centos_install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/base/dns_centos_install/">dns在centos中安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-11-11 19:21 </span>
-      <div class="post-category">
-          <a href="/categories/linux/"> linux </a>
-          <a href="/categories/base/"> base </a>
-          </div>
-        <span class="more-meta"> 约 2739 字 </span>
-        <span class="more-meta"> 预计阅读 6 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>由80年代伯克利大学的学生开发， <strong>揉</strong> （<strong>伯克利互联网名称域名</strong>）是开源的 <strong>DNS服务器</strong> 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 <strong>域名解析</strong> 服务器是一项有助于解析完全限定域名的服务（<strong>完整域名</strong>A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。</p>
-<p>为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。</p>
-<p>本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。</p>
-    </div>
-    <div class="read-more">
-      <a href="/post/base/dns_centos_install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/blog/creat-hugo-blog/">Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-10-12 20:28 </span>
-      <div class="post-category">
-          <a href="/categories/blog/"> blog </a>
-          </div>
-        <span class="more-meta"> 约 1719 字 </span>
+        <span class="more-meta"> 约 1863 字 </span>
         <span class="more-meta"> 预计阅读 4 分钟 </span>
     </div>
   </header>
@@ -255,14 +134,33 @@
     <div class="post-summary">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<p>尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。</p>
-<p>后来看到 <a href="https://gohugo.io/">Hugo</a> ,号称最快的静态站点生成器后。</p>
-<p>尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
-Hugo 官方的定义是：</p>
-<p>Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)</p>
+<h3 id="运行系统更新">运行系统更新</h3>
+<p>首先将系统包重新同步到它最新版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">dnf update
+</code></pre></td></tr></table>
+</div>
+</div><p>在CentOS 8中，DHCP服务器是<code>dhcp-server</code> 软件包，可以通过运行下面的命令来安装此软件包;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+dnf install dhcp-server
+
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
     <div class="read-more">
-      <a href="/post/blog/creat-hugo-blog/" class="read-more-link">阅读更多</a>
+      <a href="/post/base/dncp_centos_install/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -270,14 +168,11 @@ Hugo 官方的定义是：</p>
     </section>
   
   <nav class="pagination">
-    <a class="prev" href="/page/4/">
+    <a class="prev" href="/page/5/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">上一页</span>
       </a>
-    <a class="next" href="/page/6/">
-        <span class="next-text">下一页</span>
-        <i class="iconfont icon-right"></i>
-      </a>
+    
   </nav>
         </div>
         

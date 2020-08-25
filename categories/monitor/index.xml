@@ -6,10 +6,19 @@
     <description>Recent content in monitor on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 14 Mar 2020 18:45:30 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Mar 2020 21:05:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/categories/monitor/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>搭建docker版Prometheus监控报警系统</title>
+      <link>https://xiebiao.top/post/monitor/prometheus_ops/</link>
+      <pubDate>Mon, 16 Mar 2020 21:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/monitor/prometheus_ops/</guid>
+      <description>什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu</description>
+    </item>
     
     <item>
       <title>Zabbix 5.0 Agent2的安装</title>

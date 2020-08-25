@@ -26,7 +26,7 @@
       <pubDate>Fri, 13 Mar 2020 18:23:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/monitor/zabbix5_install_ops/</guid>
-      <description>参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B 一、安装数据源 1 [root@localhost ~]# rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm 国内使用阿里云的zabbix源 1 2 [root@localhost ~]# sed -i &amp;#39;s#http://repo.zabbix.com#https://mirrors.aliyun.com/zabbix#&amp;#39; /etc/yum.repos.d/zabbix.repo [root@localhost ~]# yum clean all 二、安装数据库 安装MySQL数据库，安装方式rp</description>
+      <description>参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B zabbix 5.0 版本于 5 月 11 日正式发布，是最新的 LTS（长期支持）版本，5.0 带来很多功能和特性，后面会陆续推出文章介绍，下面主要介绍下 5.0 版本</description>
     </item>
     
   </channel>

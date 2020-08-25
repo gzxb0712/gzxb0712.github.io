@@ -3,28 +3,56 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
+    <lastmod>2020-03-10T19:25:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
+    <lastmod>2020-03-10T19:25:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/monitor/</loc>
+    <lastmod>2020-03-10T19:25:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/monitor/</loc>
+    <lastmod>2020-03-10T19:25:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/NetData/</loc>
+    <lastmod>2020-03-10T19:25:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/monitor/netdata_ops/</loc>
+    <lastmod>2020-03-10T19:25:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
+    <lastmod>2020-03-10T19:25:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/tags/</loc>
-    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
+    <lastmod>2020-03-10T19:25:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

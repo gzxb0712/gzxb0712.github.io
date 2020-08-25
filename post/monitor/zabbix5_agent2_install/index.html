@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Zabbix 5.0 Agent2的安装 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="Zabbix Agent2 介绍 Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性： 完成的插件框架支持，可扩张服务及应用监控 支持灵" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/monitor/zabbix5_agent2_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Zabbix 5.0 Agent2的安装" />
+<meta property="og:description" content="Zabbix Agent2 介绍 Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性： 完成的插件框架支持，可扩张服务及应用监控 支持灵" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/monitor/zabbix5_agent2_install/" />
+<meta property="article:published_time" content="2020-03-14T18:45:30+00:00" />
+<meta property="article:modified_time" content="2020-03-14T18:45:30+00:00" />
+<meta itemprop="name" content="Zabbix 5.0 Agent2的安装">
+<meta itemprop="description" content="Zabbix Agent2 介绍 Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性： 完成的插件框架支持，可扩张服务及应用监控 支持灵">
+<meta itemprop="datePublished" content="2020-03-14T18:45:30+00:00" />
+<meta itemprop="dateModified" content="2020-03-14T18:45:30+00:00" />
+<meta itemprop="wordCount" content="797">
+
+
+
+<meta itemprop="keywords" content="zabbix,monitor," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zabbix 5.0 Agent2的安装"/>
+<meta name="twitter:description" content="Zabbix Agent2 介绍 Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性： 完成的插件框架支持，可扩张服务及应用监控 支持灵"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Zabbix 5.0 Agent2的安装</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-14 18:45 </span>
+        <div class="post-category">
+            <a href="/categories/monitor/"> monitor </a>
+            </div>
+          <span class="more-meta"> 约 797 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#zabbix-agent2-介绍">Zabbix Agent2 介绍</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#yum-安装">yum 安装</a></li>
+        <li><a href="#编译安装">编译安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#配置">配置</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="zabbix-agent2-介绍">Zabbix Agent2 介绍</h2>
+<p>Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性：</p>
+<ul>
+<li>完成的插件框架支持，可扩张服务及应用监控</li>
+<li>支持灵活的采集周期调度</li>
+<li>更高效的数据采集及传输</li>
+<li>可完全替换先有的 agent</li>
+<li>…..</li>
+</ul>
+<p>特性较多，建议使用。由于使用 go 语言编写,编译安装与之前版本有所区别。Agent2 默认使用的 10050 端口，与 Zabbix Agent 端口一样，不修改端口情况下，同一台机器不能同时启动 Zabbix Agent 与 Zabbix Agent2。</p>
+<h3 id="安装">安装</h3>
+<p>安装可使用 yum 和编译安装，对于新手，建议使用 yum 安装。</p>
+<h3 id="yum-安装">yum 安装</h3>
+<p>参照上篇<a href="https://blog.cactifans.com/2020/05/17/Zabbix-5.0-LTS-%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85/">Zabbix 5.0 LTS 版本安装</a> 配置好 yum 源，使用以下命令即可安装 Zabbix Agent2</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install zabbix-agent2 -y
+
+</code></pre></td></tr></table>
+</div>
+</div><p>默认配置文件为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/etc/zabbix/zabbix_agent2.conf
+
+</code></pre></td></tr></table>
+</div>
+</div><p>默认二进制文件为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/usr/sbin/zabbix_agent2
+
+</code></pre></td></tr></table>
+</div>
+</div><p>使用以下命令启动 Agent2 并配置开机启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable --now zabbix-agent2
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="编译安装">编译安装</h3>
+<p>安装 gcc 等基础编译环境，由于使用 go 编写，因此需要配置 go 编译环境，下载并配置 go 语言编译环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt
+wget https://dl.google.com/go/go1.14.3.linux-amd64.tar.gz
+tar zxvf go1.14.3.linux-amd64.tar.gz -C /usr/local/
+echo &#34;export PATH=$PATH:/usr/local/go/bin&#34; &gt;&gt;/etc/profile
+source /etc/profile
+go env
+
+</code></pre></td></tr></table>
+</div>
+</div><p>最后显示如下，表明 go 语言环境配置成功。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">GO111MODULE=&#34;&#34;
+GOARCH=&#34;amd64&#34;
+GOBIN=&#34;&#34;
+GOCACHE=&#34;/root/.cache/go-build&#34;
+GOENV=&#34;/root/.config/go/env&#34;
+GOEXE=&#34;&#34;
+GOFLAGS=&#34;&#34;
+GOHOSTARCH=&#34;amd64&#34;
+GOHOSTOS=&#34;linux&#34;
+GOINSECURE=&#34;&#34;
+GONOPROXY=&#34;&#34;
+GONOSUMDB=&#34;&#34;
+GOOS=&#34;linux&#34;
+GOPATH=&#34;/root/go&#34;
+GOPRIVATE=&#34;&#34;
+GOPROXY=&#34;https://proxy.golang.org,direct&#34;
+GOROOT=&#34;/usr/local/go&#34;
+GOSUMDB=&#34;sum.golang.org&#34;
+GOTMPDIR=&#34;&#34;
+GOTOOLDIR=&#34;/usr/local/go/pkg/tool/linux_amd64&#34;
+GCCGO=&#34;gccgo&#34;
+AR=&#34;ar&#34;
+CC=&#34;gcc&#34;
+CXX=&#34;g++&#34;
+CGO_ENABLED=&#34;1&#34;
+GOMOD=&#34;&#34;
+CGO_CFLAGS=&#34;-g -O2&#34;
+CGO_CPPFLAGS=&#34;&#34;
+CGO_CXXFLAGS=&#34;-g -O2&#34;
+CGO_FFLAGS=&#34;-g -O2&#34;
+CGO_LDFLAGS=&#34;-g -O2&#34;
+PKG_CONFIG=&#34;pkg-config&#34;
+GOGCCFLAGS=&#34;-fPIC -m64 -pthread -fmessage-length=0 -fdebug-prefix-map=/tmp/go-build821720893=/tmp/go-build -gno-record-gcc-switches&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>开启 go mod，由于编译过程需要联网下载依赖包，配置 go mod 代理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+
+</code></pre></td></tr></table>
+</div>
+</div><p>下载 zabbix 5.0 源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt
+wget https://cdn.zabbix.com/zabbix/sources/stable/5.0/zabbix-5.0.0.tar.gz
+tar zxvf zabbix-5.0.0.tar.gz
+cd zabbix-5.0.0
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果只是要编译 agent2，直接加-enable-agent2 参数即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">./configure --prefix=/usr/local/zabbix -enable-agent2
+make
+make install
+
+</code></pre></td></tr></table>
+</div>
+</div><p>编译过程中有错误一定要关注，其中需要联网下载依赖包，耐心等待安装完成。 默认配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/zabbix/etc/zabbix_agent2.conf
+
+</code></pre></td></tr></table>
+</div>
+</div><p>二进制程序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/zabbix/sbin/zabbix_agent2
+
+</code></pre></td></tr></table>
+</div>
+</div><p>配置 systemd 启动文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /lib/systemd/system/zabbix-agent2.service
+
+</code></pre></td></tr></table>
+</div>
+</div><p>内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[Unit]
+Description=Zabbix Agent 2
+After=syslog.target
+After=network.target
+
+[Service]
+Environment=&#34;CONFFILE=/usr/local/zabbix/etc/zabbix_agent2.conf&#34;
+EnvironmentFile=-/etc/sysconfig/zabbix-agent2
+Type=simple
+Restart=on-failure
+PIDFile=/tmp/zabbix_agent2.pid
+KillMode=control-group
+ExecStart=/usr/local/zabbix/sbin/zabbix_agent2 -c $CONFFILE
+ExecStop=/bin/kill -SIGTERM $MAINPID
+RestartSec=10s
+User=zabbix
+Group=zabbix
+
+[Install]
+WantedBy=multi-user.target
+
+</code></pre></td></tr></table>
+</div>
+</div><p>配置启动并设置开机启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable --now zabbix-agent2
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置">配置</h2>
+<p>zabbix agent2 的配置与之前的 zabbix agent 配置基本一致</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Server=172.16.66.11
+ServerActive=172.16.66.11
+Hostname=node16
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Server 和 ServerActive 配置为 zabibx server 或 zabbix proxy 地址，Hostname 配置为主机名即可。 Agent2 没有组件依赖，可直接拷贝编译好的二进制文件和配置文件在其他主机上运行即可。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-14 18:45
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/zabbix/">zabbix</a>
+          <a href="/tags/monitor/">monitor</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/monitor/zabbix5_install_ops/">
+            <span class="next-text nav-default">Zabbix 5.0安装部署和使用教程</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

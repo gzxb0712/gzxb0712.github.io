@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 11 Mar 2020 19:23:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 14 Mar 2020 18:45:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Zabbix 5.0 Agent2的安装</title>
+      <link>https://xiebiao.top/post/monitor/zabbix5_agent2_install/</link>
+      <pubDate>Sat, 14 Mar 2020 18:45:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/monitor/zabbix5_agent2_install/</guid>
+      <description>Zabbix Agent2 介绍 Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性： 完成的插件框架支持，可扩张服务及应用监控 支持灵</description>
+    </item>
+    
+    <item>
+      <title>Zabbix 5.0安装部署和使用教程</title>
+      <link>https://xiebiao.top/post/monitor/zabbix5_install_ops/</link>
+      <pubDate>Fri, 13 Mar 2020 18:23:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/monitor/zabbix5_install_ops/</guid>
+      <description>参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B 一、安装数据源 1 [root@localhost ~]# rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm 国内使用阿里云的zabbix源 1 2 [root@localhost ~]# sed -i &amp;#39;s#http://repo.zabbix.com#https://mirrors.aliyun.com/zabbix#&amp;#39; /etc/yum.repos.d/zabbix.repo [root@localhost ~]# yum clean all 二、安装数据库 安装MySQL数据库，安装方式rp</description>
+    </item>
     
     <item>
       <title>小米开源监控 Open-Falcon 0.3 部署</title>

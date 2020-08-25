@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>monitor on Bill World</title>
-    <link>https://xiebiao.top/categories/monitor/</link>
-    <description>Recent content in monitor on Bill World</description>
+    <title>zabbix on Bill World</title>
+    <link>https://xiebiao.top/tags/zabbix/</link>
+    <description>Recent content in zabbix on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 14 Mar 2020 18:45:30 +0000</lastBuildDate>
     
-	<atom:link href="https://xiebiao.top/categories/monitor/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xiebiao.top/tags/zabbix/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -27,24 +27,6 @@
       
       <guid>https://xiebiao.top/post/monitor/zabbix5_install_ops/</guid>
       <description>参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B 一、安装数据源 1 [root@localhost ~]# rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm 国内使用阿里云的zabbix源 1 2 [root@localhost ~]# sed -i &amp;#39;s#http://repo.zabbix.com#https://mirrors.aliyun.com/zabbix#&amp;#39; /etc/yum.repos.d/zabbix.repo [root@localhost ~]# yum clean all 二、安装数据库 安装MySQL数据库，安装方式rp</description>
-    </item>
-    
-    <item>
-      <title>小米开源监控 Open-Falcon 0.3 部署</title>
-      <link>https://xiebiao.top/post/monitor/open-falcon_install_ops/</link>
-      <pubDate>Wed, 11 Mar 2020 19:23:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/post/monitor/open-falcon_install_ops/</guid>
-      <description>文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go</description>
-    </item>
-    
-    <item>
-      <title>NetData轻量的性能监控工具安装</title>
-      <link>https://xiebiao.top/post/monitor/netdata_ops/</link>
-      <pubDate>Tue, 10 Mar 2020 19:25:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/post/monitor/netdata_ops/</guid>
-      <description>前言 对于服务器监控我相信对于一些人来说是感兴趣的，相比于繁琐的 Grafana + Zabbix（白猫的docker安装教程）对于服务器资源的占用，较为轻便监</description>
     </item>
     
   </channel>

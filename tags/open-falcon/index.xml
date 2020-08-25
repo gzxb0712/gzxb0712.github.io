@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>monitor on Bill World</title>
-    <link>https://xiebiao.top/tags/monitor/</link>
-    <description>Recent content in monitor on Bill World</description>
+    <title>open-falcon on Bill World</title>
+    <link>https://xiebiao.top/tags/open-falcon/</link>
+    <description>Recent content in open-falcon on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 11 Mar 2020 19:23:30 +0000</lastBuildDate>
     
-	<atom:link href="https://xiebiao.top/tags/monitor/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://xiebiao.top/tags/open-falcon/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://xiebiao.top/post/monitor/open-falcon_install_ops/</guid>
       <description>文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go</description>
-    </item>
-    
-    <item>
-      <title>NetData轻量的性能监控工具安装</title>
-      <link>https://xiebiao.top/post/monitor/netdata_ops/</link>
-      <pubDate>Tue, 10 Mar 2020 19:25:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/post/monitor/netdata_ops/</guid>
-      <description>前言 对于服务器监控我相信对于一些人来说是感兴趣的，相比于繁琐的 Grafana + Zabbix（白猫的docker安装教程）对于服务器资源的占用，较为轻便监</description>
     </item>
     
   </channel>

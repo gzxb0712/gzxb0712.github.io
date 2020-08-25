@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>小米开源监控 Open-Falcon 0.3 部署 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/monitor/open-falcon_install_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="小米开源监控 Open-Falcon 0.3 部署" />
+<meta property="og:description" content="文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/monitor/open-falcon_install_ops/" />
+<meta property="article:published_time" content="2020-03-11T19:23:30+00:00" />
+<meta property="article:modified_time" content="2020-03-11T19:23:30+00:00" />
+<meta itemprop="name" content="小米开源监控 Open-Falcon 0.3 部署">
+<meta itemprop="description" content="文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go">
+<meta itemprop="datePublished" content="2020-03-11T19:23:30+00:00" />
+<meta itemprop="dateModified" content="2020-03-11T19:23:30+00:00" />
+<meta itemprop="wordCount" content="1935">
+
+
+
+<meta itemprop="keywords" content="open-falcon,monitor," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="小米开源监控 Open-Falcon 0.3 部署"/>
+<meta name="twitter:description" content="文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">小米开源监控 Open-Falcon 0.3 部署</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-11 19:23 </span>
+        <div class="post-category">
+            <a href="/categories/monitor/"> monitor </a>
+            </div>
+          <span class="more-meta"> 约 1935 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#文章目录">文章目录</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#34-配置时间同步">3.4 配置时间同步</a></li>
+    <li><a href="#35-安装go环境">3.5 安装go环境</a></li>
+    <li><a href="#36-安装pip环境">3.6 安装pip环境</a></li>
+    <li><a href="#37-安装redis">3.7 安装Redis</a></li>
+    <li><a href="#38-安装mariadb">3.8 安装Mariadb</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-下载安装包">4.1 下载安装包</a></li>
+    <li><a href="#43-启动">4.3 启动</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-下载前端代码">5.1 下载前端代码</a></li>
+    <li><a href="#52-安装依赖包">5.2 安装依赖包</a></li>
+    <li><a href="#54-修改配置">5.4 修改配置</a></li>
+    <li><a href="#55-启动前端">5.5 启动前端</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#61-配置环境">6.1 配置环境</a></li>
+    <li><a href="#62-修改agent配置">6.2 修改agent配置</a></li>
+    <li><a href="#63-启动服务">6.3 启动服务</a></li>
+    <li><a href="#64-按照此操作加入其他主机">6.4 按照此操作加入其他主机</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="文章目录">文章目录</h3>
+<ul>
+<li>
+<p><a href="#_1">一、主机准备</a></p>
+</li>
+<li>
+<p><a href="#_14">二、参考文档</a></p>
+</li>
+<li>
+<p><a href="#__22">三 、环境配置</a></p>
+</li>
+<li>
+<p><a href="#31_YUM_23">3.1 配置阿里YUM源、安装基本工具</a></p>
+</li>
+<li>
+<p><a href="#32_Selinux_33">3.2 关闭防火墙、Selinux</a></p>
+</li>
+<li>
+<p><a href="#33__40">3.3 修改主机名</a></p>
+</li>
+<li>
+<p><a href="#34__44">3.4 配置时间同步</a></p>
+</li>
+<li>
+<p><a href="#35_go_66">3.5 安装go环境</a></p>
+</li>
+<li>
+<p><a href="#36_pip_72">3.6 安装pip环境</a></p>
+</li>
+<li>
+<p><a href="#37_Redis_80">3.7 安装Redis</a></p>
+</li>
+<li>
+<p><a href="#38_Mariadb_86">3.8 安装Mariadb</a></p>
+</li>
+<li>
+<p><a href="#_131">四、安装后端</a></p>
+</li>
+<li>
+<p><a href="#41__132">4.1 下载安装包</a></p>
+</li>
+<li>
+<p><a href="#42__137">4.2 修改配置文件</a></p>
+</li>
+<li>
+<p><a href="#43__171">4.3 启动</a></p>
+</li>
+<li>
+<p><a href="#_212">五、安装前端</a></p>
+</li>
+<li>
+<p><a href="#51__213">5.1 下载前端代码</a></p>
+</li>
+<li>
+<p><a href="#52__220">5.2 安装依赖包</a></p>
+</li>
+<li>
+<p><a href="#54__229">5.4 修改配置</a></p>
+</li>
+<li>
+<p><a href="#55__236">5.5 启动前端</a></p>
+</li>
+<li>
+<p><a href="#_267">六、监控其他主机</a></p>
+</li>
+<li>
+<p><a href="#61___276">6.1 配置环境</a></p>
+</li>
+<li>
+<p><a href="#62_agent_307">6.2 修改agent配置</a></p>
+</li>
+<li>
+<p><a href="#63__370">6.3 启动服务</a></p>
+</li>
+<li>
+<p><a href="#64__383">6.4 按照此操作加入其他主机</a></p>
+</li>
+</ul>
+<h1 id="一主机准备">一、主机准备</h1>
+<p>操作系统</p>
+<pre><code>[root@localhost ~]# cat /etc/redhat-release 
+CentOS Linux release 7.6.1810 (Core)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>IP</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nginx_master</td>
+<td>192.168.1.171</td>
+<td>Nginx、open-falcon-agent</td>
+</tr>
+<tr>
+<td>nginx_backup</td>
+<td>192.168.1.172</td>
+<td>Nginx、open-falcon-agent、</td>
+</tr>
+<tr>
+<td>tomcat_server1</td>
+<td>192.168.1.173</td>
+<td>Tomcat、open-falcon-agent、Redis</td>
+</tr>
+<tr>
+<td>tomcat_server2</td>
+<td>192.168.1.174</td>
+<td>Tomcat、open-falcon-agent、MySQL</td>
+</tr>
+<tr>
+<td>open-falcon_server</td>
+<td>192.168.1.175</td>
+<td>open-falcon-server</td>
+</tr>
+</tbody>
+</table>
+<h1 id="二参考文档">二、参考文档</h1>
+<p><a href="http://www.open-falcon.com/">官方文档</a><br>
+<a href="http://book.open-falcon.org/zh_0_2/">官方中文社区</a><br>
+<a href="https://www.jianshu.com/p/5e34699fe92f">运维监控系统之Open-Falcon</a><br>
+<a href="https://www.cnblogs.com/nulige/p/7741580.html">运维监控系统之Open-Falcon</a><br>
+<a href="https://blog.csdn.net/qq_27384769/article/details/79234270">小米运维架构服务监控Open-Falcon</a></p>
+<h1 id="三-环境配置">三 、环境配置</h1>
+<p>3.1 配置阿里YUM源、安装基本工具</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+    yum install -y wget 
+    <span class="o">&amp;&amp;</span> mkdir -p /etc/yum.repos.d/repo_bak 
+    <span class="o">&amp;&amp;</span> mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/repo_bak/ 
+    <span class="o">&amp;&amp;</span> wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo 
+    <span class="o">&amp;&amp;</span> wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo 
+    <span class="o">&amp;&amp;</span> yum install -y vim git net-tools lrzsz ntp unzip 
+    <span class="o">&amp;&amp;</span> yum makecache <span class="o">&amp;&amp;</span> yum clean all 
+</code></pre></td></tr></table>
+</div>
+</div><p>3.2 关闭防火墙、Selinux</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+    <span class="c1"># 关闭防火墙</span>
+    systemctl stop firewalld <span class="o">&amp;&amp;</span> systemctl disable firewalld
+    <span class="c1"># 关闭Selinux</span>
+    setenforce <span class="m">0</span> <span class="o">&amp;&amp;</span> sed -i <span class="s1">&#39;s/SELINUX=enforcing/SELINUX=disabled/g&#39;</span> /etc/selinux/config
+</code></pre></td></tr></table>
+</div>
+</div><p>3.3 修改主机名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">    hostnamectl set-hostname open-falcon_server <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;192.168.1.175 open-falcon_server&#34;</span> &gt;&gt; /etc/hosts 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="34-配置时间同步">3.4 配置时间同步</h2>
+<p>关闭chrony服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">    systemctl stop chronyd &amp;&amp; systemctl disable chronyd
+</code></pre></td></tr></table>
+</div>
+</div><p>设置NTP服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">    vim /etc/ntp.conf
+    # 将时钟服务器更改为如下4个
+    server 0.cn.pool.ntp.org
+    server 1.cn.pool.ntp.org
+    server 2.cn.pool.ntp.org	
+    server 3.cn.pool.ntp.org
+</code></pre></td></tr></table>
+</div>
+</div><p>启动时间同步服务器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">    systemctl start ntpd 
+    <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> ntpd 
+    <span class="o">&amp;&amp;</span> ntpdate -u 0.cn.pool.ntp.org 
+    <span class="o">&amp;&amp;</span> hwclock --systohc 
+    <span class="o">&amp;&amp;</span> date
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="35-安装go环境">3.5 安装go环境</h2>
+<pre><code>yum install -y golang &amp;&amp; go version
+</code></pre>
+<h2 id="36-安装pip环境">3.6 安装pip环境</h2>
+<pre><code>wget https://bootstrap.pypa.io/get-pip.py
+
+# 这一步ERROR报错的话多试几次
+python get-pip.py
+</code></pre>
+<h2 id="37-安装redis">3.7 安装Redis</h2>
+<pre><code>yum install -y redis 
+&amp;&amp; systemctl start redis 
+&amp;&amp; systemctl enable redis
+</code></pre>
+<h2 id="38-安装mariadb">3.8 安装Mariadb</h2>
+<p>yum安装mariadb</p>
+<pre><code>yum install -y mariadb mariadb-server 
+&amp;&amp; systemctl start mariadb 
+&amp;&amp; systemctl enable mariadb 
+</code></pre>
+<p>导入open-falcon数据库</p>
+<pre><code>mkdir -p /home/work/open-falcon 
+&amp;&amp; cd /home/work/open-falcon 
+&amp;&amp; git clone https://github.com/open-falcon/falcon-plus.git
+</code></pre>
+<p>执行MySQL脚本</p>
+<pre><code>cd ./scripts/mysql/db_schema/
+mysql -h 127.0.0.1 -u root -p &lt; 1_uic-db-schema.sql 
+mysql -h 127.0.0.1 -u root -p &lt; 2_portal-db-schema.sql
+mysql -h 127.0.0.1 -u root -p &lt; 3_dashboard-db-schema.sql
+mysql -h 127.0.0.1 -u root -p &lt; 4_graph-db-schema.sql
+mysql -h 127.0.0.1 -u root -p &lt; 5_alarms-db-schema.sql
+# 查看数据库
+MariaDB [(none)]&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| alarms             |
+| dashboard          |
+| falcon_portal      |
+| graph              |
+| mysql              |
+| performance_schema |
+| test               |
+| uic                |
++--------------------+
+9 rows in set (0.00 sec)
+</code></pre>
+<p>设置数据库密码</p>
+<pre><code>mysqladmin -uroot password &quot;123456&quot;
+</code></pre>
+<h1 id="四安装后端">四、安装后端</h1>
+<h2 id="41-下载安装包">4.1 下载安装包</h2>
+<pre><code>wget https://github.com/open-falcon/falcon-plus/releases/download/v0.3/open-falcon-v0.3.tar.gz
+tar -zxvf open-falcon_v0.3.tar.gz -C /home/work/open-falcon/
+</code></pre>
+<p>4.2 修改配置文件
+每个模块都修改连接数据库的配置</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aggregator</td>
+<td>./aggregator/config/cfg.json</td>
+</tr>
+<tr>
+<td>graph</td>
+<td>./graph/config/cfg.json</td>
+</tr>
+<tr>
+<td>hbs</td>
+<td>./hbs/config/cfg.json</td>
+</tr>
+<tr>
+<td>nodata</td>
+<td>./nodata/config/cfg.json</td>
+</tr>
+<tr>
+<td>api</td>
+<td>./api/config/cfg.json</td>
+</tr>
+<tr>
+<td>alarm</td>
+<td>./alarm/config/cfg.json</td>
+</tr>
+</tbody>
+</table>
+<p>快捷修改脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">    sed -i <span class="s1">&#39;s#root:@tcp(127.0.0.1:3306)#root:123456@tcp(127.0.0.1:3306)#g&#39;</span> <span class="sb">`</span>find ./ -type f -name <span class="s2">&#34;cfg.json&#34;</span><span class="p">|</span>egrep <span class="s2">&#34;alarm|api|nodata|hbs|graph|aggregator&#34;</span><span class="sb">`</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查看是否修改成功</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">    cat <span class="sb">`</span>find ./ -type f -name <span class="s2">&#34;cfg.json&#34;</span><span class="p">|</span>egrep <span class="s2">&#34;alarm|api|nodata|hbs|graph|aggregator&#34;</span><span class="sb">`</span> <span class="p">|</span>grep <span class="s1">&#39;root:123456@tcp(127.0.0.1:3306)&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>显示如下内容</p>
+<pre><code>        &quot;addr&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/falcon_portal?loc=Local&amp;parseTime=true&quot;,
+        &quot;dsn&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/graph?loc=Local&amp;parseTime=true&quot;,
+    &quot;database&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/falcon_portal?loc=Local&amp;parseTime=true&quot;,
+        &quot;dsn&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/falcon_portal?loc=Local&amp;parseTime=true&amp;wait_timeout=604800&quot;,
+        &quot;falcon_portal&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/falcon_portal?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,
+        &quot;graph&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/graph?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,
+        &quot;uic&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/uic?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,
+        &quot;dashboard&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/dashboard?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,
+        &quot;alarms&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/alarms?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;,
+        &quot;addr&quot;: &quot;root:123456@tcp(127.0.0.1:3306)/alarms?charset=utf8&amp;loc=Local&quot;,
+</code></pre>
+<h2 id="43-启动">4.3 启动</h2>
+<p>使用脚本启动</p>
+<pre><code>[root@open-falcon_server open-falcon]# ./open-falcon start
+[falcon-graph] 28776
+[falcon-hbs] 28787
+[falcon-judge] 28798
+[falcon-transfer] 28805
+[falcon-nodata] 28814
+[falcon-aggregator] 28823
+[falcon-agent] 28833
+[falcon-gateway] 28843
+[falcon-api] 28852
+[falcon-alarm] 28867
+</code></pre>
+<p>使用脚本检查</p>
+<pre><code>[root@open-falcon_server open-falcon]# ./open-falcon check
+        falcon-graph         UP           28776 
+          falcon-hbs         UP           28787 
+        falcon-judge         UP           28798 
+     falcon-transfer         UP           28805 
+       falcon-nodata         UP           28814 
+   falcon-aggregator         UP           28823 
+        falcon-agent         UP           28833 
+      falcon-gateway         UP           28843 
+          falcon-api         UP           28852 
+        falcon-alarm         UP           28867 
+</code></pre>
+<p>更多命令行工具用法</p>
+<pre><code>./open-falcon [start|stop|restart|check|monitor|reload] module
+</code></pre>
+<p>启动agent监控自身主机</p>
+<pre><code>[root@localhost open-falcon]# ./open-falcon start agent
+[falcon-agent] 8357
+</code></pre>
+<h1 id="五安装前端">五、安装前端</h1>
+<h2 id="51-下载前端代码">5.1 下载前端代码</h2>
+<pre><code>mkdir - p /home/work/dashboard
+cd /home/work/dashboard
+git clone https://github.com/open-falcon/dashboard.git
+</code></pre>
+<h2 id="52-安装依赖包">5.2 安装依赖包</h2>
+<pre><code>cd /home/work/dashboard/dashboard 
+&amp;&amp; yum install -y python-virtualenv python-devel openldap-devel mysql-devel 
+&amp;&amp; yum groupinstall -y &quot;Development tools&quot; 
+&amp;&amp; virtualenv ./env 
+&amp;&amp; ./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
+</code></pre>
+<h2 id="54-修改配置">5.4 修改配置</h2>
+<p>修改数据库连接密码，dashboard的配置文件为： <code>'rrd/config.py'</code></p>
+<pre><code>## API_ADDR 表示后端api组件的地址
+API_ADDR = &quot;http://127.0.0.1:8080/api/v1&quot; 
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/2020031215270051.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NjgwNTY0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="55-启动前端">5.5 启动前端</h2>
+<pre><code>[root@open-falcon_server dashboard-master]# ./control start
+falcon-dashboard started..., pid=32055
+[root@open-falcon_server dashboard-master]# ./control tail
+[2020-03-12 15:23:17 +0000] [32055] [INFO] Starting gunicorn 19.9.0
+[2020-03-12 15:23:17 +0000] [32055] [INFO] Listening at: http://0.0.0.0:8081 (32055)
+[2020-03-12 15:23:17 +0000] [32055] [INFO] Using worker: sync
+[2020-03-12 15:23:17 +0000] [32060] [INFO] Booting worker with pid: 32060
+[2020-03-12 15:23:17 +0000] [32061] [INFO] Booting worker with pid: 32061
+[2020-03-12 15:23:17 +0000] [32070] [INFO] Booting worker with pid: 32070
+[2020-03-12 15:23:17 +0000] [32071] [INFO] Booting worker with pid: 32071
+</code></pre>
+<p>更多命令行工具用法</p>
+<pre><code>./control start|stop|restart|status|tail|kill9|version|pack
+</code></pre>
+<p>登陆Web页面：http://192.168.1.175:8081/<br>
+<strong>注意事项</strong></p>
+<pre><code>dashbord没有默认创建任何账号包括管理账号，需要你通过页面进行注册账号。
+想拥有管理全局的超级管理员账号，需要手动注册用户名为root的账号（第一个帐号名称为root的用户会被自动设置为超级管理员）。
+超级管理员可以给普通用户分配权限管理。
+
+小提示：注册账号能够被任何打开dashboard页面的人注册，所以当给相关的人注册完账号后，需要去关闭注册账号功能。只需要去修改api组件的配置文件cfg.json，将signup_disable配置项修改为true，重启api即可。当需要给人开账号的时候，再将配置选项改回去，用完再关掉即可。
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20200312152908733.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NjgwNTY0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/20200313095549387.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NjgwNTY0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="六监控其他主机">六、监控其他主机</h1>
+<p>将后端安装包中的agent目录和open-falcon脚本发送到需要被监控的主机</p>
+<pre><code>scp -r agent/ open-falcon 192.168.1.171:/root/
+</code></pre>
+<p>登陆被监控主机</p>
+<h2 id="61-配置环境">6.1 配置环境</h2>
+<pre><code>yum install -y vim ntp
+</code></pre>
+<p>修改主机名</p>
+<pre><code>hostnamectl set-hostname nginx_master &amp;&amp; echo &quot;192.168.1.171 nginx_master&quot; &gt;&gt; /etc/hosts 
+</code></pre>
+<p>关闭chrony服务</p>
+<pre><code>systemctl stop chronyd &amp;&amp; systemctl disable chronyd
+</code></pre>
+<p>设置NTP服务</p>
+<pre><code>vim /etc/ntp.conf
+# 将时钟服务器更改为如下4个
+server 0.cn.pool.ntp.org
+server 1.cn.pool.ntp.org
+server 2.cn.pool.ntp.org	
+server 3.cn.pool.ntp.org
+</code></pre>
+<p>启动时间同步服务器</p>
+<pre><code>systemctl start ntpd 
+&amp;&amp; systemctl enable ntpd 
+&amp;&amp; ntpdate -u 0.cn.pool.ntp.org 
+&amp;&amp; hwclock --systohc 
+&amp;&amp; date
+</code></pre>
+<h2 id="62-修改agent配置">6.2 修改agent配置</h2>
+<pre><code>vim agent/config/cfg.json 
+</code></pre>
+<p>修改为监控主机的IP</p>
+<pre><code>{
+    &quot;debug&quot;: true,
+    &quot;hostname&quot;: &quot;&quot;,
+    &quot;ip&quot;: &quot;&quot;,
+    &quot;plugin&quot;: {
+        &quot;enabled&quot;: false,
+        &quot;dir&quot;: &quot;./plugin&quot;,
+        &quot;git&quot;: &quot;https://github.com/open-falcon/plugin.git&quot;,
+        &quot;logs&quot;: &quot;./logs&quot;
+    },
+    &quot;heartbeat&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;addr&quot;: &quot;192.168.1.175:6030&quot;,
+        &quot;interval&quot;: 60,
+        &quot;timeout&quot;: 1000
+    },
+    &quot;transfer&quot;: { 
+        &quot;enabled&quot;: true,
+        &quot;addrs&quot;: [
+            &quot;192.168.1.175:8433&quot;
+        ],
+        &quot;interval&quot;: 60,
+        &quot;timeout&quot;: 1000
+    },
+    &quot;http&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;listen&quot;: &quot;:1988&quot;,
+        &quot;backdoor&quot;: false
+    },
+    &quot;collector&quot;: {
+        &quot;ifacePrefix&quot;: [&quot;eth&quot;, &quot;em&quot;],
+        &quot;mountPoint&quot;: []
+    },
+    &quot;default_tags&quot;: {
+    },
+    &quot;ignore&quot;: { #该项为忽略监控项，存在ignore中的参数将不被监控
+        &quot;cpu.busy&quot;: true,
+        &quot;df.bytes.free&quot;: true,
+        &quot;df.bytes.total&quot;: true,
+        &quot;df.bytes.used&quot;: true,
+        &quot;df.bytes.used.percent&quot;: true,
+        &quot;df.inodes.total&quot;: true,
+        &quot;df.inodes.free&quot;: true,
+        &quot;df.inodes.used&quot;: true,
+        &quot;df.inodes.used.percent&quot;: true,
+        &quot;mem.memtotal&quot;: true,
+        &quot;mem.memused&quot;: true,
+        &quot;mem.memused.percent&quot;: true,
+        &quot;mem.memfree&quot;: true,
+        &quot;mem.swaptotal&quot;: true,
+        &quot;mem.swapused&quot;: true,
+        &quot;mem.swapfree&quot;: true
+    }
+}
+</code></pre>
+<h2 id="63-启动服务">6.3 启动服务</h2>
+<pre><code>[root@localhost ~]# ./open-falcon start agent
+[falcon-agent] 7538
+
+
+# 停止进程
+./open-falcon stop agent 
+# 查看日志 
+./open-falcon monitor agent
+</code></pre>
+<h2 id="64-按照此操作加入其他主机">6.4 按照此操作加入其他主机</h2>
+<p><img src="https://img-blog.csdnimg.cn/20200313113240345.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NjgwNTY0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-11 19:23
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/open-falcon/">open-falcon</a>
+          <a href="/tags/monitor/">monitor</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/monitor/netdata_ops/">
+            <span class="next-text nav-default">NetData轻量的性能监控工具安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

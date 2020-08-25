@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>VMware vSphere ESXi 7.0b部署 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="VMware vSphere是一套业内最完整最强健的虚拟化平台。创建资源池来管理计算、 网络和存储容量与易用性，并提供最高水平的服务，每个应用程序工作负载" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/vm/vsphere_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="VMware vSphere ESXi 7.0b部署" />
+<meta property="og:description" content="VMware vSphere是一套业内最完整最强健的虚拟化平台。创建资源池来管理计算、 网络和存储容量与易用性，并提供最高水平的服务，每个应用程序工作负载" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/vm/vsphere_install/" />
+<meta property="article:published_time" content="2020-03-07T20:18:30+00:00" />
+<meta property="article:modified_time" content="2020-03-07T20:18:30+00:00" />
+<meta itemprop="name" content="VMware vSphere ESXi 7.0b部署">
+<meta itemprop="description" content="VMware vSphere是一套业内最完整最强健的虚拟化平台。创建资源池来管理计算、 网络和存储容量与易用性，并提供最高水平的服务，每个应用程序工作负载">
+<meta itemprop="datePublished" content="2020-03-07T20:18:30+00:00" />
+<meta itemprop="dateModified" content="2020-03-07T20:18:30+00:00" />
+<meta itemprop="wordCount" content="3474">
+
+
+
+<meta itemprop="keywords" content="vmware,vm," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="VMware vSphere ESXi 7.0b部署"/>
+<meta name="twitter:description" content="VMware vSphere是一套业内最完整最强健的虚拟化平台。创建资源池来管理计算、 网络和存储容量与易用性，并提供最高水平的服务，每个应用程序工作负载"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">VMware vSphere ESXi 7.0b部署</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-07 20:18 </span>
+        <div class="post-category">
+            <a href="/categories/vm/"> vm </a>
+            </div>
+          <span class="more-meta"> 约 3474 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#说明">说明：</a></li>
+        <li><a href="#安装方法">安装方法</a></li>
+        <li><a href="#软件特点">软件特点</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>VMware vSphere</strong>是一套业内最完整最强健的虚拟化平台。创建资源池来管理计算、 网络和存储容量与易用性，并提供最高水平的服务，每个应用程序工作负载以最低的总成本。VSphere 取决于世界上要求最苛刻的数据中心虚拟化您业务关键型应用程序为空前的灵活性和可靠性。</p>
+<h3 id="说明">说明：</h3>
+<p>2020年3月10日，VMware 发布了vSphere 7，终于能够描述为什么它是真正适用于混合云的技术！</p>
+<p>无论是安装ESXi 7.0，还是vCenter Server Appliance，与vSphere 6.7都非常相似或者说相同，用安装vSphere 6.7的方法安装7.0就行。无论是在Workstation的虚拟机安装ESXi，还是使用物理机安装ESXi，都很容易。但ESXi已经放弃了对一些网卡的支持，如果以前在ESXi 6.0、6.5、6.7中能正常使用的网卡，在7.0中可能已经不再受到支持。</p>
+<h3 id="安装方法">安装方法</h3>
+<p>1、首先下载VMware-VMvisor-Installer-7.0.0-14896552.x86_64.iso文件，用虚拟光驱挂载或者解压运行。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401923.jpg" alt=""></p>
+<p>2、进入系统加载安装文件。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401924.jpg" alt=""></p>
+<p>3、加载VMkernel文件。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401925.jpg" alt=""></p>
+<p>4、加载文件完成，按【Enter】键开始安装VMware ESXi 7.0。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401926.jpg" alt=""></p>
+<p>5、系统出现“End User License Agreement（EULA）”界面，也就是最终用户许可协议，按【F11】键接受“Accept and Continue”，接受许可协议。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401927.jpg" alt=""></p>
+<p>6、系统提示选择安装VMware ESXi 使用的存储，ESXi支持U盘以及SD卡安装。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401928.jpg" alt=""></p>
+<p>7、原服务器安装有ESXi 6.7版本，选择全新安装。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401929.jpg" alt=""></p>
+<p>8、提示选择键盘类型，选择“US Default”，默认美国标准，按【Enter】键继续。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401930.jpg" alt=""></p>
+<p>9、系统提示配置root用户的密码，根据实际情况输入，按【Enter】键继续。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401931.jpg" alt=""></p>
+<p>10、系统提示将安装在刚才选择的存储，按【F11】键开始安装。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401932.jpg" alt=""></p>
+<p>11、如果使用INTEL XEON 56XX CPU会出现一些特性不支持警告提示。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401933.jpg" alt=""></p>
+<p>12、开始安装ESXi 7.0。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813401934.jpg" alt=""></p>
+<p>13、安装的时间取决于服务器的性能，等待一段时间后即可完成VMware ESXi 7.0的安装，按【Enter】键重启服务器。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813402035.jpg" alt=""></p>
+<p>14、服务器重启完成后，进入VMware ESXi 7.0正式界面</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813402036.jpg" alt=""></p>
+<p>15、按【F2】键输入root用户密码进入主机配置模式。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813402037.jpg" alt=""></p>
+<p>16、选择“Configure Management Network”配置管理网络。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813402038.jpg" alt=""></p>
+<p>17、选择“IPv4 Configuration”对IP进行配置。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813402039.jpg" alt=""></p>
+<p>18、完成主机IP配置。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813402040.jpg" alt=""></p>
+<p>19、使用浏览器登录 ESXi 7.0主机。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813402041.jpg" alt=""></p>
+<p>20、进入ESXi 7.0主机操作界面，可以进行基本的配置和操作，更多的功能实现需要依靠vCenter Server实现。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/2020031813402043.jpg" alt=""></p>
+<h3 id="软件特点">软件特点</h3>
+<p>带Kubernetes的vSpherevSphere 7的第一个功能是带有Kubernetes（以前称为Project Pacific）的vSphere 。这是一个重要的话题，我们计划有很多内容计划更深入地研究vSphere的转换方式，以同时支持VM和容器。正如Krish所提到的，Tanzu Kubernetes网格服务是客户如何通过vSphere运行完全兼容和一致的Kubernetes的方式。但是，当不需要与开放源代码项目完全兼容时，vSphere Pod Service可以通过类似于VM的隔离提供优化的性能和更高的安全性。这两个选项均可通过VMware Cloud Foundation 4获得。重要的一点是，Kubernetes现在已内置于vSphere中，它使开发人员可以继续使用与创建现代应用程序相同的行业标准工具和界面。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/20200318134798.jpg" alt=""></p>
+<p>如果您不打算使用Kubernetes，则在此版本中我们仍然具有许多新功能和改进功能。实际上，我们已经为两项最成熟的技术迈出了一大步：DRS和vMotion。除命名空间外，我们还有许多其他新功能需要讨论。</p>
+<p>改进的分布式资源调度程序（DRS）重新设计了vSphere DRS，以更好地服务于容器和VM。DRS过去一直专注于集群状态，当该算法有利于整个集群的平衡时，该算法会推荐vMotion。这意味着DRS过去通过使用群集范围的标准偏差模型来实现群集平衡。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/20200318134765.jpg" alt=""></p>
+<p>但是，单个VM呢？该vMotion对移动的VM或旧邻居或新邻居有何影响？新的DRS逻辑采用了非常不同的方法来解决这些问题。它在主机上计算VM DRS分数，并将VM移动到提供最高VM DRS分数的主机。与旧版DRS的最大区别在于，它不再平衡主机负载。这意味着DRS不太关心ESXi主机利用率，并优先考虑虚拟机“幸福”。每分钟也会计算一次VM DRS分数，这将导致对资源的更精细的优化。可分配的硬件在vSphere 7中，开发了一个称为可分配硬件的新框架，该框架可在客户使用硬件加速器时扩展对vSphere功能的支持。它引入了vSphere DRS（用于将VM初始放置在群集中）以及对配备有直通PCIe设备或NVIDIA vGPU的VM的vSphere High Availability（HA）支持。</p>
+<p>vSphere Lifecycle ManagervSphere Lifecycle Manager拥有许多vSphere 7新功能，带来了一系列功能来使生命周期操作更好。借助vSphere Lifecycle Manager，vCenter Server和ESXi主机配置管理都发生了范式转变。使用所需的状态配置模型，vSphere Administrators可以一次创建配置，应用配置，然后继续通过称为vCenter Server Profiles和Image Cluster Management的新工具监视所需的状态。通过vCenter Server配置文件，管理员可以标准化所有vCenter Server的配置，并进行监控以防止配置漂移。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/20200318134328.jpg" alt=""></p>
+<p>群集映像管理允许管理员在群集级别创建映像，这些映像指示如何配置群集内的主机。群集映像可以包括vSphere（ESXi）版本，供应商附加组件（这是黄金ESXi映像和VUM术语中的OEM ISO之间的增量）以及固件附加组件，该附件允许vSphere Lifecycle Manager进行以下操作：与供应商提供的固件管理工具（或硬件支持管理器）（例如Dell OMIVV）进行通信。此次发布的我们的合作伙伴包括Dell EMC和HPE。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/20200318134989.jpg" alt=""></p>
+<p>第三，在vSphere Lifecycle Manager中，我们有vCenter Server Update Planner。vCenter Server Update Planner提供了本机工具来帮助成功规划，发现和升级客户环境。直接在vSphere Client中进行升级时会收到通知。然后使用Update Planner轻松监视VMware产品的互操作性矩阵，以确保可用的升级与环境中的其他VMware软件兼容。在开始升级之前，请运行一组可用的预检查以帮助实现版本兼容性。关键的最终结果是，vMotion现在甚至可以用于最大的VM。</p>
+<p>本质安全客户可以提高安全性的最大方法之一是通过良好的密码策略，而最简单的方法之一就是实施多因素身份验证（MFA）。因此，问题在于实现MFA的方法太多了，几乎不可能用所有这些方法扩展vCenter Server。此外，即使VMware实现了其中的一些功能，我们仍在复制许多客户在其企业身份管理系统中已经拥有的功能，这与我们为用户（vSphere Admins）改善生活的愿望不符。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/20200318135108.jpg" alt=""></p>
+<p>解决方案是使用开放式身份验证和授权标准（例如OAUTH2和OIDC）进行联盟。借助vSphere 7和Identity Federation，vCenter Server可以与企业身份提供商进行对话，从而使vSphere Admins和vCenter Server脱离过程。这简化了vSphere Admin的工作，并减少了有助于减少合规性审核范围的工作。它还为许多不同的MFA方法打开了大门，因为它们已经知道如何插入Active Directory联合身份验证服务（ADFS）之类的东西。借助vSphere 7，我们将立即支持ADFS，并将随着时间的推移为更多提供商提供支持。</p>
+<p><img src="https://img.jbzj.com/file_images/article/202003/20200318135112.jpg" alt=""></p>
+<p>还将引入vSphere Trust Authority（vTA），以帮助您更轻松地在整个堆栈中建立信任-从裸机一直到工作负载。vSphere Trust Authority使用单独管理的小型ESXi主机集群创建信任的硬件根，该集群负责执行认证任务。主机证明是UEFI安全启动过程，服务器的受信任平台模块（TPM）和外部服务共同使用密码进行验证的地方，以验证主机是否以正确的配置运行了正版软件。在vSphere 7中，vTA通过让受信任的主机接管与密钥管理系统（KMS）的通信，从而使证明能够执行规则。</p>
+<p>其他：继续简化vCenter Server架构。使用vSphere 7，不再能够为Windows部署外部Platform Services Controller（PSC）或vCenter Server。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-07 20:18
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/vmware/">vmware</a>
+          <a href="/tags/vm/">vm</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/vm/learning-vagrant/">
+            <span class="next-text nav-default">Vagrant 入门指引</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

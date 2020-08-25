@@ -3,28 +3,56 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-03-06T22:18:30+00:00</lastmod>
+    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-03-06T22:18:30+00:00</lastmod>
+    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-03-06T22:18:30+00:00</lastmod>
+    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/tags/</loc>
-    <lastmod>2020-03-06T22:18:30+00:00</lastmod>
+    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/vm/</loc>
+    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/vm/</loc>
+    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/vmware/</loc>
+    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/vm/vsphere_install/</loc>
+    <lastmod>2020-03-07T20:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -38,20 +66,6 @@
   
   <url>
     <loc>https://xiebiao.top/post/vm/learning-vagrant/</loc>
-    <lastmod>2020-03-06T22:18:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/vm/</loc>
-    <lastmod>2020-03-06T22:18:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/categories/vm/</loc>
     <lastmod>2020-03-06T22:18:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

@@ -50,7 +50,7 @@
 <meta itemprop="description" content="文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go">
 <meta itemprop="datePublished" content="2020-03-11T19:23:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-11T19:23:30+00:00" />
-<meta itemprop="wordCount" content="1935">
+<meta itemprop="wordCount" content="1978">
 
 
 
@@ -131,7 +131,7 @@
         <div class="post-category">
             <a href="/categories/monitor/"> monitor </a>
             </div>
-          <span class="more-meta"> 约 1935 字 </span>
+          <span class="more-meta"> 约 1978 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -163,7 +163,11 @@
   </ul>
 
   <ul>
-    <li><a href="#51-下载前端代码">5.1 下载前端代码</a></li>
+    <li><a href="#51-下载前端代码">5.1 下载前端代码</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
     <li><a href="#52-安装依赖包">5.2 安装依赖包</a></li>
     <li><a href="#54-修改配置">5.4 修改配置</a></li>
     <li><a href="#55-启动前端">5.5 启动前端</a></li>
@@ -565,6 +569,12 @@ tar -zxvf open-falcon_v0.3.tar.gz -C /home/work/open-falcon/
 cd /home/work/dashboard
 git clone https://github.com/open-falcon/dashboard.git
 </code></pre>
+<h4 id="查看需要安装的模块">查看需要安装的模块</h4>
+<p><code>[root@open-falcon dashboard]# cat pip_requirements.txt Flask==1.0 Flask-Babel==0.9 Jinja2&gt;=2.10.1 Werkzeug==0.15.3 gunicorn==19.9.0 python-dateutil==2.2 requests==2.3.0 mysql-python python-ldap</code></p>
+<blockquote>
+<p>注意：3.0 版本修改 Werkzeug==0.15.4 才可以启动</p>
+</blockquote>
+<p><code>[root@open-falcon dashboard]# vim pip_requirements.txt Werkzeug==0.15.4</code></p>
 <h2 id="52-安装依赖包">5.2 安装依赖包</h2>
 <pre><code>cd /home/work/dashboard/dashboard 
 &amp;&amp; yum install -y python-virtualenv python-devel openldap-devel mysql-devel 

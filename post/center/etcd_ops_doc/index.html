@@ -204,7 +204,7 @@
 <h3 id="11-etcd-简介">1.1 etcd 简介</h3>
 <p>etcd 是 CoreOS 团队于 2013 年 6月发起的开源项目，它的目标是构建一个高可用的分布式键值(key-value)数据库。etcd 内部采用<code>raft</code> 协议作为一致性算法，etcd 基于 Go 语言实现。</p>
 <h3 id="12-发展历史">1.2 发展历史</h3>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHGTuPK6eRCAYTR05PucXHvxsGicyP2YJrBS624IThdKtOgf4K83l8icEQ/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-9.png" alt=""></p>
 <h3 id="13-etcd-的特点">1.3 etcd 的特点</h3>
 <ul>
 <li>
@@ -284,7 +284,7 @@
 <p>所以在集群中推荐的最少节点数量是3个，因为1和2个节点的容错节点数都是0，一旦有一个节点宕掉整个集群就不能正常工作了。</p>
 <h2 id="二etcd-架构及解析">二、etcd 架构及解析</h2>
 <h3 id="21-架构图">2.1 架构图</h3>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHPaP7WoV0pIRkK4NpOjxukISvnxmvD7n1ETvwic11UVInQFFB3f9j17Q/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-1.png" alt=""></p>
 <h3 id="22-架构解析">2.2 架构解析</h3>
 <p>从 etcd 的架构图中我们可以看到，etcd 主要分为四个部分。</p>
 <ul>
@@ -314,21 +314,21 @@
 <ul>
 <li>前后端业务注册发现</li>
 </ul>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHxdPFTCLWYiaye3fwzpIJgSicSXic2qIMsCiaZlQhNfLpic7HPicjnqlO4EhQ/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-2.png" alt=""></p>
 <p>中间价已经后端服务在 etcd 中注册，前端和中间价可以很轻松的从 etcd 中发现相关服务器然后服务器之间根据调用关系相关绑定调用</p>
 <ul>
 <li>多组后端服务器注册发现</li>
 </ul>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHIH4WcYKXJlVxOj5PuX6YyW52jsKM9JfJh0fOXFe3RRVqB8JUIiaBsxQ/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
-<p>后端多个无状态相同副本的 app 可以同事注册到 etcd 中，前端可以通过 haproxy 从etcd 中获取到后端的 ip 和端口组，然后进行请求转发，可以用来故障转移屏蔽后端端口已经后端多组app实例。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-3.png" alt="">
+后端多个无状态相同副本的 app 可以同事注册到 etcd 中，前端可以通过 haproxy 从etcd 中获取到后端的 ip 和端口组，然后进行请求转发，可以用来故障转移屏蔽后端端口已经后端多组app实例。</p>
 <h3 id="32-消息发布与订阅">3.2 消息发布与订阅</h3>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHIQ9s2O3iaf4RpNsUItLS5JIasUBELA9bTz86V7E9ERoVhZ6Zz5icKrZQ/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-4.png" alt=""></p>
 <p>etcd 可以充当消息中间件，生产者可以往 etcd 中注册 topic 并发送消息，消费者从etcd 中订阅 topic，来获取生产者发送至 etcd 中的消息。</p>
 <h2 id="33-负载均衡">3.3 负载均衡</h2>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHdG9Zo8AzUWjOZ7vWJdtkrBqMeuuclEY2YI9SAOTwZyxOqiaC7ovYAow/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-5.png" alt=""></p>
 <p>后端多组相同的服务提供者可以经自己服务注册到 etcd 中，etcd 并且会与注册的服务进行监控检查，服务请求这首先从 etcd 中获取到可用的服务提供者真正的 ip:port，然后对此多组服务发送请求，etcd 在其中充当了负载均衡的功能</p>
 <h3 id="34-分部署通知与协调">3.4 分部署通知与协调</h3>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHLRtcGjyOxpicfnprT6ZfttTGZYcZ5HGEsEUTQFegMcoUaOrtkMLPhOA/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-6.png" alt=""></p>
 <ul>
 <li>
 <p>当 etcd watch 服务发现丢失，会通知服务检查</p>
@@ -344,10 +344,10 @@
 <p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt=""></p>
 <p>当有多个竞争者 node 节点，etcd 作为总控，在分布式集群中与一个节点成功分配 lock</p>
 <h3 id="36-分布式队列">3.6 分布式队列</h3>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHVBL0bSob61qYiaib5rRfxhOxKc7xQibZ6814yWNOm5jzzkaM0RLbWFShQ/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-7.png" alt=""></p>
 <p>有对个 node，etcd 根据每个 node 来创建对应 node 的队列，根据不同的队列可以在etcd 中找到对应的 competitor</p>
 <h3 id="37-集群与监控与-leader-选举">3.7 集群与监控与 Leader 选举</h3>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHCkib37cpfWn1zJsNKYsRodbRdUPnshP9wL7kfiaH5xGdicl6rLVrianI1Q/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-8.png" alt=""></p>
 <p>etcd 可以根据 raft 算法在多个 node 节点来选举出 leader。</p>
 <h2 id="四安装部署">四、安装部署</h2>
 <h3 id="41-单机部署">4.1 单机部署</h3>
@@ -401,8 +401,7 @@
 </div><h3 id="42-集群部署">4.2 集群部署</h3>
 <p>集群部署最好部署奇数位，此能达到最好的集群容错</p>
 <h4 id="421-主机信息">4.2.1 主机信息</h4>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHnRAEObWyWNjNNz7qLib3jY19QXEcGBtibQmeRctAEfYXmvW1u5nkEd4g/640?wx_fmt=other&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/yNKv1P4Q9eU6XenJicMLuibluuxDauOHAHn67HYBf5pMxOWPklnjeetfV5bzuaicbRGkuODMLLWP0UfPL0icRVbtww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/etcd-10.png" alt=""></p>
 <h4 id="422-host-配置">4.2.2 host 配置</h4>
 <p>在此示例用三个节点来部署 etcd 集群，各节点修改 hosts</p>
 <div class="highlight"><div class="chroma">

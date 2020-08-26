@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Mar 2020 20:15:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2020 20:03:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>apm</title>
+      <link>https://xiebiao.top/tags/apm/</link>
+      <pubDate>Wed, 25 Mar 2020 20:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/apm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>skywalking</title>
+      <link>https://xiebiao.top/tags/skywalking/</link>
+      <pubDate>Wed, 25 Mar 2020 20:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/skywalking/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>monitor</title>

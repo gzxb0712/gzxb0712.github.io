@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>docker部署skywalking7 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="介绍 SkyWalking：一个APM（应用程序性能监视器）系统，专门为微服务，云原生和基于容器（Docker，Kubernetes，Meso" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/apm/skywalking7_docker_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="docker部署skywalking7" />
+<meta property="og:description" content="介绍 SkyWalking：一个APM（应用程序性能监视器）系统，专门为微服务，云原生和基于容器（Docker，Kubernetes，Meso" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/apm/skywalking7_docker_ops/" />
+<meta property="article:published_time" content="2020-03-23T20:19:30+00:00" />
+<meta property="article:modified_time" content="2020-03-23T20:19:30+00:00" />
+<meta itemprop="name" content="docker部署skywalking7">
+<meta itemprop="description" content="介绍 SkyWalking：一个APM（应用程序性能监视器）系统，专门为微服务，云原生和基于容器（Docker，Kubernetes，Meso">
+<meta itemprop="datePublished" content="2020-03-23T20:19:30+00:00" />
+<meta itemprop="dateModified" content="2020-03-23T20:19:30+00:00" />
+<meta itemprop="wordCount" content="1835">
+
+
+
+<meta itemprop="keywords" content="skywalking,apm," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="docker部署skywalking7"/>
+<meta name="twitter:description" content="介绍 SkyWalking：一个APM（应用程序性能监视器）系统，专门为微服务，云原生和基于容器（Docker，Kubernetes，Meso"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">docker部署skywalking7</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-23 20:19 </span>
+        <div class="post-category">
+            <a href="/categories/apm/"> apm </a>
+            </div>
+          <span class="more-meta"> 约 1835 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-compose">docker-compose</a>
+      <ul>
+        <li><a href="#启动elasticsearchoapui">启动elasticsearch,oap,ui</a></li>
+        <li><a href="#持久化es数据">持久化es数据</a></li>
+        <li><a href="#构建基础镜像">构建基础镜像</a></li>
+        <li><a href="#虚拟机环境自动调用链追踪">虚拟机环境自动调用链追踪</a></li>
+        <li><a href="#部署kibana">部署kibana</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h1 id="介绍">介绍</h1>
+<p>SkyWalking：一个APM（应用程序性能监视器）系统，专门为微服务，云原生和基于容器（Docker，Kubernetes，Mesos）的体系结构而设计
+SkyWalking 是观察性分析平台和应用性能管理系统。提供分布式追踪、服务网格遥测分析、度量聚合和可视化一体化解决方案.支持Java, .Net Core, PHP, NodeJS, Golang, LUA语言探针支持Envoy + Istio构建的Service Mesh
+<img src="https://leanote.com/api/file/getImage?fileId=5ee05863ab64412a38002030" alt=""></p>
+<ol>
+<li><code>Agent：采集tracing（调用链数据）和metric（指标）信息并上报</code></li>
+<li><code>OAP：收集tracing和metric信息通过analysis core模块将数据放入持久化容器中（ES，H2（内存数据库），mysql等等），并进行二次统计和监控告警</code></li>
+<li><code>存储：采集到的调用链追踪信息会存储到ES，MySQL，H2等存储系统</code></li>
+<li><code>UI：前后端分离，前端负责呈现，并将查询请求封装为graphQL提交给后端，后端通过ribbon做负载均衡转发给OAP集群，再将查询结果渲染展示。</code></li>
+</ol>
+<p>SkyWalking是一个开源APM系统，包括针对Cloud Native体系结构中的分布式系统的监视，跟踪，诊断功能。核心功能如下。</p>
+<ul>
+<li>服务，服务实例，端点指标分析</li>
+<li>根本原因分析。在运行时分析代码。阅读Apache SkyWalking：使用分析来修复分布式跟踪的盲点。</li>
+<li>服务拓扑图分析</li>
+<li>服务，服务实例和端点依赖性分析</li>
+<li>检测到慢速服务和端点</li>
+<li>性能优化</li>
+<li>分布式跟踪和上下文传播</li>
+<li>数据库访问指标。检测慢速数据库访问语句（包括SQL语句）。</li>
+<li>报警</li>
+</ul>
+<p><img src="https://leanote.com/api/file/getImage?fileId=5ee05863ab64412a3800202f" alt=""></p>
+<p>SkyWalking支持从多个来源和多种格式收集遥测（跟踪和度量）数据，包括</p>
+<ul>
+<li>1.Java，.NET Core，NodeJS，PHP和Python自动仪器代理。</li>
+<li>2.去代理商。</li>
+<li>3.LUA代理，尤其适用于Nginx，OpenResty。</li>
+<li>4.服务网格的可观察性。支持混合器遥测。建议使用Envoy访问日志服务（ALS）以获得更好的性能，该功能首次在KubeCon 2019上引入。</li>
+<li>5.度量系统，包括Prometheus，Spring Sleuth（千分尺）。</li>
+<li>6.Zipkin v1 / v2和Jaeger gRPC格式，具有有限的拓扑和指标分析。（实验性）。</li>
+</ul>
+<p>注意，SkyWalking 8.0+使用v3协议。它们与以前的版本不兼容。</p>
+<h1 id="部署">部署</h1>
+<h2 id="docker-compose">docker-compose</h2>
+<h3 id="启动elasticsearchoapui">启动elasticsearch,oap,ui</h3>
+<p>环境
+centos 7.6
+docker 19.03.11
+docker-compose 1.25.5
+准备部署skywalking docker-compose文件,es数据未作持久化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.3&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">elasticsearch</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>docker.elastic.co/elasticsearch/elasticsearch<span class="p">:</span><span class="m">7.5.0</span><span class="w">
+</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">9200</span><span class="p">:</span><span class="m">9200</span><span class="w">
+</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- discovery.type=single-node<span class="w">
+</span><span class="w">      </span>- bootstrap.memory_lock=<span class="kc">true</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;ES_JAVA_OPTS=-Xms512m -Xmx512m&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">ulimits</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">memlock</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">soft</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span><span class="w">        </span><span class="k">hard</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="k">oap</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>apache/skywalking-oap-server<span class="p">:</span><span class="m">7.0.0</span>-es7<span class="w">
+</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>oap<span class="w">
+</span><span class="w">    </span><span class="k">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- elasticsearch<span class="w">
+</span><span class="w">    </span><span class="k">links</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- elasticsearch<span class="w">
+</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">11800</span><span class="p">:</span><span class="m">11800</span><span class="w">
+</span><span class="w">      </span>- <span class="m">12800</span><span class="p">:</span><span class="m">12800</span><span class="w">
+</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">SW_STORAGE</span><span class="p">:</span><span class="w"> </span>elasticsearch7<span class="w">
+</span><span class="w">      </span><span class="k">SW_STORAGE_ES_CLUSTER_NODES</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="p">:</span><span class="m">9200</span><span class="w">
+</span><span class="w">  </span><span class="k">ui</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>apache/skywalking-ui<span class="p">:</span><span class="m">7.0.0</span><span class="w">
+</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>ui<span class="w">
+</span><span class="w">    </span><span class="k">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- oap<span class="w">
+</span><span class="w">    </span><span class="k">links</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- oap<span class="w">
+</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">8080</span><span class="p">:</span><span class="m">8080</span><span class="w">
+</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">SW_OAP_ADDRESS</span><span class="p">:</span><span class="w"> </span>oap<span class="p">:</span><span class="m">12800</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>启动应用</p>
+<p><code>docker-compose up -d</code></p>
+<p>验证</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="o">[</span>root@skywalking skywalking<span class="o">]</span><span class="c1"># docker-compose ps</span>
+    Name                   Command               State                              Ports                            
+---------------------------------------------------------------------------------------------------------------------
+elasticsearch   /usr/local/bin/docker-entr ...   Up      0.0.0.0:9200-&gt;9200/tcp, 9300/tcp                            
+oap             bash docker-entrypoint.sh        Up      0.0.0.0:11800-&gt;11800/tcp, 1234/tcp, 0.0.0.0:12800-&gt;12800/tcp
+ui              bash docker-entrypoint.sh        Up      0.0.0.0:8080-&gt;8080/tcp     
+</code></pre></td></tr></table>
+</div>
+</div><p>浏览器访问ip:8080
+<img src="https://leanote.com/api/file/getImage?fileId=5ee09e26ab64412a3800238f" alt=""></p>
+<h3 id="持久化es数据">持久化es数据</h3>
+<p>先从elasticsearch容器拷贝data目录到宿主机目录</p>
+<p><code>docker cp elasticsearch:/usr/share/elasticsearch/data /Data/es/</code></p>
+<p>停止docker-compose</p>
+<p><code>docker-compoes stop</code></p>
+<p>修改docker-compose.yml文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.3&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">elasticsearch</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>docker.elastic.co/elasticsearch/elasticsearch<span class="p">:</span><span class="m">7.5.0</span><span class="w">
+</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="w">
+</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">9200</span><span class="p">:</span><span class="m">9200</span><span class="w">
+</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- discovery.type=single-node<span class="w">
+</span><span class="w">      </span>- bootstrap.memory_lock=<span class="kc">true</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;ES_JAVA_OPTS=-Xms512m -Xmx512m&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">ulimits</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">memlock</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">soft</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span><span class="w">        </span><span class="k">hard</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="k">oap</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>apache/skywalking-oap-server<span class="p">:</span><span class="m">7.0.0</span>-es7<span class="w">
+</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>oap<span class="w">
+</span><span class="w">    </span><span class="k">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- elasticsearch<span class="w">
+</span><span class="w">    </span><span class="k">links</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- elasticsearch<span class="w">
+</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">11800</span><span class="p">:</span><span class="m">11800</span><span class="w">
+</span><span class="w">      </span>- <span class="m">12800</span><span class="p">:</span><span class="m">12800</span><span class="w">
+</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">SW_STORAGE</span><span class="p">:</span><span class="w"> </span>elasticsearch7<span class="w">
+</span><span class="w">      </span><span class="k">SW_STORAGE_ES_CLUSTER_NODES</span><span class="p">:</span><span class="w"> </span>elasticsearch<span class="p">:</span><span class="m">9200</span><span class="w">
+</span><span class="w">  </span><span class="k">ui</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>apache/skywalking-ui<span class="p">:</span><span class="m">7.0.0</span><span class="w">
+</span><span class="w">    </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>ui<span class="w">
+</span><span class="w">    </span><span class="k">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- oap<span class="w">
+</span><span class="w">    </span><span class="k">links</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- oap<span class="w">
+</span><span class="w">    </span><span class="k">restart</span><span class="p">:</span><span class="w"> </span>always<span class="w">
+</span><span class="w">    </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">8080</span><span class="p">:</span><span class="m">8080</span><span class="w">
+</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">SW_OAP_ADDRESS</span><span class="p">:</span><span class="w"> </span>oap<span class="p">:</span><span class="m">12800</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>重新创建容器运行</p>
+<p><code>docker-compose up -d</code></p>
+<h3 id="构建基础镜像">构建基础镜像</h3>
+<p>下载skywalking二进制包并解压</p>
+<p><code>wget https://www.apache.org/dyn/closer.cgi/skywalking/6.3.0/apache-skywalking-apm-7.0.0.tar.gz &amp;&amp; tar -zxvf apache-skywalking-apm-7.0.0.tar.gz</code></p>
+<p>编辑Dockerfile</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c">#base images</span><span class="err">
+</span><span class="err"></span><span class="k">FROM</span><span class="s"> 192.168.8.249/zhongma/jdk1.8-sh:1.0</span><span class="err">
+</span><span class="err"></span><span class="c">#FROM 192.168.8.249/zhongma/jdk11-sh:1.0</span><span class="err">
+</span><span class="err"></span><span class="c">#copy file</span><span class="err">
+</span><span class="err"></span><span class="k">COPY</span> agent/ /skywalking/agent/<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>构建镜像</p>
+<p><code>docker build -t 192.168.8.249/zhongma/jdk1.8-sh-skywalking:1.0  .</code></p>
+<p>上传镜像</p>
+<p><code>docker push 192.168.8.249/zhongma/jdk1.8-sh-skywalking:1.0</code></p>
+<p>构建java应用镜像
+需要修改java启动命令,添加-javaagent://skywalking/agent/skywalking-agent.jar</p>
+<p><code>ENTRYPOINT java -javaagent://skywalking/agent/skywalking-agent.jar -DserviceName=$projectName -Xms64m -Xmx$jvmMaxHeapSize -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=$debugPort -XX:+UnlockExperimentalVMOptions -XX:+UseZGC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/ -Dspring.profiles.active=$profiles -Duser.timezone=GMT+08 -jar /$projectName-1.0-SNAPSHOT.jar</code></p>
+<p>运行应用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -e <span class="nv">SW_COLLECTOR_SERVERS</span><span class="o">={</span>你的ip<span class="o">}</span>:11800  -e <span class="nv">SW_SERVICE_NAME</span><span class="o">=</span>docker-boot -p 10010:10010 docker-boot:v0.1
+
+docker run -id -e <span class="nv">SW_COLLECTOR_SERVERS</span><span class="o">=</span>192.168.8.225:11800 -e <span class="nv">SW_SERVICE_NAME</span><span class="o">=</span>zoux-gateway-app -p 10010:10010 -p 8001:8001 –name<span class="o">=</span>zoux-gateway-app -v /Data/logs:/logs –restart<span class="o">=</span>always –env <span class="nv">profiles</span><span class="o">=</span>dev 192.168.8.249/test/zoux-gateway-app-sky:latest
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="虚拟机环境自动调用链追踪">虚拟机环境自动调用链追踪</h3>
+<p>虚拟机环境实现应用调用链追踪，仅仅需要用maven工具编译好应用jar包，执行java命令即可。</p>
+<p><code>java -javaagent:agent/skywalking-agent.jar -Dskywalking.agent.service_name=zoux-gateway-app -Dskywalking.collector.backend_service=192.168.8.225:11800  -Dspring.boot.admin.ip=127.0.0.1  -XX:+UseParNewGC  -XX:+CMSParallelRemarkEnabled  -XX:+UseConcMarkSweepGC  -XX:CMSInitiatingOccupancyFraction=75  -Xdebug  -Xnoagent  -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=61150  -Xmx256M  -Dnacos.profiles=dev -jar ft-sfs-1.0.jar</code></p>
+<p>-javaagent:agent/skywalking-agent.jar -Dskywalking.agent.service_name=zoux-gateway-app -Dskywalking.collector.backend_service=192.168.8.225:11800
+命令参数解释：</p>
+<ul>
+<li>-javaagent：指的skywalking agent坐在目录，使得java应用在启动前被拦截，同时修改应用字节码，达到自动埋点的功能</li>
+<li>-Dskywalking.agent.service_name：指定被埋点的应用名</li>
+<li>-Dskywalking.collector.backend_service：指定OPA地址</li>
+</ul>
+<p>启动后
+<img src="https://leanote.com/api/file/getImage?fileId=5ee1b0edab64416aa700057b" alt="">
+拓扑图
+<img src="https://leanote.com/api/file/getImage?fileId=5ee1b21cab64416aa7000588" alt="">
+追踪
+<img src="https://leanote.com/api/file/getImage?fileId=5ee1c241ab64416aa7000602" alt=""></p>
+<p>部署参考：
+<a href="http://www.luyixian.cn/news_show_370311.aspx">http://www.luyixian.cn/news_show_370311.aspx</a></p>
+<h3 id="部署kibana">部署kibana</h3>
+<h4 id="docker">docker</h4>
+<p>下载镜像</p>
+<p><code>docker pull docker.elastic.co/kibana/kibana:7.5.0</code></p>
+<p>运行</p>
+<p><code>docker run -id --link elasticsearch --network skywalking_default -p 5601:5601 docker.elastic.co/kibana/kibana:7.5.0</code></p>
+<h4 id="rpm部署">rpm部署</h4>
+<p>下载rpm文件</p>
+<p><code>https://artifacts.elastic.co/downloads/kibana/kibana-7.5.0-x86_64.rpm</code></p>
+<p>安装</p>
+<p><code>yum install kibana-7.5.0-x86_64.rpm</code></p>
+<p>修改配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">server.port: 5601
+server.host: &#34;0.0.0.0&#34;
+elasticsearch.url: &#34;http://192.168.110.200:9200&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>启动服务</p>
+<p><code>systemctcl start kibana</code></p>
+<h1 id="参考">参考</h1>
+<p><a href="https://github.com/apache/skywalking">https://github.com/apache/skywalking</a>
+<a href="https://skywalking.apache.org/">https://skywalking.apache.org/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-23 20:19
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/skywalking/">skywalking</a>
+          <a href="/tags/apm/">apm</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/apm/skywalking8_ops/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">skywalking8.1部署及使用教程</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/monitor/helm_prometheus/">
+            <span class="next-text nav-default">helm部署prometheus</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

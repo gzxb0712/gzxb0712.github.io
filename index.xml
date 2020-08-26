@@ -6,10 +6,28 @@
     <description>Recent content on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Mar 2020 20:15:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2020 20:03:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>skywalking8.1部署及使用教程</title>
+      <link>https://xiebiao.top/post/apm/skywalking8_ops/</link>
+      <pubDate>Wed, 25 Mar 2020 20:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/apm/skywalking8_ops/</guid>
+      <description>SkyWalking介绍 SkyWalking是什么？ SkyWalking是一个可观测性分析平台和应用性能管理系统，提供分布式跟踪、服务网格遥</description>
+    </item>
+    
+    <item>
+      <title>docker部署skywalking7</title>
+      <link>https://xiebiao.top/post/apm/skywalking7_docker_ops/</link>
+      <pubDate>Mon, 23 Mar 2020 20:19:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/apm/skywalking7_docker_ops/</guid>
+      <description>介绍 SkyWalking：一个APM（应用程序性能监视器）系统，专门为微服务，云原生和基于容器（Docker，Kubernetes，Meso</description>
+    </item>
     
     <item>
       <title>helm部署prometheus</title>

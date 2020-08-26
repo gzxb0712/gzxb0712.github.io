@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>skywalking8.1部署及使用教程 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="SkyWalking介绍 SkyWalking是什么？ SkyWalking是一个可观测性分析平台和应用性能管理系统，提供分布式跟踪、服务网格遥" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/apm/skywalking8_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="skywalking8.1部署及使用教程" />
+<meta property="og:description" content="SkyWalking介绍 SkyWalking是什么？ SkyWalking是一个可观测性分析平台和应用性能管理系统，提供分布式跟踪、服务网格遥" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/apm/skywalking8_ops/" />
+<meta property="article:published_time" content="2020-03-25T20:03:30+00:00" />
+<meta property="article:modified_time" content="2020-03-25T20:03:30+00:00" />
+<meta itemprop="name" content="skywalking8.1部署及使用教程">
+<meta itemprop="description" content="SkyWalking介绍 SkyWalking是什么？ SkyWalking是一个可观测性分析平台和应用性能管理系统，提供分布式跟踪、服务网格遥">
+<meta itemprop="datePublished" content="2020-03-25T20:03:30+00:00" />
+<meta itemprop="dateModified" content="2020-03-25T20:03:30+00:00" />
+<meta itemprop="wordCount" content="1144">
+
+
+
+<meta itemprop="keywords" content="skywalking,apm," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="skywalking8.1部署及使用教程"/>
+<meta name="twitter:description" content="SkyWalking介绍 SkyWalking是什么？ SkyWalking是一个可观测性分析平台和应用性能管理系统，提供分布式跟踪、服务网格遥"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">skywalking8.1部署及使用教程</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-25 20:03 </span>
+        <div class="post-category">
+            <a href="/categories/apm/"> apm </a>
+            </div>
+          <span class="more-meta"> 约 1144 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h1 id="skywalking介绍">SkyWalking介绍</h1>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE0Mjc1MTMyNy0xOTcyNzk2MDY4LnBuZw==.jpg" alt=""></p>
+<p>SkyWalking是什么？</p>
+<p>SkyWalking是一个可观测性分析平台和应用性能管理系统，提供分布式跟踪、服务网格遥测分析、度量聚合和可视化一体化解决方案，并支持多种开发语言。</p>
+<p>官网：<a href="http://skywalking.apache.org/">http://skywalking.apache.org/</a>  两天前即2020年8月3号 8.1.0正式发布</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE0MzIyNTU0NC0xNDY0OTA4MDI1LnBuZw==.jpg" alt=""></p>
+<hr>
+<h1 id="安装">安装</h1>
+<p>SkyWalking支持单机与集群部署（默认standalone），并支持多种数据存储（默认H2），如mysql，Elasticsearch，Elasticsearch7等。</p>
+<p>本文以SkyWalking8.1.0并使用Elasticsearch来存储数据进行讲解</p>
+<p>ElasticSearch搭建请参考我的另外一篇文章</p>
+<p>SkyWalking<code>下载地址：http://skywalking.apache.org/downloads/</code></p>
+<p>由于要使用Elasticsearch，下载的时候请注意选择：</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE0NDAwNDQ0My04MzY5NjYxMjcucG5n.jpg" alt=""></p>
+<p>点击tar后选择一个地址即可开始下载</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE0NDA1NzU1Ny0xNjQ3NzQzNDQxLnBuZw==.jpg" alt=""></p>
+<p>相关操作命令如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/local/src
+wget https://mirror.bit.edu.cn/apache/skywalking/8.1.0/apache-skywalking-apm-es7-8.1.0.tar.gz
+tar -xvf apache-skywalking-apm-es7-8.1.0.tar.gz
+ 
+<span class="nb">cd</span> /usr/local/src/apache-skywalking-apm-bin-es7
+</code></pre></td></tr></table>
+</div>
+</div><p>修改相关配置：</p>
+<p>1.web访问端口 8080-&gt;38080 （本机8080已被其它服务占用）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">vi /usr/local/src/apache-skywalking-apm-bin-es7/webapp/webapp.yml
+<span class="c1">#将server.port: 8080 改为38080</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#或者使用sed命令</span>
+sed -i <span class="s1">&#39;s$8080$38080$g&#39;</span> /usr/local/src/apache-skywalking-apm-bin-es7/webapp/webapp.yml
+</code></pre></td></tr></table>
+</div>
+</div><p>2.修改使用Elasticsearch（默认使用h2）</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE0NDkzNjQ2OC0xMTczMzk3MzIxLnBuZw==.jpg" alt=""></p>
+<p>注意：nameSpace要和Elasticsearch集群的cluster_name一致</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">name<span class="s2">&#34; : &#34;</span>elk02<span class="s2">&#34;,
+</span><span class="s2">  &#34;</span>cluster_name<span class="s2">&#34; : &#34;</span>es-cluster<span class="s2">&#34;,
+</span><span class="s2">  &#34;</span>cluster_uuid<span class="s2">&#34; : &#34;</span>GnUvYMcGRK2GVJsvkwM7FQ<span class="s2">&#34;,
+</span><span class="s2">  &#34;</span>version<span class="s2">&#34; : {
+</span><span class="s2">    &#34;</span>number<span class="s2">&#34; : &#34;</span>7.2.0<span class="s2">&#34;,
+</span><span class="s2">    &#34;</span>build_flavor<span class="s2">&#34; : &#34;</span>default<span class="s2">&#34;,
+</span><span class="s2">    &#34;</span>build_type<span class="s2">&#34; : &#34;</span>docker<span class="s2">&#34;,
+</span><span class="s2">    &#34;</span>build_hash<span class="s2">&#34; : &#34;</span>508c38a<span class="s2">&#34;,
+</span><span class="s2">    &#34;</span>build_date<span class="s2">&#34; : &#34;</span>2019-06-20T15:54:18.811730Z<span class="s2">&#34;,
+</span><span class="s2">    &#34;</span>build_snapshot<span class="s2">&#34; : false,
+</span><span class="s2">    &#34;</span>lucene_version<span class="s2">&#34; : &#34;</span>8.0.0<span class="s2">&#34;,
+</span><span class="s2">    &#34;</span>minimum_wire_compatibility_version<span class="s2">&#34; : &#34;</span>6.8.0<span class="s2">&#34;,
+</span><span class="s2">    &#34;</span>minimum_index_compatibility_version<span class="s2">&#34; : &#34;</span>6.0.0-beta1<span class="s2">&#34;
+</span><span class="s2">  },
+</span><span class="s2">  &#34;</span>tagline<span class="s2">&#34; : &#34;</span>You Know, <span class="k">for</span> Search<span class="s2">&#34;
+</span></code></pre></td></tr></table>
+</div>
+</div><p>#启动</p>
+<p><code>/usr/local/src/apache-skywalking-apm-bin-es7/bin/startup.sh</code></p>
+<p>#加入到开机启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s2">&#34;/usr/local/src/apache-skywalking-apm-bin-es7/bin/startup.sh&#34;</span> &gt;&gt; /etc/rc.d/rc.local
+chmod +x /etc/rc.d/rc.local
+</code></pre></td></tr></table>
+</div>
+</div><p>#确认应用启动成功端口正常监听</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE0NTI0MzI3Mi02MTU1NTA3OS5wbmc=.jpg" alt=""></p>
+<p>#如果出错可以查看日志并根据错误类型进行处理</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE0NTM1MDQ3MS0yMTM1NzExNzU2LnBuZw==.jpg" alt=""></p>
+<p>#然后可以打开浏览器进行查看  ip地址:38080</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE0NTcwMzcxNC0xODYwMjUzMTI4LnBuZw==.jpg" alt=""></p>
+<p>一开始是没数据的，待项目集成后再刷新页面就可以看到数据了。</p>
+<hr>
+<h1 id="项目集成">项目集成</h1>
+<ul>
+<li>jar运行</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">java -javaagent:/opt/skywalking/agent/skywalking-agent.jar
+     -Dskywalking.agent.service_name<span class="o">=</span>xiao_test
+     -Dskywalking.collector.backend_service<span class="o">=</span>XXX.XXX.XXX.XXX:11800
+     -jar xxxx.jar
+<span class="c1">#javaagent agent包路径</span>
+<span class="c1">#skywalking.agent.service_name 服务名称</span>
+<span class="c1">#skywalking.collector.backend_service 采集信息的服务地址 agent.config配置了就可以不用指定</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>docker运行</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#1.在打包插件中增加entrypoint并注意替换最后一部分和mainClass相同，然后打包</span>
+&lt;plugin&gt;
+	&lt;groupId&gt;com.google.cloud.tools&lt;/groupId&gt;
+	&lt;artifactId&gt;jib-maven-plugin&lt;/artifactId&gt;
+	&lt;version&gt;1.7.0&lt;/version&gt;
+	&lt;configuration&gt;
+		&lt;from&gt;
+			&lt;!-- 把agent拷贝到基础镜像去/opt/skywalking/agent/skywalking-agent.jar基础镜像去--&gt;
+			&lt;image&gt;hub.dev.zycloud.info/cx/oracle-jdk-with-skywalking:8&lt;/image&gt;
+			&lt;auth&gt;
+				&lt;username&gt;xxxxxxxx&lt;/username&gt;
+				&lt;password&gt;xxxxxxxx&lt;/password&gt;
+			&lt;/auth&gt;
+		&lt;/from&gt;
+		&lt;to&gt;
+			&lt;image&gt;hub.dev.zycloud.info/his/<span class="si">${</span><span class="nv">project</span><span class="p">.artifactId</span><span class="si">}</span>:<span class="si">${</span><span class="nv">git</span><span class="p">.commit.id.abbrev</span><span class="si">}</span>&lt;/image&gt;
+			&lt;auth&gt;
+				&lt;username&gt;xxxxxxxx&lt;/username&gt;
+				&lt;password&gt;xxxxxxxx&lt;/password&gt;
+			&lt;/auth&gt;
+		&lt;/to&gt;
+		&lt;allowInsecureRegistries&gt;true&lt;/allowInsecureRegistries&gt;
+		&lt;container&gt;
+			&lt;useCurrentTimestamp&gt;true&lt;/useCurrentTimestamp&gt;
+			&lt;labels&gt;
+				&lt;authors&gt;<span class="si">${</span><span class="nv">env</span><span class="p">.USERNAME</span><span class="si">}</span>&lt;/authors&gt;
+				&lt;version&gt;<span class="si">${</span><span class="nv">project</span><span class="p">.version</span><span class="si">}</span>&lt;/version&gt;
+				&lt;git-branch&gt;<span class="si">${</span><span class="nv">git</span><span class="p">.branch</span><span class="si">}</span>&lt;/git-branch&gt;
+				&lt;git-commit-id&gt;<span class="si">${</span><span class="nv">git</span><span class="p">.commit.id.abbrev</span><span class="si">}</span>&lt;/git-commit-id&gt;
+				&lt;git-commit-message&gt;<span class="si">${</span><span class="nv">git</span><span class="p">.commit.message.short</span><span class="si">}</span>&lt;/git-commit-message&gt;
+				&lt;git-commit-user&gt;<span class="si">${</span><span class="nv">git</span><span class="p">.commit.user.name</span><span class="si">}</span>&lt;/git-commit-user&gt;
+			&lt;/labels&gt;
+			&lt;environment&gt;
+				&lt;SPRING_PROFILES_ACTIVE&gt;pro&lt;/SPRING_PROFILES_ACTIVE&gt;
+				&lt;SW_AGENT_NAME&gt;<span class="si">${</span><span class="nv">project</span><span class="p">.name</span><span class="si">}</span>&lt;/SW_AGENT_NAME&gt;
+				&lt;SW_LOGGING_DIR&gt;/var/log/<span class="si">${</span><span class="nv">project</span><span class="p">.artifactId</span><span class="si">}</span>&lt;/SW_LOGGING_DIR&gt;
+				&lt;SW_LOGGING_MAX_HISTORY_FILES&gt;50&lt;/SW_LOGGING_MAX_HISTORY_FILES&gt;
+			&lt;/environment&gt;
+			&lt;mainClass&gt;
+				info.zycloud.sass.application.nacos.user.NacosUserApplication
+			&lt;/mainClass&gt;
+			&lt;jvmFlags&gt;
+				&lt;jvmFlag&gt;-javaagent:/opt/skywalking/agent/skywalking-agent.jar&lt;/jvmFlag&gt;
+			&lt;/jvmFlags&gt;
+		&lt;/container&gt;
+	&lt;/configuration&gt;
+	&lt;executions&gt;
+		&lt;execution&gt;
+			&lt;phase&gt;deploy&lt;/phase&gt;
+			&lt;goals&gt;
+				&lt;goal&gt;build&lt;/goal&gt;
+			&lt;/goals&gt;
+		&lt;/execution&gt;
+	&lt;/executions&gt;
+&lt;/plugin&gt;
+ 
+<span class="c1">#2.docker运行</span>
+docker run -d --env <span class="nv">SW_AGENT_COLLECTOR_BACKEND_SERVICES</span><span class="o">=</span><span class="s2">&#34;192.168.38.100:11800&#34;</span> -p 29502:9502 hub.dev.zycloud.info/his/user:v1
+ 
+或者将变量信息统一存放到env文件中
+cat config.env
+<span class="nv">SW_AGENT_COLLECTOR_BACKEND_SERVICES</span><span class="o">=</span>192.168.38.100:11800
+ 
+docker run -d --env-file<span class="o">=</span>config.env -p 29502:9502 hub.dev.zycloud.info/his/user:v1
+</code></pre></td></tr></table>
+</div>
+</div><p>#3.访问应用中服务后访问skywalking UI界面查看相应信息</p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE1MDgwMzI3OC0xNjU1NTAzNjk3LnBuZw==.jpg" alt=""></p>
+<p><img src="https://bbsmax.ikafan.com/static/L3Byb3h5L2h0dHBzL2ltZzIwMjAuY25ibG9ncy5jb20vYmxvZy82NTg2MDkvMjAyMDA4LzY1ODYwOS0yMDIwMDgwNTE1MDgxNDU2My0xMjYzNTM0MTEwLnBuZw==.jpg" alt=""></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-25 20:03
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/skywalking/">skywalking</a>
+          <a href="/tags/apm/">apm</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/apm/skywalking7_docker_ops/">
+            <span class="next-text nav-default">docker部署skywalking7</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

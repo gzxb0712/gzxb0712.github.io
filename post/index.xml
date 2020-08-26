@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 16 Mar 2020 21:05:30 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Mar 2020 20:15:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>helm部署prometheus</title>
+      <link>https://xiebiao.top/post/monitor/helm_prometheus/</link>
+      <pubDate>Sun, 22 Mar 2020 20:15:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/monitor/helm_prometheus/</guid>
+      <description>随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据</description>
+    </item>
     
     <item>
       <title>搭建docker版Prometheus监控报警系统</title>

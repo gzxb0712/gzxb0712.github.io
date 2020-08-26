@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>helm部署prometheus - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/monitor/helm_prometheus/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="helm部署prometheus" />
+<meta property="og:description" content="随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/monitor/helm_prometheus/" />
+<meta property="article:published_time" content="2020-03-22T20:15:30+00:00" />
+<meta property="article:modified_time" content="2020-03-22T20:15:30+00:00" />
+<meta itemprop="name" content="helm部署prometheus">
+<meta itemprop="description" content="随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据">
+<meta itemprop="datePublished" content="2020-03-22T20:15:30+00:00" />
+<meta itemprop="dateModified" content="2020-03-22T20:15:30+00:00" />
+<meta itemprop="wordCount" content="2481">
+
+
+
+<meta itemprop="keywords" content="prometheus,monitor," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="helm部署prometheus"/>
+<meta name="twitter:description" content="随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">helm部署prometheus</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-22 20:15 </span>
+        <div class="post-category">
+            <a href="/categories/monitor/"> monitor </a>
+            </div>
+          <span class="more-meta"> 约 2481 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前提">前提</a></li>
+    <li><a href="#准备">准备</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#验证安装">验证安装</a></li>
+    <li><a href="#管理操作">管理操作</a></li>
+    <li><a href="#验证告警">验证告警</a></li>
+    <li><a href="#可选-配置钉钉告警">[可选] 配置钉钉告警</a></li>
+    <li><a href="#可选-微信报警参考">[可选] 微信报警参考：</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#安装prometheus-operator">安装prometheus-operator</a></li>
+    <li><a href="#问题集合">问题集合</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>随着<code>heapster</code>项目停止更新并慢慢被<code>metrics-server</code>取代，集群监控这项任务也将最终转移。<code>prometheus</code>的监控理念、数据结构设计其实相当精简，包括其非常灵活的查询语言；但是对于初学者来说，想要在k8s集群中实践搭建一套相对可用的部署却比较麻烦，由此还产生了不少专门的项目（如：<a href="https://github.com/coreos/prometheus-operator">prometheus-operator</a>），本文介绍使用<code>helm chart</code>部署集群的prometheus监控。</p>
+<ul>
+<li><code>helm</code>已成为<code>CNCF</code>独立托管项目，预计会更加流行起来</li>
+</ul>
+<h2 id="前提">前提</h2>
+<ul>
+<li>安装这个必须先建好存储类，如nfs，查看/etc/ansible/manifests/storage</li>
+<li>安装 helm：以本项目<a href="helm.md">安全安装helm</a>为例</li>
+<li>安装 <a href="kubedns.md">kube-dns</a></li>
+</ul>
+<h2 id="准备">准备</h2>
+<p>安装目录概览 <code>ll /etc/ansible/manifests/prometheus</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">drwx------  <span class="m">3</span> root root  <span class="m">4096</span> Jun  <span class="m">3</span> 22:42 grafana/
+-rw-r-----  <span class="m">1</span> root root <span class="m">67875</span> Jun  <span class="m">4</span> 22:47 grafana-dashboards.yaml
+-rw-r-----  <span class="m">1</span> root root   <span class="m">690</span> Jun  <span class="m">4</span> 09:34 grafana-settings.yaml
+-rw-r-----  <span class="m">1</span> root root  <span class="m">1105</span> May <span class="m">30</span> 16:54 prom-alertrules.yaml
+-rw-r-----  <span class="m">1</span> root root   <span class="m">474</span> Jun  <span class="m">5</span> 10:04 prom-alertsmanager.yaml
+drwx------  <span class="m">3</span> root root  <span class="m">4096</span> Jun  <span class="m">2</span> 21:39 prometheus/
+-rw-r-----  <span class="m">1</span> root root   <span class="m">294</span> May <span class="m">30</span> 18:09 prom-settings.yaml
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>目录<code>prometheus/</code>和<code>grafana/</code>即官方的helm charts，可以使用<code>helm fetch --untar stable/prometheus</code> 和 <code>helm fetch --untar stable/grafana</code>下载，本安装不会修改任何官方charts里面的内容，这样方便以后跟踪charts版本的更新</li>
+<li>两个都修改value下的值storageClass： storageClass: &ldquo;nfs-dynamic-class&rdquo;</li>
+<li><code>prom-settings.yaml</code>：个性化prometheus安装参数，比如禁用PV，禁用pushgateway，设置nodePort等</li>
+<li><code>prom-alertrules.yaml</code>：配置告警规则</li>
+<li><code>prom-alertsmanager.yaml</code>：配置告警邮箱设置等</li>
+<li><code>grafana-settings.yaml</code>：个性化grafana安装参数，比如用户名密码，datasources，dashboardProviders等</li>
+<li><code>grafana-dashboards.yaml</code>：预设置dashboard</li>
+<li><code>grafana-values.yaml prometheus-values.yaml</code>为从里面拿出来的value.yml</li>
+</ul>
+<h2 id="安装">安装</h2>
+<blockquote>
+<p>/etc/ansible/manifests/prometheus scp到helm客户端节点执行</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">source</span> ~/.bashrc
+$ <span class="nb">cd</span> /etc/ansible/manifests/prometheus
+<span class="c1"># 安装 prometheus chart，如果你的helm安装没有启用tls证书，请忽略--tls参数</span>
+$ helm install  <span class="se">\
+</span><span class="se"></span>        --name monitor <span class="se">\
+</span><span class="se"></span>        --namespace monitoring <span class="se">\
+</span><span class="se"></span>        -f prom-settings.yaml <span class="se">\
+</span><span class="se"></span>        -f prom-alertsmanager.yaml <span class="se">\
+</span><span class="se"></span>        -f prom-alertrules.yaml <span class="se">\
+</span><span class="se"></span>        prometheus
+
+<span class="c1">##helm3</span>
+helm install monitor <span class="se">\
+</span><span class="se"></span>--create-namespace <span class="se">\
+</span><span class="se"></span>--namespace monitoring <span class="se">\
+</span><span class="se"></span>-f prom-settings.yaml   <span class="se">\
+</span><span class="se"></span>-f prom-alertsmanager.yaml  
+-f prom-alertrules.yaml <span class="se">\
+</span><span class="se"></span>./prometheus        
+<span class="c1"># 安装 grafana chart</span>
+$ helm install <span class="se">\
+</span><span class="se"></span>	--name grafana <span class="se">\
+</span><span class="se"></span>	--namespace monitoring <span class="se">\
+</span><span class="se"></span>	-f grafana-settings.yaml <span class="se">\
+</span><span class="se"></span>	-f grafana-dashboards.yaml <span class="se">\
+</span><span class="se"></span>	grafana
+
+<span class="c1">##helm3</span>
+helm install grafana --namespace monitoring <span class="se">\
+</span><span class="se"></span>                    -f grafana-settings.yaml  <span class="se">\
+</span><span class="se"></span>                    -f grafana-dashboards.yaml <span class="se">\
+</span><span class="se"></span>                      ./grafana    
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="验证安装">验证安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看相关pod和svc</span>
+$ kubectl get pod,svc -n monitoring 
+NAME                                                     READY     STATUS    RESTARTS   AGE
+grafana-54dc76d47d-2mk55                                 1/1       Running   <span class="m">0</span>          1m
+monitor-prometheus-alertmanager-6d9d9b5b96-w57bk         2/2       Running   <span class="m">0</span>          2m
+monitor-prometheus-kube-state-metrics-69f5d56f49-fh9z7   1/1       Running   <span class="m">0</span>          2m
+monitor-prometheus-node-exporter-55bwx                   1/1       Running   <span class="m">0</span>          2m
+monitor-prometheus-node-exporter-k8sb2                   1/1       Running   <span class="m">0</span>          2m
+monitor-prometheus-node-exporter-kxlr9                   1/1       Running   <span class="m">0</span>          2m
+monitor-prometheus-node-exporter-r5dx8                   1/1       Running   <span class="m">0</span>          2m
+monitor-prometheus-server-5ccfc77dff-8h9k6               2/2       Running   <span class="m">0</span>          2m
+
+NAME                                    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>        AGE
+grafana                                 NodePort    10.68.74.242   &lt;none&gt;        80:39002/TCP   1m
+monitor-prometheus-alertmanager         NodePort    10.68.69.105   &lt;none&gt;        80:39001/TCP   2m
+monitor-prometheus-kube-state-metrics   ClusterIP   None           &lt;none&gt;        80/TCP         2m
+monitor-prometheus-node-exporter        ClusterIP   None           &lt;none&gt;        9100/TCP       2m
+monitor-prometheus-server               NodePort    10.68.248.94   &lt;none&gt;        80:39000/TCP   2m
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>访问prometheus的web界面：<code>http://$NodeIP:39000</code></li>
+<li>访问alertmanager的web界面：<code>http://$NodeIP:39001</code></li>
+<li>访问grafana的web界面：<code>http://$NodeIP:39002</code> (默认用户密码 admin:admin，可在web界面修改)</li>
+</ul>
+<h2 id="管理操作">管理操作</h2>
+<ul>
+<li>升级（修改配置）：修改配置请在<code>prom-settings.yaml</code> <code>prom-alertsmanager.yaml</code> 等文件中进行，保存后执行：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 修改prometheus</span>
+$ helm upgrade --tls monitor -f prom-settings.yaml -f prom-alertsmanager.yaml -f prom-alertrules.yaml prometheus
+<span class="c1"># 修改grafana</span>
+$ helm upgrade --tls grafana -f grafana-settings.yaml -f grafana-dashboards.yaml grafana
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>回退：具体可以参考<code>helm help rollback</code>文档</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ helm rollback --tls monitor <span class="o">[</span>REVISION<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>删除</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ helm del --tls monitor --purge
+$ helm del --tls grafana --purge
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="验证告警">验证告警</h2>
+<ul>
+<li>修改<code>prom-alertsmanager.yaml</code>文件中邮件告警为有效的配置内容，并使用 helm upgrade更新安装</li>
+<li>手动临时关闭 master 节点的 kubelet 服务，等待几分钟看是否有告警邮件发送</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 在 master 节点运行</span>
+$ systemctl stop kubelet
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="可选-配置钉钉告警">[可选] 配置钉钉告警</h2>
+<ul>
+<li>创建钉钉群，获取群机器人 webhook 地址</li>
+</ul>
+<p>使用钉钉创建群聊以后可以方便设置群机器人，【群设置】-【群机器人】-【添加】-【自定义】-【添加】，然后按提示操作即可，参考 <a href="https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.666d4a97eCG7XA&amp;treeId=257&amp;articleId=105735&amp;docType=1">https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.666d4a97eCG7XA&amp;treeId=257&amp;articleId=105735&amp;docType=1</a></p>
+<p>上述配置好群机器人，获得这个机器人对应的Webhook地址，记录下来，后续配置钉钉告警插件要用，格式如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxx
+https://oapi.dingtalk.com/robot/send?access_token=c9bde9a35dd4031c691ff5310d70202dfe69606e4725169f2121f69d9e69dcbd
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>创建钉钉告警插件，参考 <a href="http://theo.im/blog/2017/10/16/release-prometheus-alertmanager-webhook-for-dingtalk/">http://theo.im/blog/2017/10/16/release-prometheus-alertmanager-webhook-for-dingtalk/</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 编辑修改文件中 access_token=xxxxxx 为上一步你获得的机器人认证 token</span>
+$ vi /etc/ansible/manifests/prometheus/dingtalk-webhook.yaml
+<span class="c1"># 运行插件</span>
+$ kubectl apply -f /etc/ansible/manifests/prometheus/dingtalk-webhook.yaml
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>修改 alertsmanager 告警配置后，更新 helm prometheus 部署，成功后如上节测试告警发送</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 修改 alertsmanager 告警配置</span>
+$ <span class="nb">cd</span> /etc/ansible/manifests/prometheus
+$ vi prom-alertsmanager.yaml
+<span class="c1"># 增加 receiver dingtalk，然后在 route 配置使用 receiver: dingtalk</span>
+    receivers:
+    - name: dingtalk
+      webhook_configs:
+      - send_resolved: <span class="nb">false</span>
+        url: http://webhook-dingtalk.monitoring.svc.cluster.local:8060/dingtalk/webhook1/send
+<span class="c1"># ...</span>
+<span class="c1"># 更新 helm prometheus 部署</span>
+$ helm upgrade --tls monitor -f prom-settings.yaml -f prom-alertsmanager.yaml -f prom-alertrules.yaml prometheus
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="可选-微信报警参考">[可选] 微信报警参考：</h2>
+<p><a href="https://www.yangxingzhen.com/6799.html">https://www.yangxingzhen.com/6799.html</a>
+<a href="https://blog.51cto.com/alca0126/2444087">https://blog.51cto.com/alca0126/2444087</a>
+<a href="https://yunlzheng.gitbook.io/prometheus-book/parti-prometheus-ji-chu/alert/alert-manager-use-receiver/alert-with-wechat">https://yunlzheng.gitbook.io/prometheus-book/parti-prometheus-ji-chu/alert/alert-manager-use-receiver/alert-with-wechat</a></p>
+<h4 id="使用nfs动态存储">使用nfs动态存储</h4>
+<blockquote>
+<p>参考链接：https://lichi6174.github.io/prometheus+grafana/</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">value.yaml:
+<span class="c1"># storageClass: &#34;-&#34;</span>
+storageClass: <span class="s2">&#34;nfs-dynamic-class&#34;</span>
+
+prom-settings.yaml:
+alertmanager:
+  persistentVolume:
+    enabled: <span class="nb">true</span>
+server:
+  persistentVolume:
+    enabled: <span class="nb">true</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="grafana-的dashbord以及账密">grafana 的dashbord以及账密</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">##admin</span>
+kubectl get secret --namespace monitoring grafana -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.data.admin-password}&#34;</span> <span class="p">|</span> base64 --decode <span class="p">;</span> <span class="nb">echo</span>
+
+<span class="c1">##url</span>
+<span class="nb">export</span> <span class="nv">NODE_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get --namespace monitoring -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.spec.ports[0].nodePort}&#34;</span> services grafana<span class="k">)</span>
+<span class="nb">export</span> <span class="nv">NODE_IP</span><span class="o">=</span><span class="k">$(</span>kubectl get nodes --namespace monitoring -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.items[0].status.addresses[0].address}&#34;</span><span class="k">)</span>
+<span class="nb">echo</span> http://<span class="nv">$NODE_IP</span>:<span class="nv">$NODE_PORT</span>
+
+<span class="c1">##dns</span>
+grafana.monitoring.svc.cluster.local
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="钉钉-webhook告警">钉钉 webhook告警</h4>
+<p>使用钉钉创建群聊以后可以方便设置群机器人，【群设置】-【群机器人】-【添加】-【自定义】-【添加】，然后按提示操作即可</p>
+<ul>
+<li>添加自己集群的公网IP</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">+ $ <span class="nb">cd</span> /etc/ansible/manifests/prometheus
+$ vi prom-alertsmanager.yaml
+<span class="c1"># 增加 receiver dingtalk，然后在 route 配置使用 receiver: dingtalk</span>
+    receivers:
+    - name: dingtalk
+      webhook_configs:
+      - send_resolved: <span class="nb">false</span>
+        url: http://webhook-dingtalk.monitoring.svc.gzkuyou:8060/dingtalk/webhook1/send
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装prometheus-operator">安装prometheus-operator</h2>
+<p>helm fetch &ndash;untar stable/prometheus-operator</p>
+<h2 id="问题集合">问题集合</h2>
+<h4 id="error-render-error-in-prometheustemplatespushgateway-serviceaccountyaml-template-prometheustemplatespushgateway-serviceaccountyaml114-executing-prometheustemplatespushgateway-serviceaccountyaml-at-valuesserviceaccountspushgatewaycreate-nil-pointer-evaluating-interface-pushgateway">Error: render error in &ldquo;prometheus/templates/pushgateway-serviceaccount.yaml&rdquo;: template: prometheus/templates/pushgateway-serviceaccount.yaml:1:14: executing &ldquo;prometheus/templates/pushgateway-serviceaccount.yaml&rdquo; at &lt;.Values.serviceAccounts.pushgateway.create&gt;: nil pointer evaluating interface {}.pushgateway</h4>
+<p>新版本的pushgateway-serviceaccount.yaml已经删除，使用rbac方式，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /etc/ansible/manifests/prometheus <span class="o">&amp;&amp;</span> mv prometheus prometheus.bak
+helm fetch --untar stable/prometheus <span class="c1">##获取最新的chart，把旧的目录先移开，不然有冲突</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="error-validation-failed-unable-to-recognize--no-matches-for-kind-daemonset-in-version-extensionsv1beta1-unable-to-recognize--no-matches-for-kind-deployment-in-version-extensionsv1beta1">Error: validation failed: [unable to recognize &ldquo;&quot;: no matches for kind &ldquo;DaemonSet&rdquo; in version &ldquo;extensions/v1beta1&rdquo;, unable to recognize &ldquo;&quot;: no matches for kind &ldquo;Deployment&rdquo; in version &ldquo;extensions/v1beta1&rdquo;]</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span>  prometheus/templates <span class="o">&amp;&amp;</span>sed -i <span class="s2">&#34;s#extensions/v1beta1#apps/v1#g&#34;</span> *.yaml
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="error-release-monitor-failed-daemonsetapps-monitor-prometheus-node-exporter-is-invalid-spectemplatemetadatalabels-invalid-value-mapstringstringappprometheus-componentnode-exporter-releasemonitor-selector-does-not-match-template-labels">Error: release monitor failed: DaemonSet.apps &ldquo;monitor-prometheus-node-exporter&rdquo; is invalid: spec.template.metadata.labels: Invalid value: map[string]string{&ldquo;app&rdquo;:&ldquo;prometheus&rdquo;, &ldquo;component&rdquo;:&ldquo;node-exporter&rdquo;, &ldquo;release&rdquo;:&ldquo;monitor&rdquo;}: <code>selector</code> does not match template <code>labels</code></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">vim /root/.helm/repository/repositories.yaml 
+修改url指向官方： url: https://kubernetes-charts.storage.googleapis.com
+helm repo update
+helm del --tls monitor --purge
+helm del --purge monitor
+然后重新跑：
+helm install --tls         --name monitor         --namespace monitoring         -f prom-settings.yaml         -f prom-alertsmanager.yaml         -f prom-alertrules.yaml         prometheus
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="kubectl-apply--f-etcansiblemanifestsprometheusdingtalk-webhookyaml">kubectl apply -f /etc/ansible/manifests/prometheus/dingtalk-webhook.yaml</h4>
+<p>error: error validating &ldquo;/etc/ansible/manifests/prometheus/dingtalk-webhook.yaml&rdquo;: error validating data: ValidationError(Deployment.spec): missing required field &ldquo;selector&rdquo; in io.k8s.api.apps.v1.DeploymentSpec; if you choose to ignore these errors, turn validation off with &ndash;validate=false</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">Deployment.spec添加：
+spec:
+  selector:
+    matchLabels:
+      run: dingtalk  
+</code></pre></td></tr></table>
+</div>
+</div><p>/etc/ansible/manifests/prometheus/grafana/values.yaml
+添加ingress traefik</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="c">#  enabled: false</span><span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">    </span><span class="c"># kubernetes.io/ingress.class: nginx</span><span class="w">
+</span><span class="w">    </span><span class="c"># kubernetes.io/tls-acme: &#34;true&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">  </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w">  </span><span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- grafana.test.com<span class="w">
+</span><span class="w">  </span><span class="c">## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.</span><span class="w">
+</span><span class="w">  </span><span class="k">extraPaths</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">  </span><span class="c"># - path: /*</span><span class="w">
+</span><span class="w">  </span><span class="c">#   backend:</span><span class="w">
+</span><span class="w">  </span><span class="c">#     serviceName: ssl-redirect</span><span class="w">
+</span><span class="w">  </span><span class="c">#     servicePort: use-annotation</span><span class="w">
+</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w">  </span><span class="c">#  - secretName: traefik-cert</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>.....<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="k">persistence</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>pvc<span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>nfs-dynamic-class<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>error converting YAML to JSON: yaml: line 132: did not find expected key
+cd manifests/ingress/traefik/tls/
+kubectl -n monitoring create secret tls traefik-cert &ndash;key=tls.key &ndash;cert=tls.crt</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-22 20:15
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/prometheus/">prometheus</a>
+          <a href="/tags/monitor/">monitor</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/monitor/prometheus_ops/">
+            <span class="next-text nav-default">搭建docker版Prometheus监控报警系统</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

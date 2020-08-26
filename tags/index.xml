@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 25 Mar 2020 20:03:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 22:03:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>center</title>
+      <link>https://xiebiao.top/tags/center/</link>
+      <pubDate>Sat, 28 Mar 2020 22:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/center/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>etcd</title>
+      <link>https://xiebiao.top/tags/etcd/</link>
+      <pubDate>Sat, 28 Mar 2020 22:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/etcd/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>apm</title>

@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 25 Mar 2020 20:03:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2020 22:03:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>etcd 入门指引</title>
+      <link>https://xiebiao.top/post/center/etcd_ops_doc/</link>
+      <pubDate>Sat, 28 Mar 2020 22:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/center/etcd_ops_doc/</guid>
+      <description>背景：近期 k8s 应用中 etcd 的功能存在一些困惑，对其进行来单独的学习，能更深入理解 k8s 中的的一些特性。 一、概述 1.1 etcd 简介 etcd 是 CoreOS 团队于 2013 年 6月发起的开源项</description>
+    </item>
     
     <item>
       <title>skywalking8.1部署及使用教程</title>

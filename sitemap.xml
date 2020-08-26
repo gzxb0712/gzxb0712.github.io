@@ -2,6 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://xiebiao.top/</loc>
+    <lastmod>2020-03-28T22:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/</loc>
+    <lastmod>2020-03-28T22:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/center/</loc>
+    <lastmod>2020-03-28T22:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/center/</loc>
+    <lastmod>2020-03-28T22:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/etcd/</loc>
+    <lastmod>2020-03-28T22:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/center/etcd_ops_doc/</loc>
+    <lastmod>2020-03-28T22:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/</loc>
+    <lastmod>2020-03-28T22:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-03-28T22:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://xiebiao.top/tags/apm/</loc>
     <lastmod>2020-03-25T20:03:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -16,27 +72,6 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-03-25T20:03:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-03-25T20:03:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-03-25T20:03:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://xiebiao.top/tags/skywalking/</loc>
     <lastmod>2020-03-25T20:03:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -45,13 +80,6 @@
   
   <url>
     <loc>https://xiebiao.top/post/apm/skywalking8_ops/</loc>
-    <lastmod>2020-03-25T20:03:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
     <lastmod>2020-03-25T20:03:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

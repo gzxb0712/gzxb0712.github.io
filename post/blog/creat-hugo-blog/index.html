@@ -66,7 +66,7 @@ Hugo 官方的定义是：
 Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)">
 <meta itemprop="datePublished" content="2019-10-12T20:28:04+00:00" />
 <meta itemprop="dateModified" content="2019-10-12T20:28:04+00:00" />
-<meta itemprop="wordCount" content="1719">
+<meta itemprop="wordCount" content="1836">
 
 
 
@@ -153,7 +153,7 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
         <div class="post-category">
             <a href="/categories/blog/"> blog </a>
             </div>
-          <span class="more-meta"> 约 1719 字 </span>
+          <span class="more-meta"> 约 1836 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -438,8 +438,19 @@ git push -f git@github.com:gzxb0712/gzxb0712.github.io.git master
 <li>创建devops项目</li>
 <li>创建并添加公钥，并制定配置，参考以下链接
 <a href="https://www.jianshu.com/p/82aa1678411e">https://www.jianshu.com/p/82aa1678411e</a></li>
-<li>静态网站-立即创建，设置那里并绑定个性化域名cn.xiebiao.top，强制https，并立即部署</li>
+<li>静态网站-立即创建，设置那里并绑定个性化域名xiebiao.top，强制https，并立即部署</li>
 <li>到腾讯云添加cname记录</li>
+<li>
+<blockquote>
+<p>注意云解析添加cname记录线路类型选境内的cname到coding</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>注意云解析添加cname记录线路类型选境内的cname到github</p>
+</blockquote>
+</li>
+<li>实现双部署，如果coding证书申请有问题就删除网站，并解绑cname，重新换个pages域名cname</li>
 <li>部署脚本</li>
 </ul>
 <div class="highlight"><div class="chroma">

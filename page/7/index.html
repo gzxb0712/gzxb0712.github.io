@@ -118,115 +118,49 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/monitor/prometheus_ops/">搭建docker版Prometheus监控报警系统</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/base/dncp_centos_install/">dhcp在centos中安装</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-03-16 21:05 </span>
+      <span class="post-time"> 2019-10-11 20:22 </span>
       <div class="post-category">
-          <a href="/categories/monitor/"> monitor </a>
+          <a href="/categories/linux/"> linux </a>
+          <a href="/categories/base/"> base </a>
           </div>
-        <span class="more-meta"> 约 4519 字 </span>
-        <span class="more-meta"> 预计阅读 10 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu
-    </div>
-    <div class="read-more">
-      <a href="/post/monitor/prometheus_ops/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/monitor/zabbix5_agent2_install/">Zabbix 5.0 Agent2的安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-14 18:45 </span>
-      <div class="post-category">
-          <a href="/categories/monitor/"> monitor </a>
-          </div>
-        <span class="more-meta"> 约 797 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Zabbix Agent2 介绍 Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性： 完成的插件框架支持，可扩张服务及应用监控 支持灵
-    </div>
-    <div class="read-more">
-      <a href="/post/monitor/zabbix5_agent2_install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/monitor/zabbix5_install_ops/">Zabbix 5.0安装部署和使用教程</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-13 18:23 </span>
-      <div class="post-category">
-          <a href="/categories/monitor/"> monitor </a>
-          </div>
-        <span class="more-meta"> 约 3960 字 </span>
-        <span class="more-meta"> 预计阅读 8 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B zabbix 5.0 版本于 5 月 11 日正式发布，是最新的 LTS（长期支持）版本，5.0 带来很多功能和特性，后面会陆续推出文章介绍，下面主要介绍下 5.0 版本
-    </div>
-    <div class="read-more">
-      <a href="/post/monitor/zabbix5_install_ops/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/monitor/open-falcon_install_ops/">小米开源监控 Open-Falcon 0.3 部署</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-11 19:23 </span>
-      <div class="post-category">
-          <a href="/categories/monitor/"> monitor </a>
-          </div>
-        <span class="more-meta"> 约 1978 字 </span>
+        <span class="more-meta"> 约 1863 字 </span>
         <span class="more-meta"> 预计阅读 4 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go
-    </div>
-    <div class="read-more">
-      <a href="/post/monitor/open-falcon_install_ops/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="运行系统更新">运行系统更新</h3>
+<p>首先将系统包重新同步到它最新版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">dnf update
+</code></pre></td></tr></table>
+</div>
+</div><p>在CentOS 8中，DHCP服务器是<code>dhcp-server</code> 软件包，可以通过运行下面的命令来安装此软件包;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+dnf install dhcp-server
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/monitor/netdata_ops/">NetData轻量的性能监控工具安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-03-10 19:25 </span>
-      <div class="post-category">
-          <a href="/categories/monitor/"> monitor </a>
-          </div>
-        <span class="more-meta"> 约 2347 字 </span>
-        <span class="more-meta"> 预计阅读 5 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      前言 对于服务器监控我相信对于一些人来说是感兴趣的，相比于繁琐的 Grafana + Zabbix（白猫的docker安装教程）对于服务器资源的占用，较为轻便监
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
     <div class="read-more">
-      <a href="/post/monitor/netdata_ops/" class="read-more-link">阅读更多</a>
+      <a href="/post/base/dncp_centos_install/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -234,14 +168,11 @@
     </section>
   
   <nav class="pagination">
-    <a class="prev" href="/">
+    <a class="prev" href="/page/6/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">上一页</span>
       </a>
-    <a class="next" href="/page/3/">
-        <span class="next-text">下一页</span>
-        <i class="iconfont icon-right"></i>
-      </a>
+    
   </nav>
         </div>
         

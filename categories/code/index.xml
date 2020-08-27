@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>code on Bill World</title>
+    <link>https://xiebiao.top/categories/code/</link>
+    <description>Recent content in code on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 07 Apr 2020 19:11:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/categories/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>svn 使用详解</title>
+      <link>https://xiebiao.top/post/code/svn_use/</link>
+      <pubDate>Tue, 07 Apr 2020 19:11:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/code/svn_use/</guid>
+      <description>关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式</description>
+    </item>
+    
+    <item>
+      <title>git 使用详解</title>
+      <link>https://xiebiao.top/post/code/git_use/</link>
+      <pubDate>Mon, 06 Apr 2020 19:19:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/code/git_use/</guid>
+      <description>前言 在 2005 年的某一天，Linux 之父 Linus Torvalds 发布了他的又一个里程碑作品——Git。它的出现改变了软件开发流程，大大地提高了开发流畅度，直到现在仍十</description>
+    </item>
+    
+  </channel>
+</rss>

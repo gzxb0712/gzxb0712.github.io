@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>svn 使用详解 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/code/svn_use/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="svn 使用详解" />
+<meta property="og:description" content="关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/code/svn_use/" />
+<meta property="article:published_time" content="2020-04-07T19:11:30+00:00" />
+<meta property="article:modified_time" content="2020-04-07T19:11:30+00:00" />
+<meta itemprop="name" content="svn 使用详解">
+<meta itemprop="description" content="关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式">
+<meta itemprop="datePublished" content="2020-04-07T19:11:30+00:00" />
+<meta itemprop="dateModified" content="2020-04-07T19:11:30+00:00" />
+<meta itemprop="wordCount" content="7463">
+
+
+
+<meta itemprop="keywords" content="svn,code," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="svn 使用详解"/>
+<meta name="twitter:description" content="关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">svn 使用详解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-07 19:11 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 约 7463 字 </span>
+          <span class="more-meta"> 预计阅读 15 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#关于版本控制">关于版本控制</a></li>
+    <li><a href="#本地版本控制系统">本地版本控制系统</a></li>
+    <li><a href="#集中化的版本控制系统">集中化的版本控制系统</a></li>
+    <li><a href="#分布式版本控制系统">分布式版本控制系统</a></li>
+    <li><a href="#针对现状优化">针对现状优化</a></li>
+    <li><a href="#关于-svn">关于 SVN</a></li>
+    <li><a href="#svn-的一些概念">SVN 的一些概念</a></li>
+    <li><a href="#svn-生命周期">SVN 生命周期</a></li>
+    <li><a href="#svn-的一些优点">SVN 的一些优点</a></li>
+    <li><a href="#svn-安装">SVN 安装</a></li>
+    <li><a href="#windows">Windows</a></li>
+    <li><a href="#centos">CentOS</a></li>
+    <li><a href="#ubuntu">Ubuntu</a></li>
+    <li><a href="#svn-服务器配置">SVN 服务器配置</a></li>
+    <li><a href="#新建版本库目录">新建版本库目录</a></li>
+    <li><a href="#创建版本库">创建版本库</a></li>
+    <li><a href="#服务配置文件-svnserveconf">服务配置文件 <code>svnserve.conf</code></a></li>
+    <li><a href="#用户名口令文件-passwd">用户名口令文件 <code>passwd</code></a></li>
+    <li><a href="#权限配置文件-authz">权限配置文件 <code>authz</code></a></li>
+    <li><a href="#启动服务">启动服务</a></li>
+    <li><a href="#svn-检出操作">SVN 检出操作</a></li>
+    <li><a href="#svn-解决冲突">SVN 解决冲突</a></li>
+    <li><a href="#svn-提交操作">SVN 提交操作</a></li>
+    <li><a href="#svn-版本回退">SVN 版本回退</a></li>
+    <li><a href="#svn-查看历史消息">SVN 查看历史消息</a></li>
+    <li><a href="#svn-分支">SVN 分支</a></li>
+    <li><a href="#svn-标签">SVN 标签</a></li>
+    <li><a href="#svn命令简明教程">svn命令简明教程</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="关于版本控制">关于版本控制</h2>
+<p>版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。</p>
+<h2 id="本地版本控制系统">本地版本控制系统</h2>
+<p>许多人习惯用复制整个项目目录的方式来保存不同的版本，或许还会改名加上备份时间以示区别。 这么做唯一的好处就是简单，但是特别容易犯错。 有时候会混淆所在的工作目录，一不小心会写错文件或者覆盖意想外的文件。</p>
+<p>为了解决这个问题，人们很久以前就开发了许多种本地版本控制系统，大多都是采用某种简单的数据库来记录文件的历次更新差异。</p>
+<p><img src="https://pic4.zhimg.com/v2-043f948441d4f68a406c66220bad4047_b.jpg" alt=""></p>
+<h2 id="集中化的版本控制系统">集中化的版本控制系统</h2>
+<p>接下来人们又遇到一个问题，如何让在不同系统上的开发者协同工作？ 于是，集中化的版本控制系统（Centralized Version Control Systems，简称 CVCS）应运而生。 这类系统，诸如 CVS、Subversion 以及 Perforce 等，都有一个单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。 多年以来，这已成为版本控制系统的标准做法。</p>
+<p><img src="https://pic3.zhimg.com/v2-2e8ac73a6f3bbf0af21c5c37098e62ae_b.jpg" alt=""></p>
+<p>这种做法带来了许多好处，特别是相较于老式的本地 VCS 来说。 现在，每个人都可以在一定程度上看到项目中的其他人正在做些什么。 而管理员也可以轻松掌控每个开发者的权限，并且管理一个 CVCS 要远比在各个客户端上维护本地数据库来得轻松容易。</p>
+<p>事分两面，有好有坏。 这么做最显而易见的缺点是中央服务器的单点故障。 如果宕机一小时，那么在这一小时内，谁都无法提交更新，也就无法协同工作。 如果中心数据库所在的磁盘发生损坏，又没有做恰当备份，毫无疑问你将丢失所有数据——包括项目的整个变更历史，只剩下人们在各自机器上保留的单独快照。 本地版本控制系统也存在类似问题，只要整个项目的历史记录被保存在单一位置，就有丢失所有历史更新记录的风险。</p>
+<h2 id="分布式版本控制系统">分布式版本控制系统</h2>
+<p>基于上面的问题，出现了分布式版本控制系统（Distributed Version Control System，简称 DVCS）。 在这类系统中，像 Git、Mercurial、Bazaar 以及 Darcs 等，客户端并不只提取最新版本的文件快照，而是把代码仓库完整地镜像下来。 这么一来，任何一处协同工作用的服务器发生故障，事后都可以用任何一个镜像出来的本地仓库恢复。 因为每一次的克隆操作，实际上都是一次对代码仓库的完整备份。</p>
+<p><img src="https://pic1.zhimg.com/v2-cb679fa24004b8479cb0ff0f3e6ceb14_b.jpg" alt=""></p>
+<p>更进一步，许多这类系统都可以指定和若干不同的远端代码仓库进行交互。籍此，你就可以在同一个项目中，分别和不同工作小组的人相互协作。 你可以根据需要设定不同的协作流程，比如层次模型式的工作流，而这在以前的集中式系统中是无法实现的。</p>
+<h2 id="针对现状优化">针对现状优化</h2>
+<p>基于简单、使用场景有限、良好的权限管理或者其它原因采用了 SVN 进行版本控制，那么我们就需要想办法弥补它的不足，针对单点故障的问题，就要对版本库进行定时全量和增量的备份，以确保源码的安全。</p>
+<h2 id="关于-svn">关于 SVN</h2>
+<p>Subversion(SVN) 是一个开源的集中化的版本控制系統，会记住每一次文件的变动，这样你可以将文件恢复到旧的版本或者浏览文件的历史变动。</p>
+<h2 id="svn-的一些概念">SVN 的一些概念</h2>
+<ul>
+<li><strong>repository（源代码库）</strong>：源代码统一存放的地方</li>
+<li><strong>checkout（提取）</strong>：当你手上没有源代码的时候，你需要从 repository checkout 一份</li>
+<li><strong>commit（提交）</strong>：当你已经修改了代码，你就需要 commit 到 repository</li>
+<li><strong>update（更新）</strong>：当你已经 checkout 了一份源代码，update 一下你就可以和 repository 上的源代码同步，你手上的代码就会有最新的变更</li>
+</ul>
+<h2 id="svn-生命周期">SVN 生命周期</h2>
+<ul>
+<li><strong>创建版本库</strong>：create 操作创建一个新的版本库，版本库用于存放文件，包括了每次修改的历史。</li>
+<li><strong>检出</strong>：checkout 操作从版本库创建一个工作副本，作为开发者私人的工作空间，可以进行内容的修改，然后提交到版本库中。</li>
+<li><strong>更新</strong>：update 操作更新版本库，将工作副本与版本库进行同步。因为版本库是整个团队共用的，当其他人提交了改动，你的工作副本就会过期。</li>
+<li><strong>执行变更</strong>：检出之后，可以进行添加、编辑、删除、重命名、移动文件/目录等变更操作。当最终执行了 commit 操作后，就对版本库进行了相应变更。</li>
+<li><strong>复查变化</strong>：当你对工作副本进行了一些修改后，你的工作副本就会比版本库新，在 commit 操作之前使用 status/diff 操作复查下你的修改是一个好的习惯。</li>
+<li><strong>修复错误</strong>：如果你对工作副本做了许多修改，当时不想要这些修改了，revert 操作可以重置工作副本的修改，恢复到原始状态。</li>
+<li><strong>解决冲突</strong>：合并的时候可能发生冲突，使用 merge 操作进行合并。因为 SVN 合并是以行为单位的，只要不是修改的同一行，SVN 都会自动合并，如果是同一行，SVN 会提示冲突，需要手动进行确认修改，合并代码。其中 resolve 操作可以帮助找出冲突。</li>
+<li><strong>提交更改</strong>：将文件/目录添加到待变更列表，使用 commit 操作将更改从工作副本更新到版本库，提交是添加注释说明，是个好的习惯。</li>
+</ul>
+<h2 id="svn-的一些优点">SVN 的一些优点</h2>
+<ul>
+<li>原子提交，一次提交不管是单个还是多个文件，都是作为一个整体提交的。在这当中发生的意外例如传输中断，不会引起数据库的不完整和数据损坏。</li>
+<li>目录与文件都能进行版本控制。</li>
+<li>重命名、复制、删除文件等动作都保存在版本历史记录当中。</li>
+</ul>
+<h2 id="svn-安装">SVN 安装</h2>
+<h2 id="windows">Windows</h2>
+<p>正常的 Windows 软件安装方法，下载地址：<a href="https://link.zhihu.com/?target=http%3A//subversion.apache.org/packages.html%23windows">Subversion</a>。</p>
+<h2 id="centos">CentOS</h2>
+<p>大多数 GNU/Linux 发行版系统自带了Subversion ，所以它很有可能已经安装在你的系统上了。可以使用下面命令检查是否安装了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn --version
+</code></pre></td></tr></table>
+</div>
+</div><p>如果没有安装可以使用命令安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ sudo yum install subversion
+dnf install svn 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="ubuntu">Ubuntu</h2>
+<p>安装命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ sudo apt install subversion
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="svn-服务器配置">SVN 服务器配置</h2>
+<h2 id="新建版本库目录">新建版本库目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ mkdir /opt/svn
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="创建版本库">创建版本库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svnadmin create /opt/svn/zinaer
+</code></pre></td></tr></table>
+</div>
+</div><p>在目录 <code>/opt/svn/zinaer/conf</code> 中有 <code>svnserve.conf</code>、<code>passwd</code>、<code>authz</code> 文件配置相关用户和权限。</p>
+<h2 id="服务配置文件-svnserveconf">服务配置文件 <code>svnserve.conf</code></h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">[general]
+anon-access = none
+auth-access = write
+password-db = passwd
+authz-db = authz
+realm = zinaer
+</code></pre></td></tr></table>
+</div>
+</div><p>说明：</p>
+<ul>
+<li><strong>anon-access</strong>：控制非鉴权用户访问版本库的权限。取值：<code>write</code>、<code>read</code> 和 <code>none</code>。缺省值：<code>read</code>。</li>
+<li><strong>auth-access</strong>：控制鉴权用户访问版本库的权限。取值：<code>write</code>、<code>read</code> 和 <code>none</code>。缺省值：<code>write</code>。</li>
+<li><strong>authz-db</strong>：指定权限配置文件名。用于实现以路径为基础的访问控制。如果不是绝对路径，就是相对 <code>conf</code> 目录的相对路径。缺省值：<code>authz</code>。</li>
+<li><strong>realm</strong>：指定版本库的认证域，即在登录时提示的认证域名称。如果两个版本库的认证域相同，建议使用相同的用户名口令数据文件。缺省值：一个 UUID（全局唯一标识）。</li>
+</ul>
+<h2 id="用户名口令文件-passwd">用户名口令文件 <code>passwd</code></h2>
+<p>由 <code>svnserve.conf</code> 的配置项 <code>password-db</code> 指定。格式：<code>&lt;用户名&gt; = &lt;口令&gt;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">[users]
+admin = admin
+zinaer = 123456
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="权限配置文件-authz">权限配置文件 <code>authz</code></h2>
+<p>由 <code>svnserve.conf</code> 的配置项 <code>authz-db</code> 指定。格式：<code>&lt;用户组&gt; = &lt;用户列表&gt;</code>、<code>[&lt;版本库名&gt;:&lt;路径&gt;]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">[groups]
+g_admin = admin,zinaer
+
+[zinaer:/]
+@g_admin = rw
+* = r
+</code></pre></td></tr></table>
+</div>
+</div><p>说明：<code>@</code> 表示一个组名，而不是用户名，<code>*</code> 表示其余所有人。</p>
+<h2 id="启动服务">启动服务</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svnserve -d -r 目录 --listen-port 端口号
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-r</code> 指定版本库根目录 <code>--listen-port</code> 指定 SVN 监听端口，默认监听 3690</p>
+<p><code>-r</code> 配置决定了不同的访问方式。</p>
+<p>**方式一：**<code>-r</code> 直接指定到版本库（单库模式）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn serve -d -r /opt/svn/zinaer
+</code></pre></td></tr></table>
+</div>
+</div><p>authz 配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">[groups]
+admin = admin,zinaer
+dev = zinaer001
+[/]
+@admin = rw
+zinaer = r
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端使用 URL：svn://192.168.10.10/ 即可访问 zinaer 版本库。</p>
+<p>**方法二：**指定到版本库的上级目录（多库模式）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn serve -d -r /opt/svn
+</code></pre></td></tr></table>
+</div>
+</div><p>authz 配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">[groups]
+admin = admin,zinaer
+dev = zinaer001
+[zinaer:/]
+@admin = rw
+zinaer001 = r
+[zinaer001:/]
+@admin = rw
+zinaer001 = r
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端使用 URL：svn://192.168.10.10/zinaer 即可访问 zinaer 版本库。</p>
+<h2 id="svn-检出操作">SVN 检出操作</h2>
+<p>我们已经创建了版本库 zinaer，并且启动了服务，URL 为：svn://192.168.10.10/zinaer 用户 zinaer 由读写权限。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn checkout svn://192.168.10.10/zinaer --username zinaer --password 123456
+</code></pre></td></tr></table>
+</div>
+</div><p>查看版本库详细信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn info
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="svn-解决冲突">SVN 解决冲突</h2>
+<p>假设账号 admin 和 zinaer 都创建了版本库副本，在版本号是 1 的时候，都更新了 <code>hello.txt</code> 文件，admin 在修改完后提交到了服务器，这时候文件版本变成了 2。同时 zinaer 在版本 1 的时候也进行了修改，这时候提交到服务器由于不是在版本 2 上进行的修改，导致提交失败。</p>
+<p>现在我们来处理冲突，使用命令查看更改：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn diff
+Index: hello.txt
+===================================================================
+--- hello.txt   (revision 3)
++++ hello.txt   (working copy)
+@@ -1 +1 @@
+-hello world https://skm.zinaer.com
++hello world https://skm.zinaer.com 123
+</code></pre></td></tr></table>
+</div>
+</div><p>如果我们直接提交会提示什么</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;change first&#39;
+Sending        hello.txt
+Transmitting file data .done
+Committing transaction...
+svn: E160028: Commit failed (details follow):
+svn: E160028: File &#39;/hello.txt&#39; is out of date
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，不能成功提交。为了避免代码被相互覆盖，SVN 不允许我们这样操作，需要先 update</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn update
+Updating &#39;.&#39;:
+C    hello.txt
+Updated to revision 4.
+Summary of conflicts:
+  Text conflicts: 1
+</code></pre></td></tr></table>
+</div>
+</div><p>此时，和版本库已经同步了，可以进行 commit 了。</p>
+<h2 id="svn-提交操作">SVN 提交操作</h2>
+<p>我们在版本库中添加一个 <code>README.md</code> 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ cat README.md
+# 简明 SVN 教程
+</code></pre></td></tr></table>
+</div>
+</div><p>查看状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+?       README.md
+</code></pre></td></tr></table>
+</div>
+</div><p><code>?</code> 代表 <code>README.md</code> 还没有加入版本控制中。</p>
+<p>将文件加入版本控制</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn add README.md
+A         README.md
+</code></pre></td></tr></table>
+</div>
+</div><p><code>A</code> 代表加入了版本控制，现在需要将其更新到版本库中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add README.md&#39;
+Adding         README.md
+Transmitting file data .done
+Committing transaction...
+Committed revision 6.
+
+#提示
+svn: E170001: Commit failed (details follow):
+svn: E170001: Authorization failed
+#先修改svnserve.conf: 
+[general] 
+anon-access = read 
+auth-access = write 
+password-db = passwd 
+authz-db = authz
+realm = svn://192.168.10.191
+#重启svnserve
+pkill svnserve
+svnserve -d -r /data/svn
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-m</code> 选项用于添加注释信息。</p>
+<h2 id="svn-版本回退">SVN 版本回退</h2>
+<p>如果我们想放弃对文件的修改，可以使用 <code>revert</code> 命令。</p>
+<p>我们对 <code>README.md</code> 文件进行修改并查看状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+M       README.md
+</code></pre></td></tr></table>
+</div>
+</div><p>现在我们进行撤销操作，更改到未修改时的状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn revert README.md
+Reverted &#39;README.md&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p><code>revert</code> 不仅仅可以使单个文件恢复原状，而且可以对整个目录恢复。使用命令 <code>-R</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn revert -R zinaer
+</code></pre></td></tr></table>
+</div>
+</div><p>如果想恢复一个已经提交的版本，相当于我们需要撤销旧版本所有的更改然后提交一个新版本。比如：从版本 8 恢复到版本 7</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn merge -r 8:7 README.md
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="svn-查看历史消息">SVN 查看历史消息</h2>
+<ul>
+<li><strong>svn log</strong>：用来展示 svn 的版本作者、日期、路径等。</li>
+<li><strong>svn diff</strong>：用来显示特定修改的行级详细信息。</li>
+<li><strong>svn cat</strong>：取得在特定版本的某文件显示在当前屏幕。</li>
+<li><strong>svn list</strong>：显示一个目录或某一个版本存在的文件。</li>
+</ul>
+<h2 id="svn-分支">SVN 分支</h2>
+<p>如果希望开发进程分开成两条不同的线路时，创建不同的分支进行开发是个很好的方式。</p>
+<p>分支其实就是主线的一个 copy 版，不过分支同样具有版本控制功能，并且和主分支相互独立，最后可以将分支合并到主分支，从而成为一个项目。</p>
+<p>我们在本地创建一个 <code>zhanbai</code> 分支</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ ls
+branches/  tags/  trunk/
+
+$ svn copy trunk/ branches/zhanbai
+A         brancheszhanbai
+</code></pre></td></tr></table>
+</div>
+</div><p>查看状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+A  +    brancheszhanbai
+</code></pre></td></tr></table>
+</div>
+</div><p>提交新的分支到版本库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add zhanbai&#39;
+Adding         brancheszhanbai
+Committing transaction...
+Committed revision 9.
+</code></pre></td></tr></table>
+</div>
+</div><p>现在我们开始在 <code>zhanbai</code> 分支进行开发，创建 <code>index.html</code> 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ cd branches/zhanbai/
+
+$ ls
+hello.txt  index.html  README.md
+</code></pre></td></tr></table>
+</div>
+</div><p>将 <code>index.html</code> 加入版本控制，并提交到版本库中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+?       index.html
+
+$ svn add index.html
+A         index.html
+
+$ svn commit -m &#39;add index.html&#39;
+Adding         index.html
+Transmitting file data .done
+Committing transaction...
+Committed revision 10.
+</code></pre></td></tr></table>
+</div>
+</div><p>切换到 <code>trunk</code> 分支，并更新，然后将 <code>zhanbai</code> 分支合并到 <code>trunk</code> 中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn merge ../branches/zhanbai/
+--- Merging r10 into &#39;.&#39;:
+A    index.html
+--- Recording mergeinfo for merge of r10 into &#39;.&#39;:
+ G   .
+</code></pre></td></tr></table>
+</div>
+</div><p>此时，<code>trunk</code> 中就多了 <code>index.html</code> 文件。然后，将合并号的 <code>trunk</code> 提交到版本库中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add index.html&#39;
+Adding         index.html
+Committing transaction...
+Committed revision 12.
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="svn-标签">SVN 标签</h2>
+<p>SVN 支持打标签，也就是在项目开发中，开发到一定阶段可以单独一个版本作为发布时，往往可以打包一个固定的版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn copy trunk/ tags/v1.0
+A         tagsv1.0
+</code></pre></td></tr></table>
+</div>
+</div><p>将在 <code>tags</code> 目录下创建 <code>v1.0</code> 目录。</p>
+<p>然后查看状态，提交 <code>tag</code> 到版本库中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+A  +    tagsv1.0
+
+$ svn commit -m &#39;add v1.0&#39;
+Adding         tagsv1.0
+Committing transaction...
+Committed revision 13.
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="svn命令简明教程">svn命令简明教程</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
+</span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span><span class="lnt">293
+</span><span class="lnt">294
+</span><span class="lnt">295
+</span><span class="lnt">296
+</span><span class="lnt">297
+</span><span class="lnt">298
+</span><span class="lnt">299
+</span><span class="lnt">300
+</span><span class="lnt">301
+</span><span class="lnt">302
+</span><span class="lnt">303
+</span><span class="lnt">304
+</span><span class="lnt">305
+</span><span class="lnt">306
+</span><span class="lnt">307
+</span><span class="lnt">308
+</span><span class="lnt">309
+</span><span class="lnt">310
+</span><span class="lnt">311
+</span><span class="lnt">312
+</span><span class="lnt">313
+</span><span class="lnt">314
+</span><span class="lnt">315
+</span><span class="lnt">316
+</span><span class="lnt">317
+</span><span class="lnt">318
+</span><span class="lnt">319
+</span><span class="lnt">320
+</span><span class="lnt">321
+</span><span class="lnt">322
+</span><span class="lnt">323
+</span><span class="lnt">324
+</span><span class="lnt">325
+</span><span class="lnt">326
+</span><span class="lnt">327
+</span><span class="lnt">328
+</span><span class="lnt">329
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 1、检出</span>
+
+svn  co  http://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span>　<span class="o">[</span>本地目录全路径<span class="o">]</span>  --username 用户名 --password 密码
+svn  co  svn://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span>　<span class="o">[</span>本地目录全路径<span class="o">]</span>  --username 用户名 --password 密码
+svn  checkout  http://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span>　<span class="o">[</span>本地目录全路径<span class="o">]</span> --username　用户名
+svn  checkout  svn://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span>　<span class="o">[</span>本地目录全路径<span class="o">]</span>  --username　用户名
+注：如果不带--password 参数传输密码的话，会提示输入密码，建议不要用明文的--password 选项。
+其中 username 与 password前是两个短线，不是一个。
+不指定本地目录全路径，则检出到当前目录下。例子：****
+svn co svn://localhost/测试工具 /home/testtools --username wzhnsc
+svn co http://localhost/test/testapp --username wzhnsc
+svn checkout svn://localhost/测试工具 /home/testtools --username wzhnsc
+svn checkout http://localhost/test/testapp --username wzhnsc
+
+
+
+<span class="c1"># 2、导出(导出一个干净的不带.svn文件夹的目录树)</span>
+
+
+svn  <span class="nb">export</span>  <span class="o">[</span>-r 版本号<span class="o">]</span>  http://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span> <span class="o">[</span>本地目录全路径<span class="o">]</span>　--username　用户名
+svn  <span class="nb">export</span>  <span class="o">[</span>-r 版本号<span class="o">]</span>  svn://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span> <span class="o">[</span>本地目录全路径<span class="o">]</span>　--username　用户名
+svn  <span class="nb">export</span>  本地检出的<span class="o">(</span>即带有.svn文件夹的<span class="o">)</span>目录全路径  要导出的本地目录全路径
+
+
+
+注：第一种从版本库导出干净工作目录树的形式是指定URL，
+如果指定了修订版本号，会导出相应的版本，
+如果没有指定修订版本，则会导出最新的，导出到指定位置。
+如果省略 本地目录全路径，URL的最后一部分会作为本地目录的名字。
+第二种形式是指定 本地检出的目录全路径 到 要导出的本地目录全路径，所有的本地修改将会保留，
+但是不在版本控制下<span class="o">(</span>即没提交的新文件，因为.svn文件夹里没有与之相关的信息记录<span class="o">)</span>的文件不会拷贝。
+例子：
+
+
+svn <span class="nb">export</span> svn://localhost/测试工具 /home/testtools --username wzhnsc
+svn <span class="nb">export</span> svn://localhost/test/testapp --username wzhnsc
+svn <span class="nb">export</span> /home/testapp /home/testtools
+
+
+
+<span class="c1"># 3、添加新文件</span>
+
+
+svn　add　文件名
+
+
+注：告诉SVN服务器要添加文件了，还要用svn commint -m真实的上传上去！
+例子：svn add test.php ＜－ 添加test.php
+
+
+svn commit -m “添加我的测试用test.php“ test.php
+svn add *.php ＜－ 添加当前目录下所有的php文件
+svn commit -m “添加我的测试用全部php文件“ *.php
+
+
+<span class="c1"># 4、提交</span>
+
+
+svn　commit　-m　“提交备注信息文本“　<span class="o">[</span>-N<span class="o">]</span>　<span class="o">[</span>--no-unlock<span class="o">]</span>　文件名
+svn　ci　-m　“提交备注信息文本“　<span class="o">[</span>-N<span class="o">]</span>　<span class="o">[</span>--no-unlock<span class="o">]</span>　文件名
+
+
+必须带上-m参数，参数可以为空，但是必须写上-m
+例子：
+
+
+svn commit -m “提交当前目录下的全部在版本控制下的文件“ * ＜－ 注意这个*表示全部文件
+svn commit -m “提交我的测试用test.php“ test.php
+svn commit -m “提交我的测试用test.php“ -N --no-unlock test.php ＜－ 保持锁就用–no-unlock开关
+svn ci -m “提交当前目录下的全部在版本控制下的文件“ * ＜－ 注意这个*表示全部文件
+svn ci -m “提交我的测试用test.php“ test.phpsvn ci -m “提交我的测试用test.php“ -N --no-unlock test.php ＜－ 保持锁就用–no-unlock开关
+
+
+
+<span class="c1"># 5、更新文件</span>
+
+
+svn　update
+svn　update　-r　修正版本　文件名
+svn　update　文件名
+
+
+例子：
+
+svn update ＜－ 后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本
+svn update -r <span class="m">200</span> test.bash ＜－ 将版本库中的文件 test.bash 还原到修正版本（revision）200
+svn update test.php ＜－ 更新与版本库同步。
+
+
+
+提交的时候提示过期冲突，需要先 update 修改文件，
+然后清除svn resolved，最后再提交commit。
+
+<span class="c1"># 6、删除文件</span>
+
+
+svn　delete　svn://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span> -m “删除备注信息文本”
+
+
+
+推荐如下操作：
+
+
+svn　delete 文件名
+svn　ci　-m “删除备注信息文本”
+
+
+
+例子：
+<span class="sb">`</span>svn delete svn://localhost/testapp/test.php -m “删除测试文件test.php”<span class="sb">`</span>
+推荐如下操作：
+
+
+svn delete test.php
+svn ci -m “删除测试文件test.php”
+
+
+
+<span class="c1"># ７、加锁/解锁</span>
+
+
+svn　lock　-m　“加锁备注信息文本“　<span class="o">[</span>--force<span class="o">]</span>　文件名
+svn　unlock　文件名
+
+
+例子：
+
+
+svn lock -m “锁信测试用test.php文件“ test.php
+svn unlock test.php
+
+
+<span class="c1"># 8、比较差异</span>
+
+
+svn　diff　文件名
+svn　diff　-r　修正版本号m:修正版本号n　文件名
+
+
+
+例子：
+
+
+svn diff test.php＜－ 将修改的文件与基础版本比较
+svn diff -r 200:201 test.php＜－ 对修正版本号200 和 修正版本号201 比较差异
+
+
+
+<span class="c1"># 9、查看文件或者目录状态</span>
+
+svn st 目录路径/名
+svn status 目录路径/名＜－ 目录下的文件和子目录的状态，正常状态不显示
+                                      【?：不在svn的控制中；  M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定】
+svn status -v 目录路径/名
+svn status -v 目录路径/名＜－ 显示文件和子目录状态
+                                       【第一列保持相同，第二列显示工作版本号，第三和第四列显示最后一次修改的版本号和修改人】
+
+
+
+注：svn status、svn diff和 svn revert这三条命令在没有网络的情况下也可以执行的，
+原因是svn在本地的.svn中保留了本地版本的原始拷贝。
+
+<span class="c1"># 10、查看日志</span>
+
+
+svn　log　文件名
+
+
+
+例子：
+
+svn log test.php＜－ 显示这个文件的所有修改记录，及其版本号的变化
+
+
+<span class="c1"># 11、查看文件详细信息</span>
+
+svn　info　文件名
+
+
+
+例子：
+
+
+svn info test.php
+
+
+
+<span class="c1"># 12、SVN 帮助</span>
+
+svn　<span class="nb">help</span> ＜－ 全部功能选项
+svn　<span class="nb">help</span>　ci ＜－ 具体功能的说明
+
+
+<span class="c1"># 13、查看版本库下的文件和目录列表</span>
+
+
+svn　list　svn://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span>
+svn　ls　svn://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span>
+
+
+
+例子：
+
+
+svn list svn://localhost/test
+svn ls svn://localhost/test ＜－ 显示svn://localhost/test目录下的所有属于版本库的文件和目录
+
+
+
+<span class="c1"># 14、创建纳入版本控制下的新目录</span>
+
+
+svn　mkdir　目录名
+svn　mkdir　-m　<span class="s2">&#34;新增目录备注文本&#34;</span>　http://目录全路径
+
+
+
+例子：
+
+
+svn mkdir newdir
+svn mkdir -m <span class="s2">&#34;Making a new dir.&#34;</span> svn://localhost/test/newdir
+
+
+
+注：添加完子目录后，一定要回到根目录更新一下，不然在该目录下提交文件会提示“提交失败”
+<span class="sb">`</span>svn update<span class="sb">`</span>
+注：如果手工在checkout出来的目录里创建了一个新文件夹newsubdir，
+再用svn mkdir newsubdir命令后，SVN会提示：
+svn: 尝试用 “svn add”或 “svn add --non-recursive”代替？
+svn: 无法创建目录“hello”: 文件已经存在
+此时，用如下命令解决：
+
+
+svn add --non-recursive newsubdir
+
+
+
+在进入这个newsubdir文件夹，用ls -a查看它下面的全部目录与文件，会发现多了：.svn目录
+再用 <span class="sb">`</span>svn mkdir -m <span class="s2">&#34;添hello功能模块文件&#34;</span> svn://localhost/test/newdir/newsubdir<span class="sb">`</span>命令，
+SVN提示：
+
+
+svn: File already exists: filesystem <span class="s1">&#39;/data/svnroot/test/db&#39;</span>, transaction <span class="s1">&#39;4541-1&#39;</span>,　　path <span class="s1">&#39;/newdir/newsubdir &#39;</span>
+
+
+<span class="c1"># 15、恢复本地修改</span>
+
+
+svn　revert　<span class="o">[</span>--recursive<span class="o">]</span>　文件名
+
+
+注意: 本子命令不会存取网络，并且会解除冲突的状况。但是它不会恢复被删除的目录。
+例子：
+
+
+svn revert foo.c ＜－ 丢弃对一个文件的修改
+svn revert --recursive . ＜－恢复一整个目录的文件，. 为当前目录
+
+
+
+<span class="c1"># 16、把工作拷贝更新到别的URL</span>
+
+
+svn　switch　http://目录全路径　本地目录全路径
+
+
+例子：
+
+
+svn switch http://localhost/test/456 . ＜－ <span class="o">(</span>原为123的分支<span class="o">)</span>当前所在目录分支到localhost/test/456
+
+
+
+<span class="c1"># 17、解决冲突</span>
+
+
+svn　resolved　<span class="o">[</span>本地目录全路径<span class="o">]</span>
+
+
+
+例子：
+
+
+$ svn update
+C foo.c
+Updated to revision31.
+
+
+
+如果你在更新时得到冲突，你的工作拷贝会产生三个新的文件：
+
+
+$ ls
+foo.c
+foo.c.mine
+foo.c.r30
+foo.c.r31
+
+
+
+当你解决了foo.c的冲突，并且准备提交，运行svn resolved让你的工作拷贝知道你已经完成了所有事情。
+你可以仅仅删除冲突的文件并且提交，但是svn resolved除了删除冲突文件，还修正了一些记录在工作拷贝管理区域的记录数据，所以我们推荐你使用这个命令。
+
+<span class="c1"># 18、不checkout而查看输出特定文件或URL的内容</span>
+
+
+svn　cat　http://文件全路径
+
+
+
+例子：
+
+
+svn cat http://localhost/test/readme.txt
+
+
+
+<span class="c1"># 19、新建一个分支copy</span>
+
+
+svn copy branchA branchB  -m <span class="s2">&#34;make B branch&#34;</span> // 从branchA拷贝出一个新分支branchB
+
+
+
+<span class="c1"># 20、合并内容到分支merge</span>
+
+
+svn merge branchA branchB  // 把对branchA的修改合并到分支branchB
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-07 19:11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/svn/">svn</a>
+          <a href="/tags/code/">code</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/code/git_use/">
+            <span class="next-text nav-default">git 使用详解</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

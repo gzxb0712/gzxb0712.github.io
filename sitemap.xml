@@ -3,14 +3,56 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
+    <lastmod>2020-05-01T19:11:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
+    <lastmod>2020-05-01T19:11:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/ceph/</loc>
+    <lastmod>2020-05-01T19:11:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/storage/ceph_octopus_ops/</loc>
+    <lastmod>2020-05-01T19:11:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/</loc>
+    <lastmod>2020-05-01T19:11:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/storage/</loc>
+    <lastmod>2020-05-01T19:11:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/storage/</loc>
+    <lastmod>2020-05-01T19:11:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-05-01T19:11:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30,13 +72,6 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://xiebiao.top/tags/sonarqube/</loc>
     <lastmod>2020-04-08T19:15:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -45,13 +80,6 @@
   
   <url>
     <loc>https://xiebiao.top/post/code/sonarqube8_install/</loc>
-    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
     <lastmod>2020-04-08T19:15:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

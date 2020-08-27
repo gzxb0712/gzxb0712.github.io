@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>storage on Bill World</title>
+    <link>https://xiebiao.top/categories/storage/</link>
+    <description>Recent content in storage on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 01 May 2020 19:11:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/categories/storage/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>cephadm部署和配置Ceph Octopus</title>
+      <link>https://xiebiao.top/post/storage/ceph_octopus_ops/</link>
+      <pubDate>Fri, 01 May 2020 19:11:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/storage/ceph_octopus_ops/</guid>
+      <description>部署工具：cephadm 操作系统：CentOS 8 Ceph版本：Octopus 操作用户：root 部署前，请注意：根据目前（2020年8月）Ce</description>
+    </item>
+    
+  </channel>
+</rss>

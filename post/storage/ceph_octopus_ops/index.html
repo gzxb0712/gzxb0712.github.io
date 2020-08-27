@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>cephadm部署和配置Ceph Octopus - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="部署工具：cephadm 操作系统：CentOS 8 Ceph版本：Octopus 操作用户：root 部署前，请注意：根据目前（2020年8月）Ce" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/storage/ceph_octopus_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="cephadm部署和配置Ceph Octopus" />
+<meta property="og:description" content="部署工具：cephadm 操作系统：CentOS 8 Ceph版本：Octopus 操作用户：root 部署前，请注意：根据目前（2020年8月）Ce" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/storage/ceph_octopus_ops/" />
+<meta property="article:published_time" content="2020-05-01T19:11:30+00:00" />
+<meta property="article:modified_time" content="2020-05-01T19:11:30+00:00" />
+<meta itemprop="name" content="cephadm部署和配置Ceph Octopus">
+<meta itemprop="description" content="部署工具：cephadm 操作系统：CentOS 8 Ceph版本：Octopus 操作用户：root 部署前，请注意：根据目前（2020年8月）Ce">
+<meta itemprop="datePublished" content="2020-05-01T19:11:30+00:00" />
+<meta itemprop="dateModified" content="2020-05-01T19:11:30+00:00" />
+<meta itemprop="wordCount" content="4232">
+
+
+
+<meta itemprop="keywords" content="ceph,storage," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="cephadm部署和配置Ceph Octopus"/>
+<meta name="twitter:description" content="部署工具：cephadm 操作系统：CentOS 8 Ceph版本：Octopus 操作用户：root 部署前，请注意：根据目前（2020年8月）Ce"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">cephadm部署和配置Ceph Octopus</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-01 19:11 </span>
+        <div class="post-category">
+            <a href="/categories/storage/"> storage </a>
+            </div>
+          <span class="more-meta"> 约 4232 字 </span>
+          <span class="more-meta"> 预计阅读 9 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#准备">准备</a></li>
+        <li><a href="#安装cephadm">安装cephadm</a></li>
+        <li><a href="#部署一个小集群">部署一个小集群</a></li>
+        <li><a href="#添加节点到集群">添加节点到集群</a></li>
+        <li><a href="#配置存储池">配置存储池</a></li>
+        <li><a href="#rgw">RGW</a></li>
+        <li><a href="#块存储">块存储</a></li>
+        <li><a href="#cephfs">CephFS</a></li>
+        <li><a href="#nfs">NFS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li>部署工具：cephadm</li>
+<li>操作系统：CentOS 8</li>
+<li>Ceph版本：Octopus</li>
+<li>操作用户：root</li>
+</ul>
+<blockquote>
+<p>部署前，请注意：根据目前（2020年8月）Ceph官方文档的介绍，cephadm的对各服务的支持情况如下：</p>
+<ol>
+<li>完全支持：MON、MGR、OSD、CephFS、rbd-mirror</li>
+<li>支持但文档不全：RGW、dmcrypt OSDs</li>
+<li>开发中：NFS、iSCSI</li>
+</ol>
+</blockquote>
+<h3 id="准备">准备</h3>
+<blockquote>
+<p>除非特别说明，本小节的操作在所有节点进行。</p>
+</blockquote>
+<p>部署环境：</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP</th>
+<th>配置</th>
+<th>磁盘(除系统盘)</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ceph-mon1（虚拟机）</td>
+<td>192.168.7.11</td>
+<td>4C/8G</td>
+<td></td>
+<td>MON、prom+grafana</td>
+</tr>
+<tr>
+<td>ceph-mon2（虚拟机）</td>
+<td>192.168.7.12</td>
+<td>4C/8G</td>
+<td></td>
+<td>MON、MGR</td>
+</tr>
+<tr>
+<td>ceph-mon3（虚拟机）</td>
+<td>192.168.7.13</td>
+<td>4C/8G</td>
+<td></td>
+<td>MON、MGR</td>
+</tr>
+<tr>
+<td>ceph-osd1（物理机）</td>
+<td>192.168.7.14</td>
+<td>40C/64G</td>
+<td>1.6T SSD/4T SAS * 4</td>
+<td>OSD、MDS、NFS、RGW</td>
+</tr>
+<tr>
+<td>ceph-osd2（物理机）</td>
+<td>192.168.7.15</td>
+<td>40C/64G</td>
+<td>1.6T SSD/4T SAS * 4</td>
+<td>OSD、MDS、NFS、RGW</td>
+</tr>
+</tbody>
+</table>
+<h4 id="主机名">主机名</h4>
+<p>确定一下主机名是否正确，尤其是从虚拟机复制过来的节点：</p>
+<pre><code>hostnamectl set-hostname ceph-mon1
+</code></pre>
+<h4 id="安装容器运行时">安装容器运行时</h4>
+<p>cephadm的部署方式是基于容器进行管理的，可以安装 <code>docker</code> 或 <code>podman</code> 。</p>
+<pre><code>dnf install -y podman
+</code></pre>
+<p>为 <code>podman</code> 配置国内镜像源：</p>
+<pre><code>mv /etc/containers/registries.conf /etc/containers/registries.conf.bak
+cat &lt;&lt;EOF &gt; /etc/containers/registries.conf
+unqualified-search-registries = [&quot;docker.io&quot;]
+
+[[registry]]
+prefix = &quot;docker.io&quot;
+location = &quot;anwk44qv.mirror.aliyuncs.com&quot;
+EOF
+</code></pre>
+<h4 id="安装-epel-库">安装 <code>epel</code> 库</h4>
+<p>并配置阿里云的源。</p>
+<pre><code>yum install -y https://mirrors.aliyun.com/epel/epel-release-latest-8.noarch.rpm
+sed -i 's|^#baseurl=https://download.fedoraproject.org/pub|baseurl=https://mirrors.aliyun.com|' /etc/yum.repos.d/epel*
+sed -i 's|^metalink|#metalink|' /etc/yum.repos.d/epel*
+</code></pre>
+<h4 id="安装和配置chrony">安装和配置chrony</h4>
+<pre><code>dnf install -y chrony
+
+mv /etc/chrony.conf /etc/chrony.conf.bak
+
+cat &gt; /etc/chrony.conf &lt;&lt;EOF
+server ntp.aliyun.com iburst
+stratumweight 0
+driftfile /var/lib/chrony/drift
+rtcsync
+makestep 10 3
+bindcmdaddress 127.0.0.1
+bindcmdaddress ::1
+keyfile /etc/chrony.keys
+commandkey 1
+generatecommandkey
+logchange 0.5
+logdir /var/log/chrony
+EOF
+
+systemctl enable chronyd
+systemctl restart chronyd
+</code></pre>
+<h4 id="主机名可访问">主机名可访问</h4>
+<p>修改 <code>/etc/hosts</code> 文件，添加所有节点的IP（如果用DNS也可以）。</p>
+<pre><code>192.168.7.11   ceph-mon1
+192.168.7.12   ceph-mon2
+192.168.7.13   ceph-mon3
+192.168.7.14   ceph-osd1
+192.168.7.15   ceph-osd2
+</code></pre>
+<h4 id="关闭selinux">关闭SELINUX</h4>
+<pre><code>setenforce 0
+</code></pre>
+<p>要使 SELinux 配置永久生效（如果它的确是问题根源），需修改其配置文件 <code>/etc/selinux/config</code> 。</p>
+<pre><code>sed -i '/^SELINUX=/c SELINUX=disabled' /etc/selinux/config
+</code></pre>
+<h4 id="安装python3">安装python3</h4>
+<p>cephadm以及ceph命令基于python3运行。</p>
+<pre><code>dnf install -y python3
+</code></pre>
+<h3 id="安装cephadm">安装cephadm</h3>
+<p>以下操作在 <code>ceph-mon1</code> 节点上进行。</p>
+<p>使用 <code>curl</code> 下载最新的 <code>cephadm</code> 脚本：</p>
+<pre><code>curl --silent --remote-name --location https://github.com/ceph/ceph/raw/octopus/src/cephadm/cephadm
+chmod +x cephadm
+</code></pre>
+<p>其实这个脚本就可以用来部署了，如果要安装的话：</p>
+<pre><code>./cephadm add-repo --release octopus
+./cephadm install
+</code></pre>
+<h3 id="部署一个小集群">部署一个小集群</h3>
+<blockquote>
+<p>除非特别说明，本小节的操作在cephadm所在节点进行。</p>
+</blockquote>
+<h4 id="bootstrap">bootstrap</h4>
+<p>cephadm的部署策略是先在一个节点上部署一个Ceph cluster，然后把其他节点加进来，再部署各种所需的服务。</p>
+<p>首先部署的这个节点是一个MON，需要提供IP地址。</p>
+<pre><code>mkdir -p /etc/ceph
+cephadm bootstrap --mon-ip 192.168.7.11
+</code></pre>
+<p>这个命令会：</p>
+<ul>
+<li>创建一个有MON和MGR的新cluster。</li>
+<li>为Ceph cluster生成一个SSH key，并添加到 <code>/root/.ssh/authorized_keys</code> 。</li>
+<li>生成一个最小化的 <code>/etc/ceph/ceph.conf</code> 配置文件。</li>
+<li>为用户 <code>client.admin</code> 生成 <code>/etc/ceph/ceph.client.admin.keyring</code> 。</li>
+<li>生成公钥 <code>/etc/ceph/ceph.pub</code> ，这是 <code>cephadm</code> （ <code>ceph orch</code> 命令）用来连接其他节点的公钥。</li>
+</ul>
+<p>上面这几条是官方文档里介绍的，其实用 <code>podman ps</code> 查看一下，发现已经启动了几个容器：</p>
+<ul>
+<li>mon(ceph/ceph:v15)</li>
+<li>mgr(ceph/ceph:v15)</li>
+<li>crash(ceph/ceph:v15)，这是干嘛的？</li>
+<li>prometheus和node-exporter，用于收集监控指标数据</li>
+<li>alertmanager，以前没用过，应该是告警用的</li>
+<li>grafana，可以利用prometheus收集到的数据进行监控的可视化</li>
+</ul>
+<p>命令的输出如下：</p>
+<pre><code>...
+...
+INFO:cephadm:Ceph Dashboard is now available at:
+
+         URL: https://ceph-mon1:8443/
+        User: admin
+    Password: 91qoulprnv
+
+INFO:cephadm:You can access the Ceph CLI with:
+
+    sudo /usr/sbin/cephadm shell --fsid 1be68a48-de06-11ea-ae5e-005056b10c97 -c /etc/ceph/ceph.conf -k /etc/ceph/ceph.client.admin.keyring
+
+INFO:cephadm:Please consider enabling telemetry to help improve Ceph:
+
+    ceph telemetry on
+
+For more information see:
+
+    https://docs.ceph.com/docs/master/mgr/telemetry/
+
+INFO:cephadm:Bootstrap complete.
+</code></pre>
+<h4 id="ceph-cli">ceph cli</h4>
+<p>由于有了这些容器，其实就不需要本机安装任何Ceph的包了。</p>
+<p><code>cephadm shell</code> 能够连接容器并利用其中已安装的ceph包和命令行工具。所以执行</p>
+<pre><code>cephadm shell
+</code></pre>
+<p>就可以进入容器内部，然后执行 <code>ceph</code> 、 <code>rbd</code> 、 <code>rados</code> 等命令了。也可以添加别名：</p>
+<pre><code>alias ceph='cephadm shell -- ceph'
+# 或利用上面的输出中给出的完整的命令
+alias ceph='/usr/sbin/cephadm shell --fsid 1be68a48-de06-11ea-ae5e-005056b10c97 -c /etc/ceph/ceph.conf -k /etc/ceph/ceph.client.admin.keyring -- ceph'
+</code></pre>
+<h4 id="ceph包">ceph包</h4>
+<p>前面的 <code>./cephadm add-repo --release octopus</code> 命令创建了 <code>/etc/yum.repos.d/ceph.repo</code> 文件，处理一下使用阿里云的源：</p>
+<pre><code>sed -i 's#download.ceph.com#mirrors.aliyun.com/ceph#' /etc/yum.repos.d/ceph.repo
+dnf makecache
+</code></pre>
+<p>然后就可以安装ceph命令行工具了：</p>
+<pre><code>dnf install -y ceph-common
+ceph -v
+ceph -s
+</code></pre>
+<h3 id="添加节点到集群">添加节点到集群</h3>
+<ol>
+<li>
+<p>将cluster的SSD公钥配置到新节点的 <code>authorized_keys</code> 文件（即SSH免密）：</p>
+<p>ssh-copy-id -f -i /etc/ceph/ceph.pub root@ceph-mon2
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@ceph-mon3
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@ceph-osd1
+ssh-copy-id -f -i /etc/ceph/ceph.pub root@ceph-osd2</p>
+</li>
+<li>
+<p>添加节点到cluster：</p>
+<p>ceph orch host add ceph-mon2
+ceph orch host add ceph-mon3
+ceph orch host add ceph-osd1
+ceph orch host add ceph-osd2</p>
+</li>
+</ol>
+<h4 id="添加mon节点">添加MON节点</h4>
+<p>通常Ceph需要部署3或5个MON节点，如果后来添加的节点与bootstrap的节点是在一个子网里，那么Ceph会自动将添加的节点部署上MON服务，直至达到5个。如要调整：</p>
+<pre><code># ceph orch apply mon *&lt;number-of-monitors&gt;*
+ceph orch apply mon 3
+</code></pre>
+<p>（方法一）如果要指定MON部署到哪几个具体的节点：</p>
+<pre><code># ceph orch apply mon *&lt;host1,host2,host3,...&gt;*
+ceph orch apply mon ceph-mon1,ceph-mon2,ceph-mon3
+</code></pre>
+<p>（方法二）此外，还可以用标签来进行指定：</p>
+<pre><code># ceph orch host label add *&lt;hostname&gt;* mon
+ceph orch host label add ceph-mon1 mon
+ceph orch host label add ceph-mon2 mon
+ceph orch host label add ceph-mon3 mon
+
+# 然后指定
+ceph orch apply mon label:mon
+</code></pre>
+<p>可以查看一下标签情况：</p>
+<pre><code>❯ ceph orch host ls
+HOST       ADDR       LABELS  STATUS
+ceph-mon1  ceph-mon1  mon
+ceph-mon2  ceph-mon2  mon
+ceph-mon3  ceph-mon3  mon
+ceph-osd1  ceph-osd1
+ceph-osd2  ceph-osd2
+</code></pre>
+<p>（方法三）还支持用YAML文件来指定：</p>
+<pre><code>service_type: mon
+placement:
+  hosts:
+   - ceph-mon1
+   - ceph-mon2
+   - ceph-mon3
+</code></pre>
+<h4 id="配置mgr">配置MGR</h4>
+<blockquote>
+<p>本小节及以后的操作可以在任何安装有 <code>ceph-common</code> 包并且能够连接Ceph集群（有 <code>/etc/ceph/ceph.conf</code> 和具有管理权限的key文件）的节点上运行。</p>
+</blockquote>
+<p>添加节点后，Ceph会自动启动MGR节点：</p>
+<pre><code>❯ ceph orch ls --service_type mgr
+NAME  RUNNING  REFRESHED  AGE  PLACEMENT  IMAGE NAME               IMAGE ID
+mgr       2/2  10m ago    74m  count:2    docker.io/ceph/ceph:v15  54fa7e66fb03
+</code></pre>
+<p>可以看到，它启动了两个，其中一个是bootstrap的时候指定的 <code>ceph-mon1</code> 节点。</p>
+<p>使用 <code>ceph orch ps --daemon_type mgr</code> 可以看到，在那两台节点上运行有mgr的容器。</p>
+<p>我这部署的时候占用了 <code>ceph-osd1</code> 节点，仿照MON的标签方式：</p>
+<pre><code>ceph orch host label add ceph-mon2 mgr
+ceph orch host label add ceph-mon3 mgr
+ceph orch apply mgr label:mgr
+</code></pre>
+<p>在OSD节点安装 <code>smartmontools(7)</code> ，默认安装的6版本无法满足需求。</p>
+<pre><code>http://fr2.rpmfind.net/linux/centos/8-stream/BaseOS/x86_64/os/Packages/smartmontools-7.1-1.el8.x86_64.rpm
+</code></pre>
+<h4 id="添加osd设备">添加OSD设备</h4>
+<p>查看设备：</p>
+<pre><code>ceph orch device ls
+</code></pre>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly90dmExLnNpbmFpbWcuY24vbGFyZ2UvMDA3UzhaSWxseTFnaHFncjU5Ymo1ajMyNXUwaTBxNWcuanBn?x-oss-process=image/format,png" alt=""></p>
+<p>满足以下条件的设备时 <code>AVAIL=True</code> 的：</p>
+<ul>
+<li>没有分区</li>
+<li>没有LVM配置</li>
+<li>没有被挂载</li>
+<li>没有文件系统</li>
+<li>没有Ceph BlueStore OSD</li>
+<li>大于5GB</li>
+</ul>
+<p>否则无法置备对应的设备。</p>
+<p>两种添加办法：</p>
+<ul>
+<li>自动添加所有的可用设备</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+    <span class="c1"># ceph orch apply osd --all-available-devices</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>手动添加设备（这里先只添加2个ssd和2个hdd）</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+    <span class="c1"># ceph orch daemon add osd *&lt;host&gt;*:*&lt;device-path&gt;*</span>
+    ceph orch daemon add osd ceph-osd1:/dev/nvme0n1
+    ceph orch daemon add osd ceph-osd2:/dev/nvme0n1
+    ceph orch daemon add osd ceph-osd1:/dev/sdb
+    ceph orch daemon add osd ceph-osd2:/dev/sdb
+
+</code></pre></td></tr></table>
+</div>
+</div><p>此时，在 <code>ceph-osd1</code> 和 <code>ceph-osd2</code> 两个节点可以看到为每一个OSD启动了一个容器。</p>
+<p>虽然标签对OSD不起作用，不过还是打上，方便查看：</p>
+<pre><code>ceph orch host label add ceph-osd1 osd
+ceph orch host label add ceph-osd2 osd
+</code></pre>
+<h3 id="配置存储池">配置存储池</h3>
+<p>为了分别测试SSD和HDD的性能，配置两个存储池，存储池 <code>ssd</code> 落在两块SSD上，而存储池 <code>hdd</code> 落在HDD上。</p>
+<p>通过CRUSH rule来实现这一点，执行 <code>ceph osd tree</code> 查看现有的osd：</p>
+<pre><code>❯ ceph osd tree
+ID  CLASS  WEIGHT    TYPE NAME           STATUS  REWEIGHT  PRI-AFF
+-1         10.18738  root default
+-3          5.09369      host ceph-osd1
+ 2    hdd   3.63820          osd.2           up   1.00000  1.00000
+ 0    ssd   1.45549          osd.0           up   1.00000  1.00000
+-5          5.09369      host ceph-osd2
+ 3    hdd   3.63820          osd.3           up   1.00000  1.00000
+ 1    ssd   1.45549          osd.1           up   1.00000  1.00000
+</code></pre>
+<p>可以看到 <code>CLASS</code> 一列已经自动对添加的设备进行了 <code>ssd</code> 和 <code>hdd</code> 的分类。</p>
+<p>下面创建两个CRUSH rule，根据 <code>CLASS</code> 进行区分：</p>
+<pre><code># 先查看现有的rule
+❯ ceph osd crush rule ls
+replicated_rule
+
+# 创建两个replicated rule
+# 格式：ceph osd crush rule create-replicated &lt;rule-name&gt; &lt;root&gt; &lt;failure-domain&gt; &lt;class&gt;
+❯ ceph osd crush rule create-replicated on-ssd default host ssd
+❯ ceph osd crush rule create-replicated on-hdd default host hdd
+</code></pre>
+<p>故障域设置为 <code>host</code> ，由于我这只有两台 <code>host</code> ，所以 <code>replica_size</code> 只能为 <code>2</code> 。</p>
+<pre><code>ceph config set global osd_pool_default_size 2
+</code></pre>
+<p>创建两个存储池，并通过 <code>rule</code> 进行约束：</p>
+<pre><code>❯ ceph osd pool create bench.ssd 64 64 on-ssd
+pool 'bench.ssd' created
+❯ ceph osd pool create bench.hdd 128 128 on-hdd
+pool 'bench.hdd' created
+❯ ceph osd pool ls detail
+pool 1 'device_health_metrics' replicated size 3 min_size 2 crush_rule 0 ...
+pool 2 'bench.ssd' replicated size 2 min_size 1 crush_rule 1 object_hash rjenkins pg_num 64 pgp_num 64 autoscale_mode on last_change 46 flags hashpspool stripe_width 0
+pool 3 'bench.hdd' replicated size 2 min_size 1 crush_rule 2 object_hash rjenkins pg_num 125 pgp_num 120 pg_num_target 32 pgp_num_target 32 pg_num_pending 124 autoscale_mode on last_change 67 lfor 0/67/67 flags hashpspool stripe_width 0
+</code></pre>
+<p>可以看到，新增加的两个pool都是 <code>size 2</code> ，不过 <code>bench.hdd</code> 的pg数量有些奇怪， <code>ceph -s</code> 看一下：</p>
+<pre><code>❯ ceph -s
+  cluster:
+    id:     1be68a48-de06-11ea-ae5e-005056b10c97
+    health: HEALTH_OK
+
+  services:
+    mon: 3 daemons, quorum ceph-mon2,ceph-mon3,ceph-mon1 (age 35m)
+    mgr: ceph-mon2.puzrvy(active, since 2d), standbys: ceph-mon3.gvdtdw
+    mds:  2 up:standby
+    osd: 4 osds: 4 up (since 2d), 4 in (since 2d); 1 remapped pgs
+
+  data:
+    pools:   3 pools, 146 pgs
+    objects: 4 objects, 0 B
+    usage:   4.1 GiB used, 10 TiB / 10 TiB avail
+    pgs:     0.685% pgs not active
+             145 active+clean
+             1   clean+premerge+peered
+
+  progress:
+    PG autoscaler decreasing pool 3 PGs from 128 to 32 (4m)
+      [=============...............] (remaining: 4m)
+</code></pre>
+<p>发现健康状况是 <code>HEALTH_OK</code> 的，不过下方的 <code>progress</code> 确实正在进行PG数量的调整，原来在<a href="https://ceph.io/rados/new-in-nautilus-pg-merging-and-autotuning/">Ceph nautilus版本引入了PG的自动调整功能</a>，难道不用指定具体的 <code>pg_num</code> 和 <code>pgp_num</code> 了吗，试一下：</p>
+<pre><code>❯ ceph osd pool create testpg on-hdd
+pool 'testpg' created
+❯ ceph osd pool ls detail
+...
+pool 4 'testpg' replicated size 2 min_size 1 crush_rule 2 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode on last_change 458 flags hashpspool stripe_width 0
+</code></pre>
+<p>不错，看来以后不用找公式算PG个数了。删除测试pool：</p>
+<pre><code>❯ ceph config set mon mon_allow_pool_delete true
+❯ ceph osd pool rm testpg testpg --yes-i-really-really-mean-it
+pool 'testpg' removed
+</code></pre>
+<h3 id="rgw">RGW</h3>
+<h4 id="部署rgw-daemon">部署RGW daemon</h4>
+<p>首先，创建RGW的 <code>realm</code> 、 <code>zonegroup</code> 和 <code>zone</code> ：</p>
+<pre><code># radosgw-admin realm create --rgw-realm=&lt;realm-name&gt; --default
+❯ radosgw-admin realm create --rgw-realm=testenv --default
+# radosgw-admin zonegroup create --rgw-zonegroup=&lt;zonegroup-name&gt;  --master --default
+❯ radosgw-admin zonegroup create --rgw-zonegroup=mr --master --default
+# radosgw-admin zone create --rgw-zonegroup=&lt;zonegroup-name&gt; --rgw-zone=&lt;zone-name&gt; --master --default
+❯ radosgw-admin zone create --rgw-zonegroup=mr --rgw-zone=room1 --master --default
+</code></pre>
+<p>部署RGW的命令如下（实例命令部署在了两个OSD的机器上）：</p>
+<pre><code># ceph orch apply rgw *&lt;realm-name&gt;* *&lt;zone-name&gt;* --placement=&quot;*&lt;num-daemons&gt;* [*&lt;host1&gt;* ...]&quot;
+❯ ceph orch apply rgw testenv mr-1 --placement=&quot;2 ceph-osd1 ceph-osd2&quot;
+</code></pre>
+<h4 id="配置dashboard">配置dashboard</h4>
+<p>由于RGW拥有自己的一套账号体系，所以为了让Dashboard能够查看RGW相关信息，需要在RGW中创建一个dashboard用的账号，以便能够查询相关信息</p>
+<p>首先，创建用户：</p>
+<pre><code>❯ radosgw-admin user create --uid=dashboard --display-name=dashboard --system
+...
+    &quot;keys&quot;: [
+        {
+            &quot;user&quot;: &quot;dashboard&quot;,
+            &quot;access_key&quot;: &quot;EC25NETO4CXIISOB32WY&quot;,
+            &quot;secret_key&quot;: &quot;XrZQcFv7c56kidMtnwFGBSDApseQLwA1VPYolCZA&quot;
+        }
+    ],
+...
+</code></pre>
+<p>然后，将 <code>access_key</code> 和 <code>secret_key</code> 配置到dashboard：</p>
+<pre><code>❯ ceph dashboard set-rgw-api-access-key &quot;EC25NETO4CXIISOB32WY&quot;
+❯ ceph dashboard set-rgw-api-secret-key &quot;XrZQcFv7c56kidMtnwFGBSDApseQLwA1VPYolCZA&quot;
+</code></pre>
+<h4 id="修改相关存储池到ssd上">修改相关存储池到SSD上</h4>
+<p>除了具体放对象数据的存储池（通常是以 <code>.data</code> 结尾的），将其他的存储池迁至SSD上，如：</p>
+<pre><code>ceph osd pool set .rgw.root crush_rule on-ssd
+...
+</code></pre>
+<h3 id="块存储">块存储</h3>
+<p>首先，为 <code>bench.hdd</code> 两个存储池开启 <code>rbd</code> 的application。</p>
+<pre><code>❯ ceph osd pool application enable bench.hdd rbd
+enabled application 'rbd' on pool 'bench.hdd'
+</code></pre>
+<p>然后创建RBD镜像：</p>
+<pre><code>❯ rbd create bench.hdd/disk1 --size 102400
+</code></pre>
+<p>将RBD镜像映射到块设备：</p>
+<pre><code>❯ rbd map bench.hdd/disk1
+/dev/rbd0
+</code></pre>
+<p>然后用XFS格式化，并挂载：</p>
+<pre><code>❯ mkfs.xfs /dev/rbd0
+❯ mount /dev/rbd0 /mnt/rbd
+</code></pre>
+<h3 id="cephfs">CephFS</h3>
+<h4 id="配置mds节点">配置MDS节点</h4>
+<p>同样用标签的方式：</p>
+<pre><code>ceph orch host label add ceph-osd1 mds
+ceph orch host label add ceph-osd2 mds
+
+# ceph orch apply mds &lt;cephfs_name&gt; label:mds
+ceph orch apply mds cephfs label:mds
+</code></pre>
+<h4 id="创建cephfs">创建CephFS</h4>
+<p>有两种方式：</p>
+<ol>
+<li>
+<p>利用ceph的编排功能自动创建（名称为 <code>cephfs</code> ）：</p>
+<p>❯ ceph fs volume create cephfs</p>
+</li>
+</ol>
+<p>关于CephFS，可以从下图了解其基本原理：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/gzxb0712/img/blog/ceph-1.png" alt=""></p>
+<p>CephFS底层是基于RADOS的，具体来说是基于RADOS上的两个存储池，一个用来存储文件，一个用来存储文件的元数据。所以，诸如文件的目录结构等信息都是在元数据存储池里的，因此，如果有SSD，建议把元数据的存储池放在SSD上，一方面加速，另一方面，元数据的体积并不会特别大。而文件数据存储池应该放在HDD上。</p>
+<pre><code># 先查看一下两个存储池
+❯ ceph osd pool ls detail
+...
+pool 5 'cephfs.cephfs.meta' replicated size 2 min_size 1 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode on last_change 463 flags hashpspool stripe_width 0 pg_autoscale_bias 4 pg_num_min 16 recovery_priority 5 application cephfs
+pool 6 'cephfs.cephfs.data' replicated size 2 min_size 1 crush_rule 0 object_hash rjenkins pg_num 32 pgp_num 32 autoscale_mode on last_change 464 flags hashpspool stripe_width 0 application cephfs
+
+# 通过修改CRUSH rule来将它们分别约束到SSD和HDD上
+❯ ceph osd pool set cephfs.cephfs.meta crush_rule on-ssd
+set pool 5 crush_rule to on-ssd
+❯ ceph osd pool set cephfs.cephfs.data crush_rule on-hdd
+set pool 6 crush_rule to on-hdd
+</code></pre>
+<ol start="2">
+<li>手动创建CephFS</li>
+</ol>
+<p>当然，也可以通过手动的方式创建CephFS（假设名称为 <code>mycephfs</code> ）：</p>
+<pre><code># 先创建两个存储池
+❯ ceph osd pool create cephfs.mycephfs.meta on-ssd
+❯ ceph osd pool create cephfs.mycephfs.data on-hdd
+
+# 然后创建CephFS
+# ceph fs new &lt;CephFS名称&gt; &lt;元数据存储池&gt; &lt;文件数据存储池&gt;
+❯ ceph fs new mycephfs cephfs.mycephfs.meta cephfs.mycephfs.data
+</code></pre>
+<p>最后，挂载CephFS（需要安装ceph-commons）：</p>
+<pre><code>❯ mkdir -p /mnt/cephfs
+❯ mount -t ceph :/ /mnt/cephfs -o name=admin,secret=AQBYSjZfQF+UJBAAC6QJjNACndkw2LcCR2XLFA==
+</code></pre>
+<h3 id="nfs">NFS</h3>
+<p>Ceph推荐使用NFS-ganesha来提供NFS服务。</p>
+<p>首先创建存储池 <code>nfs-ganesha</code> （创建在SSD上）：</p>
+<pre><code>❯ ceph osd pool create nfs-ganesha on-ssd
+# 以下这句可以不用执行，不过会有个”1 pool(s) do not have an application enabled“的WARN
+❯ ceph osd pool application nfs-ganesha nfs
+</code></pre>
+<p>然后利用 <code>cephadm</code> 部署NFS服务（这里我放在了两个OSD主机上了）：</p>
+<pre><code># ceph orch apply nfs *&lt;svc_id&gt;* *&lt;pool&gt;* *&lt;namespace&gt;* --placement=&quot;*&lt;num-daemons&gt;* [*&lt;host1&gt;* ...]&quot;
+❯ ceph orch apply nfs nfs nfs-ganesha nfs-ns --placement=&quot;ceph-osd1 ceph-osd2&quot;
+</code></pre>
+<p>为了在dashboard中进行操作，可以进行如下设置：</p>
+<pre><code>❯ ceph dashboard set-ganesha-clusters-rados-pool-namespace nfs-ganesha/nfs-ns
+</code></pre>
+<p>Ceph的NFS是基于CephFS提供的，我们首先在CephFS中创建一个 <code>/nfs</code> 目录，用于作为NFS服务的根目录。</p>
+<pre><code># 前一步骤中已经挂载了CephFS到/mnt/cephfs
+❯ mkdir /mnt/cephfs/nfs
+</code></pre>
+<p>其中 <code>mount</code> 的时候的secret是 <code>/etc/ceph/ceph.client.admin.keyring</code> 的值，也可以替换成 <code>secretfile=/etc/ceph/ceph.client.admin.keyring</code> 。</p>
+<p>最后，在dashboard中创建一个NFS即可：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly90dmExLnNpbmFpbWcuY24vbGFyZ2UvMDA3UzhaSWxseTFnaHR2OGI5c21iajMwdTAwdjgwdTYuanBn?x-oss-process=image/format,png" alt=""></p>
+<p>挂载NFS：</p>
+<pre><code>mount -t nfs 192.168.7.14:/nfs /mnt/nfs
+</code></pre>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-01 19:11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ceph/">ceph</a>
+          <a href="/tags/storage/">storage</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/code/sonarqube8_install/">
+            <span class="next-text nav-default">sonarqube8 搭建使用</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 01 Apr 2020 22:18:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2020 23:00:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>gateway</title>
+      <link>https://xiebiao.top/tags/gateway/</link>
+      <pubDate>Sat, 04 Apr 2020 23:00:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/gateway/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kong</title>
+      <link>https://xiebiao.top/tags/kong/</link>
+      <pubDate>Sat, 04 Apr 2020 23:00:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/kong/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenResty</title>
+      <link>https://xiebiao.top/tags/OpenResty/</link>
+      <pubDate>Fri, 03 Apr 2020 22:23:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/OpenResty/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>center</title>

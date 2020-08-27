@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>OpenResty搭建高性能服务端 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/gateway/openresty_doc/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="OpenResty搭建高性能服务端" />
+<meta property="og:description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/gateway/openresty_doc/" />
+<meta property="article:published_time" content="2020-04-03T22:23:30+00:00" />
+<meta property="article:modified_time" content="2020-04-03T22:23:30+00:00" />
+<meta itemprop="name" content="OpenResty搭建高性能服务端">
+<meta itemprop="description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超">
+<meta itemprop="datePublished" content="2020-04-03T22:23:30+00:00" />
+<meta itemprop="dateModified" content="2020-04-03T22:23:30+00:00" />
+<meta itemprop="wordCount" content="6135">
+
+
+
+<meta itemprop="keywords" content="OpenResty,gateway," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="OpenResty搭建高性能服务端"/>
+<meta name="twitter:description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">OpenResty搭建高性能服务端</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-03 22:23 </span>
+        <div class="post-category">
+            <a href="/categories/gateway/"> gateway </a>
+            </div>
+          <span class="more-meta"> 约 6135 字 </span>
+          <span class="more-meta"> 预计阅读 13 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#openresty-简介">OpenResty 简介</a></li>
+    <li><a href="#hello-world">Hello World</a>
+      <ul>
+        <li><a href="#openresty安装">OpenResty安装</a></li>
+        <li><a href="#第一个程序">第一个程序</a></li>
+      </ul>
+    </li>
+    <li><a href="#openresty-入门">OpenResty 入门</a></li>
+    <li><a href="#ngx_lua-api介绍">ngx_lua API介绍</a></li>
+    <li><a href="#连接数据库">连接数据库</a>
+      <ul>
+        <li><a href="#连接-mysql">连接 MySQL</a></li>
+        <li><a href="#连接-redis">连接 Redis</a></li>
+      </ul>
+    </li>
+    <li><a href="#openresty-缓存">OpenResty 缓存</a>
+      <ul>
+        <li><a href="#使用-lua-shared-dict">使用 Lua shared dict</a></li>
+        <li><a href="#使用-lua-lru-cache">使用 Lua LRU cache</a></li>
+      </ul>
+    </li>
+    <li><a href="#ffi和第三方模块">FFI和第三方模块</a>
+      <ul>
+        <li><a href="#ffi">FFI</a></li>
+        <li><a href="#增加第三方模块">增加第三方模块</a></li>
+      </ul>
+    </li>
+    <li><a href="#子查询">子查询</a></li>
+    <li><a href="#执行阶段">执行阶段</a></li>
+    <li><a href="#总结与自学">总结与自学</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="openresty-简介">OpenResty 简介</h2>
+<blockquote>
+<p><code>OpenResty®</code> 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超高并发、扩展性极高的动态 Web 应用、Web 服务和动态网关。</p>
+</blockquote>
+<p>OpenResty 基于<code>Nginx</code>开发，可以简单认为是 <code>Nginx</code> + <code>lua-nginx-module</code>的组合版。
+学习笔记，内容主要是以老师的讲解为主，加上部分自己补充或理解的内容。</p>
+<p>本文环境：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">1. 下载源代码   wget https://openresty.org/download/openresty-1.17.8.2.tar.gz
+
+2. 解压缩   tar xvf openresty-1.17.8.2.tar.gz
+
+3. 安装第三方依赖包
+
+apt-get install libpcre3-dev libssl-dev perl make build-essential curl
+
+4. cd openresty...
+
+5. ./configure -j2
+
+nginx path prefix: &#34;/usr/local/openresty/nginx&#34;
+nginx binary file: &#34;/usr/local/openresty/nginx/sbin/nginx&#34;
+nginx modules path: &#34;/usr/local/openresty/nginx/modules&#34;
+
+6. make -j2
+
+7. make install
+
+就可以把编译后的二进制文件，copy到对应的文件夹中。
+
+8. （可选）， 修改登录后的该用户的配置文件
+
+
+</code></pre></td></tr></table>
+</div>
+</div><p>附：nginx配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+	worker_connections 768;
+	# multi_accept on;
+}
+
+http {
+
+	sendfile on;
+	tcp_nopush on;
+	tcp_nodelay on;
+	keepalive_timeout 65;
+	types_hash_max_size 2048;
+	# server_tokens off;
+
+	# server_names_hash_bucket_size 64;
+	# server_name_in_redirect off;
+
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+	ssl_prefer_server_ciphers on;
+
+	access_log /var/log/nginx/access.log;
+	error_log /var/log/nginx/error.log;
+
+	gzip on;
+	gzip_disable &#34;msie6&#34;;
+
+	gzip_vary on;
+	gzip_proxied any;
+	gzip_comp_level 6;
+	gzip_buffers 16 8k;
+	gzip_http_version 1.1;
+	gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>mkdir  vhosts
+cd vhosts
+vi xxx_admin.conf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+
+upstream gateway {
+    server xx.xx.xx.xxx:80xx;
+}
+server {
+    listen       8088;
+    server_name client.bbbbbb.com;
+    access_log logs/client.access.log main;
+    error_log  logs/client.error.log crit;
+    location / {
+        root   html;
+       # index  index.html index.htm;
+    }
+    location ^~/api {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_buffering off;
+        rewrite ^/api/(.*)$ /$1 break;
+        proxy_pass http://gateway;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>官网：<a href="https://openresty.org/cn/">https://openresty.org/cn/</a>
+官方文档：<a href="https://github.com/openresty/lua-nginx-module#version">https://github.com/openresty/&hellip;</a></p>
+<p>高性能服务端两个重要要素：需要支持缓存，语言层面要支持异步非堵塞。</p>
+<p>缓存速度上，内存 &gt; SSD &gt; 机械磁盘；本机 &gt; 网络 ； 进程内 &gt; 进程间 。异步非阻塞指的是事件驱动方式（事件完成后再通知）。</p>
+<p>OpenResty 包含的技术：</p>
+<ul>
+<li>Nginx：不仅仅是负载均衡+反向代理等功能，Nginx c module开发成本高。</li>
+<li>LuaJIT：OpenResty用的是 LuaJIT，LuaJIT 是主打性能的Lua。</li>
+</ul>
+<p><code>OpenResty</code> 本质上是将 <code>LuaJIT</code> 的虚拟机嵌入到 Nginx的worker中，所以效率特别高，在性能上，<code>OpenResty</code> 接近或超过 Nginx c module：
+<img src="https://segmentfault.com/img/remote/1460000019283049" alt=""></p>
+<p>OpenResty已经颠覆了高性能服务端的开发模式。</p>
+<p><code>OpenResty</code>与市面上其他语言对比：</p>
+<ul>
+<li>node.js：第一门将异步非阻塞特性放入自己语言中的，前端同学可以快速切入。但是 node.js 用回调(callback)实现异步非阻塞，代码写起来比较麻烦。</li>
+<li>Python：3.4之后加入了异步的支持，比如异步io和aiohttp；3.5引入了协程。缺点是版本跨度大，因为很多人还是使用2.7。</li>
+<li>Golang：最近几年非常火。缺点：代码写法上需要使用go关键字；线上热调试不方便（<code>SystemTap</code> 提供了有限的支持）。</li>
+</ul>
+<h2 id="hello-world">Hello World</h2>
+<h3 id="openresty安装">OpenResty安装</h3>
+<p>以 CentOS 为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /opt &amp;&amp; cd /opt
+
+# download openresty
+wget https://openresty.org/download/openresty-1.13.6.2.tar.gz
+
+tar zxvf openresty-1.13.6.2.tar.gz
+cd openresty-1.13.6.2
+
+# configure
+./configure --prefix=/usr/local/openresty -j4
+
+make -j4 &amp;&amp; make install
+</code></pre></td></tr></table>
+</div>
+</div><p>其中 源码包可以到 <a href="https://openresty.org/cn/download.html">https://openresty.org/cn/down&hellip;</a> 该页面获取。
+<code>-j4</code>表示使用4核。<code>configure</code>那一步还可以指定各种参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">./configure --prefix=/usr/local/openresty 
+            --with-luajit 
+            --without-http_redis2_module 
+            --with-http_iconv_module 
+            --with-http_postgres_module
+</code></pre></td></tr></table>
+</div>
+</div><p>使用 <code>./configure --help</code> 查看更多的选项。</p>
+<p>其它系统环境上安装可以参考 <a href="https://openresty.org/cn/installation.html">https://openresty.org/cn/inst&hellip;</a> 。</p>
+<p>其实安装 OpenResty 和安装 Nginx 是类似的，因为 OpenResty 是基于 Nginx 开发的。</p>
+<p>如果已经安装了 Nginx，又想使用 OpenResty 的功能，可以参考 《Nginx编译安装Lua》：<a href="https://www.cnblogs.com/52fhy/p/10164553.html">https://www.cnblogs.com/52fhy&hellip;</a> 一文安装<code>lua-nginx-module</code>模块即可。</p>
+<h3 id="第一个程序">第一个程序</h3>
+<p>修改 <code>/usr/local/openresty/nginx/conf/nginx.conf</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">worker_processes  1;
+error_log logs/error.log;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen 8080;
+        location /hello {
+            default_type text/html;
+            content_by_lua &#39;
+                ngx.say(&#34;&lt;p&gt;hello, world&lt;/p&gt;&#34;)
+            &#39;;
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>把默认的<code>80</code>端口改为<code>8080</code>，新增<code>/hello</code>部分。</p>
+<p>其中<code>content_by_lua</code>便是 OpenResty 提供的指令，在官方文档可以搜索到：</p>
+<p><img src="https://segmentfault.com/img/remote/1460000019283050" alt=""></p>
+<p>现在我们启动OpenResty：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/openresty/nginx/sbin/nginx
+</code></pre></td></tr></table>
+</div>
+</div><p>启动成功后，查看效果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl http://127.0.0.1:8080/hello
+&lt;p&gt;hello, world&lt;/p&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>说明成功运行了。</p>
+<p>知识点：
+1、<code>content_by_lua</code>：返回的内容使用 lua 代码。
+2、<code>content_by_lua_file</code>：读取lua文件里的 lua 代码。
+3、默认情况下，修改Lua代码，需要 reload OpenResty服务才会生效。可以修改<code>lua_code_cache</code>为<code>off</code>，作用域： http, server, location, location if。请勿在生产环境里开启。</p>
+<p>测试1：使用<code>content_by_lua_file</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /usr/local/openresty
+mkdir nginx/conf/lua
+vim nginx/conf/lua/hello.lua
+</code></pre></td></tr></table>
+</div>
+</div><p>内容为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ngx.say(&#34;&lt;p&gt;hello, lua world&lt;/p&gt;&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><p>然后修改 nginx.conf：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /hello {
+    default_type text/html;
+    content_by_lua_file conf/lua/hello.lua;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>重启 OpenResty：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ ./nginx/sbin/nginx -s reload
+</code></pre></td></tr></table>
+</div>
+</div><p>启动成功后，查看效果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl http://127.0.0.1:8080/hello
+&lt;p&gt;hello, lua world&lt;/p&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>测试2：关闭<code>lua_code_cache</code>：
+根据<code>lua_code_cache</code>作用域，我们可以在server块加上：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">lua_code_cache off;
+location /hello {
+    default_type text/html;
+    content_by_lua_file conf/lua/hello.lua;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>然后重启：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ ./nginx/sbin/nginx -s reload
+nginx: [alert] lua_code_cache is off; this will hurt performance in /usr/local/openresty/nginx/conf/nginx.conf:43
+</code></pre></td></tr></table>
+</div>
+</div><p>提示说<code>lua_code_cache</code>关闭后影响性能。我们再次修改 <code>nginx/conf/lua/hello.lua</code>的代码，保存后就会生效，无需 reload server。</p>
+<h2 id="openresty-入门">OpenResty 入门</h2>
+<p>这节使用 ngx_lua api完成一个小功能。</p>
+<p>lua代码：
+nginx/conf/lua/get_random_string.lua</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-- 实现随机字符串
+
+local args = ngx.req.get_uri_args()
+local salt = args.salt
+
+if not salt then
+        ngx.exit(ngx.HTTP_BAD_REQUEST)
+end
+
+local str = ngx.md5(ngx.time() .. salt)
+ngx.say(str)
+</code></pre></td></tr></table>
+</div>
+</div><p>修改 nginx.conf ，新增：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /get_random_string {
+    content_by_lua_file conf/lua/get_random_string.lua;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>由于修改了 nginx.conf ，需要reload OpenResty 服务。然后，我们访问服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl http://127.0.0.1:8080/get_random_string?salt=2
+2d8231ff301ab0ce8b95c7e4c2c59574
+
+$ curl http://127.0.0.1:8080/get_random_string?salt=2
+c145db4ec45a6bf792ac30ed4246c563
+</code></pre></td></tr></table>
+</div>
+</div><p>说明：
+1、<a href="https://github.com/openresty/lua-nginx-module#ngxreqget_uri_args"><code>ngx.req.get_uri_args()</code></a>用于获取URI请求参数。
+2、<a href="https://github.com/openresty/lua-nginx-module#http-status-constants"><code>ngx.HTTP_BAD_REQUEST</code></a>为ngx常量，指的是400。代码里尽量使用常量。
+3、<code>ngx.time()</code>用于获取时间戳，是带有缓存的。与Lua的日期库不同，不涉及系统调用。尽量使用Ngx给出的方法，以免发生性能问题。
+4、<code>ngx.md5()</code>用于生成md5值。
+5、如果代码里有语法错误，我们可以通过nginx 的 error.log里看到，默认文件是 <code>nginx/logs/error.log</code>。</p>
+<blockquote>
+<p>再次提醒大家，做 OpenResty 开发，<a href="https://github.com/openresty/lua-nginx-module">lua-nginx-module</a> 的文档是你的首选，Lua 语言的库都是同步阻塞的，用的时候要三思。也就是说，尽量使用 ngx_lua提供的api，而不是使用 Lua 本身的。例如<code>ngx.sleep()</code>与 lua提供的sleep，前者不会造成阻塞，后者是会阻塞的，详见： <a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/ngx_lua/sleep.html">sleep · OpenResty最佳实践</a> 。</p>
+</blockquote>
+<h2 id="ngx_lua-api介绍">ngx_lua API介绍</h2>
+<p>本节主要是带着大家简单的过一下常用的ngx_lua API。</p>
+<p>ngx_lua 有60多个<a href="https://github.com/openresty/lua-nginx-module#directives">指令</a>(Directive)，140多个 <a href="https://github.com/openresty/lua-nginx-module#nginx-api-for-lua">API</a>（截止到2019-3-26）。</p>
+<p><strong>指令</strong> 是 ngx_lua 提供给Nginx调用的方法，与 Nginx自带的 <code>location</code>、<code>rewrite</code>等是一个级别的。指令有自己的作用域，例如：<code>content_by_lua_file</code>只能作用于 <code>location</code>和<code>location if</code>里面：</p>
+<p><img src="https://segmentfault.com/img/remote/1460000019283051" alt=""></p>
+<p><strong>API</strong> 是指ngx_lua基于lua代码实现的一系列方法或常量，遵循 lua的语法规则。只能在lua代码块或者lua文件里使用。</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">content_by_lua &#39;
+    ngx.say(&#34;&lt;p&gt;hello, world&lt;/p&gt;&#34;)
+&#39;;
+</code></pre></td></tr></table>
+</div>
+</div><p>其中<code>content_by_lua</code>是指令，作用于<code>location</code>块；<code>ngx.say()</code>是 ngx_lua 提供的API。</p>
+<p>在官方文档上可以找到指令及API所在的位置：</p>
+<p><img src="https://segmentfault.com/img/remote/1460000019283052" alt=""></p>
+<p>下面，我们使用 ngx_lua完成另外一个小功能：实现base64的解码并重新json编码输出。代码里会用到一些指令和API。</p>
+<p>lua代码：
+nginx/conf/lua/decode_info.lua</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-- 实现base64的解码并重新json编码输出
+
+local json = require &#34;cjson&#34;
+
+ngx.req.read_body()
+local args = ngx.req.get_post_args()
+
+if not args or not args.info then
+        ngx.exit(ngx.HTTP_BAD_REQUEST)
+end
+
+local client_ip = ngx.var.remote_var or &#39;127.0.0.1&#39;
+local user_agnet = ngx.req.get_headers()[&#39;user_agent&#39;] or &#39;&#39;
+local info = ngx.decode_base64(args.info)
+
+local res = {}
+res.client_ip = client_ip
+res.user_agnet = user_agnet
+res.info = info
+
+ngx.say(json.encode(res))
+</code></pre></td></tr></table>
+</div>
+</div><p>修改 nginx.conf ，新增：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /decode_info {
+    content_by_lua_file conf/lua/decode_info.lua;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>由于修改了 nginx.conf ，需要 reload OpenResty 服务。然后，我们访问服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ php -r &#34;echo base64_encode(&#39;test&#39;);&#34;
+dGVzdA==
+$ curl -XPOST -d &#34;info=dGVzdA==&#34; http://127.0.0.1:8080/decode_info
+{&#34;user_agnet&#34;:&#34;curl/7.19.7&#34;,&#34;client_ip&#34;:&#34;127.0.0.1&#34;,&#34;info&#34;:&#34;test&#34;}
+</code></pre></td></tr></table>
+</div>
+</div><p>说明：
+1、<code>require</code>是 lua 里面引入其他库的关键字。这里引入的 <a href="https://www.kyne.com.au/~mark/software/lua-cjson.php">cjson</a>。
+2、当我们要读取 http里的post数据的时候，就需要使用<code>ngx.req.read_body()</code>。该API同步读取客户端请求主体而不阻塞Nginx事件循环。
+3、 <a href="https://github.com/openresty/lua-nginx-module#ngxreqget_post_args"><code>ngx.req.get_post_args()</code></a> 用于获取post请求数据。
+4、<code>ngx.var.remote_var</code>实际是获取的nginx里的变量<code>remote_var</code>。也就是说，<code>ngx.var.xxx</code>实际是获取的nginx里的变量<code>xxx</code>。例如：
+<img src="https://segmentfault.com/img/remote/1460000019283053?w=668&amp;h=448" alt=""></p>
+<p>nginx变量详见：[Alphabetical index of variables}(http://nginx.org/en/docs/varindex.html)。 ngx_lua <code>ngx.var</code> API详见：<a href="https://github.com/openresty/lua-nginx-module#ngxvarvariable">ngx.var.VARIABLE</a>。
+5、 <a href="https://github.com/openresty/lua-nginx-module#ngxreqget_headers"><code>ngx.req.get_headers()</code></a> 用于读取nginx的header参数。返回的是lua table。
+6、<a href="https://github.com/openresty/lua-nginx-module#ngxdecode_base64"><code>ngx.decode_base64()</code></a>用于 base64字符串解码。对应的编码API是 <code>ngx.encode_base64()</code>。</p>
+<hr>
+<p><strong>防盗版声明</strong>：本文系原创文章，发布于公众号<code>飞鸿影的博客</code>(fhyblog)及<a href="http://52fhy.cnblogs.com">博客园</a>，转载需作者同意。</p>
+<hr>
+<h2 id="连接数据库">连接数据库</h2>
+<p>连接数据库我们需要使用到ngx_lua的第三方库：</p>
+<ul>
+<li><a href="https://github.com/openresty/lua-resty-redis">lua-resty-redis</a> library based on ngx_lua cosocket.</li>
+<li><a href="https://github.com/openresty/lua-resty-mysql">lua-resty-mysql</a> library based on ngx_lua cosocket.</li>
+</ul>
+<p>这两个库都是基于cosocket实现的，特点是异步非阻塞。代码风格是同步的写法。更多第三方库详见：<a href="https://github.com/openresty/lua-nginx-module#see-also">See Also</a> 。</p>
+<h3 id="连接-mysql">连接 MySQL</h3>
+<p>lua代码：
+nginx/conf/lua/test_mysql.lua</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">local mysql = require &#34;resty.mysql&#34;
+
+local db, err = mysql:new()
+if not db then
+    ngx.say(&#34;failed to instantiate mysql: &#34;, err)
+    return
+end
+
+db:set_timeout(1000) -- 1 sec
+
+local ok, err, errcode, sqlstate = db:connect{
+    host = &#34;127.0.0.1&#34;,
+    port = 3306,
+    database = &#34;ngx_test&#34;,
+    user = &#34;ngx_test&#34;,
+    password = &#34;ngx_test&#34;,
+    charset = &#34;utf8&#34;,
+    max_packet_size = 1024 * 1024,
+}
+
+if not ok then
+    ngx.say(&#34;failed to connect: &#34;, err, &#34;: &#34;, errcode, &#34; &#34;, sqlstate)
+    return
+end
+
+-- insert
+res, err, errcode, sqlstate =
+    db:query(&#34;insert into cats (name) &#34;
+             .. &#34;values (&#39;Bob&#39;),(&#39;&#39;),(null)&#34;)
+if not res then
+    ngx.say(&#34;bad result: &#34;, err, &#34;: &#34;, errcode, &#34;: &#34;, sqlstate, &#34;.&#34;)
+    return
+end
+
+ngx.say(res.affected_rows, &#34; rows inserted into table cats &#34;,
+        &#34;(last insert id: &#34;, res.insert_id, &#34;)&#34;)
+
+-- run a select query, expected about 10 rows in the result set
+res, err, errcode, sqlstate =
+    db:query(&#34;select * from cats order by id asc&#34;, 10)
+if not res then
+    ngx.say(&#34;bad result: &#34;, err, &#34;: &#34;, errcode, &#34;: &#34;, sqlstate, &#34;.&#34;)
+    return
+end
+
+local cjson = require &#34;cjson&#34;
+ngx.say(&#34;result: &#34;, cjson.encode(res))
+
+-- close connection
+local ok, err = db:close()
+if not ok then
+     ngx.say(&#34;failed to close: &#34;, err)
+     return
+end
+</code></pre></td></tr></table>
+</div>
+</div><p>修改 nginx.conf ，新增：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /test_mysql {
+    content_by_lua_file conf/lua/test_mysql.lua;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>由于修改了 nginx.conf ，需要 reload OpenResty 服务。然后，我们访问服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ http://127.0.0.1:8080/test_mysql
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="连接-redis">连接 Redis</h3>
+<p>lua代码：
+nginx/conf/lua/test_redis.lua</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">local redis = require &#34;resty.redis&#34;
+
+local red = redis:new()
+red:set_timeout(1000) -- 1 sec
+
+local ok, err = red:connect(&#34;127.0.0.1&#34;, 6379)
+if not ok then
+    ngx.say(&#34;failed to connect: &#34;, err)
+    return
+end
+
+ok, err = red:set(&#34;dog&#34;, &#34;an animal&#34;)
+if not ok then
+    ngx.say(&#34;failed to set dog: &#34;, err)
+    return
+end
+
+ngx.say(&#34;set result: &#34;, ok)
+
+local res, err = red:get(&#34;dog&#34;)
+if not res then
+    ngx.say(&#34;failed to get dog: &#34;, err)
+    return
+end
+
+if res == ngx.null then
+    ngx.say(&#34;dog not found.&#34;)
+    return
+end
+
+ngx.say(&#34;dog: &#34;, res)
+
+-- close the connection right away
+local ok, err = red:close()
+if not ok then
+     ngx.say(&#34;failed to close: &#34;, err)
+     return
+end
+</code></pre></td></tr></table>
+</div>
+</div><p>修改 nginx.conf ，新增：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /test_redis {
+    content_by_lua_file conf/lua/test_redis.lua;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>由于修改了 nginx.conf ，需要 reload OpenResty 服务。然后，我们访问服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ http://127.0.0.1:8080/test_redis
+</code></pre></td></tr></table>
+</div>
+</div><p>更多参考：
+<a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/redis/out_package.html">redis 接口的二次封装（简化建连、拆连等细节） · OpenResty最佳实践</a></p>
+<h2 id="openresty-缓存">OpenResty 缓存</h2>
+<h3 id="使用-lua-shared-dict">使用 Lua shared dict</h3>
+<p>使用的话首先需要在 nginx.conf 加上一句：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">lua_shared_dict my_cache 128m;
+</code></pre></td></tr></table>
+</div>
+</div><p>这个<code>my_cache</code>就是申请 Lua shared dict 缓存， 下面示例里会用到。</p>
+<p>这个缓存是 Nginx 所有 worker 之间共享的，内部使用的 LRU 算法（最近最少使用）来判断缓存是否在内存占满时被清除。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">function get_from_cache(key)
+    local cache_ngx = ngx.shared.my_cache
+    local value = cache_ngx:get(key)
+    return value
+end
+
+function set_to_cache(key, value, exptime)
+    if not exptime then
+        exptime = 0
+    end
+
+    local cache_ngx = ngx.shared.my_cache
+    local succ, err, forcible = cache_ngx:set(key, value, exptime)
+    return succ
+end
+</code></pre></td></tr></table>
+</div>
+</div><p>更多支持的命令详见：<a href="https://github.com/openresty/lua-nginx-module#ngxshareddict">https://github.com/openresty/&hellip;</a> 。</p>
+<h3 id="使用-lua-lru-cache">使用 Lua LRU cache</h3>
+<p>这个 cache 是 worker 级别的，不会在 Nginx wokers 之间共享。并且，它是预先分配好 key 的数量，而 shared dict 需要自己用 key 和 value 的大小和数量，来估算需要把内存设置为多少。</p>
+<p>官方示例：
+myapp.lua</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">local _M = {}
+
+-- alternatively: local lrucache = require &#34;resty.lrucache.pureffi&#34;
+local lrucache = require &#34;resty.lrucache&#34;
+
+-- we need to initialize the cache on the lua module level so that
+-- it can be shared by all the requests served by each nginx worker process:
+local c, err = lrucache.new(200)  -- allow up to 200 items in the cache
+if not c then
+    return error(&#34;failed to create the cache: &#34; .. (err or &#34;unknown&#34;))
+end
+
+function _M.go()
+    c:set(&#34;dog&#34;, 32)
+    c:set(&#34;cat&#34;, 56)
+    ngx.say(&#34;dog: &#34;, c:get(&#34;dog&#34;))
+    ngx.say(&#34;cat: &#34;, c:get(&#34;cat&#34;))
+
+    c:set(&#34;dog&#34;, { age = 10 }, 0.1)  -- expire in 0.1 sec
+    c:delete(&#34;dog&#34;)
+
+    c:flush_all()  -- flush all the cached data
+end
+
+return _M
+</code></pre></td></tr></table>
+</div>
+</div><p>nginx.conf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+http {
+    lua_package_path &#34;/path/to/lua-resty-lrucache/lib/?.lua;;&#34;;
+
+    server {
+        listen 8080;
+
+        location = /t {
+            content_by_lua &#39;
+                require(&#34;myapp&#34;).go()
+            &#39;;
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>更多支持的命令详见：<a href="https://github.com/openresty/lua-resty-lrucache">https://github.com/openresty/&hellip;</a> 。</p>
+<p>那么这两个缓存 <a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/ngx_lua/cache.html">如何选择</a> ？</p>
+<blockquote>
+<p><code>shared.dict</code> 使用的是共享内存，每次操作都是全局锁，如果高并发环境，不同 worker 之间容易引起竞争。所以单个 <code>shared.dict</code> 的体积不能过大。<code>lrucache</code> 是 worker 内使用的，由于 Nginx 是单进程方式存在，所以永远不会触发锁，效率上有优势，并且没有 <code>shared.dict</code> 的体积限制，内存上也更弹性，但不同 worker 之间数据不同享，同一缓存数据可能被冗余存储。</p>
+<p>你需要考虑的，一个是 <code>Lua lru cache</code> 提供的 API 比较少，现在只有 get、set 和 delete，而 <code>ngx shared dict</code> 还可以 <code>add</code>、<code>replace</code>、<code>incr</code>、<code>get_stale</code>（在 key 过期时也可以返回之前的值）、<code>get_keys</code>（获取所有 key，虽然不推荐，但说不定你的业务需要呢）；第二个是内存的占用，由于 <code>ngx shared dict</code> 是 workers 之间共享的，所以在多 worker 的情况下，内存占用比较少。</p>
+</blockquote>
+<p>本节内容参考来自：<a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/ngx_lua/cache.html">https://moonbingbing.gitbooks&hellip;</a></p>
+<h2 id="ffi和第三方模块">FFI和第三方模块</h2>
+<h3 id="ffi">FFI</h3>
+<p>FFI是 <code>LuaJIT</code> 中的一个扩展库，它允许我们使用 Lua 代码调用C语言的数据结构和函数。</p>
+<p>FFI库在很大程度上避免了在C中编写繁琐的手动 <code>Lua/C</code> 绑定的需要。无需学习单独的绑定语言 - 它解析普通的C声明！这些可以从C头文件或参考手册中剪切粘贴。</p>
+<p>如何调用外部C库函数呢？
+1、加载FFI库。
+2、为函数添加C声明。
+3、调用命名的C函数。</p>
+<p>看一个官方提供的简单示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-- test_ffi.lua
+
+local ffi = require(&#34;ffi&#34;)
+ffi.cdef[[
+int printf(const char *fmt, ...);
+]]
+ffi.C.printf(&#34;Hello %s!&#34;, &#34;world&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><p>我们运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ luajit test_ffi.lua
+Hello world!
+</code></pre></td></tr></table>
+</div>
+</div><p>详见：<a href="http://luajit.org/ext_ffi.html">http://luajit.org/ext_ffi.html</a></p>
+<h3 id="增加第三方模块">增加第三方模块</h3>
+<p>默认的 resty 库所在位置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ pwd
+/usr/local/openresty
+$ ls lualib/
+cjson.so  ngx/      rds/      redis/    resty/
+$ ls lualib/resty/
+aes.lua   limit/         md5.lua        redis.lua   sha384.lua  upload.lua
+core/      lock.lua      memcached.lua  sha1.lua    sha512.lua  upstream/
+core.lua  lrucache/      mysql.lua      sha224.lua  sha.lua     websocket/
+dns/       lrucache.lua  random.lua     sha256.lua  string.lua
+</code></pre></td></tr></table>
+</div>
+</div><p>现在以安装 <a href="https://github.com/ledgetech/lua-resty-http"><code>lua-resty-http</code></a> 为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ cd /opt
+
+# 下载并解压
+$  wget https://github.com/ledgetech/lua-resty-http/archive/v0.13.tar.gz &amp;&amp; tar zxvf v0.13.tar.gz
+
+# 复制到resty目录即可
+$ cp -r lua-resty-http-0.13/lib/resty/* /usr/local/openresty/lualib/resty/
+
+# 查看安装的模块
+$ cd /usr/local/openresty/lualib/resty/ &amp;&amp; ls http*
+http_headers.lua  http.lua
+</code></pre></td></tr></table>
+</div>
+</div><p>使用示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">local http = require &#34;resty.http&#34;
+local httpc = http.new()
+
+local res, err = httpc:request_uri(&#34;http://example.com/helloworld&#34;, {
+    method = &#34;POST&#34;,
+    body = &#34;a=1&amp;b=2&#34;,
+    headers = {
+      [&#34;Content-Type&#34;] = &#34;application/x-www-form-urlencoded&#34;,
+    },
+    keepalive_timeout = 60,
+    keepalive_pool = 10
+})
+
+if not res then
+    ngx.say(&#34;failed to request: &#34;, err)
+    return
+end
+
+ngx.status = res.status
+
+for k,v in pairs(res.headers) do
+  --
+end
+
+ngx.say(res.body)
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="子查询">子查询</h2>
+<p>子查询只是模拟 HTTP 接口的形式， 没有 额外的 HTTP/TCP 流量，也 没有 IPC (进程间通信) 调用。所有工作在内部高效地在 C 语言级别完成。</p>
+<p>子查询只能在一个 <code>location</code> 里调用其它 一个或多个 `location。</p>
+<ul>
+<li><code>res = ngx.location.capture(uri, options?)</code> 发起子查询</li>
+</ul>
+<p>返回一个包含四个元素的 Lua 表 (<code>res.status</code>, <code>res.header</code>, <code>res.body</code>, 和 <code>res.truncated</code>)。
+作用域：<code>rewrite_by_lua *</code>，<code>access_by_lua *</code>，<code>content_by_lua *</code>。</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">res = ngx.location.capture(
+     &#39;/foo/bar&#39;,
+     { method = ngx.HTTP_POST, body = &#39;hello, world&#39; }
+ )
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>res1, res2, ... = ngx.location.capture_multi({ {uri, options?}, {uri, options?}, ... })</code> 发起多个并发子查询</li>
+</ul>
+<p>作用域：<code>rewrite_by_lua *</code>，<code>access_by_lua *</code>，<code>content_by_lua *</code>。</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">res1, res2, res3 = ngx.location.capture_multi{
+     { &#34;/foo&#34;, { args = &#34;a=3&amp;b=4&#34; } },
+     { &#34;/bar&#34; },
+     { &#34;/baz&#34;, { method = ngx.HTTP_POST, body = &#34;hello&#34; } },
+ }
+
+ if res1.status == ngx.HTTP_OK then
+     ...
+ end
+
+ if res2.body == &#34;BLAH&#34; then
+     ...
+ end
+</code></pre></td></tr></table>
+</div>
+</div><p>作用：
+减少网络请求。
+方便配置降级服务。</p>
+<p>子查询文档参考： <a href="https://github.com/openresty/lua-nginx-module#ngxlocationcapture">https://github.com/openresty/&hellip;</a></p>
+<h2 id="执行阶段">执行阶段</h2>
+<p>下面这个图是 ngx_lua 各个指令的执行顺序。
+<img src="https://segmentfault.com/img/remote/1460000019283054" alt=""></p>
+<p>执行阶段说明：</p>
+<ul>
+<li><code>set_by_lua*</code>: 流程分支处理判断变量初始化</li>
+<li><code>rewrite_by_lua*</code>: 转发、重定向、缓存等功能(例如特定请求代理到外网)</li>
+<li><code>access_by_lua*</code>: IP 准入、接口权限等情况集中处理(例如配合 iptable 完成简单防火墙)</li>
+<li><code>content_by_lua*</code>: 内容生成</li>
+<li><code>header_filter_by_lua*</code>: 响应头部过滤处理(例如添加头部信息)</li>
+<li><code>body_filter_by_lua*</code>: 响应体过滤处理(例如完成应答内容统一成大写)</li>
+<li><code>log_by_lua*</code>: 会话完成后本地异步完成日志记录(日志可以记录在本地，还可以同步到其他机器)</li>
+</ul>
+<p>由于 Nginx 把一个请求分成了很多阶段，这样第三方模块就可以根据自己行为，挂载到不同阶段进行处理达到目的。不同的阶段，有不同的处理行为，理解了他，也能更好的理解 Nginx 的设计思维。</p>
+<h2 id="总结与自学">总结与自学</h2>
+<p>1、如何自学
+《OpenResty最佳实践》
+2、遇到问题怎么办</p>
+<ol>
+<li>看 nginx 的error.log</li>
+<li>疑难问题把可复现信息在官方邮件组里反馈</li>
+<li>善用Google</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-03 22:23
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/OpenResty/">OpenResty</a>
+          <a href="/tags/gateway/">gateway</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/gateway/helm3_kong2_install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">k8s上使用Helm在线安装kong2</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/center/zookeeper_ops_doc/">
+            <span class="next-text nav-default">ZooKeeper 入门指引</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

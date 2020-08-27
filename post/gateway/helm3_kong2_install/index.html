@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>k8s上使用Helm在线安装kong2 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7） 安装前说明 官方文档问题说明 一、kong使用的pos" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/gateway/helm3_kong2_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="k8s上使用Helm在线安装kong2" />
+<meta property="og:description" content="k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7） 安装前说明 官方文档问题说明 一、kong使用的pos" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/gateway/helm3_kong2_install/" />
+<meta property="article:published_time" content="2020-04-04T23:00:30+00:00" />
+<meta property="article:modified_time" content="2020-04-04T23:00:30+00:00" />
+<meta itemprop="name" content="k8s上使用Helm在线安装kong2">
+<meta itemprop="description" content="k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7） 安装前说明 官方文档问题说明 一、kong使用的pos">
+<meta itemprop="datePublished" content="2020-04-04T23:00:30+00:00" />
+<meta itemprop="dateModified" content="2020-04-04T23:00:30+00:00" />
+<meta itemprop="wordCount" content="1515">
+
+
+
+<meta itemprop="keywords" content="kong,gateway," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k8s上使用Helm在线安装kong2"/>
+<meta name="twitter:description" content="k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7） 安装前说明 官方文档问题说明 一、kong使用的pos"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">k8s上使用Helm在线安装kong2</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-04 23:00 </span>
+        <div class="post-category">
+            <a href="/categories/gateway/"> gateway </a>
+            </div>
+          <span class="more-meta"> 约 1515 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#k8s上使用helm在线安装kong204对应chart-versions117">k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7）</a></li>
+      </ul>
+    </li>
+    <li><a href="#官方文档问题说明">官方文档问题说明</a></li>
+    <li><a href="#一kong使用的postgre117安装docker安装">一、kong使用的postgre11.7安装（docker安装）</a></li>
+    <li><a href="#二k8s主节点安装helm3">二、k8s主节点安装helm3</a></li>
+    <li><a href="#三k8s主节点使用helm在线安装kong204并暴露服务端口">三、k8s主节点使用helm在线安装kong2.0.4，并暴露服务端口</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="k8s上使用helm在线安装kong204对应chart-versions117">k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7）</h3>
+<ul>
+<li>
+<p>安装前说明</p>
+</li>
+<li>
+<p>官方文档问题说明</p>
+</li>
+<li>
+<p>一、kong使用的postgre11.7安装（docker安装）</p>
+</li>
+<li>
+<p>二、k8s主节点安装helm3</p>
+</li>
+<li>
+<p>三、k8s主节点使用helm在线安装kong2.0.4，并暴露服务端口</p>
+</li>
+</ul>
+<p><strong>安装前说明</strong></p>
+<p>k8s 版本 1.17
+postgre版本：11.7
+helm安装kong官方文档</p>
+<h2 id="官方文档问题说明">官方文档问题说明</h2>
+<p>1、使用helm安装和yaml安装后服务的端口不一致</p>
+<table>
+<thead>
+<tr>
+<th>helm方式</th>
+<th>yaml方式</th>
+<th>端口说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80</td>
+<td>8000</td>
+<td>听来自客户端的HTTP请求的</td>
+</tr>
+<tr>
+<td>43</td>
+<td>8443</td>
+<td>监听HTTP的请求的端口。该端口具有与8000端口类似的行为，但是它只监听HTTPS的请求，并不会产生转发行为</td>
+</tr>
+<tr>
+<td>8001</td>
+<td>8001</td>
+<td>用于管理员对KONG进行配置的端口</td>
+</tr>
+<tr>
+<td>8444</td>
+<td>8444</td>
+<td>用于管理员监听HTTPS请求的端口</td>
+</tr>
+</tbody>
+</table>
+<p>2、heml官方文档参数有误，需要注意
+<img src="https://i2.wp.com/img-blog.csdnimg.cn/20200605182151852.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L21hdGhfY29kZQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="一kong使用的postgre117安装docker安装">一、kong使用的postgre11.7安装（docker安装）</h2>
+<p>postgre 也可以部署到k8s 上，这里为了方便，使用了docker部署（k8s安装postgre后续记录）</p>
+<ol>
+<li>安装并映射数据目录到本地</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull postgres:11.7 <span class="c1">#获取镜像</span>
+mkdir /data/postgresql  <span class="c1">#创建映射挂载数据目录</span>
+chmod <span class="m">777</span> /data/postgresql  <span class="c1">#授权目录</span>
+docker run -p 5432:5432 -v /data/postgresql:/var/lib/postgresql/data -e <span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="m">123456</span> -e <span class="nv">TZ</span><span class="o">=</span>PRC -d --name<span class="o">=</span>postgres  postgres:11.7
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>进入postgres容器，创建kong服务使用的用户名&quot;kong&quot;和数据库看&quot;kong&rdquo;，并赋权</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -it postgres /bin/bash <span class="c1">#进入容器内</span>
+su root
+su - postgres    <span class="c1">#切换帐户</span>
+psql  <span class="c1">#输入psql</span>
+create user kong with password <span class="s1">&#39;kong&#39;</span><span class="p">;</span> <span class="c1">#用户名和密码可以自己定，后续部署kong时需要使用</span>
+create database kong  owner kong <span class="p">;</span>   <span class="c1">#创建数据库指定所属者</span>
+l  <span class="c1">#  L查看数据库</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="二k8s主节点安装helm3">二、k8s主节点安装helm3</h2>
+<p>在k8s的master上执行</p>
+<ol>
+<li>安装helm3</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz
+tar zxvf helm-v3.1.2-linux-amd64.tar.gz
+<span class="nb">cd</span> linux-amd64
+cp helm /usr/bin/helm
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>查看是否安装成功</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">helm version
+version.BuildInfo{Version:&#34;v3.1.2&#34;, GitCommit:&#34;d878d4d45863e42fd5cff6743294a11d28a9abce&#34;, GitTreeState:&#34;clean&#34;, GoVersion:&#34;go1.13.8&#34;}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="三k8s主节点使用helm在线安装kong204并暴露服务端口">三、k8s主节点使用helm在线安装kong2.0.4，并暴露服务端口</h2>
+<ol>
+<li><strong>helm 查看kong版本</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># helm search repo kong</span>
+NAME            CHART VERSION   APP VERSION     DESCRIPTION
+bitnami/kong    1.1.7           2.0.4           Kong is a scalable, open <span class="nb">source</span> API layer <span class="o">(</span>aka ...
+kong/kong       1.6.1           <span class="m">2</span>               The Cloud-Native Ingress and API-management
+<span class="o">[</span>root@k8s-master ~<span class="o">]</span>#
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li><strong>k8s上helm在线部署执行命令</strong></li>
+</ol>
+<p>命令的其他–set 参数，需要根据需求，参照官网配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">helm install gateway bitnami/kong --version 1.1.7  
+    --set <span class="nv">replicaCount</span><span class="o">=</span><span class="m">2</span> 
+    --set postgresql.enabled<span class="o">=</span><span class="nb">false</span>   <span class="c1">#不使用自带pg库，而使用外部pg库</span>
+    --set postgresql.external.host<span class="o">=</span>172.16.10.21  <span class="c1">#外部pg库IP地址</span>
+    --set postgresql.postgresqlDatabase<span class="o">=</span>kong  <span class="c1">#外部pg库库名（默认，不写也可以）</span>
+    --set postgresql.external.password<span class="o">=</span>kong    <span class="c1">#外部pg库密码</span>
+    --set postgresql.external.user<span class="o">=</span>kong    <span class="c1">#外部pg库用户名</span>
+    --set service.exposeAdmin<span class="o">=</span><span class="nb">true</span>  <span class="c1">#kong admin HTTPS服务端口，不启用就不能使用https</span>
+    --set service.type<span class="o">=</span>NodePort  <span class="c1">#暴露集群外的主机端口模式</span>
+    --set service.proxyHttpNodePort<span class="o">=</span><span class="m">30800</span> 
+    --set service.proxyHttpsNodePort<span class="o">=</span><span class="m">30843</span> 
+    --set service.adminHttpNodePort<span class="o">=</span><span class="m">30801</span> 
+    --set service.adminHttpsNodePort<span class="o">=</span><span class="m">30844</span> 
+    --timeout 30m <span class="c1">#为了方式拉去镜像速度慢，设置超时时间为30分钟</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li><strong>查看kong日志</strong></li>
+</ol>
+<p>(1)查看有哪些pod</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># kubectl get pods</span>
+NAME                              READY   STATUS    RESTARTS   AGE
+details-v1-78db589446-5wsnq       1/1     Running   <span class="m">1</span>          8h
+gateway-kong-696986c4b7-6vcgz     2/2     Running   <span class="m">18</span>         9h
+gateway-kong-696986c4b7-db62j     2/2     Running   <span class="m">14</span>         9h
+gatewaydemo-774f546c67-5fxpw      1/1     Running   <span class="m">0</span>          4h52m
+productpage-v1-689487477f-v9lf6   1/1     Running   <span class="m">1</span>          7h52m
+ratings-v1-756b788d54-cpxts       1/1     Running   <span class="m">1</span>          8h
+reviews-v1-849fcdfd8b-5fnjb       1/1     Running   <span class="m">1</span>          8h
+reviews-v2-5b6fb6c4fb-bns89       1/1     Running   <span class="m">1</span>          8h
+reviews-v3-7d94d58566-hpkff       1/1     Running   <span class="m">1</span>          8h
+
+</code></pre></td></tr></table>
+</div>
+</div><p>(2)进入运行着的kong的pod</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">root@k8s-master ~<span class="o">]</span><span class="c1"># kubectl exec -it gateway-kong-696986c4b7-6vcgz -- /bin/bash</span>
+Defaulting container name to kong.
+Use <span class="s1">&#39;kubectl describe pod/gateway-kong-696986c4b7-6vcgz -n default&#39;</span> to see all of the containers in this pod.
+I have no name!@gateway-kong-696986c4b7-6vcgz:/$
+</code></pre></td></tr></table>
+</div>
+</div><p>假如一个pod里有多个容器,用&ndash;container or -c 参数。
+例如:假如这里有个Pod名为my-pod,这个Pod有两个容器,分别名为main-app 和 helper-app,下面的命令将打开到main-app的shell的容器里。
+<code>kubectl exec -it my-pod --container main-app -- /bin/bash</code></p>
+<p>(3)查看kong的日志</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kong容器日志位置：/opt/bitnami/kong/server/logs
+-----------------------------------------------
+I have no name!@gateway-kong-696986c4b7-6vcgz:/$ ps -ef
+UID         PID   PPID  C STIME TTY          TIME CMD
+<span class="m">1001</span>          <span class="m">1</span>      <span class="m">0</span>  <span class="m">0</span> 14:28 ?        00:00:00 perl /opt/bitnami/kong/openresty/bin/resty /opt/bitnami/kong/bin/kong start
+<span class="m">1001</span>         <span class="m">55</span>      <span class="m">1</span>  <span class="m">0</span> 14:28 ?        00:00:00 /opt/bitnami/kong/openresty/nginx/sbin/nginx -p /tmp/resty_ciNfMQTNnK/ -c conf/nginx.conf
+<span class="m">1001</span>         <span class="m">81</span>     <span class="m">55</span>  <span class="m">0</span> 14:28 ?        00:00:00 sh -c /opt/bitnami/kong/openresty/nginx/sbin/nginx -p /opt/bitnami/kong/server -c nginx.conf
+<span class="m">1001</span>         <span class="m">82</span>     <span class="m">81</span>  <span class="m">0</span> 14:28 ?        00:00:00 nginx: master process /opt/bitnami/kong/openresty/nginx/sbin/nginx -p /opt/bitnami/kong/server -c nginx.conf
+<span class="m">1001</span>         <span class="m">90</span>     <span class="m">82</span>  <span class="m">0</span> 14:28 ?        00:00:00 nginx: worker process
+<span class="m">1001</span>         <span class="m">91</span>     <span class="m">82</span>  <span class="m">0</span> 14:28 ?        00:00:00 nginx: worker process
+<span class="m">1001</span>         <span class="m">92</span>     <span class="m">82</span>  <span class="m">0</span> 14:28 ?        00:00:00 nginx: worker process
+<span class="m">1001</span>         <span class="m">93</span>     <span class="m">82</span>  <span class="m">0</span> 14:28 ?        00:00:00 nginx: worker process
+<span class="m">1001</span>      <span class="m">16479</span>      <span class="m">0</span>  <span class="m">0</span> 15:45 pts/0    00:00:00 /bin/bash
+<span class="m">1001</span>      <span class="m">16772</span>  <span class="m">16479</span>  <span class="m">0</span> 15:47 pts/0    00:00:00 ps -ef
+I have no name!@gateway-kong-696986c4b7-6vcgz:/$ <span class="nb">cd</span> /opt/bitnami/kong/server/logs
+I have no name!@gateway-kong-696986c4b7-6vcgz:/opt/bitnami/kong/server/logs$ ls
+access.log  admin_access.log  error.log
+I have no name!@gateway-kong-696986c4b7-6vcgz:/opt/bitnami/kong/server/logs$ tail -f access.log
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li><strong>安装kong完成后的pg库表</strong>
+<img src="https://i2.wp.com/img-blog.csdnimg.cn/20200611000808378.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L21hdGhfY29kZQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-04 23:00
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/kong/">kong</a>
+          <a href="/tags/gateway/">gateway</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/gateway/openresty_doc/">
+            <span class="next-text nav-default">OpenResty搭建高性能服务端</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

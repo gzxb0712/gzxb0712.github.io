@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ansible 入门及使用 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="Ansible 是使用 Python 开发的自动化运维工具，如果这么说比较抽象的话，那么可以说 Ansible 可以让服务器管理人员使用文本来管理服务器，编写一段配置文件，在不同的机器" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/auto/ansible_guides/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="ansible 入门及使用" />
+<meta property="og:description" content="Ansible 是使用 Python 开发的自动化运维工具，如果这么说比较抽象的话，那么可以说 Ansible 可以让服务器管理人员使用文本来管理服务器，编写一段配置文件，在不同的机器" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/auto/ansible_guides/" />
+<meta property="article:published_time" content="2020-04-05T19:15:30+00:00" />
+<meta property="article:modified_time" content="2020-04-05T19:15:30+00:00" />
+<meta itemprop="name" content="ansible 入门及使用">
+<meta itemprop="description" content="Ansible 是使用 Python 开发的自动化运维工具，如果这么说比较抽象的话，那么可以说 Ansible 可以让服务器管理人员使用文本来管理服务器，编写一段配置文件，在不同的机器">
+<meta itemprop="datePublished" content="2020-04-05T19:15:30+00:00" />
+<meta itemprop="dateModified" content="2020-04-05T19:15:30+00:00" />
+<meta itemprop="wordCount" content="2307">
+
+
+
+<meta itemprop="keywords" content="ansible,auto," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ansible 入门及使用"/>
+<meta name="twitter:description" content="Ansible 是使用 Python 开发的自动化运维工具，如果这么说比较抽象的话，那么可以说 Ansible 可以让服务器管理人员使用文本来管理服务器，编写一段配置文件，在不同的机器"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ansible 入门及使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-05 19:15 </span>
+        <div class="post-category">
+            <a href="/categories/auto/"> auto </a>
+            </div>
+          <span class="more-meta"> 约 2307 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#特性feature">特性<a href="#feature"></a></a></li>
+    <li><a href="#组成组成">组成<a href="#%E7%BB%84%E6%88%90"></a></a></li>
+    <li><a href="#安装installation">安装<a href="#installation"></a></a>
+      <ul>
+        <li><a href="#源码安装源码安装">源码安装<a href="#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"></a></a></li>
+      </ul>
+    </li>
+    <li><a href="#配置config">配置<a href="#config"></a></a>
+      <ul>
+        <li><a href="#ansiblecfgansiblecfg">ansible.cfg<a href="#ansiblecfg"></a></a></li>
+        <li><a href="#inventoryinventory">inventory<a href="#inventory"></a></a></li>
+      </ul>
+    </li>
+    <li><a href="#使用usage">使用<a href="#usage"></a></a></li>
+    <li><a href="#ad-hoc-commandad-hoc-command">ad-hoc command<a href="#ad-hoc-command"></a></a></li>
+    <li><a href="#modulemodule">module<a href="#module"></a></a>
+      <ul>
+        <li><a href="#setupsetup">setup<a href="#setup"></a></a></li>
+        <li><a href="#commandcommand">command<a href="#command"></a></a></li>
+        <li><a href="#filefile">file<a href="#file"></a></a></li>
+        <li><a href="#copycopy">copy<a href="#copy"></a></a></li>
+        <li><a href="#shellshell">shell<a href="#shell"></a></a></li>
+      </ul>
+    </li>
+    <li><a href="#playbookplaybook">playbook<a href="#playbook"></a></a>
+      <ul>
+        <li><a href="#rolerole">role<a href="#role"></a></a></li>
+        <li><a href="#check-mode-dry-runcheck-mode-dry-run">Check Mode (dry-run)<a href="#check-mode-dry-run"></a></a></li>
+      </ul>
+    </li>
+    <li><a href="#ansible-galaxyansible-galaxy">ansible-galaxy<a href="#ansible-galaxy"></a></a>
+      <ul>
+        <li><a href="#创建-role创建-role">创建 role<a href="#%E5%88%9B%E5%BB%BA-role"></a></a></li>
+      </ul>
+    </li>
+    <li><a href="#延伸延伸">延伸<a href="#%E5%BB%B6%E4%BC%B8"></a></a></li>
+    <li><a href="#referencereference">reference<a href="#reference"></a></a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Ansible 是使用 Python 开发的自动化运维工具，如果这么说比较抽象的话，那么可以说 Ansible 可以让服务器管理人员使用文本来管理服务器，编写一段配置文件，在不同的机器上执行。</p>
+<h2 id="特性feature">特性<a href="#feature"></a></h2>
+<ul>
+<li>低学习成本</li>
+<li>无需在服务器中安装客户端，基于 SSH 工作，可并行执行</li>
+<li>无需服务端，直接终端命令即可</li>
+<li>管理的对象可以包括物理机，虚拟机，容器等等</li>
+<li>使用 yaml 格式文件编排 playbook</li>
+</ul>
+<h2 id="组成组成">组成<a href="#%E7%BB%84%E6%88%90"></a></h2>
+<ul>
+<li>control node: 控制节点，可以在任何安装了 Python 环境的机器中使用 ansible，两个重要的可执行文件在 <code>/usr/bin/ansible</code> 和 <code>/usr/bin/ansible-playbook</code></li>
+<li>managed node: 被控制的节点</li>
+<li>inventory: 需要管理的节点，通常配置成 <code>hostfile</code> 文件</li>
+<li>modules: ansible 进行自动化任务时调用的模块，社区提供了非常多 <a href="https://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html">modules</a></li>
+<li>Task: Ansible 的执行单元</li>
+<li>playbook: 编排多个任务</li>
+<li>roles: roles 是将 playbook 划分多个部分的机制</li>
+<li>plugins: ansible 插件</li>
+</ul>
+<p>工作流程：</p>
+<ul>
+<li>读取配置</li>
+<li>获取机器列表及分组配置</li>
+<li>确定执行模块和配置，modules 目录动态读取</li>
+<li>Runner 执行</li>
+<li>输出</li>
+</ul>
+<h2 id="安装installation">安装<a href="#installation"></a></h2>
+<p>Ansible 的安装方法非常多，PPA，源码安装都可以。
+如果不想 PPA，也可以</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get install -y ansible
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="源码安装源码安装">源码安装<a href="#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"></a></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get install -y libffi-dev libssl-dev python-dev
+sudo pip install paramiko PyYAML Jinja2 httplib2 six pycrypto
+git clone https://github.com/ansible/ansible.git --recursive
+cd ansible
+git pull --rebase
+git submodule update --init --recursive
+</code></pre></td></tr></table>
+</div>
+</div><p>配置 Bash：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">source ./hacking/env-setup
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置config">配置<a href="#config"></a></h2>
+<h3 id="ansiblecfgansiblecfg">ansible.cfg<a href="#ansiblecfg"></a></h3>
+<p><code>ansible.cfg</code> 文件是 Ansible 的主要配置文件，ansible 寻找的路径优先级是：</p>
+<ul>
+<li>File specified by the ANSIBLE_CONFIG environment variable</li>
+<li>./ansible.cfg (ansible.cfg in the current directory)</li>
+<li>~/.ansible.cfg (.ansible.cfg in your home directory)</li>
+<li>/etc/ansible/ansible.cfg</li>
+</ul>
+<p>配置内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[defaults]
+hostfile = hosts
+remote_user = admin
+remote_port = 222
+host_key_checking = False
+</code></pre></td></tr></table>
+</div>
+</div><p>hostfile 文件指定了当前文件夹下的 hosts 文件。hosts 文件夹中配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[server]
+10.0.0.1
+10.0.0.2
+</code></pre></td></tr></table>
+</div>
+</div><p>配置 SSH 免密登录的文章可以参考之前的<a href="http://einverne.github.io/post/2016/06/ssh-copy-id.html">文章</a>.</p>
+<h3 id="inventoryinventory">inventory<a href="#inventory"></a></h3>
+<p>inventory 可以对远程服务器 HOST 进行管理。可以配置 Ansible 默认的 <code>/etc/ansible/hosts</code> 创建基本的 inventory.</p>
+<p>这里的 inventory 可以看成需要管理的节点的配置，可以直接配置到全局，然后使用 <code>all</code> 来引用，也可以用分组的形式来引用。</p>
+<p>比如，未分组形式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">gtk.pw
+einverne.info
+12.12.12.12
+192.168.2.1
+</code></pre></td></tr></table>
+</div>
+</div><p>或者采用分组形式，用方括号表示下面的 HOST 都属于 webserver 这个组：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[webserver]
+127.0.0.1
+foo.example.com
+</code></pre></td></tr></table>
+</div>
+</div><p>如果有多个 HOST 可以用如下语法添加多个：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">[webservers]
+www[001:006].example.com
+
+[dbservers]
+db-[99:101]-node.example.com
+</code></pre></td></tr></table>
+</div>
+</div><p>或者配置别名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">dbserver1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=22 color=red
+dbserver2 ansible_ssh_host=127.0.0.2 ansible_ssh_port=220
+
+[dbserver] #group
+dbserver1
+dbserver2
+
+[forum:children] #groups of groups
+webserver
+dbserver
+</code></pre></td></tr></table>
+</div>
+</div><p>inventory 中可以配置使用别名，但是推荐在 ssh config 中进行配置管理，编辑 <code>vi ~/.ssh/config</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Host ds
+	HostName einverne.info
+	Port 22
+	User username
+
+Host aws1
+	HostName aws.einverne.info
+	Post 22
+	User demo-username
+
+Host oracle1
+	HostName 140.1.1.1
+	Port 22
+	User some-username
+</code></pre></td></tr></table>
+</div>
+</div><p>然后就可以在 Ansible 的 inventory 中配置使用 <code>ds</code>, <code>aws1</code> 或者 <code>oracle1</code>.</p>
+<p>更多 inventory 的配置可以参考<a href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html">官方文档</a></p>
+<p>inventory 同样配置用来管理 AWS EC2，或者 OpenStack。<a href="http://einverne.github.io/post/2020/05/ansible-introduction.html#fn:in">3</a></p>
+<h2 id="使用usage">使用<a href="#usage"></a></h2>
+<p>基本使用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible &lt;pattern&gt; -m &lt;module_name&gt; -a &lt;arguments&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>在简单配置后可以运行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 一个节点
+ansible host1 -a &#34;/bin/echo hello&#34;
+# 多个节点
+ansible host1,host2 -a &#34;/bin/echo hello&#34;
+ansible host1:host2 -a &#34;/bin/echo hello&#34;
+# 全部节点
+ansible all -m ping
+# 一组节点
+ansible webservers -m service -a &#34;name=httpd state=restarted&#34;
+# 多组节点
+ansible webservers:dbservers -m ping
+# 排除节点，在 groupA 但不在 groupB
+ansible groupA:!groupB -m ping
+# 多组节点的交集，既在 groupA 也在 groupB 中的节点
+ansible groupA:&amp;groupB -m ping
+</code></pre></td></tr></table>
+</div>
+</div><p>这里选择节点的方式可以有很多种，甚至可以选择组节点中的第几个，或者用正则匹配一些等等。<a href="http://einverne.github.io/post/2020/05/ansible-introduction.html#fn:host">4</a></p>
+<h2 id="ad-hoc-commandad-hoc-command">ad-hoc command<a href="#ad-hoc-command"></a></h2>
+<p>ad-hoc 命令可以执行单一的任务，ad-hoc 命令很简单，但不能复用，在了解 playbook 之前先体验一下 ad-hoc 感受一下 Ansible 的强大。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible [pattern] -m [module] -a &#34;[module options]&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>举例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 小心使用下面命令，比如重启服务
+ansible atlanta -a &#34;/sbin/reboot&#34;
+# 管理文件，复制文件
+ansible atlanta -m copy -a &#34;src=/etc/hosts dest=/tmp/hosts&#34;
+# 管理包
+ansible webservers -m yum -a &#34;name=acme state=present&#34;
+# 启动服务
+ansible webservers -m service -a &#34;name=httpd state=started&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="modulemodule">module<a href="#module"></a></h2>
+<p><code>-m</code> 选项后面的就是 module，常见的 module，之前例子中有非常多的 ping，就是用来检测连通性的。</p>
+<h3 id="setupsetup">setup<a href="#setup"></a></h3>
+<p>用来查看远程主机信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible all -m setup
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="commandcommand">command<a href="#command"></a></h3>
+<p>执行命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible all -m command -a &#34;ls -al .&#34;
+# 切换到 sub-dir 目录，创建文件
+ansible all -m command -a &#34;chdir=sub-dir creates=test.file ls&#34;
+# 删除文件
+ansible all -m command -a &#34;chdir=sub-dir removes=test.file ls&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="filefile">file<a href="#file"></a></h3>
+<p>设置文件属性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 创建 soft link
+ansible all -m file -a &#34;src=/etc/resolv.conf dest=/tmp/resolv.conf state=link&#34;
+# 删除 soft link
+ansible all -m file -a &#34;path=/tmp/resolv.conf state=absent&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="copycopy">copy<a href="#copy"></a></h3>
+<p>复制文件到主机</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 复制本地文件到远程主机，并授予权限
+ansible all -m copy -a &#34;src=/etc/ansible/ansible.cfg dest=/tmp/ansible.cfg owner=root group=root mode=0644&#34;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="shellshell">shell<a href="#shell"></a></h3>
+<p>在远程执行 shell 脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible all -m shell -a &#34;~/setup.sh&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>更多 module 可以使用 <code>ansible-doc -l</code> 查看。</p>
+<h2 id="playbookplaybook">playbook<a href="#playbook"></a></h2>
+<p>上面提到 ad-hoc 可以执行一次性的命令，但如果要把多个 task 组织起来，那就不得不提到 playbook, playbook 可以编排有序的任务，可以在多组主机间，有序执行任务，可以选择同步或者异步发起任务。</p>
+<p>一个简单的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">---
+- hosts: webservers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: pkg=httpd state=latest
+  - name: write the apache config file
+    template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+    notify:
+    - restart apache
+  - name: ensure apache is running
+    service: name=httpd state=started
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted
+    - name: restart memcached
+      service: name=memcached state=restarted
+</code></pre></td></tr></table>
+</div>
+</div><p>说明：</p>
+<ul>
+<li>hosts: 指定哪些服务器执行命令</li>
+<li>tasks: 一系列任务</li>
+<li>handlers: 由通知者进行通知，只有 nofity 后 handler 才会执行，等到 tasks 执行完后才会执行，最多执行一次</li>
+</ul>
+<p>执行 playbook</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible-playbook playbook.yml -f 10
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="rolerole">role<a href="#role"></a></h3>
+<p>再来看一个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">- hosts:webservers
+  roles:
+	-tmux
+</code></pre></td></tr></table>
+</div>
+</div><p>这里 role 定义了 tmux(tmux 编译安装），则表示用 tmux 执行了一系列的命令。role 由其他一些组件组成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">roles/
+   tmux/
+	 tasks/
+	 handlers/
+	 files/
+	 templates/
+	 vars/
+	 defaults/
+	 meta/
+</code></pre></td></tr></table>
+</div>
+</div><p>在 tasks 目录下新建 <code>mail.yml</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">- name: install tmux package
+  package:
+	name:
+	  - libevent
+	  - ncurses
+	  - tmux
+	state: latest
+</code></pre></td></tr></table>
+</div>
+</div><p>如果想了解更多拆分 playbook 的方法，可以到官网查看更多 include, role 相关的内容。</p>
+<h3 id="check-mode-dry-runcheck-mode-dry-run">Check Mode (dry-run)<a href="#check-mode-dry-run"></a></h3>
+<p>当使用 check mode 运行 ansible-playbook 时，Ansible 不会在远程服务器上执行任何命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible-playbook foo.yml --check
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="ansible-galaxyansible-galaxy">ansible-galaxy<a href="#ansible-galaxy"></a></h2>
+<h3 id="创建-role创建-role">创建 role<a href="#%E5%88%9B%E5%BB%BA-role"></a></h3>
+<p><code>ansible-galaxy</code> 命令和 Ansible 命令绑定到了一起，可以通过 <code>ansible-galaxy</code> 来初始化 role.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible-galaxy init pyenv
+</code></pre></td></tr></table>
+</div>
+</div><p>得到：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">➜ tree pyenv
+pyenv
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+	└── main.yml
+</code></pre></td></tr></table>
+</div>
+</div><p>在使用时，每一个目录都需要包含一个 <code>mail.yml</code> 文件：</p>
+<ul>
+<li><code>tasks</code>: 包含 role 需要执行的任务清单</li>
+<li><code>handlers</code>: 包含 handlers, 可能被 role 用到</li>
+<li><code>defaults</code>: 默认变量，<a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#playbooks-variables">Using Variables</a></li>
+<li><code>vars</code>: 其他被 role 用到的变量 <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#playbooks-variables">Variable</a></li>
+<li><code>files</code>: 包含可能被 role 用到的文件</li>
+<li><code>templates</code>: 包含可能被 role 用到的 templates</li>
+<li><code>meta</code>: 定义 role 的 meta data</li>
+</ul>
+<p>YAML 文件可以被引入，比如不同的系统版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># roles/example/tasks/main.yml
+- name: added in 2.4, previously you used &#39;include&#39;
+  import_tasks: redhat.yml
+  when: ansible_facts[&#39;os_family&#39;]|lower == &#39;redhat&#39;
+- import_tasks: debian.yml
+  when: ansible_facts[&#39;os_family&#39;]|lower == &#39;debian&#39;
+
+# roles/example/tasks/redhat.yml
+- yum:
+	name: &#34;httpd&#34;
+	state: present
+
+# roles/example/tasks/debian.yml
+- apt:
+	name: &#34;apache2&#34;
+	state: present
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="延伸延伸">延伸<a href="#%E5%BB%B6%E4%BC%B8"></a></h2>
+<p>其他的运维管理工具 puppet、cfengine、chef、func、fabric.</p>
+<p>Redhat 给 Ansible 做了一套 GUI，叫做 Ansible Tower，感兴趣可以了解一下。</p>
+<h2 id="referencereference">reference<a href="#reference"></a></h2>
+<ul>
+<li><a href="https://docs.ansible.com/">https://docs.ansible.com/</a></li>
+<li><a href="http://www.ansible.com.cn/docs/">http://www.ansible.com.cn/docs/</a></li>
+<li><a href="https://galaxy.ansible.com/docs/">https://galaxy.ansible.com/docs/</a></li>
+<li><a href="https://www.ansible.com/overview/how-ansible-works">https://www.ansible.com/overview/how-ansible-works</a></li>
+</ul>
+<ol>
+<li>
+<p><a href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#intro-inventory">https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#intro-inventory</a> <a href="http://einverne.github.io/post/2020/05/ansible-introduction.html#fnref:inventory">↩</a></p>
+</li>
+<li>
+<p><a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html</a></p>
+<p>s ud oa pt up da te sudoaptupdate sudo apt install software-properties-common s ud oa pt −a dd −r ep os it or y– ye s– up dat ep pa :a ns ib le / a ns ib l e sudoapt−add−repository–yes–updateppa:ansible/ansible sudo apt install ansible <a href="http://einverne.github.io/post/2020/05/ansible-introduction.html#fnref:install">↩</a></p>
+</li>
+<li>
+<p><a href="https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html">https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html</a> <a href="http://einverne.github.io/post/2020/05/ansible-introduction.html#fnref:in">↩</a></p>
+</li>
+<li>
+<p><a href="https://docs.ansible.com/ansible/latest/user_guide/intro_patterns.html">https://docs.ansible.com/ansible/latest/user_guide/intro_patterns.html</a> <a href="http://einverne.github.io/post/2020/05/ansible-introduction.html#fnref:host">↩</a></p>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-05 19:15
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ansible/">ansible</a>
+          <a href="/tags/auto/">auto</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/auto/ansible_playbook_detail/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">ansible playbook 详解</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/gateway/helm3_kong2_install/">
+            <span class="next-text nav-default">k8s上使用Helm在线安装kong2</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

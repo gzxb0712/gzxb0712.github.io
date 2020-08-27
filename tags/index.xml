@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 04 Apr 2020 23:00:30 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2020 19:07:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ansible</title>
+      <link>https://xiebiao.top/tags/ansible/</link>
+      <pubDate>Mon, 06 Apr 2020 19:07:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>auto</title>
+      <link>https://xiebiao.top/tags/auto/</link>
+      <pubDate>Mon, 06 Apr 2020 19:07:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/auto/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>gateway</title>

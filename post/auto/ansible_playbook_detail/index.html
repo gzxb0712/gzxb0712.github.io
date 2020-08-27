@@ -1,0 +1,2996 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ansible playbook 详解 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="执行playbook命令 ansible ­playbook -­i &amp;quot;inventory文件名&amp;quot; playbook.yml ­f 10 (并行级别10) 加参数 1 2 3 4 5 6" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/auto/ansible_playbook_detail/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="ansible playbook 详解" />
+<meta property="og:description" content="执行playbook命令 ansible ­playbook -­i &quot;inventory文件名&quot; playbook.yml ­f 10 (并行级别10) 加参数 1 2 3 4 5 6" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/auto/ansible_playbook_detail/" />
+<meta property="article:published_time" content="2020-04-06T19:07:30+00:00" />
+<meta property="article:modified_time" content="2020-04-06T19:07:30+00:00" />
+<meta itemprop="name" content="ansible playbook 详解">
+<meta itemprop="description" content="执行playbook命令 ansible ­playbook -­i &quot;inventory文件名&quot; playbook.yml ­f 10 (并行级别10) 加参数 1 2 3 4 5 6">
+<meta itemprop="datePublished" content="2020-04-06T19:07:30+00:00" />
+<meta itemprop="dateModified" content="2020-04-06T19:07:30+00:00" />
+<meta itemprop="wordCount" content="10049">
+
+
+
+<meta itemprop="keywords" content="ansible,auto," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ansible playbook 详解"/>
+<meta name="twitter:description" content="执行playbook命令 ansible ­playbook -­i &quot;inventory文件名&quot; playbook.yml ­f 10 (并行级别10) 加参数 1 2 3 4 5 6"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ansible playbook 详解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-06 19:07 </span>
+        <div class="post-category">
+            <a href="/categories/auto/"> auto </a>
+            </div>
+          <span class="more-meta"> 约 10049 字 </span>
+          <span class="more-meta"> 预计阅读 21 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>执行playbook命令</strong></p>
+<p><code>ansible ­playbook -­i &quot;inventory文件名&quot; playbook.yml ­f 10  (并行级别10)</code></p>
+<p><strong>加参数</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+-e <span class="s2">&#34;temp_file=</span><span class="si">${</span><span class="nv">uuid</span><span class="si">}</span><span class="s2">&#34;</span>     或者：
+--extra­vars <span class="s2">&#34;version=1.23.45 other_variable=foo&#34;</span> ­­ 或者：
+
+--extra­vars  <span class="s1">&#39;{&#34;pacman&#34;:&#34;mrs&#34;,&#34;ghosts&#34;:[&#34;inky&#34;,&#34;pinky&#34;,&#34;clyde&#34;,&#34;sue&#34;]}&#39;</span>  或者：
+
+--extra­vars  <span class="s2">&#34;@some_file.json&#34;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><em>执行一个 playbook 之前,农想看看这个 playbook 的执行会影响到哪些 hosts,可</em>以这样做:*</p>
+<p><code>ansible­playbook playbook.yml ­­--list-­hosts</code></p>
+<p>实践例子：https://github.com/ansible/ansible-examples</p>
+<p> playbook.yml 文件like 可 this：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="p">,</span>webservers2<span class="w">
+</span><span class="w">   </span><span class="k">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span><span class="k">http_port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">     </span><span class="k">max_clients</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span><span class="w">   </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">   </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ensure<span class="w"> </span>apache<span class="w"> </span>is<span class="w"> </span>at<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>version(确定是不是最新版本)<span class="w">
+</span><span class="w">     </span><span class="k">yum</span><span class="p">:</span><span class="w"> </span>pkg=httpd<span class="w"> </span>state=latest<span class="w">
+</span><span class="w">     </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>yourname<span class="w">
+</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>write<span class="w"> </span>the<span class="w"> </span>apache<span class="w"> </span>config<span class="w"> </span>file<span class="w">
+</span><span class="w">     </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src=/srv/httpd.j2<span class="w"> </span>dest=/etc/httpd.conf<span class="w">
+</span><span class="w">     </span><span class="k">notify</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- restart<span class="w"> </span>apache<span class="w">
+</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ensure<span class="w"> </span>apache<span class="w"> </span>is<span class="w"> </span>running<span class="w">
+</span><span class="w">     </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=httpd<span class="w"> </span>state=started<span class="w">
+</span><span class="w">   </span><span class="k">handlers</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>restart<span class="w"> </span>apache<span class="w">
+</span><span class="w">       </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=httpd<span class="w"> </span>state=restarted<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>inventory文件例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="o">[</span>all:vars<span class="o">]</span>
+<span class="nv">DOCKERREGISTRY</span><span class="o">=</span>kubernetes-master
+<span class="nv">DOCKERREGISTRYPROT</span><span class="o">=</span><span class="m">5000</span>
+<span class="nv">IMAGESVERSION</span><span class="o">=</span>0.0.4-SNAPSHOT
+<span class="o">[</span>k8s_emu_vip_node<span class="o">]</span>
+k8s_emu_vip_node1 <span class="nv">ansible_ssh_host</span><span class="o">=</span>10.222.2.201 <span class="nv">ansible_connection</span><span class="o">=</span>ssh <span class="nv">ansible_ssh_user</span><span class="o">=</span>root <span class="nv">ansible_ssh_pass</span><span class="o">=</span>gsta123 <span class="nv">ansible_ssh_extra_args</span><span class="o">=</span><span class="s2">&#34;-o StrictHostKeyChecking=no&#34;</span>
+
+<span class="o">[</span>k8s_emu_node<span class="o">]</span>
+k8s_emu_node1 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.1.1.1 <span class="nv">ansible_connection</span><span class="o">=</span>ssh <span class="nv">ansible_ssh_user</span><span class="o">=</span>root <span class="nv">ansible_ssh_pass</span><span class="o">=</span>gsta123 <span class="nv">ansible_ssh_extra_args</span><span class="o">=</span><span class="s2">&#34;-o StrictHostKeyChecking=no&#34;</span>
+k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.1.1.2 <span class="nv">ansible_connection</span><span class="o">=</span>ssh <span class="nv">ansible_ssh_user</span><span class="o">=</span>root <span class="nv">ansible_ssh_pass</span><span class="o">=</span>gsta123 <span class="nv">ansible_ssh_extra_args</span><span class="o">=</span><span class="s2">&#34;-o StrictHostKeyChecking=no&#34;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>{{}}里进行操作，lookup插件，读取network_test_conf文件，然后作为变量</p>
+<p><code>{{ lookup('file', network_test_conf) | from_yaml }}</code></p>
+<p><strong>注册node，添加主机，添加组</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+- name: Register ansible node list
+  add_host:
+    hostname: &#39;{{item[&#34;name&#34;]}}&#39;
+    groups: &#39;fio-server&#39;
+  #   ansible_ssh_host: &#39;{{item.addresses[network_name] | selectattr(&#34;OS-EXT-IPS:type&#34;,&#34;equalto&#34;, &#34;floating&#34;)| map(attribute=&#34;addr&#34;) | join(&#34;,&#34;)}}&#39;
+    ansible_ssh_host: &#39;{{item.addresses[network_name] | selectattr(&#34;OS-EXT-IPS:type&#34;,&#34;equalto&#34;, &#34;fixed&#34;)| map(attribute=&#34;addr&#34;) | join(&#34;,&#34;)}}&#39;
+    ansible_ssh_port: &#34;22&#34;
+    ansible_ssh_user: &#39;{{image_ssh_user}}&#39;
+    ansible_ssh_pass: &#39;{{image_ssh_pass}}&#39;
+    ansible_ssh_extra_args: &#34;-o StrictHostKeyChecking=no&#34;
+    ansible_sftp_extra_args: &#34;-o StrictHostKeyChecking=no&#34;
+    #ansible_ssh_extra_args: &#34;-o ProxyCommand=&#39;{{proxy}}&#39; -o StrictHostKeyChecking=no&#34;
+    #ansible_sftp_extra_args: &#34;-o ProxyCommand=&#39;{{proxy}}&#39; -o StrictHostKeyChecking=no&#34;  with_items: &#34;{{result.json.servers}}&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>copy模块</strong>[拷贝文件，从本地拷贝文件至各主机]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Copy<span class="w"> </span>the<span class="w"> </span>keyfile<span class="w"> </span>for<span class="w"> </span>authentication<span class="w">
+</span><span class="w">  </span><span class="k">copy</span><span class="p">:</span><span class="w"> </span>src=/wjf/weijunfeng<span class="w"> </span>dest={{<span class="w"> </span>mongodb_datadir_prefix<span class="w"> </span>}}/secret<span class="w"> </span>owner=mongod<span class="w"> </span>group=mongod<span class="w"> </span>mode=<span class="m">0400</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>fetch模块</strong>，从各主机拷贝文件到本地，flat: &ldquo;yes&quot;表示不自动创建目录，如果为false，会自动创建带各自主机名的目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">fetch</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">src</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/home/fio-result&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;./fio-test-result/{{ansible_ssh_host}}/&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">flat</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>创建文件或者目录，</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name: Create data directory for mongoc configuration server    &lt;br&gt;  file</span><span class="p">:</span><span class="w"> </span>path={{<span class="w"> </span>mongodb_datadir_prefix<span class="w"> </span>}}/configdb<span class="w"> </span>state=directory<span class="w"> </span>owner=mongod<span class="w"> </span>group=mongod<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>l  path: 路径，一般用于创建删除文件或目录</p>
+<p>l  state: file的相关操作，</p>
+<p>       directory表示创建目录，</p>
+<p>       link表示创建软连接，link还需要源路径和目标路径配合使用</p>
+<p>       touch表示创建文件，</p>
+<p>       absent表示删除文件</p>
+<p><strong>执行shell命令</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Initialize<span class="w"> </span>the<span class="w"> </span>replication<span class="w"> </span>set<span class="w">
+</span><span class="w">  </span><span class="k">shell</span><span class="p">:</span><span class="w"> </span>/usr/bin/mongo<span class="w"> </span>--port<span class="w"> </span><span class="s2">&#34;{{ mongod_port }}&#34;</span><span class="w"> </span>/tmp/repset_init.js<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>暂停，等待</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name: pause   pause</span><span class="p">:</span><span class="w"> </span>seconds=<span class="m">20</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>service服务模块 比如启动nginx</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w"> </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Make<span class="w"> </span>sure<span class="w"> </span>nginx<span class="w"> </span>start<span class="w"> </span>with<span class="w"> </span>boot<span class="w">
+</span><span class="w">   </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=nginx<span class="w"> </span>state=started<span class="w"> </span>enabled=yes<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><em>enabled</em>：这个注意了，默认是<em>no</em>，如果配置成<em>false</em>就是<em>restart</em>了之后就不关心结果了，配置成<em>yes</em>是要关心结果。</p>
+<p><strong>解压模块</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">unarchive</span><span class="p">:</span><span class="w"> </span>src=foo.tgz<span class="w"> </span>dest=/var/lib/foo<span class="w">
+</span><span class="w"></span>- <span class="k">unarchive</span><span class="p">:</span><span class="w"> </span>src=/tmp/foo.zip<span class="w"> </span>dest=/usr/local/bin<span class="w"> </span>copy=no<span class="w">
+</span><span class="w"></span>- <span class="k">unarchive</span><span class="p">:</span><span class="w"> </span>src=https<span class="p">:</span>//example.com/example.zip<span class="w"> </span>dest=/usr/local/bin<span class="w"> </span>copy=no<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>unarchive模块</p>
+<p>用于解压文件，模块包含如下选项：</p>
+<p>copy：在解压文件之前，是否先将文件复制到远程主机，默认为yes。若为no，则要求目标主机上压缩包必须存在。</p>
+<p>creates：指定一个文件名，当该文件存在时，则解压指令不执行</p>
+<p>dest：远程主机上的一个路径，即文件解压的路径</p>
+<p>grop：解压后的目录或文件的属组</p>
+<p>list_files：如果为yes，则会列出压缩包里的文件，默认为no，2.0版本新增的选项</p>
+<p>mode：解决后文件的权限</p>
+<p>src：如果copy为yes，则需要指定压缩文件的源路径</p>
+<p>owner：解压后文件或目录的属主</p>
+<p><strong>yum模块</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>remove<span class="w"> </span>epel<span class="w"> </span>if<span class="w"> </span>installed<span class="w">
+</span><span class="w">  </span><span class="k">yum</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>epel-release<span class="w">
+</span><span class="w">    </span><span class="k">state</span><span class="p">:</span><span class="w"> </span>absent<span class="w">
+</span><span class="w">  </span><span class="k">ignore_errors</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Wait_for模块：</strong></p>
+<p>等待事情发生，例如等待数据库启动、web容器启动等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>wait<span class="w"> </span>for<span class="w"> </span>dnsmasq<span class="w"> </span>port<span class="w"> </span><span class="m">53</span><span class="w">
+</span><span class="w">  </span><span class="k">wait_for</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">53</span><span class="w">
+</span><span class="w">  </span><span class="k">timeout</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>port：等待某端口号必须启动</p>
+<p>path：等待某文件必须创建</p>
+<p>host：默认是127.0.0.1，为了满足等待其它远程服务器的场景</p>
+<p>timeout的单位是秒</p>
+<p>state：默认是started，也就是等待启动或创建，也可能存在等待删除或停止等场景。对象是端口的时候start状态会确保端口是打开的，stoped状态会确认端口是关闭的;对象是文件的时候，present或者started会确认文件是存在的，而absent会确认文件是不存在的。</p>
+<p><strong>Git模块</strong></p>
+<p>对于git版本服务的操作模块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ANSISTRANO<span class="w"> </span>|<span class="w"> </span>GIT<span class="w"> </span>|<span class="w"> </span>Update<span class="w"> </span>remote<span class="w"> </span>repository<span class="w">
+</span><span class="w">  </span><span class="k">git</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">repo</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_git_repo }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_deploy_to }}/repo&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_git_branch }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">accept_hostkey</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="k">update</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
+</span><span class="w">    </span><span class="k">force</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
+</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>ansistrano_git_result_update<span class="w">
+</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>ansistrano_git_identity_key_path|trim<span class="w"> </span>==<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span>and<span class="w"> </span>ansistrano_git_identity_key_remote_path|trim<span class="w"> </span>==<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>repo：git仓库的地址</p>
+<p>dest：仓库中的相对目录</p>
+<p>version：哪个版本</p>
+<p>accept_hostkey：如果ssh_opts包含” -o StrictHostKeyChecking=no”，此参数可以省略，如果配置成true或yes，需要添加hostkey</p>
+<p>update：是否要更新新版本</p>
+<p>force：配置成yes，本地仓库将永远被仓库服务端覆盖</p>
+<p><strong>get_url模块</strong></p>
+<p>也就是download操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>codelivery<span class="w"> </span>|<span class="w"> </span>download<span class="w"> </span>|<span class="w"> </span>Download<span class="w"> </span>artifact<span class="w">
+</span><span class="w">  </span><span class="k">get_url</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_product_url }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_releases_dir }}/{{ codelivery_product_url | basename }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">force_basic_auth</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_download_force_basic_auth | default(omit) }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">headers</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_download_headers | default(omit) }}&#34;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>url：http的地址</p>
+<p>dest：下载文件到目的机的路径</p>
+<p>force_basic_auth：在发起请求前是否发出权限校验信息</p>
+<p>headers：报文头信息</p>
+<p><strong>uri模块</strong></p>
+<p>比get_url功能更强大的http请求模块，可以发起get、post、put等各种请求方式，也可以处理返回值及内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>codelivery<span class="w"> </span>|<span class="w"> </span>healthcheck<span class="w"> </span>|<span class="w"> </span>urlcheck<span class="w"> </span>status==<span class="m">200</span><span class="p">?</span><span class="w">
+</span><span class="w">  </span><span class="k">uri</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://{{ codelivery_urlcheck_addr }}:{{ codelivery_urlcheck_port }}{{ codelivery_urlcheck_url }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">method</span><span class="p">:</span><span class="w"> </span>GET<span class="w">
+</span><span class="w">    </span><span class="k">headers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">Host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_urlcheck_host }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">timeout</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">    </span><span class="k">status_code</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span><span class="w">    </span><span class="k">return_content</span><span class="p">:</span><span class="w"> </span>no<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>debug模块</strong> 打印出变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">debug</span><span class="p">:</span><span class="w"> </span>msg=<span class="s2">&#34;heat_failed_reason={{reason.stdout}}&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>result.stdout==<span class="s2">&#34;CREATE_FAILED&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>常用魔数</strong></p>
+<p>ansible_distribution=Ubuntu</p>
+<p>ansible_distribution_version=14.04</p>
+<p>ansible_distribution_major_version：系统的大版本号</p>
+<p>ansible_os_family：系统的操作系统(‘RedHat’,’Debian’,’FreeBSD’)</p>
+<p><strong>自定义局部变量并赋值</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Define<span class="w"> </span>nginx_user.<span class="w">
+</span><span class="w">  </span><span class="k">set_fact</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">nginx_user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ __nginx_user }}&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>nginx_user<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>defined<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>支持从 sudo 执行命令:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">   </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>yourname<span class="w">
+</span><span class="w">   </span><span class="k">sudo</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>可以登陆后,sudo 到不同的用户身份,而不是使用 root:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">   </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>yourname<span class="w">
+</span><span class="w">   </span><span class="k">sudo</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
+</span><span class="w">   </span><span class="k">sudo_user</span><span class="p">:</span><span class="w"> </span>postgres<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果需要在使用 sudo 时指定密码,可在运行 <em>ansible-playbook</em> 命令时加上选项 &ndash;ask-sudo-pass (<em>-K</em>). 如果使用 sudo 时,playbook 疑似被挂起,可能是在 sudo prompt 处被卡住,这时可执行 <em>Control-C</em> 杀死卡住的任务,再重新运行一次.</p>
+<p><strong>service moudle</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>make<span class="w"> </span>sure<span class="w"> </span>apache<span class="w"> </span>is<span class="w"> </span>running<span class="w">
+</span><span class="w">     </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=httpd<span class="w"> </span>state=running<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><em>command</em> 和 <em>shell</em> ,它们不使用 key=value 格式的参数:[执行命令，linux命令]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>disable<span class="w"> </span>selinux<span class="w">
+</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/sbin/setenforce<span class="w"> </span><span class="m">0</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>command module 和 shell module 时,需要关心返回码信息,如果有一条命令,它的成功执行的返回码不是0, 意思就是执行命令不成功，你可以通过下面例子进行忽略[忽略错误，跳过报错]：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>run<span class="w"> </span>this<span class="w"> </span>command<span class="w"> </span>and<span class="w"> </span>ignore<span class="w"> </span>the<span class="w"> </span>result<span class="w">
+</span><span class="w">    </span><span class="k">shell</span><span class="p">:</span><span class="w"> </span>/usr/bin/somecommand<span class="w"> </span>||<span class="w"> </span>/bin/<span class="kc">true</span><span class="w">
+</span><span class="w"></span>或者：<span class="w">
+</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w"> </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>run<span class="w"> </span>this<span class="w"> </span>command<span class="w"> </span>and<span class="w"> </span>ignore<span class="w"> </span>the<span class="w"> </span>result<span class="w">
+</span><span class="w">   </span><span class="k">shell</span><span class="p">:</span><span class="w"> </span>/usr/bin/somecommand<span class="w">
+</span><span class="w">   </span><span class="k">ignore_errors</span><span class="p">:</span><span class="w"> </span>True<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>假设在 ‘vars’ 那里定义了一个变量 ‘vhost’ ,可以这样使用:{{}}  [使用参数方法]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>create<span class="w"> </span>a<span class="w"> </span>virtual<span class="w"> </span>host<span class="w"> </span>file<span class="w"> </span>for<span class="w"> </span>{{<span class="w"> </span>vhost<span class="w"> </span>}}<span class="w">
+</span><span class="w">    </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src=somefile.j2<span class="w"> </span>dest=/etc/httpd/conf.d/{{<span class="w"> </span>vhost<span class="w"> </span>}}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>‘notify’ 下列出的即是 handlers，比如当一个文件的内容被改动时,重启两个 services:[文件改变时执行]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>template<span class="w"> </span>configuration<span class="w"> </span>file<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src=template.j2<span class="w"> </span>dest=/etc/foo.conf<span class="w">
+</span><span class="w">  </span><span class="k">notify</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- restart<span class="w"> </span>memcached<span class="w">
+</span><span class="w">   </span>- restart<span class="w"> </span>apache<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Handlers 也是一些 task 的列表,通过名字来引用,它们和一般的 task 并没有什么区别.Handlers 是由通知者进行 notify, 如果没有被 notify,handlers 不会执行.不管有多少个通知者进行了 notify,等到 play 中的所有 task 执行完成之后,handlers 也只会被执行一次，handlers 例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"> </span><span class="k">handlers</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>restart<span class="w"> </span>memcached<span class="w">
+</span><span class="w">     </span><span class="k">service</span><span class="p">:</span><span class="w">  </span>name=memcached<span class="w"> </span>state=restarted<span class="w">
+</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>restart<span class="w"> </span>apache<span class="w">
+</span><span class="w">     </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=apache<span class="w"> </span>state=restarted<span class="w">
+</span><span class="w">   </span>- <span class="k">include</span><span class="p">:</span><span class="w"> </span>handlers/handlers.yml<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>include指令</strong></p>
+<p>一个 task include file foo.yml 由一个普通的 task 列表所组成，像这样:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c"># possibly saved as tasks/foo.yml</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>placeholder<span class="w"> </span>foo<span class="w">
+</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/foo<span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>placeholder<span class="w"> </span>bar<span class="w">
+</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/bar<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Include 指令可以跟普通的 task 混合，所以呢，你可以这样使用(后面可以加参数):[include参数]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks:   - include</span><span class="p">:</span><span class="w"> </span>tasks/foo.yml<span class="w">  </span>wp_user=timmy<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果Ansible 1.4 及以后的版本，include 语法可更为精简</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">   </span>- {<span class="w"> </span><span class="k">include: wordpress.yml, wp_user: timmy, ssh_keys</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">&#39;keys/one.txt&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;keys/two.txt&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>从 1.0 版开始，Ansible 支持另一种传递变量到 include files 的语法，这种语法支持结构化的变量:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span>- <span class="k">include</span><span class="p">:</span><span class="w"> </span>wordpress.yml<span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span><span class="k">wp_user</span><span class="p">:</span><span class="w"> </span>timmy<span class="w">
+</span><span class="w">
+</span><span class="w">      </span><span class="k">some_list_variable</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">           </span>- alpha<span class="w">
+</span><span class="w">
+</span><span class="w">           </span>- beta<span class="w">
+</span><span class="w">
+</span><span class="w">           </span>- gamma<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Roles</p>
+<p> Roles 基于一个已知的文件结构，去自动的加载某些 vars_files，tasks 以及 handlers。基于 roles 对内容进行分组</p>
+<p>roles目录结构如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>site.yml<span class="w">
+</span><span class="w"></span>webservers.yml<span class="w">
+</span><span class="w"></span>fooservers.yml<span class="w">
+</span><span class="w"></span>roles/<span class="w">
+</span><span class="w">  </span>common/<span class="w">
+</span><span class="w">    </span>files/<span class="w">
+</span><span class="w">    </span>templates/<span class="w">
+</span><span class="w">    </span>tasks/<span class="w">
+</span><span class="w">    </span>handlers/<span class="w">
+</span><span class="w">    </span>vars/<span class="w">
+</span><span class="w">    </span>defaults/<span class="w">
+</span><span class="w">    </span>meta/<span class="w">
+</span><span class="w">  </span>webservers/<span class="w">
+</span><span class="w">    </span>files/<span class="w">
+</span><span class="w">    </span>templates/<span class="w">
+</span><span class="w">    </span>tasks/<span class="w">
+</span><span class="w">    </span>handlers/<span class="w">
+</span><span class="w">    </span>vars/<span class="w">
+</span><span class="w">    </span>defaults/<span class="w">
+</span><span class="w">    </span>meta/<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>哥哥姐姐们可以这样使用roles</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- common<span class="w">
+</span><span class="w">    </span>- webservers<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>这个 playbook 为一个角色 ‘x’ 指定了如下的行为：</p>
+<ul>
+<li>l  如果 roles/x/tasks/main.yml 存在, 其中列出的 tasks 将被添加到 play 中</li>
+<li>l  如果 roles/x/handlers/main.yml 存在, 其中列出的 handlers 将被添加到 play 中</li>
+<li>l  如果 roles/x/vars/main.yml 存在, 其中列出的 variables 将被添加到 play 中</li>
+<li>l  如果 roles/x/meta/main.yml 存在, 其中列出的 “角色依赖” 将被添加到 roles 列表中 (1.3 and later)</li>
+<li>l  所有 copy tasks 可以引用 roles/x/files/ 中的文件，不需要指明文件的路径。</li>
+<li>l  所有 script tasks 可以引用 roles/x/files/ 中的脚本，不需要指明文件的路径。</li>
+<li>l  所有 template tasks 可以引用 roles/x/templates/ 中的文件，不需要指明文件的路径。</li>
+<li>l  所有 include tasks 可以引用 roles/x/tasks/ 中的文件，不需要指明文件的路径。</li>
+</ul>
+<p>在 Ansible 1.4 及之后版本，你可以为”角色”的搜索设定 roles_path 配置项。使用这个配置项将所有的 common 角色 check out 到一个位置，以便在多个 playbook 项目中可方便的共享使用它们</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">roles_path</span> <span class="o">=</span> /opt/mysite/roles
+</code></pre></td></tr></table>
+</div>
+</div><p>如果 roles 目录下有文件不存在，这些文件将被忽略。比如 roles 目录下面缺少了 ‘vars/’ 目录，这也没关系。</p>
+<p>roles带参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- common<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: foo_app_instance, dir: &#39;/opt/a&#39;,  port</span><span class="p">:</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span>}<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: foo_app_instance, dir: &#39;/opt/b&#39;,  port</span><span class="p">:</span><span class="w"> </span><span class="m">5001</span><span class="w"> </span>}<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>roles带条件，when</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: some_role, when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ansible_os_family == &#39;RedHat&#39;&#34;</span><span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>roles分配tags</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- {<span class="w"> </span><span class="k">role: foo, tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;bar&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;baz&#34;</span><span class="p">]</span><span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果 play 仍然包含有 ‘tasks’ section，这些 tasks 将在所有 roles 应用完成之后才被执行。</p>
+<p>如果你希望定义一些 tasks，让它们在 roles 之前以及之后执行，大佬你可以这样做:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">   </span><span class="k">pre_tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>echo<span class="w"> </span><span class="s1">&#39;hello&#39;</span><span class="w">
+</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span>some_role<span class="w"> </span>}<span class="w">
+</span><span class="w">   </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>echo<span class="w"> </span><span class="s1">&#39;still busy&#39;</span><span class="w">
+</span><span class="w">   </span><span class="k">post_tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>echo<span class="w"> </span><span class="s1">&#39;goodbye&#39;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>角色默认变量</strong></p>
+<p>要创建默认变量，只需在 roles 目录下添加 <em>defaults/main.yml</em> 文件。这些变量在所有可用变量中拥有最低优先级，可能被其他地方定义的变量(包括 inventory 中的变量)所覆盖。</p>
+<p><strong>角色依赖</strong></p>
+<p>“角色依赖” 使你可以自动地将其他 roles 拉取到现在使用的 role 中。”角色依赖” 保存在 roles 目录下的 <em>meta/main.yml</em> 文件中。这个文件应包含一列 roles 和 为之指定的参数，下面是在 <em>roles/myapp/meta/main.yml</em> 文件中的示例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"></span><span class="k">dependencies</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role: common, some_parameter</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>}<span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role: apache, port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>}<span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role: postgres, dbname: blarg, other_parameter</span><span class="p">:</span><span class="w"> </span><span class="m">12</span><span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>“角色依赖” 也可以通过源码控制仓库或者 tar 文件指定，使用逗号分隔：路径、一个可选的版本（tag, commit, branch 等等）、一个可选友好角色名（尝试从源码仓库名或者归档文件名中派生出角色名）:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w"> </span><span class="k">dependencies</span><span class="p">:</span><span class="w">
+</span><span class="w"> </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;git+http://git.example.com/repos/role-foo,v1.1,foo&#39;</span><span class="w"> </span>}<span class="w">
+</span><span class="w"> </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/path/to/tar/file.tgz,,friendly-name&#39;</span><span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>“角色依赖” 总是在 role （包含”角色依赖”的role）之前执行，并且是递归地执行。默认情况下，作为 “角色依赖” 被添加的 role 只能被添加一次，如果另一个 role 将一个相同的角色列为 “角色依赖” 的对象，它不会被重复执行。但这种默认的行为可被修改，通过添加 <em>allow_duplicates: yes</em> 到<em>meta/main.yml</em> 文件中。 比如，一个 role 名为 ‘car’，它可以添加名为 ‘wheel’ 的 role 到它的 “角色依赖” 中:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w">  </span><span class="k">dependencies</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>}<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>}<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>}<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>}<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>wheel 角色的 <em>meta/main.yml</em> 文件包含如下内容:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"></span><span class="k">allow_duplicates</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
+</span><span class="w"></span><span class="k">dependencies</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span>tire<span class="w"> </span>}<span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span>brake<span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>最终的执行顺序是这样的:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+tire(n=1)
+brake(n=1)
+wheel(n=1)
+tire(n=2)
+brake(n=2)
+wheel(n=2)
+...
+car
+
+</code></pre></td></tr></table>
+</div>
+</div><p>YAML语法要求如果值以{{ foo }}开头的话我们需要将整行用双引号包起来.这是为了确认你不是想声明一个YAML字典</p>
+<p>这样是不行的:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>app_servers<span class="w">
+</span><span class="w">  </span><span class="k">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app_path</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>base_path<span class="w"> </span>}}/<span class="m">22</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>你应该这么做:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>app_servers<span class="w">
+</span><span class="w">  </span><span class="k">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app_path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ base_path }}/22&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Facts通过访问远程系统获取相应的信息. 一个例子就是远程主机的IP地址或者操作系统是什么. 使用以下命令可以查看哪些信息是可用的:[查看主机信息]</p>
+<p>如果你不需要使用你主机的任何fact数据,你已经知道了你系统的一切,那么你可以关闭fact数据的获取.这有利于增强Ansilbe面对大量系统的push模块,或者你在实验性平台中使用Ansible.在任何playbook中可以这样做:[关闭facts]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>whatever<span class="w">
+</span><span class="w">  </span><span class="k">gather_facts</span><span class="p">:</span><span class="w"> </span>no<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>获取主机名 {{ ansible_nodename }}</p>
+<p><strong>ansible hostname -m setup</strong></p>
+<p><strong>命令输出如下：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+&#34;ansible_all_ipv4_addresses&#34;: [&#34;REDACTED IP ADDRESS&#34;],
+&#34;ansible_all_ipv6_addresses&#34;: [&#34;REDACTED IPV6 ADDRESS&#34;],
+&#34;ansible_architecture&#34;: &#34;x86_64&#34;,
+&#34;ansible_bios_date&#34;: &#34;09/20/2012&#34;,
+&#34;ansible_bios_version&#34;: &#34;6.00&#34;,
+&#34;ansible_cmdline&#34;: {
+    &#34;BOOT_IMAGE&#34;: &#34;/boot/vmlinuz-3.5.0-23-generic&#34;,
+    &#34;quiet&#34;: true,
+    &#34;ro&#34;: true,
+    &#34;root&#34;: &#34;UUID=4195bff4-e157-4e41-8701-e93f0aec9e22&#34;,
+    &#34;splash&#34;: true },
+&#34;ansible_date_time&#34;: {
+    &#34;date&#34;: &#34;2013-10-02&#34;,
+    &#34;day&#34;: &#34;02&#34;,
+    &#34;epoch&#34;: &#34;1380756810&#34;,
+    &#34;hour&#34;: &#34;19&#34;,
+    &#34;iso8601&#34;: &#34;2013-10-02T23:33:30Z&#34;,
+    &#34;iso8601_micro&#34;: &#34;2013-10-02T23:33:30.036070Z&#34;,
+    &#34;minute&#34;: &#34;33&#34;,
+    &#34;month&#34;: &#34;10&#34;,
+    &#34;second&#34;: &#34;30&#34;,
+    &#34;time&#34;: &#34;19:33:30&#34;,
+    &#34;tz&#34;: &#34;EDT&#34;,
+    &#34;year&#34;: &#34;2013&#34; },
+&#34;ansible_default_ipv4&#34;: {
+    &#34;address&#34;: &#34;REDACTED&#34;,
+    &#34;alias&#34;: &#34;eth0&#34;,
+    &#34;gateway&#34;: &#34;REDACTED&#34;,
+    &#34;interface&#34;: &#34;eth0&#34;,
+    &#34;macaddress&#34;: &#34;REDACTED&#34;,
+    &#34;mtu&#34;: 1500,
+    &#34;netmask&#34;: &#34;255.255.255.0&#34;,
+    &#34;network&#34;: &#34;REDACTED&#34;,
+    &#34;type&#34;: &#34;ether&#34; },
+&#34;ansible_default_ipv6&#34;: {
+
+},
+&#34;ansible_devices&#34;: {
+    &#34;fd0&#34;: {
+        &#34;holders&#34;: [],
+        &#34;host&#34;: &#34;&#34;,
+        &#34;model&#34;: null,
+        &#34;partitions&#34;: {
+
+        },
+        &#34;removable&#34;: &#34;1&#34;,
+        &#34;rotational&#34;: &#34;1&#34;,
+        &#34;scheduler_mode&#34;: &#34;deadline&#34;,
+        &#34;sectors&#34;: &#34;0&#34;,
+        &#34;sectorsize&#34;: &#34;512&#34;,
+        &#34;size&#34;: &#34;0.00 Bytes&#34;,
+        &#34;support_discard&#34;: &#34;0&#34;,
+        &#34;vendor&#34;: null },
+    &#34;sda&#34;: {
+        &#34;holders&#34;: [],
+        &#34;host&#34;: &#34;SCSI storage controller: LSI Logic / Symbios Logic 53c1030 PCI-X Fusion-MPT Dual Ultra320 SCSI (rev 01)&#34;,
+        &#34;model&#34;: &#34;VMware Virtual S&#34;,
+        &#34;partitions&#34;: {
+            &#34;sda1&#34;: {
+                &#34;sectors&#34;: &#34;39843840&#34;,
+                &#34;sectorsize&#34;: 512,
+                &#34;size&#34;: &#34;19.00 GB&#34;,
+                &#34;start&#34;: &#34;2048&#34; },
+            &#34;sda2&#34;: {
+                &#34;sectors&#34;: &#34;2&#34;,
+                &#34;sectorsize&#34;: 512,
+                &#34;size&#34;: &#34;1.00 KB&#34;,
+                &#34;start&#34;: &#34;39847934&#34; },
+            &#34;sda5&#34;: {
+                &#34;sectors&#34;: &#34;2093056&#34;,
+                &#34;sectorsize&#34;: 512,
+                &#34;size&#34;: &#34;1022.00 MB&#34;,
+                &#34;start&#34;: &#34;39847936&#34; }
+        },
+        &#34;removable&#34;: &#34;0&#34;,
+        &#34;rotational&#34;: &#34;1&#34;,
+        &#34;scheduler_mode&#34;: &#34;deadline&#34;,
+        &#34;sectors&#34;: &#34;41943040&#34;,
+        &#34;sectorsize&#34;: &#34;512&#34;,
+        &#34;size&#34;: &#34;20.00 GB&#34;,
+        &#34;support_discard&#34;: &#34;0&#34;,
+        &#34;vendor&#34;: &#34;VMware,&#34; },
+    &#34;sr0&#34;: {
+        &#34;holders&#34;: [],
+        &#34;host&#34;: &#34;IDE interface: Intel Corporation 82371AB/EB/MB PIIX4 IDE (rev 01)&#34;,
+        &#34;model&#34;: &#34;VMware IDE CDR10&#34;,
+        &#34;partitions&#34;: {
+
+        },
+        &#34;removable&#34;: &#34;1&#34;,
+        &#34;rotational&#34;: &#34;1&#34;,
+        &#34;scheduler_mode&#34;: &#34;deadline&#34;,
+        &#34;sectors&#34;: &#34;2097151&#34;,
+        &#34;sectorsize&#34;: &#34;512&#34;,
+        &#34;size&#34;: &#34;1024.00 MB&#34;,
+        &#34;support_discard&#34;: &#34;0&#34;,
+        &#34;vendor&#34;: &#34;NECVMWar&#34; }
+},
+&#34;ansible_distribution&#34;: &#34;Ubuntu&#34;,
+&#34;ansible_distribution_release&#34;: &#34;precise&#34;,
+&#34;ansible_distribution_version&#34;: &#34;12.04&#34;,
+&#34;ansible_domain&#34;: &#34;&#34;,
+&#34;ansible_env&#34;: {
+    &#34;COLORTERM&#34;: &#34;gnome-terminal&#34;,
+    &#34;DISPLAY&#34;: &#34;:0&#34;,
+    &#34;HOME&#34;: &#34;/home/mdehaan&#34;,
+    &#34;LANG&#34;: &#34;C&#34;,
+    &#34;LESSCLOSE&#34;: &#34;/usr/bin/lesspipe %s %s&#34;,
+    &#34;LESSOPEN&#34;: &#34;| /usr/bin/lesspipe %s&#34;,
+    &#34;LOGNAME&#34;: &#34;root&#34;,
+    &#34;LS_COLORS&#34;: &#34;rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:&#34;,
+    &#34;MAIL&#34;: &#34;/var/mail/root&#34;,
+    &#34;OLDPWD&#34;: &#34;/root/ansible/docsite&#34;,
+    &#34;PATH&#34;: &#34;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#34;,
+    &#34;PWD&#34;: &#34;/root/ansible&#34;,
+    &#34;SHELL&#34;: &#34;/bin/bash&#34;,
+    &#34;SHLVL&#34;: &#34;1&#34;,
+    &#34;SUDO_COMMAND&#34;: &#34;/bin/bash&#34;,
+    &#34;SUDO_GID&#34;: &#34;1000&#34;,
+    &#34;SUDO_UID&#34;: &#34;1000&#34;,
+    &#34;SUDO_USER&#34;: &#34;mdehaan&#34;,
+    &#34;TERM&#34;: &#34;xterm&#34;,
+    &#34;USER&#34;: &#34;root&#34;,
+    &#34;USERNAME&#34;: &#34;root&#34;,
+    &#34;XAUTHORITY&#34;: &#34;/home/mdehaan/.Xauthority&#34;,
+    &#34;_&#34;: &#34;/usr/local/bin/ansible&#34; },
+&#34;ansible_eth0&#34;: {
+    &#34;active&#34;: true,
+    &#34;device&#34;: &#34;eth0&#34;,
+    &#34;ipv4&#34;: {
+        &#34;address&#34;: &#34;REDACTED&#34;,
+        &#34;netmask&#34;: &#34;255.255.255.0&#34;,
+        &#34;network&#34;: &#34;REDACTED&#34; },
+    &#34;ipv6&#34;: [{
+        &#34;address&#34;: &#34;REDACTED&#34;,
+        &#34;prefix&#34;: &#34;64&#34;,
+        &#34;scope&#34;: &#34;link&#34; }],
+    &#34;macaddress&#34;: &#34;REDACTED&#34;,
+    &#34;module&#34;: &#34;e1000&#34;,
+    &#34;mtu&#34;: 1500,
+    &#34;type&#34;: &#34;ether&#34; },
+&#34;ansible_form_factor&#34;: &#34;Other&#34;,
+&#34;ansible_fqdn&#34;: &#34;ubuntu2.example.com&#34;,
+&#34;ansible_hostname&#34;: &#34;ubuntu2&#34;,
+&#34;ansible_interfaces&#34;: [&#34;lo&#34;,
+&#34;eth0&#34;],
+&#34;ansible_kernel&#34;: &#34;3.5.0-23-generic&#34;,
+&#34;ansible_lo&#34;: {
+    &#34;active&#34;: true,
+    &#34;device&#34;: &#34;lo&#34;,
+    &#34;ipv4&#34;: {
+        &#34;address&#34;: &#34;127.0.0.1&#34;,
+        &#34;netmask&#34;: &#34;255.0.0.0&#34;,
+        &#34;network&#34;: &#34;127.0.0.0&#34; },
+    &#34;ipv6&#34;: [{
+        &#34;address&#34;: &#34;::1&#34;,
+        &#34;prefix&#34;: &#34;128&#34;,
+        &#34;scope&#34;: &#34;host&#34; }],
+    &#34;mtu&#34;: 16436,
+    &#34;type&#34;: &#34;loopback&#34; },
+&#34;ansible_lsb&#34;: {
+    &#34;codename&#34;: &#34;precise&#34;,
+    &#34;description&#34;: &#34;Ubuntu 12.04.2 LTS&#34;,
+    &#34;id&#34;: &#34;Ubuntu&#34;,
+    &#34;major_release&#34;: &#34;12&#34;,
+    &#34;release&#34;: &#34;12.04&#34; },
+&#34;ansible_machine&#34;: &#34;x86_64&#34;,
+&#34;ansible_memfree_mb&#34;: 74,
+&#34;ansible_memtotal_mb&#34;: 991,
+&#34;ansible_mounts&#34;: [{
+    &#34;device&#34;: &#34;/dev/sda1&#34;,
+    &#34;fstype&#34;: &#34;ext4&#34;,
+    &#34;mount&#34;: &#34;/&#34;,
+    &#34;options&#34;: &#34;rw,errors=remount-ro&#34;,
+    &#34;size_available&#34;: 15032406016,
+    &#34;size_total&#34;: 20079898624 }],
+&#34;ansible_nodename&#34;: &#34;ubuntu2.example.com&#34;,
+&#34;ansible_os_family&#34;: &#34;Debian&#34;,
+&#34;ansible_pkg_mgr&#34;: &#34;apt&#34;,
+&#34;ansible_processor&#34;: [&#34;Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz&#34;],
+&#34;ansible_processor_cores&#34;: 1,
+&#34;ansible_processor_count&#34;: 1,
+&#34;ansible_processor_threads_per_core&#34;: 1,
+&#34;ansible_processor_vcpus&#34;: 1,
+&#34;ansible_product_name&#34;: &#34;VMware Virtual Platform&#34;,
+&#34;ansible_product_serial&#34;: &#34;REDACTED&#34;,
+&#34;ansible_product_uuid&#34;: &#34;REDACTED&#34;,
+&#34;ansible_product_version&#34;: &#34;None&#34;,
+&#34;ansible_python_version&#34;: &#34;2.7.3&#34;,
+&#34;ansible_selinux&#34;: false,
+&#34;ansible_ssh_host_key_dsa_public&#34;: &#34;REDACTED KEY VALUE&#34;&#34;ansible_ssh_host_key_ecdsa_public&#34;: &#34;REDACTED KEY VALUE&#34;&#34;ansible_ssh_host_key_rsa_public&#34;: &#34;REDACTED KEY VALUE&#34;&#34;ansible_swapfree_mb&#34;: 665,
+&#34;ansible_swaptotal_mb&#34;: 1021,
+&#34;ansible_system&#34;: &#34;Linux&#34;,
+&#34;ansible_system_vendor&#34;: &#34;VMware, Inc.&#34;,
+&#34;ansible_user_id&#34;: &#34;root&#34;,
+&#34;ansible_userspace_architecture&#34;: &#34;x86_64&#34;,
+&#34;ansible_userspace_bits&#34;: &#34;64&#34;,
+&#34;ansible_virtualization_role&#34;: &#34;guest&#34;,
+&#34;ansible_virtualization_type&#34;: &#34;VMware&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>本地Facts</strong></p>
+<p>如果远程受管理的机器有一个 “/etc/ansible/facts.d” 目录,那么在该目录中任何以 ”.fact”结尾的文件都可以在Ansible中提供局部facts.这些文件可以是JSON,INI或者任何可以返回JSON的可执行文件.</p>
+<p>例如建设有一个 /etc/ansible/facts.d/perferences.fact文件:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>general<span class="o">]</span>
+<span class="nv">asdf</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">bar</span><span class="o">=</span><span class="m">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这将产生一个名为 “general” 的哈希表fact,里面成员有 ‘asdf’ 和 ‘bar’. 可以这样验证:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ansible &lt;hostname&gt; -m setup -a <span class="s2">&#34;filter=ansible_local&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后你会看到有以下fact被添加:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;ansible_local&#34;: {
+     &#34;preferences&#34;: {
+           &#34;general&#34;: {
+               &#34;asdf&#34; : &#34;1&#34;,
+                &#34;bar&#34;  : &#34;2&#34;             }         }  }
+</code></pre></td></tr></table>
+</div>
+</div><p>而且也可以在template或palybook中访问该数据:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{{ ansible_local.preferences.general.asdf }}
+</code></pre></td></tr></table>
+</div>
+</div><p>本地命名空间放置其它用户提供的fact或者playbook中定义的变量覆盖系统facts值.</p>
+<p>如果你有个一个playook,它复制了一个自定义的fact,然后运行它,请显式调用来重新运行setup模块,这样可以让我们在该playbook中使用这些fact.否则,在下一个play中才能获取这些自定义的fact信息.这里有一个示例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">   </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>create<span class="w"> </span>directory<span class="w"> </span>for<span class="w"> </span>ansible<span class="w"> </span>custom<span class="w"> </span>facts<span class="w">
+</span><span class="w">       </span><span class="k">file</span><span class="p">:</span><span class="w"> </span>state=directory<span class="w"> </span>recurse=yes<span class="w"> </span>path=/etc/ansible/facts.d<span class="w">
+</span><span class="w">     </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>install<span class="w"> </span>custom<span class="w"> </span>impi<span class="w"> </span>fact<span class="w">
+</span><span class="w">       </span><span class="k">copy</span><span class="p">:</span><span class="w"> </span>src=ipmi.fact<span class="w"> </span>dest=/etc/ansible/facts.d<span class="w">
+</span><span class="w">     </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>re-read<span class="w"> </span>facts<span class="w"> </span>after<span class="w"> </span>adding<span class="w"> </span>custom<span class="w"> </span>fact<span class="w">
+</span><span class="w">       </span><span class="k">setup</span><span class="p">:</span><span class="w"> </span>filter=ansible_local<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>然而在该模式中你也可以编写一个fact模块,这只不过是多了一个选项.</p>
+<p><strong>Fact缓存</strong></p>
+<p>从一个服务器引用另一个服务器的变量是可行的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{{ hostvars[&#39;asdf.example.com&#39;][&#39;ansible_os_family&#39;] }}
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注册变量</strong></p>
+<p> register</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+- hosts: web_servers
+  tasks:
+   - shell: /usr/bin/foo
+     register: foo_result
+      ignore_errors: True
+
+   - shell: /usr/bin/bar
+     when: foo_result.rc == 5
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>魔法变量,以及如何访问其它主机的信息</strong></p>
+<p>Ansible会自动提供给你一些变量,即使你并没有定义过它们.这些变量中重要的有 ‘hostvars’,’group_names’,和 ‘groups’.由于这些变量名是预留的,所以用户不应当覆盖它们. ‘environmen’ 也是预留的. hostvars可以让你访问其它主机的变量,包括哪些主机中获取到的facts.如果你还没有在当前playbook或者一组playbook的任何play中访问那个主机,那么你可以获取变量,但无法看到facts值. 如果数据库服务器想使用另一个节点的某个 ‘fact’ 值,或者赋值给该节点的一个inventory变量.可以在一个模板中甚至命令行中轻松实现:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{{ hostvars[&#39;test.example.com&#39;][&#39;ansible_distribution&#39;] }}
+</code></pre></td></tr></table>
+</div>
+</div><p>另外, <em>group_names</em> 是当前主机所在所有群组的列表(数组).所以可以使用Jinja2语法在模板中根据该主机所在群组关系(或角色)来产生变化:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{% if &#39;webserver&#39; in group_names %}
+　　 # some part of a configuration file that only applies to webservers
+{% endif %}
+</code></pre></td></tr></table>
+</div>
+</div><p><em>groups</em> 是inventory中所有群组(主机)的列表.可用于枚举群组中的所有主机.例如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">{% for host in groups[&#39;app_servers&#39;] %}
+　　# something that applies to all app servers.
+{% endfor %}
+</code></pre></td></tr></table>
+</div>
+</div><p>一个经常使用的范式是找出该群组中的所有IP地址:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">{</span>% <span class="k">for</span> host in groups<span class="o">[</span><span class="s1">&#39;app_servers&#39;</span><span class="o">]</span> %<span class="o">}</span>
+　　 <span class="o">{{</span> hostvars<span class="o">[</span>host<span class="o">][</span><span class="s1">&#39;ansible_eth0&#39;</span><span class="o">][</span><span class="s1">&#39;ipv4&#39;</span><span class="o">][</span><span class="s1">&#39;address&#39;</span><span class="o">]</span> <span class="o">}}</span>
+ <span class="o">{</span>% endfor %<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>外部的变量文件:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w">  </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
+</span><span class="w">    </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">    </span><span class="k">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">favcolor</span><span class="p">:</span><span class="w"> </span>blue<span class="w">
+</span><span class="w">    </span><span class="k">vars_files</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- /vars/external_vars.yml<span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>this<span class="w"> </span>is<span class="w"> </span>just<span class="w"> </span>a<span class="w"> </span>placeholder<span class="w">
+</span><span class="w">         </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/echo<span class="w"> </span>foo<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>这可以保证你共享playbook源码时隔离敏感数据的风险.</p>
+<p>每个变量文件的内容是一个简单的YAML文件,如下所示:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"></span><span class="c"># in the above example, this would be vars/external_vars.yml</span><span class="w">
+</span><span class="w">  </span><span class="k">somevar</span><span class="p">:</span><span class="w"> </span>somevalue<span class="w">
+</span><span class="w">  </span><span class="k">password</span><span class="p">:</span><span class="w"> </span>magic<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>变量的优先级，变量优先级</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+* extra vars (-e in the command line) always win
+* then comes connection variables defined in inventory (ansible_ssh_user, etc)
+* then comes &#34;most everything else&#34; (command line switches, vars in play, included vars, role vars, etc)
+* then comes the rest of the variables defined in inventory
+* then comes facts discovered about a system * then &#34;role defaults&#34;, which are the most &#34;defaulty&#34; and lose in priority to everything.
+
+* extra vars (在命令行中使用 -e)优先级最高
+* 然后是在inventory中定义的连接变量(比如ansible_ssh_user)
+* 接着是大多数的其它变量(命令行转换,play中的变量,included的变量,role中的变量等)
+* 然后是在inventory定义的其它变量
+* 然后是由系统发现的facts
+* 然后是 &#34;role默认变量&#34;, 这个是最默认的值,很容易丧失优先权
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>when</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">include</span><span class="p">:</span><span class="w"> </span>tasks/sometasks.yml<span class="w">
+</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#39;reticulating splines&#39; in output&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者应用于role:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
+</span><span class="w">  </span><span class="k">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: debian_stock_config, when</span><span class="p">:</span><span class="w"> </span>ansible_os_family<span class="w"> </span>==<span class="w"> </span><span class="s1">&#39;Debian&#39;</span><span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><a href="http://www.ansible.com.cn/docs/playbooks_conditionals.html#id11">基于变量选择文件和模版</a></strong></p>
+<p><a href="http://www.ansible.com.cn/docs/playbooks_loops.html#id18"><strong>循环</strong></a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>add<span class="w"> </span>several<span class="w"> </span>users<span class="w">
+</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w"> </span>groups=wheel<span class="w">
+</span><span class="w">   </span><span class="k">with_items</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- testuser1<span class="w">
+</span><span class="w">    </span>- testuser2<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">with_items</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{somelist}}&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>add<span class="w"> </span>several<span class="w"> </span>users<span class="w">
+</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item.name<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w"> </span>groups={{<span class="w"> </span>item.groups<span class="w"> </span>}}<span class="w">
+</span><span class="w">   </span><span class="k">with_items</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- {<span class="w"> </span><span class="k">name: &#39;testuser1&#39;, groups</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;wheel&#39;</span><span class="w"> </span>}<span class="w">
+</span><span class="w">     </span>- {<span class="w"> </span><span class="k">name: &#39;testuser2&#39;, groups</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><a href="http://www.ansible.com.cn/docs/playbooks_loops.html#id19"><strong>嵌套循环</strong></a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>give<span class="w"> </span>users<span class="w"> </span>access<span class="w"> </span>to<span class="w"> </span>multiple<span class="w"> </span>databases<span class="w">
+</span><span class="w">  </span><span class="k">mysql_user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="w"> </span>}}<span class="w"> </span>priv={{<span class="w"> </span>item<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span>}}.<span class="cp">*:ALL</span><span class="w"> </span>append_privs=yes<span class="w"> </span>password=foo<span class="w">
+</span><span class="w">  </span><span class="k">with_nested</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="p">[</span><span class="w"> </span><span class="s1">&#39;alice&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bob&#39;</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>- <span class="p">[</span><span class="w"> </span><span class="s1">&#39;clientdb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;employeedb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;providerdb&#39;</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>对哈希表使用循环</strong></p>
+<p><code>New in version 1.5.</code></p>
+<p>假如你有以下变量:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w"> 
+</span><span class="w"></span><span class="k">users</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">alice</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>Alice<span class="w"> </span>Appleworth<span class="w">
+</span><span class="w">    </span><span class="k">telephone</span><span class="p">:</span><span class="w"> </span><span class="m">123-456-7890</span><span class="w">
+</span><span class="w">  </span><span class="k">bob</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>Bob<span class="w"> </span>Bananarama<span class="w">
+</span><span class="w">    </span><span class="k">telephone</span><span class="p">:</span><span class="w"> </span><span class="m">987-654-3210</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>你想打印出每个用户的名称和电话号码.你可以使用 with_dict 来循环哈希表中的元素:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Print<span class="w"> </span>phone<span class="w"> </span>records<span class="w">
+</span><span class="w">    </span><span class="k">debug</span><span class="p">:</span><span class="w"> </span>msg=<span class="s2">&#34;User {{ item.key }} is {{ item.value.name }} ({{ item.value.telephone }})&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">with_dict</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{users}}&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>对文件列表使用循环</strong></p>
+<p>with_fileglob 可以以非递归的方式来模式匹配单个目录中的文件.如下面所示:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
+</span><span class="w">   </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># first ensure our target directory exists</span><span class="w">
+</span><span class="w">    </span>- <span class="k">file</span><span class="p">:</span><span class="w"> </span>dest=/etc/fooapp<span class="w"> </span>state=directory<span class="w">
+</span><span class="w">    </span><span class="c"># copy each file over that matches the given pattern</span><span class="w">
+</span><span class="w">    </span>- <span class="k">copy</span><span class="p">:</span><span class="w"> </span>src={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>dest=/etc/fooapp/<span class="w"> </span>owner=root<span class="w"> </span>mode=<span class="m">600</span><span class="w">
+</span><span class="w">      </span><span class="k">with_fileglob</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- /playbooks/files/fooapp/*<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>对子元素使用循环</strong></p>
+<p>假设你想对一组用户做一些动作,比如创建这些用户,并且允许它们使用一组SSH key来登录.</p>
+<p>如何实现那? 先假设你有按以下方式定义的数据,可以通过”vars_files”或”group_vars/all”文件加载:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w"> </span><span class="k">users</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>alice<span class="w">
+</span><span class="w">    </span><span class="k">authorized</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- /tmp/alice/onekey.pub<span class="w">
+</span><span class="w">      </span>- /tmp/alice/twokey.pub<span class="w">
+</span><span class="w">    </span><span class="k">mysql</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span><span class="k">password</span><span class="p">:</span><span class="w"> </span>mysql-password<span class="w">
+</span><span class="w">       </span><span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;%&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;127.0.0.1&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;::1&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;localhost&#34;</span><span class="w">
+</span><span class="w">        </span><span class="k">privs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;*.*:SELECT&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;DB1.*:ALL&#34;</span><span class="w">
+</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>bob<span class="w">
+</span><span class="w">     </span><span class="k">authorized</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span>- /tmp/bob/id_rsa.pub<span class="w">
+</span><span class="w">     </span><span class="k">mysql</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">password</span><span class="p">:</span><span class="w"> </span>other-mysql-password<span class="w">
+</span><span class="w">        </span><span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;db1&#34;</span><span class="w">
+</span><span class="w">        </span><span class="k">privs</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;*.*:SELECT&#34;</span><span class="w">
+</span><span class="w">          </span>- <span class="s2">&#34;DB2.*:ALL&#34;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>那么可以这样实现:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item.name<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w"> </span>generate_ssh_key=yes<span class="w">
+</span><span class="w">  </span><span class="k">with_items</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{users}}&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">authorized_key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;user={{ item.0.name }} key=&#39;{{ lookup(&#39;file&#39;, item.1) }}&#39;&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">with_subelements</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- users<span class="w">
+</span><span class="w">    </span>- authorized<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>根据mysql hosts以及预先给定的privs subkey列表,我们也可以在嵌套的subkey中迭代列表:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Setup<span class="w"> </span>MySQL<span class="w"> </span>users<span class="w">
+</span><span class="w">  </span><span class="k">mysql_user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="m">.0</span>.user<span class="w"> </span>}}<span class="w"> </span>password={{<span class="w"> </span>item<span class="m">.0</span>.mysql.password<span class="w"> </span>}}<span class="w"> </span>host={{<span class="w"> </span>item<span class="m">.1</span><span class="w"> </span>}}<span class="w"> </span>priv={{<span class="w"> </span>item<span class="m">.0</span>.mysql.privs<span class="w"> </span>|<span class="w"> </span>join(<span class="s1">&#39;/&#39;</span>)<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span><span class="k">with_subelements</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- users<span class="w">
+</span><span class="w">  </span>- mysql.hosts<span class="w">
+</span><span class="w">
+</span><span class="w"></span>Subelements<span class="w"> </span>walks<span class="w"> </span>a<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>hashes<span class="w"> </span>(aka<span class="w"> </span>dictionaries)<span class="w"> </span>and<span class="w"> </span>then<span class="w"> </span>traverses<span class="w"> </span>a<span class="w"> </span>list<span class="w"> </span>with<span class="w"> </span>a<span class="w"> </span>given<span class="w"> </span>key<span class="w"> </span>inside<span class="w"> </span>of<span class="w"> </span>those<span class="w"> </span>records.<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>你也可以为字元素列表添加第三个元素,该元素可以放置标志位字典.现在你可以加入’skip_missing’标志位.如果设置为True,那么查找插件会跳过不包含指定子键的列表条目.如果没有该标志位,或者标志位值为False,插件会产生错误并指出缺少该子键.</p>
+<p>这就是authorized_key模式中key的获取方式.</p>
+<p><strong>对整数序列使用循环</strong></p>
+<p>with_sequence 可以以升序数字顺序生成一组序列.你可以指定起始值、终止值,以及一个可选的步长值.</p>
+<p>指定参数时也可以使用key=value这种键值对的方式.如果采用这种方式,’format’是一个可打印的字符串.</p>
+<p>数字值可以被指定为10进制,16进制(0x3f8)或者八进制(0600).负数则不受支持.请看以下示例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
+</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">      </span><span class="c"># create groups</span><span class="w">
+</span><span class="w">    </span>- <span class="k">group</span><span class="p">:</span><span class="w"> </span>name=evens<span class="w"> </span>state=present<span class="w">
+</span><span class="w">    </span>- <span class="k">group</span><span class="p">:</span><span class="w"> </span>name=odds<span class="w"> </span>state=present<span class="w">
+</span><span class="w">   </span><span class="c"># create some test users</span><span class="w">
+</span><span class="w">    </span>- <span class="k">user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w"> </span>groups=evens<span class="w">
+</span><span class="w">      </span><span class="k">with_sequence</span><span class="p">:</span><span class="w"> </span>start=<span class="m">0</span><span class="w"> </span>end=<span class="m">32</span><span class="w"> </span>format=testuser%02x<span class="w">
+</span><span class="w">    </span><span class="c"># create a series of directories with even numbers for some reason</span><span class="w">
+</span><span class="w">    </span><span class="k">-file</span><span class="p">:</span><span class="w"> </span>dest=/var/stuff/{{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=directory<span class="w">
+</span><span class="w">     </span><span class="k">with_sequence</span><span class="p">:</span><span class="w"> </span>start=<span class="m">4</span><span class="w"> </span>end=<span class="m">16</span><span class="w"> </span>stride=<span class="m">2</span><span class="w">
+</span><span class="w">    </span><span class="c"># a simpler way to use the sequence plugin</span><span class="w">
+</span><span class="w">     </span><span class="c"># create 4 groups</span><span class="w">
+</span><span class="w">    </span>- <span class="k">group</span><span class="p">:</span><span class="w"> </span>name=group{{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w">
+</span><span class="w">      </span><span class="k">with_sequence</span><span class="p">:</span><span class="w"> </span>count=<span class="m">4</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>随机选择</strong></p>
+<p>‘random_choice’功能可以用来随机获取一些值.它并不是负载均衡器(已经有相关的模块了).它有时可以用作一个简化版的负载均衡器,比如作为条件判断:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">debug</span><span class="p">:</span><span class="w"> </span>msg={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span><span class="k">with_random_choice</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;go through the door&#34;</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;drink from the goblet&#34;</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;press the red button&#34;</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;do nothing&#34;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><a href="http://www.ansible.com.cn/docs/playbooks_loops.html#id26"><strong>Do-Until****循环</strong></a></p>
+<p>有时你想重试一个任务直到达到某个条件.比如下面这个例子:[重复执行]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">action</span><span class="p">:</span><span class="w"> </span>shell<span class="w"> </span>/usr/bin/foo<span class="w">
+</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>result<span class="w">
+</span><span class="w">  </span><span class="k">until</span><span class="p">:</span><span class="w"> </span>result.stdout.find(<span class="s2">&#34;all systems go&#34;</span>)<span class="w"> </span>!=<span class="w"> </span>-<span class="m">1</span><span class="w">
+</span><span class="w">  </span><span class="k">retries</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">  </span><span class="k">delay</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子递归运行shell模块,直到模块结果中的stdout输出中包含”all systems go”字符串,或者该任务按照10秒的延迟重试超过5次.”retries”和”delay”的默认值分别是3和5.</p>
+<p>该任务返回最后一个任务返回的结果.单次重试的结果可以使用-vv选项来查看. 被注册的变量会有一个新的属性’attempts’,值为该任务重试的次数.</p>
+<p><strong>查找第一个匹配的文件</strong></p>
+<p>这其实不是一个循环,但和循环很相似.如果你想引用一个文件,而该文件是从一组文件中根据给定条件匹配出来的.这组文件中部分文件名由变量拼接而成.针对该场景你可以这样做:[动态文件名]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>INTERFACES<span class="w"> </span>|<span class="w"> </span>Create<span class="w"> </span>Ansible<span class="w"> </span>header<span class="w"> </span>for<span class="w"> </span>/etc/network/interfaces<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>dest=/etc/foo.conf<span class="w">
+</span><span class="w">  </span><span class="k">with_first_found</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;{{ansible_virtualization_type}}_foo.conf&#34;</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;default_foo.conf&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>该功能还有一个更完整的版本,可以配置搜索路径.请看以下示例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>some<span class="w"> </span>configuration<span class="w"> </span>template<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>dest=/etc/file.cfg<span class="w"> </span>mode=<span class="m">0444</span><span class="w"> </span>owner=root<span class="w"> </span>group=root<span class="w">
+</span><span class="w">  </span><span class="k">with_first_found</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">files</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s2">&#34;{{inventory_hostname}}/etc/file.cfg&#34;</span><span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- ../../../templates.overwrites<span class="w">
+</span><span class="w">        </span>- ../../../templates<span class="w">
+</span><span class="w">    </span>- <span class="k">files</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- etc/file.cfg<span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- templates<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>异步操作和轮询</strong></p>
+<p>默认情况下playbook中的任务执行时会一直保持连接,直到该任务在每个节点都执行完毕.有时这是不必要的,比如有些操作运行时间比SSH超时时间还要长.</p>
+<p>解决该问题最简单的方式是一起执行它们,然后轮询直到任务执行完毕，简单的意思就是，像下面的例子，执行任务后，ansible就不等它了，往下执行下一个任务，然后每隔5秒钟去看看它执行完成没，超时时间为45秒，async参数值代表了这个任务执行时间的上限值。即任务执行所用时间如果超出这个时间，则认为任务失败。此参数若未设置，则为同步执行。</p>
+<p>你也可以对执行时间非常长（有可能遭遇超时）的操作使用异步模式.</p>
+<p>为了异步启动一个任务,可以指定其最大超时时间以及轮询其状态的频率.如果你没有为 <em>poll</em> 指定值,那么默认的轮询频率是10秒钟:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
+</span><span class="w">   </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">    </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"> </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>simulate<span class="w"> </span>long<span class="w"> </span>running<span class="w"> </span>op<span class="w"> </span>(<span class="m">15</span><span class="w"> </span>sec)<span class="p">,</span><span class="w"> </span>wait<span class="w"> </span>for<span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span><span class="m">45</span><span class="w"> </span>sec<span class="p">,</span><span class="w"> </span>poll<span class="w"> </span>every<span class="w"> </span><span class="m">5</span><span class="w"> </span>sec<span class="w">
+</span><span class="w">   </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/sleep<span class="w"> </span><span class="m">15</span><span class="w">
+</span><span class="w">   </span><span class="k">async</span><span class="p">:</span><span class="w"> </span><span class="m">45</span><span class="w">
+</span><span class="w">   </span><span class="k">poll</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><em>async</em> 并没有默认值,如果你没有指定 <em>async</em> 关键字,那么任务会以同步的方式运行,这是Ansible的默认行为.</p>
+<p>另外,如果你不需要等待任务执行完毕,你可以指定 <em>poll</em> 值为0而启用 “启动并忽略”</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
+</span><span class="w">  </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>simulate<span class="w"> </span>long<span class="w"> </span>running<span class="w"> </span>op<span class="p">,</span><span class="w"> </span>allow<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>for<span class="w"> </span><span class="m">45</span><span class="w"> </span>sec<span class="p">,</span><span class="w"> </span>fire<span class="w"> </span>and<span class="w"> </span>forget<span class="w">
+</span><span class="w">      </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/sleep<span class="w"> </span><span class="m">15</span><span class="w">
+</span><span class="w">      </span><span class="k">async</span><span class="p">:</span><span class="w"> </span><span class="m">45</span><span class="w">
+</span><span class="w">      </span><span class="k">poll</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>改为”启动并忽略,稍后再检查”,你可以使用以下方式执行任务:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c"># Requires ansible 1.8+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YUM - fire and forget task&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">yum</span><span class="p">:</span><span class="w"> </span>name=docker-io<span class="w"> </span>state=installed<span class="w">
+</span><span class="w">  </span><span class="k">async</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span><span class="w">  </span><span class="k">poll</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>yum_sleeper<span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YUM - check on fire and forget task&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">async_status</span><span class="p">:</span><span class="w"> </span>jid={{<span class="w"> </span>yum_sleeper.ansible_job_id<span class="w"> </span>}}<span class="w">
+</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>job_result<span class="w">
+</span><span class="w">  </span><span class="k">until</span><span class="p">:</span><span class="w"> </span>job_result.finished<span class="w">
+</span><span class="w">  </span><span class="k">retries</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果 async: 值太小,可能会导致 “稍后检查” 任务执行失败,因为 async_status:: 的临时状态文件还未被写入信息,而”稍后检查”任务就试图读取此文件.</p>
+<p><strong>delegate_to  选中主机执行</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>add<span class="w"> </span>back<span class="w"> </span>to<span class="w"> </span>load<span class="w"> </span>balancer<span class="w"> </span>pool<span class="w">
+</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/usr/bin/add_back_to_pool<span class="w"> </span>{{<span class="w"> </span>inventory_hostname<span class="w"> </span>}}<span class="w">
+</span><span class="w">    </span><span class="k">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>本地执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"></span><span class="c"># ...</span><span class="w">
+</span><span class="w"> </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>recursively<span class="w"> </span>copy<span class="w"> </span>files<span class="w"> </span>from<span class="w"> </span>management<span class="w"> </span>server<span class="w"> </span>to<span class="w"> </span>target<span class="w">
+</span><span class="w">     </span><span class="k">local_action</span><span class="p">:</span><span class="w"> </span>command<span class="w"> </span>rsync<span class="w"> </span>-a<span class="w"> </span>/path/to/files<span class="w"> </span>{{<span class="w"> </span>inventory_hostname<span class="w"> </span>}}<span class="p">:</span>/path/to/target/<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Run Once</strong></p>
+<p>New in version 1.7.</p>
+<p>有时候你有这样的需求,在一个主机上面只执行一次一个任务.这样的配置可以配置”run_once”来实现:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c"># ...</span><span class="w">
+</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span><span class="c"># ...</span><span class="w">
+</span><span class="w">    </span>- <span class="k">command</span><span class="p">:</span><span class="w"> </span>/opt/application/upgrade_db.py<span class="w">
+</span><span class="w">      </span><span class="k">run_once</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">      </span><span class="c"># ...</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>这样可以添加在”delegat_to”选项对中来定义要执行的主机:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">command</span><span class="p">:</span><span class="w"> </span>/opt/application/upgrade_db.py<span class="w">
+</span><span class="w">  </span><span class="k">run_once</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">delegate_to</span><span class="p">:</span><span class="w"> </span>web01.example.org<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>当”run_once” 没有喝”delegate_to”一起使用,这个任务将会被清单指定的第一个主机. 在一组被play制定主机.例如 webservers[0], 如果play指定为 “hosts: webservers”.</p>
+<p>这个方法也很类似,虽然比使用条件更加简单粗暴,如下事例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">command</span><span class="p">:</span><span class="w"> </span>/opt/application/upgrade_db.py<span class="w">
+</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>inventory_hostname<span class="w"> </span>==<span class="w"> </span>webservers<span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>本地Playbooks</strong></p>
+<p>在本地使用playbook有时候比ssh远程使用更加有用.可以通过把playbook放在crontab中,来确保一个系统的配置,可以很有用. 在OS installer 中运行一个playbook也很有用.例如Anaconda kickstart.</p>
+<p>要想在本地运行一个play,可以直接设置”host:” 与 “hosts:127.0.0.1”, 然后使用下面的命令运行:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible-playbook playbook.yml --connection=local
+</code></pre></td></tr></table>
+</div>
+</div><p>或者,一个本地连接也可以作为一个单独的playbook play应用在playbook中, 即便playbook中其他的plays使用默认远程 连接如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">- hosts: 127.0.0.1
+  connection: local
+</code></pre></td></tr></table>
+</div>
+</div><p>environment  使用代理上网</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
+</span><span class="w">  </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">apt</span><span class="p">:</span><span class="w"> </span>name=cobbler<span class="w"> </span>state=installed<span class="w">
+</span><span class="w">      </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">         </span><span class="k">http_proxy</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//proxy.example.com<span class="p">:</span><span class="m">8080</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>environment 也可以被存储在变量中,像如下方式访问:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
+</span><span class="w">  </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w">   </span><span class="c"># here we make a variable named &#34;proxy_env&#34; that is a dictionary</span><span class="w">
+</span><span class="w">  </span><span class="k">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">proxy_env</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span><span class="k">http_proxy</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//proxy.example.com<span class="p">:</span><span class="m">8080</span><span class="w">
+</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="k">apt</span><span class="p">:</span><span class="w"> </span>name=cobbler<span class="w"> </span>state=installed<span class="w">
+</span><span class="w">       </span><span class="k">environment</span><span class="p">:</span><span class="w"> </span>proxy_env<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>指定错误条件</strong></p>
+<p>[判定错误]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>this<span class="w"> </span>command<span class="w"> </span>prints<span class="w"> </span>FAILED<span class="w"> </span>when<span class="w"> </span>it<span class="w"> </span>fails<span class="w">
+</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/usr/bin/example-command<span class="w"> </span>-x<span class="w"> </span>-y<span class="w"> </span>-z<span class="w">
+</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>command_result<span class="w">
+</span><span class="w">  </span><span class="k">failed_when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#39;FAILED&#39; in command_result.stderr&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>在 Ansible 1.4 之前的版本能通过如下方式完成:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>this<span class="w"> </span>command<span class="w"> </span>prints<span class="w"> </span>FAILED<span class="w"> </span>when<span class="w"> </span>it<span class="w"> </span>fails<span class="w">
+</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/usr/bin/example-command<span class="w"> </span>-x<span class="w"> </span>-y<span class="w"> </span>-z<span class="w">
+</span><span class="w">  </span><span class="k">register: command_result   ignore_errors</span><span class="p">:</span><span class="w"> </span>True<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>fail<span class="w"> </span>the<span class="w"> </span>play<span class="w"> </span>if<span class="w"> </span>the<span class="w"> </span>previous<span class="w"> </span>command<span class="w"> </span>did<span class="w"> </span>not<span class="w"> </span>succeed<span class="w">
+</span><span class="w">  </span><span class="k">fail</span><span class="p">:</span><span class="w"> </span>msg=<span class="s2">&#34;the command failed&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>&#34;<span class="s1">&#39;FAILED&#39;</span><span class="w"> </span>in<span class="w"> </span>command_result.stderr<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>不输出结果，不报告状态，覆写结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>/usr/bin/billybass<span class="w"> </span>--mode=<span class="s2">&#34;take me to the river&#34;</span><span class="w">
+</span><span class="w">     </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>bass_result<span class="w">
+</span><span class="w">     </span><span class="k">changed_when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;bass_result.rc != 2&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># this will never report &#39;changed&#39; status</span><span class="w">
+</span><span class="w">   </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>wall<span class="w"> </span><span class="s1">&#39;beep&#39;</span><span class="w">
+</span><span class="w">     </span><span class="k">changed_when</span><span class="p">:</span><span class="w"> </span>False<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>标签tags</strong></p>
+<p>如果你有一个大型的 playbook,那能够只运行其中特定部分的配置而无需运行整个 playbook 将会很有用.</p>
+<p>plays 和 tasks 都因这个理由而支持 “tags:”</p>
+<p>例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
+</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">yum</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=installed<span class="w">
+</span><span class="w">    </span><span class="k">with_items</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- httpd<span class="w">
+</span><span class="w">      </span>- memcached<span class="w">
+</span><span class="w">    </span><span class="k">tags</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- packages<span class="w">
+</span><span class="w">  </span>- <span class="k">template</span><span class="p">:</span><span class="w"> </span>src=templates/src.j2<span class="w"> </span>dest=/etc/foo.conf<span class="w">
+</span><span class="w">    </span><span class="k">tags</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- configuration<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果你只想运行一个非常大的 playbook 中的 “configuration” 和 “packages”,你可以这样做:</p>
+<p><code>ansible-playbook example.yml --tags &quot;configuration,packages&quot;</code></p>
+<p>另一方面,如果你只想执行 playbook 中某个特定任务 <em>之外</em> 的所有任务,你可以这样做:</p>
+<p><code>ansible-playbook example.yml --skip-tags &quot;notification&quot;</code></p>
+<p>你同样也可以对 roles 应用 tags:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role: webserver, port: 5000, tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">&#39;web&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>}<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>你同样也可以对基本的 include 语句使用 tag:
+你同样也可以对 roles 应用 tags:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">include</span><span class="p">:</span><span class="w"> </span>foo.yml<span class="w"> </span>tags=web<span class="p">,</span>foo<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>从指定任务开始运行palybook以及分步运行playbook</strong></p>
+<p>以下列出了几种方式来运行playbook.这对于测试或调试新的playbook很有帮助.</p>
+<p><strong>Start-at-task</strong></p>
+<p>如果你想从指定的任务开始执行playbook,可以使用<code>–start-at</code>选项:</p>
+<p><code>ansible-playbook playbook.yml --start-at=&quot;install packages&quot;</code></p>
+<p>以上命令就会在名为”install packages”的任务开始执行你的playbook.</p>
+<p><strong>分步运行playbook</strong></p>
+<p>我们也可以通过<code>–step</code>选项来交互式的执行playbook:</p>
+<p><code>ansible-playbook playbook.yml --step</code></p>
+<p>这样ansible在每个任务前会自动停止,并询问是否应该执行该任务.</p>
+<p>比如你有个名为<code>configure ssh</code>的任务,playbook执行到这里会停止并询问:</p>
+<p><code>Perform task: configure ssh (y/n/c):</code></p>
+<p>“y”回答会执行该任务,”n”回答会跳过该任务,而”c”回答则会继续执行剩余的所有任务而不再询问你.</p>
+<p><strong>python ansible api调用</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python">
+<span class="c1">#!/usr/bin/env python2</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">ansible.parsing.dataloader</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">ansible.vars.manager</span> <span class="kn">import</span> <span class="n">VariableManager</span>
+<span class="kn">from</span> <span class="nn">ansible.inventory.manager</span> <span class="kn">import</span> <span class="n">InventoryManager</span>
+<span class="kn">from</span> <span class="nn">ansible.playbook.play</span> <span class="kn">import</span> <span class="n">Play</span>
+<span class="kn">from</span> <span class="nn">ansible.executor.task_queue_manager</span> <span class="kn">import</span> <span class="n">TaskQueueManager</span>
+<span class="kn">from</span> <span class="nn">ansible.plugins.callback</span> <span class="kn">import</span> <span class="n">CallbackBase</span>
+<span class="kn">import</span> <span class="nn">ansible.constants</span> <span class="kn">as</span> <span class="nn">C</span>
+<span class="kn">from</span> <span class="nn">ansible.inventory.group</span> <span class="kn">import</span> <span class="n">Group</span>
+<span class="kn">from</span> <span class="nn">ansible.inventory.host</span> <span class="kn">import</span> <span class="n">Host</span>
+<span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">,</span><span class="n">resource</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">ResultCallback</span><span class="p">(</span><span class="n">CallbackBase</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">def</span> <span class="nf">v2_runner_on_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">_host</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">host</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">_result</span>
+
+    <span class="n">Options</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Options&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="s1">&#39;module_path&#39;</span><span class="p">,</span> <span class="s1">&#39;forks&#39;</span><span class="p">,</span> <span class="s1">&#39;become&#39;</span><span class="p">,</span> <span class="s1">&#39;become_method&#39;</span><span class="p">,</span> <span class="s1">&#39;become_user&#39;</span><span class="p">,</span> <span class="s1">&#39;check&#39;</span><span class="p">,</span> <span class="s1">&#39;diff&#39;</span><span class="p">])</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">(</span><span class="n">connection</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">module_path</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;/to/mymodules&#39;</span><span class="p">],</span> <span class="n">forks</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">become</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">become_method</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">become_user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">diff</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">()</span>
+    <span class="n">results_callback</span> <span class="o">=</span> <span class="n">ResultCallback</span><span class="p">()</span>
+    <span class="c1">#inventory = InventoryManager(loader=loader, sources=[tempFileName])</span>
+    <span class="n">inventory</span> <span class="o">=</span> <span class="n">InventoryManager</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">loader</span><span class="p">)</span>
+    <span class="n">inventory</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="s2">&#34;default&#34;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">resource</span><span class="p">:</span>
+        <span class="n">inventory</span><span class="o">.</span><span class="n">add_host</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span><span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span><span class="n">group</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+    <span class="n">variable_manager</span> <span class="o">=</span> <span class="n">VariableManager</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">loader</span><span class="p">,</span> <span class="n">inventory</span><span class="o">=</span><span class="n">inventory</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">resource</span><span class="p">:</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">get_host</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="n">host</span><span class="p">)</span>
+        <span class="n">variable_manager</span><span class="o">.</span><span class="n">set_host_variable</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span><span class="n">varname</span><span class="o">=</span><span class="s1">&#39;ansible_ssh_host&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="n">host</span><span class="p">)</span>
+        <span class="n">variable_manager</span><span class="o">.</span><span class="n">set_host_variable</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span><span class="n">varname</span><span class="o">=</span><span class="s1">&#39;ansible_ssh_user&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">variable_manager</span><span class="o">.</span><span class="n">set_host_variable</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span><span class="n">varname</span><span class="o">=</span><span class="s1">&#39;ansible_ssh_pass&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
+        <span class="n">variable_manager</span><span class="o">.</span><span class="n">set_host_variable</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span><span class="n">varname</span><span class="o">=</span><span class="s1">&#39;ansible_connection&#39;</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">)</span>
+    <span class="n">play_source</span> <span class="o">=</span>  <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;Ansible Play&#34;</span><span class="p">,</span>
+        <span class="n">hosts</span> <span class="o">=</span> <span class="n">resource</span><span class="p">,</span>
+        <span class="n">gather_facts</span> <span class="o">=</span> <span class="s1">&#39;no&#39;</span><span class="p">,</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s1">&#39;setup&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+         <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">play</span> <span class="o">=</span> <span class="n">Play</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">play_source</span><span class="p">,</span> <span class="n">variable_manager</span><span class="o">=</span><span class="n">variable_manager</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="n">loader</span><span class="p">)</span>
+    <span class="n">tqm</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tqm</span> <span class="o">=</span> <span class="n">TaskQueueManager</span><span class="p">(</span>
+              <span class="n">inventory</span><span class="o">=</span><span class="n">inventory</span><span class="p">,</span>
+              <span class="n">variable_manager</span><span class="o">=</span><span class="n">variable_manager</span><span class="p">,</span>
+              <span class="n">loader</span><span class="o">=</span><span class="n">loader</span><span class="p">,</span>
+              <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+              <span class="n">passwords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+              <span class="n">stdout_callback</span><span class="o">=</span><span class="n">results_callback</span><span class="p">,</span>
+          <span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">tqm</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">play</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tqm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">tqm</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">DEFAULT_LOCAL_TMP</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results_callback</span><span class="o">.</span><span class="n">info</span>
+
+<span class="k">def</span> <span class="nf">handle_info</span><span class="p">(</span><span class="n">rawdata</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="c1"># data dictionary</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">detail</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># read sysinfo</span>
+    <span class="n">cpu_count</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="s1">&#39;ansible_processor_count&#39;</span><span class="p">]</span>
+    <span class="n">cpu_cores</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="s1">&#39;ansible_processor_cores&#39;</span><span class="p">]</span>
+    <span class="n">cpu_model</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="s1">&#39;ansible_processor&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]))</span>
+    <span class="n">cpu_vcpus</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="s1">&#39;ansible_processor_vcpus&#39;</span><span class="p">]</span>
+    <span class="c1"># memtotal = rawdata[node][&#39;ansible_facts&#39;][&#39;ansible_memtotal_mb&#39;]</span>
+    <span class="c1"># memfree = rawdata[node][&#39;ansible_facts&#39;][&#39;ansible_memfree_mb&#39;]</span>
+    <span class="n">memory</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="s1">&#39;ansible_memory_mb&#39;</span><span class="p">][</span><span class="s1">&#39;real&#39;</span><span class="p">]</span>
+    <span class="n">disk_info</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="s1">&#39;ansible_devices&#39;</span><span class="p">]</span>
+    <span class="n">interfaces_info</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="s1">&#39;ansible_interfaces&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">interfaces_info</span><span class="p">)):</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="s2">&#34;ansible_&#34;</span> <span class="o">+</span> <span class="n">interfaces_info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;-&#34;</span><span class="p">,</span> <span class="s2">&#34;_&#34;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">]</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;bridge&#34;</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">detail</span><span class="p">[</span><span class="n">interfaces_info</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">detail</span><span class="p">[</span><span class="n">interfaces_info</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">][</span><span class="s1">&#39;active&#39;</span><span class="p">]</span>
+        <span class="n">detail</span><span class="p">[</span><span class="n">interfaces_info</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;mtu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">][</span><span class="s1">&#39;mtu&#39;</span><span class="p">]</span>
+        <span class="n">detail</span><span class="p">[</span><span class="n">interfaces_info</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;promisc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">][</span><span class="s1">&#39;promisc&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">]</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;speed&#39;</span><span class="p">):</span>
+            <span class="n">detail</span><span class="p">[</span><span class="n">interfaces_info</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;speed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">][</span><span class="s1">&#39;speed&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">]</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">):</span>
+            <span class="n">detail</span><span class="p">[</span><span class="n">interfaces_info</span><span class="p">[</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rawdata</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;ansible_facts&#39;</span><span class="p">][</span><span class="n">tmp</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+
+    <span class="c1"># store sysinfo into data dictionary</span>
+
+    <span class="n">cpu</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;cpu_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cpu_count</span>
+    <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;cpu_cores&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cpu_cores</span>
+    <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;cpu_model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cpu_model</span>
+    <span class="n">cpu</span><span class="p">[</span><span class="s1">&#39;cpu_vcpus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cpu_vcpus</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cpu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cpu</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;memory&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">memory</span>
+
+    <span class="n">disk</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">disk_info</span><span class="p">)</span>
+    <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">disk_info</span><span class="p">:</span>
+        <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">disk</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disk_info</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;disk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disk</span>
+
+    <span class="n">interfaces</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">interfaces</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">interfaces_info</span><span class="p">)</span>
+    <span class="n">interfaces</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">detail</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;interfaces&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">interfaces</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">handle_infos</span><span class="p">(</span><span class="n">rawdata</span><span class="p">):</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">rawdata</span><span class="p">:</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">temp</span><span class="p">[</span><span class="s1">&#39;IP_ADDR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="n">temp</span><span class="p">[</span><span class="s1">&#39;OBJ_ATTRS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">handle_info</span><span class="p">(</span><span class="n">rawdata</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">info</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s2">&#34;need parameter:username,password,list of hosts(split with &#39;,&#39;)!!!&#34;</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+    <span class="n">hosts</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">)</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">get_info</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">hosts</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">handle_infos</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Over</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-06 19:07
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/ansible/">ansible</a>
+          <a href="/tags/auto/">auto</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/auto/ansible_guides/">
+            <span class="next-text nav-default">ansible 入门及使用</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

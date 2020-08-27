@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 07 Apr 2020 19:11:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2020 19:15:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,18 @@
     <item>
       <title>code</title>
       <link>https://xiebiao.top/tags/code/</link>
-      <pubDate>Tue, 07 Apr 2020 19:11:30 +0000</pubDate>
+      <pubDate>Wed, 08 Apr 2020 19:15:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sonarqube</title>
+      <link>https://xiebiao.top/tags/sonarqube/</link>
+      <pubDate>Wed, 08 Apr 2020 19:15:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/sonarqube/</guid>
       <description></description>
     </item>
     

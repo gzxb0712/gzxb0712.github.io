@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>sonarqube8 搭建使用 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/code/sonarqube8_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="sonarqube8 搭建使用" />
+<meta property="og:description" content="前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/code/sonarqube8_install/" />
+<meta property="article:published_time" content="2020-04-08T19:15:30+00:00" />
+<meta property="article:modified_time" content="2020-04-08T19:15:30+00:00" />
+<meta itemprop="name" content="sonarqube8 搭建使用">
+<meta itemprop="description" content="前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般">
+<meta itemprop="datePublished" content="2020-04-08T19:15:30+00:00" />
+<meta itemprop="dateModified" content="2020-04-08T19:15:30+00:00" />
+<meta itemprop="wordCount" content="3372">
+
+
+
+<meta itemprop="keywords" content="sonarqube,code," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="sonarqube8 搭建使用"/>
+<meta name="twitter:description" content="前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">sonarqube8 搭建使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-08 19:15 </span>
+        <div class="post-category">
+            <a href="/categories/code/"> code </a>
+            </div>
+          <span class="more-meta"> 约 3372 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前提section">前提<a href="#section">#</a></a></li>
+    <li><a href="#sonarqube简介sonarqube">SonarQube简介<a href="#sonarqube">#</a></a></li>
+    <li><a href="#sonarqube安装sonarqube-1">SonarQube安装<a href="#sonarqube-1">#</a></a>
+      <ul>
+        <li><a href="#安装jdk11jdk11">安装JDK11<a href="#jdk11">#</a></a></li>
+        <li><a href="#安装postgresql数据库postgresql">安装PostgreSQL数据库<a href="#postgresql">#</a></a></li>
+        <li><a href="#安装sonarqube服务sonarqube-2">安装SonarQube服务<a href="#sonarqube-2">#</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#sonarqube使用sonarqube-3">SonarQube使用<a href="#sonarqube-3">#</a></a></li>
+    <li><a href="#小结section-1">小结<a href="#section-1">#</a></a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="前提section">前提<a href="#section">#</a></h2>
+<p>这篇文章记录的是<code>SonarQube</code>服务搭建的详细过程，应用于云迁移后的<code>PipleLine</code>的代码扫描环节。</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-1.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-1.png" alt=""></a></p>
+<p>笔者有软件版本升级强迫症，一般喜欢使用软件的最新版本，编写此文的时候（<code>2020-05-17</code>）<code>SonarQube</code>的最新版本为<code>8.3.1</code>。</p>
+<h2 id="sonarqube简介sonarqube">SonarQube简介<a href="#sonarqube">#</a></h2>
+<p><a href="https://www.sonarqube.org">SonarQube</a>是一个代码质量管理开放平台，它集成了数千种自动的静态代码分析规则，旨在提高开发人员的代码质量和安全性，使得开发人员编写更加干净，更加安全的代码。主要提供了三个比较大的功能：</p>
+<ul>
+<li>代码可靠性支持：提前捕获和提示代码中的错误，从而避免未定义的行为影响到终端用户。</li>
+<li>应用安全支持：修复可能危害到应用程序的漏洞，并通过安全热点学习<code>AppSec</code>（简单理解就是会学习和识别新的漏洞）。</li>
+<li>技术债务支持：确保管理的代码库干净并且可维护，以便提高开发人员的开发效率。</li>
+</ul>
+<p>目前<code>SonarQube</code>支持27种编程语言，基本上覆盖了当前主流的编程语言编写的项目：</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-2.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-2.png" alt=""></a></p>
+<p>上面谈到的功能可能比较泛，实际上，研发团队可以基于<code>SonarQube</code>做下面的事情：</p>
+<ul>
+<li><code>CI/CD</code>流程加入一个<code>SonarQube</code>扫描的环节。</li>
+<li>实施代码质量阈值，只有通过了这个质量阈值检测才能进入下一个流程。</li>
+<li>代码质量低于阈值的项目要及时调整对应的代码。</li>
+</ul>
+<p>质量阈值可以进行自定义，<code>SonarQube</code>中针对每个项目会有详细的面板信息，里面会给出项目当前的健康状态，不同级别漏洞的分类和明细，漏洞对应提交者等多维度的统计信息，方便进行问题的追踪和修复。举个例子，笔者在上一家公司项目上线需要跑一个流水线，而<code>SonarQube</code>设定了不同等级的阈值，对于老项目，会使用最低等级的阈值：阻断性的错误数量要求为0，对于一些新的项目，则严格要求质量如严重性的错误要求为0等，只要无法通过质量阈值检查，那么项目是无法上线的。</p>
+<h2 id="sonarqube安装sonarqube-1">SonarQube安装<a href="#sonarqube-1">#</a></h2>
+<p>一般情况下，只需要安装社区版免费的<code>SonarQube</code>服务即可，可以基于二进制文件安装或者直接使用<code>Docker</code>下载镜像启动，二进制文件安装的过程比较复杂，因为<code>SonarQube</code>内部依赖内置的<code>ElasticSearch</code>做搜索，在<code>Linux</code>系统中需要添加一个非<code>root</code>用户，并且修改一些列的系统参数例如系统支持的最大可打开的文件数等等。此外，<code>SonarQube</code>是一个<code>Java</code>应用，需要本地安装<code>JDK</code>。<strong>自<code>SonarQube</code>的<code>7.9</code>版本开始放弃支持<code>MySQL</code>数据库</strong>，<code>8.3.1</code>版本下只支持内存模式、<code>PostgreSQL</code>、<code>Microsoft SQL Server</code>和<code>Oracle</code>四种存储引擎。笔者调研过，持久化模式下，三种数据库中<code>PostgreSQL</code>的安装相对简便。下面会详细记录基于二进制文件安装<code>SonarQube</code>服务的过程。</p>
+<table>
+<thead>
+<tr>
+<th>软件（系统）</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CentOS</code></td>
+<td><code>7.x</code></td>
+</tr>
+<tr>
+<td><code>OpenJDK</code></td>
+<td><code>11.x</code></td>
+</tr>
+<tr>
+<td><code>PostgreSQL</code></td>
+<td><code>12.x</code></td>
+</tr>
+<tr>
+<td><code>SonarQube</code></td>
+<td><code>8.3.1</code></td>
+</tr>
+</tbody>
+</table>
+<p>笔者在测试的虚拟机（局域网<code>IP</code>为<code>192.168.56.200</code>）上关闭了防火墙，如果防火墙开启需要开放对应的端口号。</p>
+<h3 id="安装jdk11jdk11">安装JDK11<a href="#jdk11">#</a></h3>
+<p><code>OpenJDK</code>的安装比较简单：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mdkir /data/openjdk
+<span class="nb">cd</span> /data/openjdk
+wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
+<span class="c1">## 默认会解压到/data/openjdk/jdk-11文件夹</span>
+tar -zxvf openjdk-11+28_linux-x64_bin.tar.gz
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果系统中没有默认的<code>JDK</code>，可以添加到<code>/etc/profile</code>中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim /etc/profile
+
+<span class="c1">## /etc/profile文件中添加下面的内容</span>
+<span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/data/openjdk/jdk-11
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>
+
+<span class="c1">## 刷新环境变量</span>
+<span class="nb">source</span> /etc/profile
+
+</code></pre></td></tr></table>
+</div>
+</div><p>测试一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost jdk-11<span class="o">]</span><span class="c1"># java -version</span>
+openjdk version <span class="s2">&#34;11&#34;</span> 2018-09-25
+OpenJDK Runtime Environment 18.9 <span class="o">(</span>build 11+28<span class="o">)</span>
+OpenJDK 64-Bit Server VM 18.9 <span class="o">(</span>build 11+28, mixed mode<span class="o">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="安装postgresql数据库postgresql">安装PostgreSQL数据库<a href="#postgresql">#</a></h3>
+<p><code>PostgreSQL</code>的安装也相对简单，官方文档有十分详细的步骤：</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-0.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-0.png" alt=""></a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+yum install -y postgresql12
+yum install -y postgresql12-server
+/usr/pgsql-12/bin/postgresql-12-setup initdb
+systemctl <span class="nb">enable</span> postgresql-12
+systemctl start postgresql-12
+
+</code></pre></td></tr></table>
+</div>
+</div><p>修改<code>/var/lib/pgsql/12/data/pg_hba.conf</code>配置，开放所有<code>Host</code>的访问：</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-3.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-3.png" alt=""></a></p>
+<p>接着重启<code>PostgreSQL</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl restart postgresql-12
+
+</code></pre></td></tr></table>
+</div>
+</div><p>切换用户进入<code>PostgreSQL</code>的命令行，并且添加一个新的数据库用户<code>sonar</code>和新的数据库<code>sonar</code>备用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">su postgres
+psql -U postgres
+CREATE USER sonar WITH PASSWORD <span class="s1">&#39;sonar&#39;</span><span class="p">;</span>
+CREATE DATABASE sonar WITH OWNER sonar ENCODING <span class="s1">&#39;UTF8&#39;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-4.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-4.png" alt=""></a></p>
+<p>这样就建立了一个名称为<code>sonar</code>，用户名为<code>sonar</code>并且密码也是<code>sonar</code>的数据库。</p>
+<h3 id="安装sonarqube服务sonarqube-2">安装SonarQube服务<a href="#sonarqube-2">#</a></h3>
+<p>在安装<code>SonarQube</code>服务之前，可以参考<a href="https://docs.sonarqube.org/latest/requirements/requirements">Prerequisites and Overview</a>调整系统参数，这些参数其实大部分和<code>ElasticSearch</code>有关，查看参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">## 一个进程可以拥有的VMA(虚拟内存区域)的数量上限</span>
+sysctl vm.max_map_count
+<span class="c1">## 同时打开的文件数目上限</span>
+sysctl fs.file-max
+<span class="c1">## 可以打开的文件描述符的上限</span>
+<span class="nb">ulimit</span> -n
+<span class="c1">## 可以启动线程的数量上限</span>
+<span class="nb">ulimit</span> -u
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果当前的会话是<code>root</code>用户，可以直接通过下面的命令去修改这四个参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sysctl -w vm.max_map_count<span class="o">=</span><span class="m">262144</span>
+sysctl -w fs.file-max<span class="o">=</span><span class="m">65536</span>
+<span class="nb">ulimit</span> -n <span class="m">65536</span>
+<span class="nb">ulimit</span> -u <span class="m">4096</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>否则需要手动修改<code>/etc/security/limits.conf</code>文件，在文件尾部添加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">* soft nofile <span class="m">65536</span>
+* hard nofile <span class="m">65536</span>
+* soft nproc <span class="m">4096</span>
+* hard nproc <span class="m">4096</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>修改<code>/etc/sysctl.conf</code>文件，在文件尾部添加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vm.max_map_count<span class="o">=</span><span class="m">262144</span>
+fs.file-max<span class="o">=</span><span class="m">65536</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>/etc/security/limits.conf</code>和<code>/etc/sysctl.conf</code>更新完毕后必须<strong>重启服务器</strong>。</p>
+<p>接着新增一个用户<code>sonarqube</code>（根本原因是<code>ElasticSearch</code>不能用<code>root</code>用户启动）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">adduser sonarqube
+<span class="c1"># 这一步需要输入密码，这里密码也暂定sonarqube</span>
+passwd sonarqube
+<span class="c1"># 分配权限</span>
+chown -R sonarqube:sonarqube /data/sonarqube
+
+</code></pre></td></tr></table>
+</div>
+</div><p>接着下载和安装<code>SonarQube</code>：</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-5.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-5.png" alt=""></a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mdkir /data/sonarqube
+<span class="nb">cd</span> /data/sonarqube
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.3.1.34397.zip
+uzip sonarqube-8.3.1.34397.zip
+
+</code></pre></td></tr></table>
+</div>
+</div><p>修改配置<code>/data/sonarqube/sonarqube-8.3.1.34397/conf/sonar.properties</code>添加下面的属性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sonar.jdbc.username<span class="o">=</span>sonar
+sonar.jdbc.password<span class="o">=</span>sonar
+sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
+
+</code></pre></td></tr></table>
+</div>
+</div><p>完成所有配置之后，可以尝试控制台启动<code>SonarQube</code>服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /data/sonarqube/sonarqube-8.3.1.34397/bin/linux-x86-64
+./sonar.sh console
+
+</code></pre></td></tr></table>
+</div>
+</div><p>如果启动正常，日志如下：</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-6.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-6.png" alt=""></a></p>
+<p>然后<code>Ctrl C</code>退出控制台，使用<code>./sonar.sh start</code>后台启动<code>SonarQube</code>服务即可。</p>
+<p><strong>这里归类一下可能会遇到的问题：</strong></p>
+<ul>
+<li>提示<code>root</code>用户不能启动的问题，是因为<code>ElasticSearch</code>不允许使用<code>root</code>用户启动，新建一个普通用户即可。</li>
+<li>提示部分文件夹无访问权限，一般是因为新建的普通用户没有分配<code>SonarQube</code>所在目录的写权限。</li>
+<li>提示文件描述符或者线程数量限制，一般是因为没有修改<code>vm.max_map_count</code>、<code>fs.file-max</code>、<code>ulimit -n</code>和<code>ulimit -u</code>参数导致。</li>
+</ul>
+<h2 id="sonarqube使用sonarqube-3">SonarQube使用<a href="#sonarqube-3">#</a></h2>
+<blockquote>
+<p>SonarQube管理员的初始化账号密码都为admin，如果需要修改密码或者分配不同权限的用户，可以在管理员的菜单栏中完成。</p>
+</blockquote>
+<p>访问<code>http://192.168.56.200:9000</code>进入<code>SonarQube</code>的<code>WebUI</code>，可以先到插件市场安装一个汉化插件<code>Chinese Pack</code>，安装插件完成后重启服务即可实现汉化。</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-7.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-7.png" alt=""></a></p>
+<p><code>SonarQube</code>提供不同类型的<code>SonarScanner</code>用于代码扫描和结果提交，这里以<code>Maven</code>为例。<code>Maven</code>的<code>settings.xml</code>需要引入下面的配置（注意父标签已经存在，重复添加父标签会导致异常）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+    <span class="nt">&lt;pluginGroups&gt;</span>
+        <span class="nt">&lt;pluginGroup&gt;</span>org.sonarsource.scanner.maven<span class="nt">&lt;/pluginGroup&gt;</span>
+    <span class="nt">&lt;/pluginGroups&gt;</span>
+    <span class="nt">&lt;profiles&gt;</span>
+        <span class="nt">&lt;profile&gt;</span>
+            <span class="nt">&lt;id&gt;</span>sonar<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;activation&gt;</span>
+                <span class="nt">&lt;activeByDefault&gt;</span>true<span class="nt">&lt;/activeByDefault&gt;</span>
+            <span class="nt">&lt;/activation&gt;</span>
+            <span class="nt">&lt;properties&gt;</span>
+                <span class="c">&lt;!-- Optional URL to server. Default value is http://localhost:9000 --&gt;</span>
+                <span class="nt">&lt;sonar.host.url&gt;</span>
+                  <span class="c">&lt;!-- 这个位置需要替换成SonarQube服务地址，例如http://192.168.56.200:9000 --&gt;</span>
+                  http://myserver:9000
+                <span class="nt">&lt;/sonar.host.url&gt;</span>
+            <span class="nt">&lt;/properties&gt;</span>
+        <span class="nt">&lt;/profile&gt;</span>
+     <span class="nt">&lt;/profiles&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>需要被扫描的项目中，需要引入<code>Maven</code>插件<code>sonar-maven-plugin</code>，当前最新版本为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.sonarsource.scanner.maven<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>sonar-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>3.7.0.1746<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>完成配置后，只需要在项目中执行命令进行扫描即可，首次执行会比较缓慢，因为需要下载大量的规则库和插件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 不指定插件版本执行</span>
+mvn clean install
+mvn sonar:sonar
+
+<span class="c1"># 或者指定插件版本执行</span>
+mvn org.sonarsource.scanner.maven:sonar-maven-plugin:<span class="si">${</span><span class="nv">插件的版本号</span><span class="si">}</span>:sonar
+
+</code></pre></td></tr></table>
+</div>
+</div><p>此外，可以通过<code>pom</code>文件中的<code>&lt;properties&gt;</code>指定<code>SonarQube</code>的参数，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;properties&gt;</span>
+   <span class="nt">&lt;sonar.host.url&gt;</span>[...]<span class="nt">&lt;/sonar.host.url&gt;</span>
+   <span class="nt">&lt;ssonar.projectKey&gt;</span>[...]<span class="nt">&lt;/sonar.projectKey&gt;</span>
+   <span class="nt">&lt;sonar.projectName&gt;</span>[...]<span class="nt">&lt;/sonar.projectName&gt;</span>
+   <span class="nt">&lt;sonar.projectVersion&gt;</span>[...]<span class="nt">&lt;/sonar.projectVersion&gt;</span>
+   <span class="nt">&lt;sonar.login&gt;</span>[...]<span class="nt">&lt;/sonar.login&gt;</span>
+   <span class="nt">&lt;sonar.password&gt;</span>[...]<span class="nt">&lt;/sonar.password&gt;</span>
+   <span class="nt">&lt;sonar.sourceEncoding&gt;</span>[...]<span class="nt">&lt;/sonar.sourceEncoding&gt;</span>
+   ......
+<span class="nt">&lt;/properties&gt;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>项目扫描结果提交后，可以在<code>http://192.168.56.200:9000/projects</code>看到项目列表：</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-8.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-8.png" alt=""></a></p>
+<p>点击进去就可以看到项目扫描后的详细报告和统计：</p>
+<p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-9.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-9.png" alt=""></a></p>
+<h2 id="小结section-1">小结<a href="#section-1">#</a></h2>
+<p>质量管理是<code>DevOps</code>中的一个重要环节，<code>SonarQube</code>是一个十分优秀的代码质量管理开放平台，笔者之前迁移服务到某云，云上的流水线配置可以通过插件形式引入<code>SonarQube</code>服务，这一点起到了低成本高收益的效果。</p>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://docs.sonarqube.org">SonarQube官方文档</a></li>
+<li><a href="https://www.postgresql.org/download/linux/redhat">PostgreSQL - Linux downloads (Red Hat family)</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-08 19:15
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/sonarqube/">sonarqube</a>
+          <a href="/tags/code/">code</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/code/svn_use/">
+            <span class="next-text nav-default">svn 使用详解</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

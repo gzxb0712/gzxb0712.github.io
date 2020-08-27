@@ -3,35 +3,56 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-04-07T19:11:30+00:00</lastmod>
+    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-04-07T19:11:30+00:00</lastmod>
+    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/tags/code/</loc>
-    <lastmod>2020-04-07T19:11:30+00:00</lastmod>
+    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/code/</loc>
-    <lastmod>2020-04-07T19:11:30+00:00</lastmod>
+    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-04-07T19:11:30+00:00</lastmod>
+    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/sonarqube/</loc>
+    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/code/sonarqube8_install/</loc>
+    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-04-08T19:15:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -45,13 +66,6 @@
   
   <url>
     <loc>https://xiebiao.top/post/code/svn_use/</loc>
-    <lastmod>2020-04-07T19:11:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
     <lastmod>2020-04-07T19:11:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

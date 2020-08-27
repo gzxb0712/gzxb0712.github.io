@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CentOS 7 安装配置 NFS - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/storage/centos_nfs_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="CentOS 7 安装配置 NFS" />
+<meta property="og:description" content="前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/storage/centos_nfs_ops/" />
+<meta property="article:published_time" content="2020-05-02T19:11:30+00:00" />
+<meta property="article:modified_time" content="2020-05-02T19:11:30+00:00" />
+<meta itemprop="name" content="CentOS 7 安装配置 NFS">
+<meta itemprop="description" content="前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例">
+<meta itemprop="datePublished" content="2020-05-02T19:11:30+00:00" />
+<meta itemprop="dateModified" content="2020-05-02T19:11:30+00:00" />
+<meta itemprop="wordCount" content="3199">
+
+
+
+<meta itemprop="keywords" content="nfs,storage," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CentOS 7 安装配置 NFS"/>
+<meta name="twitter:description" content="前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">CentOS 7 安装配置 NFS</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-02 19:11 </span>
+        <div class="post-category">
+            <a href="/categories/storage/"> storage </a>
+            </div>
+          <span class="more-meta"> 约 3199 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#环境说明">环境说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#服务端">服务端</a>
+      <ul>
+        <li><a href="#服务端安装">服务端安装</a></li>
+        <li><a href="#服务端配置">服务端配置</a></li>
+        <li><a href="#配置共享目录">配置共享目录</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux-客户端">Linux 客户端</a>
+      <ul>
+        <li><a href="#客户端安装">客户端安装</a></li>
+        <li><a href="#客户端配置">客户端配置</a></li>
+        <li><a href="#客户端连接-nfs">客户端连接 NFS</a></li>
+        <li><a href="#测试-nfs">测试 NFS</a></li>
+        <li><a href="#客户端自动挂载">客户端自动挂载</a></li>
+      </ul>
+    </li>
+    <li><a href="#windows-客户端">Windows 客户端</a>
+      <ul>
+        <li><a href="#客户端安装-1">客户端安装</a></li>
+        <li><a href="#客户端配置-1">客户端配置</a></li>
+        <li><a href="#客户端测试">客户端测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#结论">结论</a>
+      <ul>
+        <li><a href="#1-环境说明-1-环境说明1-环境说明"><a href="#1-%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E" title="1. 环境说明"></a>1. 环境说明</a></li>
+        <li><a href="#2-nfs-服务端-2-nfs-服务端2-nfs-服务端"><a href="#2-NFS-%E6%9C%8D%E5%8A%A1%E7%AB%AF" title="2. NFS 服务端"></a>2. NFS 服务端</a></li>
+        <li><a href="#3-nfs-客户端-3-nfs-客户端3-nfs-客户端"><a href="#3-NFS-%E5%AE%A2%E6%88%B7%E7%AB%AF" title="3. NFS 客户端"></a>3. NFS 客户端</a></li>
+        <li><a href="#4-nfs-读写速度测试-4-nfs-读写速度测试4-nfs-读写速度测试"><a href="#4-NFS-%E8%AF%BB%E5%86%99%E9%80%9F%E5%BA%A6%E6%B5%8B%E8%AF%95" title="4. NFS 读写速度测试"></a>4. NFS 读写速度测试</a></li>
+        <li><a href="#参考文章-参考文章参考文章"><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0" title="参考文章"></a>参考文章</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="前言">前言</h2>
+<p>NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例演示 CentOS 7 下安装和配置 NFS 的基本步骤。</p>
+<h3 id="环境说明">环境说明</h3>
+<p>CentOS 7（Minimal Install）</p>
+<pre><code>$ cat /etc/redhat-release 
+CentOS Linux release 7.5.1804 (Core) 
+</code></pre>
+<p>本例演示环境如下</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>IP Addr</th>
+<th>Descprition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>192.169.0.110</td>
+<td>服务端 IP</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>192.168.0.101</td>
+<td>客户端 IP</td>
+</tr>
+<tr>
+<td>Windows Client</td>
+<td>192.168.0.102</td>
+<td>Windows Server 2008</td>
+</tr>
+</tbody>
+</table>
+<p>根据官网说明 <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/ch-nfs">Chapter 8. Network File System (NFS) - Red Hat Customer Portal</a>，CentOS 7.4 以后，支持 NFS v4.2 不需要 rpcbind 了，但是如果客户端只支持 NFC v3 则需要 rpcbind 这个服务。</p>
+<h2 id="服务端">服务端</h2>
+<h3 id="服务端安装">服务端安装</h3>
+<p>使用 yum 安装 NFS 安装包。</p>
+<pre><code>$ sudo yum install nfs-utils
+</code></pre>
+<p><em><code>注意</code></em></p>
+<blockquote>
+<p>只安装 nfs-utils 即可，rpcbind 属于它的依赖，也会安装上。</p>
+</blockquote>
+<h3 id="服务端配置">服务端配置</h3>
+<p>设置 NFS 服务开机启动</p>
+<pre><code>$ sudo systemctl enable rpcbind
+$ sudo systemctl enable nfs
+</code></pre>
+<p>启动 NFS 服务</p>
+<pre><code>$ sudo systemctl start rpcbind
+$ sudo systemctl start nfs
+</code></pre>
+<p>防火墙需要打开 rpc-bind 和 nfs 的服务</p>
+<pre><code>$ sudo firewall-cmd --zone=public --permanent --add-service={rpc-bind,mountd,nfs}
+success
+$ sudo firewall-cmd --reload
+success
+</code></pre>
+<h3 id="配置共享目录">配置共享目录</h3>
+<p>服务启动之后，我们在服务端配置一个共享目录</p>
+<pre><code>$ sudo mkdir /data
+$ sudo chmod 755 /data
+</code></pre>
+<p>根据这个目录，相应配置导出目录</p>
+<pre><code>$ sudo vi /etc/exports
+</code></pre>
+<p>添加如下配置</p>
+<pre><code>/data/     192.168.0.0/24(rw,sync,no_root_squash,no_all_squash)
+</code></pre>
+<ol>
+<li><code>/data</code>: 共享目录位置。</li>
+<li><code>192.168.0.0/24</code>: 客户端 IP 范围，<code>*</code> 代表所有，即没有限制。</li>
+<li><code>rw</code>: 权限设置，可读可写。</li>
+<li><code>sync</code>: 同步共享目录。</li>
+<li><code>no_root_squash</code>: 可以使用 root 授权。</li>
+<li><code>no_all_squash</code>: 可以使用普通用户授权。</li>
+</ol>
+<p><code>:wq</code> 保存设置之后，重启 NFS 服务。</p>
+<pre><code>$ sudo systemctl restart nfs
+</code></pre>
+<p>可以检查一下本地的共享目录</p>
+<pre><code>$ showmount -e localhost
+Export list for localhost:
+/data 192.168.0.0/24
+</code></pre>
+<p>这样，服务端就配置好了，接下来配置客户端，连接服务端，使用共享目录。</p>
+<h2 id="linux-客户端">Linux 客户端</h2>
+<h3 id="客户端安装">客户端安装</h3>
+<p>与服务端类似</p>
+<pre><code>$ sudo yum install nfs-utils
+</code></pre>
+<h3 id="客户端配置">客户端配置</h3>
+<p>设置 rpcbind 服务的开机启动</p>
+<pre><code>$ sudo systemctl enable rpcbind
+</code></pre>
+<p>启动 NFS 服务</p>
+<pre><code>$ sudo systemctl start rpcbind
+</code></pre>
+<p><em><code>注意</code></em></p>
+<blockquote>
+<p>客户端不需要打开防火墙，因为客户端时发出请求方，网络能连接到服务端即可。<br>
+客户端也不需要开启 NFS 服务，因为不共享目录。</p>
+</blockquote>
+<h3 id="客户端连接-nfs">客户端连接 NFS</h3>
+<p>先查服务端的共享目录</p>
+<pre><code>$ showmount -e 192.168.0.110
+Export list for 192.168.0.110:
+/data 192.168.0.0/24
+</code></pre>
+<p>在客户端创建目录</p>
+<pre><code>$ sudo mkdir /data
+</code></pre>
+<p>挂载</p>
+<pre><code>$ sudo mount -t nfs 192.168.0.101:/data /data
+</code></pre>
+<p>挂载之后，可以使用 <code>mount</code> 命令查看一下</p>
+<pre><code>$ mount
+...
+...
+192.168.0.110:/data on /data type nfs4 (rw,relatime,sync,vers=4.1,rsize=131072,wsize=131072,namlen=255,hard,proto=tcp,port=0,timeo=600,retrans=2,sec=sys,clientaddr=192.168.0.100,local_lock=none,addr=192.168.0.101)
+</code></pre>
+<p>这说明已经挂载成功了。</p>
+<h3 id="测试-nfs">测试 NFS</h3>
+<p>测试一下，在客户端向共享目录创建一个文件</p>
+<pre><code>$ cd /data
+$ sudo touch a
+</code></pre>
+<p>之后取 NFS 服务端 <code>192.168.0.101</code> 查看一下</p>
+<pre><code>$ cd /data
+$ ll
+total 0
+-rw-r--r--. 1 root root 0 Aug  8 18:46 a
+</code></pre>
+<p>可以看到，共享目录已经写入了。</p>
+<h3 id="客户端自动挂载">客户端自动挂载</h3>
+<p>自动挂载很常用，客户端设置一下即可。</p>
+<pre><code>$ sudo vi /etc/fstab
+</code></pre>
+<p>在结尾添加类似如下配置</p>
+<pre><code>#
+# /etc/fstab
+# Created by anaconda on Thu May 25 13:11:52 2017
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/cl-root     /                       xfs     defaults        0 0
+UUID=414ee961-c1cb-4715-b321-241dbe2e9a32 /boot                   xfs     defaults        0 0
+/dev/mapper/cl-home     /home                   xfs     defaults        0 0
+/dev/mapper/cl-swap     swap                    swap    defaults        0 0
+192.168.0.110:/data     /data                   nfs     defaults        0 0
+</code></pre>
+<p>由于修改了 <code>/etc/fstab</code>，需要重新加载 <code>systemctl</code>。</p>
+<pre><code>$ sudo systemctl daemon-reload
+</code></pre>
+<p>之后查看一下</p>
+<pre><code>$ mount
+...
+...
+192.168.0.110:/data on /data type nfs4 (rw,relatime,vers=4.1,rsize=131072,wsize=131072,namlen=255,hard,proto=tcp,port=0,timeo=600,retrans=2,sec=sys,clientaddr=192.168.0.100,local_lock=none,addr=192.168.0.101)
+</code></pre>
+<p>此时已经启动好了。如果实在不放心，可以重启一下客户端的操作系统，之后再查看一下。</p>
+<h2 id="windows-客户端">Windows 客户端</h2>
+<p>Windows 安装 NFS 客户端，不同的 Windows 版本，安装方式不大一样，本例列举几个。</p>
+<p>Windows</p>
+<p>步骤</p>
+<p>Windows Server 2008</p>
+<p>servermanagercmd.exe -install FS-NFS-Services</p>
+<p>Windows 7</p>
+<p>程序和功能 - 启动或关闭 Widnows 功能 - NFS 服务</p>
+<p>Windows Server 2012</p>
+<p>添加功能角色 - 添加文件打印服务 - NFS 客户端</p>
+<p>Windows 10</p>
+<p>程序和功能 - 启动或关闭 Widnows 功能 - NFS 服务</p>
+<h3 id="客户端安装-1">客户端安装</h3>
+<p>本例的 Windows 为 <code>Windows Server 2008 R2</code></p>
+<pre><code>C:&gt; servermanagercmd.exe -install FS-NFS-Services
+</code></pre>
+<h3 id="客户端配置-1">客户端配置</h3>
+<p>首先要了解服务端的文件夹权限，本例服务端 <code>/data</code> 目录的所有者为 <code>root</code>，查看一下 root 用户的信息</p>
+<pre><code>$ sudo id root
+uid=0(root) gid=0(root) groups=0(root)
+</code></pre>
+<p>可以看到 <code>uid=0</code>, <code>gid=0</code>，需要在 Windows 客户端上进行配置，参考 <a href="https://blogs.msdn.microsoft.com/sfu/2009/03/27/can-i-set-up-user-name-mapping-in-windows-vista/">UID/GID using the registry entries</a></p>
+<blockquote>
+<p><strong><code>注意</code></strong><br>
+本例以 root 为例，生产环境要考虑安全因素，请修改为相应的有权限的用户</p>
+</blockquote>
+<p>回到 Windows 进行配置</p>
+<p>首先，启动注册表编辑器</p>
+<pre><code>C:&gt; regedit
+</code></pre>
+<p>然后，进行如下步骤</p>
+<ol>
+<li>
+<p>定位到这一项 <code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default</code></p>
+</li>
+<li>
+<p>创建两个 DWORD 值，名称分别为 <code>AnonymousUid</code> 和 <code>AnonymousGid</code></p>
+</li>
+<li>
+<p>设置 UID 和 GID 的值，本例设置为 <code>0</code></p>
+</li>
+<li>
+<p>重启 Windows 操作系统 (或者重启 NFS Client 服务)</p>
+</li>
+</ol>
+<p>服务器重启之后，挂载文件夹，在 DOS 命令窗口输入命令</p>
+<pre><code>C:&gt; mount 192.168.0.110:/data X:
+</code></pre>
+<p>这样，就将 NFS 服务端的共享文件夹挂载到了本地的 <code>X:</code> 盘，</p>
+<p>也可以卸载掉这个驱动器，使用如下命令：</p>
+<pre><code>C:&gt; umount X:
+</code></pre>
+<p><em><code>注意</code></em></p>
+<blockquote>
+<p>通过此命令操作挂载，当服务器重启时，不会自动挂载。</p>
+</blockquote>
+<p>登录时自动挂载，进行如下步骤</p>
+<ol>
+<li>
+<p>点击此电脑</p>
+</li>
+<li>
+<p>在弹出的计算机对话框中，在工具栏找到 <code>映射网络驱动器</code></p>
+</li>
+<li>
+<p>驱动器地址输入 <code>X:</code></p>
+</li>
+<li>
+<p>文件夹输入 <code>192.168.0.110:/data</code></p>
+</li>
+<li>
+<p>确认 <code>登录时重新连接</code> 是勾选的，这个配置表示登录时自动挂载共享目录。</p>
+</li>
+</ol>
+<h3 id="客户端测试">客户端测试</h3>
+<p>Windows 操作都是有界面的，本例不做具体截图，可以点击进入 X 盘，创建文件夹试试，然后新建文件试试。</p>
+<p>如果有问题，请确认一下服务端的文件加权限。</p>
+<h2 id="结论">结论</h2>
+<p>本文演示了 CentOS 7 下 yum 安装和配置 NFS，以及服务端和客户端的配置。</p>
+<blockquote>
+<p><em><strong>参考 <a href="https://qizhanming.com/blog/2018/08/08/how-to-install-nfs-on-centos-7">CentOS 7 下 yum 安装和配置 NFS | Zhanming’s blog</a>，补充整理部分内容</strong></em></p>
+</blockquote>
+<h3 id="1-环境说明-1-环境说明1-环境说明"><a href="#1-%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E" title="1. 环境说明"></a>1. 环境说明</h3>
+<p>本文中的服务器环境如下：</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Hostname</th>
+<th>OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NFS 服务端</strong></td>
+<td><code>centos-2</code></td>
+<td>CentOS 7.5</td>
+</tr>
+<tr>
+<td><strong>NFS 客户端</strong></td>
+<td><code>abelsu7-ubuntu</code></td>
+<td>Ubuntu 18.04</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注</strong>：为简略起见，以下命令均以<code>root</code>身份运行，省略<code>sudo</code></p>
+</blockquote>
+<h3 id="2-nfs-服务端-2-nfs-服务端2-nfs-服务端"><a href="#2-NFS-%E6%9C%8D%E5%8A%A1%E7%AB%AF" title="2. NFS 服务端"></a>2. NFS 服务端</h3>
+<h4 id="2-1-安装-nfs-utils-21-安装-nfs-utils21-安装-nfs-utils"><a href="#2-1-%E5%AE%89%E8%A3%85-nfs-utils" title="2.1 安装 nfs-utils"></a>2.1 安装 nfs-utils</h4>
+<blockquote>
+<p><strong>注</strong>：对应的 <strong>Apt</strong> 包为<code>nfs-kernel-server</code>和<code>nfs-common</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; yum info nfs-utils
+
+Available Packages
+Name        : nfs-utils
+Arch        : x86_64
+Epoch       : <span class="m">1</span>
+Version     : 1.3.0
+Release     : 0.65.el7
+Size        : <span class="m">412</span> k
+Repo        : base/7/x86_64
+Summary     : NFS utilities and supporting clients and daemons <span class="k">for</span> the kernel NFS server
+URL         : http://sourceforge.net/projects/nfs
+License     : MIT and GPLv2 and GPLv2+ and BSD
+Description : The nfs-utils package provides a daemon <span class="k">for</span> the kernel NFS server and
+            : related tools, which provides a much higher level of performance than the
+            : traditional Linux NFS server used by most users.
+            :
+            : This package also contains the showmount program.  Showmount queries the
+            : mount daemon on a remote host <span class="k">for</span> information about the NFS <span class="o">(</span>Network File
+            : System<span class="o">)</span> server on the remote host.  For example, showmount can display the
+            : clients which are mounted on that host.
+            :
+            : This package also contains the mount.nfs and umount.nfs program.
+
+&gt; yum install nfs-utils
+<span class="c1"># rpcbind 作为依赖会自动安装</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2-2-配置并启动服务-22-配置并启动服务22-配置并启动服务"><a href="#2-2-%E9%85%8D%E7%BD%AE%E5%B9%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1" title="2.2 配置并启动服务"></a>2.2 配置并启动服务</h4>
+<p>允许<code>rpcbind.service</code>、<code>nfs.service</code><strong>开机自启</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 允许服务开机自启</span>
+&gt; systemctl <span class="nb">enable</span> rpcbind
+&gt; systemctl <span class="nb">enable</span> nfs
+
+</code></pre></td></tr></table>
+</div>
+</div><p>启动相关服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动相关服务</span>
+&gt; systemctl start rpcbind
+&gt; systemctl start nfs
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>防火墙</strong>允许服务通过：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 防火墙允许服务通过</span>
+&gt; firewall-cmd --zone<span class="o">=</span>public --permanent --add-service<span class="o">={</span>rpc-bind,mountd,nfs<span class="o">}</span>
+success
+
+&gt; firewall-cmd --reload
+success
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2-3-配置共享目录-23-配置共享目录23-配置共享目录"><a href="#2-3-%E9%85%8D%E7%BD%AE%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95" title="2.3 配置共享目录"></a>2.3 配置共享目录</h4>
+<p>例如需要共享的目录为<code>/mnt/kvm/</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建 /mnt/kvm 并修改权限</span>
+&gt; <span class="nb">cd</span> /mnt
+/mnt &gt; mkdir kvm
+/mnt &gt; chmod <span class="m">755</span> kvm
+
+<span class="c1"># 验证目录权限</span>
+/mnt &gt; ls -l
+total <span class="m">0</span>
+drwxr-xr-x <span class="m">2</span> root root <span class="m">59</span> Oct <span class="m">17</span> 17:49 kvm
+
+</code></pre></td></tr></table>
+</div>
+</div><p>之后修改<code>/etc/exports</code>，将<code>/mnt/kvm/</code>添加进去：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; cat /etc/exports
+
+<span class="c1"># 1. 只允许 abelsu7-ubuntu 访问</span>
+/mnt/kvm/ abelsu7-ubuntu<span class="o">(</span>rw,sync,no_root_squash,no_all_squash<span class="o">)</span>
+
+<span class="c1"># 2. 根据 IP 地址范围限制访问</span>
+/mnt/kvm/ 192.168.0.0/24<span class="o">(</span>rw,sync,no_root_squash,no_all_squash<span class="o">)</span>
+
+<span class="c1"># 3. 使用 * 表示访问不加限制</span>
+/mnt/kvm/ *<span class="o">(</span>rw,sync,no_root_squash,no_all_squash<span class="o">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>关于<code>/etc/exports</code>中的<strong>参数含义</strong>：</p>
+<ul>
+<li><code>/mnt/kvm/</code>：需要<strong>共享的目录</strong></li>
+<li><code>192.168.0.0/24</code>：<strong>客户端 IP 范围</strong>，<code>*</code>表示无限制</li>
+<li><code>rw</code>：<strong>权限设置</strong>，可读可写</li>
+<li><code>sync</code>：<strong>同步共享目录</strong></li>
+<li><code>no_root_squash</code>：可以使用<code>root</code><strong>授权</strong></li>
+<li><code>no_all_squash</code>：可以使用<strong>普通用户授权</strong></li>
+</ul>
+<p>保存之后，重启<code>nfs</code>服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl restart nfs
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2-4-查看共享目录列表-24-查看共享目录列表24-查看共享目录列表"><a href="#2-4-%E6%9F%A5%E7%9C%8B%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95%E5%88%97%E8%A1%A8" title="2.4 查看共享目录列表"></a>2.4 查看共享目录列表</h4>
+<p>在<code>centos-2</code>本地查看：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; showmount -e localhost
+Export list <span class="k">for</span> localhost:
+/mnt/kvm abelsu7-ubuntu
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-nfs-客户端-3-nfs-客户端3-nfs-客户端"><a href="#3-NFS-%E5%AE%A2%E6%88%B7%E7%AB%AF" title="3. NFS 客户端"></a>3. NFS 客户端</h3>
+<h4 id="3-1-安装-nfs-utils-31-安装-nfs-utils31-安装-nfs-utils"><a href="#3-1-%E5%AE%89%E8%A3%85-nfs-utils" title="3.1 安装 nfs-utils"></a>3.1 安装 nfs-utils</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CentOS/Fedora, etc.</span>
+&gt; yum install nfs-utils
+
+<span class="c1"># Ubuntu/Debian, etc.</span>
+&gt; apt install nfs-common
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3-2-配置并启动服务-32-配置并启动服务32-配置并启动服务"><a href="#3-2-%E9%85%8D%E7%BD%AE%E5%B9%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1" title="3.2 配置并启动服务"></a>3.2 配置并启动服务</h4>
+<p>设置<code>rpcbind</code>服务<strong>开机启动</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl <span class="nb">enable</span> rpcbind
+
+</code></pre></td></tr></table>
+</div>
+</div><p>启动<code>rpcbind</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl start rpcbind
+
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>客户端<strong>不需要打开防火墙</strong>，也<strong>不需要开启 NFS 服务</strong></p>
+</blockquote>
+<h4 id="3-3-挂载共享目录-33-挂载共享目录33-挂载共享目录"><a href="#3-3-%E6%8C%82%E8%BD%BD%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95" title="3.3 挂载共享目录"></a>3.3 挂载共享目录</h4>
+<p>先查看<strong>服务端的共享目录</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; showmount -e centos-2
+Export list <span class="k">for</span> centos-2:
+/mnt/kvm abelsu7-ubuntu
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在客户端<strong>创建并挂载对应目录</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; mkdir -p /mnt/kvm
+&gt; mount -t nfs centos-2:/mnt/kvm /mnt/kvm
+
+</code></pre></td></tr></table>
+</div>
+</div><p>最后检查一下是否挂载成功：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; df -hT /mnt/kvm
+Filesystem         Type  Size  Used  Avail  Use%  Mounted on
+centos-2:/mnt/kvm  nfs4  500G  119G   382G   24%  /mnt/kvm
+
+&gt; mount <span class="p">|</span> grep /mnt/kvm
+centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">(</span>rw,relatime,vers<span class="o">=</span>4.2,rsize<span class="o">=</span>1048576,wsize<span class="o">=</span>1048576,namlen<span class="o">=</span>255,hard,proto<span class="o">=</span>tcp,timeo<span class="o">=</span>600,retrans<span class="o">=</span>2,sec<span class="o">=</span>sys,clientaddr<span class="o">=</span>222.xxx.xxx.xxx,local_lock<span class="o">=</span>none,addr<span class="o">=</span>116.xxx.xxx.xxx<span class="o">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3-4-配置自动挂载-34-配置自动挂载34-配置自动挂载"><a href="#3-4-%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD" title="3.4 配置自动挂载"></a>3.4 配置自动挂载</h4>
+<p>在客户端编辑<code>/etc/fstab</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /etc/fstab: static file system information.</span>
+#
+<span class="c1"># Use &#39;blkid&#39; to print the universally unique identifier for a</span>
+<span class="c1"># device; this may be used with UUID= as a more robust way to name devices</span>
+<span class="c1"># that works even if disks are added and removed. See fstab(5).</span>
+#
+<span class="c1"># &lt;file system&gt;                            &lt;mount point&gt;  &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span>
+
+<span class="c1"># / was on /dev/sda8 during installation</span>
+<span class="nv">UUID</span><span class="o">=</span>26d36e85-367a-4200-87fb-0505c5837078  /              ext4    <span class="nv">errors</span><span class="o">=</span>remount-ro    <span class="m">0</span>       <span class="m">1</span>
+
+<span class="c1"># /boot/efi was on /dev/sda1 during installation</span>
+<span class="nv">UUID</span><span class="o">=</span>000E-274F                             /boot/efi      vfat    <span class="nv">umask</span><span class="o">=</span><span class="m">0077</span>           <span class="m">0</span>       <span class="m">1</span>
+
+<span class="c1"># swap was on /dev/sda9 during installation</span>
+<span class="c1"># UUID=ee4da9a3-0288-4f8e-a86e-ab8ac3faa6bc  none           swap    sw                   0       0</span>
+
+<span class="c1"># For nfs</span>
+centos-2:/mnt/kvm                          /mnt/kvm       nfs     defaults             <span class="m">0</span>       <span class="m">0</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>最后重新加载<code>systemctl</code>，即可实现重启后自动挂载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl daemon-reload
+
+&gt; mount <span class="p">|</span> grep /mnt/kvm
+centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">(</span>rw,relatime,vers<span class="o">=</span>4.2,rsize<span class="o">=</span>1048576,wsize<span class="o">=</span>1048576,namlen<span class="o">=</span>255,hard,proto<span class="o">=</span>tcp,timeo<span class="o">=</span>600,retrans<span class="o">=</span>2,sec<span class="o">=</span>sys,clientaddr<span class="o">=</span>222.xxx.xxx.xxx,local_lock<span class="o">=</span>none,addr<span class="o">=</span>116.xxx.xxx.xxx<span class="o">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4-nfs-读写速度测试-4-nfs-读写速度测试4-nfs-读写速度测试"><a href="#4-NFS-%E8%AF%BB%E5%86%99%E9%80%9F%E5%BA%A6%E6%B5%8B%E8%AF%95" title="4. NFS 读写速度测试"></a>4. NFS 读写速度测试</h3>
+<blockquote>
+<p>待更新…</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; <span class="nb">time</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/mnt/kvm-lun/test-nfs-speed <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
+&gt; <span class="nb">time</span> dd <span class="k">if</span><span class="o">=</span>/mnt/kvm-lun/test-nfs-speed <span class="nv">of</span><span class="o">=</span>/dev/null <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="参考文章-参考文章参考文章"><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0" title="参考文章"></a>参考文章</h3>
+<h4 id="nfs-安装与配置-nfs-安装与配置nfs-安装与配置"><a href="#NFS-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" title="NFS 安装与配置"></a>NFS 安装与配置</h4>
+<blockquote>
+<ol>
+<li><a href="https://qizhanming.com/blog/2018/08/08/how-to-install-nfs-on-centos-7">CentOS 7 下 yum 安装和配置 NFS | Zhanming’s blog</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/NFS_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29">NFS | ArchLinux</a></li>
+<li><a href="https://wiki.jikexueyuan.com/project/linux/nfs.html">NFS 服务配置 | 极客学院</a></li>
+<li><a href="http://cn.linux.vbird.org/linux_server/0330nfs.php">NFS 服务器 | 鸟哥的私房菜</a></li>
+<li><a href="https://wooyun.js.org/drops/NFS%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93%E9%82%A3%E4%BA%9B%E4%BA%8B.html">NFS 配置不当那些事 | Blood_Zero</a></li>
+<li><a href="https://www.centos.bz/2017/07/centos7-1-install-nfs/">CentOS 7.1 安装配置 NFS 共享文件系统 | Linux 运维日志</a></li>
+<li><a href="https://blog.csdn.net/gys_20153235/article/details/80516560">Ubuntu 18.04 下安装 NFS 详细步骤 | CSDN</a></li>
+<li><a href="https://blog.csdn.net/qq_36357820/article/details/78488077">NFS /etc/exports 参数解释 | CSDN</a></li>
+<li><a href="https://www.cnblogs.com/pengdonglin137/p/3283316.html">常用 NFS mount 选项介绍 | 博客园</a></li>
+</ol>
+</blockquote>
+<h4 id="dd-读写速度测试-dd-读写速度测试dd-读写速度测试"><a href="#dd-%E8%AF%BB%E5%86%99%E9%80%9F%E5%BA%A6%E6%B5%8B%E8%AF%95" title="dd 读写速度测试"></a>dd 读写速度测试</h4>
+<blockquote>
+<ol>
+<li><a href="https://blog.csdn.net/mao0514/article/details/83926559">测试 nfs 文件读写速度 | CSDN</a></li>
+<li><a href="https://blog.csdn.net/fireroll/article/details/13770567">NFS 使用详解之三：NFS 传输速度优化 | CSDN</a></li>
+</ol>
+</blockquote>
+<h4 id="cp-命令显示进度-cp-命令显示进度cp-命令显示进度"><a href="#cp-%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E8%BF%9B%E5%BA%A6" title="cp 命令显示进度"></a>cp 命令显示进度</h4>
+<blockquote>
+<ol>
+<li><a href="https://xvcat.com/post/903">使用 rsync 命令取代 cp 拷贝，可显示进度 | ReMember</a></li>
+<li><a href="http://web.exiang.org/blog/user1/3/2240.html">Ubuntu 下的拷贝 cp 命令无进度条或进度显示的解决 | 梦翔天空</a></li>
+<li><a href="https://blog.csdn.net/dongsheng186/article/details/46651319">Linux 中 cp 文件或目录时如何显示进度? | CSDN</a></li>
+<li><a href="https://linux.cn/article-4741-1.html">一个可以显示 Linux 命令运行进度的工具：Coreutils Viewer (cv) | Linux 中国</a></li>
+<li><a href="https://linuxtoy.org/archives/cv.html">cv: 显示 cp、mv 等命令的进度 | LinuxToy</a></li>
+<li><a href="https://github.com/Xfennec/progress">progress - Linux tool to show progress for cp, mv, dd, … (formerly known as cv) | Github</a></li>
+</ol>
+</blockquote>
+<h4 id="nfs-性能优化-nfs-性能优化nfs-性能优化"><a href="#NFS-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96" title="NFS 性能优化"></a>NFS 性能优化</h4>
+<blockquote>
+<ol>
+<li><a href="http://www.voidcn.com/article/p-osacdwta-bub.html">KVM NFS 磁盘性能不佳 | 程序园</a></li>
+<li><a href="https://blog.csdn.net/freedom8531/article/details/43793517">NFS 性能优化手册 | CSDN</a></li>
+<li><a href="https://my.oschina.net/linjiezang/blog/827712">NFS 读写块大小分析 | 开源中国</a></li>
+</ol>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-02 19:11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/nfs/">nfs</a>
+          <a href="/tags/storage/">storage</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/storage/ceph_octopus_ops/">
+            <span class="next-text nav-default">cephadm部署和配置Ceph Octopus</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

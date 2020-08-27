@@ -50,7 +50,7 @@
 <meta itemprop="description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超">
 <meta itemprop="datePublished" content="2020-04-03T22:23:30+00:00" />
 <meta itemprop="dateModified" content="2020-04-03T22:23:30+00:00" />
-<meta itemprop="wordCount" content="6135">
+<meta itemprop="wordCount" content="6087">
 
 
 
@@ -131,7 +131,7 @@
         <div class="post-category">
             <a href="/categories/gateway/"> gateway </a>
             </div>
-          <span class="more-meta"> 约 6135 字 </span>
+          <span class="more-meta"> 约 6087 字 </span>
           <span class="more-meta"> 预计阅读 13 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -809,9 +809,6 @@ $ curl -XPOST -d &#34;info=dGVzdA==&#34; http://127.0.0.1:8080/decode_info
 <p>nginx变量详见：[Alphabetical index of variables}(http://nginx.org/en/docs/varindex.html)。 ngx_lua <code>ngx.var</code> API详见：<a href="https://github.com/openresty/lua-nginx-module#ngxvarvariable">ngx.var.VARIABLE</a>。
 5、 <a href="https://github.com/openresty/lua-nginx-module#ngxreqget_headers"><code>ngx.req.get_headers()</code></a> 用于读取nginx的header参数。返回的是lua table。
 6、<a href="https://github.com/openresty/lua-nginx-module#ngxdecode_base64"><code>ngx.decode_base64()</code></a>用于 base64字符串解码。对应的编码API是 <code>ngx.encode_base64()</code>。</p>
-<hr>
-<p><strong>防盗版声明</strong>：本文系原创文章，发布于公众号<code>飞鸿影的博客</code>(fhyblog)及<a href="http://52fhy.cnblogs.com">博客园</a>，转载需作者同意。</p>
-<hr>
 <h2 id="连接数据库">连接数据库</h2>
 <p>连接数据库我们需要使用到ngx_lua的第三方库：</p>
 <ul>

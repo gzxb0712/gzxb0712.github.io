@@ -46,7 +46,7 @@
 <meta property="og:description" content="gzxb0712&#39;s Blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://xiebiao.top/" />
-<meta property="og:updated_time" content="2020-05-02T19:11:30+00:00" />
+<meta property="og:updated_time" content="2020-05-11T20:08:30+00:00" />
 <meta itemprop="name" content="Bill World">
 <meta itemprop="description" content="gzxb0712&#39;s Blog">
 <meta name="twitter:card" content="summary"/>
@@ -118,15 +118,156 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/base/openvpn_centos_install/">openvpn在centos搭建实现内网互通</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/cdn/varish_ops/">varnish高速CDN部署与管理</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-01-07 21:05 </span>
+      <span class="post-time"> 2020-02-15 21:39 </span>
+      <div class="post-category">
+          <a href="/categories/cdn/"> cdn </a>
+          </div>
+        <span class="more-meta"> 约 8231 字 </span>
+        <span class="more-meta"> 预计阅读 17 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><img src="https://img.affdalao.com/wp-content/uploads/2019/04/varnish.jpg" alt="">
+Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其采用全新的软件体系机构，和现在的硬件体系紧密配合。与传统的squid相比，Varnish具有高性能、速度快、管理更加方便等优点，目前很多大型的网站都开始尝试使用Varnish来代替squid，这便是Varnish迅速发展的最根本的原因。</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/cdn/varish_ops/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/cdn/ats_install_ops/">ansible实现ATS高速CDN安装与管理</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-02-08 21:32 </span>
+      <div class="post-category">
+          <a href="/categories/cdn/"> cdn </a>
+          </div>
+        <span class="more-meta"> 约 3309 字 </span>
+        <span class="more-meta"> 预计阅读 7 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>ATS下载地址： <a href="http://trafficserver.apache.org/">http://trafficserver.apache.org/</a></p>
+</blockquote>
+<h3 id="1apache-traffic-server简介">1、Apache Traffic Server简介</h3>
+<p>Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非常成熟的代理/缓存/CDN系统。早在2009年，雅虎使用Traffic Server就可以用150台服务器实现每天400 TB的高速流量分发。经过多年的发展，ATS已经用于非常多的商业CDN分发与大型网络。Traffic Server与Nginx, Varnish三者几乎称霸了世界上所有CDN运营商，而Traffic Server又是这三者之中使用量最大的。与Nginx相比，Traffic Server拥有同样优异的性能显著的更多的功能，更丰富的接口，以及高度自定义的配置。与Varnish相比，Traffic Server对于高并发高负载的处理更为出色。
+使用Traffic Server的CDN/大型网络有Apple, Comcast, Yahoo, Akamai, 以及国内的又拍云等等。</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/cdn/ats_install_ops/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/blog/github_jsdelivr_ops/">GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine打造稳定快速高效免费图床</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-02-02 21:28 </span>
+      <div class="post-category">
+          <a href="/categories/blog/"> blog </a>
+          </div>
+        <span class="more-meta"> 约 1507 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="前言-前言前言"><a href="#%E5%89%8D%E8%A8%80" title="前言"></a>前言</h2>
+<blockquote>
+<p>为什么要使用图床呢？</p>
+</blockquote>
+<p>因为在不同平台发布同一篇文章的时候，最一个痛苦的点就是，图片存储问题，各个平台的文件存储方式各不相同，无法直接 <code>Ctrl + C</code> 的方式一键搞定，为了解决这个问题，使用 <code>MarkDown + 图床</code> 的方式进行文章的写作，将图片放到一个统一的地方，在文章中引入图片外链。
+所谓图床，就是将图片储存到第三方静态资源库中，其返回给你一个 URL 进行获取图片。<code>MarkDown</code> 支持使用 URL 的方式显示图片，我想这也是程序员为什么对其偏爱的原因之一。
+作为程序员，你会发现，现在很多论坛和社区都开始支持使用 <code>MarkDown</code>，如果你没使用图床的情况下，你分享同一篇文章，你要在不同的平台，各自重新编辑排版一遍和上传图片一次。
+有了图床，情况就不一样了，<code>Ctrl+C</code> 的方式就搞定了，根本不用再 Check 文章内容一遍。</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/blog/github_jsdelivr_ops/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/base/samba_centos_install/">samba在centos中安装</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-02-01 20:21 </span>
       <div class="post-category">
           <a href="/categories/linux/"> linux </a>
           <a href="/categories/base/"> base </a>
           </div>
-        <span class="more-meta"> 约 3189 字 </span>
-        <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span class="more-meta"> 约 6810 字 </span>
+        <span class="more-meta"> 预计阅读 14 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <h2 id="一简介">一、简介</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">简介以及配置介绍部分来自：https://www.cnblogs.com/muscleape/p/6385583.html
+
+Samba是一个能让Linux系统应用Microsoft网络通讯协议的软件，而SMB是Server Message Block的缩写，即为服务器消息块 ，SMB主要是作为Microsoft的网络通讯协议，后来Samba将SMB通信协议应用到了Linux系统上，就形成了现在的Samba软件。后来微软又把 SMB 改名为 CIFS（Common Internet File System），即公共 Internet 文件系统，并且加入了许多新的功能，这样一来，使得Samba具有了更强大的功能。
+Samba最大的功能就是可以用于Linux与windows系统直接的文件共享和打印共享，Samba既可以用于windows与Linux之间的文件共享，也可以用于Linux与Linux之间的资源共享，由于NFS(网络文件系统）可以很好的完成Linux与Linux之间的数据共享，因而 Samba较多的用在了Linux与windows之间的数据共享上面。
+SMB是基于客户机/服务器型的协议，因而一台Samba服务器既可以充当文件共享服务器，也可以充当一个Samba的客户端，例如，一台在Linux 下已经架设好的Samba服务器，windows客户端就可以通过SMB协议共享Samba服务器上的资源文件，同时，Samba服务器也可以访问网络中 其它windows系统或者Linux系统共享出来的文件。
+Samba在windows下使用的是NetBIOS协议，如果你要使用Linux下共享出来的文件，请确认你的windows系统下是否安装了NetBIOS协议。
+组成Samba运行的有两个服务，一个是SMB，另一个是NMB；SMB是Samba 的核心启动服务，主要负责建立 Linux Samba服务器与Samba客户机之间的对话， 验证用户身份并提供对文件和打印系统的访问，只有SMB服务启动，才能实现文件的共享，监听139 TCP端口；而NMB服务是负责解析用的，类似与DNS实现的功能，NMB可以把Linux系统共享的工作组名称与其IP对应起来，如果NMB服务没有启动，就只能通过IP来访问共享文件，监听137和138 UDP端口。
+例如，某台Samba服务器的IP地址为192.168.0.111，对应的工作组名称为SAMBA，那么在Windows的IE浏览器输入下面两条指令都可以访问共享文件。其实这就是Windows下查看Linux Samba服务器共享文件的方法。
+　　\\192.168.0.111\共享目录名称
+　　\\SAMBA\共享目录名称
+Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； Linux和Windows域之间的认证和授权； UNICODE字符集和域名映射；满足CIFS协议的UNIX共享等。
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+    <div class="read-more">
+      <a href="/post/base/samba_centos_install/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/base/openvpn_client_connect/">openvpn客户端连接设置</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-01-08 22:05 </span>
+      <div class="post-category">
+          <a href="/categories/linux/"> linux </a>
+          <a href="/categories/base/"> base </a>
+          </div>
+        <span class="more-meta"> 约 942 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
     </div>
   </header>
   
@@ -136,149 +277,15 @@
 <!-- raw HTML omitted -->
 <h1 id="说明">说明</h1>
 <ul>
-<li>此法用于多个客户端通过OpenVPN服务器实现内网访问</li>
-<li>OpenVPN服务器操作系统 <code>CentOS-7.7</code></li>
+<li>使用社区版的OpenVPN客户端连接社区版OpenVPN服务器</li>
 <li>OpenVPN版本 <code>2.4.8</code></li>
-<li>easy-rsa版本 <code>3.0.6</code></li>
-<li>使用 <code>tap</code> 模式</li>
-<li>客户端IP地址池 <code>10.8.0.0/24</code></li>
-<li>多个客户端直接可以通过OpenVPN实现内网通信</li>
+<li>Linux版本 <code>CentOS-7.7</code></li>
+<li>Windows版本 <code>Windows 10 1903</code></li>
+<li>MacOS版本 <code>本人没有MacOS平台，这里简单参考官网的指南</code></li>
 </ul>
     </div>
     <div class="read-more">
-      <a href="/post/base/openvpn_centos_install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/base/ftp_centos_install/">ftp在centos中安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-12-17 22:21 </span>
-      <div class="post-category">
-          <a href="/categories/linux/"> linux </a>
-          <a href="/categories/base/"> base </a>
-          </div>
-        <span class="more-meta"> 约 3820 字 </span>
-        <span class="more-meta"> 预计阅读 8 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程</p>
-    </div>
-    <div class="read-more">
-      <a href="/post/base/ftp_centos_install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/base/dns_centos_install/">dns在centos中安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-11-11 19:21 </span>
-      <div class="post-category">
-          <a href="/categories/linux/"> linux </a>
-          <a href="/categories/base/"> base </a>
-          </div>
-        <span class="more-meta"> 约 2739 字 </span>
-        <span class="more-meta"> 预计阅读 6 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>由80年代伯克利大学的学生开发， <strong>揉</strong> （<strong>伯克利互联网名称域名</strong>）是开源的 <strong>DNS服务器</strong> 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 <strong>域名解析</strong> 服务器是一项有助于解析完全限定域名的服务（<strong>完整域名</strong>A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。</p>
-<p>为什么名称解析很重要？现在，计算机使用IP地址在服务器上查找服务。但是，IP地址不像域名那样方便用户使用，并且试图记住与每个域名相关联的每个IP地址是一个主要的难题。 DNS服务器进行干预以帮助将这些域名解析为计算机IP地址。</p>
-<p>本指南将指导您完成在CentOS 8 / RHEL 8上设置DNS绑定服务器的过程。</p>
-    </div>
-    <div class="read-more">
-      <a href="/post/base/dns_centos_install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/blog/creat-hugo-blog/">Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-10-12 20:28 </span>
-      <div class="post-category">
-          <a href="/categories/blog/"> blog </a>
-          </div>
-        <span class="more-meta"> 约 1836 字 </span>
-        <span class="more-meta"> 预计阅读 4 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。</p>
-<p>后来看到 <a href="https://gohugo.io/">Hugo</a> ,号称最快的静态站点生成器后。</p>
-<p>尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
-Hugo 官方的定义是：</p>
-<p>Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)</p>
-    </div>
-    <div class="read-more">
-      <a href="/post/blog/creat-hugo-blog/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/base/dncp_centos_install/">dhcp在centos中安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-10-11 20:22 </span>
-      <div class="post-category">
-          <a href="/categories/linux/"> linux </a>
-          <a href="/categories/base/"> base </a>
-          </div>
-        <span class="more-meta"> 约 1863 字 </span>
-        <span class="more-meta"> 预计阅读 4 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h3 id="运行系统更新">运行系统更新</h3>
-<p>首先将系统包重新同步到它最新版本。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">dnf update
-</code></pre></td></tr></table>
-</div>
-</div><p>在CentOS 8中，DHCP服务器是<code>dhcp-server</code> 软件包，可以通过运行下面的命令来安装此软件包;</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
-dnf install dhcp-server
-
-</code></pre></td></tr></table>
-</div>
-</div>
-    </div>
-    <div class="read-more">
-      <a href="/post/base/dncp_centos_install/" class="read-more-link">阅读更多</a>
+      <a href="/post/base/openvpn_client_connect/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -290,7 +297,10 @@ dnf install dhcp-server
         <i class="iconfont icon-left"></i>
         <span class="prev-text">上一页</span>
       </a>
-    
+    <a class="next" href="/page/9/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
         </div>
         

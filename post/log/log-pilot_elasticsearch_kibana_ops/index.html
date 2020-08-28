@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践" />
+<meta property="og:description" content="简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/" />
+<meta property="article:published_time" content="2020-05-08T21:05:30+00:00" />
+<meta property="article:modified_time" content="2020-05-08T21:05:30+00:00" />
+<meta itemprop="name" content="搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践">
+<meta itemprop="description" content="简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集">
+<meta itemprop="datePublished" content="2020-05-08T21:05:30+00:00" />
+<meta itemprop="dateModified" content="2020-05-08T21:05:30+00:00" />
+<meta itemprop="wordCount" content="3111">
+
+
+
+<meta itemprop="keywords" content="log-pilot,log,elk," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践"/>
+<meta name="twitter:description" content="简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-08 21:05 </span>
+        <div class="post-category">
+            <a href="/categories/log/"> log </a>
+            </div>
+          <span class="more-meta"> 约 3111 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#log-pilot-说明和配置">log-pilot 说明和配置</a>
+      <ul>
+        <li><a href="#log-pilot-插件支持">log-pilot 插件支持</a></li>
+        <li><a href="#log-pilot-工作模式">log-pilot 工作模式</a></li>
+        <li><a href="#log-pilot-配置方法">log-pilot 配置方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#logstash-配置方法">logstash 配置方法</a>
+      <ul>
+        <li><a href="#logstash-处理k8s日志">logstash 处理k8s日志</a></li>
+        <li><a href="#logstash-处理docker日志">logstash 处理docker日志</a></li>
+      </ul>
+    </li>
+    <li><a href="#elasticsearch-说明">elasticsearch 说明</a>
+      <ul>
+        <li><a href="#kibana-的监控">kibana 的监控</a></li>
+        <li><a href="#kibana-的管理">kibana 的管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#kibana-说明和配置">kibana 说明和配置</a>
+      <ul>
+        <li><a href="#kibana-配置文件">kibana 配置文件</a></li>
+        <li><a href="#kibana-启动命令">kibana 启动命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#日志收集效果验证">日志收集效果验证</a>
+      <ul>
+        <li><a href="#docker日志收集案例-tomcat">docker日志收集案例 tomcat</a></li>
+        <li><a href="#k8s日志收集案例-tomcat">k8s日志收集案例 tomcat</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文档">参考文档</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="简介">简介</h2>
+<hr>
+<ul>
+<li>
+<p>就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集新应用日志都要更改配置文件重新适配日志路径足以让我们崩溃；</p>
+</li>
+<li>
+<p>对于k8s，没有日志系统推行工作就无法进行，总不能让开发小伙伴登录到k8s上去找日志吧，鬼知道在哪个pod里；当然，k8s官方提供了解决方案efk，efk最大的问题就是无法对日志有效分组，所有日志都在一个索引里，影响查询速度不说，对于研发小伙伴查找属于自己应用的日志也很困难，不得不说，这个解决方案很鸡肋；</p>
+</li>
+<li>
+<p>综上三条，能够统筹普通应用、docker微服务、k8s的日志收集方案迫在眉睫，今天就将能解决这些问题的日志收集方案的最佳实践分享给大家；</p>
+</li>
+<li>
+<p>该实践采用的是阿里云的开源工具 <a href="https://github.com/AliyunContainerService/log-pilot/blob/master/docs/filebeat/docs.md">log-pilot</a> 采集日志，采集的过程中就将各种日志打标分类，类似最近比较火的垃圾分类，逻辑结构图如下:
+<img src="https://img2018.cnblogs.com/blog/1018310/201907/1018310-20190706010146645-1697855672.png" alt="img-w500"></p>
+</li>
+<li>
+<p>三种节点类型:</p>
+<ul>
+<li>k8s使用daemonset类型的副本集，使每个节点运行一个 <code>log-pilot</code> 来收集日志，该日志会含有 <code>k8s_container_name、k8s_pod、k8s_node_name、 k8s_pod_namespace</code> 等打标数据，输出到相应的 <code>logstash</code> 来做索引</li>
+<li>运行docker微服务的主机上运行一个 <code>log-pilot</code> 来收集日志，该日志会含有 <code>docker_container、topic、index</code> 等打标数据，输出到相应的 <code>logstash</code> 来做索引</li>
+<li>普通非容器程序的日志可以采用 <code>filebeat</code> 收集，日志中可以自定义标签和字段，输出到对应的 <code>logstash</code> 来做索引</li>
+</ul>
+</li>
+</ul>
+<h2 id="log-pilot-说明和配置">log-pilot 说明和配置</h2>
+<hr>
+<ul>
+<li>容器日志采集模式现在流行的方式有 SideCar模式和 Node模式，SideCar模式会占用大量资源，而Node模式需要智能的 <code>logging agent</code> 配合，而 <code>log-pilot</code> 就是那个智能的agent</li>
+<li>log-pilot 可同时支持stdout和容器内文件日志采集，支持声明式日志配置，同时拥有自动感知（发现）机制、自动checkpoint及具柄保持机制和自动日志数据打标</li>
+<li>log-pilot 除拥有上述功能，还支持多插件多后端，低消耗，高性能，具体情况请看 <a href="https://toutiao.io/posts/k0qse0/preview">K8S 日志实践</a></li>
+</ul>
+<h3 id="log-pilot-插件支持">log-pilot 插件支持</h3>
+<p><img src="https://img2018.cnblogs.com/blog/1018310/201907/1018310-20190706004755565-2130219819.png" alt="img-w500"></p>
+<h3 id="log-pilot-工作模式">log-pilot 工作模式</h3>
+<p><img src="https://img2018.cnblogs.com/blog/1018310/201907/1018310-20190706010157336-1713369286.png" alt="img-w500"></p>
+<h3 id="log-pilot-配置方法">log-pilot 配置方法</h3>
+<ul>
+<li>在 <code>Kubernetes</code> 下，<code>Log-Pilot</code> 可以依据环境变量 <code>aliyun_logs_$name = $path</code> 动态地生成日志采集配置文件，其中包含两个变量：
+<ul>
+<li><code>$name</code> 是我们自定义的一个字符串，它在不同的场景下指代不同的含义，在本场景中，将日志采集到 <code>ElasticSearch</code> 的时候，这个 <code>$name</code> 表示的是 <code>Index</code>。</li>
+<li>另一个是 <code>$path</code>，支持两种输入形式，<code>stdout</code> 和容器内部日志文件的路径，对应日志标准输出和容器内的日志文件。</li>
+<li>第一种约定关键字 <code>stdout</code> 表示的是采集容器的标准输出日志，如本例中我们要采集 <code>tomcat</code> 容器日志，那么我们通过配置标签 <code>aliyun.logs.catalina=stdout</code> 来采集 <code>tomcat</code> 标准输出日志。</li>
+<li>第二种是容器内部日志文件的路径，也支持通配符的方式，通过配置环境变量 <code>aliyun_logs_access=/usr/local/tomcat/logs/*.log</code> 来采集 tomcat 容器内部的日志。当然如果你不想使用 <code>aliyun</code> 这个关键字，<code>Log-Pilot</code> 也提供了环境变量 <code>PILOT_LOG_PREFIX</code> 可以指定自己的声明式日志配置前缀，比如 <code>PILOT_LOG_PREFIX: &quot;aliyun,custom&quot;</code>。</li>
+</ul>
+</li>
+<li>此外，<code>Log-Pilot</code> 还支持多种日志解析格式，通过 <code>aliyun_logs_$name_format=&lt;format&gt;</code> 标签就可以告诉 Log-Pilot 在采集日志的时候，同时以什么样的格式来解析日志记录，支持的格式包括：<code>none、json、csv、nginx、apache2</code> 和 <code>regxp</code>。</li>
+<li><code>Log-Pilot</code> 同时支持自定义 <code>tag</code>，我们可以在环境变量里配置 <code>aliyun_logs_$name_tags=&quot;K1=V1,K2=V2&quot;</code>，那么在采集日志的时候也会将 <code>K1=V1</code> 和 <code>K2=V2</code> 采集到容器的日志输出中。自定义 <code>tag</code> 可帮助您给日志产生的环境打上 <code>tag</code>，方便进行日志统计、日志路由和日志过滤。</li>
+</ul>
+<h4 id="log-pilot-在k8s上的配置">log-pilot 在k8s上的配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; ops-log-pilot-filebeat-ds.yaml <span class="s">&lt;&lt; EOF
+</span><span class="s">apiVersion: extensions/v1beta1
+</span><span class="s">kind: DaemonSet
+</span><span class="s">metadata:
+</span><span class="s">  name: ops-log-pilot-filebeat-ds
+</span><span class="s">  namespace: ops
+</span><span class="s">spec:
+</span><span class="s">  selector:
+</span><span class="s">    matchLabels:
+</span><span class="s">      app: log-pilot-filebeat
+</span><span class="s">      release: stable
+</span><span class="s">  template:
+</span><span class="s">    metadata:
+</span><span class="s">      labels:
+</span><span class="s">        app: log-pilot-filebeat
+</span><span class="s">        release: stable
+</span><span class="s">    spec:
+</span><span class="s">      containers:
+</span><span class="s">      - name: log-pilot-filebeat
+</span><span class="s">        image: registry.cn-hangzhou.aliyuncs.com/acs/log-pilot:0.9.6-filebeat
+</span><span class="s">        env:
+</span><span class="s">        - name: &#34;NODE_NAME&#34;
+</span><span class="s">          valueFrom:
+</span><span class="s">            fieldRef:
+</span><span class="s">              fieldPath: spec.nodeName
+</span><span class="s">        - name: &#34;PILOT_LOG_PREFIX&#34;
+</span><span class="s">          value: &#34;glinux&#34;
+</span><span class="s">        - name: &#34;LOGGING_OUTPUT&#34;
+</span><span class="s">          value: &#34;logstash&#34;
+</span><span class="s">        # 请确保集群到ES网络可达
+</span><span class="s">        - name: &#34;LOGSTASH_HOST&#34;
+</span><span class="s">          value: &#34;logstash.glinux.top&#34;
+</span><span class="s">        - name: &#34;LOGSTASH_PORT&#34;
+</span><span class="s">          value: &#34;5053&#34;
+</span><span class="s">        volumeMounts:
+</span><span class="s">        - name: sock
+</span><span class="s">          mountPath: /var/run/docker.sock
+</span><span class="s">        - name: root
+</span><span class="s">          mountPath: /host
+</span><span class="s">          readOnly: true
+</span><span class="s">        - name: varlib
+</span><span class="s">          mountPath: /var/lib/filebeat
+</span><span class="s">        - name: varlog
+</span><span class="s">          mountPath: /var/log/filebeat
+</span><span class="s">        - name: localtime
+</span><span class="s">          mountPath: /etc/localtime
+</span><span class="s">          readOnly: true
+</span><span class="s">        livenessProbe:
+</span><span class="s">          failureThreshold: 3
+</span><span class="s">          exec:
+</span><span class="s">            command:
+</span><span class="s">            - /pilot/healthz
+</span><span class="s">          initialDelaySeconds: 10
+</span><span class="s">          periodSeconds: 10
+</span><span class="s">          successThreshold: 1
+</span><span class="s">          timeoutSeconds: 2
+</span><span class="s">        securityContext:
+</span><span class="s">          capabilities:
+</span><span class="s">            add:
+</span><span class="s">            - SYS_ADMIN
+</span><span class="s">      volumes:
+</span><span class="s">      - name: sock
+</span><span class="s">        hostPath:
+</span><span class="s">          path: /var/run/docker.sock
+</span><span class="s">      - name: root
+</span><span class="s">        hostPath:
+</span><span class="s">          path: /
+</span><span class="s">      - name: varlib
+</span><span class="s">        hostPath:
+</span><span class="s">          path: /var/lib/filebeat
+</span><span class="s">          type: DirectoryOrCreate
+</span><span class="s">      - name: varlog
+</span><span class="s">        hostPath:
+</span><span class="s">          path: /var/log/filebeat
+</span><span class="s">          type: DirectoryOrCreate
+</span><span class="s">      - name: localtime
+</span><span class="s">        hostPath:
+</span><span class="s">          path: /etc/localtime
+</span><span class="s">EOF</span>
+<span class="c1"># 调用方法</span>
+kubectl apply -f ops-log-pilot-filebeat-ds.yaml
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="log-pilot-在docker主机上配置">log-pilot 在docker主机上配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -d 
+   --name log-pilot-filebeat 
+   -v /var/run/docker.sock:/var/run/docker.sock 
+   -v /etc/localtime:/etc/localtime 
+   -v /:/host:ro 
+   --cap-add SYS_ADMIN 
+   -e <span class="nv">PILOT_LOG_PREFIX</span><span class="o">=</span>glinux 
+   -e <span class="nv">LOGGING_OUTPUT</span><span class="o">=</span>logstash 
+   -e <span class="nv">LOGSTASH_HOST</span><span class="o">=</span>logstash..glinux.top 
+   -e <span class="nv">LOGSTASH_PORT</span><span class="o">=</span><span class="m">5063</span> 
+   --restart<span class="o">=</span>always 
+   registry.cn-hangzhou.aliyuncs.com/acs/log-pilot:0.9.5-filebeat
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="logstash-配置方法">logstash 配置方法</h2>
+<hr>
+<ul>
+<li>logstash的三个实例，我是运行在同一台机器上，同时kibana也是运行在这台机器上</li>
+<li>当然也可以通过一个logstash实例，配置中采用判断条件建立不同索引，但会影响性能，所以这里我起了三个实例</li>
+<li>logstash的主要功能是将收集到的日志进行拆分，采用某些字段建成索引，传递给 <code>elasticsearch</code> 集群</li>
+<li>这里强烈建议使用阿里云的 <code>elasticsearch</code> 集群，可以先使用免费版 <code>1核2G内存20G SSD 三组</code>，原因是阿里云和elastic有合作，es有授权，很多功能可以使用，比如用户管理，监控等，后面会说到</li>
+</ul>
+<h3 id="logstash-处理k8s日志">logstash 处理k8s日志</h3>
+<ul>
+<li>logstash 监控配置文件，监控信息会体现在kibana中</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/logslogstash.yml <span class="s">&lt;&lt; EOF
+</span><span class="s">xpack.monitoring.elasticsearch.url: http://xxxxxxxxxxxxxxxx.es.aliyuncs.com:9200
+</span><span class="s">xpack.monitoring.elasticsearch.username: &#34;user&#34;
+</span><span class="s">xpack.monitoring.elasticsearch.password: &#34;pass&#34;
+</span><span class="s">EOF</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="配置文件">配置文件</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/logstash-k8s.conf <span class="s">&lt;&lt; EOF
+</span><span class="s">input {
+</span><span class="s">  beats {
+</span><span class="s">    host =&gt; &#34;0.0.0.0&#34;
+</span><span class="s">    port =&gt; &#34;5043&#34;
+</span><span class="s">  }
+</span><span class="s">}
+</span><span class="s">filter {
+</span><span class="s">  grok {
+</span><span class="s">    match =&gt; { &#34;message&#34; =&gt; &#34;%{TIMESTAMP_ISO8601:log-timestamp} %{LOGLEVEL:log-level} %{JAVALOGMESSAGE:log-msg}&#34; }
+</span><span class="s">  }
+</span><span class="s">  mutate {
+</span><span class="s">#    remove_field =&gt; [&#34;message&#34;]
+</span><span class="s">    remove_field =&gt; [&#34;beat&#34;]
+</span><span class="s">   }
+</span><span class="s">}
+</span><span class="s">output {
+</span><span class="s">  stdout { codec =&gt; rubydebug }
+</span><span class="s">  elasticsearch {
+</span><span class="s">        hosts =&gt; [&#34;http://xxxxxxxxxxxxxxxx.es.aliyuncs.com:9200&#34;]
+</span><span class="s">        user =&gt; [&#34;user&#34;]
+</span><span class="s">        password =&gt; [&#34;pass&#34;]
+</span><span class="s">        index =&gt; &#34;%{k8s_container_name}-%{+YYYY.MM.dd}&#34;
+</span><span class="s">  }
+</span><span class="s">}
+</span><span class="s">EOF</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="启动命令">启动命令</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5053:5043 -d 
+    --user root 
+    --log-driver json-file 
+    --log-opt max-size<span class="o">=</span>10m 
+    --log-opt max-file<span class="o">=</span><span class="m">3</span> 
+    --name logstash-k8s 
+    --restart<span class="o">=</span>always 
+    -v /data/conf/logstash-k8s.conf:/usr/share/logstash/pipeline/logstash.conf 
+    -v /data/conf/logstash.yml:/usr/share/logstash/config/logstash.yml 
+    logstash:6.6.2
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="logstash-处理docker日志">logstash 处理docker日志</h3>
+<h4 id="配置文件-1">配置文件</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/logstash-docker.conf <span class="s">&lt;&lt; EOF
+</span><span class="s">input {
+</span><span class="s">  beats {
+</span><span class="s">    host =&gt; &#34;0.0.0.0&#34;
+</span><span class="s">    port =&gt; &#34;5043&#34;
+</span><span class="s">  }
+</span><span class="s">}
+</span><span class="s">filter {
+</span><span class="s">  grok {
+</span><span class="s">    match =&gt; { &#34;message&#34; =&gt; &#34;%{TIMESTAMP_ISO8601:log-timestamp} %{LOGLEVEL:log-level} %{JAVALOGMESSAGE:log-msg}&#34; }
+</span><span class="s">  }
+</span><span class="s">  mutate {
+</span><span class="s">#    remove_field =&gt; [&#34;message&#34;]
+</span><span class="s">    remove_field =&gt; [&#34;beat&#34;]
+</span><span class="s">   }
+</span><span class="s">}
+</span><span class="s">output {
+</span><span class="s">  stdout { codec =&gt; rubydebug }
+</span><span class="s">  elasticsearch {
+</span><span class="s">        hosts =&gt; [&#34;xxxxxxxxxxxxxxxx.es.aliyuncs.com:9200&#34;]
+</span><span class="s">        user =&gt; [&#34;uesr&#34;]
+</span><span class="s">        password =&gt; [&#34;pass&#34;]
+</span><span class="s">        index =&gt; &#34;%{docker_container}-%{+YYYY.MM.dd}&#34;
+</span><span class="s">  }
+</span><span class="s">}
+</span><span class="s">EOF</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="启动命令-1">启动命令</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5063:5043 -d 
+    --user root 
+    --log-driver json-file 
+    --log-opt max-size<span class="o">=</span>10m 
+    --log-opt max-file<span class="o">=</span><span class="m">3</span> 
+    --name logstash-docker 
+    --restart<span class="o">=</span>always 
+    -v /data/conf/logstash-docker.conf:/usr/share/logstash/pipeline/logstash.conf 
+    -v /data/conf/logstash.yml:/usr/share/logstash/config/logstash.yml 
+    logstash:6.6.2
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="elasticsearch-说明">elasticsearch 说明</h2>
+<hr>
+<ul>
+<li>如上所述，elasticsearch 使用阿里云的产品 <a href="https://data.aliyun.com/product/elasticsearch">阿里云 · Elasticsearch</a></li>
+<li>可以先使用免费版 <code>1核2G内存20G SSD 三组</code></li>
+<li>开通后会有 地址、用户名、密码等信息，这些是要填写在logstash的输出配置文件中</li>
+<li>阿里云和elastic有合作，es有授权，用户管理、用户登录、索引监控、节点监控、logstash监控等功能均可正常使用</li>
+<li>除以上外，定期清理es的索引也很有必要，可以参考我之前的博客 <a href="https://www.cnblogs.com/William-Guozi/p/elk-docker.html">ELK：收集Docker容器日志</a> 中 定时删除过期日志索引文件 章节</li>
+<li>使用阿里云的es后，kibana上会有授权体现，这里贴两张图展示一下功能</li>
+</ul>
+<h3 id="kibana-的监控">kibana 的监控</h3>
+<p><img src="https://img2018.cnblogs.com/blog/1018310/201907/1018310-20190706004848047-228591567.png" alt="img-w500"></p>
+<h3 id="kibana-的管理">kibana 的管理</h3>
+<p><img src="https://img2018.cnblogs.com/blog/1018310/201907/1018310-20190706004902053-1147064113.png" alt="img-w500"></p>
+<h2 id="kibana-说明和配置">kibana 说明和配置</h2>
+<hr>
+<ul>
+<li>下面步骤操作完毕启动后，此处访问 <code>http://IP:5603</code>，用户名和密码同 <code>elasticserach</code> 的，输入即可登录kibana，如此建立索引，就可以正常的玩耍了</li>
+</ul>
+<h3 id="kibana-配置文件">kibana 配置文件</h3>
+<ul>
+<li>如下的配置文件会屏蔽掉许多没用的插件功能模块，如上图显示的清爽界面</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/kibana-es-aliyun.yml <span class="s">&lt;&lt; EOF
+</span><span class="s"># Default Kibana configuration from kibana-docker.
+</span><span class="s">server.name: kibana
+</span><span class="s">server.host: &#34;0&#34;
+</span><span class="s">elasticsearch.hosts: http://xxxxxx.es.aliyuncs.com:9200
+</span><span class="s">elasticsearch.username: user
+</span><span class="s">elasticsearch.password: pass
+</span><span class="s">xpack.monitoring.ui.container.elasticsearch.enabled: true
+</span><span class="s">timelion.enabled: false
+</span><span class="s">console.enabled: false
+</span><span class="s">xpack.grokdebugger.enabled: false
+</span><span class="s">xpack.searchprofiler.enabled: false
+</span><span class="s">xpack.canvas.enabled: false
+</span><span class="s">xpack.ml.enabled: false
+</span><span class="s">xpack.infra.enabled: false
+</span><span class="s">xpack.apm.enabled: false
+</span><span class="s">xpack.graph.enabled: false
+</span><span class="s">EOF</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="kibana-启动命令">kibana 启动命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5603:5601 -d 
+    --user root 
+    --log-driver json-file 
+    --log-opt max-size<span class="o">=</span>10m 
+    --log-opt max-file<span class="o">=</span><span class="m">3</span> 
+    --name kibana-es-aliyun 
+    --restart<span class="o">=</span>always 
+    -e <span class="nv">ELASTICSEARCH_URL</span><span class="o">=</span>http://xxxxxx.es.aliyuncs.com:9200 
+    kibana:6.6.2
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>下面来看下优秀的登录界面
+<img src="https://img2018.cnblogs.com/blog/1018310/201907/1018310-20190706004919606-2128114853.png" alt="img-w500"></li>
+</ul>
+<h2 id="日志收集效果验证">日志收集效果验证</h2>
+<hr>
+<h3 id="docker日志收集案例-tomcat">docker日志收集案例 tomcat</h3>
+<ul>
+<li>注意 <code>label</code> 的配置</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">   docker run -it -d --name tomcat -p 10080:8080 
+    -v /var/logs/:/usr/local/tomcat/logs 
+    --label glinux.logs.catalina<span class="o">=</span>stdout 
+    --label glinux.logs.access<span class="o">=</span>/usr/local/tomcat/logs/localhost_access_log.*.txt 
+    tomcat
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>日志收集效果如下图：
+<img src="https://img2018.cnblogs.com/blog/1018310/201907/1018310-20190706004936730-1181706169.png" alt="img-w500"></li>
+</ul>
+<h3 id="k8s日志收集案例-tomcat">k8s日志收集案例 tomcat</h3>
+<ul>
+<li>注意env的配置</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; tomcat-pod.yaml <span class="s">&lt;&lt; EOF
+</span><span class="s">apiVersion: v1
+</span><span class="s">kind: Pod
+</span><span class="s">metadata:
+</span><span class="s">  name: tomcat
+</span><span class="s">spec:
+</span><span class="s">  containers:
+</span><span class="s">  - name: tomcat
+</span><span class="s">    image: &#34;tomcat:7.0&#34;
+</span><span class="s">    env:
+</span><span class="s"># 1、stdout为约定关键字，表示采集标准输出日志
+</span><span class="s"># 2、配置标准输出日志采集到ES的catalina索引下
+</span><span class="s">    - name: glinux_logs_catalina
+</span><span class="s">      value: &#34;stdout&#34;
+</span><span class="s"># 1、配置采集容器内文件日志，支持通配符
+</span><span class="s"># 2、配置该日志采集到ES的access索引下
+</span><span class="s">    - name: glinux_logs_access
+</span><span class="s">      value: &#34;/usr/local/tomcat/logs/catalina.*.log&#34;
+</span><span class="s"># 容器内文件日志路径需要配置emptyDir
+</span><span class="s">    volumeMounts:
+</span><span class="s">    - name: tomcat-log
+</span><span class="s">      mountPath: /usr/local/tomcat/logs
+</span><span class="s">  volumes:
+</span><span class="s">  - name: tomcat-log
+</span><span class="s">    emptyDir: {}
+</span><span class="s">EOF</span>
+<span class="c1"># 调用</span>
+kubectl apply -f tomcat-pod.yaml -n ops
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>日志收集效果如下图：
+<img src="https://img2018.cnblogs.com/blog/1018310/201907/1018310-20190706004953720-1831580080.png" alt="img-w500"></li>
+</ul>
+<h2 id="参考文档">参考文档</h2>
+<hr>
+<ul>
+<li>在阿里，我们是怎么做 K8S 日志实践: <a href="https://toutiao.io/posts/k0qse0/preview">https://toutiao.io/posts/k0qse0/preview</a></li>
+<li>利用 Log-Pilot + Elasticsearch + Kibana 搭建 kubernetes 日志解决方案: <a href="https://help.aliyun.com/document_detail/86552.html">https://help.aliyun.com/document_detail/86552.html</a></li>
+<li>log-pilot filebeat说明文档： <a href="https://github.com/AliyunContainerService/log-pilot/blob/master/docs/filebeat/docs.md">https://github.com/AliyunContainerService/log-pilot/blob/master/docs/filebeat/docs.md</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-08 21:05
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/log-pilot/">log-pilot</a>
+          <a href="/tags/log/">log</a>
+          <a href="/tags/elk/">elk</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/log/graylog_centos_install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">CentOS7 部署 Graylog3</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/log/elk_centos7_install/">
+            <span class="next-text nav-default">搭建 ELK 日志系统</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

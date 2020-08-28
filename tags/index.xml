@@ -6,10 +6,64 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 02 May 2020 19:11:30 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 May 2020 20:08:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>log</title>
+      <link>https://xiebiao.top/tags/log/</link>
+      <pubDate>Mon, 11 May 2020 20:08:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/log/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>loki</title>
+      <link>https://xiebiao.top/tags/loki/</link>
+      <pubDate>Mon, 11 May 2020 20:08:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/loki/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>graylog</title>
+      <link>https://xiebiao.top/tags/graylog/</link>
+      <pubDate>Sun, 10 May 2020 20:32:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/graylog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>elk</title>
+      <link>https://xiebiao.top/tags/elk/</link>
+      <pubDate>Fri, 08 May 2020 21:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/elk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>log-pilot</title>
+      <link>https://xiebiao.top/tags/log-pilot/</link>
+      <pubDate>Fri, 08 May 2020 21:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/log-pilot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>efk</title>
+      <link>https://xiebiao.top/tags/efk/</link>
+      <pubDate>Tue, 05 May 2020 21:11:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/efk/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>nfs</title>

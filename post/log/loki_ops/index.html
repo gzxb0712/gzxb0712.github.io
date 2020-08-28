@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>轻量级日志系统Loki部署 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="现实中的需求 公司的容器云运行的应用或某一个节点出现了问题，解决的思路 问题首先被prometheus监控 1、metric是来说明当前或者历史达" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/log/loki_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="轻量级日志系统Loki部署" />
+<meta property="og:description" content="现实中的需求 公司的容器云运行的应用或某一个节点出现了问题，解决的思路 问题首先被prometheus监控 1、metric是来说明当前或者历史达" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/log/loki_ops/" />
+<meta property="article:published_time" content="2020-05-11T20:08:30+00:00" />
+<meta property="article:modified_time" content="2020-05-11T20:08:30+00:00" />
+<meta itemprop="name" content="轻量级日志系统Loki部署">
+<meta itemprop="description" content="现实中的需求 公司的容器云运行的应用或某一个节点出现了问题，解决的思路 问题首先被prometheus监控 1、metric是来说明当前或者历史达">
+<meta itemprop="datePublished" content="2020-05-11T20:08:30+00:00" />
+<meta itemprop="dateModified" content="2020-05-11T20:08:30+00:00" />
+<meta itemprop="wordCount" content="3646">
+
+
+
+<meta itemprop="keywords" content="loki,log," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="轻量级日志系统Loki部署"/>
+<meta name="twitter:description" content="现实中的需求 公司的容器云运行的应用或某一个节点出现了问题，解决的思路 问题首先被prometheus监控 1、metric是来说明当前或者历史达"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">轻量级日志系统Loki部署</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-11 20:08 </span>
+        <div class="post-category">
+            <a href="/categories/log/"> log </a>
+            </div>
+          <span class="more-meta"> 约 3646 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#现实中的需求">现实中的需求</a></li>
+    <li><a href="#解决该需求可供选择的方案">解决该需求可供选择的方案</a>
+      <ul>
+        <li><a href="#elk">ELK</a></li>
+        <li><a href="#loki">Loki</a></li>
+      </ul>
+    </li>
+    <li><a href="#loki组件介绍">loki组件介绍</a>
+      <ul>
+        <li><a href="#promtail">Promtail</a></li>
+        <li><a href="#loki-1">Loki</a></li>
+        <li><a href="#grafana">Grafana</a></li>
+      </ul>
+    </li>
+    <li><a href="#loki架构">Loki架构</a></li>
+    <li><a href="#日志的存储架构">日志的存储架构</a>
+      <ul>
+        <li><a href="#distributor">Distributor</a></li>
+        <li><a href="#ingester">Ingester</a></li>
+        <li><a href="#querier">Querier</a></li>
+        <li><a href="#拓展性">拓展性</a></li>
+      </ul>
+    </li>
+    <li><a href="#环境搭建使用docker编排来实现">环境搭建(使用docker编排来实现)</a>
+      <ul>
+        <li><a href="#方式1将默认路径-varlogslog-修改成varlogcontainer">方式1:将默认路径 var/logs/*log 修改成/var/log/container</a></li>
+        <li><a href="#方式2">方式2</a></li>
+        <li><a href="#方式3将k8s集群内部的日志挂载到宿主机器上-然后再通过promtail访问宿主机上的日志">方式3：将k8s集群内部的日志挂载到宿主机器上 然后再通过promtail访问宿主机上的日志</a></li>
+        <li><a href="#方式4promtail不是从varlog目录下读取的日志嘛-那么我将user日志输出到varlog-下面不就行了">方式4：promtail不是从/var/log目录下读取的日志嘛 那么我将user日志输出到/var/log 下面不就行了</a></li>
+      </ul>
+    </li>
+    <li><a href="#可能遇到的问题">可能遇到的问题</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="现实中的需求">现实中的需求</h2>
+<p>公司的容器云运行的应用或某一个节点出现了问题，解决的思路</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379495" alt=""></p>
+<p>问题首先被prometheus监控</p>
+<p>1、metric是来说明当前或者历史达到了某个值</p>
+<p>2、alert设置metric达到某个特定的基数触发了告警</p>
+<p>仅仅这些日志是不能够解决问题的 还需要看下应用的日志</p>
+<p>k8s的基本单位是pod</p>
+<p>pod把日志输出到stdout和stderr</p>
+<p>当某个pod的内存变得很大</p>
+<p>触发了我们的alert</p>
+<p>这个时候管理员</p>
+<p>去页面查询确认是哪个pod有问题</p>
+<p>然后要确认pod内存变大的原因</p>
+<p>我们还需要去查询pod的日志</p>
+<p>如果没有日志系统</p>
+<p>那么我们就需要到页面或者使用命令进行查询了</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379496" alt=""></p>
+<p>如果这个时候应用挂掉了 那么就没有办法再查询到相关日志了</p>
+<h2 id="解决该需求可供选择的方案">解决该需求可供选择的方案</h2>
+<h3 id="elk">ELK</h3>
+<p>优势：</p>
+<p>1、功能丰富，允许复杂的操作</p>
+<p>劣势：</p>
+<p>1、主流的ELK（全文检索）或者EFK比较重</p>
+<p>2、ES复杂的搜索功能很多都用不上 规模复杂，资源占用高，操作苦难</p>
+<p>大多数查询只关注一定时间范围和一些简单的参数（如host、service等）</p>
+<p>3、Kibana和Grafana之间切换，影响用户体验</p>
+<p>4、倒排索引的切分和共享的成本较高</p>
+<h3 id="loki">Loki</h3>
+<p>1、最小化度量和日志的切换成本</p>
+<p>有助于减少异常事件的响应时间和提高用户的体验</p>
+<p>2、在查询语言的易操作性和复杂性之间可以达到一个权衡</p>
+<p>3、更具成本效益</p>
+<h2 id="loki组件介绍">loki组件介绍</h2>
+<h3 id="promtail">Promtail</h3>
+<ul>
+<li>用来将容器日志发送到 Loki 或者 Grafana 服务上的日志收集工具</li>
+<li>该工具主要包括发现采集目标以及给日志流添加上 Label 标签 然后发送给 Loki</li>
+<li>Promtail 的服务发现是基于 Prometheus 的服务发现机制实现的</li>
+</ul>
+<h3 id="loki-1">Loki</h3>
+<ul>
+<li>受 Prometheus 启发的可以水平扩展、高可用以及支持多租户的日志聚合系统</li>
+<li>使用了和 Prometheus 相同的服务发现机制，将标签添加到日志流中而不是构建全文索引</li>
+<li>从 Promtail 接收到的日志和应用的 metrics 指标就具有相同的标签集</li>
+<li>不仅提供了更好的日志和指标之间的上下文切换，还避免了对日志进行全文索引</li>
+</ul>
+<h3 id="grafana">Grafana</h3>
+<ul>
+<li>一个用于监控和可视化观测的开源平台</li>
+<li>支持非常丰富的数据源</li>
+<li>在 Loki 技术栈中它专门用来展示来自 Prometheus 和 Loki 等数据源的时间序列数据</li>
+<li>可进行查询、可视化、报警等操作</li>
+<li>可以用于创建、探索和共享数据 Dashboard</li>
+<li>鼓励数据驱动</li>
+</ul>
+<h2 id="loki架构">Loki架构</h2>
+<p><img src="https://segmentfault.com/img/remote/1460000023379494" alt=""></p>
+<p>1、</p>
+<p>Loki使用了和prometheus一样的标签来作为索引</p>
+<p>通过标签既可以查询日志的内容也可以查询到监控的数据</p>
+<p>不但减少了两种查询之间的切换成本</p>
+<p>也极大地降低了日志索引的存储</p>
+<p>2、</p>
+<p>Loki将使用与prometheus相同的服务发现和标签重新标记库编写了pormtail</p>
+<p>在k8s中promtail以daemonset方式运行在每个节点中</p>
+<p>通过kubernetes api等到日志的正确元数据</p>
+<p>并将它们发送到Loki</p>
+<h2 id="日志的存储架构">日志的存储架构</h2>
+<p><img src="https://segmentfault.com/img/remote/1460000023379497" alt=""></p>
+<h3 id="distributor">Distributor</h3>
+<p>1、</p>
+<p>promtail收集日志并将其发送给loki</p>
+<p>Distributor就是第一个接收日志的组件</p>
+<p>Loki通过构建压缩数据块来实现批处理和压缩数据</p>
+<p>2、</p>
+<p>组件ingester是一个有状态的组件</p>
+<p>负责构建和刷新chunck</p>
+<p>当chunk达到一定的数量或者时间后</p>
+<p>刷新到存储中去</p>
+<p>3、</p>
+<p>每个流的日志对应一个ingester</p>
+<p>当日志到达Distributor后</p>
+<p>根据元数据和hash算法计算出应该到哪个ingester上面</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379498" alt=""></p>
+<p>4、为了冗余和弹性，我们将其复制n（默认情况下为3）次</p>
+<h3 id="ingester">Ingester</h3>
+<p>ingester接收到日志并开始构建chunk</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379500" alt=""></p>
+<p>将日志进行压缩并附加到chunk上面</p>
+<p>一旦chunk“填满”（数据达到一定数量或者过了一定期限）</p>
+<p>ingester将其刷新到数据库</p>
+<p>我们对块和索引使用单独的数据库</p>
+<p>因为它们存储的数据类型不同</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379501" alt=""></p>
+<p>刷新一个chunk之后</p>
+<p>ingester然后创建一个新的空chunk并将新条目添加到该chunk中</p>
+<h3 id="querier">Querier</h3>
+<p>1、 由Querier负责给定一个时间范围和标签选择器</p>
+<p>Querier查看索引以确定哪些块匹配</p>
+<p>并通过greps将结果显示出来</p>
+<p>它还从Ingester获取尚未刷新的最新数据</p>
+<p>2、</p>
+<p>对于每个查询</p>
+<p>一个查询器将为您显示所有相关日志</p>
+<p>实现了查询并行化</p>
+<p>提供分布式grep</p>
+<p>即使是大型查询也是足够的</p>
+<h3 id="拓展性">拓展性</h3>
+<ul>
+<li>Loki的索引存储可以是cassandra/bigtable/dynamodb</li>
+<li>chuncks可以是各种对象存储</li>
+<li>Querier和Distributor都是无状态的组件</li>
+<li>对于ingester他虽然是有状态的 但当新的节点加入或者减少整节点间的chunk会重新分配，以适应新的散列环</li>
+</ul>
+<h2 id="环境搭建使用docker编排来实现">环境搭建(使用docker编排来实现)</h2>
+<p>安装loki、promtail、grafana</p>
+<ul>
+<li>编写docker编排配置文件</li>
+</ul>
+<p>`vim docker-compose.yaml
+version: &ldquo;3&rdquo;
+networks:
+loki:
+services:
+loki:
+image: grafana/loki:1.5.0
+ports:</p>
+<ul>
+<li>&ldquo;3100:3100&rdquo;</li>
+</ul>
+<p>command: -config.file=/etc/loki/local-config.yaml
+networks:</p>
+<ul>
+<li>loki</li>
+</ul>
+<p>promtail:
+image: grafana/promtail:1.5.0
+volumes:</p>
+<ul>
+<li>/var/log:/var/log</li>
+</ul>
+<p>command: -config.file=/etc/promtail/docker-config.yaml
+networks:</p>
+<ul>
+<li>loki</li>
+</ul>
+<p>grafana:
+image: grafana/grafana:latest
+ports:</p>
+<ul>
+<li>&ldquo;3000:3000&rdquo;</li>
+</ul>
+<p>networks:</p>
+<ul>
+<li>
+<ul>
+<li>loki`</li>
+</ul>
+</li>
+<li>
+<p>启动安装</p>
+</li>
+</ul>
+<p><code>docker-compose up -d</code></p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379499" alt=""></p>
+<p><code>docker-compose ps</code></p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379503" alt=""></p>
+<ul>
+<li>访问 grafana界面</li>
+</ul>
+<p><code>http://localhost:3000</code></p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379502" alt=""></p>
+<p>默认的登陆账号admin/admin</p>
+<p>然后添加loki数据源</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379509" alt=""></p>
+<p>url添加<a href="http://loki">http://loki</a>:3100/</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379506" alt=""></p>
+<p>点击Explore 选择Loki 选择相应的Label</p>
+<p>也可以通过正则表达式来查询日志</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379505" alt=""></p>
+<hr>
+<p>上面咱说完了 liki架构、实现原理及环境搭建过程</p>
+<p>现在就结束了吗? No 那多显得那么出类拔萃呀 哈哈</p>
+<p>咱再结合一个具体的案例：</p>
+<p>使用loki对接下k8s下面的pod日志</p>
+<p>let&rsquo;s go !</p>
+<p>具体过程如下：</p>
+<p>1、nacos为注册中心</p>
+<p>2、user和order为2个springboot项目</p>
+<p>3、将user和order使用k8s部署</p>
+<p>4、访问user接口 ，user访问order 打印出日志</p>
+<p>5、该日志通过loki显示出来</p>
+<p>1-4过程 咱们之前的文章介绍过</p>
+<p><a href="https://mp.weixin.qq.com/s/D297GNcGHS7rVPJDhX1-6Q">【实战】K8S部署Nacos微服务</a></p>
+<p>朋友们如果自己想实际操练一遍的话可以先看下这篇文章 使用k8s把项目部署起来</p>
+<p>部署的效果是</p>
+<p>nacos界面</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379507" alt=""></p>
+<p>user和order服务都是k8s部署的</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379510" alt=""></p>
+<p>这里显示的ip是k8s集群下面的ip</p>
+<ul>
+<li>查看pod</li>
+</ul>
+<p><code>kubectl get pod</code></p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379504" alt=""></p>
+<ul>
+<li>查看service服务</li>
+</ul>
+<p><code>kubectl get svc</code></p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379508" alt=""></p>
+<p>2个都是nodePort类型的</p>
+<p>所以直接可以访问user服务的接口</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379516" alt=""></p>
+<ul>
+<li>查看user 这个pod的日志</li>
+</ul>
+<p><code>kubectl logs -f user-5776d4b64c-xsb5c</code></p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379517" alt=""></p>
+<p><strong>现在loki有了,k8s pod 日志也有了 下面咱看看loki和k8s如何关联起来 达到通过loki查询k8s的效果</strong></p>
+<p>这里只需要实现 promtail访问到k8s日志就可以了</p>
+<p>promtail可以直接访问到k8s集群内部的日志</p>
+<p>也可以将k8s集群内部的日志挂载到宿主机器上 然后再通过promtail访问宿主机上的日志</p>
+<p>这里介绍4种实现方式</p>
+<p>咱们分别实现下看看</p>
+<p><strong>备注：这篇文章先简单介绍下4种方式的思路，下篇文章咱们针对这4种方式实现相应的效果</strong></p>
+<h3 id="方式1将默认路径-varlogslog-修改成varlogcontainer">方式1:将默认路径 var/logs/*log 修改成/var/log/container</h3>
+<p>promtail可以直接访问到k8s集群内部的日志</p>
+<p>首先需要知道 k8s集群下面的pod生成的日志 默认目录为/var/log/containers</p>
+<p>1、咱先看看上面的promtail的docker-compose的配置命令</p>
+<p>`promtail:
+image: grafana/promtail:1.5.0
+volumes:</p>
+<ul>
+<li>/var/log/container:/var/log/container</li>
+</ul>
+<p>command: -config.file=/etc/promtail/docker-config.yaml
+networks:</p>
+<ul>
+<li>loki`</li>
+</ul>
+<p>其中 /etc/promtail/docker-config.yaml</p>
+<p>是访问的docker内部的配置文件</p>
+<p>咱进去docker内部看下</p>
+<p>a、查看容器id</p>
+<p><code>docker ps |grep promtail</code></p>
+<p>b、进入容器</p>
+<p><code>docker exec -it 71cb21c2d0a3 sh</code></p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379511" alt=""></p>
+<p>看到了</p>
+<p>job=varlogs</p>
+<p>对应的日志文件路径是 /var/log/*log</p>
+<p>是不是有似曾相识的感觉</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379512" alt=""></p>
+<p>job对应varlogs</p>
+<p>filenames是对应的日志路径 /var/log/*log下面的日志文件</p>
+<p>当然只是在promtail容器内部的</p>
+<p>在这里只需要将/var/log/*log路径修改成 /var/log/container/*log 这个路径就可以了</p>
+<p>那如何修改呢</p>
+<p>我们知道 这个配置文件是在容器内部的</p>
+<p>要想修改这个配置文件 需要在宿主机也弄一份 然后修改宿主机上的这份文件 然后替换掉docker种的这个配置即可</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379513" alt=""></p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379514" alt=""></p>
+<p>重启部署下docker-compose</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379515" alt=""></p>
+<p>看到界面效果 发现问题了没？</p>
+<p>1、路径不是修改成 /var/log/container/*log 这个了吗 怎么还是 /var/log下面的日志？</p>
+<p>2、选中一个日志文件怎么显示不出来该文件的内容</p>
+<p>这2个问题放到下篇文章解答下吧 （先埋个坑 哈哈 我这么这么坏）</p>
+<h3 id="方式2">方式2</h3>
+<p><code>- replacement: /var/log/container/*.log</code></p>
+<p>这种方式也放到下篇文章再说吧</p>
+<h3 id="方式3将k8s集群内部的日志挂载到宿主机器上-然后再通过promtail访问宿主机上的日志">方式3：将k8s集群内部的日志挂载到宿主机器上 然后再通过promtail访问宿主机上的日志</h3>
+<p>这种方式 我试过了 也是达到期望效果的</p>
+<p>1、</p>
+<p>首先给springboot项目添加日志文件输出 咱们这个示例中 以user项目为例说下</p>
+<ul>
+<li>增加日志文件</li>
+</ul>
+<p><img src="https://segmentfault.com/img/remote/1460000023379518" alt=""></p>
+<ul>
+<li>日志文件的输出目录是 /opt/logs</li>
+</ul>
+<p>2、将springboot项目生成docker镜像 然后上传到阿里的镜像库 然后在k8s user 配置文件中引用这个镜像库</p>
+<p>这些都在之前那篇文章中详细说过了 这里就不再附述了</p>
+<p>这里只需要不同点</p>
+<p><img src="https://segmentfault.com/img/remote/1460000023379519" alt=""></p>
+<p>圈红的地方是添加的映射</p>
+<p>volumeMounts 这个是将docker内部的/opt/logs目录作为挂载目录</p>
+<p>volumes 这个是将宿主机中的</p>
+<p>/Users/mengfanxiao/Documents/third_software/loki/log</p>
+<p>目录作为映射目录 即docker中的/opt/logs下面的日志会映射到该目录下</p>
+<p>需要注意：</p>
+<p>我一开始用的目录是 /opt/logs 但是在我的mac环境中一直不能将docker中的日志目录映射到宿主机上 但 centos就可以 这个原因也放到下篇文章说下吧</p>
+<p>3、最后 只需要让promtail访问/Users/mengfanxiao/Documents/third_software/loki/log 这个目录下面的日志就行了</p>
+<p>至于怎么让promtail访问 下篇再说吧</p>
+<h3 id="方式4promtail不是从varlog目录下读取的日志嘛-那么我将user日志输出到varlog-下面不就行了">方式4：promtail不是从/var/log目录下读取的日志嘛 那么我将user日志输出到/var/log 下面不就行了</h3>
+<h2 id="可能遇到的问题">可能遇到的问题</h2>
+<ul>
+<li>如果k8s状态是start fail状态 则service暴露NodePort的端口也访问不了的情况下 需要重新启动下k8s</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-11 20:08
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/loki/">loki</a>
+          <a href="/tags/log/">log</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/log/graylog_centos_install/">
+            <span class="next-text nav-default">CentOS7 部署 Graylog3</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

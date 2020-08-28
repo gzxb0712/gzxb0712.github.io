@@ -3,14 +3,112 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-05-02T19:11:30+00:00</lastmod>
+    <lastmod>2020-05-11T20:08:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-05-02T19:11:30+00:00</lastmod>
+    <lastmod>2020-05-11T20:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/log/</loc>
+    <lastmod>2020-05-11T20:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/log/</loc>
+    <lastmod>2020-05-11T20:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/loki/</loc>
+    <lastmod>2020-05-11T20:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/</loc>
+    <lastmod>2020-05-11T20:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-05-11T20:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/log/loki_ops/</loc>
+    <lastmod>2020-05-11T20:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/log/graylog_centos_install/</loc>
+    <lastmod>2020-05-10T20:32:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/graylog/</loc>
+    <lastmod>2020-05-10T20:32:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/elk/</loc>
+    <lastmod>2020-05-08T21:05:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/log-pilot/</loc>
+    <lastmod>2020-05-08T21:05:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</loc>
+    <lastmod>2020-05-08T21:05:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/log/elk_centos7_install/</loc>
+    <lastmod>2020-05-06T22:11:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/efk/</loc>
+    <lastmod>2020-05-05T21:11:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/log/k8s_efk_install/</loc>
+    <lastmod>2020-05-05T21:11:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30,13 +128,6 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-05-02T19:11:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://xiebiao.top/tags/storage/</loc>
     <lastmod>2020-05-02T19:11:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -45,13 +136,6 @@
   
   <url>
     <loc>https://xiebiao.top/categories/storage/</loc>
-    <lastmod>2020-05-02T19:11:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
     <lastmod>2020-05-02T19:11:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

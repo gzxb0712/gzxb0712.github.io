@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>搭建 ELK 日志系统 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="国内加速 https://mirrors.huaweicloud.com/elasticsearch/ https://mirrors.huaweicloud.com/kibana/ 简介 ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/log/elk_centos7_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="搭建 ELK 日志系统" />
+<meta property="og:description" content="国内加速 https://mirrors.huaweicloud.com/elasticsearch/ https://mirrors.huaweicloud.com/kibana/ 简介 ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/log/elk_centos7_install/" />
+<meta property="article:published_time" content="2020-05-06T22:11:30+00:00" />
+<meta property="article:modified_time" content="2020-05-06T22:11:30+00:00" />
+<meta itemprop="name" content="搭建 ELK 日志系统">
+<meta itemprop="description" content="国内加速 https://mirrors.huaweicloud.com/elasticsearch/ https://mirrors.huaweicloud.com/kibana/ 简介 ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进">
+<meta itemprop="datePublished" content="2020-05-06T22:11:30+00:00" />
+<meta itemprop="dateModified" content="2020-05-06T22:11:30+00:00" />
+<meta itemprop="wordCount" content="2655">
+
+
+
+<meta itemprop="keywords" content="elk,log," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="搭建 ELK 日志系统"/>
+<meta name="twitter:description" content="国内加速 https://mirrors.huaweicloud.com/elasticsearch/ https://mirrors.huaweicloud.com/kibana/ 简介 ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">搭建 ELK 日志系统</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-06 22:11 </span>
+        <div class="post-category">
+            <a href="/categories/log/"> log </a>
+            </div>
+          <span class="more-meta"> 约 2655 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#国内加速">国内加速</a></li>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#环境说明">环境说明</a></li>
+    <li><a href="#客户端部署">客户端部署：</a></li>
+    <li><a href="#filebeat-部署">Filebeat 部署</a>
+      <ul>
+        <li><a href="#web上采集配置文件">web上采集配置文件</a></li>
+        <li><a href="#外网的filebeat-配置文件">外网的filebeat 配置文件</a></li>
+        <li><a href="#app上采集配置文件">app上采集配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#以下是服务端部署">以下是服务端部署：</a></li>
+    <li><a href="#redis-部署">Redis 部署</a>
+      <ul>
+        <li><a href="#配置文件">配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#logstash-部署">Logstash 部署</a>
+      <ul>
+        <li><a href="#配置文件-1">配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#elasticsearch-集群部署">Elasticsearch 集群部署</a>
+      <ul>
+        <li><a href="#配置文件-2">配置文件</a></li>
+        <li><a href="#node1">node1</a></li>
+        <li><a href="#node2">node2</a></li>
+        <li><a href="#node3">node3</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx-配置文件">nginx 配置文件</a>
+      <ul>
+        <li><a href="#查看集群状态">查看集群状态</a></li>
+      </ul>
+    </li>
+    <li><a href="#kibana-部署">Kibana 部署</a></li>
+    <li><a href="#注意事项">注意事项</a>
+      <ul>
+        <li><a href="#grok模式匹配日志">grok模式匹配日志</a></li>
+        <li><a href="#kibana索引添加">kibana索引添加</a></li>
+        <li><a href="#x-pack图表配置">x-pack图表配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文档">参考文档</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="国内加速">国内加速</h2>
+<p><a href="https://mirrors.huaweicloud.com/elasticsearch/">https://mirrors.huaweicloud.com/elasticsearch/</a>
+<a href="https://mirrors.huaweicloud.com/kibana/">https://mirrors.huaweicloud.com/kibana/</a></p>
+<h2 id="简介">简介</h2>
+<p>ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进行统计分析，通过其强大的呈现能力，挖掘数据的潜在价值，分析重要指标的趋势和分布等，能够规避灾难和指导决策等。ELK是Elasticsearch公司出品的一组套件，官方站点：<a href="https://www.elastic.co">https://www.elastic.co</a>，本文中ELK需要用的组件有Elasticsearch、Logstash、Kibana、Filebeat（Beats组合中的一个），主要介绍该集群的建设部署以及一些注意事项，希望对需要的小伙伴有所帮助，对于文中错误，欢迎批评指正。</p>
+<h2 id="环境说明">环境说明</h2>
+<p>下面是本文的逻辑架构图，其中filebeat为采集日志的客户端，其安装在产生日志的机器上，收集的日志插入到redis消息队列中，logstash从redis取出数据并做相应的处理，其中包括字段拆分定义，并将数据输出到ES集群中，ES集群将数据处理、分片、索引等，最终kibana作为页面展示，将从ES集群取出数据做分析、统计、处理、展示，当然，其中有用到x-pack插件做数据分析、统计和展现（就是一些漂亮的实时图表）。</p>
+<ul>
+<li>本文采用软件版本均为6.3.</li>
+</ul>
+<p><img src="https://images2018.cnblogs.com/blog/1018310/201807/1018310-20180728140223249-1820795352.png" alt="img-w500"></p>
+<h2 id="客户端部署">客户端部署：</h2>
+<h2 id="filebeat-部署">Filebeat 部署</h2>
+<blockquote>
+<p>yum -y install epel-release
+mkdir /data/soft -pv
+cd /data/soft/
+yum install wget vim -y
+wget <a href="https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.8.9-x86_64.rpm">https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.8.9-x86_64.rpm</a>
+yum install filebeat-6.8.9-x86_64.rpm -y</p>
+</blockquote>
+<h3 id="web上采集配置文件">web上采集配置文件</h3>
+<h3 id="外网的filebeat-配置文件">外网的filebeat 配置文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">filebeat.yml<span class="w">
+</span><span class="w"></span><span class="c">#=========================== Filebeat prospectors =============================</span><span class="w">
+</span><span class="w"></span><span class="k">filebeat.prospectors</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- /data/logs/<span class="cp">*login*.log</span><span class="w">
+</span><span class="w">  </span><span class="c">#tags: [&#34;web&#34;]   #添加自定义tag，便于后续的处理</span><span class="w">
+</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>login-access<span class="w">   </span><span class="c">#新增字段，用于后续处理</span><span class="w">
+</span><span class="w">  </span><span class="c">#fields_under_root: true #true为添加到根节点，false为添加到子节点中 </span><span class="w">
+</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">             </span><span class="c">#配置从文件最后位置开始读取  </span><span class="w">
+</span><span class="w">    
+</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- /data/logs/admin/<span class="cp">*/loginError*.log</span><span class="w">
+</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>login-error<span class="w">
+</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">             
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- /data/mysql/var_330<span class="cp">*/*.err</span><span class="w">
+</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>mysql-error<span class="w">
+</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- /data/mysql/var_330<span class="cp">*/*slow.log</span><span class="w">
+</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>mysql-slow<span class="w">
+</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^# User@Host:&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="w">  </span><span class="k">multiline.timeout</span><span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- /var/log/php_error.log<span class="w">
+</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>php-error<span class="w">
+</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^\[&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="w">  </span><span class="k">multiline.timeout</span><span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w">
+</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- /data/wzzgsy_server/<span class="cp">*/logs/*.log</span><span class="w">
+</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>erl-error<span class="w">
+</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^=&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="w">  </span><span class="k">multiline.timeout</span><span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c">#-------------------------- reids output ------------------------------</span><span class="w">
+</span><span class="w"></span><span class="k">output.redis</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;43.24x.3.1x5:8089&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;kyrd#808xxx0&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">key</span><span class="p">:</span><span class="w"> </span>ky_filebeat<span class="w">
+</span><span class="w">    </span><span class="k">timeout</span><span class="p">:</span><span class="w"> </span>5s<span class="w">
+</span><span class="w">    </span><span class="k">max_retries</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/filebeat/filebeat.yml &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+filebeat.inputs:
+- type: log
+  enabled: <span class="nb">true</span>
+  paths:
+    - /var/log/nginx/crmwww-dev-access.log
+    - /var/log/nginx/manager2018crm-dev-access.log
+    - /var/log/nginx/hybrid-dev-access.log
+    - /var/log/nginx/cfdwww-dev-access.log
+    - /var/log/nginx/manager2018cfd-dev-access.log
+    - /var/log/nginx/market2018cfd-dev-access.log
+    - /var/log/nginx/api2018cfd-dev-access.log
+  fields:
+    project: cfds
+    env: dev
+    role: web
+    logtype: access
+    ip: 192.168.0.152
+  fields_under_root: <span class="nb">true</span>
+<span class="c1">#采集信息追加字段，便于分组，fields_under_root指定字段的访问模式为直接访问，不必使用fields.project</span>
+
+- type: log
+  enabled: <span class="nb">true</span>
+  paths:
+    - /var/log/nginx/manager2018crm-dev-error.log
+    - /var/log/nginx/manager2018cfd-dev-error.log
+    - /var/log/nginx/market2018cfd-dev-error.log
+    - /var/log/nginx/cfdwww-dev-error.log
+    - /var/log/nginx/hybrid-dev-error.log
+    - /var/log/nginx/crmwww-dev-error.log
+    - /var/log/nginx/api2018cfd-dev-error.log
+  fields:
+    project: cfds
+    env: dev
+    role: web
+    logtype: error
+    ip: 192.168.0.152
+  fields_under_root: <span class="nb">true</span>
+
+<span class="c1">#将日志输出到redis</span>
+output.redis:
+  hosts: <span class="o">[</span><span class="s2">&#34;redis.glinux.top&#34;</span><span class="o">]</span>
+  key: <span class="s2">&#34;cfds&#34;</span>
+  db: <span class="m">0</span>
+  password: <span class="s2">&#34;123456&#34;</span>
+  timeout: <span class="m">15</span>
+
+<span class="c1">#可通过以下配置测试输出结果，输入内容在/tmp/filebeat/filebeat</span>
+<span class="c1">#output.file:</span>
+<span class="c1">##  path: &#34;/tmp/filebeat&#34;</span>
+<span class="c1">##  filename: filebeat</span>
+
+EOF
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="app上采集配置文件">app上采集配置文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/filebeat/filebeat.yml &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+filebeat.inputs:
+- type: log
+  enabled: <span class="nb">true</span>
+  paths:
+    - /data/logs/crm/error/crm.log
+  fields:
+    project: cfds
+    env: dev
+    role: crm
+    logtype: error
+    ip: 192.168.0.155
+  fields_under_root: <span class="nb">true</span>
+ <span class="c1">#处理多行数据，如果不以时间开头的行归为上一行的数据，接到上一行数据后面</span>
+  multiline.pattern: <span class="s1">&#39;^[0-9]{4}-[0-9]{2}-[0-9]{2}&#39;</span>
+  multiline.negate: <span class="nb">true</span>
+  multiline.match: after
+  multiline.timeout: 10s
+
+- type: log
+  enabled: <span class="nb">true</span>
+  paths:
+    - /data/logs/crm/info/crm.log
+  fields:
+    project: cfds
+    env: dev
+    role: crm
+    logtype: info
+    ip: 192.168.0.155
+  fields_under_root: <span class="nb">true</span>
+  multiline.pattern: <span class="s1">&#39;^[0-9]{4}-[0-9]{2}-[0-9]{2}&#39;</span>
+  multiline.negate: <span class="nb">true</span>
+  multiline.match: after
+  multiline.timeout: 10s
+
+output.redis:
+  hosts: <span class="o">[</span><span class="s2">&#34;redis.glinux.top&#34;</span><span class="o">]</span>
+  key: <span class="s2">&#34;cfds&#34;</span>
+  db: <span class="m">0</span>
+  password: <span class="s2">&#34;123456&#34;</span>
+  timeout: <span class="m">15</span>
+
+<span class="c1">#可通过以下配置测试输出结果，输入内容在/tmp/filebeat/filebeat</span>
+<span class="c1">#output.file:</span>
+<span class="c1">##  path: &#34;/tmp/filebeat&#34;</span>
+<span class="c1">##  filename: filebeat</span>
+
+EOF
+
+</code></pre></td></tr></table>
+</div>
+</div><p>filebeat test config /etc/filebeat/filebeat.yml #测试配置文件
+systemctl enable filebeat
+systemctl restart filebeat</p>
+<h2 id="以下是服务端部署">以下是服务端部署：</h2>
+<h2 id="redis-部署">Redis 部署</h2>
+<p>yum -y install epel-release
+yum -y install redis</p>
+<h3 id="配置文件">配置文件</h3>
+<blockquote>
+<p>仅需要添加密码认证即可</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cat &gt;&gt; /etc/redis.conf &lt;&lt; &#34;EOF&#34;
+bind 0.0.0.0
+requirepass &#34;123456&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>systemctl enable redis
+systemctl start redis</p>
+<h2 id="logstash-部署">Logstash 部署</h2>
+<blockquote>
+<p>yum -y install epel-release
+mkdir /data/soft -pv
+cd /data/soft/
+yum install wget vim -y
+wget <a href="https://artifacts.elastic.co/downloads/logstash/logstash-6.8.9.rpm">https://artifacts.elastic.co/downloads/logstash/logstash-6.8.9.rpm</a>
+yum install logstash-6.8.9.rpm -y
+rpm -ql logstash #查看安装路径</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/profile.d/logstash.sh &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/share/logstash/bin/:<span class="nv">$PATH</span>
+EOF
+
+</code></pre></td></tr></table>
+</div>
+</div><p>. /etc/profile.d/logstash.sh #读取环境变量
+yum -y install java-1.8.0-openjdk</p>
+<h3 id="配置文件-1">配置文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/logstash/conf.d/logstashserver.conf &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+input <span class="o">{</span>
+  redis <span class="o">{</span>
+    <span class="nv">host</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;127.0.0.1&#34;</span><span class="o">]</span>
+    <span class="nv">key</span> <span class="o">=</span>&gt; <span class="s2">&#34;ftms&#34;</span>
+    <span class="nv">port</span> <span class="o">=</span>&gt; <span class="m">6379</span>
+    <span class="nv">password</span> <span class="o">=</span>&gt; <span class="s2">&#34;123456&#34;</span>
+    <span class="nv">data_type</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;list&#34;</span><span class="o">]</span>
+  <span class="o">}</span>
+  redis <span class="o">{</span>
+    <span class="nv">host</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;127.0.0.1&#34;</span><span class="o">]</span>
+    <span class="nv">key</span> <span class="o">=</span>&gt; <span class="s2">&#34;cfds&#34;</span>
+    <span class="nv">port</span> <span class="o">=</span>&gt; <span class="m">6379</span>
+    <span class="nv">password</span> <span class="o">=</span>&gt; <span class="s2">&#34;123456&#34;</span>
+    <span class="nv">data_type</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;list&#34;</span><span class="o">]</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+filter <span class="o">{</span>
+  <span class="k">if</span> <span class="o">[</span>role<span class="o">]</span> <span class="o">==</span> <span class="s2">&#34;web&#34;</span> and <span class="o">[</span>logtype<span class="o">]</span> <span class="o">==</span> <span class="s2">&#34;access&#34;</span> <span class="o">{</span>
+    grok <span class="o">{</span>
+      <span class="nv">patterns_dir</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-patterns-core-4.1.2/patterns&#34;</span><span class="o">]</span>
+      <span class="nv">match</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;message&#34;</span> , <span class="s2">&#34;%{NGINXACCESS}&#34;</span><span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">if</span> <span class="o">[</span>role<span class="o">]</span> <span class="o">==</span> <span class="s2">&#34;web&#34;</span> and <span class="o">[</span>logtype<span class="o">]</span> <span class="o">==</span> <span class="s2">&#34;error&#34;</span> <span class="o">{</span>
+    grok <span class="o">{</span>
+      <span class="nv">patterns_dir</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-patterns-core-4.1.2/patterns&#34;</span><span class="o">]</span>
+      <span class="nv">match</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;message&#34;</span> , <span class="s2">&#34;%{NGINXERROR}&#34;</span><span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">else</span> <span class="o">{</span>
+    grok <span class="o">{</span>
+      <span class="nv">patterns_dir</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-patterns-core-4.1.2/patterns&#34;</span><span class="o">]</span>
+      <span class="nv">match</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;message&#34;</span> , <span class="s2">&#34;%{TIMESTAMP_ISO8601:logdatetime} %{LOGLEVEL:level} [%{DATA:thread}] %{JAVACLASS:class} [%{JAVAFILE:file}(?::%{NUMBER:line})?] - %{GREEDYDATA:message}&#34;</span><span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+output <span class="o">{</span>
+  elasticsearch <span class="o">{</span>
+    <span class="nv">hosts</span> <span class="o">=</span>&gt; <span class="o">[</span><span class="s2">&#34;http://192.168.12.228:9200&#34;</span>,<span class="s2">&#34;http://192.168.12.102:9200&#34;</span>,<span class="s2">&#34;192.168.30.38:9200&#34;</span><span class="o">]</span>
+    <span class="nv">index</span> <span class="o">=</span>&gt; <span class="s2">&#34;%{project}-%{env}-%{role}-%{logtype}-%{+YYYY.MM.dd}&#34;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+EOF
+
+</code></pre></td></tr></table>
+</div>
+</div><p>logstash -f /etc/logstash/conf.d/logstashserver.conf -t #测试配置文件是否有误
+systemctl enable logstash
+systemctl restart logstash</p>
+<h2 id="elasticsearch-集群部署">Elasticsearch 集群部署</h2>
+<pre><code>yum install java-1.8.0-openjdk -y
+</code></pre>
+<p>yum -y install epel-release
+mkdir /data/soft -pv
+cd /data/soft/
+yum install wget vim -y
+wget <a href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.rpm">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.rpm</a>
+yum install elasticsearch-6.8.9.rpm -y
+rpm -ql elasticsearch</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/profile.d/elasticsearch.sh &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/share/elasticsearch/bin/:<span class="nv">$PATH</span>
+EOF
+
+</code></pre></td></tr></table>
+</div>
+</div><p>. /etc/profile.d/elasticsearch.sh</p>
+<h3 id="配置文件-2">配置文件</h3>
+<blockquote>
+<p>访问权限设置
+注意如果是集群都要加上权限配置
+<a href="https://blog.csdn.net/pxzsky/article/details/106643899">https://blog.csdn.net/pxzsky/article/details/106643899</a></p>
+</blockquote>
+<p>mkdir -p /data/server/elasticsearch
+chown -R elasticsearch.elasticsearch /data/server/elasticsearch</p>
+<h3 id="node1">node1</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/elasticsearch/elasticsearch.yml &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+cluster.name: logs
+node.name: node-228-1
+<span class="c1">#node.master: false</span>
+<span class="c1">#node.data: true</span>
+path.data: /data/server/elasticsearch
+path.logs: /var/log/elasticsearch
+network.host: 0.0.0.0
+http.port: <span class="m">9200</span>
+transport.tcp.port: <span class="m">9300</span>
+discovery.zen.ping.unicast.hosts: <span class="o">[</span><span class="s2">&#34;192.168.12.228&#34;</span>,<span class="s2">&#34;192.168.12.102&#34;</span><span class="o">]</span>
+discovery.zen.minimum_master_nodes: <span class="m">2</span>
+EOF
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="node2">node2</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/elasticsearch/elasticsearch.yml &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+cluster.name: logs
+node.name: node-102-2
+<span class="c1">#node.master: false</span>
+<span class="c1">#node.data: true</span>
+path.data: /data/server/elasticsearch
+path.logs: /var/log/elasticsearch
+network.host: 0.0.0.0
+http.port: <span class="m">9200</span>
+transport.tcp.port: <span class="m">9300</span>
+discovery.zen.ping.unicast.hosts: <span class="o">[</span><span class="s2">&#34;192.168.12.228&#34;</span>,<span class="s2">&#34;192.168.12.102&#34;</span><span class="o">]</span>
+discovery.zen.minimum_master_nodes: <span class="m">2</span>
+EOF
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="node3">node3</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/elasticsearch/elasticsearch.yml &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+cluster.name: logs
+node.name: node-38-3
+<span class="c1">#node.master: false</span>
+<span class="c1">#node.data: true</span>
+path.data: /data/server/elasticsearch
+path.logs: /var/log/elasticsearch
+network.host: 0.0.0.0
+http.port: <span class="m">9200</span>
+transport.tcp.port: <span class="m">9300</span>
+discovery.zen.ping.unicast.hosts: <span class="o">[</span><span class="s2">&#34;192.168.12.228&#34;</span>,<span class="s2">&#34;192.168.12.102&#34;</span>,<span class="s2">&#34;192.168.30.38&#34;</span><span class="o">]</span>
+discovery.zen.minimum_master_nodes: <span class="m">2</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>systemctl enable elasticsearch
+systemctl start elasticsearch
+systemctl status elasticsearch</p>
+<h2 id="nginx-配置文件">nginx 配置文件</h2>
+<p><a href="https://sysadmins.co.za/secure-your-elasticsearch-cluster-with-basic-auth-using-nginx-and-ssl-from-letsencrypt/">https://sysadmins.co.za/secure-your-elasticsearch-cluster-with-basic-auth-using-nginx-and-ssl-from-letsencrypt/</a>
+<a href="https://priesttomb.github.io/%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5/2019/06/22/elasticsearch_with_nginx_auth_basic/">https://priesttomb.github.io/%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5/2019/06/22/elasticsearch_with_nginx_auth_basic/</a></p>
+<p>yum install nginx -y</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-nginx.conf" data-lang="nginx.conf"><span class="k">cat</span> <span class="s">/etc/nginx/nginx.conf</span>
+<span class="s">worker_processes</span>  <span class="mi">1</span><span class="p">;</span>
+<span class="k">events</span> <span class="p">{</span>
+    <span class="kn">worker_connections</span>  <span class="mi">1024</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">http</span> <span class="p">{</span>
+    <span class="kn">include</span>       <span class="s">mime.types</span><span class="p">;</span>
+    <span class="kn">default_type</span>  <span class="s">application/octet-stream</span><span class="p">;</span>
+    <span class="kn">sendfile</span>        <span class="no">on</span><span class="p">;</span>
+    <span class="kn">keepalive_timeout</span>  <span class="mi">65</span><span class="p">;</span>
+    <span class="c1"># Nginx 负载均衡实现服务器的集群
+</span><span class="c1"></span>    <span class="kn">upstream</span> <span class="s">spring-boot-es</span> <span class="p">{</span>
+        <span class="c1">#weight 权重（数字越大，表明请求到的机会越大）
+</span><span class="c1"></span>        <span class="kn">server</span> <span class="n">192.168.12.228</span><span class="p">:</span><span class="mi">9200</span> <span class="s">weight=5</span><span class="p">;</span>
+        <span class="kn">server</span> <span class="n">192.168.12.102</span><span class="p">:</span><span class="mi">9200</span> <span class="s">weight=5</span><span class="p">;</span>
+        <span class="c1"># 备份服务器
+</span><span class="c1"></span>        <span class="c1">#server 192.168.0.110:60 backup;
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="kn">server</span> <span class="p">{</span>
+        <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>
+        <span class="c1">#server_name  localhost;
+</span><span class="c1"></span>        <span class="kn">server_name</span>  <span class="s">elasticsearch.test.com</span><span class="p">;</span>
+
+        <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+            <span class="kn">proxy_pass</span> <span class="s">http://spring-boot-es</span><span class="p">;</span>
+            <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+            <span class="c1"># proxy_set_header X-Forwarded-Host $server_name;
+</span><span class="c1"></span>            <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+            <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kn">error_page</span>   <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="s">/50x.html</span><span class="p">;</span>
+        <span class="kn">location</span> <span class="p">=</span> <span class="s">/50x.html</span> <span class="p">{</span>
+            <span class="kn">root</span>   <span class="s">html</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看集群状态">查看集群状态</h3>
+<p><code>curl 'localhost:9200/_cat/nodes?v'</code>
+<img src="https://images2018.cnblogs.com/blog/1018310/201807/1018310-20180728140347713-1166591066.png" alt="img-w500"></p>
+<h2 id="kibana-部署">Kibana 部署</h2>
+<p>yum -y install epel-release
+mkdir -pv /data/soft
+cd /data/soft/
+yum install wget vim -y
+wget <a href="https://artifacts.elastic.co/downloads/kibana/kibana-6.8.9-x86_64.rpm">https://artifacts.elastic.co/downloads/kibana/kibana-6.8.9-x86_64.rpm</a>
+yum install kibana-6.8.9-x86_64.rpm -y</p>
+<blockquote>
+<p>从这里拷贝一份过来修改，注意下url还是用地址
+<a href="https://gitee.com/lmay/docker-compose-examples/blob/master/es-nodes-cluster/node1-master/kibana.yml">https://gitee.com/lmay/docker-compose-examples/blob/master/es-nodes-cluster/node1-master/kibana.yml</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/kibana/kibana.yml &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+server.host: <span class="s2">&#34;0.0.0.0&#34;</span>
+elasticsearch.url: <span class="s2">&#34;http://escluster.glinux.top:9200&#34;</span>
+EOF
+
+</code></pre></td></tr></table>
+</div>
+</div><p>systemctl enable kibana.service
+systemctl start kibana.service</p>
+<p>端口转发，普通程序不能监听在1024以下的端口，解决方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/sysctl.conf &lt;&lt;<span class="s2">&#34;EOF&#34;</span>
+net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span> <span class="c1">#重新加载</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>sysctl -p /etc/sysctl.conf
+<code>iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 5601</code></p>
+<h2 id="注意事项">注意事项</h2>
+<h3 id="grok模式匹配日志">grok模式匹配日志</h3>
+<p>logstash模式匹配拆分日志可谓关键的一环其中有些注意要点</p>
+<ol>
+<li>logstash 模式匹配的pattern放在/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-patterns-core-4.1.2/patterns目录下</li>
+</ol>
+<p><img src="https://images2018.cnblogs.com/blog/1018310/201807/1018310-20180728140422180-632586963.png" alt="img-w500"></p>
+<ol start="2">
+<li>测试模式匹配样例，最终匹配到的字段会在kibana中显示，作为可供筛选的关键字</li>
+</ol>
+<p><img src="https://images2018.cnblogs.com/blog/1018310/201807/1018310-20180728140450997-2106080450.png" alt="img-w500"></p>
+<h3 id="kibana索引添加">kibana索引添加</h3>
+<p>索引的制定能加快查询速度和项目分类，索引分为es的索引和kibana的索引。</p>
+<ol>
+<li>针对es的索引，我的处理方式是在filebeat收集日志的时候给每条日志添加fileds字段，如下：</li>
+</ol>
+<ul>
+<li>project: cfds</li>
+<li>env: dev</li>
+<li>logtype: access</li>
+<li>ip: 192.168.0.152</li>
+</ul>
+<p>logstash 在拿到日志后将%{project}-%{env}-%{role}-%{logtype}-%{+YYYY.MM.dd}作为索引将日志分类送给es集群。
+2. kibana的索引，就是将es的索引做综合归类。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1018310/201807/1018310-20180728140507727-1686328957.png" alt="img-w500"></p>
+<p><img src="https://images2018.cnblogs.com/blog/1018310/201807/1018310-20180728140520006-1526844680.png" alt="img-w500"></p>
+<h3 id="x-pack图表配置">x-pack图表配置</h3>
+<p>x-pack可以试用，网络上有破解方式，其可根据字段做数据统计呈现，呈现方式众多，实时更新，可做数据挖掘，数据报告。下面贴上我做的一个示例。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1018310/201807/1018310-20180728140537044-2024962813.png" alt="img-w500"></p>
+<h2 id="参考文档">参考文档</h2>
+<ul>
+<li>Filebeat配置文档: <a href="https://www.elastic.co/guide/en/beats/filebeat/current/index.html">https://www.elastic.co/guide/en/beats/filebeat/current/index.html</a></li>
+<li>Logstash配置文档: <a href="https://www.elastic.co/guide/en/logstash/current/configuration.html">https://www.elastic.co/guide/en/logstash/current/configuration.html</a></li>
+<li>ES集群参考文档: <a href="https://www.jianshu.com/p/149a8da90bbc">https://www.jianshu.com/p/149a8da90bbc</a></li>
+<li>集群状态查看参考文档: <a href="https://segmentfault.com/a/1190000010975383">https://segmentfault.com/a/1190000010975383</a></li>
+<li>logstash优化: <a href="http://jaminzhang.github.io/elk/Logstash-Performance-Troubleshooting-Guide">http://jaminzhang.github.io/elk/Logstash-Performance-Troubleshooting-Guide</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-06 22:11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/elk/">elk</a>
+          <a href="/tags/log/">log</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/log/log-pilot_elasticsearch_kibana_ops/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/log/k8s_efk_install/">
+            <span class="next-text nav-default">K8s 上搭建 EFK 日志系统</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

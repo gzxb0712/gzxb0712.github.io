@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>loki on Bill World</title>
+    <link>https://xiebiao.top/tags/loki/</link>
+    <description>Recent content in loki on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 11 May 2020 20:08:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/tags/loki/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>轻量级日志系统Loki部署</title>
+      <link>https://xiebiao.top/post/log/loki_ops/</link>
+      <pubDate>Mon, 11 May 2020 20:08:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/log/loki_ops/</guid>
+      <description>现实中的需求 公司的容器云运行的应用或某一个节点出现了问题，解决的思路 问题首先被prometheus监控 1、metric是来说明当前或者历史达</description>
+    </item>
+    
+  </channel>
+</rss>

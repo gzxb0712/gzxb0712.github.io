@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>CentOS7 部署 Graylog3 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/log/graylog_centos_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="CentOS7 部署 Graylog3" />
+<meta property="og:description" content="注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/log/graylog_centos_install/" />
+<meta property="article:published_time" content="2020-05-10T20:32:30+00:00" />
+<meta property="article:modified_time" content="2020-05-10T20:32:30+00:00" />
+<meta itemprop="name" content="CentOS7 部署 Graylog3">
+<meta itemprop="description" content="注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；">
+<meta itemprop="datePublished" content="2020-05-10T20:32:30+00:00" />
+<meta itemprop="dateModified" content="2020-05-10T20:32:30+00:00" />
+<meta itemprop="wordCount" content="13702">
+
+
+
+<meta itemprop="keywords" content="graylog,log," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CentOS7 部署 Graylog3"/>
+<meta name="twitter:description" content="注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">CentOS7 部署 Graylog3</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-10 20:32 </span>
+        <div class="post-category">
+            <a href="/categories/log/"> log </a>
+            </div>
+          <span class="more-meta"> 约 13702 字 </span>
+          <span class="more-meta"> 预计阅读 28 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#服务安装">服务安装</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#graylog-基本功能配置">Graylog 基本功能配置</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#日志规整与分类">日志规整与分类</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#完结">完结</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p><strong>注意！</strong> 本文只涉及基础服务部署与调配，<strong>并未涉及</strong>以下内容与功能点：</p>
+<ul>
+<li>以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；</li>
+<li>多节点与集群模式；</li>
+<li>图表展示调配（Dashboards）；</li>
+<li>告警服务（Alerts）；</li>
+<li>手动修改与管理 ES 索引；</li>
+<li>高级搜索（VIews）；</li>
+<li>Graylog 配合 NGINX 等转发调配。</li>
+</ul>
+</blockquote>
+<h2 id="前言">前言</h2>
+<p>对于日志集中收集与检索而言，在 Graylog 之前，我实际上是用过流行的 ELK 套件的。但是 ELK 相对日志收集来说还是过于重量级，尤其是 ElasticSearch 太过于独立于其他的组件，而同样独立的 FileBeat 又不如 ElasticSearch 这么核心，导致一个问题：调试的时候感觉完全不是“在调试一个系统”，而是“在调试三个异常独立组件和一个毫无存在感的前端，然后努力把他们串在一个绳子上”。</p>
+<p>实际上 FileBeat 与 LogStash 的调试难点并不多，主要是 LogStash 的 pattern 部分。如果你有多套不同格式的日志，调 Grok 只能硬来，花大量时间逐个试逐个匹配日志，没什么捷径；Kibana 的调试点也不多，设置里各种有意义的选项很少，只能简单设置一下 Index Pattern，甚至不能直接修改，更多而言他是作为 ElasticSearch 的 RESTAPI 调试工具的存在。</p>
+<p>最难搞的就是 ElasticSearch。你想分片索引，curl API；你想查看索引内容，curl API；你想调试模版，curl API；几乎没有一个功能全方位完备且成熟的工具能以非 RESTfullAPI 交互的方式对 ElasticSearch 进行调试，哪怕一些很基本的功能，比如关闭或删除某个索引也要写 curl 请求 API，交互体验十分糟糕。而且整个 ElasticSearch 知识群极其庞大，单纯地实现日志检索往往要整合多套文档，甚至要结合旧版文档，过于牛刀，如果不专门泡在文档里一段时间，是十分难给别人调试好的 ElasticSearch 下刀子的，这与我们提倡的易用性和可维护性彻头彻尾不相符，最终，蹒跚运行了小半年的 ELK 以一个不知原因且无法修复的 “All shards failure” 错误，正式结束了自己艰难的生命。</p>
+<p>在 ELK 寿终正寝后，很长一段时间日志只能手工翻看手工检索，多个服务器、多套服务且多个日志输出路径，几乎每进行一次查错就要占用运维大量的精力，工作时间因为日志问题被打散得极其碎片。在一段艰难日子里，不断地加快本职工作计划的进度，也同时在物色新的日志聚合检索平台，最终因轻巧与调试简单体验极好的易用性选择了 Graylog。</p>
+<p>Graylog 相当于一个强大的胶水层中间件，靠自己内建的 Indices 索引配置中心，用图形界面几乎完美且自动化地接管了 ElasticSearch 的常用功能，比如新建索引、自动切割、索引分片与备份、历史索引手动或自动管理等，哪怕对 ElasticSearch 知之甚少的非运维人员，也能用 Graylog 快速配置一套可用的索引；内建的 “Sidecar 配置中心” 能够完全接管 Filebeat，后置的 “Pipeline” 也能替代 LogStash 对传入日志进行操作，而且架构上相较于 LogStash，更像是一个 “滤网”，而不是一个 “管道”；基于 fields 筛选的 “Stream” 功能，在你对日志标记了特定 fields 的情况下，能快速抓取任何相关日志。所有的独立组件都无需单独调试，只需要在 Graylog 中集中配置，然后经由 Graylog 下发或自动配置。这些都是在易用性上， ELK 所不具备的优势。</p>
+<h2 id="服务安装">服务安装</h2>
+<ul>
+<li>
+<h5 id="安装-mongodb">安装 MongoDB</h5>
+<ol>
+<li>
+<p>添加源
+<code>vim /etc/yum.repos.d/mongodb-org-3.6.repo</code>
+写入下面的源信息到新建的 repo 中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="n">mongodb</span><span class="o">-</span><span class="n">org</span><span class="o">-</span><span class="mi">4</span><span class="o">.</span><span class="mi">0</span><span class="o">]</span>
+<span class="nb">name</span><span class="o">=</span><span class="no">MongoDB</span> <span class="no">Repository</span>
+<span class="n">baseurl</span><span class="o">=</span><span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">repo</span><span class="o">.</span><span class="n">mongodb</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">yum</span><span class="o">/</span><span class="n">redhat</span><span class="o">/</span><span class="vg">$releasever</span><span class="o">/</span><span class="n">mongodb</span><span class="o">-</span><span class="n">org</span><span class="o">/</span><span class="mi">4</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">x86_64</span><span class="o">/</span>
+<span class="n">gpgcheck</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">enabled</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">gpgkey</span><span class="o">=</span><span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">www</span><span class="o">.</span><span class="n">mongodb</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">pgp</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="mi">4</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="n">asc</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>安装与启动
+写完源直接 <code>yum</code>，因为 MongoDB 很小，而且没什么要调的，<code>yum</code> 好直接启动就完事了。
+<code>yum -y install mongodb-org</code>
+<code>systemctl enable mongod</code>
+<code>systemctl start mongod</code></p>
+</li>
+</ol>
+</li>
+<li>
+<h5 id="安装-elasticsearch">安装 ElasticSearch</h5>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意！</strong> Graylog3 不支持 ES7，只能使用 ES6.8.3。</p>
+</blockquote>
+<ol>
+<li>
+<p>下载安装包
+除非你网络环境很科学，否则按照其他的教程说从外网 <code>yum</code> 是下不下来的，百分百超时。
+别想偷懒了，点这里打开 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.elastic.co%2Fcn%2Fdownloads%2Fpast-releases">ElasticSearch 官网〔梯〕</a>，下载对应版本的 <code>rpm</code> 包。</p>
+</li>
+<li>
+<p>安装 ES
+<code>rz -be</code> 将下好的包传送到服务器上后，直接 <code>rpm</code> 装就行了。
+<code>rpm -ivh elasticsearch-6.8.3.rpm</code></p>
+</li>
+<li>
+<p>修改 ES 的配置文件：
+<code>vim /etc/elasticsearch/elasticsearch.yml</code>
+写入以下配置内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="n">cluster</span><span class="p">.</span><span class="n">name</span><span class="p">:</span> <span class="n">graylog</span>
+<span class="n">path</span><span class="p">.</span><span class="k">data</span><span class="p">:</span> <span class="p">/</span><span class="k">data</span><span class="p">/</span><span class="n">elasticsearch</span>
+<span class="n">action</span><span class="p">.</span><span class="n">auto_create_index</span><span class="p">:</span> <span class="p">.</span><span class="n">watches</span><span class="p">,.</span><span class="n">triggered_watches</span><span class="p">,.</span><span class="n">watcher</span><span class="p">-</span><span class="n">history</span><span class="p">-*</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong><code>cluster.name</code>:</strong> 当前这个 ES 的名字。
+<strong><code>path.data</code>:</strong> 把 Index（索引）等数据文件存放在哪里。默认是在 /var/lib，可根据需要修改。
+<strong><code>action.auto_create_index</code>:</strong> 这个配置<strong>很重要</strong>，这个是 ES 弱智化必备参数，代表 ES 接收到任何新数据，都不会为他们自动创建 Index（索引），索引管理由 Sidecar 和 Graylog 全面接管，包括创建新索引这种操作:。不开会一定几率造成严重的问题，在后面填坑阶段会说到。</p>
+<p>修改服务配置文件，根据自己的路径重写一下 <code>JAVA_HOME</code>：
+<code>vim /etc/sysconfig/elasticsearch</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">JAVA_HOME</span><span class="o">=</span><span class="err">/usr/java/default</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>启动
+各配置修改完成后直接启动就可以了。
+<code>systemctl enable elasticsearch</code>
+<code>systemctl start elasticsearch</code></p>
+</li>
+</ol>
+<ul>
+<li>
+<h5 id="安装graylog">安装Graylog</h5>
+</li>
+</ul>
+<ol>
+<li>
+<p>下载安装包
+点击这里 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.graylog.org%2Fdownloads%23open-source">Graylog 官网〔梯〕</a>下载 <code>rpm</code> 包</p>
+</li>
+<li>
+<p>安装 Graylog-server
+<code>rz -be</code> 将下好的包传送到服务器上后，直接 <code>rpm</code> 装就行了。
+<code>rpm -ivh graylog-server-3.1.2-1.noarch.rpm</code></p>
+</li>
+<li>
+<p>修改 Graylog-server 的配置文件：
+<code>vim /etc/graylog/server/server.conf</code>
+写入以下配置内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">password_secret</span> <span class="o">=</span> 4EIJkaHtdCnH0NeF
+<span class="nv">root_password_sha2</span> <span class="o">=</span> 995387810961981bc36c819f9e963c2edf18bed677b875e654ef2917270e2218
+<span class="nv">data_dir</span> <span class="o">=</span> /data/graylog-server
+<span class="nv">http_bind_address</span> <span class="o">=</span> 0.0.0.0:9000
+<span class="nv">http_publish_uri</span> <span class="o">=</span> http://graylog.civ.ax:9000/
+<span class="nv">elasticsearch_hosts</span> <span class="o">=</span> http://127.0.0.1:9200
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong><code>password_secret</code>:</strong> 这个是要求8位以上的，<strong>不够8位启动会报错</strong>，根据自己需要设。
+<strong><code>root_password_sha2</code>:</strong> 这个是要输入上面密码的 sha256 对应密文，可以直接用工具算，例如：
+<code>echo -n &quot;4EIJkaHtdCnH0NeF&quot; | sha256sum</code>
+<strong><code>data_dir</code>:</strong> Graylog 的数据都存放在哪里。
+<strong><code>http_bind_address</code>:</strong> 是否固定监听 IP。
+<strong><code>http_publish_uri</code>:</strong> 外网的访问地址。这个地址在查询的时候会用到，比如 Graylog 请求自己的 API 的时候。如果有前置 NGINX，可能需要做对应的修改。
+<strong><code>elasticsearch_hosts</code>:</strong> ES 的地址。因为我们是同服务器部署，所以直接是 127。如果你不在本机，这里也要对应改写。</p>
+<p>修改服务配置文件，注意这里跟 ES 不一样，这个是要写到 JAVA 的<strong>可执行文件</strong>的路径的：
+<code>vim /etc/sysconfig/graylog-server</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">JAVA</span><span class="o">=</span><span class="err">/usr/java/default/bin/java</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>启动
+<code>systemctl enable graylog-server</code>
+<code>systemctl start graylog-server</code>
+如果提示报错，请查看 /var/log/graylog-server/ 下的日志文件，或 <code>journalctl -xe -u graylog</code> 。</p>
+</li>
+</ol>
+<ul>
+<li>
+<h5 id="安装-sidecar">安装 Sidecar</h5>
+</li>
+</ul>
+<ol>
+<li>
+<p>下载安装包
+点击这里 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FGraylog2%2Fcollector-sidecar%2Freleases">Graylog - Github</a> 下载 <code>rpm</code> 包。</p>
+</li>
+<li>
+<p>安装 Graylog-sidecar
+<code>rz -be</code> 将下好的包传送到服务器上后，直接 <code>rpm</code> 装就行了。
+<code>rpm -ivh graylog-sidecar-1.0.2-1.x86_64.rpm</code></p>
+</li>
+<li>
+<p>修改 Graylog-sidecar 的配置文件：
+<code>vim /etc/graylog/sidecar/sidecar.yml</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">server_url: <span class="s2">&#34;http://172.××.×.112:9000/api/&#34;</span>
+server_api_token: <span class="s2">&#34;&#34;</span>
+node_name: <span class="s2">&#34;APIServer1&#34;</span>
+update_interval: <span class="m">10</span>
+send_status: <span class="nb">true</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong><code>server_url</code>:</strong> 这个填 Graylog-server 的地址。通常不建议走公网。
+<strong><code>server_api_token</code>:</strong> 当前这台 Sidecar 自己的秘钥。这个稍后会说到，先放着不填。
+<strong><code>node_name</code>:</strong> 用于辨识是从哪个 Sidecar node 发来的消息。这个很有必要设置一下，做图表统计会用到。
+<strong><code>update_interval</code>:</strong> 多久 Sidecar 向 Graylog 报告一次自己的运行状况，以及抓取最新下发的配置文件。没明说单位，推测是秒。
+<strong><code>send_status</code>:</strong> 是否向 Graylog 报告自己的状态信息。文档说是关掉可以减负，但是目前必要不大。</p>
+<p>下面还有诸多配置，比如 Sidecar 自己本身就可以抓取日志。但我们这里配合用 Filebeat ，所以就不开启相关配置了。</p>
+</li>
+<li>
+<p>启动
+配置完成后直接启动就就可以了，注意命令区别。
+<code>graylog-sidecar -service install</code>
+<code>systemctl start graylog-sidecar</code>
+如果启动后有问题，就去 /var/lib/graylog-sidecar 看日志。</p>
+</li>
+</ol>
+<ul>
+<li>
+<h4 id="安装-filebeat">安装 Filebeat</h4>
+</li>
+</ul>
+<blockquote>
+<p>Graylog 没说对 Filebeat 有版本限制，直接上最新的就行了（落笔时最新是7.4.0）。</p>
+</blockquote>
+<ol>
+<li>
+<p>下载安装包
+点这里打开 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.elastic.co%2Fcn%2Fdownloads%2Fpast-releases">ElasticSearch 官网〔梯〕</a>，下载对应版本的 <code>rpm</code> 包。</p>
+</li>
+<li>
+<p>安装 Filebeat
+<code>rz -be</code> 将下好的包传送到服务器上后，直接 <code>rpm</code> 装就行了。
+<code>rpm -ivh filebeat-7.4.0-x86_64.rpm</code></p>
+</li>
+<li>
+<p>启动
+Filebeat 本身没什么调的，在Graylog 套件里 Filebeat 活得比 ES 还工具人，配置全靠 Sidecar 下发，你在这里开关什么都没意义……直接启动跑就行了。
+<code>systemctl enable filebeat</code>
+<code>systemctl start filebeat</code></p>
+</li>
+</ol>
+<hr>
+<hr>
+<p>这时候访问 Graylog 页面基本就可以直接访问通了，地址就是你在上面配的 <strong><code>http_publish_uri</code></strong>。
+这还没完，只是服务架起来了而已，现在的 Graylog 还什么都做不了。</p>
+<hr>
+<hr>
+<h2 id="graylog-基本功能配置">Graylog 基本功能配置</h2>
+<p>在进行任何配置之前，先来了解一下本文<strong>所有用到的工具</strong>的逻辑关系：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-d9998f582623a295.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt=""></p>
+<p>Graylog逻辑关系.png</p>
+<ul>
+<li>
+<h5 id="让-sidecar-正常工作">让 Sidecar 正常工作：</h5>
+</li>
+</ul>
+<ol>
+<li>
+<p>配置 Sidecar 秘钥
+记得之前提到的 <strong><code>server_api_token</code></strong>，Sidecar 秘钥吗？
+在 Graylog 的主页的导航栏的 System 选项卡里，找到 Sidecar，在页面第一部分选择 “Create or reuse a token for the graylog-sidecar user.”</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-fccf7f3c21b51964.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/627/format/webp" alt=""></p>
+<p>给 Sidecar 创建秘钥</p>
+<p>在新页面中定义自己新 Sidecar 的 Token Name。建议别瞎填个 aaa 123 之类的，这玩意儿改不了的。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-a51fddd689709194.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/917/format/webp" alt=""></p>
+<p>填写 Token Name</p>
+<p>填好点 Create Token 就能创建了，然后点击右边的 “Copy to clipboard”，秘钥就复制到了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-4b9ffb1e2ee24c0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/194/format/webp" alt=""></p>
+<p>Copied!</p>
+</li>
+<li>
+<p>向 Sidecar 写入秘钥
+回到我们之前提到的配置文件中，把秘钥粘贴进双引号里，然后重启 Sidecar 就可以了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-6af18c1b01b3094c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/599/format/webp" alt=""></p>
+<p>在配置文件中写入 SIdecar 的秘钥</p>
+<p>Sidecar 重启后，我们就可以在 Sidecar Overview 界面看到 node 了。
+这时候只是 SIdecar node 在向 Graylog 报活而已，我们还没有下发任何配置，Sidecar 还是不能用的。</p>
+</li>
+</ol>
+<ul>
+<li>
+<h5 id="设置入口点-inputs">设置入口点 Inputs</h5>
+</li>
+</ul>
+<p>在建立配置之前，我们要设定接收器，也就是 Inputs。</p>
+<ol>
+<li>
+<p>建立 Input
+在 System 里找到 Inputs，在左侧下拉框选择 Beats，点击 Launch new input</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-1ca5349d98a61e4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/667/format/webp" alt=""></p>
+<p>注意是选择 Beats，不是 Beats (deprecated)</p>
+</li>
+<li>
+<p>配置 Input
+在弹框中编辑这个 Input 的配置：
+<strong>Title:</strong> Input 的标题。这个可以随便写，稍后可以改。
+<strong>Bind Address:</strong> 是否固定监听 IP。比如写成本机内网 IP，或者一个域名，默认 0.0.0.0 代表不固定。如果你网络环境复杂——比如同时从内网公网收集日志的情况下，建议不要 bind，稍后可以改。
+<strong>Port:</strong> 监听哪个端口。也就是 Inputs 开放哪个端口用于接收 Sidecar 的日志推送，稍后可以改。
+<strong>Recive Buffer Size:</strong> 最大允许的接收器缓存大小。相当于一次超过这个数值的日志包推过来会失效，通常来说基本摸不到这个极限，单位 Byte，默认1048576，也就是 1MB，稍后可以改。
+<strong>No. of worker threads:</strong> 这个用于指定有多少个线程在处理日志接收。超大并发量的可以酌情调整，稍后可以改。</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><strong>Do not add Beats type as prefix:</strong> 这个很重要，一定要打钩，稍后会讲到。</p>
+<p>点击 Save 就可以保存 Input 了。以后我们很少会再调到这个配置。</p>
+<p>你可以建立多个 Input，不同之间的区别<strong>由端口控制</strong>。</p>
+</li>
+<li>
+<h5 id="建立-sidecar-配置">建立 Sidecar 配置：</h5>
+</li>
+</ul>
+<ol>
+<li>
+<p>建立新配置档
+点击右上角的 “Configuration”，在右侧选择 “Create Configuration” 。在新页面中：
+<strong>Name:</strong> Sidecar 名字。稍后可以改。
+<strong>Configuration Color:</strong> 色块标记。用于区分的，稍后可以改
+<strong>Collector:</strong> 收集器。这里选 Filebeat on Linux，因为我们是用 Filebeat 做日志收集。</p>
+</li>
+<li>
+<p>配置 Filebeat 的参数
+<strong>重头戏来了。</strong>
+这里先贴上示例配置文件，逐行讲解：</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Needed for Graylog</span><span class="w">
+</span><span class="w"></span><span class="k">fields_under_root</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w"></span><span class="c">## ↑ 用于定义你的特别字段，比如下面那些。这些被标记为 under_root 的数值拥有最高优先级，会覆盖掉任何在这</span><span class="w">
+</span><span class="w"></span><span class="c">## 之后的字段。按排列的先后顺序覆盖，比如你如果写了两个 fields.source，那么只有最靠前的会生效；如果你在</span><span class="w">
+</span><span class="w"></span><span class="c">## 下面的 fleids 里自定义了 fields.source，也会被这里面 under_root 的给覆盖掉。</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fields.collector_node_id</span><span class="p">:</span><span class="w"> </span>${sidecar.nodeName}<span class="w">
+</span><span class="w"></span><span class="c">## ↑ 这个 “sidecar.nodeName” 变量，就是在配置 Sidecar 时候提到的那个 “nodeName”，记起来了吗？这个用于</span><span class="w">
+</span><span class="w"></span><span class="c">## 图表统计和消息分类很有必要。</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fields.source</span><span class="p">:</span><span class="w"> </span>${sidecar.nodeName}<span class="w">
+</span><span class="w"></span><span class="c">## ↑ 一定要留意加入了这行配置！！否则日志展示界面 “Source” 会提示 “unknown”，</span><span class="w">
+</span><span class="w"></span><span class="c">## 图表也会很难做，因为你再多服务器，也只有一个来源 “unknown”。另外说回为什么上面</span><span class="w">
+</span><span class="w"></span><span class="c">## “Do not add Beats type as prefix” 要勾选的问题。如果那个勾没打，那么这里的 “fields.source” 和</span><span class="w">
+</span><span class="w"></span><span class="c">## “sidecar.nodeName” 都会不叫这个名字，也就是说你这套配置你套进去，“Source” 一样是 “unknown”，因为</span><span class="w">
+</span><span class="w"></span><span class="c">## 它根本不叫 “fields.source” 。叫啥我还没摸出来，总之打钩后，按我调的这套配置是没问题的。</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fields.gl2_source_collector</span><span class="p">:</span><span class="w"> </span>${sidecar.nodeId}<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># AAA API                #这里创建第一个 filebeat.inputs 配置。</span><span class="w">
+</span><span class="w"></span><span class="k">filebeat.inputs</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>log<span class="w">                    </span><span class="c">#指定日志收集类型，因为是收集 tomcat 日志，所以 type 是 log。</span><span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- /data/service/service1/logs/catalina-daemon.out<span class="w">
+</span><span class="w"></span><span class="c">##  ↑ 指定日志位于哪个路径，可以用“*”号，或者写多行“-”的方式来指定多个路径。</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
+</span><span class="w"></span><span class="c">## ↑ 这里很重要，这个是决定 Filebeat 能不能收集 Java 堆栈日志这种多行日志的配置。</span><span class="w">
+</span><span class="w"></span><span class="c">## 这个正则和相关参数可以照抄。不要用 Filebeat 官方的正则，那个正则是错误的。</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span>Catalina-AAAAPI<span class="w">
+</span><span class="w"></span><span class="c">## ↑ 打了这个 tags 后，这些附加信息会随着 Filebeat 的信息流一起传过来，可以更易于分类消息是从哪个地方</span><span class="w">
+</span><span class="w"></span><span class="c">## ，或哪个服务采集来的，这个对后面做分类搜索——也就是 Stream 会用到，也算是很重要的一个配置，否则你多个</span><span class="w">
+</span><span class="w"></span><span class="c">## 服务发来的日志经由同一个 Input 进来，所有日志都没有标记特征信息，会变得很难以区分。</span><span class="w">
+</span><span class="w"></span><span class="c">## 还有一个用法是写 fields，比如：</span><span class="w">
+</span><span class="w"></span><span class="c">#  fields:</span><span class="w">
+</span><span class="w"></span><span class="c">#    server: aaaapi-catalina</span><span class="w">
+</span><span class="w"></span><span class="c">## 这个 field 实际上是一个自定义的“key: value”，你可以写任何东西，比如我上面</span><span class="w">
+</span><span class="w"></span><span class="c">## 写了 “server: mobileapi-catalina”，你可以写成类似</span><span class="w">
+</span><span class="w"></span><span class="c">##  “foo: bar” 等任何东西，这个 fields 的作用跟上面的 tags 类似，只不过 tags 更“正式化”一点</span><span class="w">
+</span><span class="w"></span><span class="c">## 用 Filebeat 和 Logstash 对接过的人应该知道这个用法。</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># BBBAPI</span><span class="w">
+</span><span class="w"></span><span class="c">## ↑ 不赘述了，配置一样，但是注意 “filebeat.inputs” 只写一次，不要重复写了！！重复写只会</span><span class="w">
+</span><span class="w"></span><span class="c">## 生效最靠近底下的一个。</span><span class="w">
+</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- /data/service/service2/logs/catalina-daemon.out<span class="w">
+</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span>Catalina-BBBAPI<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># CCC Service</span><span class="w">
+</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
+</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- /data/service/service3/logs/catalina-daemon.out<span class="w">
+</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span>Catalina-CCC<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># Metabase</span><span class="w">
+</span><span class="w"></span><span class="c">## ↑ 这里比较例外，Metabase 是个用 Docker 起的服务，所以这里的 type 是 docker</span><span class="w">
+</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>docker<span class="w">
+</span><span class="w"></span><span class="c">## ↑ 这个写法其实局限性极大，应该说 filebeat 收集单容器（没上 K8s）都很局限性，</span><span class="w">
+</span><span class="w"></span><span class="c">## 因为只支持容器 ID 或容器的日志路径，你更新一次容器，ID 就变了，但K8s 支持容器名定义。</span><span class="w">
+</span><span class="w">  </span><span class="k">containers.ids</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="c">## ↑ 这里指定了一个容器 ID，能不能写短 ID 我没测，应该理论上是没问题的。</span><span class="w">
+</span><span class="w">    </span>- <span class="s1">&#39;a67b30747290fc0e31f3cbfdc494fef20f54aed29cdc7d8b842ed6f3b3bad9c2&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span>Docker-Metabase<span class="w">     </span><span class="c"># tags 用法，不赘述了</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^.|^#+&#39;</span><span class="w">
+</span><span class="w"></span><span class="c">## ↑ 这个也是为了匹配多行日志的，metabase 会有一些很神奇的日志格式，比如 echo 上色什么的，</span><span class="w">
+</span><span class="w"></span><span class="c">## 这些对 Filebeat 很不友好，</span><span class="w">
+</span><span class="w"></span><span class="c">## 因为会抓到大量的中括号和斜杠以及 “#” 号等乱七八糟的东西。</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">output.logstash</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="c">## ↑ 这里指定将收集到的日志输出到哪里</span><span class="w">
+</span><span class="w">   </span><span class="k">hosts</span><span class="p">:</span><span class="w"> </span>${user.hostIP}<span class="w">
+</span><span class="w"></span><span class="c">## ↑ 调用了一个参数 ${user.hostIP}，这个参数可以在右侧的“Variables”选项卡设置。</span><span class="w">
+</span><span class="w"></span><span class="c">## 你只需要起名和填写内容就行了，## 这里写我们在 Input 里配置的信息，比如我没有在 Graylog-server</span><span class="w">
+</span><span class="w"></span><span class="c">## 的配置中启用 bind，所有 Sidecar 都在一个大内网，端口是 5044，那么## 就是172.××.×.111:5044。</span><span class="w">
+</span><span class="w"></span><span class="c">## Save 后会自动生成一个参数名，比如上面的 ${user.hostIP}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">path</span><span class="p">:</span><span class="w">                        </span><span class="c">#这两行是用于覆写 filebeat 日志输出记录的配置</span><span class="w">
+</span><span class="w">  </span><span class="k">data</span><span class="p">:</span><span class="w"> </span>/var/lib/graylog-sidecar/collectors/filebeat/data<span class="w">
+</span><span class="w">  </span><span class="k">logs</span><span class="p">:</span><span class="w"> </span>/var/lib/graylog-sidecar/collectors/filebeat/log<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>全部写完后，点击 Save，这一条配置就保存下来了。</p>
+<ol start="3">
+<li>
+<p>下发配置文件</p>
+<p>点击右上角的 Administration ，进入管理界面，找到我们刚连接上来的新 Sidecar，点击那个 filebeat 勾选上，在右侧下拉菜单中点击 Configuration，点击我们刚写好的配置文件</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-da060e383a67454d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/969/format/webp" alt=""></p>
+<p>点击关联，等待状态从问号变成三角，这套配置就加载成功了， Sidecar 就会向 Graylog 推送日志了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-0076a6063fb77ff8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/555/format/webp" alt=""></p>
+<p>这时候我们就能在 Search 页面看到日志进来的消息了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-968d3e8b7013be5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1002/format/webp" alt=""></p>
+<p>这时候 Graylog 的基本功能就已经实现了</p>
+</li>
+</ol>
+<hr>
+<p><strong>到现在为止，Graylog 最基本的功能已经实现了：收集日志、查询日志。
+但距离日志精细化处理，还有很多步要走。</strong></p>
+<hr>
+<h2 id="日志规整与分类">日志规整与分类</h2>
+<ul>
+<li>
+<h5 id="使用-pipeline-处理日志">使用 Pipeline 处理日志</h5>
+<p>是否觉得 Search 页面左侧的 Fields 太多太乱？我们来写 Pipeline 规整一下。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-b327815ae5fcc327.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/225/format/webp" alt=""></p>
+</li>
+</ul>
+<ol>
+<li>
+<p>新建 Pipeline
+点击 System 选项卡，找到“Pipeline”。
+点击“Add new pipeline”：
+<strong>Title:</strong> Pipeline 的标题.稍后可以改。
+<strong>Description:</strong> 描述。稍后可以改。</p>
+<p>创建后，点击右上角的 “Manage rules” ，点击 “Create Rule”，创建一条新的 Pipeline 规则：
+<strong>Descriptiontion:</strong> 描述。稍后可以改。
+<strong>Rule source:</strong> 重头戏，脚本内容，我这里直接提供全文，逐行讲解：</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="n">rule</span> <span class="s">&#34;funciton RemoveFields&#34;</span> <span class="err">#</span> <span class="err">规则名，起头句。</span>
+<span class="n">when</span>                                        <span class="err">#</span> <span class="err">一个判断条件，逻辑很简单。</span>
+    <span class="n">has_field</span><span class="p">(</span><span class="s">&#34;beats_type&#34;</span><span class="p">)</span>
+<span class="err">##</span> <span class="err">↑</span> <span class="err">当存在</span> <span class="n">fields</span><span class="p">(</span><span class="s">&#34;beats_type&#34;</span><span class="p">)</span> <span class="err">时————实际上这个</span> <span class="n">fields</span> <span class="err">不可能不存在，当然，你也可以设为其他你需要的</span> <span class="n">fields</span><span class="err">。</span>
+<span class="n">then</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;beats_type&#34;</span><span class="p">);</span>
+<span class="err">##</span> <span class="err">↑</span> <span class="err">删除以下声明的</span> <span class="n">fields</span><span class="err">。这个</span> <span class="n">fields</span> <span class="err">的名称写法跟你在</span> <span class="n">Search</span> <span class="err">页面上看到的名字一致。</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;@metadata_beat&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;@metadata_type&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;@metadata_version&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;@timestamp&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;agent_ephemeral_id&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;agent_id&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;agent_type&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;agent_version&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;ecs_version&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;host_name&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;input_type&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;log_offset&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;agent_hostname&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;gl2_message_id&#34;</span><span class="p">);</span>
+    <span class="n">remove_field</span><span class="p">(</span><span class="s">&#34;filebeat_stream&#34;</span><span class="p">);</span>
+<span class="n">end</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>写完后点击 Save 保存。</p>
+<ol start="2">
+<li>
+<p>启用 Pipeline
+这时候还没有分配让 Pipeline 处理哪个信息流。这里回到 Manage Pipeline 页面，点击右侧的 Edit。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-b0ff76269c80cc6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/902/format/webp" alt=""></p>
+<p>在新页面中，点击 Edit connections，点击你要处理的信息流，比如 All message。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-4464838d1b184de2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/917/format/webp" alt=""></p>
+<p>然后点击 Add new stage，指定 Pipeline 处理这个信息流时的执行步骤：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-b8e76f07f280c7ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/555/format/webp" alt=""></p>
+<p><strong>Stage:</strong> 步骤顺序。输入 “1” ，表示第一步执行本操作，稍后可以改。
+<strong>Stage rules:</strong> 执行哪一个 “Rule”。在下拉里选择刚才写的脚本，表示执行 function RemoveFields 这个 rule，稍后可以改。
+<strong>Continued processing next stage when:</strong> 当满足什么条件时，流转到下一 Stage（不是当前 Stage）操作。因为 Stage 可以建立多个，单个 Stage 里的 Rule 也是可以多选的，所以这里有两个选框：
+<strong>○ All rules on this stage match the message:</strong> “所有的rule都执行完毕后，进行下一个 Stage”
+<strong>◎ At least one of the rules on this stage matches the message:</strong> “只要有一个rule执行完毕，就进入下一个 Stage”
+因为我们只有一个 Rule 也只有一个 Stage，所以这里选什么都没差，有多 Stage 需求的可以注意一下这里的配法。</p>
+<p>Stage 配好后，Pipeline 是直接生效的，不需要点什么操作了.
+这时候回到 Search 界面，随便点击一条最新的消息展开看，可以看到消息短了很多，许多 Fields 都被删掉了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-9c0554eae2a0a283.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/647/format/webp" alt=""></p>
+</li>
+</ol>
+<ul>
+<li>
+<h5 id="为单个服务建立独立索引">为单个服务建立独立索引</h5>
+</li>
+</ul>
+<p>从 ELK 走过来的都知道一个问题：多数据源且数据量大的时候，最好分多个 Index。单 Index 滚雪球越滚越大，会越查越慢，所以在对日志检索分类之前，先来配置多个 Index：</p>
+<ol>
+<li>
+<p>建立新索引
+在 System / Sidecar 界面点击 Indices，可以看到默认只有三个索引。
+所有推过来的消息全部都挤在在 Default index set 中，一旦滚起来，只会越查越慢。
+这里我们开始创建新的索引，点击右上角 Create index set：
+<strong>Title:</strong> 索引的标题，稍后可以改。
+<strong>Description:</strong> 索引的描述，稍后可以改。
+<strong>Index prefer:</strong> 这个相当于是索引的名字。这个是关联 ES 里 Index_name 的配置，而且这个值会存档到 MongoDB 以及 ES 中，<strong>稍后不能改</strong>，建议写个自己能看懂的，比如myService-api。
+如果有用到 “-” 号要注意，两个 Index prefer 如果横杠前相同，横杠后不同，也会被报冲突，比如 aaa-bbb 与 aaa-c1234d 会被报冲突。
+<strong>Analyzer:</strong> 要使用什么分析器。这个是 ES 里的 Analyzer 配置，<strong>稍后不能改</strong>。如果你的 ES 自己建了分析器的话，比如自定义了词元过滤器（tokenfilter）和分词器（tokenizer）的分析器（Analyzer），这里输入你的分析器的名字是可以直接调用到的。
+如果你有其他文字或者任何特殊需求，要用到特别的分析器的话，这里可以填你的自定义 Analyzer 名。不过默认 Standard 分析器就已经能满足大部分需求了，比如支持中文和英文的日志检索，但是跟 smartcn 比的话还是无法理解汉语词语，所有的汉语词都会被拆成单字，也就是说你搜词必须双引号括起来。
+不太确定能不能以逗号分隔的形式多选分析器。
+<strong>index shards:</strong> 这个涉及到 ES 的分片概念，可以去查看<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fblog.csdn.net%2Fqq_38486203%2Farticle%2Fdetails%2F80077844">相关文档</a>。
+<strong>index replicas:</strong> 索引副本数。默认0。
+<strong>max. number of segments:</strong> 当触发 ES 对 index 的 optimization 时，最大的切割份数。默认是1，这个是做 Index rotation（索引切割）时定义用的参数。
+<strong>Fields type refresh interval:</strong> Fields 列表的变动（比如被前面的 Pipeline 删掉）在多久后会更新到 Index 里，默认是5 ，单位未知，推测秒。
+<strong>Select rotation strategy:</strong> 使用什么方法进行 Index rotation（索引切割）。索引切割是维护索引易用性和查询速度很重要的一环，以前在给 ES 手动写索引模版的时候这点就很烦人，现在 Graylog 可以全自动配置了。有三个可选项，信息条数、索引大小、日期，建议按日期。
+<strong>Select retention stratege:</strong> 如何处理过期的索引。Delete index（删除索引）、close index（<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.elastic.co%2Fguide%2Fen%2Felasticsearch%2Freference%2F2.4%2Findices-open-close.html">关闭索引</a>）、Do nothing（不做任何事情）。
+<strong>max number of indices:</strong> 至少保留多少个切割后的数据，也就是存档多少份历史数据。</p>
+<p>这里重点说一下这个关闭索引：被关闭的索引将无法进行读写，也就是索引被关闭后，里面的数据（日志）是无法查询到的，相比直接 Delete，这个选项更为温和。被关掉的索引在资源开销方面上，与被删掉的索引几乎是同一级别，除了一些元数据不得不储存外。被关掉的索引可以手动打开，也可以手动删掉。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-5bdb14330d35b7b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/513/format/webp" alt=""></p>
+<p>可以被手动打开和删除的 Index</p>
+<p>全部配置完成后，点击 Save，这一条 Index 就创建完了。通常建议多个服务建立多个索引，如果你喜欢或来自单 Source 的所有建立一个索引，都可以，看各人需要进行分类。</p>
+</li>
+</ol>
+<ul>
+<li>
+<h5 id="stream数据流分类">Stream（数据流）分类</h5>
+<p>索引建立好后，我们需要开始对 Stream 进行分类。</p>
+<p>因为我们刚创建的一条索引，实际上并没有任何实质性的分类效果，只是预先分好不同的坑位而已。目前情况下，所有的日志数据推进来后，仍然是走的默认 Stream ，也就是你能在导航栏的 Stream 选项卡里看到的那个 All messages。这个默认 Stream 仍然是把数据存放在默认索引集中的。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-2a27ce363d155dea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/374/format/webp" alt=""></p>
+<p>All message 使用的索引集：默认索引集</p>
+<p>为了帮助理解，这里打个比方，目前的默认情况下，现在只有一个 <strong>自来水厂</strong>（目前只配置了一个 Sidecar），一个<strong>水龙头</strong>（目前只配置了一个 Input），一个<strong>水管</strong>（目前默认只有一个 Stream），两个<strong>杯子</strong>（目前配置了两个 Index 集，一个是默认的 Default Index Set，一个是上面我们刚新建的 Index Set），这里的<strong>水管</strong>就是我们目前提到的 Stream。</p>
+<p>按照正常的理解思路，水（Log）从一个水龙头（Input）进来后，如果只有一根水管（Stream），你是无论如何也分不到两个杯子（Index）里的，也就是说我们刚建好的索引实际上完全没用上。如果我们有多个服务，也就是多个杯子，这时候必须要拉新的水管，才能同时给多个杯子里装水。</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>新建 Stream
+点击导航栏的 Stream 选项卡，打开 Stream 列表。
+这里展示了目前你所拥有的所有 Stream。如果没错的话，你当前只有三个 Stream，其中的 All Message 就充当了当前环境下的主水管。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-95402a41f702ba02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/968/format/webp" alt=""></p>
+<p>既然我们已经有了两个杯子（可能你已经建了多个杯子），那么我们就要接入一个全新的水管。</p>
+<p>点击右侧的 Create Stream：
+<strong>Title:</strong> 标题。这个稍后可以改
+<strong>Description:</strong> 描述。稍后可以改
+<strong>Index Set:</strong> 使用哪个 Index ，也就是前面提到的“杯子”，在下拉列表里可以选择自己的 Index，代表这个 Stream 会将所有符合匹配规则（稍后讲到）的数据捕获到自己的数据流里，同时储存到指定的 Index 中，这个稍后也可以改。</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><strong>Remove matches from &lsquo;All Messages&rsquo; Stream:</strong> 这个参数要注意一下，如果打上勾，那么所有被本 Stream 捕获的日志数据，都会从默认的 All Message 中移除。</p>
+<p>也就是说，如果不勾，那你的数据就有双份，因为没有被移除，勾了，你的数据就只有单份。</p>
+<p>但是同样地，默认的 All Message Stream 用的是 Default Index Set，如果你建立了多个 Stream，全部都不勾选这个的话，All Message 的 Index 压力就会很大。这个请按照自己的实际情况配置，我建议是勾上。</p>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>配置与启用 Stream
+Stream 建立好后，还是无法发挥作用的，因为我们还没有写 Rules，也就是 Stream 无法知道应该抓取什么样的数据，相当于水龙头里流的是各式各样的混合液，你新接的水管无法从中分离出纯净水，那么我们要给水管设定判定规则，决定符合什么条件的才算 “纯净水”。</p>
+<p>点击新规则右侧的 More Actions，在下拉菜单中点击Quick add rule</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-b3fb0d6aab045a05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/968/format/webp" alt=""></p>
+<p>在弹出的选框中：
+<strong>Field:</strong> 从哪个 Field 进行判断。这里就要重新提到我们之前在对 Sidecar 进行配置时，那里的“tags”参数的作用了。我们给每个服务都定义了特别的“tags”，就是为了这里用到，稍后可以改。
+<strong>Type:</strong> 匹配规则。默认是“match exactly（全量匹配）”，这里用作分类的话可以选“contain（包含）”选项，其他选项如果有需要可以自己调试，稍后可以改。
+<strong>Value:</strong> 要匹配 Fields 中的哪个值。你可以观察一下我们在对 Sidecar 配置完成后，发进来的日志的详细信息——点击 Search 页面，再点击右侧的任意一条日志，将其展开</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-893869e55b322613.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/987/format/webp" alt=""></p>
+<p>其中的 tags 项</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-0dd6aeed34556613.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/214/format/webp" alt=""></p>
+<p>会跟有一个我们自定义的 Vaule，这个 Value 就是这里要填入的东西。比如 “ [&ldquo;MyService-API&rdquo;] ”，那么这里写 API 就行了，只要能符合我们使用的识别规则 “Contain” 就可以，稍后可以改。
+<strong>Inverted:</strong> 是否反选。也就是对 Type 进行反向选择，如果你选“contain”，还打钩了这个框，那就是“not contain”，其他规则也类似，稍后可以改。
+<strong>Description:</strong> 描述，稍后可以改。</p>
+<p>快速规则添加完成后，这个 Stream 只要点击 Start Stream，就可以开始根据你设定的 Rule 抓取日志了。这里来进一步讲解一下另一个配置：
+点击左侧的 Manage Rules，点击下拉框中你自建的 Input，点击右侧的 Load Message，就可以临时载入一条信息。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-7ec68d4849d4b464.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/943/format/webp" alt=""></p>
+<p>你能在这个信息中看到大部分能够被你用来设立匹配规则的 field。为什么说大部分呢，因为仍有部分 field 是 Graylog 自带的，这些不属于 “日志中携带的 fields”，是不会在这个页面里展示。</p>
+<p>还有一点要了解，这些 fields 是由你在我们先前提到的 “Pipeline” 中过滤出来的。也就是说，如果这里缺少了你需要的 field，很可能是 Pipeline 中被你过滤掉了，或是在 Sidecar 的配置文件中没有定义正确，这是一个查错的思路。</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>然后看到下面的选项，如果你的规则设定的没问题，那么会有一个代表正确的提示信息：</p>
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-54691ff71e7357d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/284/format/webp" alt=""></p>
+</blockquote>
+<p>这时代表你的 Rules 在 Graylog 的自动检测之下是通过的。当然，偶尔也会报红框</p>
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-1560366828f63925.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/303/format/webp" alt=""></p>
+</blockquote>
+<p>这个错误提示上确实说 “这条日志不会被流转到这个 Stream”，但这时候实际上并不代表真正出了问题&lt;，因为确实是 “这条日志” 不会流转而已，不代表符合你匹配规则的不会流转.</p>
+<p>这通常会发生在什么情况下呢？比如我的 Graylog，只有一个 Input，但是有12个服务。虽然都分了不同的 Stream ，但是有那么一个服务特别地活跃，一直在刷日志，那么你能从上面 Load Message 载进来的日志，就多数时候都是这个活跃服务的日志。但正在调试的 Stream，对应的服务可能目前是一个不活跃的状态，例如定时器，那么你载不到定时器的日志，就会有这个提示错误。</p>
+<p>这种时候完全不用管，只要你的 Rule 中匹配的规则没有错就行。当然，你也可以不载日志，使用上面的 Message ID 和 Index Name 来进行日志提取，查看是否匹配你的 Rule。Message ID 就是在每一条日志展开详情后，那一长串字符，Index Name 就是下面的“Stored in index”</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-9aaa56ed387213a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/422/format/webp" alt=""></p>
+<p>切换到 Message ID 选项卡，填入这两个数据，点击 Load message，就可以加载到你指定的日志了。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-a2eac6b9f3323f26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640/format/webp" alt=""></p>
+<p>如果提取出来的日志是你想进行处理的日志，同时匹配规则又没问题的话，下面也会亮绿灯的。</p>
+<p>这里在 Manage stream rules 里，还有两个选项：
+<strong>◎ A message must match all of the following rules:</strong> 日志必须满足下列所有的 rule 才会流转到这个 Stream 中。这个是应对多 rule 时的配置
+<strong>○ A message must match at least one of the following rules:</strong> 日志只需满足至少一条 rule 即可。也就是说尽管有多个 rule，只要满足其中一条，日志也会被抓取进来。</p>
+<p>当全部配置完成后，点击 I&rsquo;m done 保存，退回到 Stream 的概览界面，在 Stream 启动的情况下，也就是右侧的 Start Stream 按钮的位置当前显示 Pause Stream 的时候，直接点击左侧你的 Stream 的名字，即可看到当前 Stream 中被 rule 抓取到的所有的日志。</p>
+<p>噢，别忘了去修改 “Pipeline” 中的 “Connection stream”。新建立的 Stream 需要重新与 Pipeline 脚本进行关联，否则新的 Stream 里，那些多得要命还烦人的 fields 是不会被删掉。</p>
+</li>
+</ul>
+<hr>
+<hr>
+<h2 id="完结">完结</h2>
+<p>至此，整套 Graylog 就已经完全可用了，当然是作为管理者（admin）而言。</p>
+<p>如果你是为公司，或是为一个集体组织部署，这个界面通常是不会开放给其他人的，你也不想你辛苦配的服务被人一通乱搞，这里就要开始分权：</p>
+<ol>
+<li>
+<p>建立用户
+点击 System ，点击 Authentication，进入到用户管理界面，点击右上角的 Add new user。
+<strong>Username:</strong> 用户名，用作登录鉴权要素之一，<strong>稍后无法改</strong>。
+<strong>Full Name:</strong> 展示用的昵称，稍后可以改。
+<strong>Email Address:</strong> 这个是对应通知等告警服务用的，本次教程不会提到告警服务。稍后可以改。
+<strong>Password:</strong> 密码，用作登录鉴权要素之一，稍后可以改。
+<strong>Roles:</strong> 角色。Graylog 内置有几个，比如 Reader 是只能进行公开数据查阅等基本操作。
+<strong>Sessions do not time out:</strong> 闲置多久后就踢下线，通常我是不勾选的。
+<strong>Timeout:</strong> 超时判断时间，配合上面那个勾选框用的。
+<strong>Time Zone:</strong> 时区，根据自己的需要设置就行。</p>
+<p>全部设好后，点击 Create User 就可以创建了</p>
+<p>但是注意，这新用户创建后是没法用的，登录进去就是一片白板，因为我们还没有给他分配任何的 Stream Permission。</p>
+<p>按照官方的建议，不建议给用户分配内建的 Roles 后，再进行权限细调这种操作。比如 Reader 默认是一片白板，我们重新分 Stream Permission 相当于在某些界面中部分越权到了 Views User 的级别。按照严谨的操作要求，我们应该去左侧 Roles 界面里，创建我们自己定义的 Roles（因为官方默认的 Roles 无法定义），然后在新建的 Roles 里再细分权限，然后去用户中启用我们自定义的 Role。</p>
+<p>但是我目前情况下，只需要区分一个 Admin 账户，和一个全公司共享的 Query 账户而已，所以我们直接进行越权分配：</p>
+</li>
+<li>
+<p>权限更改
+点击左侧的 User ，在页面中找到你要设置的用户，选择对应右侧的 Edit 按钮</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-51297568ed0677f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/959/format/webp" alt=""></p>
+<p>在新页面中：
+<strong>Stream Permissions:</strong> 这个用户能访问哪些 Streams，这里勾选前面教程刚提到的新的 Stream。这个选项是多选的，可以勾选多个 Streams 。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-b1e1712e52deccb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/758/format/webp" alt=""></p>
+<p>配置好后，点击下面的 Update User，即可完成权限更改。当然更下面还有一个 Change user role，如果你自定义了 Role，可以在这里进行更改。</p>
+</li>
+</ol>
+<p>这时一个新用户就已经创建完成了，这个新用户可以进行权限内的所有操作，比如我们给他分配的在某个 Stream 里进行查阅的操作。</p>
+<hr>
+<hr>
+<h1 id="一些填坑的经历">一些填坑的经历：</h1>
+<ul>
+<li>
+<h5 id="filebeatgraylogessidecar-无法启动">Filebeat、Graylog、ES、Sidecar 无法启动</h5>
+</li>
+</ul>
+<p>看日志啊朋友！！至少你都开始用到 Graylog 了，cd、cat 和 tail 至少会用吧。
+<strong>Filebeat:</strong> 说实话出问题的几率极小，基本可以假装这东西不存在，能跑起来，进程在，就结了，不用管活得怎样。</p>
+<p><strong>ES:</strong> 这个东西就是一个麻烦集合体，无论是 ELK 架构，还是 Graylog 架构，都永远是调得最麻烦也维护最麻烦的那个。通常会由于什么原因起不来呢，我调试的时候总结了一下：</p>
+<ol>
+<li>权限不对: 比如我最开始的时候，没发现 ES 能在配置文件里改数据的储藏位置，傻乎乎地移动 /var/lib/elasticsearch 然后做软链，那么很自然地权限就错了，软链的权限是 root，移过去的文件也是 root，然后报错起不来。修复也很简单，<code>chown -Rf elasticsearch:elasticsearch ${目录地址}</code> 就行了，软链和数据目录都要改。</li>
+<li>配置不对: 官方文档里，<code>action.auto_create_index: false</code> 这个配置实际上是不能用的，启动起来后，ES 的错误日志就会报 “规则过于严格”，所以我这里用的是 <code>action.auto_create_index: .watches,.triggered_watches,.watcher-history-*</code> ，这也是官方的解决办法之一。</li>
+<li>Java 目录没写: 这个就不详述了。</li>
+</ol>
+<p><strong>Sidecar:</strong> 这家伙也很少会报错，多数时候也是因为 Java 目录没写，其他错误看 /var/log/graylog-sidecar 就行了。</p>
+<p><strong>Graylog:</strong> Graylog 的报错基本都会打在日志里，看 /var/log/graylog-server 就行了。</p>
+<ul>
+<li>
+<h5 id="清空-graylog-数据后主界面报错">清空 Graylog 数据后主界面报错</h5>
+<p>这个问题的对应症状就是：
+admin 登录进去后，在主界面的 Search 一片空白，会有一个红框，报 Indices 之类的错误，但是 Stream 界面里进去的话，去看去查日志都是是正常的。</p>
+<p>这个错误<strong>真的很罕见</strong>，以至于我都没来得及截图。只要你不瞎来，是永远也见不到这个错误的。</p>
+<p>当时我遇到这个错误原因是，我部署 Graylog 的时候，是边调试边接入日志数据流的。导致一个什么问题呢，当我认为这个服务已经调好了，可以推出去用的时候，Graylog 已经存了很多垃圾数据了，比如 Default Index Set 里面全是调试时留下来的垃圾日志。</p>
+<p>那么本着代码洁癖的想法，很自然就想保留设置并清空整个 Graylog 对吧。于是我直接用 curl + rm -rf 的方式先清空了 ES 的所有索引，然后重装了一遍Graylog（注意我操作的顺序），结果发现 Graylog 重装后，Graylog 的数据（不是 ES 的索引数据）居然没有清空！那我很自然地，重新在 Graylog 里清空所有的 Indices 和数据，在试图重新创建 Index 的时候，问题就他妈的来了：</p>
+<p>我新建的索引名字跟以前不一样，比如以前建立的索引，在“Index prefer”里面我可能命名为 a，也就是这个索引，在 ES 中的第一份 index 的“index_name”是“a_0”这个命名怎么看都过于随意。在删掉数据后，新建的 Index prefer 就命名 api，那么“index_name”就是 api_0 。</p>
+<p>还记得之前我们装的 MongoDB 吗，MongoDB 在 Graylog 套件里扮演的角色是储存所有配置，包括索引名。</p>
+<p>什么意思呢，Graylog 相当于是是身体， MongoDB 相当于是大脑，什么东西在哪里长啥样全靠 MongoDB 存档。由于我是直接通过 ES 的 API 删除的索引，同时还重装了一次 Graylog ，然后又洗档了一次 Indices 的数据，代表整个索引名录在 MongoDB 中实际上已经被操作得面目全非了，但是 MongoDB 不知道啊，你脑子咋知道你睡觉的时候发生了什么，导致 Graylog 问 MongoDB 拿索引名录——也就是查询自己有多少个索引的时候，MongoDB 提供的是新旧数据混合的名录，有我新建的，也有旧的被错误保留的。Graylog 拿着这份目录去跟 ES 交互，ES 说这里面有几个索引名不对，在我这里查不到啊，Graylog 就傻了，然后就出现了前面说到过的症状，<strong>“在主界面的 Search 一片空白，会有一个红框，报 Indices 之类的错误”</strong>。</p>
+<p>问题产生原因很简单，对应解决办法也很简单。解决问题的方法就是登陆 MongoDB，删掉不必要的索引名录就行了：
+<strong><code>mongo</code></strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-949932f9617e7f7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt=""></p>
+<p><strong><code>show dbs</code></strong> 这里会列出所有数据库，看到那个 graylog 没，那个是主角</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-be5743af0487b373.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/143/format/webp" alt=""></p>
+<p><strong><code>use graylog</code></strong> 切换到 graylog 数据库</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-90173bcc0e728b59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/185/format/webp" alt=""></p>
+<p><strong><code>show tables</code></strong> 看到那个 index_ranges 没，那个是存档 Index 名录的地方</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-5e0d68188ce4bb60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/302/format/webp" alt=""></p>
+<p><strong><code>db.index_ranges.find()</code></strong> 这条指令相当于select * ，列出当前表的所有数据</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-3d5bd5c342407111.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt=""></p>
+<p><strong><code>db.index_ranges.remove({'index_name':'a_0'})</code></strong> 注意这个写法，你 Remove 东西要有 key: value，比如这里用的是 index_name: xxx 这个，你也可以用“_id”</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-7fc915c37dcfbb62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/423/format/webp" alt=""></p>
+<p>删掉后有必要的话可以重启一次 Graylog-server ，这个错误就会消失了。</p>
+</li>
+<li>
+<h5 id="deflector-exists-as-an-index-and-is-not-an-alias">Deflector exists as an index and is not an alias.</h5>
+<p>这个问题只要不瞎调 ES，几乎是不会出现的。</p>
+<p>首先我们理解一下这个 Deflector。直接翻译是叫“变流器”，作用是什么呢？</p>
+<p>比如说 Graylog 里的 Indices 列表中，有一个 myIndex 名称的索引，Graylog 在设定这个索引的时候，会自动把第一个索引在 ES 中命名“myIndex_0”，如果发生了rotation（切割），那么下一个就会变成“myIndex_1”这样。</p>
+<p>那这种随着时间会越用越久，名字越切花样越多，肯定不能接受啊，所以 Graylog 会同时加上一个 alias。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19826636-7e60444d4a4f3049.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/373/format/webp" alt=""></p>
+</li>
+</ul>
+<blockquote>
+<p>具体的 alias 使用 <code>curl -X GET &quot;localhost:9200/*?pretty</code> 可以在 ES 里查到，通常是 “[索引名_deflector]” 的规律</p>
+</blockquote>
+<p>Graylog 对索引的交互操作——比如写数据，切割之类的，全部会根据 deflector 来指定，也就是 deflector 实际上是一个类似软链一样的昵称，用于指定哪一个索引是目前正在被激活使用的。
+前面我们反复提到，Graylog 希望全盘接管 ES 的索引功能，包括创建删除修改这些，如果你没禁止 ES 自动创建索引，也就是 ES 配置文件中的 <code>action.auto_create_index</code> 没有正确被设定，ES 就会自动为新进来的数据建立索引，然后就会出现个问题：ES 新建索引的时候可没那么多顾忌，来啥命名啥，万一不幸命中了 Graylog 的保留字段，也就是这种 “[索引名_deflector]” 格式的字段，Graylog 就会检测到，哪怕这个“索引名”并未重复，只要命中了 “_deflector” 这个格式，就会报上面那条错，“Deflector exists as an index and is not an alias”：“变流器当前作为索引名，而不是作为昵称存在。”</p>
+<blockquote>
+<p>重复看三遍，理解一下这句话：“ES 由于设置错误，根据传入的数据自动创建了一个 Index 名为“[索引名_deflector]”的索引，而这种命名模式是 Graylog 所不接受的，会自动检测出来且报错。”</p>
+</blockquote>
+<p>解决方法也很简单。
+<code>curl -X GET &quot;localhost:9200/*?pretty</code> 列出现在所有的索引
+<code>curl -X DELETE &quot;localhost:9200/×××_deflector?pretty</code> 删掉问题索引</p>
+<p>如果有必要的话，删掉后重启一次 Graylog 就可以了。</p>
+<p>不过某些时候，就算重启后，这个错误在 Graylog 页面上的 Notification 也很可能不会消失，不用管，直接点右上角的 × 关掉就行了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-05-10 20:32
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/graylog/">graylog</a>
+          <a href="/tags/log/">log</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/log/loki_ops/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">轻量级日志系统Loki部署</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/log/log-pilot_elasticsearch_kibana_ops/">
+            <span class="next-text nav-default">搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

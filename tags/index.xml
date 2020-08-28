@@ -6,10 +6,55 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 06 Jun 2020 21:08:30 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2020 19:01:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cicd</title>
+      <link>https://xiebiao.top/tags/cicd/</link>
+      <pubDate>Sun, 05 Jul 2020 19:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/cicd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jenkins</title>
+      <link>https://xiebiao.top/tags/jenkins/</link>
+      <pubDate>Sun, 05 Jul 2020 19:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/jenkins/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>code</title>
+      <link>https://xiebiao.top/tags/code/</link>
+      <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gitlab</title>
+      <link>https://xiebiao.top/tags/gitlab/</link>
+      <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/gitlab/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>drone</title>
+      <link>https://xiebiao.top/tags/drone/</link>
+      <pubDate>Wed, 01 Jul 2020 21:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/drone/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>database</title>
@@ -179,15 +224,6 @@
       <pubDate>Fri, 01 May 2020 19:11:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/ceph/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>code</title>
-      <link>https://xiebiao.top/tags/code/</link>
-      <pubDate>Wed, 08 Apr 2020 19:15:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/code/</guid>
       <description></description>
     </item>
     

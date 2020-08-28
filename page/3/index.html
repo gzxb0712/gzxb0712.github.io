@@ -46,7 +46,7 @@
 <meta property="og:description" content="gzxb0712&#39;s Blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://xiebiao.top/" />
-<meta property="og:updated_time" content="2020-06-06T21:08:30+00:00" />
+<meta property="og:updated_time" content="2020-07-05T19:01:30+00:00" />
 <meta itemprop="name" content="Bill World">
 <meta itemprop="description" content="gzxb0712&#39;s Blog">
 <meta name="twitter:card" content="summary"/>
@@ -118,115 +118,115 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/log/graylog_centos_install/">CentOS7 部署 Graylog3</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/database/memcached_install_ops/">Memcached 使用详解</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-05-10 20:32 </span>
+      <span class="post-time"> 2020-06-01 19:17 </span>
       <div class="post-category">
-          <a href="/categories/log/"> log </a>
+          <a href="/categories/database/"> database </a>
           </div>
-        <span class="more-meta"> 约 13702 字 </span>
-        <span class="more-meta"> 预计阅读 28 分钟 </span>
+        <span class="more-meta"> 约 2109 字 </span>
+        <span class="more-meta"> 预计阅读 5 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；
+      何为Memcached？ Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表
     </div>
     <div class="read-more">
-      <a href="/post/log/graylog_centos_install/" class="read-more-link">阅读更多</a>
+      <a href="/post/database/memcached_install_ops/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/log/log-pilot_elasticsearch_kibana_ops/">搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/middleware/rabbitmq_ops/">rabbitmq消息中间件部署</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-05-08 21:05 </span>
+      <span class="post-time"> 2020-05-17 20:03 </span>
       <div class="post-category">
-          <a href="/categories/log/"> log </a>
+          <a href="/categories/middleware/"> middleware </a>
           </div>
-        <span class="more-meta"> 约 3111 字 </span>
+        <span class="more-meta"> 约 3034 字 </span>
         <span class="more-meta"> 预计阅读 7 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集
+      简介 安装 环境依赖 1 yum install erlang -y 安装服务 1 2 3 4 cd /usr/src/ wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.4/rabbitmq-server-3.6.4-1.noarch.rpm yum install rabbitmq-server-3.6.4-1.noarch.rpm -y 启动测试 1 2 3 4 5 6 #启动服务 service rabbitmq-server start #查看服务状态 service rabbitmq-server status 配置管理 增加账号 1 2 3 4 5
     </div>
     <div class="read-more">
-      <a href="/post/log/log-pilot_elasticsearch_kibana_ops/" class="read-more-link">阅读更多</a>
+      <a href="/post/middleware/rabbitmq_ops/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/log/elk_centos7_install/">搭建 ELK 日志系统</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/middleware/kafka_ops/">kafka消息中间件部署</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-05-06 22:11 </span>
+      <span class="post-time"> 2020-05-16 20:01 </span>
       <div class="post-category">
-          <a href="/categories/log/"> log </a>
+          <a href="/categories/middleware/"> middleware </a>
           </div>
-        <span class="more-meta"> 约 2655 字 </span>
+        <span class="more-meta"> 约 1834 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      一、前言 1、Kafka简介 Kafka是一个开源的分布式消息引擎/消息中间件，同时Kafka也是一个流处理平台。Kakfa支持以发布/订阅的方
+    </div>
+    <div class="read-more">
+      <a href="/post/middleware/kafka_ops/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/middleware/codis_cluster_ops/">Codis分布式集群部署</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-05-15 19:15 </span>
+      <div class="post-category">
+          <a href="/categories/middleware/"> middleware </a>
+          </div>
+        <span class="more-meta"> 约 2860 字 </span>
         <span class="more-meta"> 预计阅读 6 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      国内加速 https://mirrors.huaweicloud.com/elasticsearch/ https://mirrors.huaweicloud.com/kibana/ 简介 ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进
+      前言 Codis 3.x 稳定版本已经很久没更新了，虽然有缺点也称不上完美但确实可以有效解决横向扩展问题。Redis 5.0 因为所谓的 政治正确 把 master-slave 名字修改为 master-replica 上了开
     </div>
     <div class="read-more">
-      <a href="/post/log/elk_centos7_install/" class="read-more-link">阅读更多</a>
+      <a href="/post/middleware/codis_cluster_ops/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/log/k8s_efk_install/">K8s 上搭建 EFK 日志系统</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/log/loki_ops/">轻量级日志系统Loki部署</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-05-05 21:11 </span>
+      <span class="post-time"> 2020-05-11 20:08 </span>
       <div class="post-category">
           <a href="/categories/log/"> log </a>
           </div>
-        <span class="more-meta"> 约 13246 字 </span>
-        <span class="more-meta"> 预计阅读 27 分钟 </span>
+        <span class="more-meta"> 约 3646 字 </span>
+        <span class="more-meta"> 预计阅读 8 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      参考博客 https://www.qikqiak.com/post/install-efk-stack-on-k8s/ http://www.mydlq.club/article/13/ https://www.cnblogs.com/leozhanggg/p/12700363.html Kubernetes 中比较流行的日志收集解决方案是 Elasticsearch、Fluentd 和 Kibana（EFK）技术栈，也是官方现在比较推荐
+      现实中的需求 公司的容器云运行的应用或某一个节点出现了问题，解决的思路 问题首先被prometheus监控 1、metric是来说明当前或者历史达
     </div>
     <div class="read-more">
-      <a href="/post/log/k8s_efk_install/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/storage/centos_nfs_ops/">CentOS 7 安装配置 NFS</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-05-02 19:11 </span>
-      <div class="post-category">
-          <a href="/categories/storage/"> storage </a>
-          </div>
-        <span class="more-meta"> 约 3199 字 </span>
-        <span class="more-meta"> 预计阅读 7 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例
-    </div>
-    <div class="read-more">
-      <a href="/post/storage/centos_nfs_ops/" class="read-more-link">阅读更多</a>
+      <a href="/post/log/loki_ops/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>centos7安装gitlab社区中文版 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cicd/gitlab_centos_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="centos7安装gitlab社区中文版" />
+<meta property="og:description" content="之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cicd/gitlab_centos_ops/" />
+<meta property="article:published_time" content="2020-07-02T22:19:30+00:00" />
+<meta property="article:modified_time" content="2020-07-02T22:19:30+00:00" />
+<meta itemprop="name" content="centos7安装gitlab社区中文版">
+<meta itemprop="description" content="之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官">
+<meta itemprop="datePublished" content="2020-07-02T22:19:30+00:00" />
+<meta itemprop="dateModified" content="2020-07-02T22:19:30+00:00" />
+<meta itemprop="wordCount" content="1253">
+
+
+
+<meta itemprop="keywords" content="gitlab,code,cicd," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="centos7安装gitlab社区中文版"/>
+<meta name="twitter:description" content="之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">centos7安装gitlab社区中文版</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-02 22:19 </span>
+        <div class="post-category">
+            <a href="/categories/cicd/"> cicd </a>
+            </div>
+          <span class="more-meta"> 约 1253 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#依赖文件">依赖文件</a></li>
+    <li><a href="#自启服务">自启服务</a>
+      <ul>
+        <li><a href="#开放端口">开放端口</a></li>
+      </ul>
+    </li>
+    <li><a href="#下载镜像">下载镜像</a></li>
+    <li><a href="#安装结果">安装结果</a></li>
+    <li><a href="#配置主机">配置主机</a>
+      <ul>
+        <li><a href="#重启并启动">重启并启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#登录访问">登录访问</a>
+      <ul>
+        <li><a href="#修改中文">修改中文</a></li>
+      </ul>
+    </li>
+    <li><a href="#中文汉化">中文汉化</a>
+      <ul>
+        <li><a href="#采用方式">采用方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#配置邮箱">配置邮箱</a></li>
+    <li><a href="#到此完结">到此完结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li>之前公司内部一直用的 <code>SVN</code> ，项目多了，感觉也不好管理。所以这里进行做下 <code>Git</code> 学习以及使用（PS：之前自己也用过 Github）。</li>
+</ul>
+<blockquote>
+<p>服务器最低配置要求（官方）：2 核 4 G</p>
+</blockquote>
+<ul>
+<li>这里不详细累赘描述 Centos 7 如何安装了，自行网上搜索教程安装即可。</li>
+<li>配置 IP : <a href="https://izpan.com/centos-7-config-static-ip.html">Centos 7 配置静态IP</a></li>
+</ul>
+<p>以上是准备工作；</p>
+<h2 id="依赖文件">依赖文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum -y install policycoreutils policycoreutils-python openssh-server openssh-clients postfix
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="自启服务">自启服务</h2>
+<ul>
+<li>开启并设置自启 <code>postfix</code> 服务，<code>postfix</code> 支持 <code>Gitlab</code> 发信功能</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable postfix &amp;&amp; systemctl start postfix
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="开放端口">开放端口</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --zone=public --add-port=80/tcp --permanent # 添加 80 端口
+firewall-cmd --reload # 重载
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="下载镜像">下载镜像</h2>
+<ul>
+<li>Centos 6 : <a href="https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el6/">清华大学镜像站</a></li>
+<li>Centos 7 : <a href="https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/">清华大学镜像站</a></li>
+</ul>
+<blockquote>
+<p>我这里选择的版本是：12.0.3 -&gt; (gitlab-ce-12.0.3-ce.0.el7.x86_64.rpm)</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-12.0.3-ce.0.el7.x86_64.rpm # 下载
+rpm -i gitlab-ce-12.0.3-ce.0.el7.x86_64.rpm # 安装
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装结果">安装结果</h2>
+<ul>
+<li>这是安装后的结果输出</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">warning: gitlab-ce-12.0.3-ce.0.el7.x86_64.rpm: Header V4 RSA/SHA1 Signature, key ID f27eab47: NOKEY
+It looks like GitLab has not been configured yet; skipping the upgrade script.
+
+       *.                  *.
+      ***                 ***
+     *****               *****
+    .******             *******
+    ********            ********
+   ,,,,,,,,,***********,,,,,,,,,
+  ,,,,,,,,,,,*********,,,,,,,,,,,
+  .,,,,,,,,,,,*******,,,,,,,,,,,,
+      ,,,,,,,,,*****,,,,,,,,,.
+         ,,,,,,,****,,,,,,
+            .,,,***,,,,
+                ,*,.
+
+     _______ __  __          __
+    / ____(_) /_/ /   ____ _/ /_
+   / / __/ / __/ /   / __ `/ __ 
+  / /_/ / / /_/ /___/ /_/ / /_/ /
+  ____/_/__/_____/__,_/_.___/
+
+Thank you for installing GitLab!
+GitLab was unable to detect a valid hostname for your instance.
+Please configure a URL for your GitLab instance by setting `external_url`
+configuration in /etc/gitlab/gitlab.rb file.
+Then, you can start your GitLab instance by running the following command:
+  sudo gitlab-ctl reconfigure
+
+For a comprehensive list of configuration options please see the Omnibus GitLab readme
+https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置主机">配置主机</h2>
+<ul>
+<li>在安装结果中，也提示到了，无法检测到你的实例有效主机名，需要进行配置；</li>
+<li>针对 <code>external_url</code> 进行配置</li>
+<li>详细的配置项可参考配置说明：<a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md">https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/gitlab/gitlab.rb
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>i 进行编辑</strong></li>
+<li>找到 <code>external_url</code></li>
+</ul>
+<blockquote>
+<p>默认的配置说明</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## GitLab URL
+##! URL on which GitLab will be reachable.
+##! For more details on configuring external_url see:
+##! https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
+external_url &#39;http://gitlab.example.com&#39;
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>将 <code>http://gitlab.example.com</code> 改成 你的服务器 <code>IP + 端口</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">external_url &#39;http://192.158.1.58&#39;
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>退出编辑器的方法：Esc -&gt; Shift+: -&gt; 输入wq-&gt; 回车</strong></li>
+</ul>
+<h3 id="重启并启动">重启并启动</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo gitlab-ctl reconfigure
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>启动日志比较长，因为要启动的服务比较多，请耐心等待</li>
+<li>启动完成后会看到如下结果</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Running handlers:
+Running handlers complete
+Chef Client finished, 513/1343 resources updated in 05 minutes 36 seconds
+gitlab Reconfigured!
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="登录访问">登录访问</h2>
+<ul>
+<li>192.168.1.58 -&gt; 我们刚刚改的 <code>external_url</code> 地址</li>
+</ul>
+<p><a href="https://static.izpan.com/wp-content/uploads/2019/08/1f2d3b41525a79.jpg"><img src="https://static.izpan.com/wp-content/uploads/2019/08/1f2d3b41525a79.jpg" alt=""></a></p>
+<ul>
+<li>首次进去需要进行修改 <code>root</code> 密码</li>
+</ul>
+<p><a href="https://static.izpan.com/wp-content/uploads/2019/08/1751a94497b13d.jpg"><img src="https://static.izpan.com/wp-content/uploads/2019/08/1751a94497b13d.jpg" alt=""></a></p>
+<ul>
+<li>改完后就可以登录进来了。 <code>username : root</code></li>
+</ul>
+<h3 id="修改中文">修改中文</h3>
+<ul>
+<li>点击右上角头像 -&gt; Settings -&gt; Preferences -&gt; Localization -&gt; Language 选择 <code>简体中文</code> -&gt; Save changes</li>
+</ul>
+<blockquote>
+<p>这不是一个很完善的中文(系统自带)</p>
+</blockquote>
+<p><a href="https://static.izpan.com/wp-content/uploads/2019/08/1eeba479f9d3b5.jpg"><img src="https://static.izpan.com/wp-content/uploads/2019/08/1eeba479f9d3b5.jpg" alt=""></a></p>
+<hr>
+<h2 id="中文汉化">中文汉化</h2>
+<ul>
+<li><strong>上面已经设置了中文，部分还是会存在英文的，不妨碍使用，如有需要的，可针对进行中文汉化；纯如有需要的情况下操作，不需要则直接忽略</strong></li>
+</ul>
+<blockquote>
+<p>GitLab 中文社区版：<a href="https://gitlab.com/xhang/gitlab">https://gitlab.com/xhang/gitlab</a></p>
+</blockquote>
+<h3 id="采用方式">采用方式</h3>
+<ul>
+<li>我采用的是下载的方式进行操作的，因为 <code>git clone</code> 太慢了</li>
+<li>我下载的是 <code>gitlab-12-0-stable-zh.tar.gz</code></li>
+</ul>
+<h4 id="解压">解压</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">tar -xvf gitlab-12-0-stable-zh.tar.gz # 解压
+cat gitlab-12-0-stable-zh/VERSION # 查看版本 12.0.0
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="备份">备份</h4>
+<ul>
+<li>主要是备份原版，如替换有问题，可及时还原</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cp -r /opt/gitlab/embedded/service/gitlab-rails{,.ori}
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="覆盖">覆盖</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">/bin/cp -rf gitlab-12-0-stable-zh/* /opt/gitlab/embedded/service/gitlab-rails/
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="加载配置">加载配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo gitlab-ctl reconfigure
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="重启">重启</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo gitlab-ctl restart
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>重启日志</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ok: run: alertmanager: (pid 22872) 0s
+ok: run: gitaly: (pid 22887) 0s
+ok: run: gitlab-monitor: (pid 22903) 0s
+ok: run: gitlab-workhorse: (pid 22906) 1s
+ok: run: grafana: (pid 22917) 1s
+ok: run: logrotate: (pid 22927) 0s
+ok: run: nginx: (pid 22937) 0s
+ok: run: node-exporter: (pid 22944) 1s
+ok: run: postgres-exporter: (pid 22953) 0s
+ok: run: postgresql: (pid 22964) 1s
+ok: run: prometheus: (pid 22973) 0s
+ok: run: redis: (pid 22990) 1s
+ok: run: redis-exporter: (pid 22995) 0s
+ok: run: sidekiq: (pid 23005) 1s
+ok: run: unicorn: (pid 23017) 0s
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="再次访问">再次访问</h4>
+<ul>
+<li>再次访问，就能看到中文界面了(可跟之前的图进行对比)</li>
+</ul>
+<p><a href="https://static.izpan.com/wp-content/uploads/2019/08/1b9bac3032d57d.jpg"><img src="https://static.izpan.com/wp-content/uploads/2019/08/1b9bac3032d57d.jpg" alt=""></a></p>
+<h2 id="配置邮箱">配置邮箱</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/gitlab/gitlab.rb
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## GitLab User Settings
+user[&#39;git_user_name&#39;] = &#34;izpan[No Reply]&#34;
+user[&#39;git_user_email&#39;] = &#34;service@izpan.com&#34;
+
+### Email Settings
+gitlab_rails[&#39;gitlab_email_enabled&#39;] = true
+gitlab_rails[&#39;gitlab_email_from&#39;] = &#39;service@izpan.com&#39;
+
+### GitLab email server settings
+###! Docs: https://docs.gitlab.com/omnibus/settings/smtp.html
+###! **Use smtp instead of sendmail/postfix.**
+
+gitlab_rails[&#39;smtp_enable&#39;] = true
+gitlab_rails[&#39;smtp_address&#39;] = &#34;smtp.exmail.qq.com&#34;
+gitlab_rails[&#39;smtp_port&#39;] = 465
+gitlab_rails[&#39;smtp_user_name&#39;] = &#34;service@izpan.com&#34;
+gitlab_rails[&#39;smtp_password&#39;] = &#34;xxx&#34;
+gitlab_rails[&#39;smtp_domain&#39;] = &#34;smtp.qq.com&#34;
+gitlab_rails[&#39;smtp_authentication&#39;] = &#34;plain&#34;
+gitlab_rails[&#39;smtp_enable_starttls_auto&#39;] = true
+gitlab_rails[&#39;smtp_tls&#39;] = true
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="到此完结">到此完结</h2>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-07-02 22:19
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/gitlab/">gitlab</a>
+          <a href="/tags/code/">code</a>
+          <a href="/tags/cicd/">cicd</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cicd/k8s_gitlab_ops/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">k8s安装gitlab社区中文版</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cicd/drone1_install_ops/">
+            <span class="next-text nav-default">drone及gogs搭建自己的CI/CD系统</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

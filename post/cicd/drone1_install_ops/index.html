@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>drone及gogs搭建自己的CI/CD系统 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="drone是一个基于容器的本地持续交付平台，和Jenkins是差不多的，然后配合轻量级的gogs来作为git管理，都是基于golang开发的" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cicd/drone1_install_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="drone及gogs搭建自己的CI/CD系统" />
+<meta property="og:description" content="drone是一个基于容器的本地持续交付平台，和Jenkins是差不多的，然后配合轻量级的gogs来作为git管理，都是基于golang开发的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cicd/drone1_install_ops/" />
+<meta property="article:published_time" content="2020-07-01T21:03:30+00:00" />
+<meta property="article:modified_time" content="2020-07-01T21:03:30+00:00" />
+<meta itemprop="name" content="drone及gogs搭建自己的CI/CD系统">
+<meta itemprop="description" content="drone是一个基于容器的本地持续交付平台，和Jenkins是差不多的，然后配合轻量级的gogs来作为git管理，都是基于golang开发的">
+<meta itemprop="datePublished" content="2020-07-01T21:03:30+00:00" />
+<meta itemprop="dateModified" content="2020-07-01T21:03:30+00:00" />
+<meta itemprop="wordCount" content="1781">
+
+
+
+<meta itemprop="keywords" content="drone,cicd," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="drone及gogs搭建自己的CI/CD系统"/>
+<meta name="twitter:description" content="drone是一个基于容器的本地持续交付平台，和Jenkins是差不多的，然后配合轻量级的gogs来作为git管理，都是基于golang开发的"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">drone及gogs搭建自己的CI/CD系统</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-01 21:03 </span>
+        <div class="post-category">
+            <a href="/categories/cicd/"> cicd </a>
+            </div>
+          <span class="more-meta"> 约 1781 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装gogs和drone">安装gogs和drone</a>
+      <ul>
+        <li><a href="#最新drone1gogs-docker-compose配置文件">最新drone1+gogs docker-compose配置文件</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#上传源码">上传源码</a></li>
+    <li><a href="#开始构建">开始构建</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>drone是一个基于容器的本地持续交付平台，和Jenkins是差不多的，然后配合轻量级的gogs来作为git管理，都是基于golang开发的很符合我的需求，我们来把它们结合作为一个完整的CI、CD平台。</p>
+<p>首先我们要先安装docker，上次的篇幅我们已经说过了我就不赘述了。</p>
+<p>需要的东西有：linux，docker，docker-compose，drone，gogs，git等。</p>
+<h2 id="安装gogs和drone">安装gogs和drone</h2>
+<h3 id="最新drone1gogs-docker-compose配置文件">最新drone1+gogs docker-compose配置文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="err">
+</span><span class="err"></span><span class="c">#https://github.com/alicfeng/gogs-drone-docker/blob/1.0/docker-compose.yml</span><span class="err">
+</span><span class="err"></span><span class="c">##裸机mysql以及gogs方式</span><span class="err">
+</span><span class="err"></span>version: <span class="s1">&#39;3&#39;</span><span class="err">
+</span><span class="err"></span>services:<span class="err">
+</span><span class="err"></span>  drone-server:<span class="err">
+</span><span class="err"></span>    image: drone/drone:1<span class="err">
+</span><span class="err"></span>    container_name: drone-server<span class="err">
+</span><span class="err"></span>    ports:<span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;8000:80&#34;</span><span class="err">
+</span><span class="err"></span>        <span class="c1">#      - 8843:443</span><span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;9000:9000&#34;</span><span class="err">
+</span><span class="err"></span>    extra_hosts:<span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;git.test.com:192.168.12.228&#34;</span>    <span class="err">
+</span><span class="err"></span>        <span class="c1"># stdin_open: true</span><span class="err">
+</span><span class="err"></span>        <span class="c1">#tty: true</span>    <span class="err">
+</span><span class="err"></span>    volumes:<span class="err">
+</span><span class="err"></span>      - /data/drone:/var/lib/drone/<span class="err">
+</span><span class="err"></span>      - /var/run/docker.sock:/var/run/docker.sock<span class="err">
+</span><span class="err"></span>    environment:<span class="err">
+</span><span class="err"></span>            <span class="c1">#  - DRONE_OPEN=true</span><span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_AGENTS_ENABLED</span><span class="o">=</span><span class="nb">true</span>  <span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_SERVER_HOST</span><span class="o">=</span>192.168.12.228:8000<span class="err">
+</span><span class="err"></span>        <span class="c1">#- DRONE_SERVER_HOST=drone-server:8000</span><span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_LOGS_DEBUG</span><span class="o">=</span>true<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_LOGS_TRACE</span><span class="o">=</span>true<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_GIT_ALWAYS_AUTH</span><span class="o">=</span>false<span class="err">
+</span><span class="err"></span>        <span class="c1">#   - DRONE_GOGS=true</span><span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_GOGS_SKIP_VERIFY</span><span class="o">=</span>false<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_GOGS_SERVER</span><span class="o">=</span>http://192.168.12.228:3000<span class="err">
+</span><span class="err"></span>        <span class="c1">#   - DRONE_PROVIDER=gogs</span><span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_DATABASE_DATASOURCE</span><span class="o">=</span>root:xxx@tcp<span class="o">(</span>192.168.12.228:3306<span class="o">)</span>/drone?parseTime<span class="o">=</span>true<span class="err">
+</span><span class="err"></span>        <span class="c1">#- DRONE_DATABASE_DATASOURCE=/var/lib/drone/drone.sqlite</span><span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_DATABASE_DRIVER</span><span class="o">=</span>mysql<span class="err">
+</span><span class="err"></span>        <span class="c1">#- DRONE_DATABASE_DRIVER=sqlite3</span><span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_SERVER_PROTO</span><span class="o">=</span>http<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_RPC_SECRET</span><span class="o">=</span>ALQU2M0Kdptxxx<span class="err">
+</span><span class="err"></span>        <span class="c1">#      - DRONE_SECRET=ALQU2M0Kdptxxx</span><span class="err">
+</span><span class="err"></span>      - <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai  <span class="err">
+</span><span class="err"></span>    restart: always    <span class="err">
+</span><span class="err"></span>    <span class="c1">#https://docs.drone.io/runner/docker/installation/linux/</span>    <span class="err">
+</span><span class="err"></span>  drone-runner:<span class="err">
+</span><span class="err"></span>    image: drone/drone-runner-docker:1<span class="err">
+</span><span class="err"></span>    container_name: drone-runner<span class="err">
+</span><span class="err"></span>    ports:<span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;30000:3000&#34;</span><span class="err">
+</span><span class="err"></span>    extra_hosts:<span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;git.test.com:192.168.12.228&#34;</span>       <span class="err">
+</span><span class="err"></span>        <span class="c1">#    stdin_open: true</span><span class="err">
+</span><span class="err"></span>       <span class="c1"># tty: true</span>    <span class="err">
+</span><span class="err"></span>    depends_on:<span class="err">
+</span><span class="err"></span>      - drone-server<span class="err">
+</span><span class="err"></span>    volumes:<span class="err">
+</span><span class="err"></span>      - /var/run/docker.sock:/var/run/docker.sock        <span class="err">
+</span><span class="err"></span>      - /data/drone/:/var/lib/drone  <span class="err">
+</span><span class="err"></span>    environment:<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_RPC_PROTO</span><span class="o">=</span>http      <span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_RPC_HOST</span><span class="o">=</span>192.168.12.228:8000<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_RPC_SECRET</span><span class="o">=</span>ALQU2M0Kdptxxx<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_DEBUG</span><span class="o">=</span>true<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_TRACE</span><span class="o">=</span>true<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_RUNNER_MAX_PROCS</span><span class="o">=</span><span class="m">10</span><span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_RUNNER_NAME</span><span class="o">=</span>drone-runner  <span class="err">
+</span><span class="err"></span>      - <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai<span class="err">
+</span><span class="err"></span>      - <span class="nv">DRONE_RUNNER_CAPACITY</span><span class="o">=</span><span class="m">5</span> <span class="err">
+</span><span class="err"></span>    restart: always        <span class="err">
+</span><span class="err">
+</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="c">##容器mysql以及gogs方式</span><span class="err">
+</span><span class="err"></span>  gogs:<span class="err">
+</span><span class="err"></span>    image: gogs/gogs:latest<span class="err">
+</span><span class="err"></span>    ports:<span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;10022:22&#34;</span><span class="err">
+</span><span class="err"></span>      - <span class="s2">&#34;3000:3000&#34;</span><span class="err">
+</span><span class="err"></span>    volumes:<span class="err">
+</span><span class="err"></span>      - /data/gogs:/data<span class="err">
+</span><span class="err"></span>    depends_on:<span class="err">
+</span><span class="err"></span>      - mysql<span class="err">
+</span><span class="err"></span>  mysql:<span class="err">
+</span><span class="err"></span>    image: mysql:5.7.31<span class="err">
+</span><span class="err"></span>    volumes:<span class="err">
+</span><span class="err"></span>      - /data/mysql:/var/lib/mysql<span class="err">
+</span><span class="err"></span>      - /var/run/docker.sock:/var/run/docker.sock<span class="err">
+</span><span class="err"></span>    ports:<span class="err">
+</span><span class="err"></span>      - 4406:3306<span class="err">
+</span><span class="err"></span>    command: --character-set-server<span class="o">=</span>utf8mb4 --collation-server<span class="o">=</span>utf8mb4_unicode_ci<span class="err">
+</span><span class="err"></span>    environment:<span class="err">
+</span><span class="err"></span>      MYSQL_ROOT_PASSWORD: pass<span class="err">
+</span><span class="err"></span>      MYSQL_DATABASE: gogs<span class="err">
+</span><span class="err"></span>      MYSQL_USER: gogs<span class="err">
+</span><span class="err"></span>      MYSQL_PASSWORD: pass<span class="err">
+</span><span class="err"></span>      TZ: Asia/Shanghai<span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>配合<a href="https://www.cnblogs.com/rongfengliang/p/9963311.html">荣锋亮大哥</a>的yml文件和docker-compose我们可以很容易安装他们：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">version: &#39;3&#39;
+services:
+  drone-server:
+    image: drone/drone:latest
+    ports:
+      - &#34;8080:80&#34;
+      - 8843:443
+      - 9000
+    volumes:
+      - ./drone:/var/lib/drone/
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_OPEN=true
+      - DRONE_SERVER_HOST=drone-server
+      - DRONE_DEBUG=true
+      - DRONE_GIT_ALWAYS_AUTH=false
+      - DRONE_GOGS=true
+      - DRONE_GOGS_SKIP_VERIFY=false
+      - DRONE_GOGS_SERVER=http://gogs:3000
+      - DRONE_PROVIDER=gogs
+      - DRONE_DATABASE_DATASOURCE=/var/lib/drone/drone.sqlite
+      - DRONE_DATABASE_DRIVER=sqlite3
+      - DRONE_SERVER_PROTO=http
+      - DRONE_RPC_SECRET=ALQU2M0KdptXUdTPKcEw
+      - DRONE_SECRET=ALQU2M0KdptXUdTPKcEw
+  gogs:
+    image: gogs/gogs:latest
+    ports:
+      - &#34;10022:22&#34;
+      - &#34;3000:3000&#34;
+    volumes:
+      - ./data/gogs:/data
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7.16
+    volumes:
+      - ./gogs/mysql:/var/lib/mysql
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 3308:3306
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: gogs
+      MYSQL_USER: gogs
+      MYSQL_PASSWORD: pass
+      TZ: Asia/Shanghai
+  drone-agent:
+    image: drone/agent:latest
+    depends_on:
+      - drone-server
+    environment:
+      - DRONE_RPC_SERVER=http://drone-server
+      - DRONE_RPC_SECRET=ALQU2M0KdptXUdTPKcEw
+      - DRONE_DEBUG=true
+      - DOCKER_HOST=tcp://docker-bind:2375
+      - DRONE_SERVER=drone-server:9000
+      - DRONE_SECRET=ALQU2M0KdptXUdTPKcEw
+      - DRONE_MAX_PROCS=5
+  docker-bind:
+     image: docker:dind
+     privileged: true
+    #  command: --storage-driver=overlay
+</code></pre></td></tr></table>
+</div>
+</div><p>我们创建一个存放docker-compose.yml文件的目录比如就叫gogs，然后我们把这些yml保存成docker-compose.yml，然后执行docker-compose来安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ docker-compose up -d
+</code></pre></td></tr></table>
+</div>
+</div><p>配合yml文件，我们就安装好了drone-server和drone-agent还有gogs，然后我们用浏览器打开<code>http://localhost:3000/</code>来进入gogs并初始化它。</p>
+<p><img src="https://i.loli.net/2019/03/02/5c7a4622758c4.png" alt="gogs初始化1" title="gogs初始化1"></p>
+<p>域名和应用URL记得一样接着我们创建一个管理员用户，然后其他的都默认，点击立即安装完成。</p>
+<p><img src="https://i.loli.net/2019/03/02/5c7a46de1ddff.png" alt="gogs初始化2" title="gogs初始化2"></p>
+<p>初始化成功之后我们可以在gogs里边创建一个仓库，然后登陆drone。</p>
+<h1 id="drone">drone</h1>
+<p>打开浏览器输入<code>http://localhost/</code>直接进入drone，密码是gogs的你的刚刚的账户和密码。</p>
+<p><img src="https://i.loli.net/2019/03/02/5c7a495a6c7a1.png" alt="drone" title="drone"></p>
+<p>我们会看到一个刚刚创建的仓库，激活它！</p>
+<p>激活之后，我们回到gogs那边，仓库的设置里边的webhook应该已经配置好了</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f4e9198fb6.png" alt="web hook" title="web hook"></p>
+<p>我们可以测试web hook，如果没有问题的话，应该会提示成功。</p>
+<h2 id="上传源码">上传源码</h2>
+<p>测试没有问题之后，我们初始化我们的代码文件夹为git仓库，然后push到gogos上边</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f4f152f320.png" alt="test仓库" title="test仓库"></p>
+<p>然后为你的仓库加上<code>.drone.yml</code>配置文件，drone-server会自动读取这个文件进行CI、CD操作等。以下这个是我们的示例文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">kind: pipeline
+name: demo
+
+steps:
+  - name: build
+    image: golang:1.11.4
+    commands:
+      - pwd
+      - go version
+      - go build .
+      - go test demo/util
+
+  #  - name: frontend
+  #    image: node:6
+  #    commands:
+  #      - npm install
+  #      - npm test
+
+  - name: publish
+    image: plugins/docker:latest
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: example/demo
+      tags: latest
+
+  - name: deploy
+    image: appleboy/drone-ssh
+    pull: true
+    settings:
+      host: example.me
+      user: root
+      key:
+        from_secret: deploy_key
+      script:
+        - cd /data
+        - mkdir app/
+        - cd /data/app
+        - docker rmi -f example/demo
+        - echo &#34;login docker&#34;
+        - echo &#34;login success, pulling...&#34;
+        - docker pull example/demo:latest
+        - echo &#34;image running&#34;
+        - docker run -p 8088:8088 -d example/demo
+        - echo &#34;run success&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>我们首先进行简单的golang build和test操作然后根据Dockerfile文件把我们的程序构建成docker镜像，接着上传到docker hub中，然后通过drone-ssh插件部署这个镜像。</p>
+<h2 id="开始构建">开始构建</h2>
+<p>有了配置文件之后，推送代码我们就可以去drone查看构建进度：</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f655ba2519.png" alt="drone" title="drone"></p>
+<h1 id="drone的设置">drone的设置</h1>
+<p>在进入drone的时候，选择一个项目我们可以进行一些必要的设置，比如配置secrets，定时任务和徽章等等。</p>
+<p>比如配置文件需要的密钥，用户名和密码，一些环境变量都可以在secrets设置，构建状态徽章可以在你的项目README.md文件加上去。</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f66a50f9b1.png" alt="设置" title="设置"></p>
+<p>项目加上徽章：</p>
+<p><img src="https://i.loli.net/2019/03/06/5c7f66ed1d946.png" alt="徽章" title="徽章"></p>
+<p><a href="https://github.com/nagaame/drone-golang-example">示例代码</a>，本文完。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-07-01 21:03
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/drone/">drone</a>
+          <a href="/tags/cicd/">cicd</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cicd/gitlab_centos_ops/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">centos7安装gitlab社区中文版</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/database/tidb_install_ops/">
+            <span class="next-text nav-default">TiDB 4.0 安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

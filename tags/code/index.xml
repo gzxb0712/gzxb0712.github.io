@@ -6,10 +6,28 @@
     <description>Recent content in code on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 08 Apr 2020 19:15:30 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2020 19:05:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>k8s安装gitlab社区中文版</title>
+      <link>https://xiebiao.top/post/cicd/k8s_gitlab_ops/</link>
+      <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cicd/k8s_gitlab_ops/</guid>
+      <description>参考： https://www.qikqiak.com/post/gitlab-install-on-k8s/ https://i4t.com/4373.html Gitlab官方提供了 Helm 的方式在 Kubernetes 集群中来快速安装，但是在使用的过程中发现 Helm 提供的 Chart 包中有很多其他额外的配置，所以我们这里使用自定</description>
+    </item>
+    
+    <item>
+      <title>centos7安装gitlab社区中文版</title>
+      <link>https://xiebiao.top/post/cicd/gitlab_centos_ops/</link>
+      <pubDate>Thu, 02 Jul 2020 22:19:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cicd/gitlab_centos_ops/</guid>
+      <description>之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官</description>
+    </item>
     
     <item>
       <title>sonarqube8 搭建使用</title>

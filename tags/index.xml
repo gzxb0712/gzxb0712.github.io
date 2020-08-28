@@ -6,10 +6,64 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 17 May 2020 20:03:30 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2020 21:08:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>database</title>
+      <link>https://xiebiao.top/tags/database/</link>
+      <pubDate>Sat, 06 Jun 2020 21:08:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TiDB</title>
+      <link>https://xiebiao.top/tags/TiDB/</link>
+      <pubDate>Sat, 06 Jun 2020 21:08:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/TiDB/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>https://xiebiao.top/tags/Redis/</link>
+      <pubDate>Fri, 05 Jun 2020 21:09:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/Redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://xiebiao.top/tags/MySQL/</link>
+      <pubDate>Thu, 04 Jun 2020 21:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/MySQL/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MongoDB</title>
+      <link>https://xiebiao.top/tags/MongoDB/</link>
+      <pubDate>Tue, 02 Jun 2020 20:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/MongoDB/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>memcached</title>
+      <link>https://xiebiao.top/tags/memcached/</link>
+      <pubDate>Mon, 01 Jun 2020 19:17:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/memcached/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>middleware</title>

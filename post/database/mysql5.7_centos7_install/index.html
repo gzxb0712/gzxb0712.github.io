@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>MySQL 5.7 部署及使用 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="本文测试环境： CentOS 7 64-bit Minimal MySQL 5.7 配置 yum 源 在 https://dev.mysql.com/downloads/repo/yum/ 找到 yum 源 rpm 安装包 rpm 安装包 安装 mysql 源 1 2 3 4 5 # 下载 shell&amp;gt; wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm # 安装 mysql 源 shell&amp;gt; yum localinstall mysql57-community-release-el7-11.noarch.rpm 用下面的命令检查 mysql 源是否安装成" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/database/mysql5.7_centos7_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="MySQL 5.7 部署及使用" />
+<meta property="og:description" content="本文测试环境： CentOS 7 64-bit Minimal MySQL 5.7 配置 yum 源 在 https://dev.mysql.com/downloads/repo/yum/ 找到 yum 源 rpm 安装包 rpm 安装包 安装 mysql 源 1 2 3 4 5 # 下载 shell&gt; wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm # 安装 mysql 源 shell&gt; yum localinstall mysql57-community-release-el7-11.noarch.rpm 用下面的命令检查 mysql 源是否安装成" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/database/mysql5.7_centos7_install/" />
+<meta property="article:published_time" content="2020-06-03T20:05:30+00:00" />
+<meta property="article:modified_time" content="2020-06-03T20:05:30+00:00" />
+<meta itemprop="name" content="MySQL 5.7 部署及使用">
+<meta itemprop="description" content="本文测试环境： CentOS 7 64-bit Minimal MySQL 5.7 配置 yum 源 在 https://dev.mysql.com/downloads/repo/yum/ 找到 yum 源 rpm 安装包 rpm 安装包 安装 mysql 源 1 2 3 4 5 # 下载 shell&gt; wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm # 安装 mysql 源 shell&gt; yum localinstall mysql57-community-release-el7-11.noarch.rpm 用下面的命令检查 mysql 源是否安装成">
+<meta itemprop="datePublished" content="2020-06-03T20:05:30+00:00" />
+<meta itemprop="dateModified" content="2020-06-03T20:05:30+00:00" />
+<meta itemprop="wordCount" content="822">
+
+
+
+<meta itemprop="keywords" content="MySQL,database," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL 5.7 部署及使用"/>
+<meta name="twitter:description" content="本文测试环境： CentOS 7 64-bit Minimal MySQL 5.7 配置 yum 源 在 https://dev.mysql.com/downloads/repo/yum/ 找到 yum 源 rpm 安装包 rpm 安装包 安装 mysql 源 1 2 3 4 5 # 下载 shell&gt; wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm # 安装 mysql 源 shell&gt; yum localinstall mysql57-community-release-el7-11.noarch.rpm 用下面的命令检查 mysql 源是否安装成"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">MySQL 5.7 部署及使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-06-03 20:05 </span>
+        <div class="post-category">
+            <a href="/categories/database/"> database </a>
+            </div>
+          <span class="more-meta"> 约 822 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#配置-yum-源">配置 yum 源</a></li>
+    <li><a href="#安装-mysql">安装 MySQL</a></li>
+    <li><a href="#启动-mysql-服务">启动 MySQL 服务</a></li>
+    <li><a href="#设置开机启动">设置开机启动</a></li>
+    <li><a href="#修改-root-本地账户密码">修改 root 本地账户密码</a></li>
+    <li><a href="#添加远程登录用户">添加远程登录用户</a></li>
+    <li><a href="#设置默认编码为-utf8">设置默认编码为 utf8</a></li>
+    <li><a href="#默认配置文件路径">默认配置文件路径：</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>本文测试环境：</p>
+<ul>
+<li>CentOS 7 64-bit Minimal</li>
+<li>MySQL 5.7</li>
+</ul>
+<h2 id="配置-yum-源">配置 yum 源</h2>
+<p>在 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fdev.mysql.com%2Fdownloads%2Frepo%2Fyum%2F">https://dev.mysql.com/downloads/repo/yum/</a> 找到 yum 源 rpm 安装包</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1458376-6c3dece1d8bd0650.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1193/format/webp" alt=""></p>
+<p>rpm 安装包</p>
+<p>安装 mysql 源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="err">#</span> <span class="err">下载</span>
+<span class="n">shell</span><span class="p">&gt;</span> <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="c1">//dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+</span><span class="c1"></span><span class="err">#</span> <span class="err">安装</span> <span class="n">mysql</span> <span class="err">源</span>
+<span class="n">shell</span><span class="p">&gt;</span> <span class="n">yum</span> <span class="n">localinstall</span> <span class="n">mysql57</span><span class="p">-</span><span class="n">community</span><span class="p">-</span><span class="n">release</span><span class="p">-</span><span class="n">el7</span><span class="p">-</span><span class="m">11.</span><span class="n">noarch</span><span class="p">.</span><span class="n">rpm</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>用下面的命令检查 mysql 源是否安装成功</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">shell&gt; yum repolist enabled <span class="p">|</span> grep <span class="s2">&#34;mysql.*-community.*&#34;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://upload-images.jianshu.io/upload_images/1458376-2221b41c880646b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1117/format/webp" alt=""></p>
+<p>mysql 源安装成功</p>
+<h2 id="安装-mysql">安装 MySQL</h2>
+<p>使用 yum install 命令安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">shell&gt; yum install -y mysql-community-server
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="启动-mysql-服务">启动 MySQL 服务</h2>
+<p>在 CentOS 7 下，新的启动/关闭服务的命令是 <code>systemctl start|stop</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">shell&gt; systemctl start mysqld
+
+</code></pre></td></tr></table>
+</div>
+</div><p>用 <code>systemctl status</code> 查看 MySQL 状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">shell&gt; systemctl status mysqld
+
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://upload-images.jianshu.io/upload_images/1458376-cd1d2a407337b5a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1128/format/webp" alt=""></p>
+<p>MySQL 启动状态</p>
+<h2 id="设置开机启动">设置开机启动</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">shell&gt; systemctl <span class="nb">enable</span> mysqld
+<span class="c1"># 重载所有修改过的配置文件</span>
+shell&gt; systemctl daemon-reload
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="修改-root-本地账户密码">修改 root 本地账户密码</h2>
+<p>mysql 安装完成之后，生成的默认密码在 <code>/var/log/mysqld.log</code> 文件中。使用 grep 命令找到日志中的密码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">shell&gt; grep <span class="s1">&#39;temporary password&#39;</span> /var/log/mysqld.log
+
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://upload-images.jianshu.io/upload_images/1458376-6694dca4f9eb39a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1137/format/webp" alt=""></p>
+<p>查看临时密码</p>
+<p>首次通过初始密码登录后，使用以下命令修改密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">shell&gt; mysql -uroot -p
+mysql&gt; ALTER USER <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span> IDENTIFIED BY <span class="s1">&#39;MyNewPass4!&#39;</span><span class="p">;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>或者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mysql&gt; <span class="nb">set</span> password <span class="k">for</span> <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="o">=</span>password<span class="o">(</span><span class="s1">&#39;MyNewPass4!&#39;</span><span class="o">)</span><span class="p">;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>以后通过 update set 语句修改密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mysql&gt; use mysql<span class="p">;</span>
+mysql&gt; update user <span class="nb">set</span> <span class="nv">password</span><span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">&#39;MyNewPass5!&#39;</span><span class="o">)</span> where <span class="nv">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">;</span>
+mysql&gt; flush privileges<span class="p">;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意：mysql 5.7 默认安装了密码安全检查插件（validate_password），默认密码检查策略要求密码必须包含：大小写字母、数字和特殊符号，并且长度不能少于8位。否则会提示 ERROR 1819 (HY000): Your password does not satisfy the current policy requirements 错误。查看 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F5.7%2Fen%2Fvalidate-password-options-variables.html%23sysvar_validate_password_policy">MySQL官网密码详细策略</a></p>
+</blockquote>
+<h2 id="添加远程登录用户">添加远程登录用户</h2>
+<p>默认只允许root帐户在本地登录，如果要在其它机器上连接mysql，必须<strong>添加一个允许远程连接的帐户</strong>。或者~修改 root 为允许远程连接~（不推荐）</p>
+<p>添加一个允许远程连接的帐户</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="s1">&#39;zhangsan&#39;</span>@<span class="s1">&#39;%&#39;</span> IDENTIFIED BY <span class="s1">&#39;Zhangsan2018!&#39;</span> WITH GRANT OPTION<span class="p">;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>~修改 root 为允许远程连接~（不推荐）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">mysql&gt; use mysql;
+mysql&gt; UPDATE user SET Host=&#39;%&#39; WHERE User=&#39;root&#39;;
+mysql&gt; flush privileges;
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="设置默认编码为-utf8">设置默认编码为 utf8</h2>
+<p>mysql 安装后默认不支持中文，需要修改编码。
+修改 <code>/etc/my.cnf</code> 配置文件，在相关节点（没有则自行添加）下添加编码配置，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[mysqld]</span>
+<span class="n">character</span><span class="p">-</span><span class="k">set</span><span class="p">-</span><span class="n">server</span><span class="p">=</span><span class="n">utf8</span>
+<span class="na">[client]</span>
+<span class="k">default</span><span class="p">-</span><span class="n">character</span><span class="p">-</span><span class="k">set</span><span class="p">=</span><span class="n">utf8</span>
+<span class="na">[mysql]</span>
+<span class="k">default</span><span class="p">-</span><span class="n">character</span><span class="p">-</span><span class="k">set</span><span class="p">=</span><span class="n">utf8</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>重启mysql服务，查询编码。可以看到已经改过来了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-dart" data-lang="dart"><span class="n">shell</span><span class="o">&gt;</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">mysqld</span>
+<span class="n">shell</span><span class="o">&gt;</span> <span class="n">mysql</span> <span class="o">-</span><span class="n">uroot</span> <span class="o">-</span><span class="n">p</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="n">show</span> <span class="n">variables</span> <span class="n">like</span> <span class="s1">&#39;character%&#39;</span><span class="p">;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://upload-images.jianshu.io/upload_images/1458376-5a83be282b3c7870.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/811/format/webp" alt=""></p>
+<p>查看编码</p>
+<h2 id="默认配置文件路径">默认配置文件路径：</h2>
+<p>配置文件：/etc/my.cnf
+日志文件：/var/log/mysqld.log
+服务启动脚本：/usr/lib/systemd/system/mysqld.service
+socket文件：/var/run/mysqld/mysqld.pid</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-06-03 20:05
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/MySQL/">MySQL</a>
+          <a href="/tags/database/">database</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/database/mysql8_install_ops/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">MySQL 8.0 部署及使用</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/database/mongodb_centos_install/">
+            <span class="next-text nav-default">MongoDB4 部署及使用</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

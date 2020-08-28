@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>memcached on Bill World</title>
+    <link>https://xiebiao.top/tags/memcached/</link>
+    <description>Recent content in memcached on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 01 Jun 2020 19:17:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/tags/memcached/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Memcached 使用详解</title>
+      <link>https://xiebiao.top/post/database/memcached_install_ops/</link>
+      <pubDate>Mon, 01 Jun 2020 19:17:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/database/memcached_install_ops/</guid>
+      <description>何为Memcached？ Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表</description>
+    </item>
+    
+  </channel>
+</rss>

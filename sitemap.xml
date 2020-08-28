@@ -3,14 +3,119 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-05-17T20:03:30+00:00</lastmod>
+    <lastmod>2020-06-06T21:08:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-05-17T20:03:30+00:00</lastmod>
+    <lastmod>2020-06-06T21:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/database/</loc>
+    <lastmod>2020-06-06T21:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/database/</loc>
+    <lastmod>2020-06-06T21:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/</loc>
+    <lastmod>2020-06-06T21:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-06-06T21:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/TiDB/</loc>
+    <lastmod>2020-06-06T21:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/database/tidb_install_ops/</loc>
+    <lastmod>2020-06-06T21:08:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/Redis/</loc>
+    <lastmod>2020-06-05T21:09:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/database/redis5_cluster_ops/</loc>
+    <lastmod>2020-06-05T21:09:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/MySQL/</loc>
+    <lastmod>2020-06-04T21:05:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/database/mysql8_install_ops/</loc>
+    <lastmod>2020-06-04T21:05:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/database/mysql5.7_centos7_install/</loc>
+    <lastmod>2020-06-03T20:05:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/MongoDB/</loc>
+    <lastmod>2020-06-02T20:01:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/database/mongodb_centos_install/</loc>
+    <lastmod>2020-06-02T20:01:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/memcached/</loc>
+    <lastmod>2020-06-01T19:17:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/database/memcached_install_ops/</loc>
+    <lastmod>2020-06-01T19:17:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30,13 +135,6 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-05-17T20:03:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://xiebiao.top/tags/rabbitmq/</loc>
     <lastmod>2020-05-17T20:03:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -45,13 +143,6 @@
   
   <url>
     <loc>https://xiebiao.top/post/middleware/rabbitmq_ops/</loc>
-    <lastmod>2020-05-17T20:03:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
     <lastmod>2020-05-17T20:03:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

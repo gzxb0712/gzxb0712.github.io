@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Memcached 使用详解 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="何为Memcached？ Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/database/memcached_install_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Memcached 使用详解" />
+<meta property="og:description" content="何为Memcached？ Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/database/memcached_install_ops/" />
+<meta property="article:published_time" content="2020-06-01T19:17:30+00:00" />
+<meta property="article:modified_time" content="2020-06-01T19:17:30+00:00" />
+<meta itemprop="name" content="Memcached 使用详解">
+<meta itemprop="description" content="何为Memcached？ Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表">
+<meta itemprop="datePublished" content="2020-06-01T19:17:30+00:00" />
+<meta itemprop="dateModified" content="2020-06-01T19:17:30+00:00" />
+<meta itemprop="wordCount" content="2109">
+
+
+
+<meta itemprop="keywords" content="memcached,database," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Memcached 使用详解"/>
+<meta name="twitter:description" content="何为Memcached？ Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Memcached 使用详解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-06-01 19:17 </span>
+        <div class="post-category">
+            <a href="/categories/database/"> database </a>
+            </div>
+          <span class="more-meta"> 约 2109 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>何为Memcached？</p>
+<blockquote>
+<p>Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表，所以支持任意存储类型的数据。很多网站通过使用Memcached提高网站的访问速度，尤其是对于大型的需要频繁访问数据的网站。</p>
+</blockquote>
+<p>Memcached是典型的C/S架构，因此需要安装Memcached服务端与MemcachedAPI客户端。
+Memcached常用典型架构图如下；
+<img src="https://s4.51cto.com/images/blog/201810/04/25d214752d52ae25c8e6554b2af225d2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作">
+Memcached工作原理；</p>
+<ul>
+<li>
+<p>（1）Web客户端发送请求到web服务器的应用程序；</p>
+</li>
+<li>
+<p>（2）应用程序通过调用Memcached API客户端程序库接口去连接 Memcached服务器,进而查询数据；</p>
+<blockquote>
+<p>1）如果请求的数据已经在 Memcached服务端缓存中,则 Memcached服务端会将数据返回给Web客户端;
+2）如果数据不存在,则会将Web客户端请求发送至MySQL数据库,由数据库将请求的数据返回给 Memcached以及Web客户端；
+3）与此同时Memcached服务器也会将数据进行保存，方便用户下次使用。</p>
+</blockquote>
+</li>
+</ul>
+<p>本次实验环境介绍；</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th>操作系统</th>
+<th>主要软件包</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Memcached服务器</td>
+<td>192.168.30.55</td>
+<td>CentOS7</td>
+<td>libevent-2.1.8-stable.tar.gz，memcached-1.5.6.tar.gz</td>
+</tr>
+<tr>
+<td>Memcached API 客户端</td>
+<td>192.168.30.10</td>
+<td>CentOS7</td>
+<td>memcache-2.2.7.tgz，LAMP环境</td>
+</tr>
+</tbody>
+</table>
+<p>百度网盘免费提供软件安装包；</p>
+<blockquote>
+<p>libevent-2.1.8-stable.tar.gz：<a href="https://pan.baidu.com/s/1TBVEyndXVHcMbxst-kpCuA">https://pan.baidu.com/s/1TBVEyndXVHcMbxst-kpCuA</a>
+memcached-1.5.6.tar.gz：<a href="https://pan.baidu.com/s/1oO_mC6J3SV6PLVepjmi2eQ">https://pan.baidu.com/s/1oO_mC6J3SV6PLVepjmi2eQ</a>
+memcache-2.2.7.tgz：<a href="https://pan.baidu.com/s/1WwKRMyqWg_o0fNbyFVke5g">https://pan.baidu.com/s/1WwKRMyqWg_o0fNbyFVke5g</a></p>
+</blockquote>
+<p>实验部署</p>
+<ul>
+<li>
+<p>事先将需要的软件包通过winSCP工具复制到/root/目录下，首先关闭实验主机的防火墙功能，及selinux</p>
+<blockquote>
+<p>systemctl stop firewalld.service
+setenforce 0</p>
+</blockquote>
+</li>
+</ul>
+<p>一，安装Memcached服务器
+1，安装libevent</p>
+<ul>
+<li>
+<p>Libevent是一款跨平台的事件处理接口的封装，可以兼容多个操作系统的事件访问。 Memcached的安装依赖于Libevent，因此需要先完成Libevent的安装。</p>
+<blockquote>
+<p>yum install gcc gcc-c++ make -y #yum安装gcc编译环境包
+解压软件包
+tar xvf libevent-2.1.8-stable.tar.gz
+tar xvf memcached-1.5.6.tar.gz
+cd libevent-2.1.8-stable/
+./configure --prefix=/usr/local/libevent
+make &amp;&amp; make install
+到此libevent安装完毕</p>
+</blockquote>
+</li>
+</ul>
+<p>2，安装Memcached</p>
+<ul>
+<li>
+<p>安装配置时需指定libevent的安装路径</p>
+<blockquote>
+<p>cd ../memcached-1.5.6/
+./configure \<br>
+--prefix=/usr/local/memcached \<br>
+--with-libevent=/usr/local/libevent/ #指定libevent安装路径
+make &amp;&amp; make install</p>
+</blockquote>
+</li>
+<li>
+<p>优化memcached服务</p>
+<blockquote>
+<p>创建软连接，方便使用memcached服务命令
+ln -s /usr/local/memcached/bin/* /usr/local/bin/</p>
+</blockquote>
+</li>
+<li>
+<p>启动服务</p>
+</li>
+<li>
+<p>启动 memcached（-d：守护进程、-m：指定缓存大小为32M 、-p：指定默认端口11211 、 -u：指定 登陆用户为 root）</p>
+<blockquote>
+<p>memcached -d -m 32m -p 11211 -u root
+netstat -antp | grep memcached #查看启动监听端口</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://s4.51cto.com/images/blog/201810/04/193eaa276e49d48e911f7c6977848c2c.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作">
+Memcached数据库操作与管理</p>
+<ul>
+<li>
+<p>Memcached协议简单，可直接使用telenet连接Memcached的11211端口，对Memcached数据库进行操作与管理</p>
+<blockquote>
+<p>telnet 127.0.0.1 11211 #如果没有telnet命令。需使用yum安装才可使用
+常见操作指令
+add username 0 0 7 //第一个0不进行压缩和序列化标识 第二个0数据过期时间为永不过期 标识号是7就需要输入7位数。</p>
+<p>example //输入数据</p>
+<p>get username //获取查看数据
+VALUE username 0 7
+example</p>
+<p>gets username
+VALUE username 0 7 1 //最后一位是更新因子会自增1
+example</p>
+<p>set username 0 0 10 //更新信息，若键名不存在，则自行添加
+everything</p>
+<p>replace username 0 0 8 //更新信息，若键名不存在，则报错
+12345678</p>
+<p>gets username
+VALUE username 0 8 4
+12345678</p>
+<p>cas username 0 0 7 4 //检查更新，更新因子相等则更新否则返回EXISTS
+lodging
+STORED</p>
+<p>append username 0 0 7 //键值后追加数据
+example
+STORED</p>
+<p>prepend username 0 0 2 //键值前追加数据
+un
+STORED</p>
+<p>delete username</p>
+<p>flush_all //清除所有缓存数据
+OK</p>
+<p>stats //显示状态信息</p>
+<p>quit //退出</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://s4.51cto.com/images/blog/201810/04/d3a4792ed24e2852a17f21eccab4f7c7.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作">
+<img src="https://s4.51cto.com/images/blog/201810/04/feb2ab5a9513b9d04d560dc0c4db77b4.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作"><img src="https://s4.51cto.com/images/blog/201810/04/da4c6c40e064d5ee0eb878d459b5c584.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作"> <img src="https://s4.51cto.com/images/blog/201810/04/e3c1b2fa622dbc98bc33e411c1cdfd82.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作">
+二，Memcached API 客户端安装
+首先客户端需要搭建 LAMP 架构，LAMP架构的具体搭建可以参考另一篇文章《源码编译安装LAMP架构部署(免费提供源码包及shell安装脚本)》，在此不演示具体操作步骤，提前将LAMP架构搭建好。</p>
+<ul>
+<li>
+<p>安装Memcached客户端</p>
+<blockquote>
+<p>yum install autoconf -y
+tar zvxf memcache-2.2.7.tgz
+cd /opt/memcache-2.2.7</p>
+<p>由于memcache-2.2.7.tgz源码包中默认没有configure配置脚本，需要使用PHP的phpize脚本生成配置脚本configure
+/usr/local/php5/bin/phpize //增加为PHP的模块后再对memcache进行配置编译</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://s4.51cto.com/images/blog/201810/04/58c947f9ccb812d984c6fd1f6c1390ca.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作"></p>
+<ul>
+<li>
+<p>再进行配置，编译安装</p>
+<blockquote>
+<p>./configure \<br>
+--enable-memcache \<br>
+\--with-php-config=/usr/local/php5/bin/php-config
+make &amp;&amp; make install
+安装完成后会生成共享组件的位置，下一步将此记录添加到PHP配置文件中</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://s4.51cto.com/images/blog/201810/04/562a6217c66383df0327852d993911dd.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作"></p>
+<ul>
+<li>
+<p>配置PHP添加Memcached组件</p>
+<blockquote>
+<p>vim /usr/local/php5/php.ini
+//搜索并修改下面一行，再新增一行</p>
+<p>extension_dir = &ldquo;/usr/local/php5/lib/php/extensions/no-debug-zts-20131226/&rdquo;
+extension = memcache.so #memcached模块</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://s4.51cto.com/images/blog/201810/04/94600243d368b29978e678775c296d34.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作">
+测试 Memcached API 功能</p>
+<ul>
+<li>
+<p>通过编写简单的PHP 测试代码调用 Memcache 程序接口，来测试是否与 Memcached 服务器协同工作，代码如下：</p>
+<blockquote>
+<p>vim index.php</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>此段代码的作用是在客户端连接Memcached服务器，设置名为“key”的键的值为“Memcache test Successfull!”，并读取显示。显示成功，则表示服务器与客户端协同工作正常。</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://s4.51cto.com/images/blog/201810/04/8808cb10e2c9a2577eaa6e6ef56cc189.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作"></p>
+<ul>
+<li>
+<p>重启httpd服务</p>
+<blockquote>
+<p>service httpd restart</p>
+</blockquote>
+</li>
+</ul>
+<p>使用浏览器进行访问，测试结果如图所示
+<img src="https://s4.51cto.com/images/blog/201810/04/f55c8d58110cbab9c177b5d16d1865f2.jpg?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Memcached安装部署及基本操作">
+到此实验结束。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-06-01 19:17
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/memcached/">memcached</a>
+          <a href="/tags/database/">database</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/database/mongodb_centos_install/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">MongoDB4 部署及使用</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/middleware/rabbitmq_ops/">
+            <span class="next-text nav-default">rabbitmq消息中间件部署</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

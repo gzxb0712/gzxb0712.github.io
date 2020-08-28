@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on Bill World</title>
+    <link>https://xiebiao.top/tags/Redis/</link>
+    <description>Recent content in Redis on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 05 Jun 2020 21:09:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/tags/Redis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Redis 5.0 部署及使用</title>
+      <link>https://xiebiao.top/post/database/redis5_cluster_ops/</link>
+      <pubDate>Fri, 05 Jun 2020 21:09:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/database/redis5_cluster_ops/</guid>
+      <description>一、简介 1.1 Redis是什么 Redis是一个开源的，使用ANSI C 编写，高性能的Key-Value的NoSQL数据库。 1.2 Redis特点 （1）基</description>
+    </item>
+    
+  </channel>
+</rss>

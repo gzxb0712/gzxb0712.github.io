@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>TiDB 4.0 安装 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="官方文档 简介 TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库， 结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/database/tidb_install_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="TiDB 4.0 安装" />
+<meta property="og:description" content="官方文档 简介 TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库， 结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/database/tidb_install_ops/" />
+<meta property="article:published_time" content="2020-06-06T21:08:30+00:00" />
+<meta property="article:modified_time" content="2020-06-06T21:08:30+00:00" />
+<meta itemprop="name" content="TiDB 4.0 安装">
+<meta itemprop="description" content="官方文档 简介 TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库， 结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限">
+<meta itemprop="datePublished" content="2020-06-06T21:08:30+00:00" />
+<meta itemprop="dateModified" content="2020-06-06T21:08:30+00:00" />
+<meta itemprop="wordCount" content="4780">
+
+
+
+<meta itemprop="keywords" content="TiDB,database," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TiDB 4.0 安装"/>
+<meta name="twitter:description" content="官方文档 简介 TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库， 结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">TiDB 4.0 安装</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-06-06 21:08 </span>
+        <div class="post-category">
+            <a href="/categories/database/"> database </a>
+            </div>
+          <span class="more-meta"> 约 4780 字 </span>
+          <span class="more-meta"> 预计阅读 10 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a>
+      <ul>
+        <li><a href="#tidb整体架构">TiDB整体架构</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装与部署">安装与部署</a>
+      <ul>
+        <li><a href="#单节点方式快速部署适用于功能测试预览">单节点方式快速部署（适用于功能测试，预览）</a></li>
+        <li><a href="#ansible-部署集群强烈推荐">Ansible 部署集群（强烈推荐）</a></li>
+        <li><a href="#docker-compose-部署方案">Docker Compose 部署方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据同步">数据同步</a>
+      <ul>
+        <li><a href="#下载-tidb-企业版工具集-linux">下载 TiDB 企业版工具集 (Linux)</a></li>
+        <li><a href="#使用-checker-进行-schema-检查">使用 checker 进行 Schema 检查</a></li>
+        <li><a href="#使用-mydumpermyloader-全量导入数据">使用 mydumper/myloader 全量导入数据</a></li>
+        <li><a href="#使用-syncer-增量导入数据实现数据和-mysql-实时同步">使用 syncer 增量导入数据实现数据和 MySQL 实时同步</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><a href="https://pingcap.github.io/docs-cn/">官方文档</a></p>
+<h2 id="简介">简介</h2>
+<p>TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库， 结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限的水平扩展，具备强一致性和高可用性。 TiDB 的目标是为 OLTP (Online Transactional Processing) 和 OLAP (Online Analytical Processing) 场景提供一站式的解决方案。</p>
+<h3 id="tidb整体架构">TiDB整体架构</h3>
+<p><img src="https://dudashuang.com/assets/img/tidb-architecture.png" alt=""></p>
+<p>TiDB 集群主要分为三个组件：</p>
+<ul>
+<li>
+<p>TiDB Server</p>
+<p>TiDB Server 负责接收 SQL 请求，处理 SQL 相关的逻辑，并通过 PD 找到存储计算所需数据的 TiKV 地址， 与 TiKV 交互获取数据，最终返回结果。 TiDB Server 是无状态的，其本身并不存储数据，只负责计算，可以无限水平扩展， 可以通过负载均衡组件（如LVS、HAProxy 或 F5）对外提供统一的接入地址。</p>
+</li>
+<li>
+<p>PD Server</p>
+<p>Placement Driver (简称 PD) 是整个集群的管理模块，其主要工作有三个： 一是存储集群的元信息（某个 Key 存储在哪个 TiKV 节点）； 二是对 TiKV 集群进行调度和负载均衡（如数据的迁移、Raft group leader 的迁移等）；三是分配全局唯一且递增的事务 ID。</p>
+<p>PD 是一个集群，需要部署奇数个节点，一般线上推荐至少部署 3 个节点。</p>
+</li>
+<li>
+<p>TiKV Server</p>
+<p>TiKV Server 负责存储数据，从外部看 TiKV 是一个分布式的提供事务的 Key-Value 存储引擎。存储数据的基本单位是 Region， 每个 Region 负责存储一个 Key Range （从 StartKey 到 EndKey 的左闭右开区间）的数据， 每个 TiKV 节点会负责多个 Region 。TiKV 使用 Raft 协议做复制，保持数据的一致性和容灾。 副本以 Region 为单位进行管理，不同节点上的多个 Region 构成一个 Raft Group，互为副本。 数据在多个 TiKV 之间的负载均衡由 PD 调度，这里也是以 Region 为单位进行调度。</p>
+</li>
+</ul>
+<h2 id="安装与部署">安装与部署</h2>
+<h3 id="单节点方式快速部署适用于功能测试预览">单节点方式快速部署（适用于功能测试，预览）</h3>
+<p>执行步骤：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 下载压缩包
+
+wget http://download.pingcap.org/tidb-latest-linux-amd64.tar.gz
+wget http://download.pingcap.org/tidb-latest-linux-amd64.sha256
+
+# 检查文件完整性，返回 ok 则正确
+sha256sum -c tidb-latest-linux-amd64.sha256
+
+# 解开压缩包
+tar -xzf tidb-latest-linux-amd64.tar.gz
+cd tidb-latest-linux-amd64
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在获取 TiDB 二进制文件包后，我们可以在单机上面，运行和测试 TiDB 集群，请按如下步骤依次启动 PD，TiKV，TiDB。</p>
+<blockquote>
+<p>注意：以下启动各个应用程序组件实例的时候，请选择后台启动，避免前台失效后程序自动退出。</p>
+</blockquote>
+<ul>
+<li>步骤一，启动 PD</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">./bin/pd-server --data-dir=pd \
+                --log-file=pd.log
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>步骤二，启动 TiKV</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">./bin/tikv-server --pd=&#34;127.0.0.1:2379&#34; \
+                  --data-dir=tikv \
+                  --log-file=tikv.log
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>步骤三，启动 TiDB</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">./bin/tidb-server --store=tikv \
+                  --path=&#34;127.0.0.1:2379&#34; \
+                  --log-file=tidb.log
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>步骤四，使用 MySQL 客户端连接 TiDB:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql -h 127.0.0.1 -P 4000 -u root -D test
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ansible-部署集群强烈推荐">Ansible 部署集群（强烈推荐）</h3>
+<h4 id="准备机器">准备机器</h4>
+<blockquote>
+<p>测试部署，下列所有机器均由 <code>Virtual Box</code> 生成的虚拟环境，生产环境中请参考官方文档配置。 注意开启虚拟机的 specific IP，eg: <code>config.vm.network &quot;private_network&quot;, ip: &quot;192.168.12.10&quot;</code>。</p>
+</blockquote>
+<ul>
+<li>
+<p>部署目标机器若干</p>
+<ul>
+<li>
+<p>建议 4 台及以上，TiKV 至少 3 实例(本教程 3 实例)，且与 TiDB、PD 模块不位于同一主机，详见<a href="https://pingcap.github.io/docs-cn/op-guide/recommendation/">部署建议</a></p>
+</li>
+<li>
+<p>推荐安装 CentOS 7.3 及以上版本 Linux 操作系统(本教程使用 ubuntu 16.04)，x86_64 架构(amd64)， 数据盘请使用 ext4 文件系统，挂载 ext4 文件系统时请添加 nodelalloc 挂载参数</p>
+<p>编辑 <code>/etc/fstab</code> 文件，添加 <code>nodelalloc</code> 挂载参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># vi /etc/fstab
+/dev/nvme0n1 /data1 ext4 defaults,nodelalloc,noatime 0 2
+
+</code></pre></td></tr></table>
+</div>
+</div><p>使用以下命令 umount 挂载目录并重新挂载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># umount /data1
+# mount -a
+
+</code></pre></td></tr></table>
+</div>
+</div><p>通过以下命令确认是否生效：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># mount -t ext4
+/dev/nvme0n1 on /data1 type ext4 (rw,noatime,nodelalloc,data=ordered)
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>机器之间内网互通，防火墙如 iptables 等请在部署时关闭</p>
+</li>
+<li>
+<p>机器的时间、时区设置一致，开启 NTP 服务且在正常同步时间</p>
+<blockquote>
+<p>注： Ubuntu 系统请安装 ntpstat 软件包</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ ntpstat
+unsynchronised # NTP 服务未正常同步
+
+$ ntpstat
+Unable to talk to NTP daemon. Is it running? # NTP 服务未正常运行
+
+sudo systemctl status ntp.service # 查看 ntp 服务运行状态
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建 tidb 普通用户 （本教程使用 vagrant 用户）作为程序运行用户，tidb 用户可以免密码 sudo 到 root 用户</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># useradd tidb
+# passwd tidb
+# visudo
+tidb ALL=(ALL) NOPASSWD: ALL
+
+</code></pre></td></tr></table>
+</div>
+</div><p>本教程中 <code>vagrant</code>用户默认免密 sudo 到 root 用户</p>
+</li>
+</ul>
+</li>
+<li>
+<p>部署中控机器一台</p>
+<ul>
+<li>
+<p>中控机可以是部署目标机器中的某一台。</p>
+</li>
+<li>
+<p>推荐安装 CentOS 7.3 及以上版本 Linux 操作系统(默认包含 Python 2.7，本教程使用 ubuntu 16.04)。</p>
+</li>
+<li>
+<p>该机器需开放外网访问，用于下载 TiDB 及相关软件安装包。</p>
+</li>
+<li>
+<p>配置 ssh authorized_key 互信，在中控机上可以使用 tidb 用户（本教程使用 vagrant 用户）免密码 ssh 登录到部署目标机器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># vagrant 用户
+$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/tidb/.ssh/id_rsa):
+Created directory &#39;/home/tidb/.ssh&#39;.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/tidb/.ssh/id_rsa.
+Your public key has been saved in /home/tidb/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:eIBykszR1KyECA/h0d7PRKz4fhAeli7IrVphhte7/So tidb@172.16.10.49
+The key&#39;s randomart image is:
++---[RSA 2048]----+
+|=+o+.o.          |
+|o=o+o.oo         |
+| .O.=.=          |
+| . B.B +         |
+|o B * B S        |
+| * + * +         |
+|  o + .          |
+| o  E+ .         |
+|o   ..+o.        |
++----[SHA256]-----+
+
+sudo cat ~/.ssh/id_rsa.pub authorized_keys
+
+# 依次执行以下命令，将 192.168.12.10 替换成目标机器的ip，按提示输入部署目标机器 vagrant 用户密码，
+# 执行成功后即创建好 ssh 互信，其他机器同理。
+ssh-copy-id -i ~/.ssh/id_rsa.pub 192.168.12.10
+
+# 验证 ssh 互信
+ssh 192.168.12.10 # 不需要输入密码并登录成功
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ul>
+<h4 id="在中控机上下载-tidb-ansible">在中控机上下载 TiDB-Ansible</h4>
+<p>以 <code>vagrant</code> 用户登录中控机并进入 <code>/home/vagrant</code> 目录，使用以下命令从 Github TiDB-Ansible 项目 上下载 TiDB-Ansible 相应版本， 默认的文件夹名称为 <code>tidb-ansible</code>，以下为各版本下载示例，版本选择可以咨询官方。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 下载 2.0 GA 版本：
+git clone -b release-2.0 https://github.com/pingcap/tidb-ansible.git
+
+# 下载 master 版本：
+git clone https://github.com/pingcap/tidb-ansible.git
+
+</code></pre></td></tr></table>
+</div>
+</div><p>本教程为<code>master</code>版本</p>
+<h4 id="在中控机上安装-ansible-及其依赖">在中控机上安装 Ansible 及其依赖</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ sudo apt-get install python-pip curl
+$ cd tidb-ansible
+$ sudo pip install -r ./requirements.txt
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>pip install</code> 时可能会报<code>Python locale error: unsupported locale setting</code>，执行下列命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">export LC_ALL=&#34;en_US.UTF-8&#34;
+export LC_CTYPE=&#34;en_US.UTF-8&#34;
+sudo dpkg-reconfigure locales
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="分配机器资源编辑-inventoryini-文件">分配机器资源，编辑 inventory.ini 文件</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo vim ~/tidb-ansible/inventory.ini
+
+</code></pre></td></tr></table>
+</div>
+</div><p>配置如下：（更换ip为你的目标机器ip，192.168.12.22为中控机器ip，其他为目标机器ip）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## TiDB Cluster Part
+[tidb_servers]
+192.168.12.22
+
+[tikv_servers]
+192.168.12.10
+192.168.12.2
+192.168.12.3
+[pd_servers]
+192.168.12.22
+
+[spark_master]
+
+[spark_slaves]
+
+## Monitoring Part
+# prometheus and pushgateway servers
+[monitoring_servers]
+192.168.12.22
+
+[grafana_servers]
+192.168.12.22
+
+# node_exporter and blackbox_exporter servers
+[monitored_servers]
+192.168.12.22
+192.168.12.10
+192.168.12.2
+192.168.12.3
+
+[alertmanager_servers]
+
+## Binlog Part
+[pump_servers:children]
+tidb_servers
+
+## Group variables
+[pd_servers:vars]
+# location_labels = [&#34;zone&#34;,&#34;rack&#34;,&#34;host&#34;]
+
+## Global variables
+[all:vars]
+deploy_dir = /home/vagrant/deploy
+
+## Connection
+# ssh via normal user
+ansible_user = vagrant
+
+cluster_name = test-cluster
+
+tidb_version = latest
+
+# process supervision, [systemd, supervise]
+process_supervision = systemd
+
+# timezone of deployment region
+timezone = Asia/Shanghai
+set_timezone = True
+
+enable_firewalld = False
+# check NTP service
+enable_ntpd = True
+set_hostname = False
+
+## binlog trigger
+enable_binlog = False
+# zookeeper address of kafka cluster, example:
+# zookeeper_addrs = &#34;192.168.0.11:2181,192.168.0.12:2181,192.168.0.13:2181&#34;
+zookeeper_addrs = &#34;&#34;
+
+# store slow query log into seperate file
+enable_slow_query_log = False
+
+# enable TLS authentication in the TiDB cluster
+enable_tls = False
+
+# KV mode
+deploy_without_tidb = False
+
+# Optional: Set if you already have a alertmanager server.
+# Format: alertmanager_host:alertmanager_port
+alertmanager_target = &#34;&#34;
+
+grafana_admin_user = &#34;admin&#34;
+grafana_admin_password = &#34;admin&#34;
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="部署任务">部署任务</h4>
+<ol>
+<li>
+<p>确认<code>tidb-ansible/inventory.ini</code>文件中<code>ansible_user = vagrant</code>，本例使用<code>vagrant</code>用户作为服务运行用户，配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">## Connection
+# ssh via normal user
+ansible_user = vagrant
+
+</code></pre></td></tr></table>
+</div>
+</div><p>执行以下命令如果所有 server 返回 vagrant 表示 ssh 互信配置成功。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible -i inventory.ini all -m shell -a &#39;whoami&#39;
+
+</code></pre></td></tr></table>
+</div>
+</div><p>执行以下命令如果所有 server 返回 root 表示 vagrant 用户 sudo 免密码配置成功。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible -i inventory.ini all -m shell -a &#39;whoami&#39; -b
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>执行<code>local_prepare.yml</code> playbook，联网下载 TiDB binary 到中控机：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible-playbook local_prepare.yml
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>初始化系统环境，修改内核参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible-playbook bootstrap.yml
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>部署 TiDB 集群软件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible-playbook deploy.yml
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>启动 TiDB 集群</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">ansible-playbook start.yml
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 返回下列字段时，表示启动成功
+Congrats! All goes well. :-)
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h4 id="测试集群">测试集群</h4>
+<blockquote>
+<p>测试连接 TiDB 集群，推荐在 TiDB 前配置负载均衡来对外统一提供 SQL 接口。</p>
+</blockquote>
+<ul>
+<li>
+<p>使用 MySQL 客户端连接测试，TCP 4000 端口是 TiDB 服务默认端口。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql -u root -h 192.168.12.22 -P 4000
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># eg
+vagrant@vagrant [09:48:48 PM] [~/tidb-ansible] [master *]
+-&gt; % mysql -h192.168.12.22 -uroot -P 4000
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.7.10-TiDB-v2.0.0-rc.4-147-g00d4831 MySQL Community Server (Apache License 2.0)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>通过浏览器访问监控平台。</p>
+<p>地址：<code>http://192.168.12.22:3000</code> 默认帐号密码是：<code>admin/admin</code></p>
+<p><img src="https://dudashuang.com/assets/img/tidb-dashboard.jpg" alt=""></p>
+</li>
+</ul>
+<h3 id="docker-compose-部署方案">Docker Compose 部署方案</h3>
+<blockquote>
+<p>待补充…</p>
+</blockquote>
+<h2 id="数据同步">数据同步</h2>
+<p><a href="https://pingcap.com/blog-cn/tidb-as-mysql-slave/#%E4%B8%8B%E8%BD%BD-tidb-%E5%B7%A5%E5%85%B7%E9%9B%86">官方说明</a></p>
+<p>由于 TiDB 本身兼容绝大多数的 MySQL 语法，所以对于绝大多数业务来说，最安全的切换数据库方式就是将 TiDB 作为现有数据库的从库接在主 MySQL 库的后方， 这样对业务方实现完全没有侵入性下使用 TiDB 对现有的业务进行备份，应对未来数据量或者并发量增长带来的单点故障风险，如需上线 TiDB， 也只需要简单的将业务的主 MySQL 地址指向 TiDB 即可。</p>
+<p>下面我们详细介绍了如何将 MySQL 的数据迁移到 TiDB，并将 TiDB 作为 MySQL 的 Slave 进行数据同步。</p>
+<p>这里我们假定 MySQL 以及 TiDB 服务信息如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">+------------------+-----------------+----------------------------------------+
+| Name             | Address         | Port   |   User      | Password        |
++------------------+-----------------+----------------------------------------+
+| MySQL            |    127.0.0.1    | 3306   |    root     |                 |
+| TiDB             |  192.168.12.22  | 4000   |   vagrant   |                 |
++------------------+-------------+--------+-----------+-----------------------+
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="下载-tidb-企业版工具集-linux">下载 TiDB 企业版工具集 (Linux)</h3>
+<blockquote>
+<p>注：普通工具集中，无<code>syncer</code>, <code>mydumper</code>等工具</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 下载 tool 压缩包
+wget http://download.pingcap.org/tidb-enterprise-tools-latest-linux-amd64.tar.gz
+wget http://download.pingcap.org/tidb-enterprise-tools-latest-linux-amd64.sha256
+
+# 检查文件完整性，返回 ok 则正确
+sha256sum -c tidb-enterprise-tools-latest-linux-amd64.sha256
+
+# 解开压缩包
+tar -xzf tidb-enterprise-tools-latest-linux-amd64.tar.gz
+cd tidb-enterprise-tools-latest-linux-amd64
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用-checker-进行-schema-检查">使用 checker 进行 Schema 检查</h3>
+<p>在迁移之前，我们可以使用 TiDB 的 checker 工具，checker 是我们开发的一个小工具，用于检测目标 MySQL 库中的表的表结构是否支持无缝的迁移到 TiDB， TiDB 支持绝大多数的 MySQL 常用的原生数据类型，所以大多数情况 checker 的返回应该是 ok。如果 check 某个 table schema 失败，表明 TiDB 当前并不支持， 我们不能对该 table 里面的数据进行迁移。checker 包含在 TiDB 工具集里面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">./bin/checker -host 127.0.0.1 -port 3306 -user root -password password db_name
+2016/10/27 13:11:49 checker.go:48: [info] Checking database db_name
+2016/10/27 13:11:49 main.go:37: [info] Database DSN: root:@tcp(127.0.0.1:3306)/db_name?charset=utf8
+2016/10/27 13:11:49 checker.go:63: [info] Checking table t1
+2016/10/27 13:11:49 checker.go:69: [info] Check table t1 succ
+2016/10/27 13:11:49 checker.go:63: [info] Checking table t2
+2016/10/27 13:11:49 checker.go:69: [info] Check table t2 succ
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用-mydumpermyloader-全量导入数据">使用 mydumper/myloader 全量导入数据</h3>
+<p>我们使用 mydumper 从 MySQL 导出数据，然后用 myloader 将其导入到 TiDB 里面。</p>
+<p><strong>注意，虽然我们也支持使用 MySQL 官方的 mysqldump 工具来进行数据的迁移工作，但相比于 mydumper/myloader，性能会慢很多， 对于大量数据的迁移会花费很多时间，这里我们并不推荐。</strong></p>
+<p><code>mydumper/myloader</code>是一个更强大的数据迁移工具，具体可以参考<a href="https://github.com/maxbube/mydumper">https://github.com/maxbube/mydumper</a>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 下载 mydumper 压缩包
+wget http://download.pingcap.org/mydumper-linux-amd64.tar.gz
+wget http://download.pingcap.org/mydumper-linux-amd64.sha256
+
+# 检查文件完整性，返回 ok 则正确
+sha256sum -c mydumper-linux-amd64.sha256
+
+# 解开压缩包
+tar -xzf mydumper-linux-amd64.tar.gz
+cd mydumper-linux-amd64
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="从-mysql-导出数据">从 MySQL 导出数据</h4>
+<p>我们使用 mydumper 从 MySQL 导出数据，如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">./bin/mydumper -h 127.0.0.1 -P 3306 -u root -t 16 -F 128 -B test -T t1,t2 -o ./guopisql
+
+</code></pre></td></tr></table>
+</div>
+</div><p>上面，我们使用<code>-B test</code>表明是对<code>test</code>这个<code>database</code>操作，然后用<code>-T t1,t2</code>表明只导出 <code>t1，t2</code>两张表。 <code>-t 16</code>表明使用<code>16</code>个线程去导出数据。<code>-F 128</code>是将实际的<code>table</code>切分成多大的 <code>chunk</code>，这里就是<code>128MB</code>一个<code>chunk</code>。</p>
+<p><strong>注意：在阿里云一些需要<code>super privilege</code>的云上面，<code>mydumper</code>需要加上<code>--no-locks</code>参数，否则会提示没有权限操作。</strong></p>
+<h4 id="给-tidb-导入数据">给 TiDB 导入数据</h4>
+<p>我们使用 myloader 将之前导出的数据导入到 TiDB。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">./bin/myloader -h 192.168.12.22 -P 4000 -u vagrant -p password -t 16 -q 100 -d ./guopisql
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这里<code>-q 100</code>表明每个事务包含多少个<code>query</code>，默认是<code>1000</code>，我们这里使用<code>100</code>就可以了(数据多的话，可以加大)。</p>
+<p>导入成功之后，我们可以用 MySQL 官方客户端进入 TiDB，查看:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">vagrant@vagrant [09:48:48 PM] [~/tidb-ansible] [master *]
+-&gt; % mysql -h192.168.12.22 -uroot -P 4000
+
+mysql&gt; show tables;
++----------------+
+| Tables_in_test |
++----------------+
+| t1             |
+| t2             |
++----------------+
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用-syncer-增量导入数据实现数据和-mysql-实时同步">使用 syncer 增量导入数据实现数据和 MySQL 实时同步</h3>
+<p>上面我们介绍了如何使用<code>mydumper/myloader</code>将 MySQL 的数据全量导入到 TiDB，但如果后续 MySQL 的数据有更新，我们仍然希望快速导入， 使用全量的方式就不合适了。</p>
+<p>TiDB 提供<code>syncer</code>工具能方便的将 MySQL 的数据增量的导入到 TiDB 里面。</p>
+<p><code>syncer</code>也属于 TiDB 企业工具集。</p>
+<p>假设我们之前已经使用<code>mydumper/myloader</code>导入了<code>t1</code>和<code>t2</code>两张表的一些数据，现在我们希望这两张表的任何更新， 都是实时的同步到 TiDB 上面。</p>
+<h4 id="mysql-开启-binlog">MySQL 开启 binlog</h4>
+<p>在使用 syncer 之前，我们必须保证：</p>
+<ul>
+<li>MySQL 开启 binlog 功能，参考<a href="https://dev.mysql.com/doc/refman/5.7/en/replication-howto-masterbaseconfig.html">Setting the Replication Master Configuration</a></li>
+<li>Binlog 格式必须使用<code>row format</code>，这也是 MySQL 5.7 之后推荐的<code>binlog</code>格式</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># sudo vi /etc/mysql/my.cnf
+
+[mysqld]
+log-bin=mysql-bin
+server-id=1
+binlog-format=ROW
+
+</code></pre></td></tr></table>
+</div>
+</div><p>重启<code>mysql</code>服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo service mysql restart
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="获取同步-position">获取同步 position</h4>
+<p>我们通过<code>show master status</code>得到当前<code>binlog</code>的<code>position</code>，<code>syncer</code>的初始同步位置就是从这个地方开始。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">show master status;
++------------------+----------+--------------+------------------+-------------------+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+----------+--------------+------------------+-------------------+
+| mysql-bin.000001 |      154 |              |                  |                   |
++------------------+----------+--------------+------------------+-------------------+
+
+</code></pre></td></tr></table>
+</div>
+</div><p>我们将<code>position</code>相关的信息保存到一个<code>syncer.meta</code>文件里面，用于<code>syncer</code>的同步:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># vim syncer.meta
+binlog-name = &#34;mysql-bin.000001&#34;
+binlog-pos = 154
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="启动-syncer">启动 syncer</h4>
+<p><code>syncer</code>的配置文件<code>config.toml</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">log-level = &#34;info&#34;
+
+server-id = 1
+
+# meta 文件地址
+meta = &#34;./syncer.meta&#34;
+worker-count = 1
+batch = 1
+
+pprof-addr = &#34;:10081&#34;
+
+[from]
+host = &#34;127.0.0.1&#34;
+user = &#34;root&#34;
+password = &#34;your password&#34;
+port = 3306
+
+[to]
+host = &#34;192.168.12.22&#34;
+user = &#34;root&#34;
+password = &#34;&#34;
+port = 4000
+
+</code></pre></td></tr></table>
+</div>
+</div><p>启动<code>syncer</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 后台运行
+vagrant@vagrant [10:10:07 PM] [~/tidb-enterprise-tools-latest-linux-amd64]
+-&gt; % nohup ./bin/syncer -config config.toml &amp;
+[1] 4193
+
+</code></pre></td></tr></table>
+</div>
+</div><p><code>syncer</code>每隔<code>30s</code>会输出当前的同步统计，如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># cat nohub.out
+
+2018/05/08 15:04:25 syncer.go:821: [info] [syncer]total events = 2, total tps = 0, recent tps = 0, master-binlog = (mysql-bin.000001, 574), master-binlog-gtid=, syncer-binlog = (mysql-bin.000001, 574), syncer-binlog-gtid =
+2018/05/08 15:04:55 syncer.go:821: [info] [syncer]total events = 2, total tps = 0, recent tps = 0, master-binlog = (mysql-bin.000001, 574), master-binlog-gtid=, syncer-binlog = (mysql-bin.000001, 574), syncer-binlog-gtid =
+2018/05/08 15:05:25 syncer.go:821: [info] [syncer]total events = 2, total tps = 0, recent tps = 0, master-binlog = (mysql-bin.000001, 574), master-binlog-gtid=, syncer-binlog = (mysql-bin.000001, 574), syncer-binlog-gtid =
+2018/05/08 15:05:55 syncer.go:821: [info] [syncer]total events = 2, total tps = 0, recent tps = 0, master-binlog = (mysql-bin.000001, 574), master-binlog-gtid=, syncer-binlog = (mysql-bin.000001, 574), syncer-binlog-gtid =
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="在-mysql-插入新的数据">在 MySQL 插入新的数据</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">INSERT INTO t1 VALUES (4, 4), (5, 5);
+
+</code></pre></td></tr></table>
+</div>
+</div><p>登录到 TiDB 查看：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql -h127.0.0.1 -P4000 -uroot -p
+mysql&gt; select * from t1;
++----+------+
+| id | age  |
++----+------+
+|  1 |    1 |
+|  2 |    2 |
+|  3 |    3 |
+|  4 |    4 |
+|  5 |    5 |
++----+------+
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-06-06 21:08
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/TiDB/">TiDB</a>
+          <a href="/tags/database/">database</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/database/redis5_cluster_ops/">
+            <span class="next-text nav-default">Redis 5.0 部署及使用</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

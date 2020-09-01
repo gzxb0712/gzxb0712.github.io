@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>docker最佳实践总结 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="&amp;raquo;&amp;gt; 目录 &amp;laquo;&amp;lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cloud/docker_all_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="docker最佳实践总结" />
+<meta property="og:description" content="&raquo;&gt; 目录 &laquo;&lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cloud/docker_all_ops/" />
+<meta property="article:published_time" content="2020-07-20T21:05:30+00:00" />
+<meta property="article:modified_time" content="2020-07-20T21:05:30+00:00" />
+<meta itemprop="name" content="docker最佳实践总结">
+<meta itemprop="description" content="&raquo;&gt; 目录 &laquo;&lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库">
+<meta itemprop="datePublished" content="2020-07-20T21:05:30+00:00" />
+<meta itemprop="dateModified" content="2020-07-20T21:05:30+00:00" />
+<meta itemprop="wordCount" content="4552">
+
+
+
+<meta itemprop="keywords" content="docker,cloud," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="docker最佳实践总结"/>
+<meta name="twitter:description" content="&raquo;&gt; 目录 &laquo;&lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">docker最佳实践总结</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-20 21:05 </span>
+        <div class="post-category">
+            <a href="/categories/cloud/"> cloud </a>
+            </div>
+          <span class="more-meta"> 约 4552 字 </span>
+          <span class="more-meta"> 预计阅读 10 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一docker简介"><strong>一、    Docker简介</strong></a></li>
+    <li><a href="#二docker优势"><strong>二、    Docker优势</strong></a>
+      <ul>
+        <li><a href="#1-特性优势"><strong>1. 特性优势</strong></a></li>
+        <li><a href="#2资源优势">2.　　资源优势</a></li>
+      </ul>
+    </li>
+    <li><a href="#三docker基本概念"><strong>三、    Docker基本概念</strong></a></li>
+    <li><a href="#四docker安装使用"><strong>四、    Docker安装使用</strong></a>
+      <ul>
+        <li><a href="#操作系统centos-7">操作系统：CentOS 7</a></li>
+        <li><a href="#运行示例nginx">运行示例：Nginx</a></li>
+      </ul>
+    </li>
+    <li><a href="#五docker常用命令"><strong>五、    Docker常用命令</strong></a>
+      <ul>
+        <li><a href="#1镜像控制">　　<strong>1.镜像控制</strong></a></li>
+        <li><a href="#2容器控制">**　　2.容器控制**</a></li>
+        <li><a href="#3容器启动"> 　　<strong>3.容器启动</strong></a></li>
+        <li><a href="#4其他命令"> 　　<strong>4.其他命令</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#六docker镜像构建"><strong>六、    Docker镜像构建</strong></a>
+      <ul>
+        <li><a href="#1docker-commit1运行2修改3保存">　　<strong>1.Docker commit</strong>（1运行2修改3保存）</a></li>
+        <li><a href="#2dockerfile1编写2构建"> <strong>2.Dockerfile</strong>（1编写2构建）</a></li>
+        <li><a href="#3dockerfile常用指令"> <strong>3.Dockerfile 常用指令</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#七docker本地仓库"><strong>七、    Docker本地仓库</strong></a></li>
+    <li><a href="#八docker与图形管理工具portainer"><strong>八、    Docker与图形管理工具Portainer</strong></a>
+      <ul>
+        <li><a href="#1简介">　　<strong>1.简介</strong></a></li>
+        <li><a href="#2安装使用">　　<strong>2.安装使用</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#八docker与命令行管理工具portainer"><strong>八、    Docker与命令行管理工具Portainer</strong></a></li>
+    <li><a href="#九docker与集群管理工具swarm"><strong>九、    Docker与集群管理工具Swarm</strong></a>
+      <ul>
+        <li><a href="#1简介-1"><strong>1.     简介</strong></a></li>
+        <li><a href="#2安装使用-1"> 　　<strong>2.安装使用</strong></a></li>
+        <li><a href="#3-对比k8s究竟有何异同">  　3 <strong>.对比K8s究竟有何异同?</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#十docker运维流程图"><strong>十、    Docker运维流程图</strong></a></li>
+    <li><a href="#十一docker配置管理"><strong>十一、    Docker配置管理</strong></a></li>
+    <li><a href="#十二docker后续问题"><strong>十二、    Docker后续问题</strong></a></li>
+    <li><a href="#十三docker报错解决">十三、Docker报错解决</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h1 id="-目录-">&raquo;&gt; 目录 &laquo;&lt;</h1>
+<ul>
+<li>Docker简介</li>
+<li>Docker优势</li>
+<li>Docker基本概念</li>
+<li>Docker安装使用</li>
+<li>Docker常用命令</li>
+<li>Docker镜像构建</li>
+<li>Docker本地仓库</li>
+<li>Docker图形管理工具Portainer</li>
+<li>Docker集群管理工具Swarm</li>
+<li>Docker运维流程图</li>
+<li>Docker配置管理</li>
+<li>Docker后续问题</li>
+<li>Docker报错解决</li>
+</ul>
+<h1 id="-正文-">&raquo;&gt; 正文 &laquo;&lt;</h1>
+<h2 id="一docker简介"><strong>一、    Docker简介</strong></h2>
+<p>　　　Docker是一个开源的应用容器引擎，开发者可以打包自己的应用到容器里面，然后迁移到其他机器的docker应用中，可以实现快速部署。</p>
+<p>　　　简单的理解，docker就是一个软件集装箱化平台，就像船只、火车、卡车运输集装箱而不论其内部的货物一样，软件容器充当软件部署的标准单元，其中可以包含不同的代码和依赖项。</p>
+<p>　　　按照这种方式容器化软件，开发人员和 IT 专业人员只需进行极少修改或不修改，即可将其部署到不同的环境，如果出现的故障，也可以通过镜像，快速恢复服务。</p>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191109172555889-1603196756.png" alt=""></p>
+<h2 id="二docker优势"><strong>二、    Docker优势</strong></h2>
+<h3 id="1-特性优势"><strong>1. 特性优势</strong></h3>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191109172604637-1990244867.png" alt=""></p>
+<h3 id="2资源优势">2.　　资源优势</h3>
+<p><img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112151326588-965047543.png" alt=""></p>
+<h2 id="三docker基本概念"><strong>三、    Docker基本概念</strong></h2>
+<p><strong>Client</strong> <strong>（客户端）</strong>：是Docker的用户端，可以接受用户命令和配置标识，并与Docker daemon通信。</p>
+<p><strong>Images</strong> <strong>（镜像）</strong>：是一个只读模板，含创建Docker容器的说明，它与操作系统的安装光盘有点像。</p>
+<p><strong>Containers</strong> <strong>（容器）</strong>：镜像的运行实例，镜像与容器的关系类比面向对象中的类和对象。</p>
+<p><strong>Registry</strong> <strong>（仓库）：</strong> 是一个集中存储与分发镜像的服务。最常用的Registry是官方的Docker Hub 。</p>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191109172624159-620464653.png" alt=""></p>
+<h2 id="四docker安装使用"><strong>四、    Docker安装使用</strong></h2>
+<ul>
+<li>
+<h3 id="操作系统centos-7">操作系统：CentOS 7</h3>
+</li>
+</ul>
+<p><strong>1、安装依赖</strong></p>
+<blockquote>
+<p>yum install -y yum-utils device-mapper-persistent-data lvm2</p>
+</blockquote>
+<p><strong>2、添加软件源</strong></p>
+<blockquote>
+<p>yum-config-manager &ndash;add-repo <a href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a>　　# 指定阿里云镜像源</p>
+</blockquote>
+<p><strong>3、安装docker-ce</strong>（对系统内核有一定要求，centos6不支持）</p>
+<blockquote>
+<p>yum clean all  yum makecache fast        # 重新生成缓存</p>
+<p><strong>yum -y install docker-ce docker-ce-cli containerd.io</strong></p>
+</blockquote>
+<p><strong>4、设置自启并启动</strong></p>
+<blockquote>
+<p><strong>systemctl enable docker</strong></p>
+<p><strong>systemctl start docker</strong></p>
+</blockquote>
+<p><strong>5、查看版本</strong></p>
+<blockquote>
+<p>docker version</p>
+</blockquote>
+<p> 　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112154320701-108250532.png" alt=""></p>
+<ul>
+<li>
+<h3 id="运行示例nginx">运行示例：Nginx</h3>
+</li>
+</ul>
+<h4 id="1搜索并下载镜像">1、搜索并下载镜像</h4>
+<blockquote>
+<p>docker search nginx</p>
+<p>docker pull nginx</p>
+</blockquote>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112154517806-1605394976.png" alt=""></p>
+<h4 id="2启动一个容器并映射端口到本地">2、启动一个容器并映射端口到本地</h4>
+<blockquote>
+<p>docker run -d -p 8080:80 &ndash;name Nginx nginx　　　　# 参数详解见下文</p>
+</blockquote>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112154526743-736147967.png" alt=""></p>
+<h4 id="3访问本地映射端口">3、访问本地映射端口</h4>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112154531659-814379855.png" alt=""></p>
+<h2 id="五docker常用命令"><strong>五、    Docker常用命令</strong></h2>
+<h3 id="1镜像控制">　　<strong>1.镜像控制</strong></h3>
+<blockquote>
+<p><strong>搜索镜像：</strong> docker  search  [OPTIONS]  TERM</p>
+<p><strong>上传镜像：</strong> docker  push  [OPTIONS]  NAME[:TAG]</p>
+<p><strong>下载镜像：</strong> docker  pull  [OPTIONS]  NAME[:TAG]</p>
+<p><strong>提交镜像：</strong> docker  commit [OPTIONS]  CONTAINER  NAME[:TAG]</p>
+<p><strong>构建镜像：</strong> docker  build  [OPTIONS]  PATH</p>
+<p><strong>删除镜像：</strong> docker  rmi [OPTIONS]  IMAGE  [IMAGE&hellip;]</p>
+<p><strong>增加镜像标签：</strong> docker  tag  SOURCE_IMAGE[:TAG]  TARGET_IMAGE[:TAG]</p>
+<p><strong>查看所有镜像：</strong> docker  images  [OPTIONS]  [REPOSITORY[:TAG]]</p>
+</blockquote>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112155412834-338762946.png" alt=""></p>
+<h3 id="2容器控制">**　　2.容器控制**</h3>
+<blockquote>
+<p><strong>启动/重启容器：</strong> docker start/restart CONTAINER</p>
+<p><strong>停止/强停容器：</strong> docker stop/ kill CONTAINER</p>
+<p><strong>删除容器：</strong> docker rm [OPTIONS] CONTAINER [CONTAINER&hellip;]</p>
+<p><strong>重命名容器：</strong> docker rename CONTAINER CONTAINER_NEW</p>
+<p><strong>进入容器：</strong> docker attach CONTAINER</p>
+<p><strong>执行</strong>容器<strong>命令：</strong> docker exec CONTAINER COMMAND</p>
+<p><strong>查看容器日志：</strong> docker logs [OPTIONS] CONTAINER</p>
+<p><strong>查看容器列表：</strong> docker ps [OPTIONS]</p>
+</blockquote>
+<p> 　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112155423874-350386050.png" alt=""></p>
+<h3 id="3容器启动"> 　　<strong>3.容器启动</strong></h3>
+<blockquote>
+<p>docker  run  [OPTIONS]  IMAGE  [COMMAND]  [ARG&hellip;]</p>
+</blockquote>
+<p><strong>-d :</strong> 后台运行容器，并返回容器ID</p>
+<p><strong>-i：</strong> 以交互模式运行容器，通常与 -t 同时使用</p>
+<p><strong>-t：</strong> 为容器重新分配一个伪输入终端，通常与 -i 同时使用</p>
+<p><strong>-v：</strong> 绑定挂载目录</p>
+<p><strong>&ndash;name=&quot;mycontainer&rdquo;:</strong> 为容器指定一个名称</p>
+<p><strong>&ndash;net=&quot;bridge&rdquo;:</strong> 指定容器的网络连接类型，支持如下：</p>
+<p>   　　bridge / host / none / container:&lt;name|id&gt;</p>
+<p><strong>-p/-P :</strong> 端口映射，格式如图：</p>
+<p> 　　　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112155237442-1935865842.png" alt=""></p>
+<h3 id="4其他命令"> 　　<strong>4.其他命令</strong></h3>
+<blockquote>
+<p>查看docker信息：docker info</p>
+<p>docker命令帮助：docker run &ndash;help</p>
+<p>复制文件到容器：docker cp custom.conf Nginx:/etc/nginx/conf.d/</p>
+<p>更新容器启动项：docker container update &ndash;restart=always nginx</p>
+<p>查看docker日志：tail -f /var/log/messages</p>
+</blockquote>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112161415759-1267729284.png" alt=""></p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>更多可以参考官网：<a href="https://docs.docker.com/engine/reference/commandline/cli/">https://docs.docker.com/engine/reference/commandline/cli/</a><a href="https://www.jianshu.com/p/8f38f198724e">
+</a></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><img src="https://img2018.cnblogs.com/i-beta/1059616/201912/1059616-20191214150000098-1909876776.png" alt=""></p>
+<h2 id="六docker镜像构建"><strong>六、    Docker镜像构建</strong></h2>
+<h3 id="1docker-commit1运行2修改3保存">　　<strong>1.Docker commit</strong>（1运行2修改3保存）</h3>
+<p><strong>a）   运行容器</strong></p>
+<blockquote>
+<p>docker run -dit -p 8080:80 &ndash;name Nginx nginx</p>
+</blockquote>
+<p><strong>b）   修改容器</strong>（这里我只是做个演示，所以就复制一下文件，具体修改需要根据你实际情况）</p>
+<blockquote>
+<p>docker cp custom.conf Nginx:/etc/nginx/conf.d/</p>
+</blockquote>
+<p><strong>c）   将容器保存为新的镜像</strong></p>
+<blockquote>
+<p>docker commit Nginx zwx/nginx</p>
+</blockquote>
+<p> 　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112155640841-516876073.png" alt=""></p>
+<h3 id="2dockerfile1编写2构建"> <strong>2.Dockerfile</strong>（1编写2构建）</h3>
+<p><strong>a）   编写Dockerfile文件</strong></p>
+<blockquote>
+<p>vim Dockerfile</p>
+</blockquote>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112155736158-842820092.png" alt=""></p>
+<p><strong>b）   执行Dockerfile文件</strong></p>
+<blockquote>
+<p>docker build -t zwx/nginx **.　　　　**# 后面有个点，代表当前目录下dockerfile文件</p>
+</blockquote>
+<p> 　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112155724434-463914884.png" alt=""></p>
+<h3 id="3dockerfile常用指令"> <strong>3.Dockerfile 常用指令</strong></h3>
+<p> <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112155749441-1705248710.png" alt=""></p>
+<p>　　 &raquo;&gt; 更多可以参考：<a href="https://www.cnblogs.com/leozhanggg/p/11820214.html">【转载】Dockerfile文件详解</a></p>
+<h2 id="七docker本地仓库"><strong>七、    Docker本地仓库</strong></h2>
+<p><strong>1、拉取镜像仓库</strong></p>
+<blockquote>
+<p>docker search registry</p>
+<p>docker pull registry</p>
+</blockquote>
+<p><strong>2、启动镜像服务</strong></p>
+<blockquote>
+<p>docker run -dit</p>
+<p>&ndash;name=Registry 　　　　# 指定容器名称</p>
+<p>-p 5000:5000 　　　　　　# 仓库默认端口是5000，映射到宿主机，这样可以使用宿主机地址访问</p>
+<p>&ndash;restart=always                 # 自动重启，这样每次docker重启后仓库容器也会自动启动</p>
+<p>&ndash;privileged=true               # 增加安全权限，一般可不加</p>
+<p>-v /usr/local/my_registry:/var/lib/registry  　　　　# 把仓库镜像数据保存到宿主机</p>
+<p>registry</p>
+</blockquote>
+<p><strong>3、注册https协议</strong>（需要通过本地仓库下载镜像，均需要配置）</p>
+<blockquote>
+<p>vim /etc/docker/daemon.json　　　　　　　　# 默认无此文件，需自行添加，有则追加一下内容。</p>
+<p>   { &ldquo;insecure-registries&rdquo;:[&rdquo; xx.xx.xx.xx:5000&rdquo;] }　　# 指定ip地址或域名</p>
+</blockquote>
+<p><strong>4、新增tag指明仓库地址</strong></p>
+<blockquote>
+<p>docker <strong>tag</strong> zwx/nginx x.xx.xx.xx:5000/zwx/nginx　　# 如果构建时已经指定仓库地址，则可以省略</p>
+</blockquote>
+<p><strong>5、上传镜像到本地仓库</strong></p>
+<blockquote>
+<p>docker <strong>push</strong> x.xx.xx.xx:5000/zwx/nginx</p>
+</blockquote>
+<p><strong>6、查看本地仓库</strong></p>
+<blockquote>
+<p>curl -XGET <a href="http://x.xx.xx.xx">http://x.xx.xx.xx</a>:5000/v2/_catalog</p>
+</blockquote>
+<p>       <img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112160214624-1466104232.png" alt=""></p>
+<p> 　　&raquo;&gt; 更多可以参考：<a href="https://www.jianshu.com/p/8f38f198724e">docker 搭建本地私有仓库</a></p>
+<h2 id="八docker与图形管理工具portainer"><strong>八、    Docker与图形管理工具Portainer</strong></h2>
+<h3 id="1简介">　　<strong>1.简介</strong></h3>
+<p>　　　　Portainer是Docker的图形化管理工具，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、</p>
+<p>　　　　事件日志显示、容器控制台操作、Swarm集群和服务等集中管理和操作、登录用户管理和控制等功能。功能十分全面，基本能满足中小型单位对容器管理的全部需求。</p>
+<p> 　　　　<img src="https://img2018.cnblogs.com/i-beta/1059616/201911/1059616-20191112153539731-1511928488.png" alt=""></p>
+<h3 id="2安装使用">　　<strong>2.安装使用</strong></h3>
+<p><strong>a） 搜索并下载镜像</strong></p>
+<blockquote>
+<p>docker search portainer</p>
+<p>docker pull portainer/portainer</p>
+</blockquote>
+<p><strong>b） 单机方式运行</strong></p>
+<blockquote>
+<p>docker run -d</p>
+<p>-p 9000:9000 　　　# portainer默认端口是9000，映射到本地9000端口，通过本地地址访问</p>
+<p>&ndash;restart=always 　　# 设置自动重启</p>
+<p>-v /var/run/docker.sock:/var/run/docker.sock 　　# 单机必须指定docker.sock</p>
+<p>&ndash;name Prtainer portainer/portainer</p>
+</blockquote>
+<p><strong>c） 访问http://localhost:9000</strong></p>
+<p>　　首次登陆需要注册用户，给admin用户设置密码，然后单机版选择local连接即可。</p>
+<p><img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112153230740-1138499583.png" alt=""></p>
+<p><strong>d） 控制管理</strong></p>
+<p>　　　　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112153611631-1158270908.png" alt=""></p>
+<p>　　　　  &raquo;&gt; 更多可以参考：<a href="https://www.cnblogs.com/river2005/p/8283700.html">Portainer介绍</a></p>
+<h2 id="八docker与命令行管理工具portainer"><strong>八、    Docker与命令行管理工具Portainer</strong></h2>
+<p><a href="https://www.freebuf.com/sectool/231110.html">https://www.freebuf.com/sectool/231110.html</a></p>
+<h2 id="九docker与集群管理工具swarm"><strong>九、    Docker与集群管理工具Swarm</strong></h2>
+<h3 id="1简介-1"><strong>1.     简介</strong></h3>
+<p>　　　　Swarm是Docker官方提供的一款集群管理工具，其主要作用是把若干台Docker主机抽象为一个整体，并且通过一个入口统一管理这些Docker主机上的各种Docker资源。</p>
+<p>　　　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112152657240-1084437635.png" alt=""></p>
+<h3 id="2安装使用-1"> 　　<strong>2.安装使用</strong></h3>
+<p>　　　　Swarm 在 Docker 1.12 版本之前属于一个独立的项目，在 Docker 1.12 版本发布之后，该项目合并到了 Docker 中，成为 Docker 的一个子命令。</p>
+<p><strong>a)　　启动swarm集群只需要执行初始化命令即可：</strong></p>
+<blockquote>
+<p>docker swarm <strong>init</strong> 　　　　　　　# 默认初始化节点为管理节点
+&ndash;advertise-addr xx.xx.xx.xx 　　　#指定使用的ip
+&ndash;listen-addr xx.xx.xx.xx:2377　　　#指定监听ip和port，默认为2377</p>
+</blockquote>
+<p>　　　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191128171456606-615353300.png" alt=""></p>
+<p>　<strong>b) 　　设置manager节点</strong></p>
+<blockquote>
+<p>　　　　docker swarm join-token <strong>manager</strong>　　　　#获取管理节点token，放入下面命令</p>
+<p>docker swarm join
+&ndash;advertise-addr xx.xx.xx.xx
+&ndash;listen-addr xx.xx.xx.xx:2377
+&ndash;token SWMTKN-1-29ynh5uyfiiospy4fsm4pd4xucyji2rn0oj4b4ak4s7a37syf9-ajkrv2ctjr5cmxzuij75tbrmz
+xx.xx.xx.xx:2377</p>
+</blockquote>
+<p><strong>c) 　　设置worker节点</strong></p>
+<blockquote>
+<p>　　　　docker swarm join-token <strong>worker</strong>　　　　#获取工作节点token，放入下面命令</p>
+<p>docker swarm join
+&ndash;advertise-addr xx.xx.xx.xx
+&ndash;listen-addr xx.xx.xx.xx:2377
+&ndash;token SWMTKN-1-29ynh5uyfiiospy4fsm4pd4xucyji2rn0oj4b4ak4s7a37syf9-ajkrv2ctjr5cmxzuij75tbrmz
+xx.xx.xx.xx:2377</p>
+</blockquote>
+<p>　　　　<strong>c) 　　查看节点</strong></p>
+<blockquote>
+<p> <strong><code>docker node ls</code></strong></p>
+</blockquote>
+<p>**　　　　<img src="https://img2018.cnblogs.com/i-beta/1059616/201911/1059616-20191128172311278-1473171098.png" alt="">**</p>
+<p> 　　　　<strong>d) 　　创建服务</strong></p>
+<blockquote>
+<p><strong><code>docker service create [OPTIONS] IMAGE [COMMAND] [ARG...]</code></strong></p>
+<p>**<code>--detach , -d</code>: ** 指定容器运行于前台还是后台，默认为false</p>
+<p>**<code>--name</code>: ** 服务名称</p>
+<p>**<code>--network</code>: ** 网络连接</p>
+<p>**<code>--publish , -p</code>: ** 端口映射</p>
+<p><strong><code>--env , -e</code>:</strong>  设置环境变量</p>
+<p><strong><code>--tty , -t</code>:</strong>  分配tty设备，该可以支持终端登录</p>
+<p>**<code>--mount</code>: ** 文件挂载</p>
+<p>**<code>--replicas</code>: ** 指定任务数量</p>
+</blockquote>
+<p>　　&raquo;&gt;更多参考：<a href="https://www.jianshu.com/p/028b40ca4f2a">Docker Swarm集群部署实践</a>  　　<a href="https://www.cnblogs.com/xiangsikai/p/9935814.html">Docker Swarm 常用命令</a></p>
+<h3 id="3-对比k8s究竟有何异同">  　3 <strong>.对比K8s究竟有何异同?</strong></h3>
+<p><strong>a）出生不同</strong></p>
+<p>Google根据其在Linux上容器管理经验，改造到docker管理上，就是kubernetes。他的在许多方面表现良好,最重要的是构造于Google多年的宝贵经验只上。
+kubernetes并不是为了docker写的,kubernetes把集群带到了一个全新的高度，代价是学习曲线比较陡。docker-swarm 使用了一个不同的方式,它是docker原生的集群工具。
+最方便的部分是它暴露了docker标准的编程接口，意味着你之前一直在使用的任何与docker沟通的工具（docker CLI,  docker compose等），都可以无缝的在docker swarm上使用。</p>
+<p><strong>b）安装配置不同</strong></p>
+<p>安装设置swarm非常简单，简单明了并且很灵活。我们需要做的就是安装一个服务发现工具，然后在所有的节点上安装swarm容器。
+相比较而言，kubernetes的安装就有点复杂晦涩了。不同的操作系统上安装都不同。每个操作系统都有自己的独立安装指令。</p>
+<p><strong>c）运行方式不同</strong></p>
+<p>使用Swarm和使用容器没有什么不同。比如，你习惯于使用Docker CLI（命令行接口），你可以继续使用几乎相同的命令。
+如果你习惯于使用Docker Componse来运行容器，你可以继续在Swarm集群中使用。不管你之前习惯于怎么使用容器，你仍旧可以使用，只是在更大级别的集群中使用。
+Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你不能使用你之前创建的docker-compose.yml配置，你必须要去新建与Kubernetes对应的配置。
+你也不能使用之前学习的Docker CLI（命令行接口）。你必须要去学习 Kubernetes CLI（命令行接口）</p>
+<p>最后，当需要在Docker Swarm 和 Kubernetes做出选择时，可以考虑如下几点：
+你是否想依赖于Docker自己来解决集群的问题。如果是，选择Swarm。如果某些功能在Docker中不支持，那它也非常可能在Swarm中找不到，因为Swarm是依赖于Docker API的。
+另外一方面，如果你想要一个工具可以解决Docker的限制，Kubernetes将是不错的选择。Kubernetes不是基于Docker，而是基于Google多年对于管理容器的经验。它是按照自己的方式来行事。</p>
+<h2 id="十docker运维流程图"><strong>十、    Docker运维流程图</strong></h2>
+<p> 　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112152457727-1393157662.png" alt=""></p>
+<h2 id="十一docker配置管理"><strong>十一、    Docker配置管理</strong></h2>
+<p><strong>1.　　用了容器以后，还需要配置管理吗？</strong></p>
+<p>起初我们跟Docker官方一样，属于理想主义派。天真的认为容器就应该是inmutable的，当需要配置变更的时候，重新构建镜像重新部署。</p>
+<p>基于这一思路，我们在cSphere中添加了个镜像自动构建模块，用户可以配置代码仓库的地址。
+服务的配置文件保存于Git或者SVN库中，需要配置变更时，向版本库中Push一下，自动通过hook触发镜像构建，并自动完成线上容器的重建。</p>
+<p>通过这套系统，用户可以非常方便的批量更新线上的服务，并不局限于配置文件的变更，代码的变更也天生支持。
+经过实际使用，这套系统能够很好的满足开发和测试环境的需求，提升工作效率。</p>
+<p>但是，在生产环境中使用的时候，我们发现这种流程其实并不那么完美，主要表现在：
+镜像构建和部署虽然自动化了，但构建是针对VCS中的某个仓库的，改一行配置就得整体重新构建一下，在更新容器时还需要把镜像重新分发到所有机器上，配置变更速度太慢。
+这种方式的配置变更会涉及到服务的重启，这在生产环境某些场景下是不可接受的 ，有可能引起短暂的服务中断。</p>
+<p><strong>2.　　应用配置文件应该需要做到什么？</strong></p>
+<p>Docker应用配置文件能够保持能够支持针对不同环境作出更改。另外配置文件支持在线更改，重启就生效。一般分为以下两种方式。</p>
+<p><strong>a） Docker环境变量</strong></p>
+<p>需要在制作镜像的时候就需要提前想好，有哪些参数是部署容器的时候会经常更改，
+然后把这些参数抽出来做成容器的环境变量，然后在部署的容器的时候填入不同的参数即可。
+但是如果后续发现有一些参数不同场景下部署的时候也会修改，那就需要再重新制作镜像了。</p>
+<p><strong>b）应用配置文件</strong></p>
+<p>上述的管理方式不太灵活，灵活的管理方式是将配置文件和镜像剥离开，这样就不会被镜像给绑定了。</p>
+<p>注：最新版本可以参考docker config命令管理</p>
+<h2 id="十二docker后续问题"><strong>十二、    Docker后续问题</strong></h2>
+<ul>
+<li>
+<ul>
+<li>   集群环境</li>
+<li>   网络安全</li>
+<li>   存储管理</li>
+<li>   日志收集</li>
+<li>   实时监控</li>
+<li>   性能调优</li>
+<li>   ……</li>
+</ul>
+</li>
+</ul>
+<h2 id="十三docker报错解决">十三、Docker报错解决</h2>
+<p><a href="https://www.cnblogs.com/leozhanggg/p/11730189.html">【解决】Got permission denied while trying to connect to the Docker daemon socket at&hellip;&hellip;dial unix /var/run/docker.sock: permission denied</a></p>
+<p> <a href="https://www.cnblogs.com/leozhanggg/p/12031433.html">【解决】error pulling image configuration: Get https:// &hellip;&hellip; x509: certificate has expired or is not yet valid</a></p>
+<p><a href="https://www.cnblogs.com/leozhanggg/p/12023531.html">【解决】image &hellip; could not be accessed on a registry to record its digest.</a></p>
+<p><a href="https://www.cnblogs.com/leozhanggg/p/12023456.html">【解决】http: server gave HTTP response to HTTPS client</a></p>
+<p><a href="https://www.cnblogs.com/leozhanggg/p/12023429.html">【解决】OCI runtime exec failed&hellip;&hellip;executable file not found in $PATH&rdquo;: unknown</a></p>
+<p>更多报错解决方案持续更新中：<a href="https://www.cnblogs.com/leozhanggg/p/11796810.html">【解决】Docker Errors</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-07-20 21:05
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/docker/">docker</a>
+          <a href="/tags/cloud/">cloud</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cloud/traefik_2.2.8_deploy/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">k8s部署 Ingress 控制器 traefik 2.2.x教程</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cicd/k8s_jenkins_cicd/">
+            <span class="next-text nav-default">k8s安装jenkins最佳实践</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -6,10 +6,55 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 05 Jul 2020 19:01:30 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2020 21:09:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ingress</title>
+      <link>https://xiebiao.top/tags/ingress/</link>
+      <pubDate>Tue, 21 Jul 2020 21:09:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/ingress/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k8s</title>
+      <link>https://xiebiao.top/tags/k8s/</link>
+      <pubDate>Tue, 21 Jul 2020 21:09:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>traefik</title>
+      <link>https://xiebiao.top/tags/traefik/</link>
+      <pubDate>Tue, 21 Jul 2020 21:09:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/traefik/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cloud</title>
+      <link>https://xiebiao.top/tags/cloud/</link>
+      <pubDate>Mon, 20 Jul 2020 21:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://xiebiao.top/tags/docker/</link>
+      <pubDate>Mon, 20 Jul 2020 21:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/docker/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cicd</title>

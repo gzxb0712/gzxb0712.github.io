@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>k8s部署 Ingress 控制器 traefik 2.2.x教程 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cloud/traefik_2.2.8_deploy/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="k8s部署 Ingress 控制器 traefik 2.2.x教程" />
+<meta property="og:description" content="参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cloud/traefik_2.2.8_deploy/" />
+<meta property="article:published_time" content="2020-07-21T21:09:30+00:00" />
+<meta property="article:modified_time" content="2020-07-21T21:09:30+00:00" />
+<meta itemprop="name" content="k8s部署 Ingress 控制器 traefik 2.2.x教程">
+<meta itemprop="description" content="参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设">
+<meta itemprop="datePublished" content="2020-07-21T21:09:30+00:00" />
+<meta itemprop="dateModified" content="2020-07-21T21:09:30+00:00" />
+<meta itemprop="wordCount" content="4021">
+
+
+
+<meta itemprop="keywords" content="k8s,traefik,ingress," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k8s部署 Ingress 控制器 traefik 2.2.x教程"/>
+<meta name="twitter:description" content="参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">k8s部署 Ingress 控制器 traefik 2.2.x教程</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-21 21:09 </span>
+        <div class="post-category">
+            <a href="/categories/cloud/"> cloud </a>
+            </div>
+          <span class="more-meta"> 约 4021 字 </span>
+          <span class="more-meta"> 预计阅读 9 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一traefik-简介">一、Traefik 简介</a></li>
+    <li><a href="#二kubernetes-部署-traefik">二、Kubernetes 部署 Traefik</a>
+      <ul>
+        <li><a href="#1创建-crd-资源">1、创建 CRD 资源</a></li>
+        <li><a href="#2创建-rbac-权限">2、创建 RBAC 权限</a></li>
+        <li><a href="#3创建-traefik-配置文件">3、创建 Traefik 配置文件</a></li>
+        <li><a href="#4节点设置-label-标签">4、节点设置 Label 标签</a></li>
+        <li><a href="#5kubernetes-部署-traefik">5、Kubernetes 部署 Traefik</a></li>
+      </ul>
+    </li>
+    <li><a href="#三配置路由规则">三、配置路由规则</a>
+      <ul>
+        <li><a href="#1方式一使用-crd-方式配置-traefik-路由规则">1、方式一：使用 CRD 方式配置 Traefik 路由规则</a></li>
+        <li><a href="#2方式二使用-ingress-方式配置-traefik-路由规则">2、方式二：使用 Ingress 方式配置 Traefik 路由规则</a></li>
+      </ul>
+    </li>
+    <li><a href="#四方式创建路由规则后的应用">四、方式创建路由规则后的应用</a>
+      <ul>
+        <li><a href="#1配置-host-文件">1、配置 Host 文件</a></li>
+        <li><a href="#2访问对应应用">2、访问对应应用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>参考博客
+<a href="http://www.mydlq.club/article/72/">http://www.mydlq.club/article/72/</a></p>
+</blockquote>
+<p><strong>目录[-]</strong></p>
+<ul>
+<li><a href="#wow0">. 一、Traefik 简介</a></li>
+<li><a href="#wow1">. 二、Kubernetes 部署 Traefik</a></li>
+<li><a href="#wow2">. 1、创建 CRD 资源</a></li>
+<li><a href="#wow3">. 2、创建 RBAC 权限</a></li>
+<li><a href="#wow4">. 3、创建 Traefik 配置文件</a></li>
+<li><a href="#wow5">. 4、节点设置 Label 标签</a></li>
+<li><a href="#wow6">. 5、Kubernetes 部署 Traefik</a></li>
+<li><a href="#wow7">. 三、配置路由规则</a></li>
+<li><a href="#wow8">. 1、方式一：使用 CRD 方式配置 Traefik 路由规则</a></li>
+<li><a href="#wow9">. 2、方式二：使用 Ingress 方式配置 Traefik 路由规则</a></li>
+<li><a href="#wow10">. 四、方式创建路由规则后的应用</a></li>
+<li><a href="#wow11">. 1、配置 Host 文件</a></li>
+<li><a href="#wow12">. 2、访问对应应用</a></li>
+</ul>
+<hr>
+<p><strong>系统环境：</strong></p>
+<ul>
+<li>Traefik 版本：v2.2.8</li>
+<li>Kubernetes 版本：1.18.5</li>
+</ul>
+<p><strong>参考地址：</strong></p>
+<ul>
+<li><a href="https://docs.traefik.io/v2.2/">Traefik 2.2 官方文档</a></li>
+<li><a href="https://docs.traefik.io/v2.2/routing/providers/kubernetes-crd/">Traefik RCD 路由规则参考地址</a></li>
+<li><a href="https://docs.traefik.io/v2.2/routing/providers/kubernetes-ingress/">Traefik Ingress 路由规则参考地址</a></li>
+</ul>
+<p><strong>示例部署文件：</strong></p>
+<ul>
+<li>示例部署文件 Github 地址：<a href="https://github.com/my-dlq/blog-example/tree/master/kubernetes/traefik-v2.2-deploy">https://github.com/my-dlq/blog-example/tree/master/kubernetes/traefik-v2.2-deploy</a></li>
+</ul>
+<h2 id="一traefik-简介">一、Traefik 简介</h2>
+<p>       Traefik 是一款开源的边缘路由器，它可以让发布服务变得轻松有趣。它代表您的系统接收请求，并找出负责处理这些请求的组件。与众不同之处在于，除了它的许多特性之外，它还可以自动为您的服务发现正确的配置。当 Traefik 检查您的基础设施时，它会发现相关信息，并发现哪个服务为哪个请求提供服务。</p>
+<p>       Traefik 与每个主要的集群技术都是原生兼容的，比如 Kubernetes、Docker、Docker Swarm、AWS、Mesos、Marathon 等等;并且可以同时处理多个。(它甚至适用于运行在裸机上的遗留软件。) 使用 Traefik，不需要维护和同步单独的配置文件:所有事情都是实时自动发生的(没有重启，没有连接中断)。使用 Traefik，只需要花费时间开发和部署新功能到您的系统，而不是配置和维护其工作状态。</p>
+<h2 id="二kubernetes-部署-traefik">二、Kubernetes 部署 Traefik</h2>
+<p>       Traefik 最新推出了 v2.2 版本，这里将 Traefik 升级到最新版本，简单的介绍了下如何在 Kubernetes 环境下安装 Traefik v2.2，下面将介绍如何在 Kubernetes 环境下部署并配置 Traefik v2.2。</p>
+<p>       当部署完 Traefik 后还需要创建外部访问 Kubernetes 内部应用的路由规则，Traefik 支持两种方式创建路由规则，一种是创建 Traefik 自定义 <code>Kubernetes CRD</code> 资源方式，还有一种是创建 <code>Kubernetes Ingress</code> 资源方式。</p>
+<blockquote>
+<p>注意：这里 Traefik 是部署在 Kube-system Namespace 下，如果不想部署到配置的 Namespace，需要修改下面部署文件中的 Namespace 参数。</p>
+</blockquote>
+<h3 id="1创建-crd-资源">1、创建 CRD 资源</h3>
+<p>在 <code>Traefik v2.0</code> 版本后，开始使用 <code>CRD</code>（Custom Resource Definition）来完成路由配置等，所以需要提前创建 <code>CRD</code> 资源。</p>
+<p><strong><strong>#</strong> 创建 traefik-crd.yaml 文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span><span class="lnt">98
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">## IngressRoute</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apiextensions.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CustomResourceDefinition<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ingressroutes.traefik.containo.us<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">scope</span><span class="p">:</span><span class="w"> </span>Namespaced<span class="w">
+</span><span class="w">  </span><span class="k">group</span><span class="p">:</span><span class="w"> </span>traefik.containo.us<span class="w">
+</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>v1alpha1<span class="w">
+</span><span class="w">  </span><span class="k">names</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>IngressRoute<span class="w">
+</span><span class="w">    </span><span class="k">plural</span><span class="p">:</span><span class="w"> </span>ingressroutes<span class="w">
+</span><span class="w">    </span><span class="k">singular</span><span class="p">:</span><span class="w"> </span>ingressroute<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c">## IngressRouteTCP</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apiextensions.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CustomResourceDefinition<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ingressroutetcps.traefik.containo.us<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">scope</span><span class="p">:</span><span class="w"> </span>Namespaced<span class="w">
+</span><span class="w">  </span><span class="k">group</span><span class="p">:</span><span class="w"> </span>traefik.containo.us<span class="w">
+</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>v1alpha1<span class="w">
+</span><span class="w">  </span><span class="k">names</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>IngressRouteTCP<span class="w">
+</span><span class="w">    </span><span class="k">plural</span><span class="p">:</span><span class="w"> </span>ingressroutetcps<span class="w">
+</span><span class="w">    </span><span class="k">singular</span><span class="p">:</span><span class="w"> </span>ingressroutetcp<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c">## Middleware</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apiextensions.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CustomResourceDefinition<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>middlewares.traefik.containo.us<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">scope</span><span class="p">:</span><span class="w"> </span>Namespaced<span class="w">
+</span><span class="w">  </span><span class="k">group</span><span class="p">:</span><span class="w"> </span>traefik.containo.us<span class="w">
+</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>v1alpha1<span class="w">
+</span><span class="w">  </span><span class="k">names</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Middleware<span class="w">
+</span><span class="w">    </span><span class="k">plural</span><span class="p">:</span><span class="w"> </span>middlewares<span class="w">
+</span><span class="w">    </span><span class="k">singular</span><span class="p">:</span><span class="w"> </span>middleware<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c">## TLSOption</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apiextensions.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CustomResourceDefinition<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>tlsoptions.traefik.containo.us<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">scope</span><span class="p">:</span><span class="w"> </span>Namespaced<span class="w">
+</span><span class="w">  </span><span class="k">group</span><span class="p">:</span><span class="w"> </span>traefik.containo.us<span class="w">
+</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>v1alpha1<span class="w">
+</span><span class="w">  </span><span class="k">names</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>TLSOption<span class="w">
+</span><span class="w">    </span><span class="k">plural</span><span class="p">:</span><span class="w"> </span>tlsoptions<span class="w">
+</span><span class="w">    </span><span class="k">singular</span><span class="p">:</span><span class="w"> </span>tlsoption<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c">## TraefikService</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apiextensions.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CustomResourceDefinition<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefikservices.traefik.containo.us<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">scope</span><span class="p">:</span><span class="w"> </span>Namespaced<span class="w">
+</span><span class="w">  </span><span class="k">group</span><span class="p">:</span><span class="w"> </span>traefik.containo.us<span class="w">
+</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>v1alpha1<span class="w">
+</span><span class="w">  </span><span class="k">names</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>TraefikService<span class="w">
+</span><span class="w">    </span><span class="k">plural</span><span class="p">:</span><span class="w"> </span>traefikservices<span class="w">
+</span><span class="w">    </span><span class="k">singular</span><span class="p">:</span><span class="w"> </span>traefikservice<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c">## TLSStore</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apiextensions.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CustomResourceDefinition<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>tlsstores.traefik.containo.us<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">group</span><span class="p">:</span><span class="w"> </span>traefik.containo.us<span class="w">
+</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>v1alpha1<span class="w">
+</span><span class="w">  </span><span class="k">names</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>TLSStore<span class="w">
+</span><span class="w">    </span><span class="k">plural</span><span class="p">:</span><span class="w"> </span>tlsstores<span class="w">
+</span><span class="w">    </span><span class="k">singular</span><span class="p">:</span><span class="w"> </span>tlsstore<span class="w">
+</span><span class="w">  </span><span class="k">scope</span><span class="p">:</span><span class="w"> </span>Namespaced<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c">## IngressRouteUDP</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apiextensions.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CustomResourceDefinition<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ingressrouteudps.traefik.containo.us<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">group</span><span class="p">:</span><span class="w"> </span>traefik.containo.us<span class="w">
+</span><span class="w">  </span><span class="k">version</span><span class="p">:</span><span class="w"> </span>v1alpha1<span class="w">
+</span><span class="w">  </span><span class="k">names</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>IngressRouteUDP<span class="w">
+</span><span class="w">    </span><span class="k">plural</span><span class="p">:</span><span class="w"> </span>ingressrouteudps<span class="w">
+</span><span class="w">    </span><span class="k">singular</span><span class="p">:</span><span class="w"> </span>ingressrouteudp<span class="w">
+</span><span class="w">  </span><span class="k">scope</span><span class="p">:</span><span class="w"> </span>Namespaced<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Traefik CRD 资源</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-crd.yaml
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2创建-rbac-权限">2、创建 RBAC 权限</h3>
+<p>Kubernetes 在 1.6 版本中引入了基于角色的访问控制（RBAC）策略，方便对 <code>Kubernetes</code> 资源和 <code>API</code> 进行细粒度控制。<code>Traefik</code> 需要一定的权限，所以，这里提前创建好 <code>Traefik ServiceAccount</code> 并分配一定的权限。</p>
+<p><strong># 创建 traefik-rbac.yaml 文件:</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">## ServiceAccount</span><span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ServiceAccount<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-ingress-controller<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c">## ClusterRole</span><span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-ingress-controller<span class="w">
+</span><span class="w"></span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;services&#34;</span><span class="p">,</span><span class="s2">&#34;endpoints&#34;</span><span class="p">,</span><span class="s2">&#34;secrets&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="s2">&#34;list&#34;</span><span class="p">,</span><span class="s2">&#34;watch&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;extensions&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;ingresses&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="s2">&#34;list&#34;</span><span class="p">,</span><span class="s2">&#34;watch&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;extensions&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;ingresses/status&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;update&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>- <span class="k">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;traefik.containo.us&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;middlewares&#34;</span><span class="p">,</span><span class="s2">&#34;ingressroutes&#34;</span><span class="p">,</span><span class="s2">&#34;ingressroutetcps&#34;</span><span class="p">,</span><span class="s2">&#34;tlsoptions&#34;</span><span class="p">,</span><span class="s2">&#34;ingressrouteudps&#34;</span><span class="p">,</span><span class="s2">&#34;traefikservices&#34;</span><span class="p">,</span><span class="s2">&#34;tlsstores&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="k">verbs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="s2">&#34;list&#34;</span><span class="p">,</span><span class="s2">&#34;watch&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="c">## ClusterRoleBinding</span><span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRoleBinding<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-ingress-controller<span class="w">
+</span><span class="w"></span><span class="k">roleRef</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>rbac.authorization.k8s.io<span class="w">
+</span><span class="w">  </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ClusterRole<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-ingress-controller<span class="w">
+</span><span class="w"></span><span class="k">subjects</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">kind</span><span class="p">:</span><span class="w"> </span>ServiceAccount<span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-ingress-controller<span class="w">
+</span><span class="w">    </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Traefik RBAC 资源</strong></p>
+<ul>
+<li>-n：指定部署的 Namespace</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-rbac.yaml -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3创建-traefik-配置文件">3、创建 Traefik 配置文件</h3>
+<p>由于 Traefik 配置很多，通过 <code>CLI</code> 定义不是很方便，一般时候都会通过配置文件配置 <code>Traefik</code> 参数，然后存入 <code>ConfigMap</code>，将其挂入 <code>Traefik</code> 中。</p>
+<p><strong><strong>#</strong> 创建 traefik-config.yaml 文件</strong></p>
+<blockquote>
+<p>下面配置中可以通过配置 kubernetesCRD 与 kubernetesIngress 两项参数，让 Traefik 支持 CRD 与 Ingress 两种路由方式。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ConfigMap<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-config<span class="w">
+</span><span class="w"></span><span class="k">data</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">traefik.yaml</span><span class="p">:</span><span class="w"> </span>|<span class="sd">-
+</span><span class="sd">    ping: &#34;&#34;                    ## 启用 Ping</span><span class="w">
+</span><span class="w">    </span><span class="k">serversTransport</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">insecureSkipVerify</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c">## Traefik 忽略验证代理服务的 TLS 证书</span><span class="w">
+</span><span class="w">    </span><span class="k">api</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">insecure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">            </span><span class="c">## 允许 HTTP 方式访问 API</span><span class="w">
+</span><span class="w">      </span><span class="k">dashboard</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">           </span><span class="c">## 启用 Dashboard</span><span class="w">
+</span><span class="w">      </span><span class="k">debug</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">              </span><span class="c">## 启用 Debug 调试模式</span><span class="w">
+</span><span class="w">    </span><span class="k">metrics</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">prometheus</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">            </span><span class="c">## 配置 Prometheus 监控指标数据，并使用默认配置</span><span class="w">
+</span><span class="w">    </span><span class="k">entryPoints</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">web</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">address</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;:80&#34;</span><span class="w">          </span><span class="c">## 配置 80 端口，并设置入口名称为 web</span><span class="w">
+</span><span class="w">      </span><span class="k">websecure</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">address</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;:443&#34;</span><span class="w">         </span><span class="c">## 配置 443 端口，并设置入口名称为 websecure</span><span class="w">
+</span><span class="w">    </span><span class="k">providers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">kubernetesCRD</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">         </span><span class="c">## 启用 Kubernetes CRD 方式来配置路由规则</span><span class="w">
+</span><span class="w">      </span><span class="k">kubernetesIngress</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">     </span><span class="c">## 启动 Kubernetes Ingress 方式来配置路由规则</span><span class="w">
+</span><span class="w">    </span><span class="k">log</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">filePath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">              </span><span class="c">## 设置调试日志文件存储路径，如果为空则输出到控制台</span><span class="w">
+</span><span class="w">      </span><span class="k">level</span><span class="p">:</span><span class="w"> </span>error<span class="w">              </span><span class="c">## 设置调试日志级别</span><span class="w">
+</span><span class="w">      </span><span class="k">format</span><span class="p">:</span><span class="w"> </span>json<span class="w">              </span><span class="c">## 设置调试日志格式</span><span class="w">
+</span><span class="w">    </span><span class="k">accessLog</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">filePath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">              </span><span class="c">## 设置访问日志文件存储路径，如果为空则输出到控制台</span><span class="w">
+</span><span class="w">      </span><span class="k">format</span><span class="p">:</span><span class="w"> </span>json<span class="w">              </span><span class="c">## 设置访问调试日志格式</span><span class="w">
+</span><span class="w">      </span><span class="k">bufferingSize</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">          </span><span class="c">## 设置访问日志缓存行数</span><span class="w">
+</span><span class="w">      </span><span class="k">filters</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="c">#statusCodes: [&#34;200&#34;]   ## 设置只保留指定状态码范围内的访问日志</span><span class="w">
+</span><span class="w">        </span><span class="k">retryAttempts</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">     </span><span class="c">## 设置代理访问重试失败时，保留访问日志</span><span class="w">
+</span><span class="w">        </span><span class="k">minDuration</span><span class="p">:</span><span class="w"> </span><span class="m">20</span><span class="w">         </span><span class="c">## 设置保留请求时间超过指定持续时间的访问日志</span><span class="w">
+</span><span class="w">      </span><span class="k">fields</span><span class="p">:</span><span class="w">                   </span><span class="c">## 设置访问日志中的字段是否保留（keep 保留、drop 不保留）</span><span class="w">
+</span><span class="w">        </span><span class="k">defaultMode</span><span class="p">:</span><span class="w"> </span>keep<span class="w">       </span><span class="c">## 设置默认保留访问日志字段</span><span class="w">
+</span><span class="w">        </span><span class="k">names</span><span class="p">:</span><span class="w">                  </span><span class="c">## 针对访问日志特别字段特别配置保留模式</span><span class="w">
+</span><span class="w">          </span><span class="k">ClientUsername</span><span class="p">:</span><span class="w"> </span>drop<span class="w">
+</span><span class="w">        </span><span class="k">headers</span><span class="p">:</span><span class="w">                </span><span class="c">## 设置 Header 中字段是否保留</span><span class="w">
+</span><span class="w">          </span><span class="k">defaultMode</span><span class="p">:</span><span class="w"> </span>keep<span class="w">     </span><span class="c">## 设置默认保留 Header 中字段</span><span class="w">
+</span><span class="w">          </span><span class="k">names</span><span class="p">:</span><span class="w">                </span><span class="c">## 针对 Header 中特别字段特别配置保留模式</span><span class="w">
+</span><span class="w">            </span><span class="k">User-Agent</span><span class="p">:</span><span class="w"> </span>redact<span class="w">
+</span><span class="w">            </span><span class="k">Authorization</span><span class="p">:</span><span class="w"> </span>drop<span class="w">
+</span><span class="w">            </span><span class="k">Content-Type</span><span class="p">:</span><span class="w"> </span>keep<span class="w">
+</span><span class="w">    </span><span class="c">#tracing:                     ## 链路追踪配置,支持 zipkin、datadog、jaeger、instana、haystack 等</span><span class="w">
+</span><span class="w">    </span><span class="c">#  serviceName:               ## 设置服务名称（在链路追踪端收集后显示的服务名）</span><span class="w">
+</span><span class="w">    </span><span class="c">#  zipkin:                    ## zipkin配置</span><span class="w">
+</span><span class="w">    </span><span class="c">#    sameSpan: true           ## 是否启用 Zipkin SameSpan RPC 类型追踪方式</span><span class="w">
+</span><span class="w">    </span><span class="c">#    id128Bit: true           ## 是否启用 Zipkin 128bit 的跟踪 ID</span><span class="w">
+</span><span class="w">    </span><span class="c">#    sampleRate: 0.1          ## 设置链路日志采样率（可以配置0.0到1.0之间的值）</span><span class="w">
+</span><span class="w">    </span><span class="c">#    httpEndpoint: http://localhost:9411/api/v2/spans     ## 配置 Zipkin Server 端点</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Traefik ConfigMap 资源</strong></p>
+<ul>
+<li>-n： 指定程序启的 Namespace</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-config.yaml -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4节点设置-label-标签">4、节点设置 Label 标签</h3>
+<p>由于是 <code>Kubernetes DeamonSet</code> 这种方式部署 <code>Traefik</code>，所以需要提前给节点设置 <code>Label</code>，这样当程序部署时会自动调度到设置 <code>Label</code> 的节点上。</p>
+<p><strong><strong>#</strong> 节点设置 Label 标签</strong></p>
+<ul>
+<li>格式：kubectl label nodes [节点名] [key=value]</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl label nodes k8s-node-2-12 <span class="nv">IngressProxy</span><span class="o">=</span><span class="nb">true</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 查看节点是否设置 Label 成功</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get nodes --show-labels
+
+NAME            STATUS ROLES  VERSION  LABELS
+k8s-master-2-11 Ready  master  v1.18.5  kubernetes.io/hostname<span class="o">=</span>k8s-master-2-11,node-role.kubernetes.io/master<span class="o">=</span>
+k8s-node-2-12   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="o">=</span>k8s-node-2-12,IngressProxy<span class="o">=</span><span class="nb">true</span>
+k8s-node-2-13   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="o">=</span>k8s-node-2-13
+k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="o">=</span>k8s-node-2-14
+
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>如果想删除标签，可以使用 “kubectl label nodes k8s-node-2-12 IngressProxy-” 命令</p>
+</blockquote>
+<h3 id="5kubernetes-部署-traefik">5、Kubernetes 部署 Traefik</h3>
+<p>下面将用 <code>DaemonSet</code> 方式部署 <code>Traefik</code>，便于在多服务器间扩展，用 <code>hostport</code> 方式绑定服务器 <code>80</code>、<code>443</code> 端口，方便流量通过物理机进入 <code>Kubernetes</code> 内部。</p>
+<p><strong><strong>#</strong> 创建 traefik 部署 traefik-deploy.yaml 文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>web<span class="w">
+</span><span class="w">      </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>websecure<span class="w">
+</span><span class="w">      </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>admin<span class="w">
+</span><span class="w">      </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>DaemonSet<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-ingress-controller<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">serviceAccountName</span><span class="p">:</span><span class="w"> </span>traefik-ingress-controller<span class="w">
+</span><span class="w">      </span><span class="k">terminationGracePeriodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>traefik<span class="p">:</span>v2<span class="m">.2.8</span><span class="w">
+</span><span class="w">          </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-ingress-lb<span class="w">
+</span><span class="w">          </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>web<span class="w">
+</span><span class="w">              </span><span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">              </span><span class="k">hostPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">         </span><span class="c">## 将容器端口绑定所在服务器的 80 端口</span><span class="w">
+</span><span class="w">            </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>websecure<span class="w">
+</span><span class="w">              </span><span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">              </span><span class="k">hostPort</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">        </span><span class="c">## 将容器端口绑定所在服务器的 443 端口</span><span class="w">
+</span><span class="w">            </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>admin<span class="w">
+</span><span class="w">              </span><span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">  </span><span class="c">## Traefik Dashboard 端口</span><span class="w">
+</span><span class="w">          </span><span class="k">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">limits</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>2000m<span class="w">
+</span><span class="w">              </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1024Mi<span class="w">
+</span><span class="w">            </span><span class="k">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="k">cpu</span><span class="p">:</span><span class="w"> </span>1000m<span class="w">
+</span><span class="w">              </span><span class="k">memory</span><span class="p">:</span><span class="w"> </span>1024Mi<span class="w">
+</span><span class="w">          </span><span class="k">securityContext</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">capabilities</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="k">drop</span><span class="p">:</span><span class="w">
+</span><span class="w">                </span>- ALL<span class="w">
+</span><span class="w">              </span><span class="k">add</span><span class="p">:</span><span class="w">
+</span><span class="w">                </span>- NET_BIND_SERVICE<span class="w">
+</span><span class="w">          </span><span class="k">args</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- --configfile=/config/traefik.yaml<span class="w">
+</span><span class="w">          </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- <span class="k">mountPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/config&#34;</span><span class="w">
+</span><span class="w">              </span><span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;config&#34;</span><span class="w">
+</span><span class="w">          </span><span class="k">readinessProbe</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">httpGet</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/ping<span class="w">
+</span><span class="w">              </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">            </span><span class="k">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">            </span><span class="k">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">            </span><span class="k">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">            </span><span class="k">successThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">            </span><span class="k">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">          </span><span class="k">livenessProbe</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">httpGet</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/ping<span class="w">
+</span><span class="w">              </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">            </span><span class="k">failureThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">            </span><span class="k">initialDelaySeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">            </span><span class="k">periodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">            </span><span class="k">successThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">            </span><span class="k">timeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">      </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>config<span class="w">
+</span><span class="w">          </span><span class="k">configMap</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-config<span class="w">
+</span><span class="w">      </span><span class="k">tolerations</span><span class="p">:</span><span class="w">              </span><span class="c">## 设置容忍所有污点，防止节点被设置污点</span><span class="w">
+</span><span class="w">        </span>- <span class="k">operator</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Exists&#34;</span><span class="w">
+</span><span class="w">      </span><span class="k">nodeSelector</span><span class="p">:</span><span class="w">             </span><span class="c">## 设置node筛选器，在特定label的节点上启动</span><span class="w">
+</span><span class="w">        </span><span class="k">IngressProxy</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> Kubernetes 部署 Traefik</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-deploy.yaml -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><p>到此 Traefik v2.2 应用已经部署完成。</p>
+<h2 id="三配置路由规则">三、配置路由规则</h2>
+<p>       Traefik 应用已经部署完成，但是想让外部访问 <code>Kubernetes</code> 内部服务，还需要配置路由规则，上面部署 <code>Traefik</code> 时开启了 <code>Traefik Dashboard</code>，这是 <code>Traefik</code> 提供的视图看板，所以，首先配置基于 <code>HTTP</code> 的 <code>Traefik Dashboard</code> 路由规则，使外部能够访问 <code>Traefik Dashboard</code>。然后，再配置基于 <code>HTTPS</code> 的 <code>Kubernetes Dashboard</code> 的路由规则，这里分别使用 <code>CRD</code> 和 <code>Ingress</code> 两种方式进行演示。</p>
+<h3 id="1方式一使用-crd-方式配置-traefik-路由规则">1、方式一：使用 CRD 方式配置 Traefik 路由规则</h3>
+<blockquote>
+<p>使用 CRD 方式创建路由规则可言参考 Traefik 文档 <a href="https://docs.traefik.io/v2.2/routing/providers/kubernetes-crd/">Kubernetes IngressRoute</a></p>
+</blockquote>
+<h4 id="1配置-http-路由规则-traefik-dashboard-为例">(1)、配置 HTTP 路由规则 （Traefik Dashboard 为例）</h4>
+<p><strong><strong>#</strong> 创建 Traefik Dashboard 路由规则 traefik-dashboard-route.yaml 文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>traefik.containo.us/v1alpha1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>IngressRoute<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-dashboard-route<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">entryPoints</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- web<span class="w">
+</span><span class="w">  </span><span class="k">routes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">match</span><span class="p">:</span><span class="w"> </span>Host(`traefik.xiebiao.top`)<span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Rule<span class="w">
+</span><span class="w">    </span><span class="k">services</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">        </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Traefik Dashboard 路由规则对象</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-dashboard-route.yaml -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2配置-https-路由规则kubernetes-dashboard-为例">(2)、配置 HTTPS 路由规则（Kubernetes Dashboard 为例）</h4>
+<p>这里我们创建 <code>Kubernetes</code> 的 <code>Dashboard</code> 看板创建路由规则，它是 <code>Https</code> 协议方式，由于它是需要使用 Https 请求，所以我们配置基于 Https 的路由规则并指定证书。</p>
+<p><strong><strong>#</strong> 创建私有证书 tls.key、tls.crt 文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建自签名证书</span>
+$ openssl req -x509 -nodes -days <span class="m">3650</span> -newkey rsa:2048 -keyout tls.key -out tls.crt -subj <span class="s2">&#34;/CN=cloud.xiebiao.top&#34;</span>
+
+<span class="c1"># 将证书存储到 Kubernetes Secret 中</span>
+$ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</span>tls.crt --from-file<span class="o">=</span>tls.key -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Traefik Dashboard CRD 路由规则 kubernetes-dashboard-route.yaml 文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>traefik.containo.us/v1alpha1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>IngressRoute<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>kubernetes-dashboard-route<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">entryPoints</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- websecure<span class="w">
+</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">secretName</span><span class="p">:</span><span class="w"> </span>cloud-xiebiao-tls<span class="w">
+</span><span class="w">  </span><span class="k">routes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">match</span><span class="p">:</span><span class="w"> </span>Host(`cloud.xiebiao.top`)<span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Rule<span class="w">
+</span><span class="w">    </span><span class="k">services</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>kubernetes-dashboard<span class="w">
+</span><span class="w">        </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Kubernetes Dashboard 路由规则对象</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f kubernetes-dashboard-route.yaml -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2方式二使用-ingress-方式配置-traefik-路由规则">2、方式二：使用 Ingress 方式配置 Traefik 路由规则</h3>
+<blockquote>
+<p>使用 Ingress 方式创建路由规则可言参考 Traefik 文档 <a href="https://docs.traefik.io/v2.2/routing/providers/kubernetes-ingress/">Kubernetes Ingress</a></p>
+</blockquote>
+<h4 id="1配置-http-路由规则-traefik-dashboard-为例-1">(1)、配置 HTTP 路由规则 （Traefik Dashboard 为例）</h4>
+<p><strong><strong>#</strong> 创建 Traefik Ingress 路由规则 traefik-dashboard-ingress.yaml 文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>traefik-dashboard-ingress<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span>web<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>traefik.xiebiao.top<span class="w">
+</span><span class="w">    </span><span class="k">http</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">path</span><span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w">        </span><span class="k">backend</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">serviceName</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">          </span><span class="k">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Traefik Dashboard Ingress 路由规则对象</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-dashboard-ingress.yaml -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2配置-https-路由规则kubernetes-dashboard-为例-1">(2)、配置 HTTPS 路由规则（Kubernetes Dashboard 为例）</h4>
+<p>跟上面以 <code>CRD</code> 方式创建路由规则一样，也需要创建使用证书，然后再以 <code>Ingress</code> 方式创建路由规则。</p>
+<p><strong><strong>#</strong> 创建私有证书 tls.key、tls.crt 文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建自签名证书</span>
+$ openssl req -x509 -nodes -days <span class="m">3650</span> -newkey rsa:2048 -keyout tls.key -out tls.crt -subj <span class="s2">&#34;/CN=cloud.xiebiao.top&#34;</span>
+
+<span class="c1"># 将证书存储到 Kubernetes Secret 中</span>
+$ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</span>tls.crt --from-file<span class="o">=</span>tls.key -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Traefik Dashboard Ingress 路由规则 kubernetes-dashboard-ingress.yaml 文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>kubernetes-dashboard-ingress<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>kube-system<span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.tls</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span>websecure<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">secretName</span><span class="p">:</span><span class="w"> </span>cloud-xiebiao-tls<span class="w">
+</span><span class="w">  </span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>cloud.xiebiao.top<span class="w">
+</span><span class="w">    </span><span class="k">http</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">path</span><span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w">        </span><span class="k">backend</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">serviceName</span><span class="p">:</span><span class="w"> </span>kubernetes-dashboard<span class="w">
+</span><span class="w">          </span><span class="k">servicePort</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong><strong>#</strong> 创建 Traefik Dashboard 路由规则对象</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f kubernetes-dashboard-ingress.yaml -n kube-system
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="四方式创建路由规则后的应用">四、方式创建路由规则后的应用</h2>
+<h3 id="1配置-host-文件">1、配置 Host 文件</h3>
+<p>客户端想通过域名访问服务，必须要进行 <code>DNS</code> 解析，由于这里没有 <code>DNS</code> 服务器进行域名解析，所以修改 <code>hosts</code> 文件将 <code>Traefik</code> 所在节点服务器的 <code>IP</code> 和自定义 <code>Host</code> 绑定。打开电脑的 <code>Hosts</code> 配置文件，往其加入下面配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">192.168.12.182  traefik.xiebiao.top
+192.168.12.182  cloud.xiebiao.top
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2访问对应应用">2、访问对应应用</h3>
+<p><strong><strong>#</strong> 访问 Traefik Dashboard</strong></p>
+<p>打开浏览器输入地址：http://<strong>traefik</strong>.xiebiao.top 打开 Traefik Dashboard。</p>
+<p><a href="https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/kubernetes-traefik2.2-1002.png?x-oss-process=style/shuiyin"><img src="https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/kubernetes-traefik2.2-1002.png?x-oss-process=style/shuiyin" alt=""></a></p>
+<p><strong><strong>#</strong> 访问 Traefik Dashboard</strong></p>
+<p>打开浏览器输入地址：https://<strong>cloud</strong>.xiebiao.top 打开 Dashboard Dashboard。</p>
+<p><a href="https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/kubernetes-traefik2.2-1003.png?x-oss-process=style/shuiyin"><img src="https://mydlq-club.oss-cn-beijing.aliyuncs.com/images/kubernetes-traefik2.2-1003.png?x-oss-process=style/shuiyin" alt=""></a></p>
+<p>到此文章结束，可以访问我的 Github 下载 <a href="https://github.com/my-dlq/blog-example/tree/master/kubernetes/traefik-v2.2-deploy">部署文件</a>，别忘点颗 Start！！</p>
+<p>—End—</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-07-21 21:09
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/k8s/">k8s</a>
+          <a href="/tags/traefik/">traefik</a>
+          <a href="/tags/ingress/">ingress</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/cloud/docker_all_ops/">
+            <span class="next-text nav-default">docker最佳实践总结</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

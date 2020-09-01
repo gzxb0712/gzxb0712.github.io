@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cloud on Bill World</title>
+    <link>https://xiebiao.top/categories/cloud/</link>
+    <description>Recent content in cloud on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 21 Jul 2020 21:09:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/categories/cloud/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>k8s部署 Ingress 控制器 traefik 2.2.x教程</title>
+      <link>https://xiebiao.top/post/cloud/traefik_2.2.8_deploy/</link>
+      <pubDate>Tue, 21 Jul 2020 21:09:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cloud/traefik_2.2.8_deploy/</guid>
+      <description>参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设</description>
+    </item>
+    
+    <item>
+      <title>docker最佳实践总结</title>
+      <link>https://xiebiao.top/post/cloud/docker_all_ops/</link>
+      <pubDate>Mon, 20 Jul 2020 21:05:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cloud/docker_all_ops/</guid>
+      <description>&amp;raquo;&amp;gt; 目录 &amp;laquo;&amp;lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>k8s 备份以及恢复详解 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="1 为什么 2 是什么 3 备份与快照 4 物理备份与逻辑备份 5 etcd 备份 6 逻辑备份 7 velero 备份 8 存储的备份 9 csi snapshot 10 参考 为什么 K8S 是软件，软件就会有中间状态和运行数" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cloud/k8s_backup_restore/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="k8s 备份以及恢复详解" />
+<meta property="og:description" content="1 为什么 2 是什么 3 备份与快照 4 物理备份与逻辑备份 5 etcd 备份 6 逻辑备份 7 velero 备份 8 存储的备份 9 csi snapshot 10 参考 为什么 K8S 是软件，软件就会有中间状态和运行数" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cloud/k8s_backup_restore/" />
+<meta property="article:published_time" content="2020-07-23T20:11:30+00:00" />
+<meta property="article:modified_time" content="2020-07-23T20:11:30+00:00" />
+<meta itemprop="name" content="k8s 备份以及恢复详解">
+<meta itemprop="description" content="1 为什么 2 是什么 3 备份与快照 4 物理备份与逻辑备份 5 etcd 备份 6 逻辑备份 7 velero 备份 8 存储的备份 9 csi snapshot 10 参考 为什么 K8S 是软件，软件就会有中间状态和运行数">
+<meta itemprop="datePublished" content="2020-07-23T20:11:30+00:00" />
+<meta itemprop="dateModified" content="2020-07-23T20:11:30+00:00" />
+<meta itemprop="wordCount" content="4178">
+
+
+
+<meta itemprop="keywords" content="k8s,cloud," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k8s 备份以及恢复详解"/>
+<meta name="twitter:description" content="1 为什么 2 是什么 3 备份与快照 4 物理备份与逻辑备份 5 etcd 备份 6 逻辑备份 7 velero 备份 8 存储的备份 9 csi snapshot 10 参考 为什么 K8S 是软件，软件就会有中间状态和运行数"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">k8s 备份以及恢复详解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-07-23 20:11 </span>
+        <div class="post-category">
+            <a href="/categories/cloud/"> cloud </a>
+            </div>
+          <span class="more-meta"> 约 4178 字 </span>
+          <span class="more-meta"> 预计阅读 9 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么">为什么</a></li>
+    <li><a href="#是什么">是什么</a></li>
+    <li><a href="#不是什么">不是什么：</a></li>
+    <li><a href="#备份与快照">备份与快照</a></li>
+    <li><a href="#物理备份与逻辑备份">物理备份与逻辑备份</a></li>
+    <li><a href="#etcd-备份">etcd 备份</a></li>
+    <li><a href="#逻辑备份">逻辑备份</a></li>
+    <li><a href="#velero-备份">velero 备份</a></li>
+    <li><a href="#存储的备份">存储的备份</a></li>
+    <li><a href="#csi-snapshot">csi snapshot</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li><a href="#i">1 为什么</a></li>
+<li><a href="#i-2">2 是什么</a></li>
+<li><a href="#i-3">3 备份与快照</a></li>
+<li><a href="#i-4">4 物理备份与逻辑备份</a></li>
+<li><a href="#etcd">5 etcd 备份</a></li>
+<li><a href="#i-5">6 逻辑备份</a></li>
+<li><a href="#velero">7 velero 备份</a></li>
+<li><a href="#i-6">8 存储的备份</a></li>
+<li><a href="#csi_snapshot">9 csi snapshot</a></li>
+<li><a href="#i-7">10 参考</a></li>
+</ul>
+<h2 id="为什么">为什么</h2>
+<p>K8S 是软件，软件就会有中间状态和运行数据，K8S 的控制面数据持久化在 etcd 中，etcd 是以键值对 Key/Value 格式存储，并对外提供读写服务，为了防止数据丢失或意外故障，需要定期备份。</p>
+<p>同时 K8S 是容器化平台，容器屏蔽了基础设施的复杂性，涵盖了计算、网络、存储、监控日志等多种接口，因此容器运行中的所有数据也需要备份，如 pv 声明的存储数据，网络配置、权限配置、镜像数据等</p>
+<p>备份的目的是防止数据永久丢失，同时快速恢复到正常可用，是容灾恢复（DR）的重要手段，ETCD 集群和 K8S 集群一般是高可用部署，单点故障并不会影响集群稳定性，但是用户误操作、升级、集群迁移等操作，仍然需要备份和恢复工具。</p>
+<h2 id="是什么">是什么</h2>
+<p>k8s 集群的备份一般是指 etcd 的备份，但因为 etcd 备份是某一时刻的完整数据，无法自定义选择备份哪些内容，且数据除了 etcd 本身，其他程序不可读，因此有很多的局限。另外 pod 使用的存储如 PV 等数据也需要备份，这并不在 etcd 的范畴。</p>
+<p>因此出现了很多开源和商业产品来提供 k8s 的备份和恢复解决方案，如：</p>
+<ul>
+<li><a href="https://velero.io/">velero</a>: Backup and migrate Kubernetes resources and persistent volumes</li>
+<li><a href="https://stash.run/">stash</a>: Backup your Kubernetes Stateful Applications</li>
+<li><a href="https://portworx.com/use-case/kubernetes-storage/">portworx</a>: Portworx solves these challenges and more with cloud native storage and data management built from the ground up for Kubernetes.</li>
+</ul>
+<p>基本是为了解决 k8s 的存储迁移问题，而 k8s 在 1.12 版本 也推出了CSI Snapshot，存储的备份操作有了更多可能性，后面会详细说明。</p>
+<h2 id="不是什么">不是什么：</h2>
+<ul>
+<li>本文不讨论多集群灾备方案，如跨地域、跨可用区或者跨云的多集群热备、冷备、调度</li>
+<li>如果 pod 中使用了外部数据库、缓存等产品，备份操作应该在对应的产品操作，如数据库本身的 db 备份，尤其是云上产品。</li>
+</ul>
+<h2 id="备份与快照">备份与快照</h2>
+<p>备份（backup）与快照（snapshot）的作用是很相似的，但有些区别。以云磁盘为例，备份是云硬盘数据在某一时刻的副本，而快照并非是实际的磁盘数据拷贝，不是数据副本。因此快照占用的存储空间较小，且执行速度快。但是如果磁盘物理故障，通过快照回滚是无法恢复出正确的数据的，而备份则可以。</p>
+<p>备份的概念更宽泛一点，如果我只想备份某几个文件夹，快照的概念就不太准确了，例如 etcd 备份，在 v2 中命令 etcdctl backup，v3 版本中是 etcdctl snapshot，但其实作用是一样的，即备份某一时刻的 etcd 数据。这里不是玩文字游戏，只是对比后面的 velero 备份，etcd 的快照是某一时刻的数据，没办法备份某一个 namespace 或者某一组 pod。备份的是全部，恢复时也是全部。</p>
+<h2 id="物理备份与逻辑备份">物理备份与逻辑备份</h2>
+<p>备份也可以分为两类，物理备份与逻辑备份</p>
+<ul>
+<li>
+<p>物理备份: 如 mysql 备份、etcd 备份，不区分数据的内在逻辑关系，把数据存储作为一个整体来备份，恢复时也是作为整体恢复，不可能只恢复一部分数据，类似快照的概念。</p>
+</li>
+<li>
+<p>逻辑备份：按照数据的内在逻辑关系，选择性提取部分数据或全部数据，恢复时可以选择恢复一部分数据。</p>
+</li>
+</ul>
+<p>物理备份的优点是速度快，无论是备份还是回恢复，但缺点是元数据不可读，只能全部恢复。而逻辑备份正好相反，因此两者可以结合使用，既能快，又能有细粒度控制的能力.</p>
+<p>在 k8s 集群中的操作就是：</p>
+<ol>
+<li>物理备份：etcd 备份，保存某一个时刻的快照，快捷方便。</li>
+<li>逻辑备份：基于 velero 或者自研功能，允许用户自己选择备份的内容、自动或定时备份，也可以恢复特定内容。同时备份的就是 yaml，用户可读可修改。</li>
+</ol>
+<h2 id="etcd-备份">etcd 备份</h2>
+<p>以 etcd v3 版本为例：</p>
+<p>备份：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 执行备份</span>
+date<span class="p">;</span>
+<span class="nv">CACERT</span><span class="o">=</span><span class="s2">&#34;/opt/kubernetes/ssl/ca.pem&#34;</span>
+<span class="nv">CERT</span><span class="o">=</span><span class="s2">&#34;/opt/kubernetes/ssl/server.pem&#34;</span>
+<span class="nv">EKY</span><span class="o">=</span><span class="s2">&#34;/opt/kubernetes/ssl/server-key.pem&#34;</span>
+<span class="nv">ENDPOINTS</span><span class="o">=</span><span class="s2">&#34;127.0.0.1:2379&#34;</span>
+
+<span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl 
+--cacert<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">CACERT</span><span class="si">}</span><span class="s2">&#34;</span> --cert<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">CERT</span><span class="si">}</span><span class="s2">&#34;</span> --key<span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">EKY</span><span class="si">}</span><span class="s2">&#34;</span> 
+--endpoints<span class="o">=</span><span class="si">${</span><span class="nv">ENDPOINTS</span><span class="si">}</span> 
+snapshot save /backup/etcd-snapshot-<span class="sb">`</span>date +%Y%m%d<span class="sb">`</span>.db
+
+<span class="c1"># 备份保留30天</span>
+find /backup/ -name *.db -mtime +30 -exec rm -f <span class="o">{}</span> <span class="p">;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>恢复：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">1.停止所有 Master 上 kube-apiserver 服务
+
+systemctl stop kube-apiserver
+
+2.停止集群中所有 ETCD 服务
+systemctl stop etcd
+
+3.移除所有 ETCD 存储目录下数据
+mv /etcd/data /etcd/data.bak
+
+4.从备份文件中恢复数据
+<span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl snapshot restore /backup/etcd-snapshot-xx.db
+
+5.启动 etcd
+systemctl start etcd
+
+6.启动 apiserver
+systemctl start kube-apiserver
+
+7.检查服务是否正常
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="逻辑备份">逻辑备份</h2>
+<p>逻辑备份就是让用户选择自己的备份内容、备份周期和恢复方式，换句话说，把备份做成一种产品功能，存放用户的 yaml 备份。因为我们是云产品，所以提供了自定义的备份能力，用户可以在页面上选择 namespace 或资源，备份所有资源的 yaml，后端将 yaml+json 两份文件存放在对象存储，并支持定时备份、指定资源做恢复。</p>
+<p>备份的逻辑非常简单，简化为 kubectl 操作就是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl get deploy nginx -o yaml &gt; nginx.yaml
+
+</code></pre></td></tr></table>
+</div>
+</div><p>只是将 kubectl 操作换成了代码实现，扫描 ns 下的十几种资源类型，并转为文件上传到对象存储。但如果做成产品功能，会多出一些设计和限制在里面，如：</p>
+<ul>
+<li>备份限制：用户有自己的配额，如一个用户最大能有100 个备份文件，允许下载</li>
+<li>手动备份：用户可以勾选需要的资源，点击备份，备份是异步操作，点击后会有备份进度展示</li>
+<li>自动备份：支持 cron 表达式，按指定时间进行备份</li>
+<li>恢复备份：恢复时需要去除yaml 中的某些字段，然后 apply 到用户集群</li>
+</ul>
+<p>备份的思路参考了 velero 的实现，只是 velero 需要在集群内安装 pod 来配合备份，而备份 yaml 只要有 kubeconfig 能连接集群即可。</p>
+<h2 id="velero-备份">velero 备份</h2>
+<p>velero 是开源方案，项目地址：https://velero.io/</p>
+<p>velero的作用：</p>
+<ul>
+<li>灾备能力：提供备份恢复k8s集群的能力</li>
+<li>迁移能力：提供拷贝集群资源到其他集群的能力</li>
+</ul>
+<p>和 etcd 备份的区别：</p>
+<ul>
+<li>etcd 的备份必须拥有 etcd 运维权限，有些用户无法操作 etcd，如多租户场景。</li>
+<li>etcd 更适合单集群内数据备份，不太适合集群迁移</li>
+<li>etcd 是当前状态备份，velero 可以做到只备份集群内的一部分资源</li>
+</ul>
+<p>velero 会在你的 k8s 集群上运行一个 server pod，然后配合 velero 客户端进行操作，安装过程可以参考<a href="https://velero.io/docs/v1.4/basic-install">文档</a>，操作是很简单的：</p>
+<p>1.创建一个 nginx 资源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">---<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Namespace<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx-example<span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>apps/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Deployment<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx-deployment<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>nginx-example<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">    </span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">image</span><span class="p">:</span><span class="w"> </span>hub.baidubce.com/cce/nginx-alpine-go<span class="p">:</span>latest<span class="w">
+</span><span class="w">        </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">        </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="k">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>my-nginx<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>nginx-example<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">    </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>LoadBalancer<span class="w">
+</span><span class="w">
+</span><span class="w"></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>base.yaml<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>YAML</p>
+<p>2.生成一个备份，备份名称为 nginx-backup</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">velero backup create nginx-backup --include-namespaces nginx-example
+
+</code></pre></td></tr></table>
+</div>
+</div><p>3.删除nginx example 资源:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl delete namespaces nginx-example
+
+</code></pre></td></tr></table>
+</div>
+</div><p>4.从nginx-backup备份中恢复资源:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">velero restore create --from-backup nginx-backup
+
+</code></pre></td></tr></table>
+</div>
+</div><p>velero还支持更多的备份方式，可以参考官方文档，</p>
+<p>工作原理：</p>
+<p><img src="http://vermouth-blog-image.oss-cn-hongkong.aliyuncs.com/monitor/9ba0a345-3f21-45bd-9dc0-d65993c133e5.jpg" alt=""></p>
+<p>velero 默认将备份的文件上传到对象存储，对象存储和和csi 插件都云厂商支持，因此一般搭配 velero-plugin 使用，如：</p>
+<ul>
+<li>aws: <a href="https://github.com/vmware-tanzu/velero-plugin-for-aws">https://github.com/vmware-tanzu/velero-plugin-for-aws</a></li>
+<li>阿里云: <a href="https://github.com/AliyunContainerService/velero-plugin">https://github.com/AliyunContainerService/velero-plugin</a></li>
+<li>百度云: <a href="https://cloud.baidu.com/doc/CCE/s/njyfx596a">https://cloud.baidu.com/doc/CCE/s/njyfx596a</a></li>
+</ul>
+<h2 id="存储的备份">存储的备份</h2>
+<p>只有需要持久化的、有状态的应用才需要备份，而 k8s 中的存储挂载有很多种，如:</p>
+<ul>
+<li>emptyDir</li>
+<li>configmap</li>
+<li>secret</li>
+<li>hostpath</li>
+<li>nfs</li>
+<li>各种云厂商的磁盘</li>
+<li>对象存储</li>
+</ul>
+<p>存储资源的备份一直是 k8s 备份最麻烦的部分，因为涉及到的挂载类型太多</p>
+<p>云厂商磁盘：</p>
+<ul>
+<li>如果你通过 flexvolume 或者 csi 插件挂载了文件存储、对象存储或者块存储，可以在对应的云产品页面进行磁盘的备份操作</li>
+<li>如果厂商自己定义了 crd 之类的操作，允许你自定义备份策略，你可以通过提交 yaml 来配置磁盘备份</li>
+<li>k8s 1.12 开始支持了csi snapshot ，如果厂商实现了 snapshot 功能，你可以直接在 k8s 中声明VolumeSnapshot来创建备份。</li>
+</ul>
+<p>非云厂商：</p>
+<ul>
+<li>如果你是emptyDir或者 nfs 的方式，可以在 velero 中使用 集成restic来实现备份，需要 k8s 支持mountPropagation（1.10 以上的版本），可以参考这个<a href="https://velero.io/docs/v1.4/restic/">文档</a></li>
+<li>restic不支持hostpath 方式的挂载，但可以支持 local pv</li>
+</ul>
+<h2 id="csi-snapshot">csi snapshot</h2>
+<p>k8s支持三种类型的卷插件：in-tree、Flex和CSI。而 snapshot 功能只有使用CSI才支持</p>
+<p>CSI(Container Storage Interface)是社区定义的一套用于容器场景的存储接口标准。k8s作为CO（容器编排系统）支持该标准。CSI方案是k8s中功能最完整，迭代最活跃的out-of-tree存储框架，也作为新的存储接入k8s的建议模式。现在大量的in-tree插件也在向CSI插件迁移。</p>
+<p>k8s 1.12 开始推出了 csi snapshot 功能，定义了几种 CRD 资源来实现快照功能，到 k8s 1.17，该功能进入 beta 阶段。</p>
+<p>使用方式：</p>
+<p>存储卷快照和pvc、pv创建的过程很类似：</p>
+<ul>
+<li>PVC-—&gt;StorageClass—-&gt;PV</li>
+<li>VolumeSnapshot—-&gt;VolumeSnapshotClass—–&gt;VolumeSnapshotContent</li>
+</ul>
+<p><img src="http://vermouth-blog-image.oss-cn-hongkong.aliyuncs.com/monitor/ac06c5e5-700b-4de5-9f9b-28d8eb0f9d49.jpg" alt=""></p>
+<p>在kubernetes中用VolumeSnapshotContent 和VolumeSnapshot这样的API资源去为用户和管理员创建卷快照</p>
+<ul>
+<li>VolumeSnapshotContent是从集群中指定的volume中获取的快照, 像PV资源一样</li>
+<li>VolumeSnapshot是用户想从某个指定volume获取快照的一个请求, 像集群中的PVC一样</li>
+</ul>
+<p>当用户想对某个volume进行快照的时候, 可以先创建VolumeSnapshotClass对象，之后创建一个卷快照申请，即VolumeSnapshot，当有了这个申请之后，先前创建的VolumeSnapshotClass就会根据申明来进行卷快照，生成快照内容，即VolumeSnapshotContent。</p>
+<p>这个功能是由CSI drivers提供，有些CSI drivers是支持快照功能的，当安装了支持卷快照的CSI drivers之后，CSI drivers会自动安装 VolumeSnapshotClass、VolumeSnapshot 和VolumeSnapshotContent 这些api 资源，这些 api 资源是 CRD，并不是 core api中的一部分, 作为部署过程的一部分，kubernetes为 snapshot controller 提供了一个名叫 external-snapshotter 的sidecar helper container, 它会watches VolumeSnapshot 这个对象，并触发对 CSI 端点的 CreateVolume 和DeleteVolume 操作。</p>
+<p><img src="http://vermouth-blog-image.oss-cn-hongkong.aliyuncs.com/monitor/3d2124d0-dbd1-44b5-b8dd-4cce51e11943.jpg" alt=""></p>
+<p>创建VolumeSnapshotClass对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>snapshot.storage.k8s.io/v1alpha1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>VolumeSnapshotClass<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>disk-snapshotclass<span class="w">
+</span><span class="w"></span><span class="k">snapshotter</span><span class="p">:</span><span class="w"> </span>diskplugin.csi.alibabacloud.com<span class="w"> </span><span class="c">#指定VolumeSnapshot时使用的Volume Plugin</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>YAML</p>
+<p>创建VolumeSnapshot对象:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>snapshot.storage.k8s.io/v1alpha1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>VolumeSnapshot<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>disk-snapshot<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">snapshotClassName</span><span class="p">:</span><span class="w"> </span>disk-snapshotclass<span class="w">
+</span><span class="w">  </span><span class="k">source</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>disk-pvc<span class="w">  </span><span class="c">#Snapshot的数据源, 类型是个pvc</span><span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolumeClaim<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>YAML</p>
+<p>从snapshot中恢复数据到新生的pv对象中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersisttentVolumeClaim<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>restore-pvc<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">dataSource</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>disk-snapshot<span class="w">
+</span><span class="w">    </span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>VolumeSnapshot<span class="w">
+</span><span class="w">    </span><span class="k">apiGroup</span><span class="p">:</span><span class="w"> </span>snapshot.storage.k8s.io<span class="w">
+</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>-ReadWriteOnce<span class="w">
+</span><span class="w">  </span><span class="k">resource</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>storage<span class="p">:</span>20Gi<span class="w">
+</span><span class="w">  </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>csi-disk<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>YAML</p>
+<p>velero 中对于csi snapshot的支持：</p>
+<p>velero 在 1.4 版本也对csi snapshot做了支持，不过功能并不完善，要求 k8s 版本必须为 1.17 及以上，参考文档: <a href="https://velero.io/blog/csi-integration/">https://velero.io/blog/csi-integration/</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">velero client config <span class="nb">set</span> <span class="nv">features</span><span class="o">=</span>EnableCSI
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://cloud.tencent.com/developer/article/1549339">https://cloud.tencent.com/developer/article/1549339</a></li>
+<li><a href="https://www.youtube.com/watch?v=CbA40krYZf0">https://www.youtube.com/watch?v=CbA40krYZf0</a></li>
+<li><a href="https://cloud.baidu.com/doc/CCE/s/njyfx596a">https://cloud.baidu.com/doc/CCE/s/njyfx596a</a></li>
+<li><a href="https://www.kubernetes.org.cn/6266.html">https://www.kubernetes.org.cn/6266.html</a></li>
+<li><a href="http://dockone.io/article/8697">http://dockone.io/article/8697</a></li>
+<li><a href="https://portworx.com/use-case/kubernetes-storage/">https://portworx.com/use-case/kubernetes-storage/</a></li>
+<li><a href="https://velero.io/blog/csi-integration/">https://velero.io/blog/csi-integration/</a></li>
+<li><a href="https://github.com/vmware-tanzu/velero-plugin-for-aws">https://github.com/vmware-tanzu/velero-plugin-for-aws</a></li>
+<li><a href="https://www.youtube.com/watch?v=JyzgS-KKuoo">https://www.youtube.com/watch?v=JyzgS-KKuoo</a></li>
+<li><a href="https://www.objectif-libre.com/en/blog/2020/01/10/kubernetes-backup-stateful-apps/">https://www.objectif-libre.com/en/blog/2020/01/10/kubernetes-backup-stateful-apps/</a></li>
+<li><a href="https://www.infoq.cn/article/sbwSX8ypxgID2-SB723K">https://www.infoq.cn/article/sbwSX8ypxgID2-SB723K</a></li>
+<li><a href="https://stash.run/">https://stash.run/</a></li>
+<li><a href="https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html">https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html</a></li>
+<li><a href="https://haojianxun.github.io/2019/06/24/kubernetes%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8%E5%8D%B7%E5%AD%98%E5%82%A8%E5%8D%B7%E5%BF%AB%E7%85%A7Snapshot/">https://haojianxun.github.io/2019/06/24/kubernetes%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8%E5%8D%B7%E5%AD%98%E5%82%A8%E5%8D%B7%E5%BF%AB%E7%85%A7Snapshot/</a></li>
+<li><a href="https://www.youtube.com/watch?v=CbA40krYZf0&amp;t=628s">https://www.youtube.com/watch?v=CbA40krYZf0&amp;t=628s</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-07-23 20:11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/k8s/">k8s</a>
+          <a href="/tags/cloud/">cloud</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/cloud/etcd3_backup_restore/">
+            <span class="next-text nav-default">etcd3 脚本备份以及恢复</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

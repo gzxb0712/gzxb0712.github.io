@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 21 Jul 2020 21:09:30 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2020 20:11:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>k8s 备份以及恢复详解</title>
+      <link>https://xiebiao.top/post/cloud/k8s_backup_restore/</link>
+      <pubDate>Thu, 23 Jul 2020 20:11:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cloud/k8s_backup_restore/</guid>
+      <description>1 为什么 2 是什么 3 备份与快照 4 物理备份与逻辑备份 5 etcd 备份 6 逻辑备份 7 velero 备份 8 存储的备份 9 csi snapshot 10 参考 为什么 K8S 是软件，软件就会有中间状态和运行数</description>
+    </item>
+    
+    <item>
+      <title>etcd3 脚本备份以及恢复</title>
+      <link>https://xiebiao.top/post/cloud/etcd3_backup_restore/</link>
+      <pubDate>Wed, 22 Jul 2020 21:09:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cloud/etcd3_backup_restore/</guid>
+      <description>ETCD 简介 ETCD 是用于共享配置和服务发现的分布式，一致性的KV存储系统。ETCD是CoreOS公司发起的一个开源项目，授权协议为Apache。 ETCD 使用</description>
+    </item>
     
     <item>
       <title>k8s部署 Ingress 控制器 traefik 2.2.x教程</title>

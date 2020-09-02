@@ -6,10 +6,19 @@
     <description>Recent content in etcd on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 28 Mar 2020 22:03:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2020 21:09:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>etcd3 脚本备份以及恢复</title>
+      <link>https://xiebiao.top/post/cloud/etcd3_backup_restore/</link>
+      <pubDate>Wed, 22 Jul 2020 21:09:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cloud/etcd3_backup_restore/</guid>
+      <description>ETCD 简介 ETCD 是用于共享配置和服务发现的分布式，一致性的KV存储系统。ETCD是CoreOS公司发起的一个开源项目，授权协议为Apache。 ETCD 使用</description>
+    </item>
     
     <item>
       <title>etcd 入门指引</title>

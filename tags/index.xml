@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 23 Jul 2020 20:11:30 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2020 21:03:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cicd</title>
+      <link>https://xiebiao.top/tags/cicd/</link>
+      <pubDate>Sun, 02 Aug 2020 21:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/cicd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>drone</title>
+      <link>https://xiebiao.top/tags/drone/</link>
+      <pubDate>Sun, 02 Aug 2020 21:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/drone/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gitea</title>
+      <link>https://xiebiao.top/tags/gitea/</link>
+      <pubDate>Sat, 01 Aug 2020 21:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/gitea/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cloud</title>
@@ -66,15 +93,6 @@
     </item>
     
     <item>
-      <title>cicd</title>
-      <link>https://xiebiao.top/tags/cicd/</link>
-      <pubDate>Sun, 05 Jul 2020 19:01:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/cicd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>jenkins</title>
       <link>https://xiebiao.top/tags/jenkins/</link>
       <pubDate>Sun, 05 Jul 2020 19:01:30 +0000</pubDate>
@@ -98,15 +116,6 @@
       <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/gitlab/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>drone</title>
-      <link>https://xiebiao.top/tags/drone/</link>
-      <pubDate>Wed, 01 Jul 2020 21:03:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/drone/</guid>
       <description></description>
     </item>
     

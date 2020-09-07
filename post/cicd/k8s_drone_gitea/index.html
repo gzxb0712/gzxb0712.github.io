@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>k8s部署drone及runner搭建自己的CI/CD系统 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。 首先，配置 he" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cicd/k8s_drone_gitea/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="k8s部署drone及runner搭建自己的CI/CD系统" />
+<meta property="og:description" content="实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。 首先，配置 he" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cicd/k8s_drone_gitea/" />
+<meta property="article:published_time" content="2020-08-02T21:03:30+00:00" />
+<meta property="article:modified_time" content="2020-08-02T21:03:30+00:00" />
+<meta itemprop="name" content="k8s部署drone及runner搭建自己的CI/CD系统">
+<meta itemprop="description" content="实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。 首先，配置 he">
+<meta itemprop="datePublished" content="2020-08-02T21:03:30+00:00" />
+<meta itemprop="dateModified" content="2020-08-02T21:03:30+00:00" />
+<meta itemprop="wordCount" content="1408">
+
+
+
+<meta itemprop="keywords" content="drone,cicd," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k8s部署drone及runner搭建自己的CI/CD系统"/>
+<meta name="twitter:description" content="实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。 首先，配置 he"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">k8s部署drone及runner搭建自己的CI/CD系统</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-02 21:03 </span>
+        <div class="post-category">
+            <a href="/categories/cicd/"> cicd </a>
+            </div>
+          <span class="more-meta"> 约 1408 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。</p>
+<p>首先，配置 helm：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">helm repo add drone https://charts.drone.io
+kubectl create ns drone
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Namespaces：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Namespace<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cicd<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>cat ../storageclass/nfs-storageclass.yaml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>storage.k8s.io/v1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>StorageClass<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cicd-nfs-storage<span class="w">
+</span><span class="w"></span><span class="k">provisioner</span><span class="p">:</span><span class="w"> </span>nfs-provisioner<span class="m">-01</span><span class="w">    </span><span class="c">#---动态卷分配应用设置的名称，必须和集群中的&#34;nfs-provisioner&#34;应用设置的变量名称保持一致</span><span class="w">
+</span><span class="w"></span><span class="k">parameters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">archiveOnDelete</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">  </span><span class="c">#---设置为&#34;false&#34;时删除PVC不会保留数据,&#34;true&#34;则保留数据</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>参考 drone 的文档，编写 drone-values.yml:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">image</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">repository</span><span class="p">:</span><span class="w"> </span>drone/drone<span class="w">
+</span><span class="w">  </span><span class="k">tag</span><span class="p">:</span><span class="w"> </span><span class="m">1.9.0</span><span class="w">
+</span><span class="w">  </span><span class="k">pullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
+</span><span class="w"></span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">nameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">fullnameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">automountServiceAccountToken</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w"></span><span class="k">podSecurityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">securityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">podAnnotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">updateStrategy</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>ClusterIP<span class="w">
+</span><span class="w">  </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w"></span><span class="k">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span>web<span class="w">  
+</span><span class="w">  </span><span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>drone.xiebiao.top<span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s2">&#34;/&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">resources</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">nodeSelector</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">affinity</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">persistentVolume</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- ReadWriteOnce<span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">  </span><span class="k">existingClaim</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/data<span class="w">
+</span><span class="w">  </span><span class="k">size</span><span class="p">:</span><span class="w"> </span>8Gi<span class="w">
+</span><span class="w">  </span><span class="k">storageClass</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cicd-nfs-storage&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">volumeMode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">subPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">emptyDir</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">sizeLimit</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">extraSecretNamesForEnvFrom</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">env</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">DRONE_SERVER_HOST</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;drone.xiebiao.top&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">DRONE_SERVER_PROTO</span><span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span>9RMo7AGxyEx46erk123<span class="w">
+</span><span class="w">  </span><span class="c">## gitea上面创建一个新的outh2认证</span><span class="w">
+</span><span class="w">  </span><span class="k">DRONE_GITEA_CLIENT_ID</span><span class="p">:</span><span class="w"> </span>8a5c6c17-c1f5-4ab5-aff0-084ff61298b0<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_GITEA_CLIENT_SECRET</span><span class="p">:</span><span class="w"> </span>9RMo7AGxyEx46erk-Aj1r2dTJuDsDbNcEwcdBj0zuAo=<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_GITEA_SERVER</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//gitea.xiebiao.top/<span class="w">
+</span><span class="w">  </span><span class="c">##注意加上gitea的管理员账户，不然会出现trusted找不到</span><span class="w">
+</span><span class="w">  </span><span class="k">DRONE_USER_CREATE</span><span class="p">:</span><span class="w"> </span>username<span class="p">:</span>gzxb0712<span class="p">,</span>admin<span class="p">:</span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>github tls参考</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;nginx&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">cert-manager.io/cluster-issuer</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;letsencrypt-prod&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>drone.example.com<span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s2">&#34;/&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- drone.example.com<span class="w">
+</span><span class="w">    </span><span class="k">secretName</span><span class="p">:</span><span class="w"> </span>drone-tls<span class="w">
+</span><span class="w"></span><span class="k">env</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">DRONE_SERVER_HOST</span><span class="p">:</span><span class="w"> </span>drone.example.com<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_SERVER_PROTO</span><span class="p">:</span><span class="w"> </span>https<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_USER_CREATE</span><span class="p">:</span><span class="w"> </span>username<span class="p">:</span>YOUR_GITHUB_USERNAME<span class="p">,</span>admin<span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">DRONE_USER_FILTER</span><span class="p">:</span><span class="w"> </span>YOUR_GITHUB_USERNAME<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span>REDACTED<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_GITHUB_CLIENT_ID</span><span class="p">:</span><span class="w"> </span>REDACTED<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_GITHUB_CLIENT_SECRET</span><span class="p">:</span><span class="w"> </span>REDACTED<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>需要首先去 GitHub 上配置 OAuth application，具体参考 drone 的文档。然后，生成一个 secret，设置 admin 用户并只允许 admin 用户使用 drone，防止其他人使用。然后应用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">helm install --namespace cicd drone drone/drone -f drone-values.yml
+<span class="c1"># or, to upgrade</span>
+helm upgrade --namespace cicd drone drone/drone --values drone-values.yml
+
+</code></pre></td></tr></table>
+</div>
+</div><p>然后就可以访问上面配好的域名了。遇到了 cert manager 最近的一个 bug，来回折腾几次就好了。</p>
+<p>接着配 drone 的 k8s runnner，也是参考 drone 的文档，编写 drone-runner-kube-values.yml：
+cat drone-runner-values.yaml | grep -vE &ldquo;#|^$&rdquo;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">image</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">repository</span><span class="p">:</span><span class="w"> </span>drone/drone-runner-kube<span class="w">
+</span><span class="w">  </span><span class="k">tag</span><span class="p">:</span><span class="w"> </span><span class="m">1.0.0</span>-beta<span class="m">.4</span><span class="w">
+</span><span class="w">  </span><span class="k">pullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
+</span><span class="w"></span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w"></span><span class="k">terminationGracePeriodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
+</span><span class="w"></span><span class="k">nameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">fullnameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="k">podSecurityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">securityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">podAnnotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>ClusterIP<span class="w">
+</span><span class="w">  </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">3000</span><span class="w">
+</span><span class="w"></span><span class="k">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">  </span><span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>chart-example.local<span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="s2">&#34;/&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">resources</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">nodeSelector</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">affinity</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="k">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">extraSecretNamesForEnvFrom</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="k">rbac</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">buildNamespaces</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- cicd<span class="w">
+</span><span class="w"></span><span class="k">env</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c">## 跟server 一致</span><span class="w">
+</span><span class="w">  </span><span class="k">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span>9RMo7AGxyEx46erk123<span class="w"> 
+</span><span class="w">  </span><span class="k">DRONE_RPC_HOST</span><span class="p">:</span><span class="w"> </span>drone<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_RPC_PROTO</span><span class="p">:</span><span class="w"> </span>http<span class="w">
+</span><span class="w">  </span><span class="k">DRONE_NAMESPACE_DEFAULT</span><span class="p">:</span><span class="w"> </span>cicd<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>然后应用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">helm install --namespace cicd drone-runner-kube drone/drone-runner-kube -f drone-runner-kube-values.yml
+
+</code></pre></td></tr></table>
+</div>
+</div><p>然后就可以去 drone 界面上操作了。</p>
+<p>需要注意的是，drone 需要 pv，所以我先在腾讯云里面配置了 CFS 的 storage class，然后它就会自动 provision 一个新的 pv 和 pvc 出来。</p>
+<p>接着尝试了一下在 drone 里面构建 docker 镜像并且 push 到 registry 上。以腾讯云为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>pipeline<span class="w">
+</span><span class="w"></span><span class="k">type</span><span class="p">:</span><span class="w"> </span>kubernetes<span class="w">
+</span><span class="w"></span><span class="k">name</span><span class="p">:</span><span class="w"> </span>gzxb<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">steps</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>build<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>maven<span class="p">:</span><span class="m">3.6.3</span>-jdk<span class="m">-8</span><span class="w">
+</span><span class="w">    </span><span class="k">pull</span><span class="p">:</span><span class="w"> </span>if-not-exists<span class="w">
+</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>maven-cache<span class="w">
+</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/root/.m2<span class="w">
+</span><span class="w">    </span><span class="k">commands</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- mvn<span class="w"> </span>clean<span class="w"> </span>package<span class="w"> </span>-DskipTests=<span class="kc">true</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>package<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>docker<span class="p">:</span><span class="m">19.03.8</span><span class="w">
+</span><span class="w">    </span><span class="k">pull</span><span class="p">:</span><span class="w"> </span>if-not-exists<span class="w">
+</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>docker-sock<span class="w">
+</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/run/docker.sock<span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>docker-cache<span class="w">
+</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/lib/docker<span class="w">
+</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">repo</span><span class="p">:</span><span class="w"> </span>harbor.test.com/library/spring-produce<span class="w">
+</span><span class="w">      </span><span class="k">registry</span><span class="p">:</span><span class="w"> </span>harbor.test.com<span class="w">
+</span><span class="w">      </span><span class="k">username</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">from_secret</span><span class="p">:</span><span class="w"> </span>docker_username<span class="w">
+</span><span class="w">      </span><span class="k">password</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="k">from_secret</span><span class="p">:</span><span class="w"> </span>docker_password<span class="w">
+</span><span class="w">      </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${DRONE_COMMIT_SHA:0:10}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">commands</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- docker<span class="w"> </span>login<span class="w"> </span>${registry}<span class="w"> </span>-u<span class="w"> </span>${username}<span class="w"> </span>-p<span class="w"> </span>${password}<span class="w">
+</span><span class="w">      </span>- docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span><span class="s2">&#34;${repo}:${tags}&#34;</span><span class="w"> </span>.<span class="w">
+</span><span class="w">      </span>- docker<span class="w"> </span>push<span class="w"> </span><span class="s2">&#34;${repo}:${tags}&#34;</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>k8s<span class="w">
+</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>boer0924/kubectl<span class="p">:</span><span class="m">1.18.3</span><span class="w">
+</span><span class="w">    </span><span class="k">pull</span><span class="p">:</span><span class="w"> </span>if-not-exists<span class="w">
+</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>kube-config<span class="w">
+</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/root/.kube/config<span class="w">
+</span><span class="w">    </span><span class="k">commands</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w">
+</span><span class="w"></span><span class="k">trigger</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">branch</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- master<span class="w">
+</span><span class="w">  </span><span class="k">event</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- push<span class="w">
+</span><span class="w"></span><span class="k">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>maven-cache<span class="w">
+</span><span class="w">    </span><span class="k">host</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/lib/cache/.m2<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>kube-config<span class="w">
+</span><span class="w">    </span><span class="k">host</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/root/.kube/config<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>docker-cache<span class="w">
+</span><span class="w">    </span><span class="k">host</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/lib/docker<span class="w">
+</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>docker-sock<span class="w">
+</span><span class="w">    </span><span class="k">host</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/run/docker.sock<span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>然后在网页里配置好 docker username 和 password，它就会自动构建 docker 镜像并且 push 到 registry 上，然后再 rollout 一下 deployment 就能部署最新的 image 了。实际上可以在 drone 里面把部署这一步也完成，但目前还没有去实践。</p>
+<p>参考文档：</p>
+<p><a href="https://jia.je/devops/2020/04/21/k8s-drone-ci/provider">Drone provider: GitHub</a></p>
+<p><a href="https://github.com/drone/charts/blob/master/charts/drone/docs/install.md">Drone helm chart</a></p>
+<p><a href="https://github.com/drone/charts/blob/master/charts/drone-runner-kube/docs/install.md">Drone runner kube helm chat</a></p>
+<p><a href="https://www.magalix.com/blog/building-a-cd-pipeline-with-drone-ci-and-kubernetes">Building a CD pipeline with drone CI and kubernetes</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-08-02 21:03
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/drone/">drone</a>
+          <a href="/tags/cicd/">cicd</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/cicd/gitea_bin_install/">
+            <span class="next-text nav-default">centos7/8二进制部署gitea</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>centos7/8二进制部署gitea - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="文章目录 Gitea是一个用Go语言编写的自托管开源git服务器，它具有存储库文件编辑器，项目问题跟踪，用户管理，通知，内置Wiki等功能。 G" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/cicd/gitea_bin_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="centos7/8二进制部署gitea" />
+<meta property="og:description" content="文章目录 Gitea是一个用Go语言编写的自托管开源git服务器，它具有存储库文件编辑器，项目问题跟踪，用户管理，通知，内置Wiki等功能。 G" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/cicd/gitea_bin_install/" />
+<meta property="article:published_time" content="2020-08-01T21:03:30+00:00" />
+<meta property="article:modified_time" content="2020-08-01T21:03:30+00:00" />
+<meta itemprop="name" content="centos7/8二进制部署gitea">
+<meta itemprop="description" content="文章目录 Gitea是一个用Go语言编写的自托管开源git服务器，它具有存储库文件编辑器，项目问题跟踪，用户管理，通知，内置Wiki等功能。 G">
+<meta itemprop="datePublished" content="2020-08-01T21:03:30+00:00" />
+<meta itemprop="dateModified" content="2020-08-01T21:03:30+00:00" />
+<meta itemprop="wordCount" content="1863">
+
+
+
+<meta itemprop="keywords" content="gitea,cicd," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="centos7/8二进制部署gitea"/>
+<meta name="twitter:description" content="文章目录 Gitea是一个用Go语言编写的自托管开源git服务器，它具有存储库文件编辑器，项目问题跟踪，用户管理，通知，内置Wiki等功能。 G"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">centos7/8二进制部署gitea</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-01 21:03 </span>
+        <div class="post-category">
+            <a href="/categories/cicd/"> cicd </a>
+            </div>
+          <span class="more-meta"> 约 1863 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#文章目录">文章目录</a></li>
+    <li><a href="#先决条件">先决条件</a></li>
+    <li><a href="#安装gitea">安装Gitea＃</a>
+      <ul>
+        <li><a href="#安装git">安装Git＃</a></li>
+        <li><a href="#创建一个git用户">创建一个Git用户</a></li>
+      </ul>
+    </li>
+    <li><a href="#配置电子邮件通知">配置电子邮件通知</a></li>
+    <li><a href="#升级gitea">升级Gitea＃</a></li>
+    <li><a href="#总结">总结＃</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="文章目录">文章目录</h2>
+<p>Gitea是一个用Go语言编写的自托管开源git服务器，它具有存储库文件编辑器，项目问题跟踪，用户管理，通知，内置Wiki等功能。</p>
+<p>Gitea是一个轻量级的应用程序，可以安装在功能不强的系统上。如果您正在寻找内存占用空间较小的Gitlab替代方案，并且不需要Gitlab提供的所有功能，则应尝试使用Gitea。</p>
+<p>本文向您展示了如何在CentOS 7/8上安装和配置Gitea。</p>
+<h2 id="先决条件">先决条件</h2>
+<p>Gitea支持sqlite，PostgreSQL和MySQL / MariaDB作为数据库后端。</p>
+<p>我们将使用mysql，这是一个轻量级的数据库，将数据存储在一个文件中。如果您的CentOS计算机上未安装mysql，则可以以sudo用户身份运行以下命令来安装它：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo yum install mariadb
+</code></pre></td></tr></table>
+</div>
+</div><p>我们假设SELinux被禁用或设置为许可模式。</p>
+<h2 id="安装gitea">安装Gitea＃</h2>
+<p>Gitea可以从源代码，二进制文件和软件包中安装，也可以作为Docker映像进行部署。我们将使用thr二进制文件安装Gitea。</p>
+<h3 id="安装git">安装Git＃</h3>
+<p>第一步是在CentOS上安装Git：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo yum install git
+</code></pre></td></tr></table>
+</div>
+</div><p>通过显示Git版本来验证安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git --version
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git version 2.18.4
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建一个git用户">创建一个Git用户</h3>
+<p>创建一个新的系统用户来运行Gitea应用程序：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo useradd    --system    --shell /bin/bash    --comment &#39;Git Version Control&#39;    --create-home    --home /home/git    git
+</code></pre></td></tr></table>
+</div>
+</div><p>该命令将创建一个名为的新用户和组 <code>git</code>，并将主目录设置为 <code>/home/git</code>。</p>
+<p>四： 安装MySQL并创建数据库</p>
+<p>安装MySQL可参考本人博客的其他帖子，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="c1">#官方文档 https://docs.gitea.io/en-us/database-prep/</span>
+
+CREATE DATABASE giteadb CHARACTER SET <span class="s1">&#39;utf8mb4&#39;</span> COLLATE <span class="s1">&#39;utf8mb4_unicode_ci&#39;</span><span class="p">;</span> 
+CREATE USER <span class="s1">&#39;gitea&#39;</span>@<span class="s1">&#39;192.0.2.10&#39;</span> IDENTIFIED BY <span class="s1">&#39;gitea&#39;</span><span class="p">;</span> 
+GRANT ALL PRIVILEGES ON giteadb.* TO <span class="s1">&#39;gitea&#39;</span>@<span class="s1">&#39;192.0.2.10&#39;</span><span class="p">;</span>
+FLUSH PRIVILEGES<span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>进行验证</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mysql -u gitea -h 203.0.113.3 -p giteadb
+</code></pre></td></tr></table>
+</div>
+</div><p>五：安装并生成配置文件</p>
+<p>这里我们可以切换到git用户，手动运行，然后执行安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">USER</span><span class="o">=</span>git <span class="nv">HOME</span><span class="o">=</span>/home/git <span class="nv">GITEA_WORK_DIR</span><span class="o">=</span>/usr/local/gitea /usr/local/gitea/gitea web --config /usr/local/gitea/custom/conf/app.ini
+</code></pre></td></tr></table>
+</div>
+</div><p>这里会生成配置文件</p>
+<p>六：安装nginx进行反向代理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install nginx
+</code></pre></td></tr></table>
+</div>
+</div><p>主配置文件如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="c1"># For more information on configuration, see:</span>
+<span class="c1"># * Official English Documentation: http://nginx.org/en/docs/</span>
+<span class="c1">#   * Official Russian Documentation: http://nginx.org/ru/docs/</span>
+ user nginx<span class="p">;</span>
+worker_processes auto<span class="p">;</span>
+error_log /var/log/nginx/error.log<span class="p">;</span>
+pid /run/nginx.pid<span class="p">;</span>
+
+<span class="c1"># Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.</span>
+include /usr/share/nginx/modules/*.conf<span class="p">;</span>
+
+events <span class="o">{</span>
+    worker_connections 1024<span class="p">;</span>
+<span class="o">}</span>
+
+http <span class="o">{</span>
+    log_format  main  <span class="s1">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;</span>
+                      <span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;</span>
+                      <span class="s1">&#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>
+
+    access_log  /var/log/nginx/access.log  main<span class="p">;</span>
+
+    sendfile            on<span class="p">;</span>
+    tcp_nopush          on<span class="p">;</span>
+    tcp_nodelay         on<span class="p">;</span>
+    keepalive_timeout   65<span class="p">;</span>
+    types_hash_max_size 2048<span class="p">;</span>
+
+    include             /etc/nginx/mime.types<span class="p">;</span>
+    default_type        application/octet-stream<span class="p">;</span>
+
+    <span class="c1"># Load modular configuration files from the /etc/nginx/conf.d directory.</span>
+    <span class="c1"># See http://nginx.org/en/docs/ngx_core_module.html#include</span>
+    <span class="c1"># for more information.</span>
+    include /etc/nginx/conf.d/*.conf<span class="p">;</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>gitea的配置文件如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+upstream gitea <span class="o">{</span>
+        server 127.0.0.1:4000<span class="p">;</span>
+<span class="o">}</span>
+
+server <span class="o">{</span>
+    listen 80<span class="p">;</span>
+    server_name gitea.xiebiao.top<span class="p">;</span>
+    client_max_body_size 100M<span class="p">;</span>
+    charset utf-8<span class="p">;</span>
+    proxy_redirect     off<span class="p">;</span>
+    proxy_set_header   Host             <span class="nv">$host</span>:<span class="nv">$server_port</span><span class="p">;</span>
+    proxy_set_header   X-Real-IP        <span class="nv">$remote_addr</span><span class="p">;</span>
+    proxy_set_header X-Forwarded-Host <span class="nv">$host</span>:<span class="nv">$server_port</span><span class="p">;</span>
+    proxy_set_header X-Forwarded-Server <span class="nv">$host</span><span class="p">;</span>
+    proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+    proxy_set_header X-Forwarded-Proto <span class="nv">$scheme</span><span class="p">;</span>
+    proxy_next_upstream error timeout invalid_header http_502 http_503 http_504<span class="p">;</span>
+    proxy_ignore_client_abort on<span class="p">;</span>
+    proxy_read_timeout 180<span class="p">;</span>
+    proxy_buffering on<span class="p">;</span>
+    proxy_buffer_size 8k<span class="p">;</span>
+
+    location / <span class="o">{</span>
+       proxy_pass http://gitea<span class="p">;</span>
+ proxy_redirect     default<span class="p">;</span>
+       proxy_set_header   Host             <span class="nv">$host</span>:<span class="nv">$server_port</span><span class="p">;</span>
+       proxy_set_header   X-Real-IP        <span class="nv">$remote_addr</span><span class="p">;</span>
+       proxy_set_header X-Forwarded-Host <span class="nv">$host</span>:<span class="nv">$server_port</span><span class="p">;</span>
+       proxy_set_header X-Forwarded-Server <span class="nv">$host</span><span class="p">;</span>
+       proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+       proxy_set_header X-Forwarded-Proto <span class="nv">$scheme</span><span class="p">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>添加nginx到开机启动项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> nginx <span class="o">&amp;&amp;</span> systemctl start nginx
+</code></pre></td></tr></table>
+</div>
+</div><p>七：web界面访问安装</p>
+<p>此时打开 gitea.xiebiao.top 进行安装</p>
+<p><a href="http://gitea.xiebiao.top/install">http://gitea.xiebiao.top/install</a></p>
+<p>然后填写配置信息，</p>
+<p>这里注意的是我们的SSH端口选择的是2202,因为22端口被SSHD服务本身占用，配置数据库以及管理员账户即可点击下一步即可。</p>
+<p>如果想要重新安装，需要清除/usr/local/gitea下的所有数据</p>
+<p>八：定义开机启动脚本，这里我们可以将git用户的进程关掉，定义systemd开机启动</p>
+<p>脚本这里依然采用的是官方提供的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="o">[</span>root@openldap gitea<span class="o">]</span><span class="c1"># cat /etc/systemd/system/gitea.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Gitea <span class="o">(</span>Git with a cup of tea<span class="o">)</span>
+<span class="nv">After</span><span class="o">=</span>syslog.target
+<span class="nv">After</span><span class="o">=</span>network.target
+<span class="nv">Requires</span><span class="o">=</span>mysql.service
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">RestartSec</span><span class="o">=</span>2s
+<span class="nv">Type</span><span class="o">=</span>simple
+<span class="nv">User</span><span class="o">=</span>git
+<span class="nv">Group</span><span class="o">=</span>git
+<span class="nv">WorkingDirectory</span><span class="o">=</span>/usr/local/gitea
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/local/bin/gitea web --port <span class="m">4000</span>  --config /usr/local/gitea/custom/conf/app.ini
+<span class="nv">Restart</span><span class="o">=</span>always
+<span class="nv">Environment</span><span class="o">=</span><span class="nv">USER</span><span class="o">=</span>git <span class="nv">HOME</span><span class="o">=</span>/home/git/gitea <span class="nv">GITEA_WORK_DIR</span><span class="o">=</span>/usr/local/gitea
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</code></pre></td></tr></table>
+</div>
+</div><p>官方连接：<a href="https://github.com/go-gitea/gitea/blob/master/contrib/systemd/gitea.service">https://github.com/go-gitea/gitea/blob/master/contrib/systemd/gitea.service</a></p>
+<p>然后使用该脚本进行启动，此时发现SSH协议依然无法使用。 这里我们需要修改配置文件
+/usr/local/gitea/custom/conf/app.ini
+在[server] 段中添加</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="na">START_SSH_SERVER</span> <span class="o">=</span> <span class="s">true</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后重启gitea服务即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> gitea <span class="o">&amp;&amp;</span> systemctl restart gitea
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置电子邮件通知">配置电子邮件通知</h2>
+<p>对于要发送的通知电子邮件，您可以安装Postfix或使用事务邮件服务，例如SendGrid，MailChimp，MailGun或SES。</p>
+<p>要启用电子邮件通知，请打开配置文件并编辑以下行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo nano /usr/local/gitea/custom/conf/app.ini
+</code></pre></td></tr></table>
+</div>
+</div><p>/usr/local/gitea/custom/conf/app.ini</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ini" data-lang="ini"><span class="k">[mailer]</span>
+<span class="na">ENABLED</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">HOST</span>    <span class="o">=</span> <span class="s">SMTP_SERVER:SMTP_PORT</span>
+<span class="na">FROM</span>    <span class="o">=</span> <span class="s">SENDER_EMAIL</span>
+<span class="na">USER</span>    <span class="o">=</span> <span class="s">SMTP_USER</span>
+<span class="na">PASSWD</span>  <span class="o">=</span> <span class="s">YOUR_SMTP_PASSWORD</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>确保使用正确的SMTP服务器信息。</p>
+<p>每次您编辑 <code>app.ini</code> 文件，您需要重新启动Gitea服务才能使更改生效：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo systemctl restart gitea
+</code></pre></td></tr></table>
+</div>
+</div><p>要验证设置并发送测试电子邮件，请登录Gitea并转到：网站管理&gt;配置&gt; SMTP邮件程序配置。</p>
+<p>Gitea还允许您通过创建Web Webhook连接到Slack并将通知发送到您的Slack频道。</p>
+<h2 id="升级gitea">升级Gitea＃</h2>
+<p>升级到最新的Gitea版本是一项简单的任务，您只需下载并替换二进制文件即可。</p>
+<ol>
+<li>
+<p>停止Gitea服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo systemctl stop gitea
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>下载最新的Gitea二进制文件并将其移至 <code>/usr/local/bin</code> 目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">VERSION=
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>使二进制文件可执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo chmod +x /usr/local/bin/gitea
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>重新启动Gitea服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo systemctl restart gitea
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>而已。</p>
+<h2 id="总结">总结＃</h2>
+<p>我们已经向您展示了如何在CentOS 7/8上安装Gitea。您现在应该访问Gitea文档页面，并学习如何配置安装和创建第一个项目。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-08-01 21:03
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/gitea/">gitea</a>
+          <a href="/tags/cicd/">cicd</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/cicd/k8s_drone_gitea/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">k8s部署drone及runner搭建自己的CI/CD系统</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/cloud/k8s_backup_restore/">
+            <span class="next-text nav-default">k8s 备份以及恢复详解</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 23 Jul 2020 20:11:30 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2020 21:03:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>k8s部署drone及runner搭建自己的CI/CD系统</title>
+      <link>https://xiebiao.top/post/cicd/k8s_drone_gitea/</link>
+      <pubDate>Sun, 02 Aug 2020 21:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cicd/k8s_drone_gitea/</guid>
+      <description>实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。 首先，配置 he</description>
+    </item>
+    
+    <item>
+      <title>centos7/8二进制部署gitea</title>
+      <link>https://xiebiao.top/post/cicd/gitea_bin_install/</link>
+      <pubDate>Sat, 01 Aug 2020 21:03:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cicd/gitea_bin_install/</guid>
+      <description>文章目录 Gitea是一个用Go语言编写的自托管开源git服务器，它具有存储库文件编辑器，项目问题跟踪，用户管理，通知，内置Wiki等功能。 G</description>
+    </item>
     
     <item>
       <title>k8s 备份以及恢复详解</title>

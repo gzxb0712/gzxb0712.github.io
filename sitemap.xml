@@ -3,14 +3,70 @@
   
   <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-07-23T20:11:30+00:00</lastmod>
+    <lastmod>2020-08-02T21:03:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-07-23T20:11:30+00:00</lastmod>
+    <lastmod>2020-08-02T21:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/cicd/</loc>
+    <lastmod>2020-08-02T21:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/cicd/</loc>
+    <lastmod>2020-08-02T21:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/drone/</loc>
+    <lastmod>2020-08-02T21:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/cicd/k8s_drone_gitea/</loc>
+    <lastmod>2020-08-02T21:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/</loc>
+    <lastmod>2020-08-02T21:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-08-02T21:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/cicd/gitea_bin_install/</loc>
+    <lastmod>2020-08-01T21:03:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/gitea/</loc>
+    <lastmod>2020-08-01T21:03:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -38,20 +94,6 @@
   
   <url>
     <loc>https://xiebiao.top/post/cloud/k8s_backup_restore/</loc>
-    <lastmod>2020-07-23T20:11:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-07-23T20:11:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
     <lastmod>2020-07-23T20:11:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -107,20 +149,6 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/tags/cicd/</loc>
-    <lastmod>2020-07-05T19:01:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/categories/cicd/</loc>
-    <lastmod>2020-07-05T19:01:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://xiebiao.top/tags/jenkins/</loc>
     <lastmod>2020-07-05T19:01:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -165,13 +193,6 @@
   <url>
     <loc>https://xiebiao.top/post/cicd/gitlab_centos_ops/</loc>
     <lastmod>2020-07-02T22:19:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/drone/</loc>
-    <lastmod>2020-07-01T21:03:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

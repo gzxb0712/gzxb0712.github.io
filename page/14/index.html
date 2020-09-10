@@ -118,115 +118,49 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/cloud/traefik_2.2.8_deploy/">k8s部署 Ingress 控制器 traefik 2.2.x教程</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/base/dncp_centos_install/">dhcp在centos中安装</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-07-21 21:09 </span>
+      <span class="post-time"> 2019-10-11 20:22 </span>
       <div class="post-category">
-          <a href="/categories/cloud/"> cloud </a>
+          <a href="/categories/linux/"> linux </a>
+          <a href="/categories/base/"> base </a>
           </div>
-        <span class="more-meta"> 约 4021 字 </span>
-        <span class="more-meta"> 预计阅读 9 分钟 </span>
+        <span class="more-meta"> 约 1863 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设
-    </div>
-    <div class="read-more">
-      <a href="/post/cloud/traefik_2.2.8_deploy/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="运行系统更新">运行系统更新</h3>
+<p>首先将系统包重新同步到它最新版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">dnf update
+</code></pre></td></tr></table>
+</div>
+</div><p>在CentOS 8中，DHCP服务器是<code>dhcp-server</code> 软件包，可以通过运行下面的命令来安装此软件包;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+dnf install dhcp-server
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/cloud/docker_all_ops/">docker最佳实践总结</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-20 21:05 </span>
-      <div class="post-category">
-          <a href="/categories/cloud/"> cloud </a>
-          </div>
-        <span class="more-meta"> 约 4552 字 </span>
-        <span class="more-meta"> 预计阅读 10 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      &raquo;&gt; 目录 &laquo;&lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
     <div class="read-more">
-      <a href="/post/cloud/docker_all_ops/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/cicd/k8s_jenkins_cicd/">k8s安装jenkins最佳实践</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-05 19:01 </span>
-      <div class="post-category">
-          <a href="/categories/cicd/"> cicd </a>
-          </div>
-        <span class="more-meta"> 约 16865 字 </span>
-        <span class="more-meta"> 预计阅读 34 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      注意下访问url： http://192.168.2.11:32001/jenkins http://jenkins.test.com/jenkins/ 参考博客 http://www.mydlq.club/article/47/ 目录[-] . 一、Kubernetes 部署 Jenkins . 1、NFS 存储卷创建 Jenkins 目录 . 2、创建 Jenkins 用于存储的 PV、PVC . 3
-    </div>
-    <div class="read-more">
-      <a href="/post/cicd/k8s_jenkins_cicd/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/cicd/jenkins_metal_best_practice/">jenkins裸机安装最佳实践</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-04 19:15 </span>
-      <div class="post-category">
-          <a href="/categories/cicd/"> cicd </a>
-          </div>
-        <span class="more-meta"> 约 3786 字 </span>
-        <span class="more-meta"> 预计阅读 8 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      持续集成 什么是持续集成 Continuous integration （CI） 持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天
-    </div>
-    <div class="read-more">
-      <a href="/post/cicd/jenkins_metal_best_practice/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/cicd/k8s_gitlab_ops/">k8s安装gitlab社区中文版</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-03 19:05 </span>
-      <div class="post-category">
-          <a href="/categories/cicd/"> cicd </a>
-          </div>
-        <span class="more-meta"> 约 2596 字 </span>
-        <span class="more-meta"> 预计阅读 6 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      参考： https://www.qikqiak.com/post/gitlab-install-on-k8s/ https://i4t.com/4373.html Gitlab官方提供了 Helm 的方式在 Kubernetes 集群中来快速安装，但是在使用的过程中发现 Helm 提供的 Chart 包中有很多其他额外的配置，所以我们这里使用自定
-    </div>
-    <div class="read-more">
-      <a href="/post/cicd/k8s_gitlab_ops/" class="read-more-link">阅读更多</a>
+      <a href="/post/base/dncp_centos_install/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -234,14 +168,11 @@
     </section>
   
   <nav class="pagination">
-    <a class="prev" href="/">
+    <a class="prev" href="/page/13/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">上一页</span>
       </a>
-    <a class="next" href="/page/3/">
-        <span class="next-text">下一页</span>
-        <i class="iconfont icon-right"></i>
-      </a>
+    
   </nav>
         </div>
         

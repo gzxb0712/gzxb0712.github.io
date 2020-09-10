@@ -6,10 +6,19 @@
     <description>Recent content in cicd on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 02 Aug 2020 21:03:30 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2020 19:15:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/categories/cicd/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>jenkins helm安装最佳实践</title>
+      <link>https://xiebiao.top/post/cicd/helm_jenkins_ops/</link>
+      <pubDate>Tue, 04 Aug 2020 19:15:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/cicd/helm_jenkins_ops/</guid>
+      <description>Jenkins 是什么 是一款开源 CI&amp;amp;CD 软件，用于自动化各种任务，包括构建、测试和部署软件。目前提供超过1000个插件来支持构建、部署、自动化， 满足任何项目的需</description>
+    </item>
     
     <item>
       <title>k8s部署drone及runner搭建自己的CI/CD系统</title>

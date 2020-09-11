@@ -50,7 +50,7 @@
 <meta itemprop="description" content="Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和">
 <meta itemprop="datePublished" content="2020-08-05T19:17:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-05T19:17:30+00:00" />
-<meta itemprop="wordCount" content="5883">
+<meta itemprop="wordCount" content="5924">
 
 
 
@@ -131,7 +131,7 @@
         <div class="post-category">
             <a href="/categories/storage/"> storage </a>
             </div>
-          <span class="more-meta"> 约 5883 字 </span>
+          <span class="more-meta"> 约 5924 字 </span>
           <span class="more-meta"> 预计阅读 12 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -189,6 +189,7 @@
     <li><a href="#六设置dashboard">六	设置dashboard</a>
       <ul>
         <li><a href="#61部署node-svc">6.1	部署Node SVC</a></li>
+        <li><a href="#62部署ingress-svc">6.2	部署ingress-svc</a></li>
         <li><a href="#62确认验证">6.2	确认验证</a></li>
       </ul>
     </li>
@@ -230,7 +231,7 @@
 <p><a href="https://ceph.com/">https://ceph.com/</a></p>
 <h3 id="13rook架构">1.3	Rook架构</h3>
 <p>Rook架构如下：</p>
-<p><a href="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110916718-1176073449.png"><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110916936-932440876.png" alt="clipboard"></a></p>
+<p><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110916936-932440876.png" alt=""></p>
 <p>Kubernetes集成Rook架构如下：</p>
 <p><a href="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110917516-398177458.png"><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110917744-469353593.png" alt="clipboard"></a></p>
 <h2 id="二rook部署">二	Rook部署</h2>
@@ -1677,6 +1678,57 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 </span><span class="w">    </span><span class="k">rook_cluster</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
 </span><span class="w">  </span><span class="k">sessionAffinity</span><span class="p">:</span><span class="w"> </span>None<span class="w">
 </span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>NodePort<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="62部署ingress-svc">6.2	部署ingress-svc</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
+</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Ingress<span class="w">
+</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rook-ceph-mgr-dashboard<span class="w">
+</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
+</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
+</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.tls</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span>websecure<span class="w">
+</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- rook-ceph.xiebiao.top<span class="w">
+</span><span class="w">     </span><span class="k">secretName</span><span class="p">:</span><span class="w"> </span>cloud-xiebiao-tls<span class="w">
+</span><span class="w">  </span><span class="k">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>rook-ceph.xiebiao.top<span class="w">
+</span><span class="w">    </span><span class="k">http</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="k">path</span><span class="p">:</span><span class="w"> </span>/<span class="w">
+</span><span class="w">        </span><span class="k">backend</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="k">serviceName</span><span class="p">:</span><span class="w"> </span>rook-ceph-mgr-dashboard<span class="w">
+</span><span class="w">          </span><span class="k">servicePort</span><span class="p">:</span><span class="w"> </span>https-dashboard<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">

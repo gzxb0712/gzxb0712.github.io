@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 04 Aug 2020 19:15:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2020 19:17:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ceph</title>
+      <link>https://xiebiao.top/tags/ceph/</link>
+      <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/ceph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rook</title>
+      <link>https://xiebiao.top/tags/rook/</link>
+      <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/rook/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>storage</title>
+      <link>https://xiebiao.top/tags/storage/</link>
+      <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/storage/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cicd</title>
@@ -269,24 +296,6 @@
       <pubDate>Sat, 02 May 2020 19:11:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/nfs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>storage</title>
-      <link>https://xiebiao.top/tags/storage/</link>
-      <pubDate>Sat, 02 May 2020 19:11:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/storage/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ceph</title>
-      <link>https://xiebiao.top/tags/ceph/</link>
-      <pubDate>Fri, 01 May 2020 19:11:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/ceph/</guid>
       <description></description>
     </item>
     

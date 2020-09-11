@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 04 Aug 2020 19:15:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2020 19:17:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>storage</title>
+      <link>https://xiebiao.top/categories/storage/</link>
+      <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/categories/storage/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cicd</title>
@@ -53,15 +62,6 @@
       <pubDate>Mon, 11 May 2020 20:08:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/categories/log/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>storage</title>
-      <link>https://xiebiao.top/categories/storage/</link>
-      <pubDate>Sat, 02 May 2020 19:11:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/categories/storage/</guid>
       <description></description>
     </item>
     

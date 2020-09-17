@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 05 Aug 2020 19:17:30 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2020 20:08:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>log</title>
+      <link>https://xiebiao.top/tags/log/</link>
+      <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/log/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>loki</title>
+      <link>https://xiebiao.top/tags/loki/</link>
+      <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/loki/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ceph</title>
@@ -233,24 +251,6 @@
       <pubDate>Fri, 15 May 2020 19:15:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/codis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>log</title>
-      <link>https://xiebiao.top/tags/log/</link>
-      <pubDate>Mon, 11 May 2020 20:08:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/log/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>loki</title>
-      <link>https://xiebiao.top/tags/loki/</link>
-      <pubDate>Mon, 11 May 2020 20:08:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/loki/</guid>
       <description></description>
     </item>
     

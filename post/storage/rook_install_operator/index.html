@@ -966,7 +966,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
 </span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolumeClaim<span class="w">
 </span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rbd-pvc<span class="w">
+</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>block-pvc<span class="w">
 </span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span>- ReadWriteOnce<span class="w">
@@ -989,7 +989,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110921158-242204993.png"><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110921405-523644203.png" alt="clipboard"></a></p>
-<p><strong>解读：如上创建相应的PVC，storageClassName:为基于rook Ceph集群的rook-ceph-block。</strong></p>
+<p><strong>解读：如上创建相应的PVC，storageClassName:为基于rook Ceph集群的<code>rook-ceph-block。</code></strong></p>
 <h3 id="33消费块设备">3.3	消费块设备</h3>
 <p>[root@k8smaster01 ceph]# vi rookpod01.yaml</p>
 <div class="highlight"><div class="chroma">
@@ -1932,7 +1932,7 @@ data:
 </span><span class="w">      </span><span class="k">config</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span><span class="k">storeType</span><span class="p">:</span><span class="w"> </span>bluestore<span class="w">
 </span><span class="w">      </span><span class="k">devices</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;sdb&#34;</span><span class="w">
+</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">
 </span><span class="w"></span>……<span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2002,7 +2002,11 @@ data:
           <a href="/tags/ceph/">ceph</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/log/helm_loki_prometheus_oper/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">HELM部署轻量级日志系统Loki以及Prometheus-Operator</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/cicd/helm_jenkins_ops/">
             <span class="next-text nav-default">jenkins helm安装最佳实践</span>
             <span class="next-text nav-mobile">下一篇</span>

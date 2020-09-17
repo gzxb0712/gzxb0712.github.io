@@ -6,10 +6,19 @@
     <description>Recent content in log on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 11 May 2020 20:08:30 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2020 20:08:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/log/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HELM部署轻量级日志系统Loki以及Prometheus-Operator</title>
+      <link>https://xiebiao.top/post/log/helm_loki_prometheus_oper/</link>
+      <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/log/helm_loki_prometheus_oper/</guid>
+      <description>1. 组件 2. 部署 3. 测试 对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常</description>
+    </item>
     
     <item>
       <title>轻量级日志系统Loki部署</title>

@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux 性能优化分析工具 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="分享根据《Linux 性能优化》课程图片整理的笔记。 前言# 实验环境：ubuntu 18.04、切换至 root 权限下操作 查看命令详细使用方法，可以：ma" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/performance/linux_perf_doc/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Linux 性能优化分析工具" />
+<meta property="og:description" content="分享根据《Linux 性能优化》课程图片整理的笔记。 前言# 实验环境：ubuntu 18.04、切换至 root 权限下操作 查看命令详细使用方法，可以：ma" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/performance/linux_perf_doc/" />
+<meta property="article:published_time" content="2020-08-13T19:01:30+00:00" />
+<meta property="article:modified_time" content="2020-08-13T19:01:30+00:00" />
+<meta itemprop="name" content="Linux 性能优化分析工具">
+<meta itemprop="description" content="分享根据《Linux 性能优化》课程图片整理的笔记。 前言# 实验环境：ubuntu 18.04、切换至 root 权限下操作 查看命令详细使用方法，可以：ma">
+<meta itemprop="datePublished" content="2020-08-13T19:01:30+00:00" />
+<meta itemprop="dateModified" content="2020-08-13T19:01:30+00:00" />
+<meta itemprop="wordCount" content="2431">
+
+
+
+<meta itemprop="keywords" content="linux,performance," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux 性能优化分析工具"/>
+<meta name="twitter:description" content="分享根据《Linux 性能优化》课程图片整理的笔记。 前言# 实验环境：ubuntu 18.04、切换至 root 权限下操作 查看命令详细使用方法，可以：ma"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux 性能优化分析工具</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-13 19:01 </span>
+        <div class="post-category">
+            <a href="/categories/performance/"> performance </a>
+            </div>
+          <span class="more-meta"> 约 2431 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言df3688">前言<a href="#df3688">#</a></a></li>
+    <li><a href="#cpu-篇7764ec">CPU 篇<a href="#7764ec">#</a></a>
+      <ul>
+        <li><a href="#cpu-性能指标abfbe5">CPU 性能指标<a href="#abfbe5">#</a></a></li>
+        <li><a href="#根据指标找工具2a94dc">根据指标找工具<a href="#2a94dc">#</a></a></li>
+        <li><a href="#根据工具查指标7c7032">根据工具查指标<a href="#7c7032">#</a></a></li>
+        <li><a href="#cpu-性能优化分析b46042">CPU 性能优化分析<a href="#b46042">#</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#内存篇9c36de">内存篇<a href="#9c36de">#</a></a>
+      <ul>
+        <li><a href="#内存性能指标323a40">内存性能指标<a href="#323a40">#</a></a></li>
+        <li><a href="#根据指标找工具2a94dc-1">根据指标找工具<a href="#2a94dc">#</a></a></li>
+        <li><a href="#根据工具查指标7c7032-1">根据工具查指标<a href="#7c7032">#</a></a></li>
+        <li><a href="#内存性能优化分析36c16f">内存性能优化分析<a href="#36c16f">#</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#io-篇e23969">I/O 篇<a href="#e23969">#</a></a>
+      <ul>
+        <li><a href="#io-性能指标9df81a">I/O 性能指标<a href="#9df81a">#</a></a></li>
+        <li><a href="#根据指标找工具2a94dc-2">根据指标找工具<a href="#2a94dc">#</a></a></li>
+        <li><a href="#根据工具查指标7c7032-2">根据工具查指标<a href="#7c7032">#</a></a></li>
+        <li><a href="#io-性能优化分析9ed8c3">I/O 性能优化分析<a href="#9ed8c3">#</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#网络篇320f0d">网络篇<a href="#320f0d">#</a></a>
+      <ul>
+        <li><a href="#根据指标找工具2a94dc-3">根据指标找工具<a href="#2a94dc">#</a></a></li>
+        <li><a href="#根据工具查指标7c7032-3">根据工具查指标<a href="#7c7032">#</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#结语--案例85658f">结语 &amp; 案例<a href="#85658f">#</a></a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+<p>分享根据<a href="https://time.geekbang.org/column/intro/140">《Linux 性能优化》</a>课程图片整理的笔记。</p>
+</blockquote>
+<h2 id="前言df3688">前言<a href="#df3688">#</a></h2>
+<p>实验环境：ubuntu 18.04、切换至 root 权限下操作</p>
+<p>查看命令详细使用方法，可以：<strong>man xxx</strong>
+提及到路径的话，一般可以 <strong>cat /x/xx/xxx</strong>
+提及到工具的话，如果没安装，可以：<strong>apt-get install xxx</strong></p>
+<h2 id="cpu-篇7764ec">CPU 篇<a href="#7764ec">#</a></h2>
+<h3 id="cpu-性能指标abfbe5">CPU 性能指标<a href="#abfbe5">#</a></h3>
+<p>[<img src="https://cdn.learnku.com/uploads/images/202001/05/1875/qqYo0VWsrr.png!large" alt="Linux 性能优化"></p>
+<p>](<a href="https://cdn.learnku.com/uploads/images/202001/05/1875/qqYo0VWsrr.png!large">https://cdn.learnku.com/uploads/images/202001/05/1875/qqYo0VWsrr.png!large</a>)</p>
+<h3 id="根据指标找工具2a94dc">根据指标找工具<a href="#2a94dc">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平均负载</td>
+<td>uptime</td>
+<td></td>
+</tr>
+<tr>
+<td>top</td>
+<td>uptime 最简单；</td>
+<td></td>
+</tr>
+<tr>
+<td>top 提供了更全的指标</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系统整体 CPU 使用率</td>
+<td>vmstat</td>
+<td></td>
+</tr>
+<tr>
+<td>mpstat</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>top</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sar</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>/proc/stat</td>
+<td>top、vmstat、mpstat 只可以动态查看，</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>/proc/stat/ 是其他性能工具的数据来源 |
+| 进程 CPU 使用率 | top
+pidstat
+ps
+htop
+atop | top 和 ps 可以按 CPU 使用率给进程排序，
+而 pidstat 只显示实际用了 CPU 的进程</p>
+<p>htop 和 atop 以不同颜色显示更为直观 |
+| 系统上下文切换 | vmstat | 除了上下文切换次数，
+还提供运行状态和不可中断状态进程的数量 |
+| 进程上下文切换 | pidstat | 注意加上 - w 选项 |
+| 软中断 | top
+/proc/softirqs
+mpstat | top 提供软中断 CPU 使用率，
+而 /proc/softirqs 和 mpstat 提供了各种软中断在每个 CPU 上的运行次数 |
+| 硬中断 | vmstat
+/proc/interrupts | vmstat 提供总的中断次数，
+而 /proc/interrupts 提供各种中断在每个 CPU 上运行的累积次数 |
+| 网络 | dstat
+sar
+tcpdump | dstat 和 sar 提供总的网络接收和发送情况，
+而 tcpdump 则是动态抓取正在进行的网络通讯 |
+| I/O | dstat
+sar | dstat 和 sar 都提供了 I/O 的整体情况 |
+| CPU 个数 | /proc/cpuinfo
+lscpu | lscpu 更直观 |
+| 事件剖析 | perf
+execsnoop | perf 可以用来分析 CPU 的缓存以及内核调用链，execsnoop 用来监控短时进程 |</p>
+<h3 id="根据工具查指标7c7032">根据工具查指标<a href="#7c7032">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>性能工具</th>
+<th>CUP 性能指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uptime</td>
+<td>平均负载</td>
+</tr>
+<tr>
+<td>top</td>
+<td>平均负载、运行队列、整体的 CPU 使用率以及每个进程的状态和</td>
+</tr>
+<tr>
+<td>CPU 使用率</td>
+<td></td>
+</tr>
+<tr>
+<td>htop</td>
+<td>top 增强版，以不同颜色区分不同类型的进程，更直观</td>
+</tr>
+<tr>
+<td>atop</td>
+<td>CPU、内存、磁盘和网络等各种资源的全面监控</td>
+</tr>
+<tr>
+<td>vmstat</td>
+<td>系统整体的 CPU 使用率、上下文切换次数、中断次数、</td>
+</tr>
+<tr>
+<td>还包括处于运行和不可中断状态的进程数量</td>
+<td></td>
+</tr>
+<tr>
+<td>mpstat</td>
+<td>每个 CPU 的使用率和软中断次数</td>
+</tr>
+<tr>
+<td>pidstat</td>
+<td>进程和线程的 CPU 使用率、中断上下文切换次数</td>
+</tr>
+<tr>
+<td>/proc/softirqs</td>
+<td>软中断类型和在每个 CPU 上的累积中断次数</td>
+</tr>
+<tr>
+<td>/proc/interrupts</td>
+<td>硬中断类型和在每个 CPU 上的累积中断次数</td>
+</tr>
+<tr>
+<td>ps</td>
+<td>每个进程的状态和 CPU 使用率</td>
+</tr>
+<tr>
+<td>pstree</td>
+<td>进程的父子关系</td>
+</tr>
+<tr>
+<td>dstat</td>
+<td>系统整体的 CPU 使用率</td>
+</tr>
+<tr>
+<td>sar</td>
+<td>系统的整体 CPU 使用率，包括可配置的历史数据</td>
+</tr>
+<tr>
+<td>strace</td>
+<td>进程的系统调用</td>
+</tr>
+<tr>
+<td>perf</td>
+<td>CPU 性能事件剖析，如调用链分析、CPU 缓存、CPU 调度</td>
+</tr>
+<tr>
+<td>execsnoop</td>
+<td>监控短时进程</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cpu-性能优化分析b46042">CPU 性能优化分析<a href="#b46042">#</a></h3>
+<p>[<img src="https://cdn.learnku.com/uploads/images/202001/05/1875/Oz8dERwnge.png!large" alt="Linux 性能优化"></p>
+<p>](<a href="https://cdn.learnku.com/uploads/images/202001/05/1875/Oz8dERwnge.png!large">https://cdn.learnku.com/uploads/images/202001/05/1875/Oz8dERwnge.png!large</a>)</p>
+<h2 id="内存篇9c36de">内存篇<a href="#9c36de">#</a></h2>
+<h3 id="内存性能指标323a40">内存性能指标<a href="#323a40">#</a></h3>
+<p>[<img src="https://cdn.learnku.com/uploads/images/202001/05/1875/0RmdwBAd5N.png!large" alt="Linux 性能优化"></p>
+<p>](<a href="https://cdn.learnku.com/uploads/images/202001/05/1875/0RmdwBAd5N.png!large">https://cdn.learnku.com/uploads/images/202001/05/1875/0RmdwBAd5N.png!large</a>)</p>
+<h3 id="根据指标找工具2a94dc-1">根据指标找工具<a href="#2a94dc">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>内存指标</th>
+<th>性能工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统已用、可用、剩余内存</td>
+<td>free</td>
+</tr>
+<tr>
+<td>vmstat</td>
+<td></td>
+</tr>
+<tr>
+<td>sar</td>
+<td></td>
+</tr>
+<tr>
+<td>/proc/meminfo</td>
+<td></td>
+</tr>
+<tr>
+<td>进程虚拟内存、常驻内存、共享内存</td>
+<td>ps</td>
+</tr>
+<tr>
+<td>top</td>
+<td></td>
+</tr>
+<tr>
+<td>进程内存分布</td>
+<td>pmap</td>
+</tr>
+<tr>
+<td>进程 Swap 换出内存</td>
+<td>top</td>
+</tr>
+<tr>
+<td>/proc/pid/status</td>
+<td></td>
+</tr>
+<tr>
+<td>进程缺页异常</td>
+<td>ps</td>
+</tr>
+<tr>
+<td>top</td>
+<td></td>
+</tr>
+<tr>
+<td>系统换页情况</td>
+<td>sar</td>
+</tr>
+<tr>
+<td>缓存（Cache）/ 缓冲区（Buffer）用量</td>
+<td>free</td>
+</tr>
+<tr>
+<td>vmstat</td>
+<td></td>
+</tr>
+<tr>
+<td>sar</td>
+<td></td>
+</tr>
+<tr>
+<td>cachestat</td>
+<td></td>
+</tr>
+<tr>
+<td>缓存（Cache）/ 缓冲区（Buffer）用量</td>
+<td>cachetop</td>
+</tr>
+<tr>
+<td>SWAP 已用空间和剩余空间</td>
+<td>free</td>
+</tr>
+<tr>
+<td>sar</td>
+<td></td>
+</tr>
+<tr>
+<td>Swap 换入换出</td>
+<td>vmstat</td>
+</tr>
+<tr>
+<td>内存泄漏检测</td>
+<td>memleak</td>
+</tr>
+<tr>
+<td>valgrind</td>
+<td></td>
+</tr>
+<tr>
+<td>指定文件的缓存大小</td>
+<td>pcstat</td>
+</tr>
+</tbody>
+</table>
+<h3 id="根据工具查指标7c7032-1">根据工具查指标<a href="#7c7032">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>性能工具</th>
+<th>内存指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>free</td>
+<td></td>
+</tr>
+<tr>
+<td>/proc/meninfo</td>
+<td>系统已用、可用、剩余内存以及缓存和缓冲区的使用量</td>
+</tr>
+<tr>
+<td>top</td>
+<td></td>
+</tr>
+<tr>
+<td>ps</td>
+<td>进程虚拟、常驻、共享内存以及缺页异常</td>
+</tr>
+<tr>
+<td>vmstat</td>
+<td>系统剩余内存、缓存、缓冲区、换入、换出</td>
+</tr>
+<tr>
+<td>sar</td>
+<td>系统部分内存换页情况、内存使用率、缓存和缓冲区用量</td>
+</tr>
+<tr>
+<td>以及 Swap</td>
+<td></td>
+</tr>
+<tr>
+<td>cachestat</td>
+<td>系统缓存和缓冲区的命中率</td>
+</tr>
+<tr>
+<td>cachetop</td>
+<td>进程缓存和缓冲区的命中率</td>
+</tr>
+<tr>
+<td>slabtop</td>
+<td>系统 Slab 缓存使用情况</td>
+</tr>
+<tr>
+<td>/proc/pid/status</td>
+<td>进程 Swap 内存等</td>
+</tr>
+<tr>
+<td>/proc/pid/smaps</td>
+<td></td>
+</tr>
+<tr>
+<td>pmap</td>
+<td>进程地址空间和内存状态</td>
+</tr>
+<tr>
+<td>valgrind</td>
+<td>进程内存错误检查器，用来检测内存初始化、泄漏、</td>
+</tr>
+<tr>
+<td>越界访问等各种内存错误</td>
+<td></td>
+</tr>
+<tr>
+<td>memleak</td>
+<td>内存泄漏检测</td>
+</tr>
+<tr>
+<td>pcstat</td>
+<td>查看指定文件的缓存情况</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内存性能优化分析36c16f">内存性能优化分析<a href="#36c16f">#</a></h3>
+<p>[<img src="https://cdn.learnku.com/uploads/images/202001/05/1875/4snGgzRjRQ.png!large" alt="Linux 性能优化"></p>
+<p>](<a href="https://cdn.learnku.com/uploads/images/202001/05/1875/4snGgzRjRQ.png!large">https://cdn.learnku.com/uploads/images/202001/05/1875/4snGgzRjRQ.png!large</a>)</p>
+<h2 id="io-篇e23969">I/O 篇<a href="#e23969">#</a></h2>
+<h3 id="io-性能指标9df81a">I/O 性能指标<a href="#9df81a">#</a></h3>
+<p>[<img src="https://cdn.learnku.com/uploads/images/202001/05/1875/LUAA6oVA94.png!large" alt="Linux 性能优化"></p>
+<p>](<a href="https://cdn.learnku.com/uploads/images/202001/05/1875/LUAA6oVA94.png!large">https://cdn.learnku.com/uploads/images/202001/05/1875/LUAA6oVA94.png!large</a>)</p>
+<h3 id="根据指标找工具2a94dc-2">根据指标找工具<a href="#2a94dc">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件系统空间容量、使用量以及剩余空间</td>
+<td>df</td>
+<td>详细文档见</td>
+</tr>
+<tr>
+<td>info coreutils ‘df invocation’</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>索引结点容量、使用量以及剩余量</td>
+<td>df</td>
+<td>使用 -i 选项</td>
+</tr>
+<tr>
+<td>页面缓存和可回收 Slab 缓存</td>
+<td>/proc/meminfo</td>
+<td></td>
+</tr>
+<tr>
+<td>sar、vmstat</td>
+<td>使用 sar -r 选项</td>
+<td></td>
+</tr>
+<tr>
+<td>缓冲区</td>
+<td>/proc/meminfo</td>
+<td></td>
+</tr>
+<tr>
+<td>sar、vmstat</td>
+<td>使用 sar -r 选项</td>
+<td></td>
+</tr>
+<tr>
+<td>目录项、索引节点以及文件系统的缓存</td>
+<td>/proc/slabinfo</td>
+<td></td>
+</tr>
+<tr>
+<td>slabtop</td>
+<td>slabtop 更直观</td>
+<td></td>
+</tr>
+<tr>
+<td>磁盘 I/O 使用率、IOPS、</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>吞吐量、响应时间、I/O 平均大小</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>以及等待队列长度</td>
+<td>iostat</td>
+<td></td>
+</tr>
+<tr>
+<td>sar、dstat</td>
+<td>使用 iostat -d -x 或 sar -d 选项</td>
+<td></td>
+</tr>
+<tr>
+<td>进程 I/O 大小以及 I/O 延迟</td>
+<td>pidstat</td>
+<td></td>
+</tr>
+<tr>
+<td>iotop</td>
+<td>使用 pidstat -d 选项</td>
+<td></td>
+</tr>
+<tr>
+<td>块设备 I/O 事件跟踪</td>
+<td>blktrace</td>
+<td>示例：blktrace -d /dev/sda -o- （管道符） blkparse -i-</td>
+</tr>
+<tr>
+<td>进程 I/O 系统调用跟踪</td>
+<td>strace</td>
+<td>通过系统调用跟踪进程的 I/O</td>
+</tr>
+<tr>
+<td>进程块设备 I/O 大小跟踪</td>
+<td>biosnoop</td>
+<td></td>
+</tr>
+<tr>
+<td>biotop</td>
+<td>需要安装 bcc 软件包</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="根据工具查指标7c7032-2">根据工具查指标<a href="#7c7032">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>性能工具</th>
+<th>性能指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iostat</td>
+<td>磁盘 I/O 使用率、IOPS、吞吐量、响应时间、I/O 平均大小以及等待队列长度</td>
+</tr>
+<tr>
+<td>pidstat</td>
+<td>进程 I/O 大小以及 I/O 延迟</td>
+</tr>
+<tr>
+<td>sar</td>
+<td>磁盘 I/O 使用率、IOPS、吞吐量以及响应时间</td>
+</tr>
+<tr>
+<td>dstat</td>
+<td>磁盘 I/O、IPOS 以及吞吐量</td>
+</tr>
+<tr>
+<td>iotop</td>
+<td>按 I/O 大小对进程排序</td>
+</tr>
+<tr>
+<td>slabtop</td>
+<td>目录项、索引结点以及文件系统的缓存</td>
+</tr>
+<tr>
+<td>/proc/slabinfo</td>
+<td>目录项、索引结点以及文件系统的缓存</td>
+</tr>
+<tr>
+<td>/proc/meminfo</td>
+<td>页缓存和可回收 Slab 缓存</td>
+</tr>
+<tr>
+<td>/proc/diskstats</td>
+<td>磁盘的 IOPS、吞吐量以及延迟</td>
+</tr>
+<tr>
+<td>/proc/pid/io</td>
+<td>进程 IOPS、I/O 大小以及 I/O 延迟</td>
+</tr>
+<tr>
+<td>vmstat</td>
+<td>缓存和缓冲区用量汇总</td>
+</tr>
+<tr>
+<td>blktrace</td>
+<td>跟踪块设备 I/O 事件</td>
+</tr>
+<tr>
+<td>biosnoop</td>
+<td>跟踪进程的块设备 I/O 大小</td>
+</tr>
+<tr>
+<td>biotop</td>
+<td>跟踪进程的并按 I/O 大小排序</td>
+</tr>
+<tr>
+<td>strace</td>
+<td>跟踪进程的 I/O 系统调用</td>
+</tr>
+<tr>
+<td>perf</td>
+<td>跟踪内核中的 I/O 事件</td>
+</tr>
+<tr>
+<td>df</td>
+<td>磁盘空间和索引结点使用量和剩余量</td>
+</tr>
+<tr>
+<td>mount</td>
+<td>文件系统的挂载路径以及挂载参数</td>
+</tr>
+<tr>
+<td>du</td>
+<td>目录占用的磁盘空间大小</td>
+</tr>
+<tr>
+<td>tune2fs</td>
+<td>显示和设置文件系统参数</td>
+</tr>
+<tr>
+<td>hdparam</td>
+<td>显示和设置磁盘参数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="io-性能优化分析9ed8c3">I/O 性能优化分析<a href="#9ed8c3">#</a></h3>
+<p>[<img src="https://cdn.learnku.com/uploads/images/202001/05/1875/4Na11isdnY.png!large" alt="Linux 性能优化"></p>
+<p>](<a href="https://cdn.learnku.com/uploads/images/202001/05/1875/4Na11isdnY.png!large">https://cdn.learnku.com/uploads/images/202001/05/1875/4Na11isdnY.png!large</a>)</p>
+<h2 id="网络篇320f0d">网络篇<a href="#320f0d">#</a></h2>
+<h3 id="根据指标找工具2a94dc-3">根据指标找工具<a href="#2a94dc">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>吞吐量（BPS）</td>
+<td>sar</td>
+<td></td>
+</tr>
+<tr>
+<td>nethogs</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>iftop</td>
+<td>分别可以查看网络接口、进程以及 IP 地址的网络吞吐量</td>
+<td></td>
+</tr>
+<tr>
+<td>PPS</td>
+<td>sar</td>
+<td></td>
+</tr>
+<tr>
+<td>/proc/net/dev</td>
+<td>查看网络接口的 PPS</td>
+<td></td>
+</tr>
+<tr>
+<td>连接数</td>
+<td>nestat</td>
+<td></td>
+</tr>
+<tr>
+<td>ss</td>
+<td>查看网络连接数</td>
+<td></td>
+</tr>
+<tr>
+<td>延迟</td>
+<td>ping</td>
+<td></td>
+</tr>
+<tr>
+<td>hping3</td>
+<td>通过 ICMP、TCP 等测试网络延迟</td>
+<td></td>
+</tr>
+<tr>
+<td>连接跟踪数</td>
+<td>conntrack</td>
+<td>查看和管理连接跟踪状况</td>
+</tr>
+<tr>
+<td>路由</td>
+<td>mtr</td>
+<td></td>
+</tr>
+<tr>
+<td>route</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>traceroute</td>
+<td>查看路由并测试链路信息</td>
+<td></td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>dig</td>
+<td></td>
+</tr>
+<tr>
+<td>nslookup</td>
+<td>排查 DNS 解析问题</td>
+<td></td>
+</tr>
+<tr>
+<td>防火墙和 NAT</td>
+<td>iptables</td>
+<td>配置和管理防火墙及 NAT 规则</td>
+</tr>
+<tr>
+<td>网卡功能</td>
+<td>ethtool</td>
+<td>查看和配置网络接口的功能</td>
+</tr>
+<tr>
+<td>抓包</td>
+<td>tcpdump</td>
+<td></td>
+</tr>
+<tr>
+<td>Wireshark</td>
+<td>抓包分析网络流量</td>
+<td></td>
+</tr>
+<tr>
+<td>内核协议栈跟踪</td>
+<td>bcc</td>
+<td></td>
+</tr>
+<tr>
+<td>systemtap</td>
+<td>动态跟踪内核协议栈的行为</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="根据工具查指标7c7032-3">根据工具查指标<a href="#7c7032">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>性能工具</th>
+<th>主要功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ifconfig</td>
+<td></td>
+</tr>
+<tr>
+<td>ip</td>
+<td>配置和查看网络接口</td>
+</tr>
+<tr>
+<td>ss</td>
+<td>查看网络连接数</td>
+</tr>
+<tr>
+<td>sar</td>
+<td></td>
+</tr>
+<tr>
+<td>/proc/net/dev/sys/class/net/eth0/statistics</td>
+<td>查看网络接口的收发情况</td>
+</tr>
+<tr>
+<td>nethogs</td>
+<td>查看进程的网络收发情况</td>
+</tr>
+<tr>
+<td>iftop</td>
+<td>查看 IP 的网络收发情况</td>
+</tr>
+<tr>
+<td>ethool</td>
+<td>查看和配置网络接口</td>
+</tr>
+<tr>
+<td>conntrack</td>
+<td>查看和管理连接跟踪状况</td>
+</tr>
+<tr>
+<td>nslookup</td>
+<td></td>
+</tr>
+<tr>
+<td>dig</td>
+<td>排查 DNS 解析问题</td>
+</tr>
+<tr>
+<td>mtr</td>
+<td></td>
+</tr>
+<tr>
+<td>route</td>
+<td></td>
+</tr>
+<tr>
+<td>traceroute</td>
+<td>查看路由并测试链路信息</td>
+</tr>
+<tr>
+<td>ping</td>
+<td></td>
+</tr>
+<tr>
+<td>hping3</td>
+<td>测试网络延迟</td>
+</tr>
+<tr>
+<td>tcpdump</td>
+<td>网络抓包工具</td>
+</tr>
+<tr>
+<td>Wireshark</td>
+<td>网络抓包和图形界面分析工具</td>
+</tr>
+<tr>
+<td>iptables</td>
+<td>配置和管理防火墙及 NAT 规则</td>
+</tr>
+<tr>
+<td>perf</td>
+<td>剖析内核协议栈的性能</td>
+</tr>
+<tr>
+<td>systemtap</td>
+<td></td>
+</tr>
+<tr>
+<td>bcc</td>
+<td>动态追踪内核协议栈的行为</td>
+</tr>
+</tbody>
+</table>
+<h2 id="结语--案例85658f">结语 &amp; 案例<a href="#85658f">#</a></h2>
+<p>“纸上得来终觉浅，绝知此事要躬行” 。在此，提供本人实践的课程案例，希望对你有帮助。</p>
+<p><a href="https://learnku.com/articles/39474">案例：某个应用的 CPU 使用率居然达到 100%，我该怎么办？</a><br>
+<a href="https://learnku.com/articles/39516">案例：系统的 CPU 使用率很高，但为啥却找不到高 CPU 的应用？</a><br>
+<a href="https://learnku.com/articles/39851">案例：系统中出现大量不可中断进程（D）和僵尸进程（Z）怎么办？</a></p>
+<p><a href="https://learnku.com/blog/GetaChan/tags/performance-optimization_49639">性能优化</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-08-13 19:01
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/performance/">performance</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/performance/mysql_perf_doc/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">mysql性能优化</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/performance/k8s_redis_perf/">
+            <span class="next-text nav-default">redis集群性能调优</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

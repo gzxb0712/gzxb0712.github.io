@@ -6,10 +6,19 @@
     <description>Recent content in Redis on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 05 Jun 2020 21:09:30 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2020 19:01:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/Redis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>redis集群性能调优</title>
+      <link>https://xiebiao.top/post/performance/k8s_redis_perf/</link>
+      <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/performance/k8s_redis_perf/</guid>
+      <description>kuberntes中的redis集群性能调优 kuberntes中的redis集群性能调优 - jeremy的技术点滴 文章目录 基准测试 逐步优化 优化</description>
+    </item>
     
     <item>
       <title>Redis 5.0 部署及使用</title>

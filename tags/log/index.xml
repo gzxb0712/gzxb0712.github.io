@@ -17,7 +17,7 @@
       <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/log/helm_loki_prometheus_oper/</guid>
-      <description>1. 组件 2. 部署 3. 测试 对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常</description>
+      <description>对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常有助于解决问题，还</description>
     </item>
     
     <item>

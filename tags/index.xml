@@ -6,10 +6,55 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 11 Aug 2020 20:08:30 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2020 21:01:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://xiebiao.top/tags/MySQL/</link>
+      <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/MySQL/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>performance</title>
+      <link>https://xiebiao.top/tags/performance/</link>
+      <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://xiebiao.top/tags/linux/</link>
+      <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>https://xiebiao.top/tags/Redis/</link>
+      <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/Redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://xiebiao.top/tags/kubernetes/</link>
+      <pubDate>Wed, 12 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/kubernetes/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>log</title>
@@ -179,24 +224,6 @@
       <pubDate>Sat, 06 Jun 2020 21:08:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/tags/TiDB/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Redis</title>
-      <link>https://xiebiao.top/tags/Redis/</link>
-      <pubDate>Fri, 05 Jun 2020 21:09:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/Redis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MySQL</title>
-      <link>https://xiebiao.top/tags/MySQL/</link>
-      <pubDate>Thu, 04 Jun 2020 21:05:30 +0000</pubDate>
-      
-      <guid>https://xiebiao.top/tags/MySQL/</guid>
       <description></description>
     </item>
     

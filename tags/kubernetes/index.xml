@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on Bill World</title>
+    <link>https://xiebiao.top/tags/kubernetes/</link>
+    <description>Recent content in kubernetes on Bill World</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 12 Aug 2020 21:01:30 +0000</lastBuildDate>
+    
+	<atom:link href="https://xiebiao.top/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>kubernetes集群部署实践性能优化</title>
+      <link>https://xiebiao.top/post/performance/k8s_perf_doc/</link>
+      <pubDate>Wed, 12 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/performance/k8s_perf_doc/</guid>
+      <description>kubernetes集群部署实践性能优化 文章目录 大量kubernetes集群部署运营的相关工作，这里总结一下。 kubernetes大规模集群</description>
+    </item>
+    
+  </channel>
+</rss>

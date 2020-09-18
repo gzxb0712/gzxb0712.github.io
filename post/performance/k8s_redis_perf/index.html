@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>redis集群性能调优 - Bill World</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="gzxb0712" /><meta name="description" content="kuberntes中的redis集群性能调优 kuberntes中的redis集群性能调优 - jeremy的技术点滴 文章目录 基准测试 逐步优化 优化" /><meta name="keywords" content="Mac, Github, Vue, React, Front End" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://xiebiao.top/post/performance/k8s_redis_perf/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="redis集群性能调优" />
+<meta property="og:description" content="kuberntes中的redis集群性能调优 kuberntes中的redis集群性能调优 - jeremy的技术点滴 文章目录 基准测试 逐步优化 优化" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiebiao.top/post/performance/k8s_redis_perf/" />
+<meta property="article:published_time" content="2020-08-13T19:01:30+00:00" />
+<meta property="article:modified_time" content="2020-08-13T19:01:30+00:00" />
+<meta itemprop="name" content="redis集群性能调优">
+<meta itemprop="description" content="kuberntes中的redis集群性能调优 kuberntes中的redis集群性能调优 - jeremy的技术点滴 文章目录 基准测试 逐步优化 优化">
+<meta itemprop="datePublished" content="2020-08-13T19:01:30+00:00" />
+<meta itemprop="dateModified" content="2020-08-13T19:01:30+00:00" />
+<meta itemprop="wordCount" content="3418">
+
+
+
+<meta itemprop="keywords" content="redis,performance," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="redis集群性能调优"/>
+<meta name="twitter:description" content="kuberntes中的redis集群性能调优 kuberntes中的redis集群性能调优 - jeremy的技术点滴 文章目录 基准测试 逐步优化 优化"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Bill World</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Bill World</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">redis集群性能调优</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-13 19:01 </span>
+        <div class="post-category">
+            <a href="/categories/performance/"> performance </a>
+            </div>
+          <span class="more-meta"> 约 3418 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#kuberntes中的redis集群性能调优">kuberntes中的redis集群性能调优</a></li>
+    <li><a href="#文章目录">文章目录</a></li>
+    <li><a href="#基准测试">基准测试</a></li>
+    <li><a href="#逐步优化">逐步优化</a>
+      <ul>
+        <li><a href="#优化内核参数">优化内核参数</a></li>
+        <li><a href="#cpu绑核">CPU绑核</a></li>
+        <li><a href="#iptables切换为ipvs">iptables切换为ipvs</a></li>
+        <li><a href="#由overlay网络切换为underlay网络">由overlay网络切换为underlay网络</a></li>
+      </ul>
+    </li>
+    <li><a href="#性能回归测试">性能回归测试</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h2 id="kuberntes中的redis集群性能调优">kuberntes中的redis集群性能调优</h2>
+<p>kuberntes中的redis集群性能调优 - jeremy的技术点滴</p>
+<h2 id="文章目录">文章目录</h2>
+<ul>
+<li></li>
+<li>
+<p><a href="#%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95">基准测试</a></p>
+</li>
+<li>
+<p><a href="#%E9%80%90%E6%AD%A5%E4%BC%98%E5%8C%96">逐步优化</a></p>
+</li>
+<li>
+<p><a href="#%E4%BC%98%E5%8C%96%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0">优化内核参数</a></p>
+</li>
+<li>
+<p><a href="#cpu%E7%BB%91%E6%A0%B8">CPU绑核</a></p>
+</li>
+<li>
+<p><a href="#iptables%E5%88%87%E6%8D%A2%E4%B8%BAipvs">iptables切换为ipvs</a></p>
+</li>
+<li>
+<p><a href="#%E7%94%B1overlay%E7%BD%91%E7%BB%9C%E5%88%87%E6%8D%A2%E4%B8%BAunderlay%E7%BD%91%E7%BB%9C">由overlay网络切换为underlay网络</a></p>
+</li>
+<li>
+<p><a href="#%E6%80%A7%E8%83%BD%E5%9B%9E%E5%BD%92%E6%B5%8B%E8%AF%95">性能回归测试</a></p>
+</li>
+<li>
+<p><a href="#%E6%80%BB%E7%BB%93">总结</a></p>
+</li>
+<li>
+<p><a href="#%E5%8F%82%E8%80%83">参考</a></p>
+</li>
+</ul>
+<p>上周在kubernetes里发布了一个redis PaaS服务，不过其它同学简单测了一下，虽说功能上没啥问题，但性能相比物理上运行的Redis集群差太远，而且随着redis的分片数增加，性能并不能很好地线性增长，增长到一定程度就停止了，这个是需求方不能接受的，于是本周接了活，对部署在kubernetes中的redis服务进行性能优化。</p>
+<h2 id="基准测试">基准测试</h2>
+<p>按照之前此类工作的工作方法，首先进行基准测试，得到目前的性能状况指标，也便于后面总结本次优化的成果。</p>
+<p>我这里使用多个<code>redis-benchmark</code>进程对一个3分片的redis进行压测，最后得到的性能指标如下：
+序号场景总QPS13个物理机，每个物理机部署一个Redis分片45w2同样在3个物理机上部署kuberntes集群，在其中部署3个pod，每个pod均部署一个redis分片10w</p>
+<h2 id="逐步优化">逐步优化</h2>
+<h3 id="优化内核参数">优化内核参数</h3>
+<p>首先参考<a href="https://www.techandme.se/performance-tips-for-redis-cache-server/">performance-tips-for-redis-cache-server</a>优化几个十分影响redis集群性能的内核参数，由于redis是部署在kubernetes的pod中，因此优化方法跟文章中提到的办法有一点点不一样，如下：</p>
+<pre><code># sysctl.conf中配置fs.file-max、net.core.somaxconn两个属性
+$ cat &lt;&lt; EOF &gt;&gt; /etc/sysctl.conf
+fs.file-max=655350
+net.core.somaxconn=20480
+EOF
+sysctl -p
+
+# limits.conf中配置文件句柄数及进程数的硬限制和软限制
+$ cat &lt;&lt; 'EOF' &gt;&gt; /etc/security/limits.conf
+*	hard	nofile	655350
+*	soft	nofile	655350
+*	hard	nproc	655350
+*	soft	nproc	655350
+EOF
+
+# 关闭内存transparent_hugepage特性
+$ cat &lt;&lt; 'EOF' &gt;&gt; /etc/rc.local
+echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+EOF
+$ echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+
+# kubelet中允许修改pod的net.core.somaxconn内核参数
+$ cat /etc/systemd/system/kubelet.service
+...
+ExecStart=/usr/local/bin/kubelet \
+   ...
+   --allowed-unsafe-sysctls=net.core.somaxconn \
+   ...
+   
+# 修改pod的net.core.somaxconn内核参数
+$ kubectl -n db get statefulsets  redis-redis-cluster -o yaml
+...
+podSpec:
+    securityContext:
+    sysctls:
+    - name: net.core.somaxconn
+    value: &quot;20480&quot;
+...
+</code></pre>
+<h3 id="cpu绑核">CPU绑核</h3>
+<p>压测时发现虽然服务的cpu核数较多，但任务数也有些多，cpu的争抢有些严重，因此这里进行CPU绑核操作。</p>
+<p>首先对redis的pod进行cpu绑核，这里参考kubernetes的<a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/cpu-management-policies/">官方文档-控制节点上的CPU管理策略</a>。</p>
+<pre><code># 启用kubelet的静态绑核开关
+$ cat /etc/systemd/system/kubelet.service
+...
+ExecStart=/usr/local/bin/kubelet \
+  ...
+  --feature-gates=CPUManager=true \
+  --cpu-manager-policy=static \
+  --system-reserved=cpu=2,memory=500Mi,ephemeral-storage=1Gi \
+  ...
+
+# pod的resources.limits.cpu及resources.requests.cpu设置为相同的整数
+$ kubectl -n db get statefulsets  redis-redis-cluster -o yaml
+...
+podSpec:
+    resources:
+    limits:
+      cpu: &quot;1&quot;
+      ...
+    requests:
+      cpu: &quot;1&quot;
+      ...
+...
+</code></pre>
+<p>为了减少网卡软中断CPU上下文切换的开销，这里对之进行绑定CPU，这里参考网上的一篇<a href="http://www.simlinux.com/2017/02/28/net-softirq.html">网卡软中断优化的文档</a>。</p>
+<pre><code># 绑定网卡软中断至CPU0-CPU7
+$ cat scripts/bind_nic_softirq.sh
+#!/bin/bash
+set -e -u
+systemctl stop irqbalance.service
+nic_name=enp5s0f0
+irq_nos=$(grep &quot;${nic_name}-TxRx&quot; /proc/interrupts | awk '{print $1, $NF}' | awk -F ':' '{print $1}')
+dec_value=1
+for irq_no in ${irq_nos[*]}; do
+  cpu_smp_affinity=$(printf '%x' ${dec_value})
+  echo ${cpu_smp_affinity}  &gt; /proc/irq/${irq_no}/smp_affinity
+  dec_value=$((2*${dec_value}))
+done
+
+bash scripts/bind_nic_softirq.sh
+</code></pre>
+<h3 id="iptables切换为ipvs">iptables切换为ipvs</h3>
+<p>在压测过程中发现直接压测podIP性能会好不少，但压测serviceIP性能打一个折扣。而由kubernetes Service的实现原理可知，serviceIP是由iptables或ipvs实现的。社区里也谈到ipvs确实比iptables有更好的性能，从kubernetes 1.12开始就默认使用ipvs了。而我这里用的是kubernetes 1.11版本，因此手动配置一下以启动ipvs。</p>
+<pre><code># 所有node节点安装ipset
+$ yum install -y ipset
+# 配置启动时加载ipvs相关内核模块
+$ cat /etc/sysconfig/modules/ipvs.modules
+#!/bin/bash
+ipvs_modules=(ip_vs ip_vs_lc ip_vs_wlc ip_vs_rr ip_vs_wrr ip_vs_lblc ip_vs_lblcr ip_vs_dh ip_vs_sh ip_vs_fo ip_vs_nq ip_vs_sed ip_vs_ftp nf_conntrack_ipv4)
+for kernel_module in ${ipvs_modules[*]}; do
+    /sbin/modinfo -F filename ${kernel_module} &gt; /dev/null 2&gt;&amp;1
+    if [ $? -eq 0 ]; then
+        /sbin/modprobe ${kernel_module}
+    fi
+done
+$ chmod +x /etc/sysconfig/modules/ipvs.modules
+
+# kube-proxy启用ipvs模式
+$ cat /etc/systemd/system/kube-proxy.service
+...
+ExecStart=/usr/local/bin/kube-proxy \
+  ...
+  --proxy-mode=ipvs \
+  --ipvs-min-sync-period=5s \
+  --ipvs-sync-period=5s \
+  --ipvs-scheduler=rr \
+  --masquerade-all \
+  ...
+...
+</code></pre>
+<h3 id="由overlay网络切换为underlay网络">由overlay网络切换为underlay网络</h3>
+<p>继续压测，发现已可以达到26wQPS了，但和在物理机上部署的redis集群性能还有差距。咨询了专门搞kubernetes容器网络的同学，他建议使用underlay网络。</p>
+<p>这里提一下两个概念：</p>
+<p>Underlay网络：Underlay网络由底层网络驱动将接口暴露给虚机或容器，比较常用的方案有bridge, macvlan, ipvlan, sriov等。</p>
+<p>Overlay网络：Overlay网络无需改造网络架构，只需三层可达即可，将二层报文封装在IP报文中。这样能利用成熟的IP路由协议进行数据分发，采用隔离标识能够突破VLAN的数量限制，必要时把广播流量转化为组网流量避免广播数据泛滥。比较常见的方案有vxlan, gre等。</p>
+<p>可以看出在Underlay网络下，容器里看到的是底层实际的网络接口，直接读写这种网络接口自然比Overlay网络下那种虚拟出来的网络性能好得多。</p>
+<p>由于不方便升级内核，因此这里就采用最简单的macvlan CNI网络方案了，切换方法就不详述了，参考<a href="https://blog.csdn.net/cloudvtech/article/details/79830887">这篇文章</a>就可以了。</p>
+<p>不过切换为macvlan之间遇到了几个问题。</p>
+<ol>
+<li>容器内无法ping通本主机主接口ip。</li>
+</ol>
+<p>这个会导致kubernetes无法对pod进行正常的健康检测。这里在网上找到一个<a href="https://www.yangcs.net/posts/macvlan-in-action/">解决方案</a>：</p>
+<pre><code>   $ ip link add link ens160 mac0 type macvlan mode bridge
+   # 下面的命令一定要放在一起执行，否则中间会失去连接
+   $ ip addr del 192.168.179.9/16 dev ens160 &amp;&amp; \
+     ip addr add 192.168.179.9/16 dev mac0 &amp;&amp; \
+     ip link set dev mac0 up &amp;&amp; \
+     ip route flush dev ens160 &amp;&amp; \
+     ip route flush dev mac0 &amp;&amp; \
+     ip route add 192.168.0.0/16 dev mac0 metric 0 &amp;&amp; \
+     ip route add default via 192.168.1.1 dev mac0
+</code></pre>
+<p>其实就是建立一个macvlan bridge，将主机主接口桥接到这上面，将主机主接口的ip挪到该bridge上的一个mac0网络接口上。</p>
+<ol>
+<li>使用macvlan ip的pod无法访问kubernetes里的serviceIP。</li>
+</ol>
+<p>kubernetes里的serviceIP实现原理参见<a href="https://zhuanlan.zhihu.com/p/67384482">clusterip的实现机制</a>，说白了serviceIP是由iptables或ipvs机制模拟出的虚拟IP，它的流量分发是由iptables或ipvs进行必要的NAT操作实现的。而macvlan之类的UnderLay网络方案属于外部网络，并且拥有独立的网络空间namespace，所以并不会经过node的网络空间的内核协议栈，进而造成并不会经过iptables/ipvs的配置，因此使用了macvlan的pod，自然无法正常访问servicrIP。<a href="https://zhuanlan.zhihu.com/p/67384482">kubernetes的clusterip机制调研及macvlan网络下的clusterip坑解决方案</a>这篇文章也谈到了两个解决方案：</p>
+<ul>
+<li></li>
+</ul>
+<p>部分Node标记master，采用cluster network，例如flannel/calico/weave，貌似最近weave比较火，可以借机熟悉一下。然后部署管理Pod的时候，指定部署到master上去。</p>
+<ul>
+<li></li>
+</ul>
+<p>基于<a href="https://link.zhihu.com/?target=https%3A//github.com/intel/multus-cni">multus-cni</a>插件做双网卡，然后配置默认路由走macvlan的网卡，内部网络走cluster network那块网卡。</p>
+<p>我这里采用的方案一，给node打标签，区别出两种不同的node，采用不同的cni网络方案，一个是overlay网络，一个是underlay网络。利用节点亲和性规则，将一般应用的pod都调度到overlay网络的node上，将对网络性能有要求的pod调度到underlay网络的node上。同时调度到underlay网络的pod中要避免使用Service。</p>
+<p>节点亲和性规则如下编写：</p>
+<pre><code>   # 给某些node节点打label，标记为该node节点上运行管理类pod，该node节点上使用flannel的CNI网络方案，其它node节点上使用macvlan的CNI网络方案
+    $ kubectl label node 10.10.20.151 managed_node=true
+
+    # 业务类的pod使用nodeAffinity，使之被调度到没有打了label的node节点
+    $ kubectl -n db get statefulsets redis-redis-cluster -o yaml
+    ...
+    podSpec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: managed_node
+                operator: NotIn
+                values:
+                - &quot;true&quot;
+</code></pre>
+<p>当然另一种方案后面也可以尝试一下，可以参考<a href="https://juejin.im/post/5c926709f265da60e86e0ca6#heading-3">这里的文章</a>。</p>
+<h2 id="性能回归测试">性能回归测试</h2>
+<p>还是基准测试里的场景，重新进行压测，得到以下数据：
+序号场景总QPS13个物理机，每个物理机部署一个Redis分片45w23个物理机上部署kuberntes集群，在其中部署3个pod，每个pod均部署一个redis分片44w
+对比在物理机上直接部署的redis集群，两者的性能基本相近了，达到调优的目标。</p>
+<h2 id="总结">总结</h2>
+<p>相比功能开发，性能调优是一个很有趣的工作，其需要对运行的平台、软件架构、硬软件基础有比较深入的了解才行，在调优的过程中也可以将之前了解的一些概念性理论在实际场景进行验证，从而理解得更深刻。因此调优的工作还是相当难得和具有挑战的。</p>
+<h2 id="参考">参考</h2>
+<ol>
+<li></li>
+</ol>
+<p><a href="https://www.techandme.se/performance-tips-for-redis-cache-server/">https://www.techandme.se/performance-tips-for-redis-cache-server/</a></p>
+<ol start="2">
+<li></li>
+</ol>
+<p><a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/sysctl-cluster/">https://kubernetes.io/zh/docs/tasks/administer-cluster/sysctl-cluster/</a></p>
+<ol start="3">
+<li></li>
+</ol>
+<p><a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/cpu-management-policies/">https://kubernetes.io/zh/docs/tasks/administer-cluster/cpu-management-policies/</a></p>
+<ol start="4">
+<li></li>
+</ol>
+<p><a href="http://www.simlinux.com/2017/02/28/net-softirq.html">http://www.simlinux.com/2017/02/28/net-softirq.html</a></p>
+<ol start="5">
+<li></li>
+</ol>
+<p><a href="https://blog.csdn.net/fanren224/article/details/86548398">https://blog.csdn.net/fanren224/article/details/86548398</a></p>
+<ol start="6">
+<li></li>
+</ol>
+<p><a href="http://lotleaf.com/linux/docker-network.html">http://lotleaf.com/linux/docker-network.html</a></p>
+<ol start="7">
+<li></li>
+</ol>
+<p><a href="https://blog.csdn.net/cloudvtech/article/details/79830887">https://blog.csdn.net/cloudvtech/article/details/79830887</a></p>
+<ol start="8">
+<li></li>
+</ol>
+<p><a href="https://www.yangcs.net/posts/macvlan-in-action/">https://www.yangcs.net/posts/macvlan-in-action/</a></p>
+<ol start="9">
+<li></li>
+</ol>
+<p><a href="https://zhuanlan.zhihu.com/p/67384482">https://zhuanlan.zhihu.com/p/67384482</a></p>
+<ol start="10">
+<li></li>
+</ol>
+<p><a href="https://juejin.im/post/5c926709f265da60e86e0ca6#heading-3">https://juejin.im/post/5c926709f265da60e86e0ca6#heading-3</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">gzxb0712</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-08-13 19:01
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
+  </p>
+</div>
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat.png">
+        <span>微信佛系打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝佛系打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/redis/">redis</a>
+          <a href="/tags/performance/">performance</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/performance/linux_perf_doc/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux 性能优化分析工具</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/performance/k8s_perf_doc/">
+            <span class="next-text nav-default">kubernetes集群部署实践性能优化</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="http://www.cnblogs.com/gzxb0712" class="iconfont icon-cnblogs" title="cnblogs"></a>
+      <a href="mailto:gzxb0712@qq.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
+      <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
+      <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
+  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">gzxb0712</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-138883536-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

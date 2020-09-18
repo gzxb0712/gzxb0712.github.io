@@ -6,10 +6,19 @@
     <description>Recent content in MySQL on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 04 Jun 2020 21:05:30 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2020 21:01:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/MySQL/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>mysql性能优化</title>
+      <link>https://xiebiao.top/post/performance/mysql_perf_doc/</link>
+      <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/performance/mysql_perf_doc/</guid>
+      <description>记录学习笔记，持续更新。 优化方向# SQL 优化# sql 优化分析 索引优化 优化数据库对象# 优化表的数据类型 表拆分（水平、垂直） 反范式 使用中间表 优化 mysql server# mysql 内</description>
+    </item>
     
     <item>
       <title>MySQL 8.0 部署及使用</title>

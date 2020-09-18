@@ -35,7 +35,7 @@
       <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
       
       <guid>https://xiebiao.top/post/performance/k8s_redis_perf/</guid>
-      <description>kuberntes中的redis集群性能调优 kuberntes中的redis集群性能调优 - jeremy的技术点滴 文章目录 基准测试 逐步优化 优化</description>
+      <description>kuberntes中的redis集群性能调优 文章目录 基准测试 逐步优化 优化内核参数 CPU绑核 iptables切换为ipvs 由overlay网络</description>
     </item>
     
     <item>

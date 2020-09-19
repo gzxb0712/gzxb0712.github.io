@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2020 21:01:30 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2020 21:01:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>bash</title>
+      <link>https://xiebiao.top/tags/bash/</link>
+      <pubDate>Mon, 17 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>https://xiebiao.top/tags/shell/</link>
+      <pubDate>Mon, 17 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/tags/shell/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>MySQL</title>

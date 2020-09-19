@@ -6,10 +6,28 @@
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2020 21:01:30 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2020 21:01:30 +0000</lastBuildDate>
     
 	<atom:link href="https://xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux文本三剑客---grep、sed、awk</title>
+      <link>https://xiebiao.top/post/shell/sed_awk_doc/</link>
+      <pubDate>Mon, 17 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/shell/sed_awk_doc/</guid>
+      <description>awk、grep、sed是linux操作文本的三大利器，合称文本三剑客，也是必须掌握的linux命令之一。三者的功能都是处理文本，但侧重点各</description>
+    </item>
+    
+    <item>
+      <title>Shell脚本学习</title>
+      <link>https://xiebiao.top/post/shell/shell_book/</link>
+      <pubDate>Sun, 16 Aug 2020 21:01:30 +0000</pubDate>
+      
+      <guid>https://xiebiao.top/post/shell/shell_book/</guid>
+      <description>01- Shell脚本学习&amp;ndash;入门 简介 Shell是一种脚本语言，那么，就必须有解释器来执行这些脚本。 Unix/Linux上常见的Shel</description>
+    </item>
     
     <item>
       <title>mysql性能优化</title>

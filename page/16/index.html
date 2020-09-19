@@ -118,115 +118,49 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/cicd/gitlab_centos_ops/">centos7安装gitlab社区中文版</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/base/dncp_centos_install/">dhcp在centos中安装</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 2020-07-02 22:19 </span>
+      <span class="post-time"> 2019-10-11 20:22 </span>
       <div class="post-category">
-          <a href="/categories/cicd/"> cicd </a>
+          <a href="/categories/linux/"> linux </a>
+          <a href="/categories/base/"> base </a>
           </div>
-        <span class="more-meta"> 约 1253 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官
-    </div>
-    <div class="read-more">
-      <a href="/post/cicd/gitlab_centos_ops/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/cicd/drone1_install_ops/">drone及gogs搭建自己的CI/CD系统</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-07-01 21:03 </span>
-      <div class="post-category">
-          <a href="/categories/cicd/"> cicd </a>
-          </div>
-        <span class="more-meta"> 约 1781 字 </span>
+        <span class="more-meta"> 约 1863 字 </span>
         <span class="more-meta"> 预计阅读 4 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      drone是一个基于容器的本地持续交付平台，和Jenkins是差不多的，然后配合轻量级的gogs来作为git管理，都是基于golang开发的
-    </div>
-    <div class="read-more">
-      <a href="/post/cicd/drone1_install_ops/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
+      <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="运行系统更新">运行系统更新</h3>
+<p>首先将系统包重新同步到它最新版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">dnf update
+</code></pre></td></tr></table>
+</div>
+</div><p>在CentOS 8中，DHCP服务器是<code>dhcp-server</code> 软件包，可以通过运行下面的命令来安装此软件包;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+dnf install dhcp-server
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/database/tidb_install_ops/">TiDB 4.0 安装</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-06-06 21:08 </span>
-      <div class="post-category">
-          <a href="/categories/database/"> database </a>
-          </div>
-        <span class="more-meta"> 约 4780 字 </span>
-        <span class="more-meta"> 预计阅读 10 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      官方文档 简介 TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库， 结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
     <div class="read-more">
-      <a href="/post/database/tidb_install_ops/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/database/redis5_cluster_ops/">Redis 5.0 部署及使用</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-06-05 21:09 </span>
-      <div class="post-category">
-          <a href="/categories/database/"> database </a>
-          </div>
-        <span class="more-meta"> 约 11896 字 </span>
-        <span class="more-meta"> 预计阅读 24 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      一、简介 1.1 Redis是什么 Redis是一个开源的，使用ANSI C 编写，高性能的Key-Value的NoSQL数据库。 1.2 Redis特点 （1）基
-    </div>
-    <div class="read-more">
-      <a href="/post/database/redis5_cluster_ops/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/database/mysql8_install_ops/">MySQL 8.0 部署及使用</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-06-04 21:05 </span>
-      <div class="post-category">
-          <a href="/categories/database/"> database </a>
-          </div>
-        <span class="more-meta"> 约 1880 字 </span>
-        <span class="more-meta"> 预计阅读 4 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      CentOS 7安装MySQL 8.0 这MySQL的默认端口是3306。 Linux上面安装的方式主要分为如下三种： YUM 二进制包 源码包 源码包的安装过于复杂，但是可
-    </div>
-    <div class="read-more">
-      <a href="/post/database/mysql8_install_ops/" class="read-more-link">阅读更多</a>
+      <a href="/post/base/dncp_centos_install/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -234,14 +168,11 @@
     </section>
   
   <nav class="pagination">
-    <a class="prev" href="/page/4/">
+    <a class="prev" href="/page/15/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">上一页</span>
       </a>
-    <a class="next" href="/page/6/">
-        <span class="next-text">下一页</span>
-        <i class="iconfont icon-right"></i>
-      </a>
+    
   </nav>
         </div>
         

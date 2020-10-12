@@ -6,11 +6,7 @@
     <description>Recent content in code on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 08 Apr 2020 19:15:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/categories/code/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 08 Apr 2020 19:15:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/categories/code/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>sonarqube8 搭建使用</title>
       <link>https://xiebiao.top/post/code/sonarqube8_install/</link>

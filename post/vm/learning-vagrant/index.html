@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/vm/learning-vagrant/" />
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/vm/"> vm </a>
             </div>
-          <span class="more-meta"> 约 4193 字 </span>
-          <span class="more-meta"> 预计阅读 9 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
@@ -828,7 +828,7 @@ config.vm.synced_folder <span class="s2">&#34;/Users/用户名/www&#34;</span>, 
 config.vm.provider <span class="s2">&#34;virtualbox&#34;</span> <span class="k">do</span> <span class="p">|</span>vb<span class="p">|</span>
 <span class="c1">#   # Display the VirtualBox GUI when booting the machine</span>
 <span class="c1">#   vb.gui = true</span>
-#
+<span class="c1">#</span>
 <span class="c1">#   # Customize the amount of memory on the VM:</span>
     vb.memory <span class="o">=</span> <span class="s2">&#34;512&#34;</span>
     vb.name <span class="o">=</span> <span class="s2">&#34;ubuntu1604-lamp&#34;</span>
@@ -877,17 +877,17 @@ sendfile off<span class="p">;</span>
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">#
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#</span>
 $ VBoxManage list vms
 <span class="s2">&#34;win7&#34;</span> <span class="o">{</span>87fd57f0-ef1f-4e6d-8529-0fee472ba76a<span class="o">}</span>
 <span class="s2">&#34;win10&#34;</span> <span class="o">{</span>a7edfd3b-0706-43f6-bd3d-b79dc796eb28<span class="o">}</span>
 <span class="s2">&#34;ubuntu1604&#34;</span> <span class="o">{</span>72329a00-87e3-40be-b5fc-a4417ce2aecb<span class="o">}</span>
 
-#
+<span class="c1">#</span>
 $ VBoxManage getextradata <span class="s2">&#34;ubuntu1604&#34;</span> <span class="s2">&#34;VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled&#34;</span>
 No value set!
 
-#
+<span class="c1">#</span>
 $ VBoxManage setextradata <span class="s2">&#34;ubuntu1604&#34;</span> <span class="s2">&#34;VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled&#34;</span> <span class="m">0</span>
 
 <span class="c1"># 已经设置成功</span>
@@ -1042,11 +1042,11 @@ reboot
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-03-06 22:18
         
@@ -1054,22 +1054,22 @@ reboot
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -1081,11 +1081,11 @@ reboot
         <a class="prev" href="/post/vm/vsphere_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">VMware vSphere ESXi 7.0b部署</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/vm/WebVirtCloud_deploy/">
             <span class="next-text nav-default">WebVirtCloud部署笔记</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -1113,18 +1113,18 @@ reboot
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

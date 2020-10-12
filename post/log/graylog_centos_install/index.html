@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/log/graylog_centos_install/" />
@@ -50,7 +50,7 @@
 <meta itemprop="description" content="注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；">
 <meta itemprop="datePublished" content="2020-05-10T20:32:30+00:00" />
 <meta itemprop="dateModified" content="2020-05-10T20:32:30+00:00" />
-<meta itemprop="wordCount" content="13702">
+<meta itemprop="wordCount" content="13696">
 
 
 
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/log/"> log </a>
             </div>
-          <span class="more-meta"> 约 13702 字 </span>
-          <span class="more-meta"> 预计阅读 28 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
@@ -612,36 +612,36 @@ Filebeat 本身没什么调的，在Graylog 套件里 Filebeat 活得比 ES 还�
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Needed for Graylog</span><span class="w">
-</span><span class="w"></span><span class="k">fields_under_root</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w"></span><span class="nt">fields_under_root</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 用于定义你的特别字段，比如下面那些。这些被标记为 under_root 的数值拥有最高优先级，会覆盖掉任何在这</span><span class="w">
 </span><span class="w"></span><span class="c">## 之后的字段。按排列的先后顺序覆盖，比如你如果写了两个 fields.source，那么只有最靠前的会生效；如果你在</span><span class="w">
 </span><span class="w"></span><span class="c">## 下面的 fleids 里自定义了 fields.source，也会被这里面 under_root 的给覆盖掉。</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span><span class="k">fields.collector_node_id</span><span class="p">:</span><span class="w"> </span>${sidecar.nodeName}<span class="w">
+</span><span class="w"></span><span class="nt">fields.collector_node_id</span><span class="p">:</span><span class="w"> </span><span class="l">${sidecar.nodeName}</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 这个 “sidecar.nodeName” 变量，就是在配置 Sidecar 时候提到的那个 “nodeName”，记起来了吗？这个用于</span><span class="w">
 </span><span class="w"></span><span class="c">## 图表统计和消息分类很有必要。</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span><span class="k">fields.source</span><span class="p">:</span><span class="w"> </span>${sidecar.nodeName}<span class="w">
+</span><span class="w"></span><span class="nt">fields.source</span><span class="p">:</span><span class="w"> </span><span class="l">${sidecar.nodeName}</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 一定要留意加入了这行配置！！否则日志展示界面 “Source” 会提示 “unknown”，</span><span class="w">
 </span><span class="w"></span><span class="c">## 图表也会很难做，因为你再多服务器，也只有一个来源 “unknown”。另外说回为什么上面</span><span class="w">
 </span><span class="w"></span><span class="c">## “Do not add Beats type as prefix” 要勾选的问题。如果那个勾没打，那么这里的 “fields.source” 和</span><span class="w">
 </span><span class="w"></span><span class="c">## “sidecar.nodeName” 都会不叫这个名字，也就是说你这套配置你套进去，“Source” 一样是 “unknown”，因为</span><span class="w">
 </span><span class="w"></span><span class="c">## 它根本不叫 “fields.source” 。叫啥我还没摸出来，总之打钩后，按我调的这套配置是没问题的。</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span><span class="k">fields.gl2_source_collector</span><span class="p">:</span><span class="w"> </span>${sidecar.nodeId}<span class="w">
+</span><span class="w"></span><span class="nt">fields.gl2_source_collector</span><span class="p">:</span><span class="w"> </span><span class="l">${sidecar.nodeId}</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># AAA API                #这里创建第一个 filebeat.inputs 配置。</span><span class="w">
-</span><span class="w"></span><span class="k">filebeat.inputs</span><span class="p">:</span><span class="w">
-</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>log<span class="w">                    </span><span class="c">#指定日志收集类型，因为是收集 tomcat 日志，所以 type 是 log。</span><span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- /data/service/service1/logs/catalina-daemon.out<span class="w">
+</span><span class="w"></span><span class="nt">filebeat.inputs</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">log                   </span><span class="w"> </span><span class="c">#指定日志收集类型，因为是收集 tomcat 日志，所以 type 是 log。</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">/data/service/service1/logs/catalina-daemon.out</span><span class="w">
 </span><span class="w"></span><span class="c">##  ↑ 指定日志位于哪个路径，可以用“*”号，或者写多行“-”的方式来指定多个路径。</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 这里很重要，这个是决定 Filebeat 能不能收集 Java 堆栈日志这种多行日志的配置。</span><span class="w">
 </span><span class="w"></span><span class="c">## 这个正则和相关参数可以照抄。不要用 Filebeat 官方的正则，那个正则是错误的。</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
-</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span>Catalina-AAAAPI<span class="w">
+</span><span class="w">  </span><span class="nt">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
+</span><span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l">Catalina-AAAAPI</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 打了这个 tags 后，这些附加信息会随着 Filebeat 的信息流一起传过来，可以更易于分类消息是从哪个地方</span><span class="w">
 </span><span class="w"></span><span class="c">## ，或哪个服务采集来的，这个对后面做分类搜索——也就是 Stream 会用到，也算是很重要的一个配置，否则你多个</span><span class="w">
 </span><span class="w"></span><span class="c">## 服务发来的日志经由同一个 Input 进来，所有日志都没有标记特征信息，会变得很难以区分。</span><span class="w">
@@ -656,50 +656,50 @@ Filebeat 本身没什么调的，在Graylog 套件里 Filebeat 活得比 ES 还�
 </span><span class="w"></span><span class="c"># BBBAPI</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 不赘述了，配置一样，但是注意 “filebeat.inputs” 只写一次，不要重复写了！！重复写只会</span><span class="w">
 </span><span class="w"></span><span class="c">## 生效最靠近底下的一个。</span><span class="w">
-</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- /data/service/service2/logs/catalina-daemon.out<span class="w">
-</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
-</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span>Catalina-BBBAPI<span class="w">
+</span><span class="w"></span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">/data/service/service2/logs/catalina-daemon.out</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
+</span><span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l">Catalina-BBBAPI</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># CCC Service</span><span class="w">
-</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- /data/service/service3/logs/catalina-daemon.out<span class="w">
-</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
-</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span>Catalina-CCC<span class="w">
+</span><span class="w"></span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="l">/data/service/service3/logs/catalina-daemon.out</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^[[:space:]]+(?:atb|.{3}B)|^Caused by:&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
+</span><span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l">Catalina-CCC</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># Metabase</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 这里比较例外，Metabase 是个用 Docker 起的服务，所以这里的 type 是 docker</span><span class="w">
-</span><span class="w"></span>- <span class="k">type</span><span class="p">:</span><span class="w"> </span>docker<span class="w">
+</span><span class="w"></span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">docker</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 这个写法其实局限性极大，应该说 filebeat 收集单容器（没上 K8s）都很局限性，</span><span class="w">
 </span><span class="w"></span><span class="c">## 因为只支持容器 ID 或容器的日志路径，你更新一次容器，ID 就变了，但K8s 支持容器名定义。</span><span class="w">
-</span><span class="w">  </span><span class="k">containers.ids</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">containers.ids</span><span class="p">:</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 这里指定了一个容器 ID，能不能写短 ID 我没测，应该理论上是没问题的。</span><span class="w">
 </span><span class="w">    </span>- <span class="s1">&#39;a67b30747290fc0e31f3cbfdc494fef20f54aed29cdc7d8b842ed6f3b3bad9c2&#39;</span><span class="w">
-</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span>Docker-Metabase<span class="w">     </span><span class="c"># tags 用法，不赘述了</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^.|^#+&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l">Docker-Metabase    </span><span class="w"> </span><span class="c"># tags 用法，不赘述了</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^.|^#+&#39;</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 这个也是为了匹配多行日志的，metabase 会有一些很神奇的日志格式，比如 echo 上色什么的，</span><span class="w">
 </span><span class="w"></span><span class="c">## 这些对 Filebeat 很不友好，</span><span class="w">
 </span><span class="w"></span><span class="c">## 因为会抓到大量的中括号和斜杠以及 “#” 号等乱七八糟的东西。</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
+</span><span class="w">  </span><span class="nt">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span><span class="k">output.logstash</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nt">output.logstash</span><span class="p">:</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 这里指定将收集到的日志输出到哪里</span><span class="w">
-</span><span class="w">   </span><span class="k">hosts</span><span class="p">:</span><span class="w"> </span>${user.hostIP}<span class="w">
+</span><span class="w">   </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">${user.hostIP}</span><span class="w">
 </span><span class="w"></span><span class="c">## ↑ 调用了一个参数 ${user.hostIP}，这个参数可以在右侧的“Variables”选项卡设置。</span><span class="w">
 </span><span class="w"></span><span class="c">## 你只需要起名和填写内容就行了，## 这里写我们在 Input 里配置的信息，比如我没有在 Graylog-server</span><span class="w">
 </span><span class="w"></span><span class="c">## 的配置中启用 bind，所有 Sidecar 都在一个大内网，端口是 5044，那么## 就是172.××.×.111:5044。</span><span class="w">
 </span><span class="w"></span><span class="c">## Save 后会自动生成一个参数名，比如上面的 ${user.hostIP}</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span><span class="k">path</span><span class="p">:</span><span class="w">                        </span><span class="c">#这两行是用于覆写 filebeat 日志输出记录的配置</span><span class="w">
-</span><span class="w">  </span><span class="k">data</span><span class="p">:</span><span class="w"> </span>/var/lib/graylog-sidecar/collectors/filebeat/data<span class="w">
-</span><span class="w">  </span><span class="k">logs</span><span class="p">:</span><span class="w"> </span>/var/lib/graylog-sidecar/collectors/filebeat/log<span class="w">
+</span><span class="w"></span><span class="nt">path</span><span class="p">:</span><span class="w">                        </span><span class="c">#这两行是用于覆写 filebeat 日志输出记录的配置</span><span class="w">
+</span><span class="w">  </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/graylog-sidecar/collectors/filebeat/data</span><span class="w">
+</span><span class="w">  </span><span class="nt">logs</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/graylog-sidecar/collectors/filebeat/log</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -1029,11 +1029,11 @@ admin 登录进去后，在主界面的 Search 一片空白，会有一个红框
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-05-10 20:32
         
@@ -1041,22 +1041,22 @@ admin 登录进去后，在主界面的 Search 一片空白，会有一个红框
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -1068,11 +1068,11 @@ admin 登录进去后，在主界面的 Search 一片空白，会有一个红框
         <a class="prev" href="/post/log/loki_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">轻量级日志系统Loki部署</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/log/log-pilot_elasticsearch_kibana_ops/">
             <span class="next-text nav-default">搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -1100,18 +1100,18 @@ admin 登录进去后，在主界面的 Search 一片空白，会有一个红框
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

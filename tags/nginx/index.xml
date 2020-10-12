@@ -6,11 +6,7 @@
     <description>Recent content in nginx on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 01 Mar 2020 19:18:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 01 Mar 2020 19:18:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nginx从入门到实战</title>
       <link>https://xiebiao.top/post/web/nginx_base/</link>

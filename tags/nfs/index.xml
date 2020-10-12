@@ -6,11 +6,7 @@
     <description>Recent content in nfs on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 02 May 2020 19:11:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 02 May 2020 19:11:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CentOS 7 安装配置 NFS</title>
       <link>https://xiebiao.top/post/storage/centos_nfs_ops/</link>

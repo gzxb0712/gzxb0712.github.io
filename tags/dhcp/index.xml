@@ -6,11 +6,7 @@
     <description>Recent content in dhcp on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 11 Oct 2019 20:22:22 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/dhcp/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 11 Oct 2019 20:22:22 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/dhcp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>dhcp在centos中安装</title>
       <link>https://xiebiao.top/post/base/dncp_centos_install/</link>

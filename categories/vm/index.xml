@@ -6,11 +6,7 @@
     <description>Recent content in vm on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 07 Mar 2020 20:18:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/categories/vm/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 07 Mar 2020 20:18:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/categories/vm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VMware vSphere ESXi 7.0b部署</title>
       <link>https://xiebiao.top/post/vm/vsphere_install/</link>

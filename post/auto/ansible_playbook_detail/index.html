@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/auto/ansible_playbook_detail/" />
@@ -50,7 +50,7 @@
 <meta itemprop="description" content="执行playbook命令 ansible ­playbook -­i &quot;inventory文件名&quot; playbook.yml ­f 10 (并行级别10) 加参数 1 2 3 4 5 6">
 <meta itemprop="datePublished" content="2020-04-06T19:07:30+00:00" />
 <meta itemprop="dateModified" content="2020-04-06T19:07:30+00:00" />
-<meta itemprop="wordCount" content="10049">
+<meta itemprop="wordCount" content="10283">
 
 
 
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/auto/"> auto </a>
             </div>
-          <span class="more-meta"> 约 10049 字 </span>
-          <span class="more-meta"> 预计阅读 21 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents"></nav>
   </div>
@@ -201,25 +201,25 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="p">,</span>webservers2<span class="w">
-</span><span class="w">   </span><span class="k">vars</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span><span class="k">http_port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">     </span><span class="k">max_clients</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
-</span><span class="w">   </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
-</span><span class="w">   </span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ensure<span class="w"> </span>apache<span class="w"> </span>is<span class="w"> </span>at<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>version(确定是不是最新版本)<span class="w">
-</span><span class="w">     </span><span class="k">yum</span><span class="p">:</span><span class="w"> </span>pkg=httpd<span class="w"> </span>state=latest<span class="w">
-</span><span class="w">     </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>yourname<span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>write<span class="w"> </span>the<span class="w"> </span>apache<span class="w"> </span>config<span class="w"> </span>file<span class="w">
-</span><span class="w">     </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src=/srv/httpd.j2<span class="w"> </span>dest=/etc/httpd.conf<span class="w">
-</span><span class="w">     </span><span class="k">notify</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- restart<span class="w"> </span>apache<span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ensure<span class="w"> </span>apache<span class="w"> </span>is<span class="w"> </span>running<span class="w">
-</span><span class="w">     </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=httpd<span class="w"> </span>state=started<span class="w">
-</span><span class="w">   </span><span class="k">handlers</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>restart<span class="w"> </span>apache<span class="w">
-</span><span class="w">       </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=httpd<span class="w"> </span>state=restarted<span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers,webservers2</span><span class="w">
+</span><span class="w">   </span><span class="nt">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span><span class="nt">http_port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">     </span><span class="nt">max_clients</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span><span class="w">   </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span><span class="w">   </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ensure apache is at the latest version(确定是不是最新版本)</span><span class="w">
+</span><span class="w">     </span><span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l">pkg=httpd state=latest</span><span class="w">
+</span><span class="w">     </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">yourname</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">write the apache config file</span><span class="w">
+</span><span class="w">     </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l">src=/srv/httpd.j2 dest=/etc/httpd.conf</span><span class="w">
+</span><span class="w">     </span><span class="nt">notify</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="l">restart apache</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ensure apache is running</span><span class="w">
+</span><span class="w">     </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l">name=httpd state=started</span><span class="w">
+</span><span class="w">   </span><span class="nt">handlers</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">restart apache</span><span class="w">
+</span><span class="w">       </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l">name=httpd state=restarted</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -300,8 +300,8 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Copy<span class="w"> </span>the<span class="w"> </span>keyfile<span class="w"> </span>for<span class="w"> </span>authentication<span class="w">
-</span><span class="w">  </span><span class="k">copy</span><span class="p">:</span><span class="w"> </span>src=/wjf/weijunfeng<span class="w"> </span>dest={{<span class="w"> </span>mongodb_datadir_prefix<span class="w"> </span>}}/secret<span class="w"> </span>owner=mongod<span class="w"> </span>group=mongod<span class="w"> </span>mode=<span class="m">0400</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Copy the keyfile for authentication</span><span class="w">
+</span><span class="w">  </span><span class="nt">copy</span><span class="p">:</span><span class="w"> </span><span class="l">src=/wjf/weijunfeng dest={{ mongodb_datadir_prefix }}/secret owner=mongod group=mongod mode=0400</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>fetch模块</strong>，从各主机拷贝文件到本地，flat: &ldquo;yes&quot;表示不自动创建目录，如果为false，会自动创建带各自主机名的目录</p>
@@ -313,23 +313,25 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">fetch</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">src</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/home/fio-result&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;./fio-test-result/{{ansible_ssh_host}}/&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">flat</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">fetch</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/home/fio-result&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;./fio-test-result/{{ansible_ssh_host}}/&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">flat</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;yes&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>创建文件或者目录，</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name: Create data directory for mongoc configuration server    &lt;br&gt;  file</span><span class="p">:</span><span class="w"> </span>path={{<span class="w"> </span>mongodb_datadir_prefix<span class="w"> </span>}}/configdb<span class="w"> </span>state=directory<span class="w"> </span>owner=mongod<span class="w"> </span>group=mongod<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Create data directory for mongoc configuration server</span><span class="w">
+</span><span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l">path={{ mongodb_datadir_prefix }}/configdb state=directory owner=mongod group=mongod</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p>l  path: 路径，一般用于创建删除文件或目录</p>
-<p>l  state: file的相关操作，</p>
+</div><p>path: 路径，一般用于创建删除文件或目录</p>
+<p>state: file的相关操作，</p>
 <p>       directory表示创建目录，</p>
 <p>       link表示创建软连接，link还需要源路径和目标路径配合使用</p>
 <p>       touch表示创建文件，</p>
@@ -341,8 +343,8 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Initialize<span class="w"> </span>the<span class="w"> </span>replication<span class="w"> </span>set<span class="w">
-</span><span class="w">  </span><span class="k">shell</span><span class="p">:</span><span class="w"> </span>/usr/bin/mongo<span class="w"> </span>--port<span class="w"> </span><span class="s2">&#34;{{ mongod_port }}&#34;</span><span class="w"> </span>/tmp/repset_init.js<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Initialize the replication set</span><span class="w">
+</span><span class="w">  </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/bin/mongo --port &#34;{{ mongod_port }}&#34; /tmp/repset_init.js</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>暂停，等待</strong></p>
@@ -351,7 +353,7 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name: pause   pause</span><span class="p">:</span><span class="w"> </span>seconds=<span class="m">20</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name: pause   pause</span><span class="p">:</span><span class="w"> </span><span class="l">seconds=20</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>service服务模块 比如启动nginx</strong></p>
@@ -361,8 +363,8 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w"> </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Make<span class="w"> </span>sure<span class="w"> </span>nginx<span class="w"> </span>start<span class="w"> </span>with<span class="w"> </span>boot<span class="w">
-</span><span class="w">   </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=nginx<span class="w"> </span>state=started<span class="w"> </span>enabled=yes<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w"> </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Make sure nginx start with boot</span><span class="w">
+</span><span class="w">   </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l">name=nginx state=started enabled=yes</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><em>enabled</em>：这个注意了，默认是<em>no</em>，如果配置成<em>false</em>就是<em>restart</em>了之后就不关心结果了，配置成<em>yes</em>是要关心结果。</p>
@@ -374,9 +376,9 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">unarchive</span><span class="p">:</span><span class="w"> </span>src=foo.tgz<span class="w"> </span>dest=/var/lib/foo<span class="w">
-</span><span class="w"></span>- <span class="k">unarchive</span><span class="p">:</span><span class="w"> </span>src=/tmp/foo.zip<span class="w"> </span>dest=/usr/local/bin<span class="w"> </span>copy=no<span class="w">
-</span><span class="w"></span>- <span class="k">unarchive</span><span class="p">:</span><span class="w"> </span>src=https<span class="p">:</span>//example.com/example.zip<span class="w"> </span>dest=/usr/local/bin<span class="w"> </span>copy=no<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">unarchive</span><span class="p">:</span><span class="w"> </span><span class="l">src=foo.tgz dest=/var/lib/foo</span><span class="w">
+</span><span class="w"></span>- <span class="nt">unarchive</span><span class="p">:</span><span class="w"> </span><span class="l">src=/tmp/foo.zip dest=/usr/local/bin copy=no</span><span class="w">
+</span><span class="w"></span>- <span class="nt">unarchive</span><span class="p">:</span><span class="w"> </span><span class="l">src=https://example.com/example.zip dest=/usr/local/bin copy=no</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>unarchive模块</p>
@@ -399,11 +401,11 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>remove<span class="w"> </span>epel<span class="w"> </span>if<span class="w"> </span>installed<span class="w">
-</span><span class="w">  </span><span class="k">yum</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>epel-release<span class="w">
-</span><span class="w">    </span><span class="k">state</span><span class="p">:</span><span class="w"> </span>absent<span class="w">
-</span><span class="w">  </span><span class="k">ignore_errors</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">remove epel if installed</span><span class="w">
+</span><span class="w">  </span><span class="nt">yum</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">epel-release</span><span class="w">
+</span><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">absent</span><span class="w">
+</span><span class="w">  </span><span class="nt">ignore_errors</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Wait_for模块：</strong></p>
@@ -416,10 +418,10 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>wait<span class="w"> </span>for<span class="w"> </span>dnsmasq<span class="w"> </span>port<span class="w"> </span><span class="m">53</span><span class="w">
-</span><span class="w">  </span><span class="k">wait_for</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">53</span><span class="w">
-</span><span class="w">  </span><span class="k">timeout</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wait for dnsmasq port 53</span><span class="w">
+</span><span class="w">  </span><span class="nt">wait_for</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">53</span><span class="w">
+</span><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>port：等待某端口号必须启动</p>
@@ -446,16 +448,16 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>ANSISTRANO<span class="w"> </span>|<span class="w"> </span>GIT<span class="w"> </span>|<span class="w"> </span>Update<span class="w"> </span>remote<span class="w"> </span>repository<span class="w">
-</span><span class="w">  </span><span class="k">git</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">repo</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_git_repo }}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_deploy_to }}/repo&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_git_branch }}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">accept_hostkey</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">    </span><span class="k">update</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
-</span><span class="w">    </span><span class="k">force</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
-</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>ansistrano_git_result_update<span class="w">
-</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>ansistrano_git_identity_key_path|trim<span class="w"> </span>==<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span>and<span class="w"> </span>ansistrano_git_identity_key_remote_path|trim<span class="w"> </span>==<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ANSISTRANO | GIT | Update remote repository</span><span class="w">
+</span><span class="w">  </span><span class="nt">git</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_git_repo }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_deploy_to }}/repo&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansistrano_git_branch }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">accept_hostkey</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">update</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w">    </span><span class="nt">force</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w">  </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">ansistrano_git_result_update</span><span class="w">
+</span><span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l">ansistrano_git_identity_key_path|trim == &#39;&#39; and ansistrano_git_identity_key_remote_path|trim == &#39;&#39;</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -480,12 +482,12 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>codelivery<span class="w"> </span>|<span class="w"> </span>download<span class="w"> </span>|<span class="w"> </span>Download<span class="w"> </span>artifact<span class="w">
-</span><span class="w">  </span><span class="k">get_url</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_product_url }}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_releases_dir }}/{{ codelivery_product_url | basename }}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">force_basic_auth</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_download_force_basic_auth | default(omit) }}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">headers</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_download_headers | default(omit) }}&#34;</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">codelivery | download | Download artifact</span><span class="w">
+</span><span class="w">  </span><span class="nt">get_url</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_product_url }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_releases_dir }}/{{ codelivery_product_url | basename }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">force_basic_auth</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_download_force_basic_auth | default(omit) }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">headers</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_download_headers | default(omit) }}&#34;</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -511,15 +513,15 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>codelivery<span class="w"> </span>|<span class="w"> </span>healthcheck<span class="w"> </span>|<span class="w"> </span>urlcheck<span class="w"> </span>status==<span class="m">200</span><span class="p">?</span><span class="w">
-</span><span class="w">  </span><span class="k">uri</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://{{ codelivery_urlcheck_addr }}:{{ codelivery_urlcheck_port }}{{ codelivery_urlcheck_url }}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">method</span><span class="p">:</span><span class="w"> </span>GET<span class="w">
-</span><span class="w">    </span><span class="k">headers</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">Host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_urlcheck_host }}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">timeout</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
-</span><span class="w">    </span><span class="k">status_code</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
-</span><span class="w">    </span><span class="k">return_content</span><span class="p">:</span><span class="w"> </span>no<span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">codelivery | healthcheck | urlcheck status==200?</span><span class="w">
+</span><span class="w">  </span><span class="nt">uri</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://{{ codelivery_urlcheck_addr }}:{{ codelivery_urlcheck_port }}{{ codelivery_urlcheck_url }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l">GET</span><span class="w">
+</span><span class="w">    </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ codelivery_urlcheck_host }}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span><span class="w">    </span><span class="nt">status_code</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span><span class="w">    </span><span class="nt">return_content</span><span class="p">:</span><span class="w"> </span><span class="kc">no</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -530,8 +532,8 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">debug</span><span class="p">:</span><span class="w"> </span>msg=<span class="s2">&#34;heat_failed_reason={{reason.stdout}}&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>result.stdout==<span class="s2">&#34;CREATE_FAILED&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="l">msg=&#34;heat_failed_reason={{reason.stdout}}&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l">result.stdout==&#34;CREATE_FAILED&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>常用魔数</strong></p>
@@ -548,10 +550,10 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Define<span class="w"> </span>nginx_user.<span class="w">
-</span><span class="w">  </span><span class="k">set_fact</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">nginx_user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ __nginx_user }}&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>nginx_user<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>defined<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Define nginx_user.</span><span class="w">
+</span><span class="w">  </span><span class="nt">set_fact</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">nginx_user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ __nginx_user }}&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l">nginx_user is not defined</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>支持从 sudo 执行命令:</p>
@@ -563,10 +565,10 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">   </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>yourname<span class="w">
-</span><span class="w">   </span><span class="k">sudo</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">   </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">yourname</span><span class="w">
+</span><span class="w">   </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>可以登陆后,sudo 到不同的用户身份,而不是使用 root:</p>
@@ -579,11 +581,11 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">   </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>yourname<span class="w">
-</span><span class="w">   </span><span class="k">sudo</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
-</span><span class="w">   </span><span class="k">sudo_user</span><span class="p">:</span><span class="w"> </span>postgres<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">   </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">yourname</span><span class="w">
+</span><span class="w">   </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w">   </span><span class="nt">sudo_user</span><span class="p">:</span><span class="w"> </span><span class="l">postgres</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>如果需要在使用 sudo 时指定密码,可在运行 <em>ansible-playbook</em> 命令时加上选项 &ndash;ask-sudo-pass (<em>-K</em>). 如果使用 sudo 时,playbook 疑似被挂起,可能是在 sudo prompt 处被卡住,这时可执行 <em>Control-C</em> 杀死卡住的任务,再重新运行一次.</p>
@@ -595,9 +597,9 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>make<span class="w"> </span>sure<span class="w"> </span>apache<span class="w"> </span>is<span class="w"> </span>running<span class="w">
-</span><span class="w">     </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=httpd<span class="w"> </span>state=running<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">make sure apache is running</span><span class="w">
+</span><span class="w">     </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l">name=httpd state=running</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><em>command</em> 和 <em>shell</em> ,它们不使用 key=value 格式的参数:[执行命令，linux命令]</p>
@@ -608,9 +610,9 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>disable<span class="w"> </span>selinux<span class="w">
-</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/sbin/setenforce<span class="w"> </span><span class="m">0</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">disable selinux</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/sbin/setenforce 0</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>command module 和 shell module 时,需要关心返回码信息,如果有一条命令,它的成功执行的返回码不是0, 意思就是执行命令不成功，你可以通过下面例子进行忽略[忽略错误，跳过报错]：</p>
@@ -629,14 +631,14 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>run<span class="w"> </span>this<span class="w"> </span>command<span class="w"> </span>and<span class="w"> </span>ignore<span class="w"> </span>the<span class="w"> </span>result<span class="w">
-</span><span class="w">    </span><span class="k">shell</span><span class="p">:</span><span class="w"> </span>/usr/bin/somecommand<span class="w"> </span>||<span class="w"> </span>/bin/<span class="kc">true</span><span class="w">
-</span><span class="w"></span>或者：<span class="w">
-</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w"> </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>run<span class="w"> </span>this<span class="w"> </span>command<span class="w"> </span>and<span class="w"> </span>ignore<span class="w"> </span>the<span class="w"> </span>result<span class="w">
-</span><span class="w">   </span><span class="k">shell</span><span class="p">:</span><span class="w"> </span>/usr/bin/somecommand<span class="w">
-</span><span class="w">   </span><span class="k">ignore_errors</span><span class="p">:</span><span class="w"> </span>True<span class="w">
+</span><span class="w"></span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">run this command and ignore the result</span><span class="w">
+</span><span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/bin/somecommand || /bin/true</span><span class="w">
+</span><span class="w"></span><span class="l">或者：</span><span class="w">
+</span><span class="w"></span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">run this command and ignore the result</span><span class="w">
+</span><span class="w">   </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/bin/somecommand</span><span class="w">
+</span><span class="w">   </span><span class="nt">ignore_errors</span><span class="p">:</span><span class="w"> </span><span class="kc">True</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -648,9 +650,9 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>create<span class="w"> </span>a<span class="w"> </span>virtual<span class="w"> </span>host<span class="w"> </span>file<span class="w"> </span>for<span class="w"> </span>{{<span class="w"> </span>vhost<span class="w"> </span>}}<span class="w">
-</span><span class="w">    </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src=somefile.j2<span class="w"> </span>dest=/etc/httpd/conf.d/{{<span class="w"> </span>vhost<span class="w"> </span>}}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">create a virtual host file for {{ vhost }}</span><span class="w">
+</span><span class="w">    </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l">src=somefile.j2 dest=/etc/httpd/conf.d/{{ vhost }}</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>‘notify’ 下列出的即是 handlers，比如当一个文件的内容被改动时,重启两个 services:[文件改变时执行]</p>
@@ -663,11 +665,11 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>template<span class="w"> </span>configuration<span class="w"> </span>file<span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src=template.j2<span class="w"> </span>dest=/etc/foo.conf<span class="w">
-</span><span class="w">  </span><span class="k">notify</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- restart<span class="w"> </span>memcached<span class="w">
-</span><span class="w">   </span>- restart<span class="w"> </span>apache<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">template configuration file</span><span class="w">
+</span><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l">src=template.j2 dest=/etc/foo.conf</span><span class="w">
+</span><span class="w">  </span><span class="nt">notify</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="l">restart memcached</span><span class="w">
+</span><span class="w">   </span>- <span class="l">restart apache</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>Handlers 也是一些 task 的列表,通过名字来引用,它们和一般的 task 并没有什么区别.Handlers 是由通知者进行 notify, 如果没有被 notify,handlers 不会执行.不管有多少个通知者进行了 notify,等到 play 中的所有 task 执行完成之后,handlers 也只会被执行一次，handlers 例子：</p>
@@ -684,12 +686,12 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"> </span><span class="k">handlers</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>restart<span class="w"> </span>memcached<span class="w">
-</span><span class="w">     </span><span class="k">service</span><span class="p">:</span><span class="w">  </span>name=memcached<span class="w"> </span>state=restarted<span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>restart<span class="w"> </span>apache<span class="w">
-</span><span class="w">     </span><span class="k">service</span><span class="p">:</span><span class="w"> </span>name=apache<span class="w"> </span>state=restarted<span class="w">
-</span><span class="w">   </span>- <span class="k">include</span><span class="p">:</span><span class="w"> </span>handlers/handlers.yml<span class="w">
+</span><span class="w"> </span><span class="nt">handlers</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">restart memcached</span><span class="w">
+</span><span class="w">     </span><span class="nt">service</span><span class="p">:</span><span class="w">  </span><span class="l">name=memcached state=restarted</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">restart apache</span><span class="w">
+</span><span class="w">     </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l">name=apache state=restarted</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="l">handlers/handlers.yml</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -708,12 +710,12 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
 </span><span class="w"></span><span class="c"># possibly saved as tasks/foo.yml</span><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>placeholder<span class="w"> </span>foo<span class="w">
-</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/foo<span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>placeholder<span class="w"> </span>bar<span class="w">
-</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/bar<span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">placeholder foo</span><span class="w">
+</span><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/bin/foo</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">placeholder bar</span><span class="w">
+</span><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/bin/bar</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -723,7 +725,7 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks:   - include</span><span class="p">:</span><span class="w"> </span>tasks/foo.yml<span class="w">  </span>wp_user=timmy<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">tasks:   - include</span><span class="p">:</span><span class="w"> </span><span class="l">tasks/foo.yml  wp_user=timmy</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>如果Ansible 1.4 及以后的版本，include 语法可更为精简</p>
@@ -734,9 +736,9 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">tasks</span><span class="p">:</span><span class="w">
 </span><span class="w">
-</span><span class="w">   </span>- {<span class="w"> </span><span class="k">include: wordpress.yml, wp_user: timmy, ssh_keys</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">&#39;keys/one.txt&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;keys/two.txt&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>}<span class="w">
+</span><span class="w">   </span>- {<span class="w"> </span><span class="nt">include: wordpress.yml, wp_user: timmy, ssh_keys</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">&#39;keys/one.txt&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;keys/two.txt&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>从 1.0 版开始，Ansible 支持另一种传递变量到 include files 的语法，这种语法支持结构化的变量:</p>
@@ -762,21 +764,21 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nt">tasks</span><span class="p">:</span><span class="w">
 </span><span class="w">
-</span><span class="w">  </span>- <span class="k">include</span><span class="p">:</span><span class="w"> </span>wordpress.yml<span class="w">
+</span><span class="w">  </span>- <span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress.yml</span><span class="w">
 </span><span class="w">
-</span><span class="w">    </span><span class="k">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">vars</span><span class="p">:</span><span class="w">
 </span><span class="w">
-</span><span class="w">      </span><span class="k">wp_user</span><span class="p">:</span><span class="w"> </span>timmy<span class="w">
+</span><span class="w">      </span><span class="nt">wp_user</span><span class="p">:</span><span class="w"> </span><span class="l">timmy</span><span class="w">
 </span><span class="w">
-</span><span class="w">      </span><span class="k">some_list_variable</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">some_list_variable</span><span class="p">:</span><span class="w">
 </span><span class="w">
-</span><span class="w">           </span>- alpha<span class="w">
+</span><span class="w">           </span>- <span class="l">alpha</span><span class="w">
 </span><span class="w">
-</span><span class="w">           </span>- beta<span class="w">
+</span><span class="w">           </span>- <span class="l">beta</span><span class="w">
 </span><span class="w">
-</span><span class="w">           </span>- gamma<span class="w">
+</span><span class="w">           </span>- <span class="l">gamma</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -810,26 +812,26 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>site.yml<span class="w">
-</span><span class="w"></span>webservers.yml<span class="w">
-</span><span class="w"></span>fooservers.yml<span class="w">
-</span><span class="w"></span>roles/<span class="w">
-</span><span class="w">  </span>common/<span class="w">
-</span><span class="w">    </span>files/<span class="w">
-</span><span class="w">    </span>templates/<span class="w">
-</span><span class="w">    </span>tasks/<span class="w">
-</span><span class="w">    </span>handlers/<span class="w">
-</span><span class="w">    </span>vars/<span class="w">
-</span><span class="w">    </span>defaults/<span class="w">
-</span><span class="w">    </span>meta/<span class="w">
-</span><span class="w">  </span>webservers/<span class="w">
-</span><span class="w">    </span>files/<span class="w">
-</span><span class="w">    </span>templates/<span class="w">
-</span><span class="w">    </span>tasks/<span class="w">
-</span><span class="w">    </span>handlers/<span class="w">
-</span><span class="w">    </span>vars/<span class="w">
-</span><span class="w">    </span>defaults/<span class="w">
-</span><span class="w">    </span>meta/<span class="w">
+</span><span class="w"></span><span class="l">site.yml</span><span class="w">
+</span><span class="w"></span><span class="l">webservers.yml</span><span class="w">
+</span><span class="w"></span><span class="l">fooservers.yml</span><span class="w">
+</span><span class="w"></span><span class="l">roles/</span><span class="w">
+</span><span class="w">  </span><span class="l">common/</span><span class="w">
+</span><span class="w">    </span><span class="l">files/</span><span class="w">
+</span><span class="w">    </span><span class="l">templates/</span><span class="w">
+</span><span class="w">    </span><span class="l">tasks/</span><span class="w">
+</span><span class="w">    </span><span class="l">handlers/</span><span class="w">
+</span><span class="w">    </span><span class="l">vars/</span><span class="w">
+</span><span class="w">    </span><span class="l">defaults/</span><span class="w">
+</span><span class="w">    </span><span class="l">meta/</span><span class="w">
+</span><span class="w">  </span><span class="l">webservers/</span><span class="w">
+</span><span class="w">    </span><span class="l">files/</span><span class="w">
+</span><span class="w">    </span><span class="l">templates/</span><span class="w">
+</span><span class="w">    </span><span class="l">tasks/</span><span class="w">
+</span><span class="w">    </span><span class="l">handlers/</span><span class="w">
+</span><span class="w">    </span><span class="l">vars/</span><span class="w">
+</span><span class="w">    </span><span class="l">defaults/</span><span class="w">
+</span><span class="w">    </span><span class="l">meta/</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -843,11 +845,11 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- common<span class="w">
-</span><span class="w">    </span>- webservers<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">   </span><span class="nt">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">common</span><span class="w">
+</span><span class="w">    </span>- <span class="l">webservers</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>这个 playbook 为一个角色 ‘x’ 指定了如下的行为：</p>
@@ -885,12 +887,12 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- common<span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: foo_app_instance, dir: &#39;/opt/a&#39;,  port</span><span class="p">:</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span>}<span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: foo_app_instance, dir: &#39;/opt/b&#39;,  port</span><span class="p">:</span><span class="w"> </span><span class="m">5001</span><span class="w"> </span>}<span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">   </span><span class="nt">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">common</span><span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">role: foo_app_instance, dir: &#39;/opt/a&#39;,  port</span><span class="p">:</span><span class="w"> </span><span class="m">5000</span><span class="w"> </span>}<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">role: foo_app_instance, dir: &#39;/opt/b&#39;,  port</span><span class="p">:</span><span class="w"> </span><span class="m">5001</span><span class="w"> </span>}<span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -903,10 +905,10 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: some_role, when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ansible_os_family == &#39;RedHat&#39;&#34;</span><span class="w"> </span>}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">   </span><span class="nt">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">role: some_role, when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ansible_os_family == &#39;RedHat&#39;&#34;</span><span class="w"> </span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>roles分配tags</p>
@@ -918,10 +920,10 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- {<span class="w"> </span><span class="k">role: foo, tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;bar&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;baz&#34;</span><span class="p">]</span><span class="w"> </span>}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">   </span><span class="nt">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- {<span class="w"> </span><span class="nt">role: foo, tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;bar&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;baz&#34;</span><span class="p">]</span><span class="w"> </span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>如果 play 仍然包含有 ‘tasks’ section，这些 tasks 将在所有 roles 应用完成之后才被执行。</p>
@@ -943,16 +945,16 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">   </span><span class="k">pre_tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>echo<span class="w"> </span><span class="s1">&#39;hello&#39;</span><span class="w">
-</span><span class="w">   </span><span class="k">roles</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span>some_role<span class="w"> </span>}<span class="w">
-</span><span class="w">   </span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>echo<span class="w"> </span><span class="s1">&#39;still busy&#39;</span><span class="w">
-</span><span class="w">   </span><span class="k">post_tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>echo<span class="w"> </span><span class="s1">&#39;goodbye&#39;</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">   </span><span class="nt">pre_tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">echo &#39;hello&#39;</span><span class="w">
+</span><span class="w">   </span><span class="nt">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- {<span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l">some_role }</span><span class="w">
+</span><span class="w">   </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">echo &#39;still busy&#39;</span><span class="w">
+</span><span class="w">   </span><span class="nt">post_tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">echo &#39;goodbye&#39;</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -969,11 +971,11 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"></span><span class="k">dependencies</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role: common, some_parameter</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>}<span class="w">
-</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role: apache, port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>}<span class="w">
-</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role: postgres, dbname: blarg, other_parameter</span><span class="p">:</span><span class="w"> </span><span class="m">12</span><span class="w"> </span>}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">dependencies</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="nt">role: common, some_parameter</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>}<span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="nt">role: apache, port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w"> </span>}<span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="nt">role: postgres, dbname: blarg, other_parameter</span><span class="p">:</span><span class="w"> </span><span class="m">12</span><span class="w"> </span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>“角色依赖” 也可以通过源码控制仓库或者 tar 文件指定，使用逗号分隔：路径、一个可选的版本（tag, commit, branch 等等）、一个可选友好角色名（尝试从源码仓库名或者归档文件名中派生出角色名）:</p>
@@ -984,9 +986,9 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w"> </span><span class="k">dependencies</span><span class="p">:</span><span class="w">
-</span><span class="w"> </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;git+http://git.example.com/repos/role-foo,v1.1,foo&#39;</span><span class="w"> </span>}<span class="w">
-</span><span class="w"> </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/path/to/tar/file.tgz,,friendly-name&#39;</span><span class="w"> </span>}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w"> </span><span class="nt">dependencies</span><span class="p">:</span><span class="w">
+</span><span class="w"> </span>- {<span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;git+http://git.example.com/repos/role-foo,v1.1,foo&#39;</span><span class="w"> </span>}<span class="w">
+</span><span class="w"> </span>- {<span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/path/to/tar/file.tgz,,friendly-name&#39;</span><span class="w"> </span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>“角色依赖” 总是在 role （包含”角色依赖”的role）之前执行，并且是递归地执行。默认情况下，作为 “角色依赖” 被添加的 role 只能被添加一次，如果另一个 role 将一个相同的角色列为 “角色依赖” 的对象，它不会被重复执行。但这种默认的行为可被修改，通过添加 <em>allow_duplicates: yes</em> 到<em>meta/main.yml</em> 文件中。 比如，一个 role 名为 ‘car’，它可以添加名为 ‘wheel’ 的 role 到它的 “角色依赖” 中:</p>
@@ -1003,12 +1005,12 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w">  </span><span class="k">dependencies</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>}<span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>}<span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>}<span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>}<span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w">  </span><span class="nt">dependencies</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>}<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>}<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>}<span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">role: wheel, n</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>}<span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -1022,11 +1024,11 @@ k8s_emu_node2 <span class="nv">ansible_ssh_host</span><span class="o">=</span>1.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"></span><span class="k">allow_duplicates</span><span class="p">:</span><span class="w"> </span>yes<span class="w">
-</span><span class="w"></span><span class="k">dependencies</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span>tire<span class="w"> </span>}<span class="w">
-</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role</span><span class="p">:</span><span class="w"> </span>brake<span class="w"> </span>}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">allow_duplicates</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w"></span><span class="nt">dependencies</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l">tire }</span><span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l">brake }</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>最终的执行顺序是这样的:</p>
@@ -1065,9 +1067,9 @@ car
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>app_servers<span class="w">
-</span><span class="w">  </span><span class="k">vars</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app_path</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span>base_path<span class="w"> </span>}}/<span class="m">22</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">app_servers</span><span class="w">
+</span><span class="w">  </span><span class="nt">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">app_path</span><span class="p">:</span><span class="w"> </span>{{<span class="w"> </span><span class="l">base_path }}/22</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>你应该这么做:</p>
@@ -1078,9 +1080,9 @@ car
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>app_servers<span class="w">
-</span><span class="w">  </span><span class="k">vars</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app_path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ base_path }}/22&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">app_servers</span><span class="w">
+</span><span class="w">  </span><span class="nt">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">app_path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ base_path }}/22&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>Facts通过访问远程系统获取相应的信息. 一个例子就是远程主机的IP地址或者操作系统是什么. 使用以下命令可以查看哪些信息是可用的:[查看主机信息]</p>
@@ -1091,8 +1093,8 @@ car
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>whatever<span class="w">
-</span><span class="w">  </span><span class="k">gather_facts</span><span class="p">:</span><span class="w"> </span>no<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">whatever</span><span class="w">
+</span><span class="w">  </span><span class="nt">gather_facts</span><span class="p">:</span><span class="w"> </span><span class="kc">no</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>获取主机名 {{ ansible_nodename }}</p>
@@ -1573,14 +1575,14 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">   </span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>create<span class="w"> </span>directory<span class="w"> </span>for<span class="w"> </span>ansible<span class="w"> </span>custom<span class="w"> </span>facts<span class="w">
-</span><span class="w">       </span><span class="k">file</span><span class="p">:</span><span class="w"> </span>state=directory<span class="w"> </span>recurse=yes<span class="w"> </span>path=/etc/ansible/facts.d<span class="w">
-</span><span class="w">     </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>install<span class="w"> </span>custom<span class="w"> </span>impi<span class="w"> </span>fact<span class="w">
-</span><span class="w">       </span><span class="k">copy</span><span class="p">:</span><span class="w"> </span>src=ipmi.fact<span class="w"> </span>dest=/etc/ansible/facts.d<span class="w">
-</span><span class="w">     </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>re-read<span class="w"> </span>facts<span class="w"> </span>after<span class="w"> </span>adding<span class="w"> </span>custom<span class="w"> </span>fact<span class="w">
-</span><span class="w">       </span><span class="k">setup</span><span class="p">:</span><span class="w"> </span>filter=ansible_local<span class="w">
+</span><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">   </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">create directory for ansible custom facts</span><span class="w">
+</span><span class="w">       </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l">state=directory recurse=yes path=/etc/ansible/facts.d</span><span class="w">
+</span><span class="w">     </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">install custom impi fact</span><span class="w">
+</span><span class="w">       </span><span class="nt">copy</span><span class="p">:</span><span class="w"> </span><span class="l">src=ipmi.fact dest=/etc/ansible/facts.d</span><span class="w">
+</span><span class="w">     </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">re-read facts after adding custom fact</span><span class="w">
+</span><span class="w">       </span><span class="nt">setup</span><span class="p">:</span><span class="w"> </span><span class="l">filter=ansible_local</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -1691,17 +1693,17 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w">  </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
-</span><span class="w">    </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
-</span><span class="w">    </span><span class="k">vars</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">favcolor</span><span class="p">:</span><span class="w"> </span>blue<span class="w">
-</span><span class="w">    </span><span class="k">vars_files</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- /vars/external_vars.yml<span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span><span class="w">    </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span><span class="w">    </span><span class="nt">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">favcolor</span><span class="p">:</span><span class="w"> </span><span class="l">blue</span><span class="w">
+</span><span class="w">    </span><span class="nt">vars_files</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">/vars/external_vars.yml</span><span class="w">
 </span><span class="w">
-</span><span class="w">    </span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">       </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>this<span class="w"> </span>is<span class="w"> </span>just<span class="w"> </span>a<span class="w"> </span>placeholder<span class="w">
-</span><span class="w">         </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/echo<span class="w"> </span>foo<span class="w">
+</span><span class="w">    </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">this is just a placeholder</span><span class="w">
+</span><span class="w">         </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/bin/echo foo</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -1715,10 +1717,10 @@ car
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
 </span><span class="w"></span><span class="c"># in the above example, this would be vars/external_vars.yml</span><span class="w">
-</span><span class="w">  </span><span class="k">somevar</span><span class="p">:</span><span class="w"> </span>somevalue<span class="w">
-</span><span class="w">  </span><span class="k">password</span><span class="p">:</span><span class="w"> </span>magic<span class="w">
+</span><span class="w">  </span><span class="nt">somevar</span><span class="p">:</span><span class="w"> </span><span class="l">somevalue</span><span class="w">
+</span><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">magic</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>变量的优先级，变量优先级</p>
@@ -1763,8 +1765,8 @@ car
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">include</span><span class="p">:</span><span class="w"> </span>tasks/sometasks.yml<span class="w">
-</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#39;reticulating splines&#39; in output&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="l">tasks/sometasks.yml</span><span class="w">
+</span><span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#39;reticulating splines&#39; in output&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>或者应用于role:</p>
@@ -1775,9 +1777,9 @@ car
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>webservers<span class="w">
-</span><span class="w">  </span><span class="k">roles</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="k">role: debian_stock_config, when</span><span class="p">:</span><span class="w"> </span>ansible_os_family<span class="w"> </span>==<span class="w"> </span><span class="s1">&#39;Debian&#39;</span><span class="w"> </span>}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">webservers</span><span class="w">
+</span><span class="w">  </span><span class="nt">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">role: debian_stock_config, when</span><span class="p">:</span><span class="w"> </span><span class="l">ansible_os_family == &#39;Debian&#39; }</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong><a href="http://www.ansible.com.cn/docs/playbooks_conditionals.html#id11">基于变量选择文件和模版</a></strong></p>
@@ -1791,11 +1793,11 @@ car
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>add<span class="w"> </span>several<span class="w"> </span>users<span class="w">
-</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w"> </span>groups=wheel<span class="w">
-</span><span class="w">   </span><span class="k">with_items</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- testuser1<span class="w">
-</span><span class="w">    </span>- testuser2<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">add several users</span><span class="w">
+</span><span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">name={{ item }} state=present groups=wheel</span><span class="w">
+</span><span class="w">   </span><span class="nt">with_items</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">testuser1</span><span class="w">
+</span><span class="w">    </span>- <span class="l">testuser2</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
@@ -1804,7 +1806,7 @@ car
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">with_items</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{somelist}}&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">with_items</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{somelist}}&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
@@ -1817,11 +1819,11 @@ car
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>add<span class="w"> </span>several<span class="w"> </span>users<span class="w">
-</span><span class="w">  </span><span class="k">user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item.name<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w"> </span>groups={{<span class="w"> </span>item.groups<span class="w"> </span>}}<span class="w">
-</span><span class="w">   </span><span class="k">with_items</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- {<span class="w"> </span><span class="k">name: &#39;testuser1&#39;, groups</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;wheel&#39;</span><span class="w"> </span>}<span class="w">
-</span><span class="w">     </span>- {<span class="w"> </span><span class="k">name: &#39;testuser2&#39;, groups</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="w"> </span>}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">add several users</span><span class="w">
+</span><span class="w">  </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">name={{ item.name }} state=present groups={{ item.groups }}</span><span class="w">
+</span><span class="w">   </span><span class="nt">with_items</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- {<span class="w"> </span><span class="nt">name: &#39;testuser1&#39;, groups</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;wheel&#39;</span><span class="w"> </span>}<span class="w">
+</span><span class="w">     </span>- {<span class="w"> </span><span class="nt">name: &#39;testuser2&#39;, groups</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="w"> </span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><a href="http://www.ansible.com.cn/docs/playbooks_loops.html#id19"><strong>嵌套循环</strong></a></p>
@@ -1834,9 +1836,9 @@ car
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>give<span class="w"> </span>users<span class="w"> </span>access<span class="w"> </span>to<span class="w"> </span>multiple<span class="w"> </span>databases<span class="w">
-</span><span class="w">  </span><span class="k">mysql_user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="w"> </span>}}<span class="w"> </span>priv={{<span class="w"> </span>item<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span>}}.<span class="cp">*:ALL</span><span class="w"> </span>append_privs=yes<span class="w"> </span>password=foo<span class="w">
-</span><span class="w">  </span><span class="k">with_nested</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">give users access to multiple databases</span><span class="w">
+</span><span class="w">  </span><span class="nt">mysql_user</span><span class="p">:</span><span class="w"> </span><span class="l">name={{ item[0] }} priv={{ item[1] }}.*:ALL append_privs=yes password=foo</span><span class="w">
+</span><span class="w">  </span><span class="nt">with_nested</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span>- <span class="p">[</span><span class="w"> </span><span class="s1">&#39;alice&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bob&#39;</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span><span class="w">    </span>- <span class="p">[</span><span class="w"> </span><span class="s1">&#39;clientdb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;employeedb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;providerdb&#39;</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span></code></pre></td></tr></table>
@@ -1859,14 +1861,14 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w"> 
-</span><span class="w"></span><span class="k">users</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">alice</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>Alice<span class="w"> </span>Appleworth<span class="w">
-</span><span class="w">    </span><span class="k">telephone</span><span class="p">:</span><span class="w"> </span><span class="m">123-456-7890</span><span class="w">
-</span><span class="w">  </span><span class="k">bob</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>Bob<span class="w"> </span>Bananarama<span class="w">
-</span><span class="w">    </span><span class="k">telephone</span><span class="p">:</span><span class="w"> </span><span class="m">987-654-3210</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w"> 
+</span><span class="w"></span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">alice</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Alice Appleworth</span><span class="w">
+</span><span class="w">    </span><span class="nt">telephone</span><span class="p">:</span><span class="w"> </span><span class="m">123-456-7890</span><span class="w">
+</span><span class="w">  </span><span class="nt">bob</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Bob Bananarama</span><span class="w">
+</span><span class="w">    </span><span class="nt">telephone</span><span class="p">:</span><span class="w"> </span><span class="m">987-654-3210</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -1879,10 +1881,10 @@ car
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Print<span class="w"> </span>phone<span class="w"> </span>records<span class="w">
-</span><span class="w">    </span><span class="k">debug</span><span class="p">:</span><span class="w"> </span>msg=<span class="s2">&#34;User {{ item.key }} is {{ item.value.name }} ({{ item.value.telephone }})&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">with_dict</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{users}}&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Print phone records</span><span class="w">
+</span><span class="w">    </span><span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="l">msg=&#34;User {{ item.key }} is {{ item.value.name }} ({{ item.value.telephone }})&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">with_dict</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{users}}&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>对文件列表使用循环</strong></p>
@@ -1903,15 +1905,15 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
-</span><span class="w">   </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span><span class="w">   </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="c"># first ensure our target directory exists</span><span class="w">
-</span><span class="w">    </span>- <span class="k">file</span><span class="p">:</span><span class="w"> </span>dest=/etc/fooapp<span class="w"> </span>state=directory<span class="w">
+</span><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l">dest=/etc/fooapp state=directory</span><span class="w">
 </span><span class="w">    </span><span class="c"># copy each file over that matches the given pattern</span><span class="w">
-</span><span class="w">    </span>- <span class="k">copy</span><span class="p">:</span><span class="w"> </span>src={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>dest=/etc/fooapp/<span class="w"> </span>owner=root<span class="w"> </span>mode=<span class="m">600</span><span class="w">
-</span><span class="w">      </span><span class="k">with_fileglob</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- /playbooks/files/fooapp/*<span class="w">
+</span><span class="w">    </span>- <span class="nt">copy</span><span class="p">:</span><span class="w"> </span><span class="l">src={{ item }} dest=/etc/fooapp/ owner=root mode=600</span><span class="w">
+</span><span class="w">      </span><span class="nt">with_fileglob</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">/playbooks/files/fooapp/*</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -1950,29 +1952,29 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w"> </span><span class="k">users</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>alice<span class="w">
-</span><span class="w">    </span><span class="k">authorized</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- /tmp/alice/onekey.pub<span class="w">
-</span><span class="w">      </span>- /tmp/alice/twokey.pub<span class="w">
-</span><span class="w">    </span><span class="k">mysql</span><span class="p">:</span><span class="w">
-</span><span class="w">       </span><span class="k">password</span><span class="p">:</span><span class="w"> </span>mysql-password<span class="w">
-</span><span class="w">       </span><span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w"> </span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">alice</span><span class="w">
+</span><span class="w">    </span><span class="nt">authorized</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">/tmp/alice/onekey.pub</span><span class="w">
+</span><span class="w">      </span>- <span class="l">/tmp/alice/twokey.pub</span><span class="w">
+</span><span class="w">    </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">mysql-password</span><span class="w">
+</span><span class="w">       </span><span class="nt">hosts</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;%&#34;</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;127.0.0.1&#34;</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;::1&#34;</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;localhost&#34;</span><span class="w">
-</span><span class="w">        </span><span class="k">privs</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">privs</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;*.*:SELECT&#34;</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;DB1.*:ALL&#34;</span><span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>bob<span class="w">
-</span><span class="w">     </span><span class="k">authorized</span><span class="p">:</span><span class="w">
-</span><span class="w">       </span>- /tmp/bob/id_rsa.pub<span class="w">
-</span><span class="w">     </span><span class="k">mysql</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">password</span><span class="p">:</span><span class="w"> </span>other-mysql-password<span class="w">
-</span><span class="w">        </span><span class="k">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">bob</span><span class="w">
+</span><span class="w">     </span><span class="nt">authorized</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span>- <span class="l">/tmp/bob/id_rsa.pub</span><span class="w">
+</span><span class="w">     </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">other-mysql-password</span><span class="w">
+</span><span class="w">        </span><span class="nt">hosts</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;db1&#34;</span><span class="w">
-</span><span class="w">        </span><span class="k">privs</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">privs</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;*.*:SELECT&#34;</span><span class="w">
 </span><span class="w">          </span>- <span class="s2">&#34;DB2.*:ALL&#34;</span><span class="w">
 </span><span class="w">
@@ -1993,13 +1995,13 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item.name<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w"> </span>generate_ssh_key=yes<span class="w">
-</span><span class="w">  </span><span class="k">with_items</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{users}}&#34;</span><span class="w">
+</span><span class="w"></span>- <span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">name={{ item.name }} state=present generate_ssh_key=yes</span><span class="w">
+</span><span class="w">  </span><span class="nt">with_items</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{users}}&#34;</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>- <span class="k">authorized_key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;user={{ item.0.name }} key=&#39;{{ lookup(&#39;file&#39;, item.1) }}&#39;&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">with_subelements</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- users<span class="w">
-</span><span class="w">    </span>- authorized<span class="w">
+</span><span class="w"></span>- <span class="nt">authorized_key</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;user={{ item.0.name }} key=&#39;{{ lookup(&#39;file&#39;, item.1) }}&#39;&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">with_subelements</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">users</span><span class="w">
+</span><span class="w">    </span>- <span class="l">authorized</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2018,13 +2020,13 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>Setup<span class="w"> </span>MySQL<span class="w"> </span>users<span class="w">
-</span><span class="w">  </span><span class="k">mysql_user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="m">.0</span>.user<span class="w"> </span>}}<span class="w"> </span>password={{<span class="w"> </span>item<span class="m">.0</span>.mysql.password<span class="w"> </span>}}<span class="w"> </span>host={{<span class="w"> </span>item<span class="m">.1</span><span class="w"> </span>}}<span class="w"> </span>priv={{<span class="w"> </span>item<span class="m">.0</span>.mysql.privs<span class="w"> </span>|<span class="w"> </span>join(<span class="s1">&#39;/&#39;</span>)<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">with_subelements</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- users<span class="w">
-</span><span class="w">  </span>- mysql.hosts<span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup MySQL users</span><span class="w">
+</span><span class="w">  </span><span class="nt">mysql_user</span><span class="p">:</span><span class="w"> </span><span class="l">name={{ item.0.user }} password={{ item.0.mysql.password }} host={{ item.1 }} priv={{ item.0.mysql.privs | join(&#39;/&#39;) }}</span><span class="w">
+</span><span class="w">  </span><span class="nt">with_subelements</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="l">users</span><span class="w">
+</span><span class="w">  </span>- <span class="l">mysql.hosts</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>Subelements<span class="w"> </span>walks<span class="w"> </span>a<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>hashes<span class="w"> </span>(aka<span class="w"> </span>dictionaries)<span class="w"> </span>and<span class="w"> </span>then<span class="w"> </span>traverses<span class="w"> </span>a<span class="w"> </span>list<span class="w"> </span>with<span class="w"> </span>a<span class="w"> </span>given<span class="w"> </span>key<span class="w"> </span>inside<span class="w"> </span>of<span class="w"> </span>those<span class="w"> </span>records.<span class="w">
+</span><span class="w"></span><span class="l">Subelements walks a list of hashes (aka dictionaries) and then traverses a list with a given key inside of those records.</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2056,21 +2058,21 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
-</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">      </span><span class="c"># create groups</span><span class="w">
-</span><span class="w">    </span>- <span class="k">group</span><span class="p">:</span><span class="w"> </span>name=evens<span class="w"> </span>state=present<span class="w">
-</span><span class="w">    </span>- <span class="k">group</span><span class="p">:</span><span class="w"> </span>name=odds<span class="w"> </span>state=present<span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">      </span><span class="c"># create groups</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">name=evens state=present</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">name=odds state=present</span><span class="w">
 </span><span class="w">   </span><span class="c"># create some test users</span><span class="w">
-</span><span class="w">    </span>- <span class="k">user</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w"> </span>groups=evens<span class="w">
-</span><span class="w">      </span><span class="k">with_sequence</span><span class="p">:</span><span class="w"> </span>start=<span class="m">0</span><span class="w"> </span>end=<span class="m">32</span><span class="w"> </span>format=testuser%02x<span class="w">
+</span><span class="w">    </span>- <span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">name={{ item }} state=present groups=evens</span><span class="w">
+</span><span class="w">      </span><span class="nt">with_sequence</span><span class="p">:</span><span class="w"> </span><span class="l">start=0 end=32 format=testuser%02x</span><span class="w">
 </span><span class="w">    </span><span class="c"># create a series of directories with even numbers for some reason</span><span class="w">
-</span><span class="w">    </span><span class="k">-file</span><span class="p">:</span><span class="w"> </span>dest=/var/stuff/{{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=directory<span class="w">
-</span><span class="w">     </span><span class="k">with_sequence</span><span class="p">:</span><span class="w"> </span>start=<span class="m">4</span><span class="w"> </span>end=<span class="m">16</span><span class="w"> </span>stride=<span class="m">2</span><span class="w">
+</span><span class="w">    </span><span class="nt">-file</span><span class="p">:</span><span class="w"> </span><span class="l">dest=/var/stuff/{{ item }} state=directory</span><span class="w">
+</span><span class="w">     </span><span class="nt">with_sequence</span><span class="p">:</span><span class="w"> </span><span class="l">start=4 end=16 stride=2</span><span class="w">
 </span><span class="w">    </span><span class="c"># a simpler way to use the sequence plugin</span><span class="w">
 </span><span class="w">     </span><span class="c"># create 4 groups</span><span class="w">
-</span><span class="w">    </span>- <span class="k">group</span><span class="p">:</span><span class="w"> </span>name=group{{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=present<span class="w">
-</span><span class="w">      </span><span class="k">with_sequence</span><span class="p">:</span><span class="w"> </span>count=<span class="m">4</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">name=group{{ item }} state=present</span><span class="w">
+</span><span class="w">      </span><span class="nt">with_sequence</span><span class="p">:</span><span class="w"> </span><span class="l">count=4</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2089,8 +2091,8 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">debug</span><span class="p">:</span><span class="w"> </span>msg={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">with_random_choice</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="l">msg={{ item }}</span><span class="w">
+</span><span class="w">  </span><span class="nt">with_random_choice</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span>- <span class="s2">&#34;go through the door&#34;</span><span class="w">
 </span><span class="w">    </span>- <span class="s2">&#34;drink from the goblet&#34;</span><span class="w">
 </span><span class="w">    </span>- <span class="s2">&#34;press the red button&#34;</span><span class="w">
@@ -2109,11 +2111,11 @@ car
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">action</span><span class="p">:</span><span class="w"> </span>shell<span class="w"> </span>/usr/bin/foo<span class="w">
-</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>result<span class="w">
-</span><span class="w">  </span><span class="k">until</span><span class="p">:</span><span class="w"> </span>result.stdout.find(<span class="s2">&#34;all systems go&#34;</span>)<span class="w"> </span>!=<span class="w"> </span>-<span class="m">1</span><span class="w">
-</span><span class="w">  </span><span class="k">retries</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
-</span><span class="w">  </span><span class="k">delay</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">shell /usr/bin/foo</span><span class="w">
+</span><span class="w">  </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">result</span><span class="w">
+</span><span class="w">  </span><span class="nt">until</span><span class="p">:</span><span class="w"> </span><span class="l">result.stdout.find(&#34;all systems go&#34;) != -1</span><span class="w">
+</span><span class="w">  </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">  </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>上面的例子递归运行shell模块,直到模块结果中的stdout输出中包含”all systems go”字符串,或者该任务按照10秒的延迟重试超过5次.”retries”和”delay”的默认值分别是3和5.</p>
@@ -2129,9 +2131,9 @@ car
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>INTERFACES<span class="w"> </span>|<span class="w"> </span>Create<span class="w"> </span>Ansible<span class="w"> </span>header<span class="w"> </span>for<span class="w"> </span>/etc/network/interfaces<span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>dest=/etc/foo.conf<span class="w">
-</span><span class="w">  </span><span class="k">with_first_found</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">INTERFACES | Create Ansible header for /etc/network/interfaces</span><span class="w">
+</span><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l">src={{ item }} dest=/etc/foo.conf</span><span class="w">
+</span><span class="w">  </span><span class="nt">with_first_found</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span>- <span class="s2">&#34;{{ansible_virtualization_type}}_foo.conf&#34;</span><span class="w">
 </span><span class="w">    </span>- <span class="s2">&#34;default_foo.conf&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
@@ -2156,18 +2158,18 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>some<span class="w"> </span>configuration<span class="w"> </span>template<span class="w">
-</span><span class="w">  </span><span class="k">template</span><span class="p">:</span><span class="w"> </span>src={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>dest=/etc/file.cfg<span class="w"> </span>mode=<span class="m">0444</span><span class="w"> </span>owner=root<span class="w"> </span>group=root<span class="w">
-</span><span class="w">  </span><span class="k">with_first_found</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">files</span><span class="p">:</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">some configuration template</span><span class="w">
+</span><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l">src={{ item }} dest=/etc/file.cfg mode=0444 owner=root group=root</span><span class="w">
+</span><span class="w">  </span><span class="nt">with_first_found</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span>- <span class="s2">&#34;{{inventory_hostname}}/etc/file.cfg&#34;</span><span class="w">
-</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- ../../../templates.overwrites<span class="w">
-</span><span class="w">        </span>- ../../../templates<span class="w">
-</span><span class="w">    </span>- <span class="k">files</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- etc/file.cfg<span class="w">
-</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- templates<span class="w">
+</span><span class="w">      </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">../../../templates.overwrites</span><span class="w">
+</span><span class="w">        </span>- <span class="l">../../../templates</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">files</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">etc/file.cfg</span><span class="w">
+</span><span class="w">      </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">templates</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2192,15 +2194,15 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"> </span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
-</span><span class="w">   </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
-</span><span class="w">    </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span><span class="w">   </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span><span class="w">    </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
 </span><span class="w">
-</span><span class="w"> </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>simulate<span class="w"> </span>long<span class="w"> </span>running<span class="w"> </span>op<span class="w"> </span>(<span class="m">15</span><span class="w"> </span>sec)<span class="p">,</span><span class="w"> </span>wait<span class="w"> </span>for<span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span><span class="m">45</span><span class="w"> </span>sec<span class="p">,</span><span class="w"> </span>poll<span class="w"> </span>every<span class="w"> </span><span class="m">5</span><span class="w"> </span>sec<span class="w">
-</span><span class="w">   </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/sleep<span class="w"> </span><span class="m">15</span><span class="w">
-</span><span class="w">   </span><span class="k">async</span><span class="p">:</span><span class="w"> </span><span class="m">45</span><span class="w">
-</span><span class="w">   </span><span class="k">poll</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w"> </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">simulate long running op (15 sec), wait for up to 45 sec, poll every 5 sec</span><span class="w">
+</span><span class="w">   </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/bin/sleep 15</span><span class="w">
+</span><span class="w">   </span><span class="nt">async</span><span class="p">:</span><span class="w"> </span><span class="m">45</span><span class="w">
+</span><span class="w">   </span><span class="nt">poll</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2221,14 +2223,14 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
-</span><span class="w">  </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
-</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>simulate<span class="w"> </span>long<span class="w"> </span>running<span class="w"> </span>op<span class="p">,</span><span class="w"> </span>allow<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span>for<span class="w"> </span><span class="m">45</span><span class="w"> </span>sec<span class="p">,</span><span class="w"> </span>fire<span class="w"> </span>and<span class="w"> </span>forget<span class="w">
-</span><span class="w">      </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/bin/sleep<span class="w"> </span><span class="m">15</span><span class="w">
-</span><span class="w">      </span><span class="k">async</span><span class="p">:</span><span class="w"> </span><span class="m">45</span><span class="w">
-</span><span class="w">      </span><span class="k">poll</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span><span class="w">  </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">simulate long running op, allow to run for 45 sec, fire and forget</span><span class="w">
+</span><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/bin/sleep 15</span><span class="w">
+</span><span class="w">      </span><span class="nt">async</span><span class="p">:</span><span class="w"> </span><span class="m">45</span><span class="w">
+</span><span class="w">      </span><span class="nt">poll</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2252,18 +2254,18 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
 </span><span class="w"></span><span class="c"># Requires ansible 1.8+</span><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YUM - fire and forget task&#39;</span><span class="w">
-</span><span class="w">  </span><span class="k">yum</span><span class="p">:</span><span class="w"> </span>name=docker-io<span class="w"> </span>state=installed<span class="w">
-</span><span class="w">  </span><span class="k">async</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
-</span><span class="w">  </span><span class="k">poll</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>yum_sleeper<span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YUM - check on fire and forget task&#39;</span><span class="w">
-</span><span class="w">  </span><span class="k">async_status</span><span class="p">:</span><span class="w"> </span>jid={{<span class="w"> </span>yum_sleeper.ansible_job_id<span class="w"> </span>}}<span class="w">
-</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>job_result<span class="w">
-</span><span class="w">  </span><span class="k">until</span><span class="p">:</span><span class="w"> </span>job_result.finished<span class="w">
-</span><span class="w">  </span><span class="k">retries</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YUM - fire and forget task&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l">name=docker-io state=installed</span><span class="w">
+</span><span class="w">  </span><span class="nt">async</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span><span class="w">  </span><span class="nt">poll</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">  </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">yum_sleeper</span><span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YUM - check on fire and forget task&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">async_status</span><span class="p">:</span><span class="w"> </span><span class="l">jid={{ yum_sleeper.ansible_job_id }}</span><span class="w">
+</span><span class="w">  </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">job_result</span><span class="w">
+</span><span class="w">  </span><span class="nt">until</span><span class="p">:</span><span class="w"> </span><span class="l">job_result.finished</span><span class="w">
+</span><span class="w">  </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2276,9 +2278,9 @@ car
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>add<span class="w"> </span>back<span class="w"> </span>to<span class="w"> </span>load<span class="w"> </span>balancer<span class="w"> </span>pool<span class="w">
-</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/usr/bin/add_back_to_pool<span class="w"> </span>{{<span class="w"> </span>inventory_hostname<span class="w"> </span>}}<span class="w">
-</span><span class="w">    </span><span class="k">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">add back to load balancer pool</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/bin/add_back_to_pool {{ inventory_hostname }}</span><span class="w">
+</span><span class="w">    </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>本地执行</p>
@@ -2291,11 +2293,11 @@ car
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
 </span><span class="w"></span><span class="c"># ...</span><span class="w">
-</span><span class="w"> </span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>recursively<span class="w"> </span>copy<span class="w"> </span>files<span class="w"> </span>from<span class="w"> </span>management<span class="w"> </span>server<span class="w"> </span>to<span class="w"> </span>target<span class="w">
-</span><span class="w">     </span><span class="k">local_action</span><span class="p">:</span><span class="w"> </span>command<span class="w"> </span>rsync<span class="w"> </span>-a<span class="w"> </span>/path/to/files<span class="w"> </span>{{<span class="w"> </span>inventory_hostname<span class="w"> </span>}}<span class="p">:</span>/path/to/target/<span class="w">
+</span><span class="w"> </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">recursively copy files from management server to target</span><span class="w">
+</span><span class="w">     </span><span class="nt">local_action</span><span class="p">:</span><span class="w"> </span><span class="l">command rsync -a /path/to/files {{ inventory_hostname }}:/path/to/target/</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Run Once</strong></p>
@@ -2314,12 +2316,12 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>---<span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
 </span><span class="w"></span><span class="c"># ...</span><span class="w">
-</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
 </span><span class="w">     </span><span class="c"># ...</span><span class="w">
-</span><span class="w">    </span>- <span class="k">command</span><span class="p">:</span><span class="w"> </span>/opt/application/upgrade_db.py<span class="w">
-</span><span class="w">      </span><span class="k">run_once</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">      </span><span class="c"># ...</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/application/upgrade_db.py</span><span class="w">
+</span><span class="w">      </span><span class="nt">run_once</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">      </span><span class="c"># ...</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2331,9 +2333,9 @@ car
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">command</span><span class="p">:</span><span class="w"> </span>/opt/application/upgrade_db.py<span class="w">
-</span><span class="w">  </span><span class="k">run_once</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">delegate_to</span><span class="p">:</span><span class="w"> </span>web01.example.org<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/application/upgrade_db.py</span><span class="w">
+</span><span class="w">  </span><span class="nt">run_once</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l">web01.example.org</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>当”run_once” 没有喝”delegate_to”一起使用,这个任务将会被清单指定的第一个主机. 在一组被play制定主机.例如 webservers[0], 如果play指定为 “hosts: webservers”.</p>
@@ -2344,8 +2346,8 @@ car
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">command</span><span class="p">:</span><span class="w"> </span>/opt/application/upgrade_db.py<span class="w">
-</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>inventory_hostname<span class="w"> </span>==<span class="w"> </span>webservers<span class="p">[</span><span class="m">0</span><span class="p">]</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/application/upgrade_db.py</span><span class="w">
+</span><span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l">inventory_hostname == webservers[0]</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>本地Playbooks</strong></p>
@@ -2384,12 +2386,12 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
-</span><span class="w">  </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
-</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">apt</span><span class="p">:</span><span class="w"> </span>name=cobbler<span class="w"> </span>state=installed<span class="w">
-</span><span class="w">      </span><span class="k">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">         </span><span class="k">http_proxy</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//proxy.example.com<span class="p">:</span><span class="m">8080</span><span class="w">
+</span><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span><span class="w">  </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">apt</span><span class="p">:</span><span class="w"> </span><span class="l">name=cobbler state=installed</span><span class="w">
+</span><span class="w">      </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">         </span><span class="nt">http_proxy</span><span class="p">:</span><span class="w"> </span><span class="l">http://proxy.example.com:8080</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2410,15 +2412,15 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">hosts</span><span class="p">:</span><span class="w"> </span>all<span class="w">
-</span><span class="w">  </span><span class="k">remote_user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span><span class="w">  </span><span class="nt">remote_user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
 </span><span class="w">   </span><span class="c"># here we make a variable named &#34;proxy_env&#34; that is a dictionary</span><span class="w">
-</span><span class="w">  </span><span class="k">vars</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">proxy_env</span><span class="p">:</span><span class="w">
-</span><span class="w">       </span><span class="k">http_proxy</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//proxy.example.com<span class="p">:</span><span class="m">8080</span><span class="w">
-</span><span class="w">  </span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- <span class="k">apt</span><span class="p">:</span><span class="w"> </span>name=cobbler<span class="w"> </span>state=installed<span class="w">
-</span><span class="w">       </span><span class="k">environment</span><span class="p">:</span><span class="w"> </span>proxy_env<span class="w">
+</span><span class="w">  </span><span class="nt">vars</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">proxy_env</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span><span class="nt">http_proxy</span><span class="p">:</span><span class="w"> </span><span class="l">http://proxy.example.com:8080</span><span class="w">
+</span><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="nt">apt</span><span class="p">:</span><span class="w"> </span><span class="l">name=cobbler state=installed</span><span class="w">
+</span><span class="w">       </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l">proxy_env</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2432,10 +2434,10 @@ car
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">name</span><span class="p">:</span><span class="w"> </span>this<span class="w"> </span>command<span class="w"> </span>prints<span class="w"> </span>FAILED<span class="w"> </span>when<span class="w"> </span>it<span class="w"> </span>fails<span class="w">
-</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/usr/bin/example-command<span class="w"> </span>-x<span class="w"> </span>-y<span class="w"> </span>-z<span class="w">
-</span><span class="w">  </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>command_result<span class="w">
-</span><span class="w">  </span><span class="k">failed_when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#39;FAILED&#39; in command_result.stderr&#34;</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">this command prints FAILED when it fails</span><span class="w">
+</span><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/bin/example-command -x -y -z</span><span class="w">
+</span><span class="w">  </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">command_result</span><span class="w">
+</span><span class="w">  </span><span class="nt">failed_when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#39;FAILED&#39; in command_result.stderr&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>在 Ansible 1.4 之前的版本能通过如下方式完成:</p>
@@ -2453,13 +2455,13 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>this<span class="w"> </span>command<span class="w"> </span>prints<span class="w"> </span>FAILED<span class="w"> </span>when<span class="w"> </span>it<span class="w"> </span>fails<span class="w">
-</span><span class="w">  </span><span class="k">command</span><span class="p">:</span><span class="w"> </span>/usr/bin/example-command<span class="w"> </span>-x<span class="w"> </span>-y<span class="w"> </span>-z<span class="w">
-</span><span class="w">  </span><span class="k">register: command_result   ignore_errors</span><span class="p">:</span><span class="w"> </span>True<span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">this command prints FAILED when it fails</span><span class="w">
+</span><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/bin/example-command -x -y -z</span><span class="w">
+</span><span class="w">  </span><span class="nt">register: command_result   ignore_errors</span><span class="p">:</span><span class="w"> </span><span class="kc">True</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>fail<span class="w"> </span>the<span class="w"> </span>play<span class="w"> </span>if<span class="w"> </span>the<span class="w"> </span>previous<span class="w"> </span>command<span class="w"> </span>did<span class="w"> </span>not<span class="w"> </span>succeed<span class="w">
-</span><span class="w">  </span><span class="k">fail</span><span class="p">:</span><span class="w"> </span>msg=<span class="s2">&#34;the command failed&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">when</span><span class="p">:</span><span class="w"> </span>&#34;<span class="s1">&#39;FAILED&#39;</span><span class="w"> </span>in<span class="w"> </span>command_result.stderr<span class="w">
+</span><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">fail the play if the previous command did not succeed</span><span class="w">
+</span><span class="w">  </span><span class="nt">fail</span><span class="p">:</span><span class="w"> </span><span class="l">msg=&#34;the command failed&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l">&#34;&#39;FAILED&#39; in command_result.stderr</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2479,14 +2481,14 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>/usr/bin/billybass<span class="w"> </span>--mode=<span class="s2">&#34;take me to the river&#34;</span><span class="w">
-</span><span class="w">     </span><span class="k">register</span><span class="p">:</span><span class="w"> </span>bass_result<span class="w">
-</span><span class="w">     </span><span class="k">changed_when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;bass_result.rc != 2&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">/usr/bin/billybass --mode=&#34;take me to the river&#34;</span><span class="w">
+</span><span class="w">     </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">bass_result</span><span class="w">
+</span><span class="w">     </span><span class="nt">changed_when</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;bass_result.rc != 2&#34;</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># this will never report &#39;changed&#39; status</span><span class="w">
-</span><span class="w">   </span>- <span class="k">shell</span><span class="p">:</span><span class="w"> </span>wall<span class="w"> </span><span class="s1">&#39;beep&#39;</span><span class="w">
-</span><span class="w">     </span><span class="k">changed_when</span><span class="p">:</span><span class="w"> </span>False<span class="w">
+</span><span class="w">   </span>- <span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">wall &#39;beep&#39;</span><span class="w">
+</span><span class="w">     </span><span class="nt">changed_when</span><span class="p">:</span><span class="w"> </span><span class="kc">False</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2511,16 +2513,16 @@ car
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w"></span><span class="k">tasks</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">yum</span><span class="p">:</span><span class="w"> </span>name={{<span class="w"> </span>item<span class="w"> </span>}}<span class="w"> </span>state=installed<span class="w">
-</span><span class="w">    </span><span class="k">with_items</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- httpd<span class="w">
-</span><span class="w">      </span>- memcached<span class="w">
-</span><span class="w">    </span><span class="k">tags</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- packages<span class="w">
-</span><span class="w">  </span>- <span class="k">template</span><span class="p">:</span><span class="w"> </span>src=templates/src.j2<span class="w"> </span>dest=/etc/foo.conf<span class="w">
-</span><span class="w">    </span><span class="k">tags</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- configuration<span class="w">
+</span><span class="w"></span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">yum</span><span class="p">:</span><span class="w"> </span><span class="l">name={{ item }} state=installed</span><span class="w">
+</span><span class="w">    </span><span class="nt">with_items</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">httpd</span><span class="w">
+</span><span class="w">      </span>- <span class="l">memcached</span><span class="w">
+</span><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">packages</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="l">src=templates/src.j2 dest=/etc/foo.conf</span><span class="w">
+</span><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">configuration</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -2535,8 +2537,8 @@ car
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">roles</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- {<span class="w"> </span><span class="k">role: webserver, port: 5000, tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">&#39;web&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>}<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">roles</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- {<span class="w"> </span><span class="nt">role: webserver, port: 5000, tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">&#39;web&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span>}<span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>你同样也可以对基本的 include 语句使用 tag:
@@ -2546,7 +2548,7 @@ car
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="k">include</span><span class="p">:</span><span class="w"> </span>foo.yml<span class="w"> </span>tags=web<span class="p">,</span>foo<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml">- <span class="nt">include</span><span class="p">:</span><span class="w"> </span><span class="l">foo.yml tags=web,foo</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>从指定任务开始运行palybook以及分步运行playbook</strong></p>
@@ -2861,11 +2863,11 @@ car
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-04-06 19:07
         
@@ -2873,22 +2875,22 @@ car
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -2900,11 +2902,11 @@ car
         <a class="prev" href="/post/code/git_use/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">git 使用详解</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/auto/ansible_guides/">
             <span class="next-text nav-default">ansible 入门及使用</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -2932,18 +2934,18 @@ car
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

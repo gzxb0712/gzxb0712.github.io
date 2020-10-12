@@ -6,11 +6,7 @@
     <description>Recent content in prometheus on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Mar 2020 20:15:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 22 Mar 2020 20:15:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>helm部署prometheus</title>
       <link>https://xiebiao.top/post/monitor/helm_prometheus/</link>

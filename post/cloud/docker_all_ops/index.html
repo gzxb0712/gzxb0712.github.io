@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/cloud/docker_all_ops/" />
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/cloud/"> cloud </a>
             </div>
-          <span class="more-meta"> 约 4552 字 </span>
-          <span class="more-meta"> 预计阅读 10 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
@@ -310,8 +310,8 @@
 <p><strong>-i：</strong> 以交互模式运行容器，通常与 -t 同时使用</p>
 <p><strong>-t：</strong> 为容器重新分配一个伪输入终端，通常与 -i 同时使用</p>
 <p><strong>-v：</strong> 绑定挂载目录</p>
-<p><strong>&ndash;name=&quot;mycontainer&rdquo;:</strong> 为容器指定一个名称</p>
-<p><strong>&ndash;net=&quot;bridge&rdquo;:</strong> 指定容器的网络连接类型，支持如下：</p>
+<p><strong>&ndash;name=&ldquo;mycontainer&rdquo;:</strong> 为容器指定一个名称</p>
+<p><strong>&ndash;net=&ldquo;bridge&rdquo;:</strong> 指定容器的网络连接类型，支持如下：</p>
 <p>   　　bridge / host / none / container:&lt;name|id&gt;</p>
 <p><strong>-p/-P :</strong> 端口映射，格式如图：</p>
 <p> 　　　　<img src="https://img2018.cnblogs.com/common/1059616/201911/1059616-20191112155237442-1935865842.png" alt=""></p>
@@ -381,7 +381,7 @@
 <p><strong>3、注册https协议</strong>（需要通过本地仓库下载镜像，均需要配置）</p>
 <blockquote>
 <p>vim /etc/docker/daemon.json　　　　　　　　# 默认无此文件，需自行添加，有则追加一下内容。</p>
-<p>   { &ldquo;insecure-registries&rdquo;:[&rdquo; xx.xx.xx.xx:5000&rdquo;] }　　# 指定ip地址或域名</p>
+<p>   { &ldquo;insecure-registries&rdquo;:[&quot; xx.xx.xx.xx:5000&quot;] }　　# 指定ip地址或域名</p>
 </blockquote>
 <p><strong>4、新增tag指明仓库地址</strong></p>
 <blockquote>
@@ -529,18 +529,18 @@ Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你�
 <p> <a href="https://www.cnblogs.com/leozhanggg/p/12031433.html">【解决】error pulling image configuration: Get https:// &hellip;&hellip; x509: certificate has expired or is not yet valid</a></p>
 <p><a href="https://www.cnblogs.com/leozhanggg/p/12023531.html">【解决】image &hellip; could not be accessed on a registry to record its digest.</a></p>
 <p><a href="https://www.cnblogs.com/leozhanggg/p/12023456.html">【解决】http: server gave HTTP response to HTTPS client</a></p>
-<p><a href="https://www.cnblogs.com/leozhanggg/p/12023429.html">【解决】OCI runtime exec failed&hellip;&hellip;executable file not found in $PATH&rdquo;: unknown</a></p>
+<p><a href="https://www.cnblogs.com/leozhanggg/p/12023429.html">【解决】OCI runtime exec failed&hellip;&hellip;executable file not found in $PATH&quot;: unknown</a></p>
 <p>更多报错解决方案持续更新中：<a href="https://www.cnblogs.com/leozhanggg/p/11796810.html">【解决】Docker Errors</a></p>
 
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-07-20 21:05
         
@@ -548,22 +548,22 @@ Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你�
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -575,11 +575,11 @@ Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你�
         <a class="prev" href="/post/cloud/traefik_2.2.8_deploy/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">k8s部署 Ingress 控制器 traefik 2.2.x教程</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/cicd/k8s_jenkins_cicd/">
             <span class="next-text nav-default">k8s安装jenkins最佳实践</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -607,18 +607,18 @@ Kubernetes要求你去学习它自己的CLI（命令行接口）和配置。你�
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

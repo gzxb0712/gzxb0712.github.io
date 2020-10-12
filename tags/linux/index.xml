@@ -6,11 +6,7 @@
     <description>Recent content in linux on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2020 19:01:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 13 Aug 2020 19:01:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux 性能优化分析工具</title>
       <link>https://xiebiao.top/post/performance/linux_perf_doc/</link>

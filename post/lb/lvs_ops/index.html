@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/lb/lvs_ops/" />
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/lb/"> lb </a>
             </div>
-          <span class="more-meta"> 约 7902 字 </span>
-          <span class="more-meta"> 预计阅读 16 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
@@ -686,19 +686,19 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-php" data-lang="php">-A：添加VIP
--t：用的是tcp协议
--a：添加的是lo的vip地址
--r：转发到realserverip
--s：算法
--L|-l –list #显示内核虚拟服务器表
---numeric, -n：#以数字形式输出地址和端口号
--g --gatewaying #指定LVS工作模式为直接路由器模式（也是LVS默认的模式）
--S -save #保存虚拟服务器规则到标准输出，输出为-R 选项可读的格式
-rr：轮循
-如果添加ip错了，删除命令如下:
-# ip addr del dev ens33 192.168.0.200/32
-
+<pre class="chroma"><code class="language-php" data-lang="php"><span class="o">-</span><span class="nx">A：添加VIP</span>
+<span class="o">-</span><span class="nx">t：用的是tcp协议</span>
+<span class="o">-</span><span class="nx">a：添加的是lo的vip地址</span>
+<span class="o">-</span><span class="nx">r：转发到realserverip</span>
+<span class="o">-</span><span class="nx">s：算法</span>
+<span class="o">-</span><span class="nx">L</span><span class="o">|-</span><span class="nx">l</span> <span class="nx">–list</span> <span class="c1">#显示内核虚拟服务器表
+</span><span class="c1"></span><span class="o">--</span><span class="nx">numeric</span><span class="p">,</span> <span class="o">-</span><span class="nx">n：</span><span class="c1">#以数字形式输出地址和端口号
+</span><span class="c1"></span><span class="o">-</span><span class="nx">g</span> <span class="o">--</span><span class="nx">gatewaying</span> <span class="c1">#指定LVS工作模式为直接路由器模式（也是LVS默认的模式）
+</span><span class="c1"></span><span class="o">-</span><span class="nx">S</span> <span class="o">-</span><span class="nx">save</span> <span class="c1">#保存虚拟服务器规则到标准输出，输出为-R 选项可读的格式
+</span><span class="c1"></span><span class="nx">rr：轮循</span>
+<span class="nx">如果添加ip错了，删除命令如下</span><span class="o">:</span>
+<span class="c1"># ip addr del dev ens33 192.168.0.200/32
+</span><span class="c1"></span>
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -860,11 +860,11 @@ rr：轮循
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-02-25 19:21
         
@@ -872,22 +872,22 @@ rr：轮循
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -899,11 +899,11 @@ rr：轮循
         <a class="prev" href="/post/web/apache_centos_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Centos部署apache2&#43;mysql8&#43;php7</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/lb/keepalived_nginx_ops/">
             <span class="next-text nav-default">centos部署keepalived</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -931,18 +931,18 @@ rr：轮循
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

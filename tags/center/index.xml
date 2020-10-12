@@ -6,11 +6,7 @@
     <description>Recent content in center on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 01 Apr 2020 22:18:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/center/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 01 Apr 2020 22:18:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/center/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ZooKeeper 入门指引</title>
       <link>https://xiebiao.top/post/center/zookeeper_ops_doc/</link>

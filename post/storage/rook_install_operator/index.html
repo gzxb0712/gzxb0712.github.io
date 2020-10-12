@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/storage/rook_install_operator/" />
@@ -50,7 +50,7 @@
 <meta itemprop="description" content="Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和">
 <meta itemprop="datePublished" content="2020-08-05T19:17:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-05T19:17:30+00:00" />
-<meta itemprop="wordCount" content="5924">
+<meta itemprop="wordCount" content="5585">
 
 
 
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/storage/"> storage </a>
             </div>
-          <span class="more-meta"> 约 5924 字 </span>
-          <span class="more-meta"> 预计阅读 12 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
@@ -457,32 +457,32 @@
 </span><span class="lnt">106
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>ceph.rook.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CephCluster<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">cephVersion</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>ceph/ceph<span class="p">:</span>v15<span class="m">.2.4</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephCluster</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">cephVersion</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ceph/ceph:v15.2.4</span><span class="w">
 </span><span class="w">    </span><span class="c"># image: ceph/ceph:v14.2.4-20190917</span><span class="w">
-</span><span class="w">    </span><span class="k">allowUnsupported</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">dataDirHostPath</span><span class="p">:</span><span class="w"> </span>/var/lib/rook<span class="w">
-</span><span class="w">  </span><span class="k">skipUpgradeChecks</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">mon</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">count</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">    </span><span class="k">allowMultiplePerNode</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">dashboard</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">    </span><span class="k">ssl</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">monitoring</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">    </span><span class="k">rulesNamespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">network</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">hostNetwork</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">rbdMirroring</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">workers</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">  </span>placement<span class="p">:</span><span class="w">				</span><span class="c">#配置特定节点亲和力保证Node作为存储节点</span><span class="w">
+</span><span class="w">    </span><span class="nt">allowUnsupported</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">dataDirHostPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/rook</span><span class="w">
+</span><span class="w">  </span><span class="nt">skipUpgradeChecks</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">mon</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">    </span><span class="nt">allowMultiplePerNode</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">dashboard</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">ssl</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">monitoring</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span><span class="nt">rulesNamespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">network</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">hostNetwork</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">rbdMirroring</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">workers</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">  </span><span class="l">placement:				#配置特定节点亲和力保证Node作为存储节点</span><span class="w">
 </span><span class="w"></span><span class="c">#    all:</span><span class="w">
 </span><span class="w"></span><span class="c">#      nodeAffinity:</span><span class="w">
 </span><span class="w"></span><span class="c">#        requiredDuringSchedulingIgnoredDuringExecution:</span><span class="w">
@@ -495,74 +495,74 @@
 </span><span class="w"></span><span class="c">#      tolerations:</span><span class="w">
 </span><span class="w"></span><span class="c">#      - key: storage-node</span><span class="w">
 </span><span class="w"></span><span class="c">#        operator: Exists</span><span class="w">
-</span><span class="w">    </span><span class="k">mon</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">nodeAffinity</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">nodeSelectorTerms</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>- <span class="k">matchExpressions</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>ceph-mon<span class="w">
-</span><span class="w">              </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
-</span><span class="w">              </span><span class="k">values</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span>- enabled<span class="w">
-</span><span class="w">      </span><span class="k">tolerations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>ceph-mon<span class="w">
-</span><span class="w">        </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>Exists<span class="w">
-</span><span class="w">    </span><span class="k">ods</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">nodeAffinity</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">nodeSelectorTerms</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>- <span class="k">matchExpressions</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>ceph-osd<span class="w">
-</span><span class="w">              </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
-</span><span class="w">              </span><span class="k">values</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span>- enabled<span class="w">
-</span><span class="w">      </span><span class="k">tolerations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>ceph-osd<span class="w">
-</span><span class="w">        </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>Exists<span class="w">
-</span><span class="w">    </span><span class="k">mgr</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">nodeAffinity</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">nodeSelectorTerms</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>- <span class="k">matchExpressions</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>ceph-mgr<span class="w">
-</span><span class="w">              </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
-</span><span class="w">              </span><span class="k">values</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span>- enabled<span class="w">
-</span><span class="w">      </span><span class="k">tolerations</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>ceph-mgr<span class="w">
-</span><span class="w">        </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>Exists<span class="w">
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">removeOSDsIfOutAndSafeToRemove</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">storage</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">useAllNodes</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">			</span><span class="c">#关闭使用所有Node</span><span class="w">
-</span><span class="w">    </span><span class="k">useAllDevices</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">		</span><span class="c">#关闭使用所有设备</span><span class="w">
-</span><span class="w">    </span><span class="k">deviceFilter</span><span class="p">:</span><span class="w"> </span>vdb<span class="w">
-</span><span class="w">    </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">metadataDevice</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">databaseSizeMB</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1024&#34;</span><span class="w">
-</span><span class="w">        </span><span class="k">journalSizeMB</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1024&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">nodes</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;192.168.10.127&#34;</span><span class="w">	</span><span class="c">#指定存储节点主机</span><span class="w">
-</span><span class="w">      </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">storeType</span><span class="p">:</span><span class="w"> </span>bluestore<span class="w">	</span><span class="c">#指定类型为裸磁盘</span><span class="w">
-</span><span class="w">      </span><span class="k">devices</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">			    </span><span class="c">#指定磁盘为sdb</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;192.168.10.128&#34;</span><span class="w">
-</span><span class="w">      </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">storeType</span><span class="p">:</span><span class="w"> </span>bluestore<span class="w">
-</span><span class="w">      </span><span class="k">devices</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;192.168.10.129&#34;</span><span class="w">
-</span><span class="w">      </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">storeType</span><span class="p">:</span><span class="w"> </span>bluestore<span class="w">
-</span><span class="w">      </span><span class="k">devices</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">disruptionManagement</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">managePodBudgets</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">    </span><span class="k">osdMaintenanceTimeout</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
-</span><span class="w">    </span><span class="k">manageMachineDisruptionBudgets</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">    </span><span class="k">machineDisruptionBudgetNamespace</span><span class="p">:</span><span class="w"> </span>openshift-machine-api<span class="w">
+</span><span class="w">    </span><span class="nt">mon</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">nodeAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-mon</span><span class="w">
+</span><span class="w">              </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span><span class="w">              </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span>- <span class="l">enabled</span><span class="w">
+</span><span class="w">      </span><span class="nt">tolerations</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-mon</span><span class="w">
+</span><span class="w">        </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">Exists</span><span class="w">
+</span><span class="w">    </span><span class="nt">ods</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">nodeAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-osd</span><span class="w">
+</span><span class="w">              </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span><span class="w">              </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span>- <span class="l">enabled</span><span class="w">
+</span><span class="w">      </span><span class="nt">tolerations</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-osd</span><span class="w">
+</span><span class="w">        </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">Exists</span><span class="w">
+</span><span class="w">    </span><span class="nt">mgr</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">nodeAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">nodeSelectorTerms</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">            </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-mgr</span><span class="w">
+</span><span class="w">              </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span><span class="w">              </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span>- <span class="l">enabled</span><span class="w">
+</span><span class="w">      </span><span class="nt">tolerations</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-mgr</span><span class="w">
+</span><span class="w">        </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">Exists</span><span class="w">
+</span><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">removeOSDsIfOutAndSafeToRemove</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">storage</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">useAllNodes</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">			</span><span class="c">#关闭使用所有Node</span><span class="w">
+</span><span class="w">    </span><span class="nt">useAllDevices</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">		</span><span class="c">#关闭使用所有设备</span><span class="w">
+</span><span class="w">    </span><span class="nt">deviceFilter</span><span class="p">:</span><span class="w"> </span><span class="l">vdb</span><span class="w">
+</span><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">metadataDevice</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">databaseSizeMB</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1024&#34;</span><span class="w">
+</span><span class="w">        </span><span class="nt">journalSizeMB</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1024&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;192.168.10.127&#34;</span><span class="w">	</span><span class="c">#指定存储节点主机</span><span class="w">
+</span><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">storeType</span><span class="p">:</span><span class="w"> </span><span class="l">bluestore	#指定类型为裸磁盘</span><span class="w">
+</span><span class="w">      </span><span class="nt">devices</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">			    </span><span class="c">#指定磁盘为sdb</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;192.168.10.128&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">storeType</span><span class="p">:</span><span class="w"> </span><span class="l">bluestore</span><span class="w">
+</span><span class="w">      </span><span class="nt">devices</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;192.168.10.129&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">storeType</span><span class="p">:</span><span class="w"> </span><span class="l">bluestore</span><span class="w">
+</span><span class="w">      </span><span class="nt">devices</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">disruptionManagement</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">managePodBudgets</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span><span class="nt">osdMaintenanceTimeout</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w">    </span><span class="nt">manageMachineDisruptionBudgets</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span><span class="nt">machineDisruptionBudgetNamespace</span><span class="p">:</span><span class="w"> </span><span class="l">openshift-machine-api</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><strong>提示：更多cluster的CRD配置参考：https://github.com/rook/rook/blob/master/Documentation/ceph-cluster-crd.md。</strong></p>
@@ -900,32 +900,32 @@ EOF
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>ceph.rook.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CephBlockPool<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>replicapool<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">failureDomain</span><span class="p">:</span><span class="w"> </span>host<span class="w">
-</span><span class="w">  </span><span class="k">replicated</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w"></span>---<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>storage.k8s.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>StorageClass<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rook-ceph-block<span class="w">
-</span><span class="w"></span><span class="k">provisioner</span><span class="p">:</span><span class="w"> </span>rook-ceph.rbd.csi.ceph.com<span class="w">
-</span><span class="w"></span><span class="k">parameters</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">clusterID</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">    </span><span class="k">pool</span><span class="p">:</span><span class="w"> </span>replicapool<span class="w">
-</span><span class="w">    </span><span class="k">imageFormat</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">imageFeatures</span><span class="p">:</span><span class="w"> </span>layering<span class="w">
-</span><span class="w">    </span><span class="k">csi.storage.k8s.io/provisioner-secret-name</span><span class="p">:</span><span class="w"> </span>rook-csi-rbd-provisioner<span class="w">
-</span><span class="w">    </span><span class="k">csi.storage.k8s.io/provisioner-secret-namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">    </span><span class="k">csi.storage.k8s.io/node-stage-secret-name</span><span class="p">:</span><span class="w"> </span>rook-csi-rbd-node<span class="w">
-</span><span class="w">    </span><span class="k">csi.storage.k8s.io/node-stage-secret-namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">    </span><span class="k">csi.storage.k8s.io/fstype</span><span class="p">:</span><span class="w"> </span>ext4<span class="w">
-</span><span class="w"></span><span class="k">reclaimPolicy</span><span class="p">:</span><span class="w"> </span>Delete<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephBlockPool</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">replicapool</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">failureDomain</span><span class="p">:</span><span class="w"> </span><span class="l">host</span><span class="w">
+</span><span class="w">  </span><span class="nt">replicated</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-block</span><span class="w">
+</span><span class="w"></span><span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph.rbd.csi.ceph.com</span><span class="w">
+</span><span class="w"></span><span class="nt">parameters</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">clusterID</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">    </span><span class="nt">pool</span><span class="p">:</span><span class="w"> </span><span class="l">replicapool</span><span class="w">
+</span><span class="w">    </span><span class="nt">imageFormat</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">imageFeatures</span><span class="p">:</span><span class="w"> </span><span class="l">layering</span><span class="w">
+</span><span class="w">    </span><span class="nt">csi.storage.k8s.io/provisioner-secret-name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-csi-rbd-provisioner</span><span class="w">
+</span><span class="w">    </span><span class="nt">csi.storage.k8s.io/provisioner-secret-namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">    </span><span class="nt">csi.storage.k8s.io/node-stage-secret-name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-csi-rbd-node</span><span class="w">
+</span><span class="w">    </span><span class="nt">csi.storage.k8s.io/node-stage-secret-namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">    </span><span class="nt">csi.storage.k8s.io/fstype</span><span class="p">:</span><span class="w"> </span><span class="l">ext4</span><span class="w">
+</span><span class="w"></span><span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Delete</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -962,18 +962,18 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolumeClaim<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>block-pvc<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- ReadWriteOnce<span class="w">
-</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>1Gi<span class="w">
-</span><span class="w">  </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>rook-ceph-block<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-pvc</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="l">ReadWriteOnce</span><span class="w">
+</span><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">1Gi</span><span class="w">
+</span><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-block</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1013,23 +1013,23 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rookpod01<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>OnFailure<span class="w">
-</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-container<span class="w">
-</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w">    </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>block-pvc<span class="w">
-</span><span class="w">      </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/var/test<span class="w">
-</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;echo &#34;Hello World&#34; &gt; /var/test/data; exit 0&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">  </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>block-pvc<span class="w">
-</span><span class="w">    </span><span class="k">persistentVolumeClaim</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">claimName</span><span class="p">:</span><span class="w"> </span>block-pvc<span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rookpod01</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">OnFailure</span><span class="w">
+</span><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">test-container</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-pvc</span><span class="w">
+</span><span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/test</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;echo &#34;Hello World&#34; &gt; /var/test/data; exit 0&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-pvc</span><span class="w">
+</span><span class="w">    </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">block-pvc</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1084,23 +1084,23 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rookpod02<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">restartPolicy</span><span class="p">:</span><span class="w"> </span>OnFailure<span class="w">
-</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>test-container<span class="w">
-</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>busybox<span class="w">
-</span><span class="w">    </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>block-pvc<span class="w">
-</span><span class="w">      </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/var/test<span class="w">
-</span><span class="w">    </span><span class="k">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cat /var/test/data; exit 0&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">  </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>block-pvc<span class="w">
-</span><span class="w">    </span><span class="k">persistentVolumeClaim</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">claimName</span><span class="p">:</span><span class="w"> </span>block-pvc<span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rookpod02</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">OnFailure</span><span class="w">
+</span><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">test-container</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-pvc</span><span class="w">
+</span><span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/test</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cat /var/test/data; exit 0&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-pvc</span><span class="w">
+</span><span class="w">    </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">block-pvc</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1150,30 +1150,30 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>ceph.rook.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CephObjectStore<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>my-store<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">metadataPool</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">failureDomain</span><span class="p">:</span><span class="w"> </span>host<span class="w">
-</span><span class="w">    </span><span class="k">replicated</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">  </span><span class="k">dataPool</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">failureDomain</span><span class="p">:</span><span class="w"> </span>host<span class="w">
-</span><span class="w">    </span><span class="k">replicated</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">  </span><span class="k">preservePoolsOnDelete</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">gateway</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>s3<span class="w">
-</span><span class="w">    </span><span class="k">sslCertificateRef</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w">    </span><span class="k">securePort</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="c">#must be int</span><span class="w">
-</span><span class="w">    </span><span class="k">instances</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span><span class="k">placement</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephObjectStore</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-store</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">metadataPool</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">failureDomain</span><span class="p">:</span><span class="w"> </span><span class="l">host</span><span class="w">
+</span><span class="w">    </span><span class="nt">replicated</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">  </span><span class="nt">dataPool</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">failureDomain</span><span class="p">:</span><span class="w"> </span><span class="l">host</span><span class="w">
+</span><span class="w">    </span><span class="nt">replicated</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">  </span><span class="nt">preservePoolsOnDelete</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">s3</span><span class="w">
+</span><span class="w">    </span><span class="nt">sslCertificateRef</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w">    </span><span class="nt">securePort</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="c">#must be int</span><span class="w">
+</span><span class="w">    </span><span class="nt">instances</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span><span class="nt">placement</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1185,11 +1185,11 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="p">[</span>root@k8smaster01<span class="w"> </span>ceph<span class="p">]</span><span class="c"># kubectl -n rook-ceph get pod -l app=rook-ceph-rgw	#部署完成会创建rgw的Pod</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="p">[</span><span class="l">root@k8smaster01 ceph]# kubectl -n rook-ceph get pod -l app=rook-ceph-rgw	#部署完成会创建rgw的Pod</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>NAME<span class="w">                                        </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE<span class="w">
+</span><span class="w"></span><span class="l">NAME                                        READY   STATUS    RESTARTS   AGE</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>rook-ceph-rgw-my-store-a-6bd6c797c4-7dzjr<span class="w">   </span><span class="m">1</span>/<span class="m">1</span><span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>19s<span class="w">
+</span><span class="w"></span><span class="l">rook-ceph-rgw-my-store-a-6bd6c797c4-7dzjr   1/1     Running   0          19s</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="42创建storageclass">4.2	创建StorageClass</h3>
@@ -1216,16 +1216,16 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>storage.k8s.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>StorageClass<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rook-ceph-delete-bucket<span class="w">
-</span><span class="w"></span><span class="k">provisioner</span><span class="p">:</span><span class="w"> </span>ceph.rook.io/bucket<span class="w">
-</span><span class="w"></span><span class="k">reclaimPolicy</span><span class="p">:</span><span class="w"> </span>Delete<span class="w">
-</span><span class="w"></span><span class="k">parameters</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">objectStoreName</span><span class="p">:</span><span class="w"> </span>my-store<span class="w">
-</span><span class="w">  </span><span class="k">objectStoreNamespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">region</span><span class="p">:</span><span class="w"> </span>us-east<span class="m">-1</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-delete-bucket</span><span class="w">
+</span><span class="w"></span><span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/bucket</span><span class="w">
+</span><span class="w"></span><span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Delete</span><span class="w">
+</span><span class="w"></span><span class="nt">parameters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">objectStoreName</span><span class="p">:</span><span class="w"> </span><span class="l">my-store</span><span class="w">
+</span><span class="w">  </span><span class="nt">objectStoreNamespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l">us-east-1</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1258,13 +1258,13 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>objectbucket.io/v1alpha1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>ObjectBucketClaim<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>ceph-delete-bucket<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">generateBucketName</span><span class="p">:</span><span class="w"> </span>ceph-bkt<span class="w">
-</span><span class="w">  </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>rook-ceph-delete-bucket<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">objectbucket.io/v1alpha1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ObjectBucketClaim</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-delete-bucket</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">generateBucketName</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-bkt</span><span class="w">
+</span><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-delete-bucket</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="44设置对象存储访问信息">4.4	设置对象存储访问信息</h3>
@@ -1387,52 +1387,52 @@ rook-ceph-rgw-my-store   ClusterIP   10.102.165.187   &lt;none&gt;        80/TCP
 </span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>ceph.rook.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CephFilesystem<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>myfs<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">metadataPool</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">replicated</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">      </span><span class="k">requireSafeReplicaSize</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">    </span><span class="k">parameters</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">compression_mode</span><span class="p">:</span><span class="w"> </span>none<span class="w">
-</span><span class="w">  </span><span class="k">dataPools</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">failureDomain</span><span class="p">:</span><span class="w"> </span>host<span class="w">
-</span><span class="w">      </span><span class="k">replicated</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">        </span><span class="k">requireSafeReplicaSize</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">      </span><span class="k">parameters</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">compression_mode</span><span class="p">:</span><span class="w"> </span>none<span class="w">
-</span><span class="w">  </span><span class="k">preservePoolsOnDelete</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">metadataServer</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">activeCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span><span class="k">activeStandby</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">    </span><span class="k">placement</span><span class="p">:</span><span class="w">
-</span><span class="w">       </span><span class="k">podAntiAffinity</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>- <span class="k">labelSelector</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span><span class="k">matchExpressions</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>app<span class="w">
-</span><span class="w">                </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
-</span><span class="w">                </span><span class="k">values</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- rook-ceph-mds<span class="w">
-</span><span class="w">            </span><span class="k">topologyKey</span><span class="p">:</span><span class="w"> </span>kubernetes.io/hostname<span class="w">
-</span><span class="w">          </span><span class="k">preferredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span>- <span class="k">weight</span><span class="p">:</span><span class="w"> </span><span class="m">100</span><span class="w">
-</span><span class="w">            </span><span class="k">podAffinityTerm</span><span class="p">:</span><span class="w">
-</span><span class="w">              </span><span class="k">labelSelector</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span><span class="k">matchExpressions</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="k">key</span><span class="p">:</span><span class="w"> </span>app<span class="w">
-</span><span class="w">                  </span><span class="k">operator</span><span class="p">:</span><span class="w"> </span>In<span class="w">
-</span><span class="w">                  </span><span class="k">values</span><span class="p">:</span><span class="w">
-</span><span class="w">                  </span>- rook-ceph-mds<span class="w">
-</span><span class="w">              </span><span class="k">topologyKey</span><span class="p">:</span><span class="w"> </span>topology.kubernetes.io/zone<span class="w">
-</span><span class="w">    </span><span class="k">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">resources</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephFilesystem</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">myfs</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">metadataPool</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">replicated</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">      </span><span class="nt">requireSafeReplicaSize</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">parameters</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">compression_mode</span><span class="p">:</span><span class="w"> </span><span class="l">none</span><span class="w">
+</span><span class="w">  </span><span class="nt">dataPools</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">failureDomain</span><span class="p">:</span><span class="w"> </span><span class="l">host</span><span class="w">
+</span><span class="w">      </span><span class="nt">replicated</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">        </span><span class="nt">requireSafeReplicaSize</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span><span class="nt">parameters</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">compression_mode</span><span class="p">:</span><span class="w"> </span><span class="l">none</span><span class="w">
+</span><span class="w">  </span><span class="nt">preservePoolsOnDelete</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">metadataServer</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">activeCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span><span class="nt">activeStandby</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">placement</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span><span class="nt">podAntiAffinity</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">labelSelector</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">app</span><span class="w">
+</span><span class="w">                </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span><span class="w">                </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span><span class="w">                </span>- <span class="l">rook-ceph-mds</span><span class="w">
+</span><span class="w">            </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes.io/hostname</span><span class="w">
+</span><span class="w">          </span><span class="nt">preferredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="m">100</span><span class="w">
+</span><span class="w">            </span><span class="nt">podAffinityTerm</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="nt">labelSelector</span><span class="p">:</span><span class="w">
+</span><span class="w">                </span><span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span><span class="w">                </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">app</span><span class="w">
+</span><span class="w">                  </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span><span class="w">                  </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span><span class="w">                  </span>- <span class="l">rook-ceph-mds</span><span class="w">
+</span><span class="w">              </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="l">topology.kubernetes.io/zone</span><span class="w">
+</span><span class="w">    </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1478,24 +1478,24 @@ myfs   <span class="m">1</span>           27s
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>storage.k8s.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>StorageClass<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rook-cephfs<span class="w">
-</span><span class="w"></span><span class="k">provisioner</span><span class="p">:</span><span class="w"> </span>rook-ceph.cephfs.csi.ceph.com<span class="w">
-</span><span class="w"></span><span class="k">parameters</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">clusterID</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">fsName</span><span class="p">:</span><span class="w"> </span>myfs<span class="w">
-</span><span class="w">  </span><span class="k">pool</span><span class="p">:</span><span class="w"> </span>myfs-data0<span class="w">
-</span><span class="w">  </span><span class="k">csi.storage.k8s.io/provisioner-secret-name</span><span class="p">:</span><span class="w"> </span>rook-csi-cephfs-provisioner<span class="w">
-</span><span class="w">  </span><span class="k">csi.storage.k8s.io/provisioner-secret-namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">csi.storage.k8s.io/controller-expand-secret-name</span><span class="p">:</span><span class="w"> </span>rook-csi-cephfs-provisioner<span class="w">
-</span><span class="w">  </span><span class="k">csi.storage.k8s.io/controller-expand-secret-namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">csi.storage.k8s.io/node-stage-secret-name</span><span class="p">:</span><span class="w"> </span>rook-csi-cephfs-node<span class="w">
-</span><span class="w">  </span><span class="k">csi.storage.k8s.io/node-stage-secret-namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w"></span><span class="k">reclaimPolicy</span><span class="p">:</span><span class="w"> </span>Delete<span class="w">
-</span><span class="w"></span><span class="k">allowVolumeExpansion</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w"></span><span class="k">mountOptions</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-cephfs</span><span class="w">
+</span><span class="w"></span><span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph.cephfs.csi.ceph.com</span><span class="w">
+</span><span class="w"></span><span class="nt">parameters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">clusterID</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">fsName</span><span class="p">:</span><span class="w"> </span><span class="l">myfs</span><span class="w">
+</span><span class="w">  </span><span class="nt">pool</span><span class="p">:</span><span class="w"> </span><span class="l">myfs-data0</span><span class="w">
+</span><span class="w">  </span><span class="nt">csi.storage.k8s.io/provisioner-secret-name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-csi-cephfs-provisioner</span><span class="w">
+</span><span class="w">  </span><span class="nt">csi.storage.k8s.io/provisioner-secret-namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">csi.storage.k8s.io/controller-expand-secret-name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-csi-cephfs-provisioner</span><span class="w">
+</span><span class="w">  </span><span class="nt">csi.storage.k8s.io/controller-expand-secret-namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">csi.storage.k8s.io/node-stage-secret-name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-csi-cephfs-node</span><span class="w">
+</span><span class="w">  </span><span class="nt">csi.storage.k8s.io/node-stage-secret-namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w"></span><span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Delete</span><span class="w">
+</span><span class="w"></span><span class="nt">allowVolumeExpansion</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w"></span><span class="nt">mountOptions</span><span class="p">:</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -1532,17 +1532,17 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>PersistentVolumeClaim<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cephfs-pvc<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">storageClassName</span><span class="p">:</span><span class="w"> </span>csi-cephfs<span class="w">
-</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- ReadWriteOnce<span class="w">
-</span><span class="w">  </span><span class="k">resources</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">requests</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">storage</span><span class="p">:</span><span class="w"> </span>200Mi<span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cephfs-pvc</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">csi-cephfs</span><span class="w">
+</span><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="l">ReadWriteOnce</span><span class="w">
+</span><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">200Mi</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1585,23 +1585,23 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">---<span class="w">
-</span><span class="w"></span><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Pod<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>csicephfs-demo-pod<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>web-server<span class="w">
-</span><span class="w">     </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>nginx<span class="w">
-</span><span class="w">     </span><span class="k">volumeMounts</span><span class="p">:</span><span class="w">
-</span><span class="w">       </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>mypvc<span class="w">
-</span><span class="w">         </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/var/lib/www/html<span class="w">
-</span><span class="w">  </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>mypvc<span class="w">
-</span><span class="w">     </span><span class="k">persistentVolumeClaim</span><span class="p">:</span><span class="w">
-</span><span class="w">       </span><span class="k">claimName</span><span class="p">:</span><span class="w"> </span>cephfs-pvc<span class="w">
-</span><span class="w">       </span><span class="k">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">csicephfs-demo-pod</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">web-server</span><span class="w">
+</span><span class="w">     </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
+</span><span class="w">     </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">mypvc</span><span class="w">
+</span><span class="w">         </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/www/html</span><span class="w">
+</span><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">mypvc</span><span class="w">
+</span><span class="w">     </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">
+</span><span class="w">       </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">cephfs-pvc</span><span class="w">
+</span><span class="w">       </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1659,25 +1659,25 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Service<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rook-ceph-mgr-dashboard-external-https<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>rook-ceph-mgr<span class="w">
-</span><span class="w">    </span><span class="k">rook_cluster</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>dashboard<span class="w">
-</span><span class="w">    </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">8443</span><span class="w">
-</span><span class="w">    </span><span class="k">protocol</span><span class="p">:</span><span class="w"> </span>TCP<span class="w">
-</span><span class="w">    </span><span class="k">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">8443</span><span class="w">
-</span><span class="w">  </span><span class="k">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">app</span><span class="p">:</span><span class="w"> </span>rook-ceph-mgr<span class="w">
-</span><span class="w">    </span><span class="k">rook_cluster</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">sessionAffinity</span><span class="p">:</span><span class="w"> </span>None<span class="w">
-</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>NodePort<span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-mgr-dashboard-external-https</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-mgr</span><span class="w">
+</span><span class="w">    </span><span class="nt">rook_cluster</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dashboard</span><span class="w">
+</span><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8443</span><span class="w">
+</span><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">TCP</span><span class="w">
+</span><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">8443</span><span class="w">
+</span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-mgr</span><span class="w">
+</span><span class="w">    </span><span class="nt">rook_cluster</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">sessionAffinity</span><span class="p">:</span><span class="w"> </span><span class="l">None</span><span class="w">
+</span><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="62部署ingress-svc">6.2	部署ingress-svc</h3>
@@ -1707,28 +1707,28 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>extensions/v1beta1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Ingress<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>rook-ceph-mgr-dashboard<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
-</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.tls</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span>websecure<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w">
-</span><span class="w">   </span>- <span class="k">hosts</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- rook-ceph.xiebiao.top<span class="w">
-</span><span class="w">     </span><span class="k">secretName</span><span class="p">:</span><span class="w"> </span>cloud-xiebiao-tls<span class="w">
-</span><span class="w">  </span><span class="k">rules</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>rook-ceph.xiebiao.top<span class="w">
-</span><span class="w">    </span><span class="k">http</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">path</span><span class="p">:</span><span class="w"> </span>/<span class="w">
-</span><span class="w">        </span><span class="k">backend</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="k">serviceName</span><span class="p">:</span><span class="w"> </span>rook-ceph-mgr-dashboard<span class="w">
-</span><span class="w">          </span><span class="k">servicePort</span><span class="p">:</span><span class="w"> </span>https-dashboard<span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-mgr-dashboard</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="l">traefik</span><span class="w">
+</span><span class="w">    </span><span class="nt">traefik.ingress.kubernetes.io/router.tls</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span><span class="l">websecure</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">   </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="l">rook-ceph.xiebiao.top</span><span class="w">
+</span><span class="w">     </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">cloud-xiebiao-tls</span><span class="w">
+</span><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph.xiebiao.top</span><span class="w">
+</span><span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span><span class="w">        </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">serviceName</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-mgr-dashboard</span><span class="w">
+</span><span class="w">          </span><span class="nt">servicePort</span><span class="p">:</span><span class="w"> </span><span class="l">https-dashboard</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1830,16 +1830,16 @@ data:
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>ceph.rook.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>CephBlockPool<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>replicapool2<span class="w">
-</span><span class="w">  </span><span class="k">namespace</span><span class="p">:</span><span class="w"> </span>rook-ceph<span class="w">
-</span><span class="w"></span><span class="k">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">failureDomain</span><span class="p">:</span><span class="w"> </span>host<span class="w">
-</span><span class="w">  </span><span class="k">replicated</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephBlockPool</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">replicapool2</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">failureDomain</span><span class="p">:</span><span class="w"> </span><span class="l">host</span><span class="w">
+</span><span class="w">  </span><span class="nt">replicated</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="73删除pool">7.3	删除Pool</h3>
@@ -1927,13 +1927,13 @@ data:
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">……<span class="w">
-</span><span class="w">    </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;k8smaster01&#34;</span><span class="w">
-</span><span class="w">      </span><span class="k">config</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">storeType</span><span class="p">:</span><span class="w"> </span>bluestore<span class="w">
-</span><span class="w">      </span><span class="k">devices</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">
-</span><span class="w"></span>……<span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">……</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;k8smaster01&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">storeType</span><span class="p">:</span><span class="w"> </span><span class="l">bluestore</span><span class="w">
+</span><span class="w">      </span><span class="nt">devices</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;vdb&#34;</span><span class="w">
+</span><span class="w"></span><span class="l">……</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110926113-409600846.png"><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110926395-1082056006.png" alt="clipboard"></a></p>
@@ -1965,11 +1965,11 @@ data:
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-08-05 19:17
         
@@ -1977,22 +1977,22 @@ data:
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -2005,11 +2005,11 @@ data:
         <a class="prev" href="/post/log/helm_loki_prometheus_oper/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">HELM部署轻量级日志系统Loki以及Prometheus-Operator</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/cicd/helm_jenkins_ops/">
             <span class="next-text nav-default">jenkins helm安装最佳实践</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -2037,18 +2037,18 @@ data:
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

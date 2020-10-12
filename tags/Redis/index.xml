@@ -6,11 +6,7 @@
     <description>Recent content in Redis on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2020 19:01:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/Redis/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 13 Aug 2020 19:01:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/Redis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>redis集群性能调优</title>
       <link>https://xiebiao.top/post/performance/k8s_redis_perf/</link>

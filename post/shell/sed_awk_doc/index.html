@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/shell/sed_awk_doc/" />
@@ -50,7 +50,7 @@
 <meta itemprop="description" content="awk、grep、sed是linux操作文本的三大利器，合称文本三剑客，也是必须掌握的linux命令之一。三者的功能都是处理文本，但侧重点各">
 <meta itemprop="datePublished" content="2020-08-17T21:01:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-17T21:01:30+00:00" />
-<meta itemprop="wordCount" content="10876">
+<meta itemprop="wordCount" content="10874">
 
 
 
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/shell/"> shell </a>
             </div>
-          <span class="more-meta"> 约 10876 字 </span>
-          <span class="more-meta"> 预计阅读 22 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
@@ -419,7 +419,7 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo</span> 
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo </span>
 aaa
 bbbb
 AABBCCDD
@@ -434,7 +434,7 @@ aaa
 Aaa
 Bbbb
 AABBCCDD
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat sedscript.txt</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat sedscript.txt </span>
 s/A/a/g
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># sed -f sedscript.txt demo  #-f使用文件处理</span>
 aaa
@@ -587,7 +587,7 @@ bbbb
 <span class="m">123</span>
 <span class="m">456</span>
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># sed -n &#34;3w/root/demo3&#34; demo  #保存第3行的内容到demo3文件中</span>
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo3</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo3 </span>
 AABBCCDD
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># sed &#34;1r/root/demo3&#34; demo  #读取demo3的内容到第1行后</span>
 aaa
@@ -634,7 +634,7 @@ AABBCCDD
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat num.txt</span> 
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat num.txt </span>
 One
 Two
 Three
@@ -771,7 +771,7 @@ One
 
 ③ 显示奇数行
 
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># seq 9 |sed &#39;H;n;d&#39;</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># seq 9 |sed &#39;H;n;d&#39; </span>
 <span class="m">1</span>
 <span class="m">3</span>
 <span class="m">5</span>
@@ -936,7 +936,7 @@ awk [options] &lsquo;BEGIN{ action;… } pattern{ action;… } END{ action;… }
 </span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat awkdemo</span> 
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat awkdemo </span>
 hello:world
 linux:redhat:lalala:hahaha
 along:love:youou
@@ -1463,11 +1463,11 @@ Common user: along
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># df -h|awk -F% &#39;/^/dev/{print $1}&#39;|awk &#39;$NF &gt; 40{print $1,$NF}&#39;</span>
 /dev/mapper/cl-root <span class="m">43</span>
 ---test<span class="o">=</span>100和&gt;90为very good<span class="p">;</span> 90&gt;test&gt;60为good<span class="p">;</span> test&lt;60为no pass
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{ test=100;if(test&gt;90){print &#34;very good&#34;}else if(test&gt;60){ print &#34;good&#34;}else{print &#34;no pass&#34;}}&#39;</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{ test=100;if(test&gt;90){print &#34;very good&#34;}else if(test&gt;60){ print &#34;good&#34;}else{print &#34;no pass&#34;}}&#39; </span>
 very good
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{ test=80;if(test&gt;90){print &#34;very good&#34;}else if(test&gt;60){ print &#34;good&#34;}else{print &#34;no pass&#34;}}&#39;</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{ test=80;if(test&gt;90){print &#34;very good&#34;}else if(test&gt;60){ print &#34;good&#34;}else{print &#34;no pass&#34;}}&#39; </span>
 good
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{ test=50;if(test&gt;90){print &#34;very good&#34;}else if(test&gt;60){ print &#34;good&#34;}else{print &#34;no pass&#34;}}&#39;</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{ test=50;if(test&gt;90){print &#34;very good&#34;}else if(test&gt;60){ print &#34;good&#34;}else{print &#34;no pass&#34;}}&#39; </span>
 no pass
 </code></pre></td></tr></table>
 </div>
@@ -1575,7 +1575,7 @@ along <span class="m">5</span>
 love <span class="m">4</span>
 you <span class="m">3</span>
 ---求男m、女f各自的平均
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat sort.txt</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat sort.txt </span>
 xiaoming m <span class="m">90</span>
 xiaohong f <span class="m">93</span>
 xiaohei m <span class="m">80</span>
@@ -1806,19 +1806,19 @@ bbbb <span class="m">1</span>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat fun.awk</span> 
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat fun.awk </span>
 <span class="k">function</span> max<span class="o">(</span>v1,v2<span class="o">)</span> <span class="o">{</span>
 	v1&gt;v2?var<span class="o">=</span>v1:var<span class="o">=</span>v2
 	<span class="k">return</span> var
 <span class="o">}</span>
 BEGIN<span class="o">{</span><span class="nv">a</span><span class="o">=</span>3<span class="p">;</span><span class="nv">b</span><span class="o">=</span>2<span class="p">;</span>print max<span class="o">(</span>a,b<span class="o">)}</span>
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -f fun.awk</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -f fun.awk </span>
 <span class="m">3</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="58-awk中调用shell-命令"><strong>5.8 awk中调用shell 命令</strong></h3>
 <p>（1）system 命令</p>
-<p>　　空格是awk 中的字符串连接符，如果system中需要使用awk中的变量可以使用空格分隔，或者说除了awk 的变量外其他一律用&rdquo;&rdquo; 引用 起来。</p>
+<p>　　空格是awk 中的字符串连接符，如果system中需要使用awk中的变量可以使用空格分隔，或者说除了awk 的变量外其他一律用&quot;&quot; 引用 起来。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -1852,9 +1852,9 @@ your score is <span class="m">100</span>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat f1.awk</span> 
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat f1.awk </span>
 <span class="o">{</span><span class="k">if</span><span class="o">(</span><span class="nv">$3</span>&gt;<span class="o">=</span>1000<span class="o">)</span>print <span class="nv">$1</span>,<span class="nv">$3</span><span class="o">}</span>
-<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat f2.awk</span> 
+<span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat f2.awk </span>
 <span class="c1">#!/bin/awk -f</span>
 <span class="o">{</span><span class="k">if</span><span class="o">(</span><span class="nv">$3</span> &gt;<span class="o">=</span> 1000<span class="o">)</span>print <span class="nv">$1</span>,<span class="nv">$3</span><span class="o">}</span>
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># chmod +x f2.awk</span>
@@ -1901,11 +1901,11 @@ systemd-network 192
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-08-17 21:01
         
@@ -1913,22 +1913,22 @@ systemd-network 192
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -1940,11 +1940,11 @@ systemd-network 192
         <a class="prev" href="/post/go/go-cheat-sheet/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">go备忘清单笔记</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/shell/shell_book/">
             <span class="next-text nav-default">Shell脚本学习</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -1972,18 +1972,18 @@ systemd-network 192
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

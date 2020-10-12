@@ -6,11 +6,7 @@
     <description>Recent content in rabbitmq on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 17 May 2020 20:03:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 17 May 2020 20:03:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>rabbitmq消息中间件部署</title>
       <link>https://xiebiao.top/post/middleware/rabbitmq_ops/</link>

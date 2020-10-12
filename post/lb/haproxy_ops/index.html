@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/lb/haproxy_ops/" />
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/lb/"> lb </a>
             </div>
-          <span class="more-meta"> 约 3457 字 </span>
-          <span class="more-meta"> 预计阅读 7 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
@@ -400,7 +400,7 @@ frontend web <span class="c1">#前端配置</span>
     default_backend app
 backend app
     option httpchk GET /index.html <span class="c1">#设置健康检查页面</span>
-    option forwardfor header X-Forwarded-For <span class="c1">#传递客户端真实IP</span> 
+    option forwardfor header X-Forwarded-For <span class="c1">#传递客户端真实IP </span>
     balance     roundrobin
     server  app1 172.26.61.52:80 check
     server  app2 172.26.61.53:80 check
@@ -416,8 +416,8 @@ backend app
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#vi /etc/rsyslog.conf</span>  
-<span class="c1">#去掉下面两行前面的#号</span> 
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#vi /etc/rsyslog.conf  </span>
+<span class="c1">#去掉下面两行前面的#号 </span>
 <span class="nv">$ModLoad</span> imudp
 <span class="nv">$UDPServerRun514</span>
 </code></pre></td></tr></table>
@@ -430,7 +430,7 @@ backend app
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#vi /etc/rsyslog.d/haproxy.conf</span> 
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#vi /etc/rsyslog.d/haproxy.conf </span>
 local2.<span class="o">=</span>info     /var/log/haproxy-access.log    <span class="c1"># 访问日志</span>
 local2.notice    /var/log/haproxy-info.log      <span class="c1"># haproxy执行信息</span>
 </code></pre></td></tr></table>
@@ -623,11 +623,11 @@ stats admin { if | unless } &lt;cond&gt; 启用stats page中的管理功能
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-02-19 20:21
         
@@ -635,22 +635,22 @@ stats admin { if | unless } &lt;cond&gt; 启用stats page中的管理功能
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -662,11 +662,11 @@ stats admin { if | unless } &lt;cond&gt; 启用stats page中的管理功能
         <a class="prev" href="/post/cdn/bbr_centos_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">centos7/8开启bbr加速</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/cdn/varish_ops/">
             <span class="next-text nav-default">varnish高速CDN部署与管理</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -694,18 +694,18 @@ stats admin { if | unless } &lt;cond&gt; 启用stats page中的管理功能
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

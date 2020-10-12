@@ -6,11 +6,7 @@
     <description>Recent content in log on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 11 Aug 2020 20:08:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/categories/log/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 11 Aug 2020 20:08:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/categories/log/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HELM部署轻量级日志系统Loki以及Prometheus-Operator</title>
       <link>https://xiebiao.top/post/log/helm_loki_prometheus_oper/</link>

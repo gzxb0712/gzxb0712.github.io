@@ -6,11 +6,7 @@
     <description>Recent content in traefik on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 21 Jul 2020 21:09:30 +0000</lastBuildDate>
-    
-	<atom:link href="https://xiebiao.top/tags/traefik/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 21 Jul 2020 21:09:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/traefik/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>k8s部署 Ingress 控制器 traefik 2.2.x教程</title>
       <link>https://xiebiao.top/post/cloud/traefik_2.2.8_deploy/</link>

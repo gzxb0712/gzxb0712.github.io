@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/log/elk_centos7_install/" />
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/log/"> log </a>
             </div>
-          <span class="more-meta"> 约 2655 字 </span>
-          <span class="more-meta"> 预计阅读 6 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
@@ -294,80 +294,80 @@ yum install filebeat-6.8.9-x86_64.rpm -y</p>
 </span><span class="lnt">74
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">filebeat.yml<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="l">filebeat.yml</span><span class="w">
 </span><span class="w"></span><span class="c">#=========================== Filebeat prospectors =============================</span><span class="w">
-</span><span class="w"></span><span class="k">filebeat.prospectors</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nt">filebeat.prospectors</span><span class="p">:</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- /data/logs/<span class="cp">*login*.log</span><span class="w">
+</span><span class="w"></span>- <span class="nt">input_type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">/data/logs/*login*.log</span><span class="w">
 </span><span class="w">  </span><span class="c">#tags: [&#34;web&#34;]   #添加自定义tag，便于后续的处理</span><span class="w">
-</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>login-access<span class="w">   </span><span class="c">#新增字段，用于后续处理</span><span class="w">
+</span><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">log_source</span><span class="p">:</span><span class="w"> </span><span class="l">login-access  </span><span class="w"> </span><span class="c">#新增字段，用于后续处理</span><span class="w">
 </span><span class="w">  </span><span class="c">#fields_under_root: true #true为添加到根节点，false为添加到子节点中 </span><span class="w">
-</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">             </span><span class="c">#配置从文件最后位置开始读取  </span><span class="w">
+</span><span class="w">  </span><span class="nt">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">             </span><span class="c">#配置从文件最后位置开始读取  </span><span class="w">
 </span><span class="w">    
-</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- /data/logs/admin/<span class="cp">*/loginError*.log</span><span class="w">
-</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>login-error<span class="w">
-</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">             
+</span><span class="w"></span>- <span class="nt">input_type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="l">/data/logs/admin/*/loginError*.log</span><span class="w">
+</span><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">log_source</span><span class="p">:</span><span class="w"> </span><span class="l">login-error</span><span class="w">
+</span><span class="w">  </span><span class="nt">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">             
 </span><span class="w">
-</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- /data/mysql/var_330<span class="cp">*/*.err</span><span class="w">
-</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>mysql-error<span class="w">
-</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w"></span>- <span class="nt">input_type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="l">/data/mysql/var_330*/*.err</span><span class="w">
+</span><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">log_source</span><span class="p">:</span><span class="w"> </span><span class="l">mysql-error</span><span class="w">
+</span><span class="w">  </span><span class="nt">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- /data/mysql/var_330<span class="cp">*/*slow.log</span><span class="w">
-</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>mysql-slow<span class="w">
-</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^# User@Host:&#39;</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
-</span><span class="w">  </span><span class="k">multiline.timeout</span><span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w"></span>- <span class="nt">input_type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="l">/data/mysql/var_330*/*slow.log</span><span class="w">
+</span><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">log_source</span><span class="p">:</span><span class="w"> </span><span class="l">mysql-slow</span><span class="w">
+</span><span class="w">  </span><span class="nt">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^# User@Host:&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.timeout</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- /var/log/php_error.log<span class="w">
-</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>php-error<span class="w">
-</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^\[&#39;</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
-</span><span class="w">  </span><span class="k">multiline.timeout</span><span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w"></span>- <span class="nt">input_type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="l">/var/log/php_error.log</span><span class="w">
+</span><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">log_source</span><span class="p">:</span><span class="w"> </span><span class="l">php-error</span><span class="w">
+</span><span class="w">  </span><span class="nt">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^\[&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.timeout</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>- <span class="k">input_type</span><span class="p">:</span><span class="w"> </span>log<span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">     </span>- /data/wzzgsy_server/<span class="cp">*/logs/*.log</span><span class="w">
-</span><span class="w">  </span><span class="k">fields</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">log_source</span><span class="p">:</span><span class="w"> </span>erl-error<span class="w">
-</span><span class="w">  </span><span class="k">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^=&#39;</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">multiline.match</span><span class="p">:</span><span class="w"> </span>after<span class="w">
-</span><span class="w">  </span><span class="k">multiline.timeout</span><span class="p">:</span><span class="w"> </span>10s<span class="w">
+</span><span class="w"></span>- <span class="nt">input_type</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span><span class="w">     </span>- <span class="l">/data/wzzgsy_server/*/logs/*.log</span><span class="w">
+</span><span class="w">  </span><span class="nt">fields</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">log_source</span><span class="p">:</span><span class="w"> </span><span class="l">erl-error</span><span class="w">
+</span><span class="w">  </span><span class="nt">tail_files</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.pattern</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;^=&#39;</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.negate</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.match</span><span class="p">:</span><span class="w"> </span><span class="l">after</span><span class="w">
+</span><span class="w">  </span><span class="nt">multiline.timeout</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
 </span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c">#-------------------------- reids output ------------------------------</span><span class="w">
-</span><span class="w"></span><span class="k">output.redis</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;43.24x.3.1x5:8089&#34;</span><span class="p">]</span><span class="w">
-</span><span class="w">    </span><span class="k">password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;kyrd#808xxx0&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">key</span><span class="p">:</span><span class="w"> </span>ky_filebeat<span class="w">
-</span><span class="w">    </span><span class="k">timeout</span><span class="p">:</span><span class="w"> </span>5s<span class="w">
-</span><span class="w">    </span><span class="k">max_retries</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w"></span><span class="nt">output.redis</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;43.24x.3.1x5:8089&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;kyrd#808xxx0&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">ky_filebeat</span><span class="w">
+</span><span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span><span class="w">    </span><span class="nt">max_retries</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1054,11 +1054,11 @@ net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span> <span clas
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-05-06 22:11
         
@@ -1066,22 +1066,22 @@ net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span> <span clas
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -1093,11 +1093,11 @@ net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span> <span clas
         <a class="prev" href="/post/log/log-pilot_elasticsearch_kibana_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/log/k8s_efk_install/">
             <span class="next-text nav-default">K8s 上搭建 EFK 日志系统</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -1125,18 +1125,18 @@ net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span> <span clas
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

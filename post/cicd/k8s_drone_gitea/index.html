@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.74.3 with theme even" />
+<meta name="generator" content="Hugo 0.76.3 with theme even" />
 
 
 <link rel="canonical" href="https://xiebiao.top/post/cicd/k8s_drone_gitea/" />
@@ -50,7 +50,7 @@
 <meta itemprop="description" content="实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。 首先，配置 he">
 <meta itemprop="datePublished" content="2020-08-02T21:03:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-02T21:03:30+00:00" />
-<meta itemprop="wordCount" content="1408">
+<meta itemprop="wordCount" content="1255">
 
 
 
@@ -131,14 +131,14 @@
         <div class="post-category">
             <a href="/categories/cicd/"> cicd </a>
             </div>
-          <span class="more-meta"> 约 1408 字 </span>
-          <span class="more-meta"> 预计阅读 3 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+          <span class="more-meta">  </span>
+          <span class="more-meta">  </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> %!(EXTRA string=<span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       </div>
     </header>
 
     <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
+  <h2 class="post-toc-title"></h2>
   <div class="post-toc-content">
     <nav id="TableOfContents"></nav>
   </div>
@@ -169,10 +169,10 @@ kubectl create ns drone
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>Namespace<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cicd<span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cicd</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>cat ../storageclass/nfs-storageclass.yaml</p>
@@ -187,13 +187,13 @@ kubectl create ns drone
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">apiVersion</span><span class="p">:</span><span class="w"> </span>storage.k8s.io/v1<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>StorageClass<span class="w">
-</span><span class="w"></span><span class="k">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">name</span><span class="p">:</span><span class="w"> </span>cicd-nfs-storage<span class="w">
-</span><span class="w"></span><span class="k">provisioner</span><span class="p">:</span><span class="w"> </span>nfs-provisioner<span class="m">-01</span><span class="w">    </span><span class="c">#---动态卷分配应用设置的名称，必须和集群中的&#34;nfs-provisioner&#34;应用设置的变量名称保持一致</span><span class="w">
-</span><span class="w"></span><span class="k">parameters</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">archiveOnDelete</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">  </span><span class="c">#---设置为&#34;false&#34;时删除PVC不会保留数据,&#34;true&#34;则保留数据</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cicd-nfs-storage</span><span class="w">
+</span><span class="w"></span><span class="nt">provisioner</span><span class="p">:</span><span class="w"> </span><span class="l">nfs-provisioner-01   </span><span class="w"> </span><span class="c">#---动态卷分配应用设置的名称，必须和集群中的&#34;nfs-provisioner&#34;应用设置的变量名称保持一致</span><span class="w">
+</span><span class="w"></span><span class="nt">parameters</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">archiveOnDelete</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">  </span><span class="c">#---设置为&#34;false&#34;时删除PVC不会保留数据,&#34;true&#34;则保留数据</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>参考 drone 的文档，编写 drone-values.yml:</p>
@@ -256,61 +256,61 @@ kubectl create ns drone
 </span><span class="lnt">55
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">image</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">repository</span><span class="p">:</span><span class="w"> </span>drone/drone<span class="w">
-</span><span class="w">  </span><span class="k">tag</span><span class="p">:</span><span class="w"> </span><span class="m">1.9.0</span><span class="w">
-</span><span class="w">  </span><span class="k">pullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
-</span><span class="w"></span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">nameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
-</span><span class="w"></span><span class="k">fullnameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
-</span><span class="w"></span><span class="k">automountServiceAccountToken</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w"></span><span class="k">podSecurityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">securityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">podAnnotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">updateStrategy</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">service</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>ClusterIP<span class="w">
-</span><span class="w">  </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span><span class="w"></span><span class="k">ingress</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span>traefik<span class="w">
-</span><span class="w">    </span><span class="k">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span>web<span class="w">  
-</span><span class="w">  </span><span class="k">hosts</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>drone.xiebiao.top<span class="w">
-</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">image</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l">drone/drone</span><span class="w">
+</span><span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="m">1.9.0</span><span class="w">
+</span><span class="w">  </span><span class="nt">pullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span><span class="w"></span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">nameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">fullnameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">automountServiceAccountToken</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w"></span><span class="nt">podSecurityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">podAnnotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">updateStrategy</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterIP</span><span class="w">
+</span><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span><span class="w"></span><span class="nt">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="l">traefik</span><span class="w">
+</span><span class="w">    </span><span class="nt">traefik.ingress.kubernetes.io/router.entrypoints</span><span class="p">:</span><span class="w"> </span><span class="l">web  </span><span class="w">
+</span><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">drone.xiebiao.top</span><span class="w">
+</span><span class="w">      </span><span class="nt">paths</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span>- <span class="s2">&#34;/&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">resources</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">nodeSelector</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">affinity</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">persistentVolume</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">accessModes</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- ReadWriteOnce<span class="w">
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w">  </span><span class="k">existingClaim</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">mountPath</span><span class="p">:</span><span class="w"> </span>/data<span class="w">
-</span><span class="w">  </span><span class="k">size</span><span class="p">:</span><span class="w"> </span>8Gi<span class="w">
-</span><span class="w">  </span><span class="k">storageClass</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cicd-nfs-storage&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">volumeMode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">subPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
-</span><span class="w"></span><span class="k">emptyDir</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">sizeLimit</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
-</span><span class="w"></span><span class="k">extraSecretNamesForEnvFrom</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">DRONE_SERVER_HOST</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;drone.xiebiao.top&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">DRONE_SERVER_PROTO</span><span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span>9RMo7AGxyEx46erk123<span class="w">
+</span><span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">affinity</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">persistentVolume</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">ReadWriteOnce</span><span class="w">
+</span><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">  </span><span class="nt">existingClaim</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/data</span><span class="w">
+</span><span class="w">  </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l">8Gi</span><span class="w">
+</span><span class="w">  </span><span class="nt">storageClass</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cicd-nfs-storage&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">volumeMode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">emptyDir</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">sizeLimit</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">extraSecretNamesForEnvFrom</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_SERVER_HOST</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;drone.xiebiao.top&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_SERVER_PROTO</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span><span class="l">9RMo7AGxyEx46erk123</span><span class="w">
 </span><span class="w">  </span><span class="c">## gitea上面创建一个新的outh2认证</span><span class="w">
-</span><span class="w">  </span><span class="k">DRONE_GITEA_CLIENT_ID</span><span class="p">:</span><span class="w"> </span>8a5c6c17-c1f5-4ab5-aff0-084ff61298b0<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_GITEA_CLIENT_SECRET</span><span class="p">:</span><span class="w"> </span>9RMo7AGxyEx46erk-Aj1r2dTJuDsDbNcEwcdBj0zuAo=<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_GITEA_SERVER</span><span class="p">:</span><span class="w"> </span>http<span class="p">:</span>//gitea.xiebiao.top/<span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_GITEA_CLIENT_ID</span><span class="p">:</span><span class="w"> </span><span class="l">8a5c6c17-c1f5-4ab5-aff0-084ff61298b0</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_GITEA_CLIENT_SECRET</span><span class="p">:</span><span class="w"> </span><span class="l">9RMo7AGxyEx46erk-Aj1r2dTJuDsDbNcEwcdBj0zuAo=</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_GITEA_SERVER</span><span class="p">:</span><span class="w"> </span><span class="l">http://gitea.xiebiao.top/</span><span class="w">
 </span><span class="w">  </span><span class="c">##注意加上gitea的管理员账户，不然会出现trusted找不到</span><span class="w">
-</span><span class="w">  </span><span class="k">DRONE_USER_CREATE</span><span class="p">:</span><span class="w"> </span>username<span class="p">:</span>gzxb0712<span class="p">,</span>admin<span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_USER_CREATE</span><span class="p">:</span><span class="w"> </span><span class="l">username:gzxb0712,admin:true</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>github tls参考</p>
@@ -340,27 +340,27 @@ kubectl create ns drone
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">ingress</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="k">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;nginx&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">cert-manager.io/cluster-issuer</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;letsencrypt-prod&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">hosts</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>drone.example.com<span class="w">
-</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;nginx&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">cert-manager.io/cluster-issuer</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;letsencrypt-prod&#34;</span><span class="w">
+</span><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">drone.example.com</span><span class="w">
+</span><span class="w">      </span><span class="nt">paths</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span>- <span class="s2">&#34;/&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">hosts</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- drone.example.com<span class="w">
-</span><span class="w">    </span><span class="k">secretName</span><span class="p">:</span><span class="w"> </span>drone-tls<span class="w">
-</span><span class="w"></span><span class="k">env</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">DRONE_SERVER_HOST</span><span class="p">:</span><span class="w"> </span>drone.example.com<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_SERVER_PROTO</span><span class="p">:</span><span class="w"> </span>https<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_USER_CREATE</span><span class="p">:</span><span class="w"> </span>username<span class="p">:</span>YOUR_GITHUB_USERNAME<span class="p">,</span>admin<span class="p">:</span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="k">DRONE_USER_FILTER</span><span class="p">:</span><span class="w"> </span>YOUR_GITHUB_USERNAME<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span>REDACTED<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_GITHUB_CLIENT_ID</span><span class="p">:</span><span class="w"> </span>REDACTED<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_GITHUB_CLIENT_SECRET</span><span class="p">:</span><span class="w"> </span>REDACTED<span class="w">
+</span><span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">drone.example.com</span><span class="w">
+</span><span class="w">    </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">drone-tls</span><span class="w">
+</span><span class="w"></span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_SERVER_HOST</span><span class="p">:</span><span class="w"> </span><span class="l">drone.example.com</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_SERVER_PROTO</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_USER_CREATE</span><span class="p">:</span><span class="w"> </span><span class="l">username:YOUR_GITHUB_USERNAME,admin:true</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_USER_FILTER</span><span class="p">:</span><span class="w"> </span><span class="l">YOUR_GITHUB_USERNAME</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span><span class="l">REDACTED</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_GITHUB_CLIENT_ID</span><span class="p">:</span><span class="w"> </span><span class="l">REDACTED</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_GITHUB_CLIENT_SECRET</span><span class="p">:</span><span class="w"> </span><span class="l">REDACTED</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -425,45 +425,45 @@ cat drone-runner-values.yaml | grep -vE &ldquo;#|^$&rdquo;</p>
 </span><span class="lnt">39
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="k">image</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">repository</span><span class="p">:</span><span class="w"> </span>drone/drone-runner-kube<span class="w">
-</span><span class="w">  </span><span class="k">tag</span><span class="p">:</span><span class="w"> </span><span class="m">1.0.0</span>-beta<span class="m">.4</span><span class="w">
-</span><span class="w">  </span><span class="k">pullPolicy</span><span class="p">:</span><span class="w"> </span>IfNotPresent<span class="w">
-</span><span class="w"></span><span class="k">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w"></span><span class="k">terminationGracePeriodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
-</span><span class="w"></span><span class="k">nameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
-</span><span class="w"></span><span class="k">fullnameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
-</span><span class="w"></span><span class="k">podSecurityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">securityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">podAnnotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">service</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span>ClusterIP<span class="w">
-</span><span class="w">  </span><span class="k">port</span><span class="p">:</span><span class="w"> </span><span class="m">3000</span><span class="w">
-</span><span class="w"></span><span class="k">ingress</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">  </span><span class="k">annotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w">  </span><span class="k">hosts</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="k">host</span><span class="p">:</span><span class="w"> </span>chart-example.local<span class="w">
-</span><span class="w">      </span><span class="k">paths</span><span class="p">:</span><span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">image</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l">drone/drone-runner-kube</span><span class="w">
+</span><span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="m">1.0.0</span>-<span class="l">beta.4</span><span class="w">
+</span><span class="w">  </span><span class="nt">pullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span><span class="w"></span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w"></span><span class="nt">terminationGracePeriodSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
+</span><span class="w"></span><span class="nt">nameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">fullnameOverride</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w"></span><span class="nt">podSecurityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">securityContext</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">podAnnotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterIP</span><span class="w">
+</span><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">3000</span><span class="w">
+</span><span class="w"></span><span class="nt">ingress</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">chart-example.local</span><span class="w">
+</span><span class="w">      </span><span class="nt">paths</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span>- <span class="s2">&#34;/&#34;</span><span class="w">
-</span><span class="w">  </span><span class="k">tls</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">resources</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">nodeSelector</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">affinity</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="k">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">extraSecretNamesForEnvFrom</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="w"></span><span class="k">rbac</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">buildNamespaces</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- cicd<span class="w">
-</span><span class="w"></span><span class="k">env</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">nodeSelector</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">tolerations</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">affinity</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span><span class="w"></span><span class="nt">extraVolumes</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">extraVolumeMounts</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">extraSecretNamesForEnvFrom</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="w"></span><span class="nt">rbac</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">buildNamespaces</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">cicd</span><span class="w">
+</span><span class="w"></span><span class="nt">env</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="c">## 跟server 一致</span><span class="w">
-</span><span class="w">  </span><span class="k">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span>9RMo7AGxyEx46erk123<span class="w"> 
-</span><span class="w">  </span><span class="k">DRONE_RPC_HOST</span><span class="p">:</span><span class="w"> </span>drone<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_RPC_PROTO</span><span class="p">:</span><span class="w"> </span>http<span class="w">
-</span><span class="w">  </span><span class="k">DRONE_NAMESPACE_DEFAULT</span><span class="p">:</span><span class="w"> </span>cicd<span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_RPC_SECRET</span><span class="p">:</span><span class="w"> </span><span class="l">9RMo7AGxyEx46erk123 </span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_RPC_HOST</span><span class="p">:</span><span class="w"> </span><span class="l">drone</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_RPC_PROTO</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span><span class="w">  </span><span class="nt">DRONE_NAMESPACE_DEFAULT</span><span class="p">:</span><span class="w"> </span><span class="l">cicd</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>然后应用：</p>
@@ -545,66 +545,66 @@ cat drone-runner-values.yaml | grep -vE &ldquo;#|^$&rdquo;</p>
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml">---<span class="w">
-</span><span class="w"></span><span class="k">kind</span><span class="p">:</span><span class="w"> </span>pipeline<span class="w">
-</span><span class="w"></span><span class="k">type</span><span class="p">:</span><span class="w"> </span>kubernetes<span class="w">
-</span><span class="w"></span><span class="k">name</span><span class="p">:</span><span class="w"> </span>gzxb<span class="w">
+<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">pipeline</span><span class="w">
+</span><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes</span><span class="w">
+</span><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">gzxb</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span><span class="k">steps</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>build<span class="w">
-</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>maven<span class="p">:</span><span class="m">3.6.3</span>-jdk<span class="m">-8</span><span class="w">
-</span><span class="w">    </span><span class="k">pull</span><span class="p">:</span><span class="w"> </span>if-not-exists<span class="w">
-</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>maven-cache<span class="w">
-</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/root/.m2<span class="w">
-</span><span class="w">    </span><span class="k">commands</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- mvn<span class="w"> </span>clean<span class="w"> </span>package<span class="w"> </span>-DskipTests=<span class="kc">true</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>package<span class="w">
-</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>docker<span class="p">:</span><span class="m">19.03.8</span><span class="w">
-</span><span class="w">    </span><span class="k">pull</span><span class="p">:</span><span class="w"> </span>if-not-exists<span class="w">
-</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>docker-sock<span class="w">
-</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/run/docker.sock<span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>docker-cache<span class="w">
-</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/lib/docker<span class="w">
-</span><span class="w">    </span><span class="k">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">repo</span><span class="p">:</span><span class="w"> </span>harbor.test.com/library/spring-produce<span class="w">
-</span><span class="w">      </span><span class="k">registry</span><span class="p">:</span><span class="w"> </span>harbor.test.com<span class="w">
-</span><span class="w">      </span><span class="k">username</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">from_secret</span><span class="p">:</span><span class="w"> </span>docker_username<span class="w">
-</span><span class="w">      </span><span class="k">password</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="k">from_secret</span><span class="p">:</span><span class="w"> </span>docker_password<span class="w">
-</span><span class="w">      </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${DRONE_COMMIT_SHA:0:10}&#34;</span><span class="w">
-</span><span class="w">    </span><span class="k">commands</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- docker<span class="w"> </span>login<span class="w"> </span>${registry}<span class="w"> </span>-u<span class="w"> </span>${username}<span class="w"> </span>-p<span class="w"> </span>${password}<span class="w">
-</span><span class="w">      </span>- docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span><span class="s2">&#34;${repo}:${tags}&#34;</span><span class="w"> </span>.<span class="w">
-</span><span class="w">      </span>- docker<span class="w"> </span>push<span class="w"> </span><span class="s2">&#34;${repo}:${tags}&#34;</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>k8s<span class="w">
-</span><span class="w">    </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>boer0924/kubectl<span class="p">:</span><span class="m">1.18.3</span><span class="w">
-</span><span class="w">    </span><span class="k">pull</span><span class="p">:</span><span class="w"> </span>if-not-exists<span class="w">
-</span><span class="w">    </span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>kube-config<span class="w">
-</span><span class="w">        </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/root/.kube/config<span class="w">
-</span><span class="w">    </span><span class="k">commands</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w">
-</span><span class="w"></span><span class="k">trigger</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="k">branch</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- master<span class="w">
-</span><span class="w">  </span><span class="k">event</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- push<span class="w">
-</span><span class="w"></span><span class="k">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>maven-cache<span class="w">
-</span><span class="w">    </span><span class="k">host</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/lib/cache/.m2<span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>kube-config<span class="w">
-</span><span class="w">    </span><span class="k">host</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/root/.kube/config<span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>docker-cache<span class="w">
-</span><span class="w">    </span><span class="k">host</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/lib/docker<span class="w">
-</span><span class="w">  </span>- <span class="k">name</span><span class="p">:</span><span class="w"> </span>docker-sock<span class="w">
-</span><span class="w">    </span><span class="k">host</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="k">path</span><span class="p">:</span><span class="w"> </span>/var/run/docker.sock<span class="w">
+</span><span class="w"></span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">build</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">maven:3.6.3-jdk-8</span><span class="w">
+</span><span class="w">    </span><span class="nt">pull</span><span class="p">:</span><span class="w"> </span><span class="l">if-not-exists</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">maven-cache</span><span class="w">
+</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/root/.m2</span><span class="w">
+</span><span class="w">    </span><span class="nt">commands</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">mvn clean package -DskipTests=true</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">package</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker:19.03.8</span><span class="w">
+</span><span class="w">    </span><span class="nt">pull</span><span class="p">:</span><span class="w"> </span><span class="l">if-not-exists</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">docker-sock</span><span class="w">
+</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/var/run/docker.sock</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">docker-cache</span><span class="w">
+</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/docker</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l">harbor.test.com/library/spring-produce</span><span class="w">
+</span><span class="w">      </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="l">harbor.test.com</span><span class="w">
+</span><span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">from_secret</span><span class="p">:</span><span class="w"> </span><span class="l">docker_username</span><span class="w">
+</span><span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">from_secret</span><span class="p">:</span><span class="w"> </span><span class="l">docker_password</span><span class="w">
+</span><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;${DRONE_COMMIT_SHA:0:10}&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">commands</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">docker login ${registry} -u ${username} -p ${password}</span><span class="w">
+</span><span class="w">      </span>- <span class="l">docker build -t &#34;${repo}:${tags}&#34; .</span><span class="w">
+</span><span class="w">      </span>- <span class="l">docker push &#34;${repo}:${tags}&#34;</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">k8s</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">boer0924/kubectl:1.18.3</span><span class="w">
+</span><span class="w">    </span><span class="nt">pull</span><span class="p">:</span><span class="w"> </span><span class="l">if-not-exists</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kube-config</span><span class="w">
+</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/root/.kube/config</span><span class="w">
+</span><span class="w">    </span><span class="nt">commands</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">kubectl get nodes</span><span class="w">
+</span><span class="w"></span><span class="nt">trigger</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">branch</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">master</span><span class="w">
+</span><span class="w">  </span><span class="nt">event</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">push</span><span class="w">
+</span><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">maven-cache</span><span class="w">
+</span><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/cache/.m2</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kube-config</span><span class="w">
+</span><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/root/.kube/config</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">docker-cache</span><span class="w">
+</span><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/var/lib/docker</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">docker-sock</span><span class="w">
+</span><span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/var/run/docker.sock</span><span class="w">
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -619,11 +619,11 @@ cat drone-runner-values.yaml | grep -vE &ldquo;#|^$&rdquo;</p>
 
     <div class="post-copyright">
   <p class="copyright-item">
-    <span class="item-title">文章作者</span>
+    <span class="item-title"></span>
     <span class="item-content">gzxb0712</span>
   </p>
   <p class="copyright-item">
-    <span class="item-title">上次更新</span>
+    <span class="item-title"></span>
     <span class="item-content">
         2020-08-02 21:03
         
@@ -631,22 +631,22 @@ cat drone-runner-values.yaml | grep -vE &ldquo;#|^$&rdquo;</p>
   </p>
   
   <p class="copyright-item">
-    <span class="item-title">许可协议</span>
+    <span class="item-title"></span>
     <span class="item-content"><a target="_blank" rel="license noopener" href="https://github.com/gzxb0712/blog/blob/master/LICENSE">MIT</a></span>
   </p>
 </div>
 <div class="post-reward">
   <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
+  <label class="reward-button" for="reward"></label>
   <div class="qr-code">
     
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/wechat.png">
-        <span>微信佛系打赏</span>
+        <span></span>
       </label>
     <label class="qr-code-image" for="reward">
         <img class="image" src="/images/alipay.jpg">
-        <span>支付宝佛系打赏</span>
+        <span></span>
       </label>
   </div>
 </div><footer class="post-footer">
@@ -658,11 +658,11 @@ cat drone-runner-values.yaml | grep -vE &ldquo;#|^$&rdquo;</p>
         <a class="prev" href="/post/cicd/helm_jenkins_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">jenkins helm安装最佳实践</span>
-            <span class="prev-text nav-mobile">上一篇</span>
+            <span class="prev-text nav-mobile"></span>
           </a>
         <a class="next" href="/post/cicd/gitea_bin_install/">
             <span class="next-text nav-default">centos7/8二进制部署gitea</span>
-            <span class="next-text nav-mobile">下一篇</span>
+            <span class="next-text nav-mobile"></span>
             <i class="iconfont icon-right"></i>
           </a>
       </nav>
@@ -690,18 +690,18 @@ cat drone-runner-values.yaml | grep -vE &ldquo;#|^$&rdquo;</p>
 
 <div class="copyright">
   <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+    %!(EXTRA string=<a class="hexo-link" href="https://gohugo.io">Hugo</a>)
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    主题 - 
+     - 
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> %!(EXTRA string=<span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> %!(EXTRA string=<span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span>) </span>
   </div>
 
   <span class="copyright-year">

@@ -2,15 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://xiebiao.top/tags/bash/</loc>
+    <lastmod>2020-08-19T21:01:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://xiebiao.top/</loc>
-    <lastmod>2020-08-18T19:18:30+00:00</lastmod>
+    <lastmod>2020-08-19T21:01:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://xiebiao.top/categories/</loc>
-    <lastmod>2020-08-18T19:18:30+00:00</lastmod>
+    <lastmod>2020-08-19T21:01:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/</loc>
+    <lastmod>2020-08-19T21:01:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/shell/</loc>
+    <lastmod>2020-08-19T21:01:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/categories/shell/</loc>
+    <lastmod>2020-08-19T21:01:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/post/shell/bash-cheat-sheet/</loc>
+    <lastmod>2020-08-19T21:01:30+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://xiebiao.top/tags/</loc>
+    <lastmod>2020-08-19T21:01:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -44,42 +86,7 @@
   </url>
   
   <url>
-    <loc>https://xiebiao.top/post/</loc>
-    <lastmod>2020-08-18T19:18:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/</loc>
-    <lastmod>2020-08-18T19:18:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/bash/</loc>
-    <lastmod>2020-08-17T21:01:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://xiebiao.top/post/shell/sed_awk_doc/</loc>
-    <lastmod>2020-08-17T21:01:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/tags/shell/</loc>
-    <lastmod>2020-08-17T21:01:30+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://xiebiao.top/categories/shell/</loc>
     <lastmod>2020-08-17T21:01:30+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

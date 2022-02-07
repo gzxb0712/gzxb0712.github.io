@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/performance/k8s_redis_perf/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/performance/k8s_redis_perf/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="redis集群性能调优" />
 <meta property="og:description" content="kuberntes中的redis集群性能调优 文章目录 基准测试 逐步优化 优化内核参数 CPU绑核 iptables切换为ipvs 由overlay网络" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/performance/k8s_redis_perf/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/performance/k8s_redis_perf/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-08-13T19:01:30+00:00" />
 <meta property="article:modified_time" content="2020-08-13T19:01:30+00:00" />
+
 <meta itemprop="name" content="redis集群性能调优">
-<meta itemprop="description" content="kuberntes中的redis集群性能调优 文章目录 基准测试 逐步优化 优化内核参数 CPU绑核 iptables切换为ipvs 由overlay网络">
-<meta itemprop="datePublished" content="2020-08-13T19:01:30+00:00" />
+<meta itemprop="description" content="kuberntes中的redis集群性能调优 文章目录 基准测试 逐步优化 优化内核参数 CPU绑核 iptables切换为ipvs 由overlay网络"><meta itemprop="datePublished" content="2020-08-13T19:01:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-13T19:01:30+00:00" />
-<meta itemprop="wordCount" content="3384">
-
-
-
-<meta itemprop="keywords" content="redis,performance," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="3207">
+<meta itemprop="keywords" content="redis,performance," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="redis集群性能调优"/>
 <meta name="twitter:description" content="kuberntes中的redis集群性能调优 文章目录 基准测试 逐步优化 优化内核参数 CPU绑核 iptables切换为ipvs 由overlay网络"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-13 19:01 </span>
         <div class="post-category">
-            <a href="/categories/performance/"> performance </a>
+            <a href="/blog/categories/performance/"> performance </a>
             </div>
-          <span class="more-meta"> 约 3384 字 </span>
+          <span class="more-meta"> 约 3207 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -160,6 +156,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-08-13T19:01:30" title="August 13, 2020">August 13, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -235,7 +236,7 @@ ExecStart=/usr/local/bin/kubelet \
 $ kubectl -n db get statefulsets  redis-redis-cluster -o yaml
 ...
 podSpec:
-    securityContext:
+	securityContext:
     sysctls:
     - name: net.core.somaxconn
     value: &quot;20480&quot;
@@ -258,7 +259,7 @@ ExecStart=/usr/local/bin/kubelet \
 $ kubectl -n db get statefulsets  redis-redis-cluster -o yaml
 ...
 podSpec:
-    resources:
+	resources:
     limits:
       cpu: &quot;1&quot;
       ...
@@ -342,12 +343,8 @@ ExecStart=/usr/local/bin/kube-proxy \
 <p>kubernetes里的serviceIP实现原理参见<a href="https://zhuanlan.zhihu.com/p/67384482">clusterip的实现机制</a>，说白了serviceIP是由iptables或ipvs机制模拟出的虚拟IP，它的流量分发是由iptables或ipvs进行必要的NAT操作实现的。而macvlan之类的UnderLay网络方案属于外部网络，并且拥有独立的网络空间namespace，所以并不会经过node的网络空间的内核协议栈，进而造成并不会经过iptables/ipvs的配置，因此使用了macvlan的pod，自然无法正常访问servicrIP。<a href="https://zhuanlan.zhihu.com/p/67384482">kubernetes的clusterip机制调研及macvlan网络下的clusterip坑解决方案</a>这篇文章也谈到了两个解决方案：</p>
 <ul>
 <li></li>
-</ul>
-<p>部分Node标记master，采用cluster network，例如flannel/calico/weave，貌似最近weave比较火，可以借机熟悉一下。然后部署管理Pod的时候，指定部署到master上去。</p>
-<ul>
 <li></li>
 </ul>
-<p>基于<a href="https://link.zhihu.com/?target=https%3A//github.com/intel/multus-cni">multus-cni</a>插件做双网卡，然后配置默认路由走macvlan的网卡，内部网络走cluster network那块网卡。</p>
 <p>我这里采用的方案一，给node打标签，区别出两种不同的node，采用不同的cni网络方案，一个是overlay网络，一个是underlay网络。利用节点亲和性规则，将一般应用的pod都调度到overlay网络的node上，将对网络性能有要求的pod调度到underlay网络的node上。同时调度到underlay网络的pod中要避免使用Service。</p>
 <p>节点亲和性规则如下编写：</p>
 <pre><code>   # 给某些node节点打label，标记为该node节点上运行管理类pod，该node节点上使用flannel的CNI网络方案，其它node节点上使用macvlan的CNI网络方案
@@ -377,44 +374,16 @@ ExecStart=/usr/local/bin/kube-proxy \
 <h2 id="参考">参考</h2>
 <ol>
 <li></li>
-</ol>
-<p><a href="https://www.techandme.se/performance-tips-for-redis-cache-server/">https://www.techandme.se/performance-tips-for-redis-cache-server/</a></p>
-<ol start="2">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
 <li></li>
 </ol>
-<p><a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/sysctl-cluster/">https://kubernetes.io/zh/docs/tasks/administer-cluster/sysctl-cluster/</a></p>
-<ol start="3">
-<li></li>
-</ol>
-<p><a href="https://kubernetes.io/zh/docs/tasks/administer-cluster/cpu-management-policies/">https://kubernetes.io/zh/docs/tasks/administer-cluster/cpu-management-policies/</a></p>
-<ol start="4">
-<li></li>
-</ol>
-<p><a href="http://www.simlinux.com/2017/02/28/net-softirq.html">http://www.simlinux.com/2017/02/28/net-softirq.html</a></p>
-<ol start="5">
-<li></li>
-</ol>
-<p><a href="https://blog.csdn.net/fanren224/article/details/86548398">https://blog.csdn.net/fanren224/article/details/86548398</a></p>
-<ol start="6">
-<li></li>
-</ol>
-<p><a href="http://lotleaf.com/linux/docker-network.html">http://lotleaf.com/linux/docker-network.html</a></p>
-<ol start="7">
-<li></li>
-</ol>
-<p><a href="https://blog.csdn.net/cloudvtech/article/details/79830887">https://blog.csdn.net/cloudvtech/article/details/79830887</a></p>
-<ol start="8">
-<li></li>
-</ol>
-<p><a href="https://www.yangcs.net/posts/macvlan-in-action/">https://www.yangcs.net/posts/macvlan-in-action/</a></p>
-<ol start="9">
-<li></li>
-</ol>
-<p><a href="https://zhuanlan.zhihu.com/p/67384482">https://zhuanlan.zhihu.com/p/67384482</a></p>
-<ol start="10">
-<li></li>
-</ol>
-<p><a href="https://juejin.im/post/5c926709f265da60e86e0ca6#heading-3">https://juejin.im/post/5c926709f265da60e86e0ca6#heading-3</a></p>
 
     </div>
 
@@ -452,16 +421,16 @@ ExecStart=/usr/local/bin/kube-proxy \
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/redis/">redis</a>
-          <a href="/tags/performance/">performance</a>
+          <a href="/blog/tags/redis/">redis</a>
+          <a href="/blog/tags/performance/">performance</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/performance/linux_perf_doc/">
+        <a class="prev" href="/blog/post/performance/linux_perf_doc/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Linux 性能优化分析工具</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/performance/k8s_perf_doc/">
+        <a class="next" href="/blog/post/performance/k8s_perf_doc/">
             <span class="next-text nav-default">kubernetes集群部署实践性能优化</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -486,7 +455,7 @@ ExecStart=/usr/local/bin/kube-proxy \
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -500,15 +469,15 @@ ExecStart=/usr/local/bin/kube-proxy \
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -535,7 +504,7 @@ ExecStart=/usr/local/bin/kube-proxy \
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

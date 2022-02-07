@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/gateway/openresty_doc/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/gateway/openresty_doc/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="OpenResty搭建高性能服务端" />
 <meta property="og:description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/gateway/openresty_doc/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/gateway/openresty_doc/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-04-03T22:23:30+00:00" />
 <meta property="article:modified_time" content="2020-04-03T22:23:30+00:00" />
+
 <meta itemprop="name" content="OpenResty搭建高性能服务端">
-<meta itemprop="description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超">
-<meta itemprop="datePublished" content="2020-04-03T22:23:30+00:00" />
+<meta itemprop="description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超"><meta itemprop="datePublished" content="2020-04-03T22:23:30+00:00" />
 <meta itemprop="dateModified" content="2020-04-03T22:23:30+00:00" />
 <meta itemprop="wordCount" content="6087">
-
-
-
-<meta itemprop="keywords" content="OpenResty,gateway," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="OpenResty,gateway," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="OpenResty搭建高性能服务端"/>
 <meta name="twitter:description" content="OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-04-03 22:23 </span>
         <div class="post-category">
-            <a href="/categories/gateway/"> gateway </a>
+            <a href="/blog/categories/gateway/"> gateway </a>
             </div>
           <span class="more-meta"> 约 6087 字 </span>
           <span class="more-meta"> 预计阅读 13 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -176,6 +172,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-04-03T22:23:30" title="April 3, 2020">April 3, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -188,7 +189,7 @@
 <p>本文环境：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -215,7 +216,7 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">1. 下载源代码   wget https://openresty.org/download/openresty-1.17.8.2.tar.gz
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1. 下载源代码   wget https://openresty.org/download/openresty-1.17.8.2.tar.gz
 
 2. 解压缩   tar xvf openresty-1.17.8.2.tar.gz
 
@@ -245,7 +246,7 @@ nginx modules path: &#34;/usr/local/openresty/nginx/modules&#34;
 </div><p>附：nginx配置文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -291,7 +292,7 @@ nginx modules path: &#34;/usr/local/openresty/nginx/modules&#34;
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">user www-data;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
@@ -342,7 +343,7 @@ cd vhosts
 vi xxx_admin.conf</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -371,7 +372,7 @@ vi xxx_admin.conf</p>
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 
 upstream gateway {
     server xx.xx.xx.xxx:80xx;
@@ -423,7 +424,7 @@ server {
 <p>以 CentOS 为例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -437,7 +438,7 @@ server {
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /opt &amp;&amp; cd /opt
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /opt &amp;&amp; cd /opt
 
 # download openresty
 wget https://openresty.org/download/openresty-1.13.6.2.tar.gz
@@ -455,14 +456,14 @@ make -j4 &amp;&amp; make install
 <code>-j4</code>表示使用4核。<code>configure</code>那一步还可以指定各种参数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">./configure --prefix=/usr/local/openresty 
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">./configure --prefix=/usr/local/openresty 
             --with-luajit 
             --without-http_redis2_module 
             --with-http_iconv_module 
@@ -477,7 +478,7 @@ make -j4 &amp;&amp; make install
 <p>修改 <code>/usr/local/openresty/nginx/conf/nginx.conf</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -495,7 +496,7 @@ make -j4 &amp;&amp; make install
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">worker_processes  1;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">worker_processes  1;
 error_log logs/error.log;
 events {
     worker_connections 1024;
@@ -519,20 +520,20 @@ http {
 <p>现在我们启动OpenResty：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/openresty/nginx/sbin/nginx
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/usr/local/openresty/nginx/sbin/nginx
 </code></pre></td></tr></table>
 </div>
 </div><p>启动成功后，查看效果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">curl http://127.0.0.1:8080/hello
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl http://127.0.0.1:8080/hello
 &lt;p&gt;hello, world&lt;/p&gt;
 </code></pre></td></tr></table>
 </div>
@@ -544,12 +545,12 @@ http {
 <p>测试1：使用<code>content_by_lua_file</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /usr/local/openresty
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd /usr/local/openresty
 mkdir nginx/conf/lua
 vim nginx/conf/lua/hello.lua
 </code></pre></td></tr></table>
@@ -557,22 +558,22 @@ vim nginx/conf/lua/hello.lua
 </div><p>内容为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ngx.say(&#34;&lt;p&gt;hello, lua world&lt;/p&gt;&#34;)
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ngx.say(&#34;&lt;p&gt;hello, lua world&lt;/p&gt;&#34;)
 </code></pre></td></tr></table>
 </div>
 </div><p>然后修改 nginx.conf：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /hello {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">location /hello {
     default_type text/html;
     content_by_lua_file conf/lua/hello.lua;
 }
@@ -581,20 +582,20 @@ vim nginx/conf/lua/hello.lua
 </div><p>重启 OpenResty：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ ./nginx/sbin/nginx -s reload
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ ./nginx/sbin/nginx -s reload
 </code></pre></td></tr></table>
 </div>
 </div><p>启动成功后，查看效果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl http://127.0.0.1:8080/hello
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ curl http://127.0.0.1:8080/hello
 &lt;p&gt;hello, lua world&lt;/p&gt;
 </code></pre></td></tr></table>
 </div>
@@ -602,14 +603,14 @@ vim nginx/conf/lua/hello.lua
 根据<code>lua_code_cache</code>作用域，我们可以在server块加上：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">lua_code_cache off;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">lua_code_cache off;
 location /hello {
     default_type text/html;
     content_by_lua_file conf/lua/hello.lua;
@@ -619,11 +620,11 @@ location /hello {
 </div><p>然后重启：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ ./nginx/sbin/nginx -s reload
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ ./nginx/sbin/nginx -s reload
 nginx: [alert] lua_code_cache is off; this will hurt performance in /usr/local/openresty/nginx/conf/nginx.conf:43
 </code></pre></td></tr></table>
 </div>
@@ -634,7 +635,7 @@ nginx: [alert] lua_code_cache is off; this will hurt performance in /usr/local/o
 nginx/conf/lua/get_random_string.lua</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -647,7 +648,7 @@ nginx/conf/lua/get_random_string.lua</p>
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">-- 实现随机字符串
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">-- 实现随机字符串
 
 local args = ngx.req.get_uri_args()
 local salt = args.salt
@@ -663,12 +664,12 @@ ngx.say(str)
 </div><p>修改 nginx.conf ，新增：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /get_random_string {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">location /get_random_string {
     content_by_lua_file conf/lua/get_random_string.lua;
 }
 </code></pre></td></tr></table>
@@ -676,14 +677,14 @@ ngx.say(str)
 </div><p>由于修改了 nginx.conf ，需要reload OpenResty 服务。然后，我们访问服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl http://127.0.0.1:8080/get_random_string?salt=2
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ curl http://127.0.0.1:8080/get_random_string?salt=2
 2d8231ff301ab0ce8b95c7e4c2c59574
 
 $ curl http://127.0.0.1:8080/get_random_string?salt=2
@@ -708,12 +709,12 @@ c145db4ec45a6bf792ac30ed4246c563
 <p>例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">content_by_lua &#39;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">content_by_lua &#39;
     ngx.say(&#34;&lt;p&gt;hello, world&lt;/p&gt;&#34;)
 &#39;;
 </code></pre></td></tr></table>
@@ -726,7 +727,7 @@ c145db4ec45a6bf792ac30ed4246c563
 nginx/conf/lua/decode_info.lua</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -749,7 +750,7 @@ nginx/conf/lua/decode_info.lua</p>
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">-- 实现base64的解码并重新json编码输出
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">-- 实现base64的解码并重新json编码输出
 
 local json = require &#34;cjson&#34;
 
@@ -775,12 +776,12 @@ ngx.say(json.encode(res))
 </div><p>修改 nginx.conf ，新增：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /decode_info {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">location /decode_info {
     content_by_lua_file conf/lua/decode_info.lua;
 }
 </code></pre></td></tr></table>
@@ -788,13 +789,13 @@ ngx.say(json.encode(res))
 </div><p>由于修改了 nginx.conf ，需要 reload OpenResty 服务。然后，我们访问服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ php -r &#34;echo base64_encode(&#39;test&#39;);&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ php -r &#34;echo base64_encode(&#39;test&#39;);&#34;
 dGVzdA==
 $ curl -XPOST -d &#34;info=dGVzdA==&#34; http://127.0.0.1:8080/decode_info
 {&#34;user_agnet&#34;:&#34;curl/7.19.7&#34;,&#34;client_ip&#34;:&#34;127.0.0.1&#34;,&#34;info&#34;:&#34;test&#34;}
@@ -821,7 +822,7 @@ $ curl -XPOST -d &#34;info=dGVzdA==&#34; http://127.0.0.1:8080/decode_info
 nginx/conf/lua/test_mysql.lua</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -877,7 +878,7 @@ nginx/conf/lua/test_mysql.lua</p>
 </span><span class="lnt">54
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">local mysql = require &#34;resty.mysql&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">local mysql = require &#34;resty.mysql&#34;
 
 local db, err = mysql:new()
 if not db then
@@ -936,12 +937,12 @@ end
 </div><p>修改 nginx.conf ，新增：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /test_mysql {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">location /test_mysql {
     content_by_lua_file conf/lua/test_mysql.lua;
 }
 </code></pre></td></tr></table>
@@ -949,10 +950,10 @@ end
 </div><p>由于修改了 nginx.conf ，需要 reload OpenResty 服务。然后，我们访问服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ http://127.0.0.1:8080/test_mysql
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ http://127.0.0.1:8080/test_mysql
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="连接-redis">连接 Redis</h3>
@@ -960,7 +961,7 @@ end
 nginx/conf/lua/test_redis.lua</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1000,7 +1001,7 @@ nginx/conf/lua/test_redis.lua</p>
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">local redis = require &#34;resty.redis&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">local redis = require &#34;resty.redis&#34;
 
 local red = redis:new()
 red:set_timeout(1000) -- 1 sec
@@ -1043,12 +1044,12 @@ end
 </div><p>修改 nginx.conf ，新增：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">location /test_redis {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">location /test_redis {
     content_by_lua_file conf/lua/test_redis.lua;
 }
 </code></pre></td></tr></table>
@@ -1056,10 +1057,10 @@ end
 </div><p>由于修改了 nginx.conf ，需要 reload OpenResty 服务。然后，我们访问服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ http://127.0.0.1:8080/test_redis
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ http://127.0.0.1:8080/test_redis
 </code></pre></td></tr></table>
 </div>
 </div><p>更多参考：
@@ -1069,17 +1070,17 @@ end
 <p>使用的话首先需要在 nginx.conf 加上一句：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">lua_shared_dict my_cache 128m;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">lua_shared_dict my_cache 128m;
 </code></pre></td></tr></table>
 </div>
 </div><p>这个<code>my_cache</code>就是申请 Lua shared dict 缓存， 下面示例里会用到。</p>
 <p>这个缓存是 Nginx 所有 worker 之间共享的，内部使用的 LRU 算法（最近最少使用）来判断缓存是否在内存占满时被清除。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1096,7 +1097,7 @@ end
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">function get_from_cache(key)
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">function get_from_cache(key)
     local cache_ngx = ngx.shared.my_cache
     local value = cache_ngx:get(key)
     return value
@@ -1120,7 +1121,7 @@ end
 myapp.lua</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1147,7 +1148,7 @@ myapp.lua</p>
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">local _M = {}
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">local _M = {}
 
 -- alternatively: local lrucache = require &#34;resty.lrucache.pureffi&#34;
 local lrucache = require &#34;resty.lrucache&#34;
@@ -1177,7 +1178,7 @@ return _M
 </div><p>nginx.conf</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1193,7 +1194,7 @@ return _M
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 http {
     lua_package_path &#34;/path/to/lua-resty-lrucache/lib/?.lua;;&#34;;
 
@@ -1227,7 +1228,7 @@ http {
 <p>看一个官方提供的简单示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1236,7 +1237,7 @@ http {
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">-- test_ffi.lua
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">-- test_ffi.lua
 
 local ffi = require(&#34;ffi&#34;)
 ffi.cdef[[
@@ -1248,11 +1249,11 @@ ffi.C.printf(&#34;Hello %s!&#34;, &#34;world&#34;)
 </div><p>我们运行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ luajit test_ffi.lua
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ luajit test_ffi.lua
 Hello world!
 </code></pre></td></tr></table>
 </div>
@@ -1261,7 +1262,7 @@ Hello world!
 <p>默认的 resty 库所在位置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1272,7 +1273,7 @@ Hello world!
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ pwd
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ pwd
 /usr/local/openresty
 $ ls lualib/
 cjson.so  ngx/      rds/      redis/    resty/
@@ -1286,7 +1287,7 @@ dns/       lrucache.lua  random.lua     sha256.lua  string.lua
 </div><p>现在以安装 <a href="https://github.com/ledgetech/lua-resty-http"><code>lua-resty-http</code></a> 为例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1299,7 +1300,7 @@ dns/       lrucache.lua  random.lua     sha256.lua  string.lua
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ cd /opt
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ cd /opt
 
 # 下载并解压
 $  wget https://github.com/ledgetech/lua-resty-http/archive/v0.13.tar.gz &amp;&amp; tar zxvf v0.13.tar.gz
@@ -1315,7 +1316,7 @@ http_headers.lua  http.lua
 </div><p>使用示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1342,7 +1343,7 @@ http_headers.lua  http.lua
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">local http = require &#34;resty.http&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">local http = require &#34;resty.http&#34;
 local httpc = http.new()
 
 local res, err = httpc:request_uri(&#34;http://example.com/helloworld&#34;, {
@@ -1380,13 +1381,13 @@ ngx.say(res.body)
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">res = ngx.location.capture(
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">res = ngx.location.capture(
      &#39;/foo/bar&#39;,
      { method = ngx.HTTP_POST, body = &#39;hello, world&#39; }
  )
@@ -1399,7 +1400,7 @@ ngx.say(res.body)
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1414,7 +1415,7 @@ ngx.say(res.body)
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">res1, res2, res3 = ngx.location.capture_multi{
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">res1, res2, res3 = ngx.location.capture_multi{
      { &#34;/foo&#34;, { args = &#34;a=3&amp;b=4&#34; } },
      { &#34;/bar&#34; },
      { &#34;/baz&#34;, { method = ngx.HTTP_POST, body = &#34;hello&#34; } },
@@ -1493,16 +1494,16 @@ ngx.say(res.body)
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/OpenResty/">OpenResty</a>
-          <a href="/tags/gateway/">gateway</a>
+          <a href="/blog/tags/OpenResty/">OpenResty</a>
+          <a href="/blog/tags/gateway/">gateway</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/gateway/helm3_kong2_install/">
+        <a class="prev" href="/blog/post/gateway/helm3_kong2_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">k8s上使用Helm在线安装kong2</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/center/zookeeper_ops_doc/">
+        <a class="next" href="/blog/post/center/zookeeper_ops_doc/">
             <span class="next-text nav-default">ZooKeeper 入门指引</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1527,7 +1528,7 @@ ngx.say(res.body)
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1541,15 +1542,15 @@ ngx.say(res.body)
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1576,7 +1577,7 @@ ngx.say(res.body)
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blog on Bill World</title>
-    <link>https://xiebiao.top/categories/blog/</link>
+    <link>https://gzxb0712.gitee.io/blog/categories/blog/</link>
     <description>Recent content in blog on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 02 Feb 2020 21:28:04 +0000</lastBuildDate><atom:link href="https://xiebiao.top/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Feb 2020 21:28:04 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/categories/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine打造稳定快速高效免费图床</title>
-      <link>https://xiebiao.top/post/blog/github_jsdelivr_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/blog/github_jsdelivr_ops/</link>
       <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/blog/github_jsdelivr_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/blog/github_jsdelivr_ops/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h2 id=&#34;前言-前言前言&#34;&gt;&lt;a href=&#34;#%E5%89%8D%E8%A8%80&#34; title=&#34;前言&#34;&gt;&lt;/a&gt;前言&lt;/h2&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</title>
-      <link>https://xiebiao.top/post/blog/creat-hugo-blog/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/blog/creat-hugo-blog/</link>
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/blog/creat-hugo-blog/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/blog/creat-hugo-blog/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。&lt;/p&gt;

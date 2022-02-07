@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>haproxy on Bill World</title>
-    <link>https://xiebiao.top/tags/haproxy/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/haproxy/</link>
     <description>Recent content in haproxy on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 19 Feb 2020 20:21:37 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Feb 2020 20:21:37 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>centos部署haproxy</title>
-      <link>https://xiebiao.top/post/lb/haproxy_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/lb/haproxy_ops/</link>
       <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/lb/haproxy_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/lb/haproxy_ops/</guid>
       <description>haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运行于大部分主</description>
     </item>
     

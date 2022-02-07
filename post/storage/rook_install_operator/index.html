@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/storage/rook_install_operator/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/storage/rook_install_operator/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="Kubernetes永久存储Rook 1.3.x部署" />
 <meta property="og:description" content="Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/storage/rook_install_operator/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/storage/rook_install_operator/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-08-05T19:17:30+00:00" />
 <meta property="article:modified_time" content="2020-08-05T19:17:30+00:00" />
+
 <meta itemprop="name" content="Kubernetes永久存储Rook 1.3.x部署">
-<meta itemprop="description" content="Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和">
-<meta itemprop="datePublished" content="2020-08-05T19:17:30+00:00" />
+<meta itemprop="description" content="Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和"><meta itemprop="datePublished" content="2020-08-05T19:17:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-05T19:17:30+00:00" />
 <meta itemprop="wordCount" content="5585">
-
-
-
-<meta itemprop="keywords" content="rook,storage,ceph," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="rook,storage,ceph," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Kubernetes永久存储Rook 1.3.x部署"/>
 <meta name="twitter:description" content="Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-05 19:17 </span>
         <div class="post-category">
-            <a href="/categories/storage/"> storage </a>
+            <a href="/blog/categories/storage/"> storage </a>
             </div>
           <span class="more-meta"> 约 5585 字 </span>
           <span class="more-meta"> 预计阅读 12 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -208,6 +204,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-08-05T19:17:30" title="August 5, 2020">August 5, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -288,12 +289,12 @@
 <h3 id="22获取yaml">2.2	获取YAML</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">##https://github.com/rook/rook.git v1.3.10</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">##https://github.com/rook/rook.git v1.3.10</span>
 <span class="c1">##v15.2.4</span>
 <span class="o">[</span>root@k8smaster01 ~<span class="o">]</span><span class="c1"># git clone https://github.com/rook/rook.git</span>
 </code></pre></td></tr></table>
@@ -302,7 +303,7 @@
 <p>本实验使用k8snode01——k8snode03三个节点，因此需要如下修改：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -323,7 +324,7 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl taint node k8smaster01 node-role.kubernetes.io/master=&#34;&#34;:NoSchedule</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl taint node k8smaster01 node-role.kubernetes.io/master=&#34;&#34;:NoSchedule</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl taint node k8smaster02 node-role.kubernetes.io/master=&#34;&#34;:NoSchedule</span>
 
@@ -349,7 +350,7 @@
 <p>[root@k8smaster01 ceph]# vi cluster.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -457,7 +458,7 @@
 </span><span class="lnt">106
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephCluster</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph</span><span class="w">
@@ -571,7 +572,7 @@
 <p>可能由于国内环境无法Pull镜像，建议提前pull如下镜像：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -599,7 +600,7 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker pull rook/ceph:master
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker pull rook/ceph:master
 docker pull ceph/ceph:v15.2.4
 
 <span class="c1">##harbor.test.com/library##quay.io</span>
@@ -630,14 +631,14 @@ docker rmi harbor.test.com/library/k8scsi/csi-snapshotter:v2.1.1
 </div><h3 id="26部署cluster">2.6	部署cluster</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f cluster.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f cluster.yaml</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl logs -f -n rook-ceph rook-ceph-operator-cb47c46bc-pszfh	#可查看部署log</span>
 
@@ -648,7 +649,7 @@ docker rmi harbor.test.com/library/k8scsi/csi-snapshotter:v2.1.1
 <p>**提示：若部署失败，master节点执行[root@k8smaster01 ceph]#</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -660,7 +661,7 @@ docker rmi harbor.test.com/library/k8scsi/csi-snapshotter:v2.1.1
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">## master节点</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">## master节点</span>
 kubectl delete -f /data/tech/ops/cloud/k8s/myk8s/manifests/rook/cluster/examples/kubernetes/ceph/
 
 <span class="c1">## 所有节点</span>
@@ -676,7 +677,7 @@ wipefs -af /dev/vdb
 <p>toolbox是一个rook的工具集容器，该容器中的命令可以用来调试、测试Rook，对Ceph临时测试的操作一般在这个容器内执行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -685,7 +686,7 @@ wipefs -af /dev/vdb
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f toolbox.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f toolbox.yaml</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n rook-ceph get pod -l &#34;app=rook-ceph-tools&#34;</span>
 
@@ -697,7 +698,7 @@ rook-ceph-tools-59b8cccb95-9rl5l   1/1     Running   <span class="m">0</span>   
 </div><h3 id="28测试rook">2.8	测试Rook</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -710,7 +711,7 @@ rook-ceph-tools-59b8cccb95-9rl5l   1/1     Running   <span class="m">0</span>   
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l &#34;app=rook-ceph-tools&#34; -o jsonpath=&#39;{.items[0].metadata.name}&#39;) -- bash</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l &#34;app=rook-ceph-tools&#34; -o jsonpath=&#39;{.items[0].metadata.name}&#39;) -- bash</span>
 
 <span class="o">[</span>root@rook-ceph-tools-59b8cccb95-9rl5l /<span class="o">]</span><span class="c1"># ceph status		#查看Ceph状态</span>
 <span class="o">[</span>root@rook-ceph-tools-59b8cccb95-9rl5l /<span class="o">]</span><span class="c1"># ceph osd status #osd状态</span>
@@ -732,7 +733,7 @@ ceph version 15.2.4 <span class="o">(</span>7447c15c6ff58d7fce91843b705a268a1917
 <p>为方便管理，可将Ceph的keyring和config在master节点也创建一份，从而实现在Kubernetes外部宿主机对rook Ceph集群的简单查看。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -794,7 +795,7 @@ ceph version 15.2.4 <span class="o">(</span>7447c15c6ff58d7fce91843b705a268a1917
 </span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir -p /etc/ceph/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir -p /etc/ceph/
 <span class="o">[</span>root@k8smaster01 ~<span class="o">]</span><span class="c1"># kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l &#34;app=rook-ceph-tools&#34; -o jsonpath=&#39;{.items[0].metadata.name}&#39;) -- cat /etc/ceph/ceph.conf &gt; /etc/ceph/ceph.conf</span>
 
 <span class="o">[</span>root@k8smaster01 ~<span class="o">]</span><span class="c1"># kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l &#34;app=rook-ceph-tools&#34; -o jsonpath=&#39;{.items[0].metadata.name}&#39;) -- cat /etc/ceph/keyring &gt; /etc/ceph/keyring</span>
@@ -863,16 +864,16 @@ EOF
 <p>在提供（Provisioning）块存储之前，需要先创建StorageClass和存储池。K8S需要这两类资源，才能和Rook交互，进而分配持久卷（PV）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f csi/rbd/storageclass.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f csi/rbd/storageclass.yaml</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>解读：如下配置文件中会创建一个名为replicapool的存储池，和rook-ceph-block的storageClass。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -900,7 +901,7 @@ EOF
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephBlockPool</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">replicapool</span><span class="w">
@@ -930,14 +931,14 @@ EOF
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get storageclasses.storage.k8s.io</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get storageclasses.storage.k8s.io</span>
 
 NAME              PROVISIONER                  AGE
 
@@ -948,7 +949,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 <p>[root@k8smaster01 ceph]# kubectl create -f csi/rbd/pvc.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -962,7 +963,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">---</span><span class="w">
 </span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -978,12 +979,12 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get pvc</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get pvc</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get pv</span>
 </code></pre></td></tr></table>
@@ -994,7 +995,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 <p>[root@k8smaster01 ceph]# vi rookpod01.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1013,7 +1014,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rookpod01</span><span class="w">
@@ -1034,7 +1035,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1043,7 +1044,7 @@ rook-ceph-block   rook-ceph.rbd.csi.ceph.com   8m44s
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f rookpod01.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f rookpod01.yaml</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get pod</span>
 
@@ -1056,16 +1057,16 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 <h3 id="34测试持久性">3.4	测试持久性</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl delete pods rookpod01		#删除rookpod01</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl delete pods rookpod01		#删除rookpod01</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>[root@k8smaster01 ceph]# vi rookpod02.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1084,7 +1085,7 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rookpod02</span><span class="w">
@@ -1105,12 +1106,12 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f rookpod02.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f rookpod02.yaml</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl logs rookpod02 test-container</span>
 </code></pre></td></tr></table>
@@ -1124,7 +1125,7 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 <p>[root@k8smaster01 ceph]# kubectl create -f object.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1150,7 +1151,7 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephObjectStore</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-store</span><span class="w">
@@ -1178,14 +1179,14 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="p">[</span><span class="l">root@k8smaster01 ceph]# kubectl -n rook-ceph get pod -l app=rook-ceph-rgw	#部署完成会创建rgw的Pod</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="p">[</span><span class="l">root@k8smaster01 ceph]# kubectl -n rook-ceph get pod -l app=rook-ceph-rgw	#部署完成会创建rgw的Pod</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="l">NAME                                        READY   STATUS    RESTARTS   AGE</span><span class="w">
 </span><span class="w">
@@ -1196,15 +1197,15 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 <p>使用如下官方提供的默认yaml可部署对象存储的StorageClass。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f storageclass-bucket-delete.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f storageclass-bucket-delete.yaml</span>
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1216,7 +1217,7 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">   </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-delete-bucket</span><span class="w">
@@ -1230,10 +1231,10 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get sc</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get sc</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110921594-1424867449.png"><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110921760-1404010822.png" alt="clipboard"></a></p>
@@ -1241,15 +1242,15 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 <p>使用如下官方提供的默认yaml可部署对象存储的bucket。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f object-bucket-claim-delete.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f object-bucket-claim-delete.yaml</span>
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1258,7 +1259,7 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">objectbucket.io/v1alpha1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">objectbucket.io/v1alpha1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ObjectBucketClaim</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceph-delete-bucket</span><span class="w">
@@ -1270,7 +1271,7 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </div><h3 id="44设置对象存储访问信息">4.4	设置对象存储访问信息</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1301,7 +1302,7 @@ rookpod01   0/1     Completed   <span class="m">0</span>          5m35s
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n default get cm ceph-delete-bucket -o yaml | grep BUCKET_HOST | awk &#39;{print $2}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n default get cm ceph-delete-bucket -o yaml | grep BUCKET_HOST | awk &#39;{print $2}&#39;</span>
 
 rook-ceph-rgw-my-store.rook-ceph
 
@@ -1339,7 +1340,7 @@ rook-ceph-rgw-my-store   ClusterIP   10.102.165.187   &lt;none&gt;        80/TCP
 <p>[root@k8smaster01 ceph]# kubectl create -f filesystem.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1387,7 +1388,7 @@ rook-ceph-rgw-my-store   ClusterIP   10.102.165.187   &lt;none&gt;        80/TCP
 </span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephFilesystem</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">myfs</span><span class="w">
@@ -1437,14 +1438,14 @@ rook-ceph-rgw-my-store   ClusterIP   10.102.165.187   &lt;none&gt;        80/TCP
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get cephfilesystems.ceph.rook.io -n rook-ceph</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get cephfilesystems.ceph.rook.io -n rook-ceph</span>
 
 NAME   ACTIVEMDS   AGE
 
@@ -1457,7 +1458,7 @@ myfs   <span class="m">1</span>           27s
 <p>[root@k8smaster01 ceph]# vi csi/cephfs/storageclass.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1478,7 +1479,7 @@ myfs   <span class="m">1</span>           27s
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">storage.k8s.io/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StorageClass</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-cephfs</span><span class="w">
@@ -1501,14 +1502,14 @@ myfs   <span class="m">1</span>           27s
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get sc</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get sc</span>
 
 NAME              PROVISIONER                     AGE
 
@@ -1519,7 +1520,7 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 <p>[root@k8smaster01 ceph]# vi rookpvc03.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1532,7 +1533,7 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cephfs-pvc</span><span class="w">
@@ -1547,14 +1548,14 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f rookpvc03.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f rookpvc03.yaml</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get pv</span>
 
@@ -1566,7 +1567,7 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 <p>[root@k8smaster01 ceph]# vi rookpod03.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1585,7 +1586,7 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">---</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">---</span><span class="w">
 </span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -1606,7 +1607,7 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1615,7 +1616,7 @@ csi-cephfs        rook-ceph.cephfs.csi.ceph.com   10m
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f rookpod03.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f rookpod03.yaml</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get pods</span>
 
@@ -1629,16 +1630,16 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 <p>步骤2.4已创建dashboard，但仅使用clusterIP暴露服务，使用如下官方提供的默认yaml可部署外部nodePort方式暴露服务的dashboard。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f dashboard-external-https.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl create -f dashboard-external-https.yaml</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>[root@k8smaster01 ceph]# vi dashboard-external-https.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1659,7 +1660,7 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-mgr-dashboard-external-https</span><span class="w">
@@ -1683,7 +1684,7 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 </div><h3 id="62部署ingress-svc">6.2	部署ingress-svc</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1707,7 +1708,7 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rook-ceph-mgr-dashboard</span><span class="w">
@@ -1733,20 +1734,20 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get svc -n rook-ceph</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl get svc -n rook-ceph</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><a href="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110922888-1138155324.png"><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110923090-493652387.png" alt="clipboard"></a></p>
 <h3 id="62确认验证">6.2	确认验证</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.password}&#39;</span>  <span class="p">|</span>  base64 --decode	<span class="c1">#获取初始密码</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.password}&#39;</span>  <span class="p">|</span>  base64 --decode	<span class="c1">#获取初始密码</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>浏览器访问：https://172.24.8.71:31097</p>
@@ -1758,7 +1759,7 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 <p>默认创建Ceph集群的配置参数在创建Cluster的时候生成Ceph集群的配置参数，若需要在部署完成后修改相应参数，可通过如下操作试下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1784,7 +1785,7 @@ csicephfs-demo-pod   1/1     Running     <span class="m">0</span>          24s
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n rook-ceph get configmap rook-config-override -o yaml	#获取参数</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n rook-ceph get configmap rook-config-override -o yaml	#获取参数</span>
 
 <span class="o">[</span>root@192.168.10.128 ~<span class="o">]</span><span class="c1"># cat /var/lib/rook/rook-ceph/rook-ceph.config				#也可在任何node上查看</span>
 
@@ -1818,7 +1819,7 @@ data:
 <p>[root@k8smaster01 ceph]# kubectl create -f pool.yaml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1830,7 +1831,7 @@ data:
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ceph.rook.io/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CephBlockPool</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">replicapool2</span><span class="w">
@@ -1845,10 +1846,10 @@ data:
 </div><h3 id="73删除pool">7.3	删除Pool</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl delete -f pool.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl delete -f pool.yaml</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>提示：更多Pool管理，如纠删码池参考：https://rook.io/docs/rook/v1.1/ceph-pool-crd.html。</strong></p>
@@ -1856,7 +1857,7 @@ data:
 <p>本步骤模拟将k8smaster的sdb添加为OSD。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1877,7 +1878,7 @@ data:
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl taint node k8smaster01 node-role.kubernetes.io/master-		#允许调度Pod</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl taint node k8smaster01 node-role.kubernetes.io/master-		#允许调度Pod</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl label nodes k8smaster01 ceph-osd=enabled			#设置标签</span>
 
@@ -1901,12 +1902,12 @@ data:
 </div><p><a href="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110924395-343692003.png"><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110924560-946995536.png" alt="clipboard"></a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl apply -f cluster.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl apply -f cluster.yaml</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n rook-ceph get pod -o wide -w</span>
 </code></pre></td></tr></table>
@@ -1918,7 +1919,7 @@ data:
 <p>[root@k8smaster01 ceph]# vi cluster.yaml	#删除如下master01的配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1927,7 +1928,7 @@ data:
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">……</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">……</span><span class="w">
 </span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;k8smaster01&#34;</span><span class="w">
 </span><span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span><span class="nt">storeType</span><span class="p">:</span><span class="w"> </span><span class="l">bluestore</span><span class="w">
@@ -1939,14 +1940,14 @@ data:
 </div><p><a href="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110926113-409600846.png"><img src="https://img2018.cnblogs.com/blog/680719/202003/680719-20200318110926395-1082056006.png" alt="clipboard"></a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl apply -f cluster.yaml</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl apply -f cluster.yaml</span>
 
 <span class="o">[</span>root@k8smaster01 ceph<span class="o">]</span><span class="c1"># kubectl -n rook-ceph get pod -o wide -w</span>
 
@@ -1997,17 +1998,17 @@ data:
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/rook/">rook</a>
-          <a href="/tags/storage/">storage</a>
-          <a href="/tags/ceph/">ceph</a>
+          <a href="/blog/tags/rook/">rook</a>
+          <a href="/blog/tags/storage/">storage</a>
+          <a href="/blog/tags/ceph/">ceph</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/log/helm_loki_prometheus_oper/">
+        <a class="prev" href="/blog/post/log/helm_loki_prometheus_oper/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">HELM部署轻量级日志系统Loki以及Prometheus-Operator</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/cicd/helm_jenkins_ops/">
+        <a class="next" href="/blog/post/cicd/helm_jenkins_ops/">
             <span class="next-text nav-default">jenkins helm安装最佳实践</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -2032,7 +2033,7 @@ data:
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -2046,15 +2047,15 @@ data:
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -2081,7 +2082,7 @@ data:
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vagrant on Bill World</title>
-    <link>https://xiebiao.top/tags/vagrant/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/vagrant/</link>
     <description>Recent content in vagrant on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 06 Mar 2020 22:18:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/vagrant/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Mar 2020 22:18:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/vagrant/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vagrant 入门指引</title>
-      <link>https://xiebiao.top/post/vm/learning-vagrant/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/vm/learning-vagrant/</link>
       <pubDate>Fri, 06 Mar 2020 22:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/vm/learning-vagrant/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/vm/learning-vagrant/</guid>
       <description>目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac</description>
     </item>
     

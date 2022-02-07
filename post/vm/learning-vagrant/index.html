@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/vm/learning-vagrant/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/vm/learning-vagrant/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="Vagrant 入门指引" />
 <meta property="og:description" content="目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/vm/learning-vagrant/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/vm/learning-vagrant/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-06T22:18:30+00:00" />
 <meta property="article:modified_time" content="2020-03-06T22:18:30+00:00" />
+
 <meta itemprop="name" content="Vagrant 入门指引">
-<meta itemprop="description" content="目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac">
-<meta itemprop="datePublished" content="2020-03-06T22:18:30+00:00" />
+<meta itemprop="description" content="目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac"><meta itemprop="datePublished" content="2020-03-06T22:18:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-06T22:18:30+00:00" />
 <meta itemprop="wordCount" content="4193">
-
-
-
-<meta itemprop="keywords" content="vagrant,vm," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="vagrant,vm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Vagrant 入门指引"/>
 <meta name="twitter:description" content="目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-06 22:18 </span>
         <div class="post-category">
-            <a href="/categories/vm/"> vm </a>
+            <a href="/blog/categories/vm/"> vm </a>
             </div>
           <span class="more-meta"> 约 4193 字 </span>
           <span class="more-meta"> 预计阅读 9 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -158,6 +154,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-03-06T22:18:30" title="March 6, 2020">March 6, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -234,7 +235,7 @@ oulders of giants. Machines are provisioned on top of <strong>VirtualBox</strong
 <p>安装包是二进制文件，根据提示一步一步安装即可。安装程序会将 <code>vagrant</code> 命令添加到系统环境（path）变量，安装结束后可通过下面到命令检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -247,7 +248,7 @@ oulders of giants. Machines are provisioned on top of <strong>VirtualBox</strong
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 在终端下验证 Vagrant 是否安装成功</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 在终端下验证 Vagrant 是否安装成功</span>
 $ vagrant --version
 Vagrant 2.2.4
 
@@ -278,7 +279,7 @@ You<span class="err">&#39;</span>re running an up-to-date version of Vagrant!
 <p>方式一：使用 <a href="https://app.vagrantup.com/boxes/search" title="Vagrant box">Vagrant 官方仓库</a> 中对应的 box 名称</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -289,23 +290,23 @@ You<span class="err">&#39;</span>re running an up-to-date version of Vagrant!
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 此种方式无法修改添加的 box 名称</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 此种方式无法修改添加的 box 名称</span>
 <span class="c1"># 并且在某些情况下，下载速度可能比较缓慢，所以推荐使用方式二</span>
 $ vagrant box add ubuntu/xenial64
 <span class="o">==</span>&gt; box: Loading metadata <span class="k">for</span> box <span class="s1">&#39;ubuntu/xenial64&#39;</span>
-        box: URL: https://vagrantcloud.com/ubuntu/xenial64
+		box: URL: https://vagrantcloud.com/ubuntu/xenial64
 <span class="o">==</span>&gt; box: Adding box <span class="s1">&#39;ubuntu/xenial64&#39;</span> <span class="o">(</span>v20190807.0.0<span class="o">)</span> <span class="k">for</span> provider: virtualbox
-        box: Downloading: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20190807.0.0/providers/virtualbox.box
-        box: Download redirected to host: cloud-images.ubuntu.com
+		box: Downloading: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20190807.0.0/providers/virtualbox.box
+		box: Download redirected to host: cloud-images.ubuntu.com
 <span class="o">==</span>&gt; box: Successfully added box <span class="s1">&#39;ubuntu/xenial64&#39;</span> <span class="o">(</span>v20190807.0.0<span class="o">)</span> <span class="k">for</span> <span class="s1">&#39;virtualbox&#39;</span>!
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -313,7 +314,7 @@ $ vagrant box add ubuntu/xenial64
 <p>方式二：使用 <a href="http://www.vagrantbox.es" title="Vagrant box">第三方仓库</a>，速度相对快一些，也更灵活</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -330,12 +331,12 @@ $ vagrant box add ubuntu/xenial64
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 使用 box 的绝对路径</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 使用 box 的绝对路径</span>
 $ vagrant box add centos7 https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box
 <span class="o">==</span>&gt; box: Box file was not detected as metadata. Adding it directly...
 <span class="o">==</span>&gt; box: Adding box <span class="s1">&#39;centos7&#39;</span> <span class="o">(</span>v0<span class="o">)</span> <span class="k">for</span> provider:
-        box: Downloading: https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box
-        box: Download redirected to host: github-production-release-asset-2e65be.s3.amazonaws.com
+		box: Downloading: https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box
+		box: Download redirected to host: github-production-release-asset-2e65be.s3.amazonaws.com
 <span class="o">==</span>&gt; box: Successfully added box <span class="s1">&#39;centos7&#39;</span> <span class="o">(</span>v0<span class="o">)</span> <span class="k">for</span> <span class="s1">&#39;virtualbox&#39;</span>!
 
 <span class="c1"># 使用之前导出的 box 或离线下载好的 box</span>
@@ -349,10 +350,10 @@ $ vagrant box add ubuntu1604 ./boxs/xenial-server-cloudimg-amd64-vagrant.box
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -360,13 +361,13 @@ $ vagrant box add ubuntu1604 ./boxs/xenial-server-cloudimg-amd64-vagrant.box
 <p>检查 box 是否添加成功</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant box list
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vagrant box list
 centos7         <span class="o">(</span>virtualbox, 0<span class="o">)</span>
 ubuntu/xenial64 <span class="o">(</span>virtualbox, 20190807.0.0<span class="o">)</span>
 ubuntu1604      <span class="o">(</span>virtualbox, 0<span class="o">)</span>
@@ -378,11 +379,11 @@ ubuntu1604      <span class="o">(</span>virtualbox, 0<span class="o">)</span>
 <p>创建一个工作目录</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p ~/vagrant/lamp
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p ~/vagrant/lamp
 $ <span class="nb">cd</span> ~/vagrant/lamp
 </code></pre></td></tr></table>
 </div>
@@ -392,7 +393,7 @@ $ <span class="nb">cd</span> ~/vagrant/lamp
 <p>以名字为 <em>ubuntu/xeninal64</em> 的 box 初始化 Vagrant</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -407,7 +408,7 @@ $ <span class="nb">cd</span> ~/vagrant/lamp
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant init ubuntu/xeninal64
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vagrant init ubuntu/xeninal64
 
 
 A <span class="sb">`</span>Vagrantfile<span class="sb">`</span> has been placed in this directory. You are now
@@ -428,7 +429,7 @@ drwxr-xr-x  <span class="m">5</span> 用户名  staff   <span class="m">170</spa
 <p>启动 Vagrant</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -477,7 +478,7 @@ drwxr-xr-x  <span class="m">5</span> 用户名  staff   <span class="m">170</spa
 </span><span class="lnt">47
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant up
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vagrant up
 Bringing machine <span class="s1">&#39;default&#39;</span> up with <span class="s1">&#39;virtualbox&#39;</span> provider...
 <span class="o">==</span>&gt; default: Importing base box <span class="s1">&#39;ubuntu/xenial64&#39;</span>...
 <span class="o">==</span>&gt; default: Matching MAC address <span class="k">for</span> NAT networking...
@@ -532,7 +533,7 @@ Bringing machine <span class="s1">&#39;default&#39;</span> up with <span class="
 <p>查看当前目录下（Vagrant配置文件）对应的虚拟机的运行状态</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -543,7 +544,7 @@ Bringing machine <span class="s1">&#39;default&#39;</span> up with <span class="
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant status
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vagrant status
 Current machine states:
 
 default                   running <span class="o">(</span>virtualbox<span class="o">)</span>
@@ -569,7 +570,7 @@ simply run <span class="sb">`</span>vagrant up<span class="sb">`</span>.
 <p>在工作目录下使用如下命令 ssh 登录到正在运行的虚拟机</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -620,7 +621,7 @@ simply run <span class="sb">`</span>vagrant up<span class="sb">`</span>.
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant ssh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vagrant ssh
 Welcome to Ubuntu 16.04.3 LTS <span class="o">(</span>GNU/Linux 4.4.0-97-generic x86_64<span class="o">)</span>
 
  * Documentation:  https://help.ubuntu.com
@@ -677,7 +678,7 @@ Connection to 127.0.0.1 closed.
 <h3 id="4-常用命令">4. 常用命令</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -725,7 +726,7 @@ Connection to 127.0.0.1 closed.
 </span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 添加 box</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 添加 box</span>
 $ vagrant box add new-box-name box文件地址（本地、远程）
 
 <span class="c1"># 删除 box</span>
@@ -777,7 +778,7 @@ $ vagrant 命令名 -h
 <h4 id="51-vagrantfile-常用配置">5.1. Vagrantfile 常用配置</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -806,7 +807,7 @@ $ vagrant 命令名 -h
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 虚拟机中 linux 的 hostname</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 虚拟机中 linux 的 hostname</span>
 config.vm.hostname <span class="o">=</span> <span class="s2">&#34;ubuntu1604-lamp&#34;</span>
 
 <span class="c1"># 网络设置1 - 公有（public_network）网络（允许局域网中其他机器访问）</span>
@@ -839,14 +840,14 @@ end
 <p>使用 Apache/Nginx 时会出现诸如图片修改后但页面刷新仍然是旧文件的情况，是由于静态文件缓存造成的。需要对虚拟机里的 Apache/Nginx 配置文件进行修改：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Apache 配置（httpd.conf 或者 apache.conf）添加：</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Apache 配置（httpd.conf 或者 apache.conf）添加：</span>
 EnableSendfile off
 
 <span class="c1"># Nginx 配置（nginx.conf）添加：</span>
@@ -856,7 +857,7 @@ sendfile off<span class="p">;</span>
 </div><h4 id="53-虚拟机与宿主机时间同步设置">5.3. 虚拟机与宿主机时间同步设置</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -877,7 +878,7 @@ sendfile off<span class="p">;</span>
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#</span>
 $ VBoxManage list vms
 <span class="s2">&#34;win7&#34;</span> <span class="o">{</span>87fd57f0-ef1f-4e6d-8529-0fee472ba76a<span class="o">}</span>
 <span class="s2">&#34;win10&#34;</span> <span class="o">{</span>a7edfd3b-0706-43f6-bd3d-b79dc796eb28<span class="o">}</span>
@@ -903,7 +904,7 @@ $ vagrant reload
 <p>比如想要实现文件夹共享、网络、端口映射等，必须要安装 VirtualBox 扩展工具，具体安装方式如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -925,7 +926,7 @@ $ vagrant reload
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入虚拟机</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 进入虚拟机</span>
 $ vagrant ssh
 
 <span class="c1"># 安装所需开发工具</span>
@@ -951,10 +952,10 @@ $ vagrant reload
 <p><strong>自动检查同步新版本</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ vagrant plugin install vagrant-vbguest
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vagrant plugin install vagrant-vbguest
 </code></pre></td></tr></table>
 </div>
 </div><p>之后，每次 <code>vagrant up</code> 过程中，如果发现虚拟机的 VBoxGuestAdditions 与宿主机不一致，则进行更新。</p>
@@ -974,12 +975,12 @@ $ vagrant reload
 <p>在 VirtualBox 中登录虚拟机，并执行以下命令挂载、安装</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo mount /dev/cdrom /media/cdrom
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ sudo mount /dev/cdrom /media/cdrom
 $ <span class="nb">cd</span> /media/cdrom/
 $ sudo ./VBoxLinuxAddtions.run
 </code></pre></td></tr></table>
@@ -993,22 +994,22 @@ $ sudo ./VBoxLinuxAddtions.run
 <p>SSH默认禁用密码连接，只允许使用密钥登录，需修改文件 <code>/etc/ssh/sshd_config</code> 中如下部分：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">PasswordAuthentication yes
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">PasswordAuthentication yes
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="63-sbinmountvboxsf-mounting-failed-with-the-error-no-such-device">6.3. <code>/sbin/mount.vboxsf: mounting failed with the error: No such device</code></h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum clean all
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum clean all
 yum update
 yum install -y kernel kernel-devel kernel-headers gcc make
 reboot
@@ -1016,22 +1017,22 @@ reboot
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt/VBoxGuestAdditions-*/init
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt/VBoxGuestAdditions-*/init
 ./vboxadd setup
 reboot
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vagrant reload
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vagrant reload
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="7-vagrant-配置案例">7. vagrant 配置案例</h3>
@@ -1074,16 +1075,16 @@ reboot
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/vagrant/">vagrant</a>
-          <a href="/tags/vm/">vm</a>
+          <a href="/blog/tags/vagrant/">vagrant</a>
+          <a href="/blog/tags/vm/">vm</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/vm/vsphere_install/">
+        <a class="prev" href="/blog/post/vm/vsphere_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">VMware vSphere ESXi 7.0b部署</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/vm/WebVirtCloud_deploy/">
+        <a class="next" href="/blog/post/vm/WebVirtCloud_deploy/">
             <span class="next-text nav-default">WebVirtCloud部署笔记</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1108,7 +1109,7 @@ reboot
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1122,15 +1123,15 @@ reboot
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1157,7 +1158,7 @@ reboot
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

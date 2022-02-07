@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gateway on Bill World</title>
-    <link>https://xiebiao.top/tags/gateway/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/gateway/</link>
     <description>Recent content in gateway on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 04 Apr 2020 23:00:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/gateway/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Apr 2020 23:00:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/gateway/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>k8s上使用Helm在线安装kong2</title>
-      <link>https://xiebiao.top/post/gateway/helm3_kong2_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/gateway/helm3_kong2_install/</link>
       <pubDate>Sat, 04 Apr 2020 23:00:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/gateway/helm3_kong2_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/gateway/helm3_kong2_install/</guid>
       <description>k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7） 安装前说明 官方文档问题说明 一、kong使用的pos</description>
     </item>
     
     <item>
       <title>OpenResty搭建高性能服务端</title>
-      <link>https://xiebiao.top/post/gateway/openresty_doc/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/gateway/openresty_doc/</link>
       <pubDate>Fri, 03 Apr 2020 22:23:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/gateway/openresty_doc/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/gateway/openresty_doc/</guid>
       <description>OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超</description>
     </item>
     

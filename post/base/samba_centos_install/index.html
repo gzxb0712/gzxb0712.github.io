@@ -23,21 +23,21 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/base/samba_centos_install/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/base/samba_centos_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="samba在centos中安装" />
@@ -72,9 +72,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
 
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/base/samba_centos_install/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/base/samba_centos_install/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-02-01T20:21:37+00:00" />
 <meta property="article:modified_time" content="2020-02-01T20:21:37+00:00" />
+
 <meta itemprop="name" content="samba在centos中安装">
 <meta itemprop="description" content="一、简介
 
@@ -105,15 +106,10 @@ Samba在windows下使用的是NetBIOS协议，如果你要使用Linux下共享�
 Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； Linux和Windows域之间的认证和授权； UNICODE字符集和域名映射；满足CIFS协议的UNIX共享等。
 
 
-">
-<meta itemprop="datePublished" content="2020-02-01T20:21:37+00:00" />
+"><meta itemprop="datePublished" content="2020-02-01T20:21:37+00:00" />
 <meta itemprop="dateModified" content="2020-02-01T20:21:37+00:00" />
 <meta itemprop="wordCount" content="6810">
-
-
-
-<meta itemprop="keywords" content="samba,centos,base," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="samba,centos,base," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="samba在centos中安装"/>
 <meta name="twitter:description" content="一、简介
 
@@ -159,7 +155,7 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -169,15 +165,15 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -185,21 +181,21 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -216,12 +212,12 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
       <div class="post-meta">
         <span class="post-time"> 2020-02-01 20:21 </span>
         <div class="post-category">
-            <a href="/categories/linux/"> linux </a>
-            <a href="/categories/base/"> base </a>
+            <a href="/blog/categories/linux/"> linux </a>
+            <a href="/blog/categories/base/"> base </a>
             </div>
           <span class="more-meta"> 约 6810 字 </span>
           <span class="more-meta"> 预计阅读 14 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -254,11 +250,16 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-02-01T20:21:37" title="February 1, 2020">February 1, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <h2 id="一简介">一、简介</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -271,7 +272,7 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">简介以及配置介绍部分来自：https://www.cnblogs.com/muscleape/p/6385583.html
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">简介以及配置介绍部分来自：https://www.cnblogs.com/muscleape/p/6385583.html
 
 Samba是一个能让Linux系统应用Microsoft网络通讯协议的软件，而SMB是Server Message Block的缩写，即为服务器消息块 ，SMB主要是作为Microsoft的网络通讯协议，后来Samba将SMB通信协议应用到了Linux系统上，就形成了现在的Samba软件。后来微软又把 SMB 改名为 CIFS（Common Internet File System），即公共 Internet 文件系统，并且加入了许多新的功能，这样一来，使得Samba具有了更强大的功能。
 Samba最大的功能就是可以用于Linux与windows系统直接的文件共享和打印共享，Samba既可以用于windows与Linux之间的文件共享，也可以用于Linux与Linux之间的资源共享，由于NFS(网络文件系统）可以很好的完成Linux与Linux之间的数据共享，因而 Samba较多的用在了Linux与windows之间的数据共享上面。
@@ -287,48 +288,48 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
 </div><h2 id="二使用评估">二、使用评估</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">在使用samba之前，请先进行安全评估。因为在配置samba的时候，服务对共享目录的授权是 777.也就是说，所有服务器上的用户都可以访问共享目录，因此会存在安全风险。
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">在使用samba之前，请先进行安全评估。因为在配置samba的时候，服务对共享目录的授权是 777.也就是说，所有服务器上的用户都可以访问共享目录，因此会存在安全风险。
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="三系统准备">三、系统准备</h2>
 <h3 id="1关闭防火墙centos7默认使用firewalld">1、关闭防火墙（CentOS7默认使用firewalld）</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl stop firewalld.service
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl stop firewalld.service
 systemctl disable firewalld.service
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="2关闭selinux">2、关闭SELINUX</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">临时关闭，执行命令：setenforce 0
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">临时关闭，执行命令：setenforce 0
 永久关闭，修改配置文件/etc/selinux/config中的配置项：SELINUX=disabled，然后重启服务器
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="四安装samba服务">四、安装Samba服务</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install -y samba
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum install -y samba
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="五配置samba服务">五、配置Samba服务</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -502,7 +503,7 @@ systemctl disable firewalld.service
 </span><span class="lnt">172
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Samba的主配置文件为/etc/samba/smb.conf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Samba的主配置文件为/etc/samba/smb.conf
 
 主配置文件由两部分构成
 
@@ -680,33 +681,33 @@ Samba安装好后，使用testparm命令可以测试smb.conf配置是否正确�
 <h3 id="1建立共享目录">1、建立共享目录</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /data/share/
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /data/share/
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="2建立samba的用户组以及用户">2、建立samba的用户组以及用户</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">groupadd samba
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">groupadd samba
 useradd -g samba -s /sbin/nologin samba
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="3修改共享目录的用户组以及权限">3、修改共享目录的用户组以及权限</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">创建用户和组：chown -R samba:samba /data/share/
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">创建用户和组：chown -R samba:samba /data/share/
 修改权限：chmod -R 777 /data/share/
 设置samba权限：smbpasswd -a samba
 启用samba用户：smbpasswd -e samba
@@ -715,7 +716,7 @@ useradd -g samba -s /sbin/nologin samba
 </div><h3 id="4创建配置文件etcsambasmbconf">4、创建配置文件：/etc/samba/smb.conf</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -771,7 +772,7 @@ useradd -g samba -s /sbin/nologin samba
 </span><span class="lnt">54
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[global]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[global]
     workgroup = SAMBA
     security = user
 
@@ -830,20 +831,20 @@ useradd -g samba -s /sbin/nologin samba
 </div><h3 id="5启动samba">5、启动samba</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">service smb start 或者 systemctl start smb.service
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">service smb start 或者 systemctl start smb.service
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="6将共享目录映射成windows驱动器">6、将共享目录映射成windows驱动器</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">①、右击计算机 –&gt;  映射网络驱动器
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">①、右击计算机 –&gt;  映射网络驱动器
 ②、在文件夹栏输入共享地址及路径，点击“完成”输入用户名和密码
 </code></pre></td></tr></table>
 </div>
@@ -884,17 +885,17 @@ useradd -g samba -s /sbin/nologin samba
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/samba/">samba</a>
-          <a href="/tags/centos/">centos</a>
-          <a href="/tags/base/">base</a>
+          <a href="/blog/tags/samba/">samba</a>
+          <a href="/blog/tags/centos/">centos</a>
+          <a href="/blog/tags/base/">base</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/blog/github_jsdelivr_ops/">
+        <a class="prev" href="/blog/post/blog/github_jsdelivr_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine打造稳定快速高效免费图床</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/base/openvpn_client_connect/">
+        <a class="next" href="/blog/post/base/openvpn_client_connect/">
             <span class="next-text nav-default">openvpn客户端连接设置</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -919,7 +920,7 @@ useradd -g samba -s /sbin/nologin samba
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -933,15 +934,15 @@ useradd -g samba -s /sbin/nologin samba
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -968,7 +969,7 @@ useradd -g samba -s /sbin/nologin samba
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

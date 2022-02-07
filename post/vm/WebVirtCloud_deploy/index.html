@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/vm/WebVirtCloud_deploy/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/vm/WebVirtCloud_deploy/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="WebVirtCloud部署笔记" />
 <meta property="og:description" content="系统配置 # SELinux 允许WebVirtCloud通行 1 sudo semanage fcontext -a -t httpd_sys_content_t &#34;/srv/webvirtcloud(/.*)&#34; 或关闭SELINUX 1 2 vi /etc/selinux/config 1 2 SELINUX=disabled # 防火墙 允许nginx和novnc通行。 1 2 3" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/vm/WebVirtCloud_deploy/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/vm/WebVirtCloud_deploy/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-06T21:18:30+00:00" />
 <meta property="article:modified_time" content="2020-03-06T21:18:30+00:00" />
+
 <meta itemprop="name" content="WebVirtCloud部署笔记">
-<meta itemprop="description" content="系统配置 # SELinux 允许WebVirtCloud通行 1 sudo semanage fcontext -a -t httpd_sys_content_t &#34;/srv/webvirtcloud(/.*)&#34; 或关闭SELINUX 1 2 vi /etc/selinux/config 1 2 SELINUX=disabled # 防火墙 允许nginx和novnc通行。 1 2 3">
-<meta itemprop="datePublished" content="2020-03-06T21:18:30+00:00" />
+<meta itemprop="description" content="系统配置 # SELinux 允许WebVirtCloud通行 1 sudo semanage fcontext -a -t httpd_sys_content_t &#34;/srv/webvirtcloud(/.*)&#34; 或关闭SELINUX 1 2 vi /etc/selinux/config 1 2 SELINUX=disabled # 防火墙 允许nginx和novnc通行。 1 2 3"><meta itemprop="datePublished" content="2020-03-06T21:18:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-06T21:18:30+00:00" />
 <meta itemprop="wordCount" content="1235">
-
-
-
-<meta itemprop="keywords" content="WebVirtCloud,vm,kvm," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="WebVirtCloud,vm,kvm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="WebVirtCloud部署笔记"/>
 <meta name="twitter:description" content="系统配置 # SELinux 允许WebVirtCloud通行 1 sudo semanage fcontext -a -t httpd_sys_content_t &#34;/srv/webvirtcloud(/.*)&#34; 或关闭SELINUX 1 2 vi /etc/selinux/config 1 2 SELINUX=disabled # 防火墙 允许nginx和novnc通行。 1 2 3"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-06 21:18 </span>
         <div class="post-category">
-            <a href="/categories/vm/"> vm </a>
+            <a href="/blog/categories/vm/"> vm </a>
             </div>
           <span class="more-meta"> 约 1235 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -180,6 +176,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-03-06T21:18:30" title="March 6, 2020">March 6, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -188,30 +189,30 @@
 <p>允许<code>WebVirtCloud</code>通行</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo semanage fcontext -a -t httpd_sys_content_t &#34;/srv/webvirtcloud(/.*)&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo semanage fcontext -a -t httpd_sys_content_t &#34;/srv/webvirtcloud(/.*)&#34;
 </code></pre></td></tr></table>
 </div>
 </div><p>或关闭<code>SELINUX</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/selinux/config
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/selinux/config
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">SELINUX=disabled
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">SELINUX=disabled
 
 </code></pre></td></tr></table>
 </div>
@@ -219,13 +220,13 @@
 <p>允许<code>nginx</code>和<code>novnc</code>通行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --zone=public --add-port=80/tcp --permanent      # nginx
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --zone=public --add-port=80/tcp --permanent      # nginx
 firewall-cmd --zone=public --add-port=6080/tcp --permanent    # novnc
 firewall-cmd --reload
 
@@ -236,11 +237,11 @@ firewall-cmd --reload
 <p>执行以下命令，若有高亮<code>vmx</code>或<code>svm</code>输出表示硬件支持虚拟化。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">egrep &#39;(vmx|svm)&#39; --color=always /proc/cpuinfo
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">egrep &#39;(vmx|svm)&#39; --color=always /proc/cpuinfo
 
 </code></pre></td></tr></table>
 </div>
@@ -248,13 +249,13 @@ firewall-cmd --reload
 <p>网桥相当于外网和虚拟机之间的交换机。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">             +-----------+     +----------+     +----------+
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">             +-----------+     +----------+     +----------+
 Internet --- | HOST eth0 | --- | HOST br0 | --- | VMs eth0 | --- VMs
              +-----------+     +----------+     +----------+
 
@@ -262,17 +263,17 @@ Internet --- | HOST eth0 | --- | HOST br0 | --- | VMs eth0 | --- VMs
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cp /etc/sysconfig/network-scripts/ifcfg-enp2s0 /etc/sysconfig/network-scripts/ifcfg-br0
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cp /etc/sysconfig/network-scripts/ifcfg-enp2s0 /etc/sysconfig/network-scripts/ifcfg-br0
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -291,7 +292,7 @@ Internet --- | HOST eth0 | --- | HOST br0 | --- | VMs eth0 | --- VMs
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">TYPE=Bridge                                   # 类型为网桥
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">TYPE=Bridge                                   # 类型为网桥
 PROXY_METHOD=none
 BROWSER_ONLY=no
 BOOTPROTO=dhcp                                # MAC未绑定IP时建议配置静态IP
@@ -312,17 +313,17 @@ ZONE=public
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/sysconfig/network-scripts/ifcfg-enp2s0
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/sysconfig/network-scripts/ifcfg-enp2s0
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -342,7 +343,7 @@ ZONE=public
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">BRIDGE=br0
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">BRIDGE=br0
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
@@ -364,12 +365,12 @@ ZONE=public
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart network
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart network
 brctl show
 
 </code></pre></td></tr></table>
@@ -377,12 +378,12 @@ brctl show
 </div><h3 id="安装kvm依赖-安装kvm依赖"><a href="#%E5%AE%89%E8%A3%85kvm%E4%BE%9D%E8%B5%96">#</a> 安装KVM依赖</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install kvm qemu-kvm qemu-kvm-tools libvirt libvirt-python libvirt-client
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum install kvm qemu-kvm qemu-kvm-tools libvirt libvirt-python libvirt-client
 yum install virt-install python-virtinst bridge-utils libguestfs-tools
 
 </code></pre></td></tr></table>
@@ -466,12 +467,12 @@ yum install virt-install python-virtinst bridge-utils libguestfs-tools
 <h3 id="设置服务-设置服务"><a href="#%E8%AE%BE%E7%BD%AE%E6%9C%8D%E5%8A%A1">#</a> 设置服务</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable libvirtd   # 设置服务自启动
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable libvirtd   # 设置服务自启动
 systemctl start libvirtd    # 启动服务
 
 </code></pre></td></tr></table>
@@ -481,12 +482,12 @@ systemctl start libvirtd    # 启动服务
 <h3 id="更新-hypervisor-gstfsd-更新-hypervisor-gstfsd"><a href="#%E6%9B%B4%E6%96%B0-hypervisor-gstfsd">#</a> 更新 hypervisor gstfsd</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">wget -O - https://clck.ru/9VMRH | sudo tee -a /usr/local/bin/gstfsd
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">wget -O - https://clck.ru/9VMRH | sudo tee -a /usr/local/bin/gstfsd
 sudo service supervisor restart
 
 </code></pre></td></tr></table>
@@ -494,23 +495,23 @@ sudo service supervisor restart
 </div><h3 id="获取secret-key-获取secret_key"><a href="#%E8%8E%B7%E5%8F%96secret-key">#</a> 获取SECRET_KEY</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /srv/webvirtcloud/webvirtcloud/settings.py
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /srv/webvirtcloud/webvirtcloud/settings.py
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">import random, string
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">import random, string
 haystack = string.ascii_letters + string.digits + string.punctuation
 print(&#39;&#39;.join([random.SystemRandom().choice(haystack) for _ in range(50)]))
 
@@ -520,12 +521,12 @@ print(&#39;&#39;.join([random.SystemRandom().choice(haystack) for _ in range(50)
 <h4 id="安装webvirtcloud依赖-安装webvirtcloud依赖"><a href="#%E5%AE%89%E8%A3%85webvirtcloud%E4%BE%9D%E8%B5%96">#</a> 安装WebVirtCloud依赖</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install python-virtualenv python-devel libvirt-devel
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum install python-virtualenv python-devel libvirt-devel
 yum install glibc gcc nginx supervisor python-lxml git python-libguestfs
 
 </code></pre></td></tr></table>
@@ -533,14 +534,14 @@ yum install glibc gcc nginx supervisor python-lxml git python-libguestfs
 </div><h4 id="克隆仓库-克隆仓库"><a href="#%E5%85%8B%E9%9A%86%E4%BB%93%E5%BA%93">#</a> 克隆仓库</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo mkdir /srv &amp;&amp; cd /srv
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo mkdir /srv &amp;&amp; cd /srv
 sudo git clone https://github.com/retspen/webvirtcloud &amp;&amp; cd webvirtcloud
 cp webvirtcloud/settings.py.template webvirtcloud/settings.py
 # now put secret key to webvirtcloud/settings.py
@@ -550,7 +551,7 @@ cp webvirtcloud/settings.py.template webvirtcloud/settings.py
 </div><h4 id="开始安装webvirtcloud-开始安装webvirtcloud"><a href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85webvirtcloud">#</a> 开始安装WebVirtCloud</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -558,7 +559,7 @@ cp webvirtcloud/settings.py.template webvirtcloud/settings.py
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sudo virtualenv venv
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo virtualenv venv
 sudo source venv/bin/activate
 sudo venv/bin/pip install -r conf/requirements.txt
 sudo cp conf/nginx/webvirtcloud.conf /etc/nginx/conf.d/
@@ -569,17 +570,17 @@ sudo venv/bin/python manage.py migrate
 </div><h4 id="配置supervisor-配置supervisor"><a href="#%E9%85%8D%E7%BD%AEsupervisor">#</a> 配置supervisor</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/supervisord.conf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/supervisord.conf
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -597,7 +598,7 @@ sudo venv/bin/python manage.py migrate
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 把以下内容添加到 [include] 段的 `files = ...` 之后
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 把以下内容添加到 [include] 段的 `files = ...` 之后
 [program:webvirtcloud]
 command=/srv/webvirtcloud/venv/bin/gunicorn webvirtcloud.wsgi:application -c /srv/webvirtcloud/gunicorn.conf.py
 directory=/srv/webvirtcloud
@@ -619,17 +620,17 @@ redirect_stderr=true
 <p>注释<code>nginx</code>原有<code>server</code>段相关配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/nginx/nginx.conf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /etc/nginx/nginx.conf
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -653,7 +654,7 @@ redirect_stderr=true
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#    server {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#    server {
 #        listen       80 default_server;
 #        listen       [::]:80 default_server;
 #        server_name  _;
@@ -680,17 +681,17 @@ redirect_stderr=true
 </div><p>确保webvirtcloud.conf配置正确</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cat /etc/nginx/conf.d/webvirtcloud.conf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cat /etc/nginx/conf.d/webvirtcloud.conf
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -720,7 +721,7 @@ redirect_stderr=true
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">upstream gunicorn_server {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">upstream gunicorn_server {
     #server unix:/srv/webvirtcloud/venv/wvcloud.socket fail_timeout=0;
     server 127.0.0.1:8000 fail_timeout=0;
 }
@@ -753,12 +754,12 @@ server {
 </div><h3 id="用户和组设置-用户和组设置"><a href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E8%AE%BE%E7%BD%AE">#</a> 用户和组设置</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">useradd webvirtmgr
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">useradd webvirtmgr
 usermod -G kvm -a webvirtmgr
 
 </code></pre></td></tr></table>
@@ -766,35 +767,35 @@ usermod -G kvm -a webvirtmgr
 </div><h3 id="启动服务-启动服务"><a href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1">#</a> 启动服务</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart nginx
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart nginx
 systemctl restart supervisord
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">supervisorctl status
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">supervisorctl status
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">gstfsd             RUNNING   pid 24662, uptime 6:01:40
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">gstfsd             RUNNING   pid 24662, uptime 6:01:40
 novncd             RUNNING   pid 24661, uptime 6:01:40
 webvirtcloud       RUNNING   pid 24660, uptime 6:01:40
 
@@ -804,7 +805,7 @@ webvirtcloud       RUNNING   pid 24660, uptime 6:01:40
 <p>用于控制台添加基础架构</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -812,7 +813,7 @@ webvirtcloud       RUNNING   pid 24660, uptime 6:01:40
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">su -s /bin/bash nginx
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">su -s /bin/bash nginx
 ssh-keygen
 ssh-copy-id root@serverip
 you need to accept add key
@@ -824,13 +825,13 @@ exit
 <h3 id="进入控制台-进入控制台"><a href="#%E8%BF%9B%E5%85%A5%E6%8E%A7%E5%88%B6%E5%8F%B0">#</a> 进入控制台</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">open http://serverip
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">open http://serverip
 # username: admin
 # password: admin
 
@@ -841,23 +842,23 @@ exit
 <h3 id="存储池-存储池"><a href="#%E5%AD%98%E5%82%A8%E6%B1%A0">#</a> 存储池</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">chmod 755 -R /home/webvirtmgr
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">chmod 755 -R /home/webvirtmgr
 
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">/home/webvirtmgr
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/home/webvirtmgr
 |-- images          # 磁盘镜像
 `-- iso             # 光盘镜像
 
@@ -907,17 +908,17 @@ exit
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/WebVirtCloud/">WebVirtCloud</a>
-          <a href="/tags/vm/">vm</a>
-          <a href="/tags/kvm/">kvm</a>
+          <a href="/blog/tags/WebVirtCloud/">WebVirtCloud</a>
+          <a href="/blog/tags/vm/">vm</a>
+          <a href="/blog/tags/kvm/">kvm</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/vm/learning-vagrant/">
+        <a class="prev" href="/blog/post/vm/learning-vagrant/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Vagrant 入门指引</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/vm/CentOS7_install_KVM/">
+        <a class="next" href="/blog/post/vm/CentOS7_install_KVM/">
             <span class="next-text nav-default">CentOS7安装KVM虚拟机详解</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -942,7 +943,7 @@ exit
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -956,15 +957,15 @@ exit
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -991,7 +992,7 @@ exit
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

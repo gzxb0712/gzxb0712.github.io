@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>base on Bill World</title>
-    <link>https://xiebiao.top/categories/base/</link>
+    <link>https://gzxb0712.gitee.io/blog/categories/base/</link>
     <description>Recent content in base on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 01 Feb 2020 20:21:37 +0000</lastBuildDate><atom:link href="https://xiebiao.top/categories/base/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Feb 2020 20:21:37 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/categories/base/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>samba在centos中安装</title>
-      <link>https://xiebiao.top/post/base/samba_centos_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/base/samba_centos_install/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/base/samba_centos_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/base/samba_centos_install/</guid>
       <description>&lt;h2 id=&#34;一简介&#34;&gt;一、简介&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
@@ -29,7 +29,7 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;简介以及配置介绍部分来自：https://www.cnblogs.com/muscleape/p/6385583.html
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;简介以及配置介绍部分来自：https://www.cnblogs.com/muscleape/p/6385583.html
 
 Samba是一个能让Linux系统应用Microsoft网络通讯协议的软件，而SMB是Server Message Block的缩写，即为服务器消息块 ，SMB主要是作为Microsoft的网络通讯协议，后来Samba将SMB通信协议应用到了Linux系统上，就形成了现在的Samba软件。后来微软又把 SMB 改名为 CIFS（Common Internet File System），即公共 Internet 文件系统，并且加入了许多新的功能，这样一来，使得Samba具有了更强大的功能。
 Samba最大的功能就是可以用于Linux与windows系统直接的文件共享和打印共享，Samba既可以用于windows与Linux之间的文件共享，也可以用于Linux与Linux之间的资源共享，由于NFS(网络文件系统）可以很好的完成Linux与Linux之间的数据共享，因而 Samba较多的用在了Linux与windows之间的数据共享上面。
@@ -47,10 +47,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>openvpn客户端连接设置</title>
-      <link>https://xiebiao.top/post/base/openvpn_client_connect/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/base/openvpn_client_connect/</link>
       <pubDate>Wed, 08 Jan 2020 22:05:33 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/base/openvpn_client_connect/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/base/openvpn_client_connect/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
@@ -65,10 +65,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>openvpn在centos搭建实现内网互通</title>
-      <link>https://xiebiao.top/post/base/openvpn_centos_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/</link>
       <pubDate>Tue, 07 Jan 2020 21:05:33 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/base/openvpn_centos_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
@@ -85,10 +85,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>ftp在centos中安装</title>
-      <link>https://xiebiao.top/post/base/ftp_centos_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/base/ftp_centos_install/</link>
       <pubDate>Tue, 17 Dec 2019 22:21:37 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/base/ftp_centos_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/base/ftp_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程&lt;/p&gt;</description>
@@ -96,10 +96,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>dns在centos中安装</title>
-      <link>https://xiebiao.top/post/base/dns_centos_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/base/dns_centos_install/</link>
       <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/base/dns_centos_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/base/dns_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;由80年代伯克利大学的学生开发， &lt;strong&gt;揉&lt;/strong&gt; （&lt;strong&gt;伯克利互联网名称域名&lt;/strong&gt;）是开源的 &lt;strong&gt;DNS服务器&lt;/strong&gt; 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 &lt;strong&gt;域名解析&lt;/strong&gt; 服务器是一项有助于解析完全限定域名的服务（&lt;strong&gt;完整域名&lt;/strong&gt;A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。&lt;/p&gt;
@@ -109,31 +109,31 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>dhcp在centos中安装</title>
-      <link>https://xiebiao.top/post/base/dncp_centos_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/base/dncp_centos_install/</link>
       <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/base/dncp_centos_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/base/dncp_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h3 id=&#34;运行系统更新&#34;&gt;运行系统更新&lt;/h3&gt;
 &lt;p&gt;首先将系统包重新同步到它最新版本。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dnf update
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dnf update
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;在CentOS 8中，DHCP服务器是&lt;code&gt;dhcp-server&lt;/code&gt; 软件包，可以通过运行下面的命令来安装此软件包;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;
 dnf install dhcp-server
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;

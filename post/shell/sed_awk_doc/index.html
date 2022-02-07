@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/shell/sed_awk_doc/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/shell/sed_awk_doc/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="Linux文本三剑客---grep、sed、awk" />
 <meta property="og:description" content="awk、grep、sed是linux操作文本的三大利器，合称文本三剑客，也是必须掌握的linux命令之一。三者的功能都是处理文本，但侧重点各" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/shell/sed_awk_doc/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/shell/sed_awk_doc/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-08-17T21:01:30+00:00" />
 <meta property="article:modified_time" content="2020-08-17T21:01:30+00:00" />
+
 <meta itemprop="name" content="Linux文本三剑客---grep、sed、awk">
-<meta itemprop="description" content="awk、grep、sed是linux操作文本的三大利器，合称文本三剑客，也是必须掌握的linux命令之一。三者的功能都是处理文本，但侧重点各">
-<meta itemprop="datePublished" content="2020-08-17T21:01:30+00:00" />
+<meta itemprop="description" content="awk、grep、sed是linux操作文本的三大利器，合称文本三剑客，也是必须掌握的linux命令之一。三者的功能都是处理文本，但侧重点各"><meta itemprop="datePublished" content="2020-08-17T21:01:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-17T21:01:30+00:00" />
-<meta itemprop="wordCount" content="10874">
-
-
-
-<meta itemprop="keywords" content="bash,shell," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="10866">
+<meta itemprop="keywords" content="bash,shell," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux文本三剑客---grep、sed、awk"/>
 <meta name="twitter:description" content="awk、grep、sed是linux操作文本的三大利器，合称文本三剑客，也是必须掌握的linux命令之一。三者的功能都是处理文本，但侧重点各"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-17 21:01 </span>
         <div class="post-category">
-            <a href="/categories/shell/"> shell </a>
+            <a href="/blog/categories/shell/"> shell </a>
             </div>
-          <span class="more-meta"> 约 10874 字 </span>
+          <span class="more-meta"> 约 10866 字 </span>
           <span class="more-meta"> 预计阅读 22 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -184,6 +180,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-08-17T21:01:30" title="August 17, 2020">August 17, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -259,7 +260,7 @@
 <p>（1）格式</p>
 <ul>
 <li> ***  **匹配前面的字符任意次，<strong>包括0次</strong>，贪婪模式：尽可能长的匹配</li>
-<li> <strong>.</strong>*  任意长度的任意字符，**不包括0次**</li>
+<li> <strong>.</strong>*  任意长度的任意字符，<strong>不包括0次</strong></li>
 <li> <strong>?  <strong>匹配其前面的字符</strong>0 或 1次</strong></li>
 <li> <strong>+</strong>  匹配其前面的字符<strong>至少1次</strong></li>
 <li> {n}  匹配前面的字符n次</li>
@@ -387,7 +388,7 @@
 <h4 id="331-常用选项options演示"><strong>3.3.1 常用选项options演示</strong></h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -419,7 +420,7 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo </span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo </span>
 aaa
 bbbb
 AABBCCDD
@@ -454,7 +455,7 @@ AABBCCDD
 </div><h4 id="332-地址界定演示"><strong>3.3.2 地址界定演示</strong></h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -484,7 +485,7 @@ AABBCCDD
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo</span>
 aaa
 bbbb
 AABBCCDD
@@ -517,7 +518,7 @@ EEBBCCDD
 </div><h4 id="333-编辑命令command演示"><strong>3.3.3 编辑命令command演示</strong></h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -562,7 +563,7 @@ EEBBCCDD
 </span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat demo</span>
 aaa
 bbbb
 AABBCCDD
@@ -624,7 +625,7 @@ AABBCCDD
 <p>① 案例：倒序输出文本内容</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -634,7 +635,7 @@ AABBCCDD
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat num.txt </span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat num.txt </span>
 One
 Two
 Three
@@ -651,7 +652,7 @@ One
 <p>（3）演示</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -748,7 +749,7 @@ One
 </span><span class="lnt">95
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">① 显示偶数行
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">① 显示偶数行
 
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># seq 9 |sed -n &#39;n;p&#39;</span>
 <span class="m">2</span>
@@ -878,7 +879,7 @@ awk [options] &lsquo;BEGIN{ action;… } pattern{ action;… } END{ action;… }
 <p>（2）演示</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -936,7 +937,7 @@ awk [options] &lsquo;BEGIN{ action;… } pattern{ action;… } END{ action;… }
 </span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat awkdemo </span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat awkdemo </span>
 hello:world
 linux:redhat:lalala:hahaha
 along:love:youou
@@ -999,7 +1000,7 @@ awkdemo1
 <p>（1）-v var=value</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1025,7 +1026,7 @@ awkdemo1
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">① 先定义变量，后执行动作print
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">① 先定义变量，后执行动作print
 
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -v name=&#34;along&#34; -F: &#39;{print name&#34;:&#34;$0}&#39; awkdemo</span>
 along:hello:world
@@ -1079,7 +1080,7 @@ along along
 <h4 id="442-演示"><strong>4.4.2 演示</strong></h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1098,7 +1099,7 @@ along along
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{print $1,$3}&#39; /etc/passwd</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{print $1,$3}&#39; /etc/passwd</span>
 root <span class="m">0</span>
 bin <span class="m">1</span>
 ---第一列显示小于20的字符串；第2列显示整数并换行
@@ -1142,7 +1143,7 @@ bin                 <span class="p">|</span>1.000
 <li> 模式匹配符：~ ：左边是否和右边匹配包含 !~ ：是否不匹配</li>
 <li> 逻辑操作符：与&amp;&amp; ，或|| ，非!</li>
 <li> 函数调用： function_name(argu1, argu2, &hellip;)</li>
-<li> 条件表达式（三目表达式）：selector**?**if-true-expression**:**if-false-expression
+<li> 条件表达式（三目表达式）：selector**?<strong>if-true-expression</strong>:**if-false-expression
 <ul>
 <li> 注释：先判断selector，如果符合执行 ? 后的操作；否则执行 : 后的操作</li>
 </ul>
@@ -1152,7 +1153,7 @@ bin                 <span class="p">|</span>1.000
 <p>（1）模式匹配符</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1165,7 +1166,7 @@ bin                 <span class="p">|</span>1.000
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">---查询以/dev开头的磁盘信息
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">---查询以/dev开头的磁盘信息
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># df -h |awk -F: &#39;$0 ~ /^/dev/&#39;</span>
 /dev/mapper/cl-root   17G  7.3G  9.7G  43% /
 /dev/sda1           1014M  121M  894M  12% /boot
@@ -1181,7 +1182,7 @@ bin                 <span class="p">|</span>1.000
 </div><p>（2）逻辑操作符</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1193,7 +1194,7 @@ bin                 <span class="p">|</span>1.000
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;$3&gt;=0 &amp;&amp; $3&lt;=1000 {print $1,$3}&#39; /etc/passwd</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;$3&gt;=0 &amp;&amp; $3&lt;=1000 {print $1,$3}&#39; /etc/passwd</span>
 root <span class="m">0</span>
 bin <span class="m">1</span>
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;$3==0 || $3&gt;=1000 {print $1}&#39; /etc/passwd</span>
@@ -1208,12 +1209,12 @@ daemon <span class="m">2</span>
 </div><p>（3）条件表达式（三目表达式）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{$3 &gt;= 1000?usertype=&#34;common user&#34;:usertype=&#34;sysadmin user&#34;;print usertype,$1,$3}&#39; /etc/passwd</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{$3 &gt;= 1000?usertype=&#34;common user&#34;:usertype=&#34;sysadmin user&#34;;print usertype,$1,$3}&#39; /etc/passwd</span>
 sysadmin user root <span class="m">0</span>
 common user along <span class="m">1000</span>
 </code></pre></td></tr></table>
@@ -1234,7 +1235,7 @@ common user along <span class="m">1000</span>
 <h4 id="462-演示"><strong>4.6.2 演示</strong></h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1257,7 +1258,7 @@ common user along <span class="m">1000</span>
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{print $1}&#39; awkdemo</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{print $1}&#39; awkdemo</span>
 hello
 linux
 along
@@ -1283,7 +1284,7 @@ along
 </div><h3 id="47-awk有意思的案例"><strong>4.7 awk有意思的案例</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1346,7 +1347,7 @@ along
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># seq 10</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># seq 10</span>
 <span class="m">1</span>
 <span class="m">2</span>
 <span class="m">3</span>
@@ -1417,7 +1418,7 @@ if(condition1){statement1}else if(condition2){statement2}else{statement3}  多�
 <p>（3）演示</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1444,7 +1445,7 @@ if(condition1){statement1}else if(condition2){statement2}else{statement3}  多�
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{if($3&gt;10 &amp;&amp; $3&lt;1000)print $1,$3}&#39; /etc/passwd</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{if($3&gt;10 &amp;&amp; $3&lt;1000)print $1,$3}&#39; /etc/passwd</span>
 operator <span class="m">11</span>
 games <span class="m">1</span>
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{if($NF==&#34;/bin/bash&#34;) print $1,$NF}&#39; /etc/passwd</span>
@@ -1481,7 +1482,7 @@ no pass
 <p>（3）演示</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1496,7 +1497,7 @@ no pass
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">---以along开头的行，以：为分隔，显示每一行的每个单词和其长度
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">---以along开头的行，以：为分隔，显示每一行的每个单词和其长度
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;/^along/{i=1;while(i&lt;=NF){print $i,length($i); i++}}&#39; awkdemo</span>
 along <span class="m">5</span>
 love <span class="m">4</span>
@@ -1515,21 +1516,21 @@ hahaha <span class="m">6</span>
 <p>（1）语法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">do</span> <span class="o">{</span>statement<span class="p">;</span>…<span class="o">}</span><span class="k">while</span><span class="o">(</span>condition<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="k">do</span> <span class="o">{</span>statement<span class="p">;</span>…<span class="o">}</span><span class="k">while</span><span class="o">(</span>condition<span class="o">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>意义：无论真假，至少执行一次循环体</p>
 <p>（2）计算1+2+3+&hellip;+100=5050</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{sum=0;i=1;do{sum+=i;i++}while(i&lt;=100);print sum}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{sum=0;i=1;do{sum+=i;i++}while(i&lt;=100);print sum}&#39;</span>
 <span class="m">5050</span>
 </code></pre></td></tr></table>
 </div>
@@ -1541,7 +1542,7 @@ hahaha <span class="m">6</span>
 <p>（3）演示</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1563,7 +1564,7 @@ hahaha <span class="m">6</span>
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">---显示每一行的每个单词和其长度
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">---显示每一行的每个单词和其长度
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{for(i=1;i&lt;=NF;i++) {print$i,length($i)}}&#39; awkdemo</span>
 hello <span class="m">5</span>
 world <span class="m">5</span>
@@ -1590,16 +1591,16 @@ f: 96.00
 <p>和shell中的case很像，就不在演示了</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">switch<span class="o">(</span>expression<span class="o">)</span> <span class="o">{</span><span class="k">case</span> VALUE1 or /REGEXP/:statement1<span class="p">;</span> <span class="k">case</span> VALUE2 or /REGEXP2/: statement2<span class="p">;</span>...<span class="p">;</span> default: statementn<span class="o">}</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">switch<span class="o">(</span>expression<span class="o">)</span> <span class="o">{</span><span class="k">case</span> VALUE1 or /REGEXP/:statement1<span class="p">;</span> <span class="k">case</span> VALUE2 or /REGEXP2/: statement2<span class="p">;</span>...<span class="p">;</span> default: statementn<span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="552-break和continue"><strong>5.5.2 break和continue</strong></h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1607,7 +1608,7 @@ f: 96.00
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">---奇数相加
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">---奇数相加
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{sum=0;for(i=1;i&lt;=100;i++){if(i%2==0)continue;sum+=i}print sum}&#39;</span>
 <span class="m">2500</span>
 ---1+2+...+66
@@ -1619,13 +1620,13 @@ f: 96.00
 <p>next：提前结束对本行处理而直接进入下一行处理（awk 自身循环）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">---只打印偶数行
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">---只打印偶数行
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk -F: &#39;{if(NR%2!=0) next; print $1,$3}&#39; /etc/passwd</span>
 bin <span class="m">1</span>
 adm <span class="m">3</span>
@@ -1641,7 +1642,7 @@ adm <span class="m">3</span>
 <p>（1）awk使用数组</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1663,7 +1664,7 @@ adm <span class="m">3</span>
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat awkdemo2</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat awkdemo2</span>
 aaa
 bbbb
 aaa
@@ -1689,7 +1690,7 @@ aaa <span class="m">2</span>
 <p>（2）数组遍历</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1699,7 +1700,7 @@ aaa <span class="m">2</span>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{abc[&#34;ceo&#34;]=&#34;along&#34;;abc[&#34;coo&#34;]=&#34;mayun&#34;;abc[&#34;cto&#34;]=&#34;mahuateng&#34;;for(i in abc){print i,abc[i]}}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{abc[&#34;ceo&#34;]=&#34;along&#34;;abc[&#34;coo&#34;]=&#34;mayun&#34;;abc[&#34;cto&#34;]=&#34;mahuateng&#34;;for(i in abc){print i,abc[i]}}&#39;</span>
 coo mayun
 ceo along
 cto mahuateng
@@ -1717,7 +1718,7 @@ bbbb <span class="m">1</span>
 <p>演示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1730,7 +1731,7 @@ bbbb <span class="m">1</span>
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{print rand()}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{print rand()}&#39;</span>
 0.237788
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{srand(); print rand()}&#39;</span>
 0.51692
@@ -1753,7 +1754,7 @@ bbbb <span class="m">1</span>
 <p>演示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1765,7 +1766,7 @@ bbbb <span class="m">1</span>
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># echo &#34;2008:08:08 08:08:08&#34; | awk &#39;sub(/:/,&#34;-&#34;,$1)&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># echo &#34;2008:08:08 08:08:08&#34; | awk &#39;sub(/:/,&#34;-&#34;,$1)&#39;</span>
 2008-08:08 08:08:08
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># echo &#34;2008:08:08 08:08:08&#34; | awk &#39;gsub(/:/,&#34;-&#34;,$0)&#39;</span>
 2008-08-08 08-08-08
@@ -1781,13 +1782,13 @@ bbbb <span class="m">1</span>
 <p>（1）格式：和bash区别：定义函数（）中需加参数，return返回值不是$?，是相当于echo输出</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">function</span> name <span class="o">(</span> parameter, parameter, ... <span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="k">function</span> name <span class="o">(</span> parameter, parameter, ... <span class="o">)</span> <span class="o">{</span>
     statements
     <span class="k">return</span> expression
 <span class="o">}</span>
@@ -1796,7 +1797,7 @@ bbbb <span class="m">1</span>
 </div><p>（2）演示</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1806,7 +1807,7 @@ bbbb <span class="m">1</span>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat fun.awk </span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat fun.awk </span>
 <span class="k">function</span> max<span class="o">(</span>v1,v2<span class="o">)</span> <span class="o">{</span>
 	v1&gt;v2?var<span class="o">=</span>v1:var<span class="o">=</span>v2
 	<span class="k">return</span> var
@@ -1821,7 +1822,7 @@ BEGIN<span class="o">{</span><span class="nv">a</span><span class="o">=</span>3<
 <p>　　空格是awk 中的字符串连接符，如果system中需要使用awk中的变量可以使用空格分隔，或者说除了awk 的变量外其他一律用&quot;&quot; 引用 起来。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1829,7 +1830,7 @@ BEGIN<span class="o">{</span><span class="nv">a</span><span class="o">=</span>3<
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk BEGIN&#39;{system(&#34;hostname&#34;) }&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk BEGIN&#39;{system(&#34;hostname&#34;) }&#39;</span>
 along
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># awk &#39;BEGIN{name=&#34;along&#34;;system(&#34;echo &#34;name)}&#39;  注：&#34;echo &#34; echo后有空格</span>
 along
@@ -1842,7 +1843,7 @@ your score is <span class="m">100</span>
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1852,7 +1853,7 @@ your score is <span class="m">100</span>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat f1.awk </span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat f1.awk </span>
 <span class="o">{</span><span class="k">if</span><span class="o">(</span><span class="nv">$3</span>&gt;<span class="o">=</span>1000<span class="o">)</span>print <span class="nv">$1</span>,<span class="nv">$3</span><span class="o">}</span>
 <span class="o">[</span>root@along ~<span class="o">]</span><span class="c1"># cat f2.awk </span>
 <span class="c1">#!/bin/awk -f</span>
@@ -1869,7 +1870,7 @@ along <span class="m">1000</span>
 <p>② 示例</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1877,7 +1878,7 @@ along <span class="m">1000</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@along ~]# cat test.awk 
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@along ~]# cat test.awk 
 #!/bin/awk -f
 {if($3 &gt;=min &amp;&amp; $3&lt;=max)print $1,$3}
 [root@along ~]# chmod +x test.awk
@@ -1933,16 +1934,16 @@ systemd-network 192
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/bash/">bash</a>
-          <a href="/tags/shell/">shell</a>
+          <a href="/blog/tags/bash/">bash</a>
+          <a href="/blog/tags/shell/">shell</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/go/go-cheat-sheet/">
+        <a class="prev" href="/blog/post/go/go-cheat-sheet/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">go备忘清单笔记</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/shell/shell_book/">
+        <a class="next" href="/blog/post/shell/shell_book/">
             <span class="next-text nav-default">Shell脚本学习</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1967,7 +1968,7 @@ systemd-network 192
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1981,15 +1982,15 @@ systemd-network 192
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -2016,7 +2017,7 @@ systemd-network 192
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

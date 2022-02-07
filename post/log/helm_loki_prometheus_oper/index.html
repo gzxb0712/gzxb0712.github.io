@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/log/helm_loki_prometheus_oper/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/log/helm_loki_prometheus_oper/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="HELM部署轻量级日志系统Loki以及Prometheus-Operator" />
 <meta property="og:description" content="对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常有助于解决问题，还" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/log/helm_loki_prometheus_oper/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/log/helm_loki_prometheus_oper/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-08-11T20:08:30+00:00" />
 <meta property="article:modified_time" content="2020-08-11T20:08:30+00:00" />
+
 <meta itemprop="name" content="HELM部署轻量级日志系统Loki以及Prometheus-Operator">
-<meta itemprop="description" content="对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常有助于解决问题，还">
-<meta itemprop="datePublished" content="2020-08-11T20:08:30+00:00" />
+<meta itemprop="description" content="对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常有助于解决问题，还"><meta itemprop="datePublished" content="2020-08-11T20:08:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-11T20:08:30+00:00" />
 <meta itemprop="wordCount" content="2072">
-
-
-
-<meta itemprop="keywords" content="loki,log," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="loki,log," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="HELM部署轻量级日志系统Loki以及Prometheus-Operator"/>
 <meta name="twitter:description" content="对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常有助于解决问题，还"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-11 20:08 </span>
         <div class="post-category">
-            <a href="/categories/log/"> log </a>
+            <a href="/blog/categories/log/"> log </a>
             </div>
           <span class="more-meta"> 约 2072 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -143,6 +139,11 @@
     <nav id="TableOfContents"></nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-08-11T20:08:30" title="August 11, 2020">August 11, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -160,13 +161,13 @@
 <p>首先我们先安装 Prometheus-Operator，因为该 Operator 里面就包含 Promtail、Prometheus、AlertManager 以及 Grafana，然后在单独安装 Loki 组件。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">mon-log</span><span class="w">
@@ -175,7 +176,7 @@
 </div><p>首先创建一个名为 loki-stack-values.yaml 的文件用于覆盖部署 Loki 的 Values 值，文件内容如下所示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -199,7 +200,7 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Loki Stack Values</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Loki Stack Values</span><span class="w">
 </span><span class="w"></span><span class="nt">promtail</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">serviceMonitor</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
@@ -228,12 +229,12 @@
 <p>使用如下所示的命令安装 Loki：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ helm repo add loki https://grafana.github.io/loki/charts
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ helm repo add loki https://grafana.github.io/loki/charts
 $ helm repo update
 $ helm upgrade --install loki loki/loki-stack --values<span class="o">=</span>loki-stack-values.yaml -n mon-log
 </code></pre></td></tr></table>
@@ -244,7 +245,7 @@ $ helm upgrade --install loki loki/loki-stack --values<span class="o">=</span>lo
 <p>然后安装 Prometheus Operator，同样创建一个名为 <code>prom-oper-values.yaml</code> 的文件，用来覆盖默认的 Values 值，文件内容如下所示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -298,7 +299,7 @@ $ helm upgrade --install loki loki/loki-stack --values<span class="o">=</span>lo
 </span><span class="lnt">52
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">grafana</span><span class="p">:</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">grafana</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">additionalDataSources</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
 </span><span class="w">    </span><span class="nt">access</span><span class="p">:</span><span class="w"> </span><span class="l">proxy</span><span class="w">
@@ -356,14 +357,14 @@ $ helm upgrade --install loki loki/loki-stack --values<span class="o">=</span>lo
 <p>安装命令如下所示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --values<span class="o">=</span>prom-oper-values.yaml -n mon-log
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">helm upgrade --install prometheus prometheus-community/kube-prometheus-stack --values<span class="o">=</span>prom-oper-values.yaml -n mon-log
 
 
 <span class="c1">#该charts已经被分离</span>
@@ -373,7 +374,7 @@ $ helm upgrade --install prometheus stable/prometheus-operator --values<span cla
 </div><p>接下来我们可以安装一个测试使用的 Nginx 应用，对应的资源清单如下所示：（nginx-deploy.yaml）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -410,7 +411,7 @@ $ helm upgrade --install prometheus stable/prometheus-operator --values<span cla
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
@@ -450,16 +451,16 @@ $ helm upgrade --install prometheus stable/prometheus-operator --values<span cla
 </div><p>为方便测试，我们这里使用 NodePort 类型的服务来暴露应用，直接安装即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">$ kubectl apply -f nginx-deploy.yaml</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">$ kubectl apply -f nginx-deploy.yaml</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>所有应用安装完成后的 Pod 列表如下所示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -479,7 +480,7 @@ $ helm upgrade --install prometheus stable/prometheus-operator --values<span cla
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods -n mon-log
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods -n mon-log
 NAME                                                     READY   STATUS      RESTARTS   AGE
 alertmanager-prometheus-prometheus-oper-alertmanager-0   2/2     Running     <span class="m">0</span>          6m16s
 loki-0                                                   1/1     Running     <span class="m">0</span>          39m
@@ -504,12 +505,12 @@ nginx-6f8b869ccf-58rzx                1/1     Running     <span class="m">0</spa
 <p>这里我们来模拟触发告警，通过如下所示的 shell 命令来模拟每隔10s访问 Nginx 应用。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span> curl --silent --output /dev/null --write-out <span class="s1">&#39;%{http_code}&#39;</span> http://nginx.default.svc.cluster.local<span class="p">;</span> sleep 10<span class="p">;</span> echo<span class="p">;</span> <span class="k">done</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span> curl --silent --output /dev/null --write-out <span class="s1">&#39;%{http_code}&#39;</span> http://nginx.default.svc.cluster.local<span class="p">;</span> sleep 10<span class="p">;</span> echo<span class="p">;</span> <span class="k">done</span>
 <span class="m">200</span>
 <span class="m">200</span>
 </code></pre></td></tr></table>
@@ -559,16 +560,16 @@ nginx-6f8b869ccf-58rzx                1/1     Running     <span class="m">0</spa
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/loki/">loki</a>
-          <a href="/tags/log/">log</a>
+          <a href="/blog/tags/loki/">loki</a>
+          <a href="/blog/tags/log/">log</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/performance/linux_perf_60s/">
+        <a class="prev" href="/blog/post/performance/linux_perf_60s/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">CentOS7性能优化</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/storage/rook_install_operator/">
+        <a class="next" href="/blog/post/storage/rook_install_operator/">
             <span class="next-text nav-default">Kubernetes永久存储Rook 1.3.x部署</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -593,7 +594,7 @@ nginx-6f8b869ccf-58rzx                1/1     Running     <span class="m">0</spa
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -607,15 +608,15 @@ nginx-6f8b869ccf-58rzx                1/1     Running     <span class="m">0</spa
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -642,7 +643,7 @@ nginx-6f8b869ccf-58rzx                1/1     Running     <span class="m">0</spa
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>performance on Bill World</title>
-    <link>https://xiebiao.top/tags/performance/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/performance/</link>
     <description>Recent content in performance on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/performance/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>mysql性能优化</title>
-      <link>https://xiebiao.top/post/performance/mysql_perf_doc/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/performance/mysql_perf_doc/</link>
       <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/performance/mysql_perf_doc/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/performance/mysql_perf_doc/</guid>
       <description>记录学习笔记，持续更新。 优化方向# SQL 优化# sql 优化分析 索引优化 优化数据库对象# 优化表的数据类型 表拆分（水平、垂直） 反范式 使用中间表 优化 mysql server# mysql 内</description>
     </item>
     
     <item>
       <title>Linux 性能优化分析工具</title>
-      <link>https://xiebiao.top/post/performance/linux_perf_doc/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/performance/linux_perf_doc/</link>
       <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/performance/linux_perf_doc/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/performance/linux_perf_doc/</guid>
       <description>分享根据《Linux 性能优化》课程图片整理的笔记。 前言# 实验环境：ubuntu 18.04、切换至 root 权限下操作 查看命令详细使用方法，可以：ma</description>
     </item>
     
     <item>
       <title>redis集群性能调优</title>
-      <link>https://xiebiao.top/post/performance/k8s_redis_perf/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/performance/k8s_redis_perf/</link>
       <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/performance/k8s_redis_perf/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/performance/k8s_redis_perf/</guid>
       <description>kuberntes中的redis集群性能调优 文章目录 基准测试 逐步优化 优化内核参数 CPU绑核 iptables切换为ipvs 由overlay网络</description>
     </item>
     
     <item>
       <title>kubernetes集群部署实践性能优化</title>
-      <link>https://xiebiao.top/post/performance/k8s_perf_doc/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/performance/k8s_perf_doc/</link>
       <pubDate>Wed, 12 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/performance/k8s_perf_doc/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/performance/k8s_perf_doc/</guid>
       <description>kubernetes集群部署实践性能优化 文章目录 大量kubernetes集群部署运营的相关工作，这里总结一下。 kubernetes大规模集群</description>
     </item>
     
     <item>
       <title>CentOS7性能优化</title>
-      <link>https://xiebiao.top/post/performance/linux_perf_60s/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/performance/linux_perf_60s/</link>
       <pubDate>Wed, 12 Aug 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/performance/linux_perf_60s/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/performance/linux_perf_60s/</guid>
       <description>问题背景 当登录到一台有性能问题的Linux服务器，第一分钟要检查什么？ 在Netflix，我们拥有庞大的EC2 Linux虚拟机云，我们有众多性</description>
     </item>
     

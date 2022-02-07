@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/cloud/traefik_2.2.8_deploy/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/cloud/traefik_2.2.8_deploy/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="k8s部署 Ingress 控制器 traefik 2.2.x教程" />
 <meta property="og:description" content="参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/cloud/traefik_2.2.8_deploy/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/cloud/traefik_2.2.8_deploy/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-07-21T21:09:30+00:00" />
 <meta property="article:modified_time" content="2020-07-21T21:09:30+00:00" />
+
 <meta itemprop="name" content="k8s部署 Ingress 控制器 traefik 2.2.x教程">
-<meta itemprop="description" content="参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设">
-<meta itemprop="datePublished" content="2020-07-21T21:09:30+00:00" />
+<meta itemprop="description" content="参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设"><meta itemprop="datePublished" content="2020-07-21T21:09:30+00:00" />
 <meta itemprop="dateModified" content="2020-07-21T21:09:30+00:00" />
 <meta itemprop="wordCount" content="3667">
-
-
-
-<meta itemprop="keywords" content="k8s,traefik,ingress," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="k8s,traefik,ingress," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="k8s部署 Ingress 控制器 traefik 2.2.x教程"/>
 <meta name="twitter:description" content="参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-21 21:09 </span>
         <div class="post-category">
-            <a href="/categories/cloud/"> cloud </a>
+            <a href="/blog/categories/cloud/"> cloud </a>
             </div>
           <span class="more-meta"> 约 3667 字 </span>
           <span class="more-meta"> 预计阅读 8 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -168,6 +164,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-07-21T21:09:30" title="July 21, 2020">July 21, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -221,7 +222,7 @@
 <p><strong><strong>#</strong> 创建 traefik-crd.yaml 文件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -321,7 +322,7 @@
 </span><span class="lnt">98
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">## IngressRoute</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">## IngressRoute</span><span class="w">
 </span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apiextensions.k8s.io/v1beta1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CustomResourceDefinition</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -424,11 +425,11 @@
 </div><p><strong><strong>#</strong> 创建 Traefik CRD 资源</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-crd.yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-crd.yaml
 
 </code></pre></td></tr></table>
 </div>
@@ -437,7 +438,7 @@
 <p><strong># 创建 traefik-rbac.yaml 文件:</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -479,7 +480,7 @@
 </span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">## ServiceAccount</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">## ServiceAccount</span><span class="w">
 </span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -527,11 +528,11 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-rbac.yaml -n kube-system
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-rbac.yaml -n kube-system
 
 </code></pre></td></tr></table>
 </div>
@@ -543,7 +544,7 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -598,7 +599,7 @@
 </span><span class="lnt">53
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
 </span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">traefik-config</span><span class="w">
@@ -659,11 +660,11 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-config.yaml -n kube-system
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-config.yaml -n kube-system
 
 </code></pre></td></tr></table>
 </div>
@@ -675,18 +676,18 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl label nodes k8s-node-2-12 <span class="nv">IngressProxy</span><span class="o">=</span><span class="nb">true</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl label nodes k8s-node-2-12 <span class="nv">IngressProxy</span><span class="o">=</span><span class="nb">true</span>
 
 </code></pre></td></tr></table>
 </div>
 </div><p><strong><strong>#</strong> 查看节点是否设置 Label 成功</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -696,7 +697,7 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get nodes --show-labels
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl get nodes --show-labels
 
 NAME            STATUS ROLES  VERSION  LABELS
 k8s-master-2-11 Ready  master  v1.18.5  kubernetes.io/hostname<span class="o">=</span>k8s-master-2-11,node-role.kubernetes.io/master<span class="o">=</span>
@@ -714,7 +715,7 @@ k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="
 <p><strong><strong>#</strong> 创建 traefik 部署 traefik-deploy.yaml 文件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -806,7 +807,7 @@ k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="
 </span><span class="lnt">90
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">traefik</span><span class="w">
@@ -901,11 +902,11 @@ k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="
 </div><p><strong><strong>#</strong> Kubernetes 部署 Traefik</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-deploy.yaml -n kube-system
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-deploy.yaml -n kube-system
 
 </code></pre></td></tr></table>
 </div>
@@ -920,7 +921,7 @@ k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="
 <p><strong><strong>#</strong> 创建 Traefik Dashboard 路由规则 traefik-dashboard-route.yaml 文件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -936,7 +937,7 @@ k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">traefik.containo.us/v1alpha1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">traefik.containo.us/v1alpha1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">IngressRoute</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">traefik-dashboard-route</span><span class="w">
@@ -955,11 +956,11 @@ k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="
 </div><p><strong><strong>#</strong> 创建 Traefik Dashboard 路由规则对象</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-dashboard-route.yaml -n kube-system
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-dashboard-route.yaml -n kube-system
 
 </code></pre></td></tr></table>
 </div>
@@ -968,7 +969,7 @@ k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="
 <p><strong><strong>#</strong> 创建私有证书 tls.key、tls.crt 文件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -976,7 +977,7 @@ k8s-node-2-14   Ready  &lt;none&gt; v1.18.5  kubernetes.io/hostname<span class="
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建自签名证书</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建自签名证书</span>
 $ openssl req -x509 -nodes -days <span class="m">3650</span> -newkey rsa:2048 -keyout tls.key -out tls.crt -subj <span class="s2">&#34;/CN=cloud.xiebiao.top&#34;</span>
 
 <span class="c1"># 将证书存储到 Kubernetes Secret 中</span>
@@ -987,7 +988,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </div><p><strong><strong>#</strong> 创建 Traefik Dashboard CRD 路由规则 kubernetes-dashboard-route.yaml 文件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1005,7 +1006,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">traefik.containo.us/v1alpha1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">traefik.containo.us/v1alpha1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">IngressRoute</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes-dashboard-route</span><span class="w">
@@ -1026,11 +1027,11 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </div><p><strong><strong>#</strong> 创建 Kubernetes Dashboard 路由规则对象</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f kubernetes-dashboard-route.yaml -n kube-system
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f kubernetes-dashboard-route.yaml -n kube-system
 
 </code></pre></td></tr></table>
 </div>
@@ -1042,7 +1043,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 <p><strong><strong>#</strong> 创建 Traefik Ingress 路由规则 traefik-dashboard-ingress.yaml 文件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1062,7 +1063,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">traefik-dashboard-ingress</span><span class="w">
@@ -1085,11 +1086,11 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </div><p><strong><strong>#</strong> 创建 Traefik Dashboard Ingress 路由规则对象</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-dashboard-ingress.yaml -n kube-system
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f traefik-dashboard-ingress.yaml -n kube-system
 
 </code></pre></td></tr></table>
 </div>
@@ -1098,7 +1099,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 <p><strong><strong>#</strong> 创建私有证书 tls.key、tls.crt 文件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1106,7 +1107,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建自签名证书</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建自签名证书</span>
 $ openssl req -x509 -nodes -days <span class="m">3650</span> -newkey rsa:2048 -keyout tls.key -out tls.crt -subj <span class="s2">&#34;/CN=cloud.xiebiao.top&#34;</span>
 
 <span class="c1"># 将证书存储到 Kubernetes Secret 中</span>
@@ -1117,7 +1118,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </div><p><strong><strong>#</strong> 创建 Traefik Dashboard Ingress 路由规则 kubernetes-dashboard-ingress.yaml 文件</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1140,7 +1141,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">extensions/v1beta1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes-dashboard-ingress</span><span class="w">
@@ -1166,11 +1167,11 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 </div><p><strong><strong>#</strong> 创建 Traefik Dashboard 路由规则对象</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f kubernetes-dashboard-ingress.yaml -n kube-system
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f kubernetes-dashboard-ingress.yaml -n kube-system
 
 </code></pre></td></tr></table>
 </div>
@@ -1179,12 +1180,12 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 <p>客户端想通过域名访问服务，必须要进行 <code>DNS</code> 解析，由于这里没有 <code>DNS</code> 服务器进行域名解析，所以修改 <code>hosts</code> 文件将 <code>Traefik</code> 所在节点服务器的 <code>IP</code> 和自定义 <code>Host</code> 绑定。打开电脑的 <code>Hosts</code> 配置文件，往其加入下面配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">192.168.12.182  traefik.xiebiao.top
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">192.168.12.182  traefik.xiebiao.top
 192.168.12.182  cloud.xiebiao.top
 
 </code></pre></td></tr></table>
@@ -1235,17 +1236,17 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/k8s/">k8s</a>
-          <a href="/tags/traefik/">traefik</a>
-          <a href="/tags/ingress/">ingress</a>
+          <a href="/blog/tags/k8s/">k8s</a>
+          <a href="/blog/tags/traefik/">traefik</a>
+          <a href="/blog/tags/ingress/">ingress</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/cloud/etcd3_backup_restore/">
+        <a class="prev" href="/blog/post/cloud/etcd3_backup_restore/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">etcd3 脚本备份以及恢复</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/cloud/docker_all_ops/">
+        <a class="next" href="/blog/post/cloud/docker_all_ops/">
             <span class="next-text nav-default">docker最佳实践总结</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1270,7 +1271,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1284,15 +1285,15 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1319,7 +1320,7 @@ $ kubectl create secret generic cloud-xiebiao-tls --from-file<span class="o">=</
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

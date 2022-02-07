@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/code/sonarqube8_install/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/code/sonarqube8_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="sonarqube8 搭建使用" />
 <meta property="og:description" content="前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/code/sonarqube8_install/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/code/sonarqube8_install/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-04-08T19:15:30+00:00" />
 <meta property="article:modified_time" content="2020-04-08T19:15:30+00:00" />
+
 <meta itemprop="name" content="sonarqube8 搭建使用">
-<meta itemprop="description" content="前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般">
-<meta itemprop="datePublished" content="2020-04-08T19:15:30+00:00" />
+<meta itemprop="description" content="前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般"><meta itemprop="datePublished" content="2020-04-08T19:15:30+00:00" />
 <meta itemprop="dateModified" content="2020-04-08T19:15:30+00:00" />
 <meta itemprop="wordCount" content="3372">
-
-
-
-<meta itemprop="keywords" content="sonarqube,code," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="sonarqube,code," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="sonarqube8 搭建使用"/>
 <meta name="twitter:description" content="前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-04-08 19:15 </span>
         <div class="post-category">
-            <a href="/categories/code/"> code </a>
+            <a href="/blog/categories/code/"> code </a>
             </div>
           <span class="more-meta"> 约 3372 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -157,6 +153,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-04-08T19:15:30" title="April 8, 2020">April 8, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -213,7 +214,7 @@
 <p><code>OpenJDK</code>的安装比较简单：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -221,7 +222,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mdkir /data/openjdk
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mdkir /data/openjdk
 <span class="nb">cd</span> /data/openjdk
 wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
 <span class="c1">## 默认会解压到/data/openjdk/jdk-11文件夹</span>
@@ -232,7 +233,7 @@ tar -zxvf openjdk-11+28_linux-x64_bin.tar.gz
 </div><p>如果系统中没有默认的<code>JDK</code>，可以添加到<code>/etc/profile</code>中：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -243,7 +244,7 @@ tar -zxvf openjdk-11+28_linux-x64_bin.tar.gz
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">vim /etc/profile
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim /etc/profile
 
 <span class="c1">## /etc/profile文件中添加下面的内容</span>
 <span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/data/openjdk/jdk-11
@@ -257,14 +258,14 @@ tar -zxvf openjdk-11+28_linux-x64_bin.tar.gz
 </div><p>测试一下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost jdk-11<span class="o">]</span><span class="c1"># java -version</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@localhost jdk-11<span class="o">]</span><span class="c1"># java -version</span>
 openjdk version <span class="s2">&#34;11&#34;</span> 2018-09-25
 OpenJDK Runtime Environment 18.9 <span class="o">(</span>build 11+28<span class="o">)</span>
 OpenJDK 64-Bit Server VM 18.9 <span class="o">(</span>build 11+28, mixed mode<span class="o">)</span>
@@ -276,7 +277,7 @@ OpenJDK 64-Bit Server VM 18.9 <span class="o">(</span>build 11+28, mixed mode<sp
 <p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-0.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-0.png" alt=""></a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -285,7 +286,7 @@ OpenJDK 64-Bit Server VM 18.9 <span class="o">(</span>build 11+28, mixed mode<sp
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 yum install -y postgresql12
 yum install -y postgresql12-server
 /usr/pgsql-12/bin/postgresql-12-setup initdb
@@ -299,25 +300,25 @@ systemctl start postgresql-12
 <p>接着重启<code>PostgreSQL</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl restart postgresql-12
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">systemctl restart postgresql-12
 
 </code></pre></td></tr></table>
 </div>
 </div><p>切换用户进入<code>PostgreSQL</code>的命令行，并且添加一个新的数据库用户<code>sonar</code>和新的数据库<code>sonar</code>备用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">su postgres
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">su postgres
 psql -U postgres
 CREATE USER sonar WITH PASSWORD <span class="s1">&#39;sonar&#39;</span><span class="p">;</span>
 CREATE DATABASE sonar WITH OWNER sonar ENCODING <span class="s1">&#39;UTF8&#39;</span>
@@ -330,7 +331,7 @@ CREATE DATABASE sonar WITH OWNER sonar ENCODING <span class="s1">&#39;UTF8&#39;<
 <p>在安装<code>SonarQube</code>服务之前，可以参考<a href="https://docs.sonarqube.org/latest/requirements/requirements">Prerequisites and Overview</a>调整系统参数，这些参数其实大部分和<code>ElasticSearch</code>有关，查看参数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -341,7 +342,7 @@ CREATE DATABASE sonar WITH OWNER sonar ENCODING <span class="s1">&#39;UTF8&#39;<
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">## 一个进程可以拥有的VMA(虚拟内存区域)的数量上限</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">## 一个进程可以拥有的VMA(虚拟内存区域)的数量上限</span>
 sysctl vm.max_map_count
 <span class="c1">## 同时打开的文件数目上限</span>
 sysctl fs.file-max
@@ -355,14 +356,14 @@ sysctl fs.file-max
 </div><p>如果当前的会话是<code>root</code>用户，可以直接通过下面的命令去修改这四个参数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sysctl -w vm.max_map_count<span class="o">=</span><span class="m">262144</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sysctl -w vm.max_map_count<span class="o">=</span><span class="m">262144</span>
 sysctl -w fs.file-max<span class="o">=</span><span class="m">65536</span>
 <span class="nb">ulimit</span> -n <span class="m">65536</span>
 <span class="nb">ulimit</span> -u <span class="m">4096</span>
@@ -372,14 +373,14 @@ sysctl -w fs.file-max<span class="o">=</span><span class="m">65536</span>
 </div><p>否则需要手动修改<code>/etc/security/limits.conf</code>文件，在文件尾部添加：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">* soft nofile <span class="m">65536</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">* soft nofile <span class="m">65536</span>
 * hard nofile <span class="m">65536</span>
 * soft nproc <span class="m">4096</span>
 * hard nproc <span class="m">4096</span>
@@ -389,12 +390,12 @@ sysctl -w fs.file-max<span class="o">=</span><span class="m">65536</span>
 </div><p>修改<code>/etc/sysctl.conf</code>文件，在文件尾部添加：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">vm.max_map_count<span class="o">=</span><span class="m">262144</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vm.max_map_count<span class="o">=</span><span class="m">262144</span>
 fs.file-max<span class="o">=</span><span class="m">65536</span>
 
 </code></pre></td></tr></table>
@@ -403,7 +404,7 @@ fs.file-max<span class="o">=</span><span class="m">65536</span>
 <p>接着新增一个用户<code>sonarqube</code>（根本原因是<code>ElasticSearch</code>不能用<code>root</code>用户启动）：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -411,7 +412,7 @@ fs.file-max<span class="o">=</span><span class="m">65536</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">adduser sonarqube
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">adduser sonarqube
 <span class="c1"># 这一步需要输入密码，这里密码也暂定sonarqube</span>
 passwd sonarqube
 <span class="c1"># 分配权限</span>
@@ -423,14 +424,14 @@ chown -R sonarqube:sonarqube /data/sonarqube
 <p><a href="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-5.png"><img src="https://throwable-blog-1256189093.cos.ap-guangzhou.myqcloud.com/202005/s-q-g-5.png" alt=""></a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mdkir /data/sonarqube
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mdkir /data/sonarqube
 <span class="nb">cd</span> /data/sonarqube
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.3.1.34397.zip
 uzip sonarqube-8.3.1.34397.zip
@@ -440,13 +441,13 @@ uzip sonarqube-8.3.1.34397.zip
 </div><p>修改配置<code>/data/sonarqube/sonarqube-8.3.1.34397/conf/sonar.properties</code>添加下面的属性：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sonar.jdbc.username<span class="o">=</span>sonar
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sonar.jdbc.username<span class="o">=</span>sonar
 sonar.jdbc.password<span class="o">=</span>sonar
 sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
 
@@ -455,12 +456,12 @@ sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
 </div><p>完成所有配置之后，可以尝试控制台启动<code>SonarQube</code>服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /data/sonarqube/sonarqube-8.3.1.34397/bin/linux-x86-64
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /data/sonarqube/sonarqube-8.3.1.34397/bin/linux-x86-64
 ./sonar.sh console
 
 </code></pre></td></tr></table>
@@ -483,7 +484,7 @@ sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
 <p><code>SonarQube</code>提供不同类型的<code>SonarScanner</code>用于代码扫描和结果提交，这里以<code>Maven</code>为例。<code>Maven</code>的<code>settings.xml</code>需要引入下面的配置（注意父标签已经存在，重复添加父标签会导致异常）：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -506,7 +507,7 @@ sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
     <span class="nt">&lt;pluginGroups&gt;</span>
         <span class="nt">&lt;pluginGroup&gt;</span>org.sonarsource.scanner.maven<span class="nt">&lt;/pluginGroup&gt;</span>
     <span class="nt">&lt;/pluginGroups&gt;</span>
@@ -532,7 +533,7 @@ sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
 </div><p>需要被扫描的项目中，需要引入<code>Maven</code>插件<code>sonar-maven-plugin</code>，当前最新版本为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -540,7 +541,7 @@ sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugin&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugin&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.sonarsource.scanner.maven<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>sonar-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;version&gt;</span>3.7.0.1746<span class="nt">&lt;/version&gt;</span>
@@ -551,7 +552,7 @@ sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
 </div><p>完成配置后，只需要在项目中执行命令进行扫描即可，首次执行会比较缓慢，因为需要下载大量的规则库和插件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -560,7 +561,7 @@ sonar.jdbc.url<span class="o">=</span>jdbc:postgresql://localhost:5432/sonar
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 不指定插件版本执行</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 不指定插件版本执行</span>
 mvn clean install
 mvn sonar:sonar
 
@@ -572,7 +573,7 @@ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:<span class="si">${</span><
 </div><p>此外，可以通过<code>pom</code>文件中的<code>&lt;properties&gt;</code>指定<code>SonarQube</code>的参数，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -585,7 +586,7 @@ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:<span class="si">${</span><
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;properties&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;properties&gt;</span>
    <span class="nt">&lt;sonar.host.url&gt;</span>[...]<span class="nt">&lt;/sonar.host.url&gt;</span>
    <span class="nt">&lt;ssonar.projectKey&gt;</span>[...]<span class="nt">&lt;/sonar.projectKey&gt;</span>
    <span class="nt">&lt;sonar.projectName&gt;</span>[...]<span class="nt">&lt;/sonar.projectName&gt;</span>
@@ -646,16 +647,16 @@ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:<span class="si">${</span><
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/sonarqube/">sonarqube</a>
-          <a href="/tags/code/">code</a>
+          <a href="/blog/tags/sonarqube/">sonarqube</a>
+          <a href="/blog/tags/code/">code</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/storage/ceph_octopus_ops/">
+        <a class="prev" href="/blog/post/storage/ceph_octopus_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">cephadm部署和配置Ceph Octopus</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/code/svn_use/">
+        <a class="next" href="/blog/post/code/svn_use/">
             <span class="next-text nav-default">svn 使用详解</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -680,7 +681,7 @@ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:<span class="si">${</span><
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -694,15 +695,15 @@ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:<span class="si">${</span><
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -729,7 +730,7 @@ mvn org.sonarsource.scanner.maven:sonar-maven-plugin:<span class="si">${</span><
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>rook on Bill World</title>
-    <link>https://xiebiao.top/tags/rook/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/rook/</link>
     <description>Recent content in rook on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 05 Aug 2020 19:17:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/rook/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Aug 2020 19:17:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/rook/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kubernetes永久存储Rook 1.3.x部署</title>
-      <link>https://xiebiao.top/post/storage/rook_install_operator/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/storage/rook_install_operator/</link>
       <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/storage/rook_install_operator/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/storage/rook_install_operator/</guid>
       <description>Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和</description>
     </item>
     

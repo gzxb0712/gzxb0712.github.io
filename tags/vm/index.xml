@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vm on Bill World</title>
-    <link>https://xiebiao.top/tags/vm/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/vm/</link>
     <description>Recent content in vm on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 07 Mar 2020 20:18:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/vm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 07 Mar 2020 20:18:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/vm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VMware vSphere ESXi 7.0b部署</title>
-      <link>https://xiebiao.top/post/vm/vsphere_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/vm/vsphere_install/</link>
       <pubDate>Sat, 07 Mar 2020 20:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/vm/vsphere_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/vm/vsphere_install/</guid>
       <description>VMware vSphere是一套业内最完整最强健的虚拟化平台。创建资源池来管理计算、 网络和存储容量与易用性，并提供最高水平的服务，每个应用程序工作负载</description>
     </item>
     
     <item>
       <title>Vagrant 入门指引</title>
-      <link>https://xiebiao.top/post/vm/learning-vagrant/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/vm/learning-vagrant/</link>
       <pubDate>Fri, 06 Mar 2020 22:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/vm/learning-vagrant/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/vm/learning-vagrant/</guid>
       <description>目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac</description>
     </item>
     
     <item>
       <title>WebVirtCloud部署笔记</title>
-      <link>https://xiebiao.top/post/vm/WebVirtCloud_deploy/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/vm/WebVirtCloud_deploy/</link>
       <pubDate>Fri, 06 Mar 2020 21:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/vm/WebVirtCloud_deploy/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/vm/WebVirtCloud_deploy/</guid>
       <description>系统配置 # SELinux 允许WebVirtCloud通行 1 sudo semanage fcontext -a -t httpd_sys_content_t &amp;#34;/srv/webvirtcloud(/.*)&amp;#34; 或关闭SELINUX 1 2 vi /etc/selinux/config 1 2 SELINUX=disabled # 防火墙 允许nginx和novnc通行。 1 2 3</description>
     </item>
     
     <item>
       <title>CentOS7安装KVM虚拟机详解</title>
-      <link>https://xiebiao.top/post/vm/CentOS7_install_KVM/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/vm/CentOS7_install_KVM/</link>
       <pubDate>Thu, 05 Mar 2020 19:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/vm/CentOS7_install_KVM/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/vm/CentOS7_install_KVM/</guid>
       <description>CentOS7安装KVM虚拟机详解 基于 CentOS Linux release 7.2的环境下命令行的方式安装KVM的详细过程。 目录 检测是否支持KVM 安装 KVM 环境 安装虚拟机 命令行</description>
     </item>
     

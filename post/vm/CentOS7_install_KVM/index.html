@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/vm/CentOS7_install_KVM/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/vm/CentOS7_install_KVM/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="CentOS7安装KVM虚拟机详解" />
 <meta property="og:description" content="CentOS7安装KVM虚拟机详解 基于 CentOS Linux release 7.2的环境下命令行的方式安装KVM的详细过程。 目录 检测是否支持KVM 安装 KVM 环境 安装虚拟机 命令行" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/vm/CentOS7_install_KVM/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/vm/CentOS7_install_KVM/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-05T19:18:30+00:00" />
 <meta property="article:modified_time" content="2020-03-05T19:18:30+00:00" />
+
 <meta itemprop="name" content="CentOS7安装KVM虚拟机详解">
-<meta itemprop="description" content="CentOS7安装KVM虚拟机详解 基于 CentOS Linux release 7.2的环境下命令行的方式安装KVM的详细过程。 目录 检测是否支持KVM 安装 KVM 环境 安装虚拟机 命令行">
-<meta itemprop="datePublished" content="2020-03-05T19:18:30+00:00" />
+<meta itemprop="description" content="CentOS7安装KVM虚拟机详解 基于 CentOS Linux release 7.2的环境下命令行的方式安装KVM的详细过程。 目录 检测是否支持KVM 安装 KVM 环境 安装虚拟机 命令行"><meta itemprop="datePublished" content="2020-03-05T19:18:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-05T19:18:30+00:00" />
 <meta itemprop="wordCount" content="8420">
-
-
-
-<meta itemprop="keywords" content="kvm,vm," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="kvm,vm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CentOS7安装KVM虚拟机详解"/>
 <meta name="twitter:description" content="CentOS7安装KVM虚拟机详解 基于 CentOS Linux release 7.2的环境下命令行的方式安装KVM的详细过程。 目录 检测是否支持KVM 安装 KVM 环境 安装虚拟机 命令行"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-05 19:18 </span>
         <div class="post-category">
-            <a href="/categories/vm/"> vm </a>
+            <a href="/blog/categories/vm/"> vm </a>
             </div>
           <span class="more-meta"> 约 8420 字 </span>
           <span class="more-meta"> 预计阅读 17 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -197,6 +193,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-03-05T19:18:30" title="March 5, 2020">March 5, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -248,12 +249,12 @@
 <p>KVM 是基于 x86 虚拟化扩展(Intel VT 或者 AMD-V) 技术的虚拟机软件，所以查看 CPU 是否支持 VT 技术，就可以判断是否支持KVM。有返回结果，如果结果中有vmx（Intel）或svm(AMD)字样，就说明CPU的支持的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat /proc/cpuinfo <span class="p">|</span> egrep <span class="s1">&#39;vmx|svm&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat /proc/cpuinfo <span class="p">|</span> egrep <span class="s1">&#39;vmx|svm&#39;</span>
 
 flags   : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm arat epb pln pts dtherm tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc
 </code></pre></td></tr></table>
@@ -261,10 +262,10 @@ flags   : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse3
 </div><p>关闭SELinux，将 /etc/sysconfig/selinux 中的 <code>SELinux=enforcing</code> 修改为 <code>SELinux=disabled</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">vi /etc/sysconfig/selinux
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">vi /etc/sysconfig/selinux
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="安装-kvm-环境">安装 KVM 环境</h2>
@@ -283,7 +284,7 @@ flags   : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse3
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -302,7 +303,7 @@ flags   : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse3
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 安装 kvm</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 安装 kvm</span>
 <span class="c1"># ------------------------</span>
 <span class="c1"># yum -y install qemu-kvm python-virtinst libvirt libvirt-python virt-manager libguestfs-tools bridge-utils virt-install</span>
 
@@ -326,19 +327,19 @@ kvm                   <span class="m">525259</span>  <span class="m">1</span> kv
 <a href="https://www.cnblogs.com/kevingrace/p/8377645.html">https://www.cnblogs.com/kevingrace/p/8377645.html</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/network/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/network/
 cp -pr ifcfg-em1  /data/network/
 cp  ifcfg-em1 ifcfg-br0
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -361,7 +362,7 @@ cp  ifcfg-em1 ifcfg-br0
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat ifcfg-em1
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat ifcfg-em1
 <span class="nv">TYPE</span><span class="o">=</span>Ethernet
 <span class="nv">BRIDGE</span><span class="o">=</span>br0
 <span class="nv">PROXY_METHOD</span><span class="o">=</span>none
@@ -386,7 +387,7 @@ cp  ifcfg-em1 ifcfg-br0
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -409,7 +410,7 @@ cp  ifcfg-em1 ifcfg-br0
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat ifcfg-br0
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat ifcfg-br0
 <span class="nv">TYPE</span><span class="o">=</span>Bridge
 <span class="nv">PROXY_METHOD</span><span class="o">=</span>none
 <span class="nv">BROWSER_ONLY</span><span class="o">=</span>no
@@ -435,18 +436,18 @@ cp  ifcfg-em1 ifcfg-br0
 </div><p>开启kvm服务，并且设置其开机自动启动</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl start libvirtd
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl start libvirtd
 systemctl <span class="nb">enable</span> libvirtd
 </code></pre></td></tr></table>
 </div>
 </div><p>查看状态操作结果，如<code>Active: active (running)</code>，说明运行情况良好</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -456,7 +457,7 @@ systemctl <span class="nb">enable</span> libvirtd
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl status libvirtd
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl status libvirtd
 systemctl is-enabled libvirtd
 
 ● libvirtd.service - Virtualization daemon
@@ -471,7 +472,7 @@ systemctl is-enabled libvirtd
 <p>kvm创建虚拟机，特别注意<code>.iso</code>镜像文件一定放到<code>/home</code> 或者根目录重新创建目录，不然会因为权限报错，无法创建虚拟机。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -486,7 +487,7 @@ systemctl is-enabled libvirtd
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virt-install <span class="se">\
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virt-install <span class="se">\
 </span><span class="se"></span>--virt-type<span class="o">=</span>kvm <span class="se">\
 </span><span class="se"></span>--name<span class="o">=</span>centos78 <span class="se">\
 </span><span class="se"></span>--vcpus<span class="o">=</span><span class="m">2</span> <span class="se">\
@@ -505,7 +506,7 @@ virt-install --virt-type<span class="o">=</span>kvm --name<span class="o">=</spa
 <p>上面创建虚拟机命令最终需要你配置系统基础设置，带 <code>[!]</code> 基本都是要配置的，按照顺序往下配置，按对用的数字以此进行设置。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -522,7 +523,7 @@ virt-install --virt-type<span class="o">=</span>kvm --name<span class="o">=</spa
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">
 Installation
 
  1<span class="o">)</span> <span class="o">[</span>x<span class="o">]</span> Language settings                 2<span class="o">)</span> <span class="o">[</span>!<span class="o">]</span> Timezone settings
@@ -544,7 +545,7 @@ Installation
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -564,7 +565,7 @@ Installation
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Available regions
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Available regions
  1<span class="o">)</span>  Africa                 6<span class="o">)</span>  Atlantic              10<span class="o">)</span>  Pacific
  2<span class="o">)</span>  America                7<span class="o">)</span>  Australia             11<span class="o">)</span>  US
  3<span class="o">)</span>  Antarctica             8<span class="o">)</span>  Europe                12<span class="o">)</span>  Etc
@@ -589,7 +590,7 @@ Use numbers or <span class="nb">type</span> names directly <span class="o">[</sp
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -597,7 +598,7 @@ Use numbers or <span class="nb">type</span> names directly <span class="o">[</sp
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Choose an installation <span class="nb">source</span> type.
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Choose an installation <span class="nb">source</span> type.
  1<span class="o">)</span>  CD/DVD
  2<span class="o">)</span>  <span class="nb">local</span> ISO file
  3<span class="o">)</span>  Network
@@ -610,7 +611,7 @@ Use numbers or <span class="nb">type</span> names directly <span class="o">[</sp
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -620,7 +621,7 @@ Use numbers or <span class="nb">type</span> names directly <span class="o">[</sp
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Base environment
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Base environment
 Software selection
 
 Base environment
@@ -635,7 +636,7 @@ Base environment
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -671,7 +672,7 @@ Base environment
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Installation Destination
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Installation Destination
 
 <span class="o">[</span>x<span class="o">]</span> 1<span class="o">)</span> : <span class="m">40</span> GiB <span class="o">(</span>vda<span class="o">)</span>
 
@@ -710,17 +711,17 @@ Select a partition scheme configuration.
 </div><p>此处也可以只设置 <code>Root 密码</code>和<code>Installation Destination 安装目的地</code>其它进入系统设置比如时区设置如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;TZ=&#39;Asia/Shanghai&#39;; export TZ&#34;</span> &gt;&gt; /etc/profile
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;TZ=&#39;Asia/Shanghai&#39;; export TZ&#34;</span> &gt;&gt; /etc/profile
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="连接虚拟机">连接虚拟机</h3>
 <p>通过 <code>virsh console &lt;虚拟机名称&gt;</code> 命令来连接虚拟机</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -729,7 +730,7 @@ Select a partition scheme configuration.
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看虚拟机</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看虚拟机</span>
 virsh list              <span class="c1"># 查看在运行的虚拟机</span>
 virsh list --all         <span class="c1"># 查看所有虚拟机</span>
 
@@ -741,16 +742,16 @@ virsh list --all         <span class="c1"># 查看所有虚拟机</span>
 </div><p>连接虚拟机</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh console centos72
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh console centos72
 </code></pre></td></tr></table>
 </div>
 </div><p>配置虚拟机网络，编辑<code>vi /etc/sysconfig/network-scripts/ifcfg-eth0</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -771,7 +772,7 @@ virsh list --all         <span class="c1"># 查看所有虚拟机</span>
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">TYPE</span><span class="o">=</span>Ethernet
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">TYPE</span><span class="o">=</span>Ethernet
 <span class="nv">BOOTPROTO</span><span class="o">=</span>static
 <span class="nv">IPADDR</span><span class="o">=</span>192.168.120.200
 <span class="nv">PREFIX</span><span class="o">=</span><span class="m">24</span>
@@ -795,27 +796,27 @@ virsh list --all         <span class="c1"># 查看所有虚拟机</span>
 </div><p>添加DNS配置，也可以放到<code>ifcfg-eth0</code>中，DNS不是随便设置的，你可以通过<a href="https://jaywcjlove.github.io/linux-command/c/host.html">host</a>、<a href="https://jaywcjlove.github.io/linux-command/c/dig.html">dig</a>、<a href="https://jaywcjlove.github.io/linux-command/c/nslookup.html">nslookup</a>命令查询DNS，如果这些工具不存在可以通过<code>yum install bind-utils -y</code>来安装一下。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 如果没有在网络配置添加DNS可以这种方式添加DNS</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 如果没有在网络配置添加DNS可以这种方式添加DNS</span>
 <span class="nb">echo</span> <span class="s2">&#34;nameserver 192.168.188.1&#34;</span> &gt; /etc/resolv.conf
 </code></pre></td></tr></table>
 </div>
 </div><p>激活网卡</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">ifup eth0 <span class="c1"># 激活网卡</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ifup eth0 <span class="c1"># 激活网卡</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="虚拟机其它管理">虚拟机其它管理</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -830,7 +831,7 @@ virsh list --all         <span class="c1"># 查看所有虚拟机</span>
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh start centos72     <span class="c1"># 虚拟机开启（启动）：</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh start centos72     <span class="c1"># 虚拟机开启（启动）：</span>
 virsh reboot centos72    <span class="c1"># 虚拟机重新启动</span>
 virsh shutdown centos72  <span class="c1"># 虚拟机关机</span>
 virsh destroy centos72   <span class="c1"># 强制关机（强制断电）</span>
@@ -849,7 +850,7 @@ rm -f  centos78.qcow2
 <p>目前我只有一个固定IP，通过配置<code>eno2</code>，网桥当做路由器，虚拟机共享物理机进出网络。物理机网络配置，网络进出走<code>eno2</code> 编辑<code>vi /etc/sysconfig/network-scripts/ifcfg-eno2</code>,参考下前面部分</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -872,7 +873,7 @@ rm -f  centos78.qcow2
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">TYPE</span><span class="o">=</span>Ethernet
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">TYPE</span><span class="o">=</span>Ethernet
 <span class="nv">BOOTPROTO</span><span class="o">=</span>static
 <span class="nv">DEFROUTE</span><span class="o">=</span>yes
 <span class="nv">PEERDNS</span><span class="o">=</span>yes
@@ -898,7 +899,7 @@ rm -f  centos78.qcow2
 </div><p><code>ifcfg-br0</code> 桥接网卡配置在同一个目录中。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -907,7 +908,7 @@ rm -f  centos78.qcow2
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">TYPE</span><span class="o">=</span>Bridge
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">TYPE</span><span class="o">=</span>Bridge
 <span class="nv">BOOTPROTO</span><span class="o">=</span>static
 <span class="nv">NAME</span><span class="o">=</span>br0
 <span class="nv">DEVICE</span><span class="o">=</span>br0
@@ -919,7 +920,7 @@ rm -f  centos78.qcow2
 </div><p><code>ifcfg-eno1</code> 物理网卡指定桥接网卡<code>BRIDGE=&quot;br0&quot;</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -927,7 +928,7 @@ rm -f  centos78.qcow2
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">TYPE</span><span class="o">=</span>Ethernet
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">TYPE</span><span class="o">=</span>Ethernet
 <span class="nv">BOOTPROTO</span><span class="o">=</span>none
 <span class="nv">NAME</span><span class="o">=</span>eno1
 <span class="nv">DEVICE</span><span class="o">=</span>eno1
@@ -938,14 +939,14 @@ rm -f  centos78.qcow2
 </div><p>配置路由转发<code>vi /etc/sysctl.conf</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Controls IP packet forwarding</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Controls IP packet forwarding</span>
 net.ipv4.ip_forward <span class="o">=</span> <span class="m">0</span>
 修改为
 <span class="c1"># Controls IP packet forwarding</span>
@@ -958,7 +959,7 @@ net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span>    允许�
 <p>编辑<code>vi /etc/rc.d/rc.local</code> 添加下面命令，达到开机重启配置网络转发规则。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -969,7 +970,7 @@ net.ipv4.ip_forward <span class="o">=</span> <span class="m">1</span>    允许�
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动网络转发规则</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动网络转发规则</span>
 iptables -t nat -A : -s 192.168.188.0/24 -j SNAT --to-source 211.11.61.7
 
 iptables -t nat -A POSTROUTING -s 192.168.188.0/24 -j SNAT --to-source 211.11.61.7
@@ -983,7 +984,7 @@ ssh -p <span class="m">2222</span> root@211.11.61.7
 </div><p>通过<a href="https://jaywcjlove.github.io/linux-command/c/iptables.html">iptables</a>命令来设置转发规则，源SNAT规则，源网络地址转换，SNAT就是重写包的源IP地址。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1000,7 +1001,7 @@ ssh -p <span class="m">2222</span> root@211.11.61.7
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 数据包进行 源NAT(SNAT)，系统先路由——&gt;再过滤（FORWARD)——&gt;最后才进行POSTROUTING SNAT地址翻译</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 数据包进行 源NAT(SNAT)，系统先路由——&gt;再过滤（FORWARD)——&gt;最后才进行POSTROUTING SNAT地址翻译</span>
 <span class="c1"># -t&lt;表&gt;：指定要操纵的表；</span>
 <span class="c1"># -A：向规则链中添加条目；</span>
 <span class="c1"># -s：指定要匹配的数据包源ip地址；</span>
@@ -1021,22 +1022,22 @@ iptables -t nat -A POSTROUTING -s 192.168.120.0/24 -j SNAT --to-source &lt;固�
 <p>通过公网ip <code>192.168.188.222</code>端口<code>2280</code>，转发到虚拟机<code>192.168.111.133:80</code>上面</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -t nat -A PREROUTING -d 192.168.188.222 -p tcp --dport <span class="m">2280</span> -j DNAT --to-dest 192.168.111.133:80
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">iptables -t nat -A PREROUTING -d 192.168.188.222 -p tcp --dport <span class="m">2280</span> -j DNAT --to-dest 192.168.111.133:80
 </code></pre></td></tr></table>
 </div>
 </div><p>重启并保存 <code>iptables</code> 配置。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 保存</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 保存</span>
 service iptables save
 <span class="c1"># 重启</span>
 service iptables restart
@@ -1052,7 +1053,7 @@ service iptables restart
 <p>Bridge方式即虚拟网桥的网络连接方式，是客户机和子网里面的机器能够互相通信。可以使虚拟机成为网络中具有独立IP的主机。<strong>桥接网络</strong>（也叫 <strong>物理设备共享</strong>）被用作把一个物理设备复制到一台虚拟机。网桥多用作高级设置，特别是主机多个网络接口的情况。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1068,7 +1069,7 @@ service iptables restart
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">┌─────────────────────────┐      ┌─────────────────┐
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">┌─────────────────────────┐      ┌─────────────────┐
 │          HOST           │      │Virtual Machine 1│
 │ ┌──────┐      ┌───────┐ │      │    ┌──────┐     │
 │ │ br0  │──┬───│ vnet0 │─│─ ─ ─ │    │ br0  │     │
@@ -1087,7 +1088,7 @@ service iptables restart
 </div><p>通过<a href="https://jaywcjlove.github.io/linux-command/c/ip.html">ip</a> 命令查看宿主机配置文件的名字</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1097,7 +1098,7 @@ service iptables restart
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">ip addr
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ip addr
 
 6: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc mq state UP qlen <span class="m">1000</span>
     link/ether 38:63:bb:44:cf:6c brd ff:ff:ff:ff:ff:ff
@@ -1110,7 +1111,7 @@ service iptables restart
 </div><p>可以看到上面<code>eno1</code>是有获取到ip地址的，相对应的文件在<code>/etc/sysconfig/network-scripts/</code>目录中，<code>ifcfg-eno1</code> 宿主机的物理网卡配置文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1121,7 +1122,7 @@ service iptables restart
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cat ifcfg-eno1</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cat ifcfg-eno1</span>
 <span class="nv">TYPE</span><span class="o">=</span>Ethernet
 <span class="nv">BOOTPROTO</span><span class="o">=</span>static
 <span class="nv">NAME</span><span class="o">=</span>eno1
@@ -1135,7 +1136,7 @@ service iptables restart
 </div><p><code>ifcfg-br0</code> 桥接网卡配置在同一个目录中。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1157,7 +1158,7 @@ service iptables restart
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cat ifcfg-br0</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cat ifcfg-br0</span>
 <span class="nv">BOOTPROTO</span><span class="o">=</span>static
 <span class="nv">DEFROUTE</span><span class="o">=</span>yes
 <span class="nv">PEERDNS</span><span class="o">=</span>yes
@@ -1182,7 +1183,7 @@ service iptables restart
 </div><p>配置好之后，通过<a href="https://jaywcjlove.github.io/linux-command/c/systemctl.html">systemctl</a> 命令重启网卡。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1197,7 +1198,7 @@ service iptables restart
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">ifup eno1 <span class="c1"># 激活网卡</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ifup eno1 <span class="c1"># 激活网卡</span>
 ifup br0 <span class="c1"># 激活桥接网卡</span>
 <span class="c1"># 两种重启网络的方法</span>
 systemctl restart network.service
@@ -1216,7 +1217,7 @@ virbr0    8000.525400193f0f yes   virbr0-nic
 <p>NAT(Network Address Translation网络地址翻译)，NAT方式是kvm安装后的默认方式。它支持主机与虚拟机的互访，同时也支持虚拟机访问互联网，但不支持外界访问虚拟机。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1224,7 +1225,7 @@ virbr0    8000.525400193f0f yes   virbr0-nic
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh net-edit default <span class="c1"># 如果要创建或者修改NAT网络，要先编辑default.xml：</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh net-edit default <span class="c1"># 如果要创建或者修改NAT网络，要先编辑default.xml：</span>
 virsh net-list --all
 
  Name                 State      Autostart     Persistent
@@ -1235,7 +1236,7 @@ virsh net-list --all
 </div><p>default是宿主机安装虚拟机支持模块的时候自动安装的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1278,7 +1279,7 @@ virsh net-list --all
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">ip a l
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ip a l
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -1324,7 +1325,7 @@ virsh net-list --all
 </div><p>其中virbr0是由宿主机虚拟机支持模块安装时产生的虚拟网络接口，也是一个switch和bridge，负责把内容分发到各虚拟机。几个虚拟机管理模块产生的接口关系如下图:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1344,7 +1345,7 @@ virsh net-list --all
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">┌───────────────────────┐
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">┌───────────────────────┐
 │         HOST          │
 │ ┌──────┐              │   ┌─────────────────┐
 │ │ br0  │─┬──────┐     │   │Virtual Machine 1│
@@ -1368,7 +1369,7 @@ virsh net-list --all
 <p>virbr0是一个桥接器，接收所有到网络192.168.122.*的内容。从下面命令可以验证：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1383,7 +1384,7 @@ virsh net-list --all
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">brctl show
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">brctl show
 <span class="c1"># 输出结果</span>
 <span class="c1"># ---------------------</span>
 <span class="c1"># bridge name bridge id   STP enabled interfaces</span>
@@ -1401,27 +1402,27 @@ ip route
 </div><p>同时，虚拟机支持模块会修改iptables规则，通过命令可以查看：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -t nat -L -nv
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">iptables -t nat -L -nv
 iptables -t filter -L -nv
 </code></pre></td></tr></table>
 </div>
 </div><p>如果没有default的话，或者需要扩展自己的虚拟网络，可以使用命令重新安装NAT。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh net-define /usr/share/libvirt/networks/default.xml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh net-define /usr/share/libvirt/networks/default.xml
 </code></pre></td></tr></table>
 </div>
 </div><p>此命令定义一个虚拟网络，default.xml的内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1433,7 +1434,7 @@ iptables -t filter -L -nv
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">network</span><span class="p">&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">network</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>default<span class="p">&lt;/</span><span class="nt">name</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">bridge</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;virbr0&#34;</span> <span class="p">/&gt;</span>
   <span class="p">&lt;</span><span class="nt">forward</span><span class="p">/&gt;</span>
@@ -1449,22 +1450,22 @@ iptables -t filter -L -nv
 <p>重新加载和激活配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh  net-define /etc/libvirt/qemu/networks/default.xml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh  net-define /etc/libvirt/qemu/networks/default.xml
 </code></pre></td></tr></table>
 </div>
 </div><p>标记为自动启动：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh net-autostart default
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh net-autostart default
 <span class="c1"># Network default marked as autostarted</span>
 
 virsh net-start default
@@ -1473,11 +1474,11 @@ virsh net-start default
 </div><p>启动网络：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh net-start default
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh net-start default
 <span class="c1"># Network default started</span>
 </code></pre></td></tr></table>
 </div>
@@ -1485,10 +1486,10 @@ virsh net-start default
 <p>修改<code>vi /etc/sysctl.conf</code>中参数，允许ip转发，CentOS7是在<code>vi /usr/lib/sysctl.d/00-system.conf</code> 这里面修改</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">net.ipv4.ip_forward<span class="o">=</span><span class="m">1</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">net.ipv4.ip_forward<span class="o">=</span><span class="m">1</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>通过 <code>sysctl -p</code> 查看修改结果</p>
@@ -1496,7 +1497,7 @@ virsh net-start default
 <p>创建名为<code>management</code>的NAT网络，<code>vi  /usr/share/libvirt/networks/management.xml</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1508,7 +1509,7 @@ virsh net-start default
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">network</span><span class="p">&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">network</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>management<span class="p">&lt;/</span><span class="nt">name</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">bridge</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;virbr1&#34;</span><span class="p">/&gt;</span>
   <span class="p">&lt;</span><span class="nt">forward</span><span class="p">/&gt;</span>
@@ -1523,12 +1524,12 @@ virsh net-start default
 </div><p>启用新建的NAT网络</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh net-define /usr/share/libvirt/networks/management.xml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh net-define /usr/share/libvirt/networks/management.xml
 virsh net-start management
 virsh net-autostart management
 </code></pre></td></tr></table>
@@ -1536,7 +1537,7 @@ virsh net-autostart management
 </div><p>验证</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1550,7 +1551,7 @@ virsh net-autostart management
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">brctl show
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">brctl show
 <span class="c1"># bridge name bridge id   STP enabled interfaces</span>
 <span class="c1"># br0   8000.3863bb44cf6c no    eno1</span>
 <span class="c1">#               vnet0</span>
@@ -1567,13 +1568,13 @@ virsh net-list --all
 </div><h3 id="退出虚拟机">退出虚拟机</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">exit</span> <span class="c1"># 退出系统到登录界面</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">exit</span> <span class="c1"># 退出系统到登录界面</span>
 
 Ctrl+5 <span class="c1"># 从虚拟机登录页面，退出到宿主机命令行页面</span>
 Ctrl+<span class="o">]</span> <span class="c1"># 或者下面</span>
@@ -1583,31 +1584,31 @@ Ctrl+<span class="o">]</span> <span class="c1"># 或者下面</span>
 <p>直接通过vim命令修改</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">vim  /etc/libvirt/qemu/centos72.xml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">vim  /etc/libvirt/qemu/centos72.xml
 </code></pre></td></tr></table>
 </div>
 </div><p>通过virsh命令修改</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh edit centos72
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh edit centos72
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="克隆虚拟机">克隆虚拟机</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 暂停原始虚拟机</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 暂停原始虚拟机</span>
 virsh shutdown centos72
 virt-clone -o centos72 -n centos.112 -f /data/kvm/centos.112.qcow2 -m 00:00:00:00:00:01
 virt-clone -o centos88 -n centos.112 --file /data/kvm/centos.112.qcow2 --nonsparse
@@ -1631,7 +1632,7 @@ virt-clone -o centos88 -n centos.112 --file /data/kvm/centos.112.qcow2 --nonspar
 <p>创建虚拟机镜像文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1639,7 +1640,7 @@ virt-clone -o centos88 -n centos.112 --file /data/kvm/centos.112.qcow2 --nonspar
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 复制第一次安装的干净系统镜像，作为基础镜像文件，</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 复制第一次安装的干净系统镜像，作为基础镜像文件，</span>
 <span class="c1"># 后面创建虚拟机使用这个基础镜像</span>
 cp /data/kvm/centos.88.qcow2 /data/kvm/centos7.base.qcow2
 
@@ -1650,7 +1651,7 @@ cp /data/kvm/centos7.base.qcow2 /data/kvm/centos7.113.qcow2
 </div><p>创建虚拟机配置文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1660,7 +1661,7 @@ cp /data/kvm/centos7.base.qcow2 /data/kvm/centos7.113.qcow2
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 复制第一次安装的干净系统镜像，作为基础配置文件。</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 复制第一次安装的干净系统镜像，作为基础配置文件。</span>
 virsh dumpxml centos.88 &gt; /data/kvm/centos7.base.xml
 
 <span class="c1"># 使用基础虚拟机镜像配置文件，创建新的虚拟机配置文件</span>
@@ -1673,7 +1674,7 @@ vi /data/kvm/centos7.113.xml
 </div><p>主要是修改虚拟机文件名，UUID，镜像地址和网卡地址，其中 UUID 在 Linux 下可以使用 <code>uuidgen</code> 命令生成</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1687,7 +1688,7 @@ vi /data/kvm/centos7.113.xml
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">domain</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;kvm&#39;</span><span class="p">&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">domain</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;kvm&#39;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">name</span><span class="p">&gt;</span>centos7.113<span class="p">&lt;/</span><span class="nt">name</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">uuid</span><span class="p">&gt;</span>1e86167a-33a9-4ce8-929e-58013fbf9122<span class="p">&lt;/</span><span class="nt">uuid</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">devices</span><span class="p">&gt;</span>
@@ -1703,11 +1704,11 @@ vi /data/kvm/centos7.113.xml
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh define /data/kvm/centos7.113.xml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh define /data/kvm/centos7.113.xml
 <span class="c1"># Domain centos.113 defined from /data/kvm/centos7.113.xml</span>
 </code></pre></td></tr></table>
 </div>
@@ -1715,7 +1716,7 @@ vi /data/kvm/centos7.113.xml
 <p>动态调整，如果超过给虚拟机分配的最大内存，需要重启虚拟机。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1728,7 +1729,7 @@ vi /data/kvm/centos7.113.xml
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh list --all
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh list --all
 <span class="c1">#  Id    名称                         状态</span>
 <span class="c1"># ----------------------------------------------------</span>
 <span class="c1">#  2     working112                     running</span>
@@ -1745,16 +1746,16 @@ virsh dominfo working112
 <h3 id="创建磁盘">创建磁盘</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/kvm
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/kvm
 </code></pre></td></tr></table>
 </div>
 </div><p>查看镜像信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1773,7 +1774,7 @@ virsh dominfo working112
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virt-filesystems --long --parts --blkdevs -h -a working112.qcow2
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virt-filesystems --long --parts --blkdevs -h -a working112.qcow2
 
 <span class="c1"># Name       Type       Size  Parent</span>
 <span class="c1"># /dev/sda1  partition  200M  /dev/sda</span>
@@ -1795,36 +1796,36 @@ qemu-img info working112.qcow2
 </div><p>给虚拟机镜像添加<code>200G</code>大小，注意需要停止<code>working112</code>虚拟机</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">qemu-img resize working112.qcow2 +200G
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">qemu-img resize working112.qcow2 +200G
 <span class="c1"># Image resized.</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>首先，我们制作如下所示的磁盘的备份副本。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cp working112.qcow2 working112-orig.qcow2
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp working112.qcow2 working112-orig.qcow2
 </code></pre></td></tr></table>
 </div>
 </div><p>然后我们运行下面的命令来增加 <code>/dev/sda</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virt-resize --expand /dev/sda1 working112-orig.qcow2 working112.qcow2
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virt-resize --expand /dev/sda1 working112-orig.qcow2 working112.qcow2
 </code></pre></td></tr></table>
 </div>
 </div><p>查看镜像信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1835,7 +1836,7 @@ qemu-img info working112.qcow2
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">qemu-img info working112.qcow2
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">qemu-img info working112.qcow2
 <span class="c1"># image: working112.qcow2</span>
 <span class="c1"># file format: qcow2</span>
 <span class="c1"># virtual size: 140G (150323855360 bytes)</span>
@@ -1849,33 +1850,33 @@ qemu-img info working112.qcow2
 </div><p>进入虚拟机<code>virsh console working112</code> 查看信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">vgdisplay <span class="c1"># 显示卷组大小</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">vgdisplay <span class="c1"># 显示卷组大小</span>
 lvdisplay <span class="c1"># 显示逻辑卷大小</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>卷组大小已增加，下面需要分配容量给逻辑卷</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">lvextend -L +60G /dev/centos/root
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">lvextend -L +60G /dev/centos/root
 </code></pre></td></tr></table>
 </div>
 </div><p>还有最后一步，分配好了需要做系统调整</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ext 系统格式使用：</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ext 系统格式使用：</span>
 resize2fs /dev/centos/root
 <span class="c1"># xfs 系统格式使用下面命令</span>
 xfs_growfs /dev/centos/root
@@ -1886,7 +1887,7 @@ xfs_growfs /dev/centos/root
 <p>常用参数说明</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1923,7 +1924,7 @@ xfs_growfs /dev/centos/root
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">–name指定虚拟机名称
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">–name指定虚拟机名称
 –memory分配内存大小。
 –vcpus分配CPU核心数，最大与实体机CPU核心数相同
 –disk指定虚拟机镜像，size指定分配大小单位为G。
@@ -1964,7 +1965,7 @@ xfs_growfs /dev/centos/root
 <p>基础命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1983,7 +1984,7 @@ xfs_growfs /dev/centos/root
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">virsh list --all           <span class="c1"># 查看所有运行和没有运行的虚拟机</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">virsh list --all           <span class="c1"># 查看所有运行和没有运行的虚拟机</span>
 virsh list                 <span class="c1"># 查看在运行的虚拟机</span>
 virsh dumpxml vm-name      <span class="c1"># 查看kvm虚拟机配置文件</span>
 virsh start vm-name        <span class="c1"># 启动kvm虚拟机</span>
@@ -2005,12 +2006,12 @@ virsh console &lt;虚拟机名称&gt;   <span class="c1"># 连接虚拟机</span
 </div><h2 id="错误解决">错误解决</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">console <span class="nb">test</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">console <span class="nb">test</span>
 Connected to domain <span class="nb">test</span>
 Escape character is ^<span class="o">]</span>
 </code></pre></td></tr></table>
@@ -2035,7 +2036,7 @@ virt-manager 没有找到存储池，创建储存池即可</p>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2045,7 +2046,7 @@ virt-manager 没有找到存储池，创建储存池即可</p>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 方案1</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 方案1</span>
 $ ps aux <span class="p">|</span> grep console
 $ <span class="nb">kill</span> -9 &lt;进程号&gt;
 <span class="c1"># 方案2</span>
@@ -2116,16 +2117,16 @@ systemctl restart libvirtd.service</li>
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/kvm/">kvm</a>
-          <a href="/tags/vm/">vm</a>
+          <a href="/blog/tags/kvm/">kvm</a>
+          <a href="/blog/tags/vm/">vm</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/vm/WebVirtCloud_deploy/">
+        <a class="prev" href="/blog/post/vm/WebVirtCloud_deploy/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">WebVirtCloud部署笔记</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/web/tomcat_centos_install/">
+        <a class="next" href="/blog/post/web/tomcat_centos_install/">
             <span class="next-text nav-default">Centos部署tomcat9</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -2150,7 +2151,7 @@ systemctl restart libvirtd.service</li>
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -2164,15 +2165,15 @@ systemctl restart libvirtd.service</li>
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -2199,7 +2200,7 @@ systemctl restart libvirtd.service</li>
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

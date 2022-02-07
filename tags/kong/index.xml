@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>kong on Bill World</title>
-    <link>https://xiebiao.top/tags/kong/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/kong/</link>
     <description>Recent content in kong on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 04 Apr 2020 23:00:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/kong/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Apr 2020 23:00:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/kong/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>k8s上使用Helm在线安装kong2</title>
-      <link>https://xiebiao.top/post/gateway/helm3_kong2_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/gateway/helm3_kong2_install/</link>
       <pubDate>Sat, 04 Apr 2020 23:00:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/gateway/helm3_kong2_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/gateway/helm3_kong2_install/</guid>
       <description>k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7） 安装前说明 官方文档问题说明 一、kong使用的pos</description>
     </item>
     

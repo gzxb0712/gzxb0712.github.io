@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/cicd/k8s_jenkins_cicd/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/cicd/k8s_jenkins_cicd/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="k8s安装jenkins最佳实践" />
 <meta property="og:description" content="注意下访问url： http://192.168.2.11:32001/jenkins http://jenkins.test.com/jenkins/ 参考博客 http://www.mydlq.club/article/47/ 目录[-] . 一、Kubernetes 部署 Jenkins . 1、NFS 存储卷创建 Jenkins 目录 . 2、创建 Jenkins 用于存储的 PV、PVC . 3" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/cicd/k8s_jenkins_cicd/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/cicd/k8s_jenkins_cicd/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-07-05T19:01:30+00:00" />
 <meta property="article:modified_time" content="2020-07-05T19:01:30+00:00" />
+
 <meta itemprop="name" content="k8s安装jenkins最佳实践">
-<meta itemprop="description" content="注意下访问url： http://192.168.2.11:32001/jenkins http://jenkins.test.com/jenkins/ 参考博客 http://www.mydlq.club/article/47/ 目录[-] . 一、Kubernetes 部署 Jenkins . 1、NFS 存储卷创建 Jenkins 目录 . 2、创建 Jenkins 用于存储的 PV、PVC . 3">
-<meta itemprop="datePublished" content="2020-07-05T19:01:30+00:00" />
+<meta itemprop="description" content="注意下访问url： http://192.168.2.11:32001/jenkins http://jenkins.test.com/jenkins/ 参考博客 http://www.mydlq.club/article/47/ 目录[-] . 一、Kubernetes 部署 Jenkins . 1、NFS 存储卷创建 Jenkins 目录 . 2、创建 Jenkins 用于存储的 PV、PVC . 3"><meta itemprop="datePublished" content="2020-07-05T19:01:30+00:00" />
 <meta itemprop="dateModified" content="2020-07-05T19:01:30+00:00" />
 <meta itemprop="wordCount" content="16648">
-
-
-
-<meta itemprop="keywords" content="jenkins,cicd," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="jenkins,cicd," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="k8s安装jenkins最佳实践"/>
 <meta name="twitter:description" content="注意下访问url： http://192.168.2.11:32001/jenkins http://jenkins.test.com/jenkins/ 参考博客 http://www.mydlq.club/article/47/ 目录[-] . 一、Kubernetes 部署 Jenkins . 1、NFS 存储卷创建 Jenkins 目录 . 2、创建 Jenkins 用于存储的 PV、PVC . 3"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-05 19:01 </span>
         <div class="post-category">
-            <a href="/categories/cicd/"> cicd </a>
+            <a href="/blog/categories/cicd/"> cicd </a>
             </div>
           <span class="more-meta"> 约 16648 字 </span>
           <span class="more-meta"> 预计阅读 34 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -224,6 +220,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-07-05T19:01:30" title="July 5, 2020">July 5, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -324,11 +325,11 @@ http://192.168.2.11:32001/jenkins
 <p>进入 NFS Server 服务器，然后再其存储目录下创建 Jenkins 目录，并且确保目录对其它用户有读写权限。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /nfs/data/jenkins
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /nfs/data/jenkins
 
 </code></pre></td></tr></table>
 </div>
@@ -337,7 +338,7 @@ http://192.168.2.11:32001/jenkins
 <p><strong>jenkins-storage.yaml</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -372,7 +373,7 @@ http://192.168.2.11:32001/jenkins
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">jenkins</span><span class="w">
@@ -413,11 +414,11 @@ http://192.168.2.11:32001/jenkins
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f jenkins-storage.yaml -n public
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f jenkins-storage.yaml -n public
 
 </code></pre></td></tr></table>
 </div>
@@ -429,7 +430,7 @@ http://192.168.2.11:32001/jenkins
 <p><strong>jenkins-rbac.yaml</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -454,7 +455,7 @@ http://192.168.2.11:32001/jenkins
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">jenkins-admin      </span><span class="w"> </span><span class="c">#ServiceAccount名</span><span class="w">
@@ -485,11 +486,11 @@ http://192.168.2.11:32001/jenkins
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f jenkins-rbac.yaml -n public
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f jenkins-rbac.yaml -n public
 
 </code></pre></td></tr></table>
 </div>
@@ -502,7 +503,7 @@ http://192.168.2.11:32001/jenkins
 <p><strong>jenkins-deployment.yaml</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -584,7 +585,7 @@ http://192.168.2.11:32001/jenkins
 </span><span class="lnt">80
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">jenkins</span><span class="w">
@@ -674,13 +675,13 @@ http://192.168.2.11:32001/jenkins
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">-Dhudson.slaves.NodeProvisioner.initialDelay<span class="o">=</span><span class="m">0</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">-Dhudson.slaves.NodeProvisioner.initialDelay<span class="o">=</span><span class="m">0</span>
 -Dhudson.slaves.NodeProvisioner.MARGIN<span class="o">=</span><span class="m">50</span>
 -Dhudson.slaves.NodeProvisioner.MARGIN0<span class="o">=</span>0.85
 
@@ -692,11 +693,11 @@ http://192.168.2.11:32001/jenkins
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl create -f jenkins-deployment.yaml -n mydlqcloud
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl create -f jenkins-deployment.yaml -n mydlqcloud
 
 </code></pre></td></tr></table>
 </div>
@@ -708,18 +709,18 @@ http://192.168.2.11:32001/jenkins
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl log <span class="k">$(</span>kubectl get pods -n mydlqcloud <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span> <span class="p">|</span> grep jenkins<span class="k">)</span> -n mydlqcloud
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl log <span class="k">$(</span>kubectl get pods -n mydlqcloud <span class="p">|</span> awk <span class="s1">&#39;{print $1}&#39;</span> <span class="p">|</span> grep jenkins<span class="k">)</span> -n mydlqcloud
 
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>在日志中可以看到，默认给的token为：</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -730,7 +731,7 @@ http://192.168.2.11:32001/jenkins
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">*************************************************************
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">*************************************************************
 Jenkins initial setup is required. An admin user has been created and a password generated.
 Please use the following password to proceed to installation:
 
@@ -839,7 +840,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p>yaml 内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -856,7 +857,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
@@ -914,11 +915,11 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /nfs/data/maven
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /nfs/data/maven
 
 </code></pre></td></tr></table>
 </div>
@@ -926,7 +927,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p><strong>maven-storage.yaml</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -961,7 +962,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">maven</span><span class="w">
@@ -1002,11 +1003,11 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f maven-storage.yaml -n public
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ kubectl apply -f maven-storage.yaml -n public
 
 </code></pre></td></tr></table>
 </div>
@@ -1056,7 +1057,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1088,7 +1089,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 
 <span class="nt">&lt;settings</span> <span class="na">xmlns=</span><span class="s">&#34;http://maven.apache.org/SETTINGS/1.0.0&#34;</span>
           <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
@@ -1130,7 +1131,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1141,7 +1142,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">FROM openjdk:8u222-jre-slim
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">FROM openjdk:8u222-jre-slim
 VOLUME /tmp
 ADD target/*.jar app.jar
 RUN sh -c <span class="s1">&#39;touch /app.jar&#39;</span>
@@ -1162,7 +1163,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1220,7 +1221,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="c">#APP_NAME</span><span class="w">
@@ -1294,13 +1295,13 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>设置任务超时时间，如果在规定时间内任务没有完成，则进行失败操作，格式如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">60</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">60</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// 脚本
 </span><span class="c1"></span><span class="o">}</span>
 
@@ -1316,14 +1317,14 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">git</span> <span class="nl">changelog:</span> <span class="kc">true</span><span class="o">,</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">git</span> <span class="nl">changelog:</span> <span class="kc">true</span><span class="o">,</span>
     <span class="nl">url:</span> <span class="s2">&#34;http://gitlab.xxxx/xxx.git&#34;</span>
     <span class="nl">branch:</span> <span class="s2">&#34;master&#34;</span><span class="o">,</span>
     <span class="nl">credentialsId:</span> <span class="s2">&#34;xxxx-xxxx-xxxx-xxxx&#34;</span><span class="o">,</span>
@@ -1334,7 +1335,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>Kubernetes 插件中存在 PodTemplate 方法，在执行脚本时候，会自动在 Kubernetes 中创建 Pod Template 配置的 Slave Pod，在其中执行 podTemplate 代码块中的脚本。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1343,7 +1344,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
 <span class="n">podTemplate</span><span class="o">(</span><span class="nl">label:</span> <span class="n">label</span><span class="o">,</span><span class="nl">cloud:</span> <span class="s1">&#39;kubernetes&#39;</span> <span class="o">){</span>
     <span class="n">node</span> <span class="o">(</span><span class="n">label</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">print</span> <span class="s2">&#34;在 Slave Pod 中执行任务&#34;</span>
@@ -1370,13 +1371,13 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">container</span><span class="o">(</span><span class="s1">&#39;maven&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">container</span><span class="o">(</span><span class="s1">&#39;maven&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">sh</span> <span class="err">&#34;</span><span class="n">mvn</span> <span class="n">install</span>
 <span class="o">}</span>
 
@@ -1387,13 +1388,13 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">container</span><span class="o">(</span><span class="s1">&#39;docker&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">container</span><span class="o">(</span><span class="s1">&#39;docker&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">sh</span> <span class="err">&#34;</span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="nl">xxxxx:</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">.</span>
 <span class="o">}</span>
 
@@ -1404,13 +1405,13 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">container</span><span class="o">(</span><span class="s1">&#39;kubectl&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">container</span><span class="o">(</span><span class="s1">&#39;kubectl&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">sh</span> <span class="s2">&#34;kubectl apply -f xxxx.yaml&#34;</span>
 <span class="o">}</span>
 
@@ -1429,13 +1430,13 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">configFileProvider</span><span class="o">([</span><span class="n">configFile</span><span class="o">(</span><span class="nl">fileId:</span> <span class="s2">&#34;global-maven-settings&#34;</span><span class="o">,</span> <span class="nl">targetLocation:</span> <span class="s2">&#34;settings.xml&#34;</span><span class="o">)]){</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">configFileProvider</span><span class="o">([</span><span class="n">configFile</span><span class="o">(</span><span class="nl">fileId:</span> <span class="s2">&#34;global-maven-settings&#34;</span><span class="o">,</span> <span class="nl">targetLocation:</span> <span class="s2">&#34;settings.xml&#34;</span><span class="o">)]){</span>
     <span class="n">sh</span> <span class="s2">&#34;cat settings.xml&#34;</span>
 <span class="o">}</span>
 
@@ -1446,13 +1447,13 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">configFileProvider</span><span class="o">([</span><span class="n">configFile</span><span class="o">(</span><span class="nl">fileId:</span> <span class="s2">&#34;global-dockerfile-file&#34;</span><span class="o">,</span> <span class="nl">targetLocation:</span> <span class="s2">&#34;Dockerfile&#34;</span><span class="o">)]){</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">configFileProvider</span><span class="o">([</span><span class="n">configFile</span><span class="o">(</span><span class="nl">fileId:</span> <span class="s2">&#34;global-dockerfile-file&#34;</span><span class="o">,</span> <span class="nl">targetLocation:</span> <span class="s2">&#34;Dockerfile&#34;</span><span class="o">)]){</span>
     <span class="n">sh</span> <span class="s2">&#34;cat Dockerfile&#34;</span>
 <span class="o">}</span>
 
@@ -1463,13 +1464,13 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">configFileProvider</span><span class="o">([</span><span class="n">configFile</span><span class="o">(</span><span class="nl">fileId:</span> <span class="s2">&#34;global-kubernetes-deployment&#34;</span><span class="o">,</span> <span class="nl">targetLocation:</span> <span class="s2">&#34;deployment.yaml&#34;</span><span class="o">)]){</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">configFileProvider</span><span class="o">([</span><span class="n">configFile</span><span class="o">(</span><span class="nl">fileId:</span> <span class="s2">&#34;global-kubernetes-deployment&#34;</span><span class="o">,</span> <span class="nl">targetLocation:</span> <span class="s2">&#34;deployment.yaml&#34;</span><span class="o">)]){</span>
     <span class="n">sh</span> <span class="s2">&#34;cat deployment.yaml&#34;</span>
 <span class="o">}</span>
 
@@ -1479,11 +1480,11 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>在使用 Groovy 写 Pipleline 脚本时候，经常要将变量的文本生成文件，方便在执行流水线过程中操作文本文件使用，如何将文件转换为文件，可以使用 Pipeline Utility Steps 插件的 writeFile 方法，如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">writeFile</span> <span class="nl">encoding:</span> <span class="s1">&#39;UTF-8&#39;</span><span class="o">,</span> <span class="nl">file:</span> <span class="s1">&#39;./test.txt&#39;</span><span class="o">,</span> <span class="nl">text:</span> <span class="s2">&#34;写入文件的文本内容&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">writeFile</span> <span class="nl">encoding:</span> <span class="s1">&#39;UTF-8&#39;</span><span class="o">,</span> <span class="nl">file:</span> <span class="s1">&#39;./test.txt&#39;</span><span class="o">,</span> <span class="nl">text:</span> <span class="s2">&#34;写入文件的文本内容&#34;</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -1492,7 +1493,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>下面是使用 Http Request 的 Get 请求示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1500,7 +1501,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">result</span> <span class="o">=</span> <span class="n">httpRequest</span> <span class="s2">&#34;http:www.baidu.com&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">result</span> <span class="o">=</span> <span class="n">httpRequest</span> <span class="s2">&#34;http:www.baidu.com&#34;</span>
 
 <span class="k">if</span> <span class="o">(</span><span class="s2">&#34;${result.status}&#34;</span> <span class="o">==</span> <span class="s2">&#34;200&#34;</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">print</span> <span class="s2">&#34;Http 请求成功&#34;</span>
@@ -1513,7 +1514,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>好在 <strong>Jenkins</strong> 提供的 <strong>Kubectl Cli</strong> 插件，只要在其中配置连接 <strong>Kubernetes 的 Token</strong> 凭据，就能够在 <strong>Kubectl Cli</strong> 提供的 <strong>withKubeConfig</strong> 方法，拥有类似存在 <strong>config</strong> 一样的功能，在 <strong>kubectl</strong> 镜像中的 <strong>withKubeConfig</strong> 方法块内执行 <strong>kubectl</strong> 就可以操作配置的 <strong>Kubectl Cli</strong> 的凭据的 <strong>K8S</strong> 集群。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1521,7 +1522,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">container</span><span class="o">(</span><span class="s1">&#39;kubectl&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">container</span><span class="o">(</span><span class="s1">&#39;kubectl&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">withKubeConfig</span><span class="o">([</span><span class="nl">credentialsId:</span> <span class="s2">&#34;Kubernetes Token 凭据 ID&#34;</span><span class="o">,</span><span class="nl">serverUrl:</span> <span class="s2">&#34;https://kubernetes.default.svc.cluster.local&#34;</span><span class="o">])</span> <span class="o">{</span>
         <span class="n">sh</span> <span class="s2">&#34;kubectl get nodes&#34;</span>
     <span class="o">}</span>
@@ -1533,7 +1534,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>在使用 Groovy 语法写 Pipleline 脚本时候，我们经常要替换先前设置好的一些文本的值，这里我们简单示例一下，如何替换字符串。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1542,7 +1543,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="c1">// 测试的字符串
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="c1">// 测试的字符串
 </span><span class="c1"></span><span class="n">sourceStr</span> <span class="o">=</span> <span class="s2">&#34;这是要替换的值：#value1，这是要替换的值：#value2&#34;</span>
 <span class="c1">// 替换#value1与#value2连个值
 </span><span class="c1"></span><span class="n">afterStr</span> <span class="o">=</span> <span class="n">deploy</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">&#34;#value1&#34;</span><span class="o">,</span><span class="s2">&#34;AAA&#34;</span><span class="o">).</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">&#34;#value2&#34;</span><span class="o">,</span><span class="s2">&#34;BBB&#34;</span><span class="o">)</span>
@@ -1555,7 +1556,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>在执行 Java 项目的流水线时，我们经常要动态获取项目中的属性，很多属性都配置在项目的 pom.xml 中，还好 Pipeline Utility Steps 插件提供能够读取 pom.xml 的方法，示例如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1565,7 +1566,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;读取pom.xml参数阶段&#39;</span><span class="o">){</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;读取pom.xml参数阶段&#39;</span><span class="o">){</span>
     <span class="c1">// 读取 Pom.xml 参数
 </span><span class="c1"></span>    <span class="n">pom</span> <span class="o">=</span> <span class="n">readMavenPom</span> <span class="nl">file:</span> <span class="s1">&#39;./pom.xml&#39;</span>
     <span class="c1">// 输出读取的参数
@@ -1579,7 +1580,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>在流水线脚本中，我们一般不直接使用 Docker 命令，而是使用 Docker 插件提供的 docker.withRegistry(“”) 方法来构建与推送镜像，并且还能在方法中配置登录凭据信息，来让仓库验证权限，这点是非常方便的。使用示例如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1588,7 +1589,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">docker</span><span class="o">.</span><span class="na">withRegistry</span><span class="o">(</span><span class="s2">&#34;http://xxxx Docker 仓库地址&#34;</span><span class="o">,</span> <span class="s2">&#34;Docker 仓库凭据 ID&#34;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">docker</span><span class="o">.</span><span class="na">withRegistry</span><span class="o">(</span><span class="s2">&#34;http://xxxx Docker 仓库地址&#34;</span><span class="o">,</span> <span class="s2">&#34;Docker 仓库凭据 ID&#34;</span><span class="o">)</span> <span class="o">{</span>
         <span class="c1">// 构建 Docker 镜像
 </span><span class="c1"></span>        <span class="kt">def</span> <span class="n">customImage</span> <span class="o">=</span> <span class="n">docker</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="s2">&#34;${dockerImageName}&#34;</span><span class="o">)</span>
         <span class="c1">// 推送 Docker 镜像
@@ -1751,7 +1752,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>使用 Kubernetes 插件执行任务，并设置超时时间为 10 分钟，脚本如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1764,7 +1765,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="c1">// 设置超时时间 600 SECONDS，方法块内的方法执行超时，任务就标记为失败
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="c1">// 设置超时时间 600 SECONDS，方法块内的方法执行超时，任务就标记为失败
 </span><span class="c1"></span><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
 
@@ -1781,7 +1782,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>接下来接着往整体的脚本中添加 Git 模块，其中需要引用上面配置的变量，将变量填入脚本中的方法，如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1797,7 +1798,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
     <span class="n">podTemplate</span><span class="o">(</span><span class="nl">label:</span> <span class="n">label</span><span class="o">,</span><span class="nl">cloud:</span> <span class="s1">&#39;kubernetes&#39;</span> <span class="o">){</span>
         <span class="n">node</span> <span class="o">(</span><span class="n">label</span><span class="o">)</span> <span class="o">{</span>
@@ -1822,7 +1823,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <h3 id="3脚本中-maven-编译项目阶段">3、脚本中 Maven 编译项目阶段</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1847,7 +1848,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
     <span class="n">podTemplate</span><span class="o">(</span><span class="nl">label:</span> <span class="n">label</span><span class="o">,</span><span class="nl">cloud:</span> <span class="s1">&#39;kubernetes&#39;</span> <span class="o">){</span>
         <span class="n">node</span> <span class="o">(</span><span class="n">label</span><span class="o">)</span> <span class="o">{</span>
@@ -1881,7 +1882,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <p>这里使用 <code>Pipeline Utility Steps</code> 的 <code>readMavenPom</code> 方法读取项目的 <code>pom.xml</code> 文件，并设置 <code>appName</code> 与 <code>appVersion</code> 两个全局参数。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1913,7 +1914,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
     <span class="n">podTemplate</span><span class="o">(</span><span class="nl">label:</span> <span class="n">label</span><span class="o">,</span><span class="nl">cloud:</span> <span class="s1">&#39;kubernetes&#39;</span> <span class="o">){</span>
         <span class="n">node</span> <span class="o">(</span><span class="n">label</span><span class="o">)</span> <span class="o">{</span>
@@ -1953,7 +1954,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <h3 id="5脚本中-docker-镜像构建与推送模块">5、脚本中 Docker 镜像构建与推送模块</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2003,7 +2004,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">48
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
     <span class="n">podTemplate</span><span class="o">(</span><span class="nl">label:</span> <span class="n">label</span><span class="o">,</span><span class="nl">cloud:</span> <span class="s1">&#39;kubernetes&#39;</span> <span class="o">){</span>
         <span class="n">node</span> <span class="o">(</span><span class="n">label</span><span class="o">)</span> <span class="o">{</span>
@@ -2065,7 +2066,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <h3 id="6kubernetes-模块">6、Kubernetes 模块</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2138,7 +2139,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">71
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
     <span class="n">podTemplate</span><span class="o">(</span><span class="nl">label:</span> <span class="n">label</span><span class="o">,</span><span class="nl">cloud:</span> <span class="s1">&#39;kubernetes&#39;</span> <span class="o">){</span>
         <span class="n">node</span> <span class="o">(</span><span class="n">label</span><span class="o">)</span> <span class="o">{</span>
@@ -2223,7 +2224,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <h3 id="7http-健康检查模块">7、HTTP 健康检查模块</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -2328,7 +2329,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">103
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">600</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
     <span class="n">podTemplate</span><span class="o">(</span><span class="nl">label:</span> <span class="n">label</span><span class="o">,</span><span class="nl">cloud:</span> <span class="s1">&#39;kubernetes&#39;</span> <span class="o">){</span>
         <span class="n">node</span> <span class="o">(</span><span class="n">label</span><span class="o">)</span> <span class="o">{</span>
@@ -2445,7 +2446,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 <h3 id="8完整脚本">8、完整脚本</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -2551,7 +2552,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 </span><span class="lnt">104
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-groovy" data-lang="groovy"><span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&#34;jnlp-agent&#34;</span>
 <span class="n">timeout</span><span class="o">(</span><span class="nl">time:</span> <span class="mi">900</span><span class="o">,</span> <span class="nl">unit:</span> <span class="s1">&#39;SECONDS&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">podTemplate</span><span class="o">(</span><span class="nl">label:</span> <span class="n">label</span><span class="o">,</span><span class="nl">cloud:</span> <span class="s1">&#39;kubernetes&#39;</span> <span class="o">){</span>
         <span class="n">node</span> <span class="o">(</span><span class="n">label</span><span class="o">)</span> <span class="o">{</span>
@@ -2713,16 +2714,16 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/jenkins/">jenkins</a>
-          <a href="/tags/cicd/">cicd</a>
+          <a href="/blog/tags/jenkins/">jenkins</a>
+          <a href="/blog/tags/cicd/">cicd</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/cloud/docker_all_ops/">
+        <a class="prev" href="/blog/post/cloud/docker_all_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">docker最佳实践总结</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/cicd/jenkins_metal_best_practice/">
+        <a class="next" href="/blog/post/cicd/jenkins_metal_best_practice/">
             <span class="next-text nav-default">jenkins裸机安装最佳实践</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -2747,7 +2748,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -2761,15 +2762,15 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -2796,7 +2797,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

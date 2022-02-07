@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/database/mysql8_install_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/database/mysql8_install_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="MySQL 8.0 部署及使用" />
 <meta property="og:description" content="CentOS 7安装MySQL 8.0 这MySQL的默认端口是3306。 Linux上面安装的方式主要分为如下三种： YUM 二进制包 源码包 源码包的安装过于复杂，但是可" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/database/mysql8_install_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/database/mysql8_install_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-06-04T21:05:30+00:00" />
 <meta property="article:modified_time" content="2020-06-04T21:05:30+00:00" />
+
 <meta itemprop="name" content="MySQL 8.0 部署及使用">
-<meta itemprop="description" content="CentOS 7安装MySQL 8.0 这MySQL的默认端口是3306。 Linux上面安装的方式主要分为如下三种： YUM 二进制包 源码包 源码包的安装过于复杂，但是可">
-<meta itemprop="datePublished" content="2020-06-04T21:05:30+00:00" />
+<meta itemprop="description" content="CentOS 7安装MySQL 8.0 这MySQL的默认端口是3306。 Linux上面安装的方式主要分为如下三种： YUM 二进制包 源码包 源码包的安装过于复杂，但是可"><meta itemprop="datePublished" content="2020-06-04T21:05:30+00:00" />
 <meta itemprop="dateModified" content="2020-06-04T21:05:30+00:00" />
 <meta itemprop="wordCount" content="1880">
-
-
-
-<meta itemprop="keywords" content="MySQL,database," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="MySQL,database," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MySQL 8.0 部署及使用"/>
 <meta name="twitter:description" content="CentOS 7安装MySQL 8.0 这MySQL的默认端口是3306。 Linux上面安装的方式主要分为如下三种： YUM 二进制包 源码包 源码包的安装过于复杂，但是可"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-06-04 21:05 </span>
         <div class="post-category">
-            <a href="/categories/database/"> database </a>
+            <a href="/blog/categories/database/"> database </a>
             </div>
           <span class="more-meta"> 约 1880 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -151,6 +147,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-06-04T21:05:30" title="June 4, 2020">June 4, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -168,14 +169,14 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ cat /etc/redhat-release
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ cat /etc/redhat-release
 CentOS Linux release 7.6.1810 (Core)
 $ uname -a
 Linux host.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
@@ -188,11 +189,11 @@ Linux host.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ rpm -ivh https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ rpm -ivh https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
 
 </code></pre></td></tr></table>
 </div>
@@ -202,11 +203,11 @@ Linux host.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ yum install mysql-community-server -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ yum install mysql-community-server -y
 
 </code></pre></td></tr></table>
 </div>
@@ -215,11 +216,11 @@ Linux host.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl enable --now mysqld
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl enable --now mysqld
 
 </code></pre></td></tr></table>
 </div>
@@ -228,7 +229,7 @@ Linux host.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -245,7 +246,7 @@ Linux host.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl status mysqld
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl status mysqld
 ● mysqld.service - MySQL Server
    Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)
    Active: active (running) since 一 2018-12-17 08:47:04 EST; 15min ago
@@ -268,12 +269,12 @@ Linux host.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 
 <p>MySQL在第一次启动的时候，会随机生成一个密码放在<code>/var/log/mysqld.log</code>日志文件中，我们可以通过<code>grep</code>命令获取到root的密码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ grep &#39;temporary password&#39; /var/log/mysqld.log
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ grep &#39;temporary password&#39; /var/log/mysqld.log
 2018-06-12T09:34:07.463168Z 1 [Note] A temporary password is generated for root@localhost: WiwB.e2c3udA
 
 </code></pre></td></tr></table>
@@ -281,13 +282,13 @@ Linux host.localdomain 3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 
 </div><p>其中<code>WiwB.e2c3udA</code>就是<code>root</code>用户的密码，下面我们登录MySQL</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql -u root -h 127.0.0.1 -p
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql -u root -h 127.0.0.1 -p
 Enter password:  # 输入密码
 mysql&gt;
 
@@ -296,12 +297,12 @@ mysql&gt;
 </div><p>查看数据库</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; show databases;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; show databases;
 ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.
 
 </code></pre></td></tr></table>
@@ -309,7 +310,7 @@ ERROR 1820 (HY000): You must reset your password using ALTER USER statement befo
 </div><p>这里会提示我们必须修改root密码才可以正常使用，我们把密码修改为<code>MyNewPass4!</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -318,7 +319,7 @@ ERROR 1820 (HY000): You must reset your password using ALTER USER statement befo
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 修改当前用户的密码
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 修改当前用户的密码
 mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;MyNewPass4!&#39;;
 Query OK, 0 rows affected, 1 warning (0.00 sec)
 # 刷新权限
@@ -330,7 +331,7 @@ Query OK, 0 rows affected (0.06 sec)
 </div><p>然后退出重新登录MySQL</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -358,7 +359,7 @@ Query OK, 0 rows affected (0.06 sec)
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; exit
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; exit
 Bye
 $ mysql -u root -h 127.0.0.1 -p
 Enter password:  # 输入刚才设置的密码
@@ -390,22 +391,22 @@ mysql&gt; select user,host from mysql.user;
 <p>在安装之前，我们需要安装依赖库，因为MySQL需要</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ yum install libaio libaio-devel numactl numactl-devel -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ yum install libaio libaio-devel numactl numactl-devel -y
 
 </code></pre></td></tr></table>
 </div>
 </div><p>最好也把开发工具包安装上</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ yum groupinstall &#34;Development Tools&#34; -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ yum groupinstall &#34;Development Tools&#34; -y
 
 </code></pre></td></tr></table>
 </div>
@@ -414,11 +415,11 @@ mysql&gt; select user,host from mysql.user;
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ yum remove mariadb mariadb-libs -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ yum remove mariadb mariadb-libs -y
 
 </code></pre></td></tr></table>
 </div>
@@ -427,12 +428,12 @@ mysql&gt; select user,host from mysql.user;
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ groupadd mysql
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ groupadd mysql
 $ useradd -r -g mysql -s /bin/false mysql
 
 </code></pre></td></tr></table>
@@ -442,12 +443,12 @@ $ useradd -r -g mysql -s /bin/false mysql
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ cd /opt/
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ cd /opt/
 $ wget https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.13-linux-glibc2.12-x86_64.tar
 
 </code></pre></td></tr></table>
@@ -458,13 +459,13 @@ $ wget https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.13-linux-glibc2.12-x
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ tar -xvf mysql-8.0.13-linux-glibc2.12-x86_64.tar
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ tar -xvf mysql-8.0.13-linux-glibc2.12-x86_64.tar
 $ tar xvf mysql-8.0.13-linux-glibc2.12-x86_64.tar.xz
 $ ln -s /opt/mysql-8.0.13-linux-glibc2.12-x86_64 /usr/local/mysql
 
@@ -475,11 +476,11 @@ $ ln -s /opt/mysql-8.0.13-linux-glibc2.12-x86_64 /usr/local/mysql
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mkdir /usr/local/mysql/data
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ mkdir /usr/local/mysql/data
 
 </code></pre></td></tr></table>
 </div>
@@ -488,13 +489,13 @@ $ ln -s /opt/mysql-8.0.13-linux-glibc2.12-x86_64 /usr/local/mysql
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ chown -R mysql.mysql /usr/local/mysql
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ chown -R mysql.mysql /usr/local/mysql
 $ ls -ld /usr/local/mysql
 lrwxrwxrwx 1 mysql mysql 40 12月 17 09:31 /usr/local/mysql -&gt; /opt/mysql-8.0.13-linux-glibc2.12-x86_64
 
@@ -505,12 +506,12 @@ lrwxrwxrwx 1 mysql mysql 40 12月 17 09:31 /usr/local/mysql -&gt; /opt/mysql-8.0
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ echo &#39;export PATH=$PATH:/usr/local/mysql/bin&#39; &gt;&gt; ~/.bash_profile
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ echo &#39;export PATH=$PATH:/usr/local/mysql/bin&#39; &gt;&gt; ~/.bash_profile
 $ source ~/.bash_profile
 
 </code></pre></td></tr></table>
@@ -518,12 +519,12 @@ $ source ~/.bash_profile
 </div><p>验证是否添加成功</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql --version
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql --version
 mysql  Ver 8.0.13 for linux-glibc2.12 on x86_64 (MySQL Community Server - GPL)
 
 </code></pre></td></tr></table>
@@ -533,14 +534,14 @@ mysql  Ver 8.0.13 for linux-glibc2.12 on x86_64 (MySQL Community Server - GPL)
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
 2018-12-17T14:32:55.725037Z 0 [System] [MY-013169] [Server] /opt/mysql-8.0.13-linux-glibc2.12-x86_64/bin/mysqld (mysqld 8.0.13) initializing of server in progress as process 23954
 2018-12-17T14:32:59.438919Z 5 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: fTVb-*WAq1Oo
 2018-12-17T14:33:02.335171Z 0 [System] [MY-013170] [Server] /opt/mysql-8.0.13-linux-glibc2.12-x86_64/bin/mysqld (mysqld 8.0.13) initializing of server has completed
@@ -553,11 +554,11 @@ mysql  Ver 8.0.13 for linux-glibc2.12 on x86_64 (MySQL Community Server - GPL)
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql_ssl_rsa_setup --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data/
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql_ssl_rsa_setup --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data/
 
 </code></pre></td></tr></table>
 </div>
@@ -566,7 +567,7 @@ mysql  Ver 8.0.13 for linux-glibc2.12 on x86_64 (MySQL Community Server - GPL)
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -577,7 +578,7 @@ mysql  Ver 8.0.13 for linux-glibc2.12 on x86_64 (MySQL Community Server - GPL)
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ vim /etc/my.cnf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ vim /etc/my.cnf
 [mysqld]
 port = 3306
 user = mysql
@@ -593,7 +594,7 @@ datadir = /usr/local/mysql/data/
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -635,7 +636,7 @@ datadir = /usr/local/mysql/data/
 </span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ vim /usr/lib/systemd/system/mysqld.service
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ vim /usr/lib/systemd/system/mysqld.service
 [Unit]
 Description=MySQL Server
 Documentation=man:mysqld(8)
@@ -680,29 +681,29 @@ PrivateTmp=false
 </div><p>重新加载systemd脚本</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl daemon-reload
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl daemon-reload
 
 </code></pre></td></tr></table>
 </div>
 </div><p>启动并添加开机自启动</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl enable --now mysqld
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl enable --now mysqld
 
 </code></pre></td></tr></table>
 </div>
 </div><p>查看运行状态</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -724,7 +725,7 @@ PrivateTmp=false
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl status mysqld
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ systemctl status mysqld
 ● mysqld.service - MySQL Server
    Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)
    Active: active (running) since 一 2018-12-17 09:35:24 EST; 4s ago
@@ -751,7 +752,7 @@ Hint: Some lines were ellipsized, use -l to show in full.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -765,7 +766,7 @@ Hint: Some lines were ellipsized, use -l to show in full.
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql -uroot -h 127.0.0.1 -p
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql -uroot -h 127.0.0.1 -p
 Enter password:  # 输入密码
 
 mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;MyNewPass4!&#39;;  # 修改密码为MyNewPass4!
@@ -782,7 +783,7 @@ Bye
 </div><p>连接测试</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -807,7 +808,7 @@ Bye
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql -uroot -h 127.0.0.1 -p
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql -uroot -h 127.0.0.1 -p
 Enter password:  # 输入刚才设置的密码
 mysql&gt; show databases;
 +--------------------+
@@ -839,11 +840,11 @@ mysql&gt; select user,host from mysql.user;
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ docker run -d --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
 
 </code></pre></td></tr></table>
 </div>
@@ -888,16 +889,16 @@ mysql&gt; select user,host from mysql.user;
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/MySQL/">MySQL</a>
-          <a href="/tags/database/">database</a>
+          <a href="/blog/tags/MySQL/">MySQL</a>
+          <a href="/blog/tags/database/">database</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/database/redis5_cluster_ops/">
+        <a class="prev" href="/blog/post/database/redis5_cluster_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Redis 5.0 部署及使用</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/database/mysql5.7_centos7_install/">
+        <a class="next" href="/blog/post/database/mysql5.7_centos7_install/">
             <span class="next-text nav-default">MySQL 5.7 部署及使用</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -922,7 +923,7 @@ mysql&gt; select user,host from mysql.user;
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -936,15 +937,15 @@ mysql&gt; select user,host from mysql.user;
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -971,7 +972,7 @@ mysql&gt; select user,host from mysql.user;
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

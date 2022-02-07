@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cdn on Bill World</title>
-    <link>https://xiebiao.top/tags/cdn/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/cdn/</link>
     <description>Recent content in cdn on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 20 Feb 2020 22:39:09 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/cdn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Feb 2020 22:39:09 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/cdn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>centos7/8开启bbr加速</title>
-      <link>https://xiebiao.top/post/cdn/bbr_centos_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cdn/bbr_centos_ops/</link>
       <pubDate>Thu, 20 Feb 2020 22:39:09 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cdn/bbr_centos_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cdn/bbr_centos_ops/</guid>
       <description>CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过。 CentOS 8 开启 BBR 1 2</description>
     </item>
     
     <item>
       <title>varnish高速CDN部署与管理</title>
-      <link>https://xiebiao.top/post/cdn/varish_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cdn/varish_ops/</link>
       <pubDate>Sat, 15 Feb 2020 21:39:09 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cdn/varish_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cdn/varish_ops/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;&lt;img src=&#34;https://img.affdalao.com/wp-content/uploads/2019/04/varnish.jpg&#34; alt=&#34;&#34;&gt;
@@ -30,10 +30,10 @@ Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其
     
     <item>
       <title>ansible实现ATS高速CDN安装与管理</title>
-      <link>https://xiebiao.top/post/cdn/ats_install_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cdn/ats_install_ops/</link>
       <pubDate>Sat, 08 Feb 2020 21:32:09 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cdn/ats_install_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cdn/ats_install_ops/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;blockquote&gt;

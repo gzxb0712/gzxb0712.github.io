@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/web/nginx_base/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/web/nginx_base/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="nginx从入门到实战" />
 <meta property="og:description" content="前言 Nginx 现在几乎是众多大型网站的必用技术，大家应该都知道 Nginx 被 F5 收购 的大事件，章亦春也在专心维护 OpenResty 项目构建和谐家园，无论你选择 Nginx 还是 OpenRe" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/web/nginx_base/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/web/nginx_base/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-01T19:18:30+00:00" />
 <meta property="article:modified_time" content="2020-03-01T19:18:30+00:00" />
+
 <meta itemprop="name" content="nginx从入门到实战">
-<meta itemprop="description" content="前言 Nginx 现在几乎是众多大型网站的必用技术，大家应该都知道 Nginx 被 F5 收购 的大事件，章亦春也在专心维护 OpenResty 项目构建和谐家园，无论你选择 Nginx 还是 OpenRe">
-<meta itemprop="datePublished" content="2020-03-01T19:18:30+00:00" />
+<meta itemprop="description" content="前言 Nginx 现在几乎是众多大型网站的必用技术，大家应该都知道 Nginx 被 F5 收购 的大事件，章亦春也在专心维护 OpenResty 项目构建和谐家园，无论你选择 Nginx 还是 OpenRe"><meta itemprop="datePublished" content="2020-03-01T19:18:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-01T19:18:30+00:00" />
 <meta itemprop="wordCount" content="8292">
-
-
-
-<meta itemprop="keywords" content="nginx,web," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="nginx,web," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="nginx从入门到实战"/>
 <meta name="twitter:description" content="前言 Nginx 现在几乎是众多大型网站的必用技术，大家应该都知道 Nginx 被 F5 收购 的大事件，章亦春也在专心维护 OpenResty 项目构建和谐家园，无论你选择 Nginx 还是 OpenRe"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-01 19:18 </span>
         <div class="post-category">
-            <a href="/categories/web/"> web </a>
+            <a href="/blog/categories/web/"> web </a>
             </div>
           <span class="more-meta"> 约 8292 字 </span>
           <span class="more-meta"> 预计阅读 17 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -174,6 +170,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-03-01T19:18:30" title="March 1, 2020">March 1, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -241,7 +242,7 @@
 <p>安装 nginx 时通常需要编译自己需要的模块，可以<a href="https://wsgzao.github.io/post/rpmbuild/">使用 rpmbuild 制作 Nginx 的 RPM 包</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -278,7 +279,7 @@
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">main                                # 全局配置
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">main                                # 全局配置
 
 events {                            # nginx 工作模式配置
 }
@@ -429,7 +430,7 @@ http {                                # http 设置
 <p>例子，有如下匹配规则：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -455,7 +456,7 @@ http {                                # http 设置
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">location = / {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">location = / {
  echo &#34;规则 A&#34;;
 }
 location = /login {
@@ -502,14 +503,14 @@ location / {
 <p>默认的无需设置的组合日志格式</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 log_format combined &#39;$remote_addr - $remote_user  [$time_local]  &#39;
  &#39; &#34;$request&#34;  $status  $body_bytes_sent  &#39;
  &#39; &#34;$http_referer&#34;  &#34;$http_user_agent&#34; &#39;;
@@ -520,11 +521,11 @@ log_format combined &#39;$remote_addr - $remote_user  [$time_local]  &#39;
 <p>log_format 使用示例：在 access.log 中记录客户端 IP 地址、请求状态和请求时间</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">log_format myformat &#39;$remote_addr  $status  $time_local&#39;;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">log_format myformat &#39;$remote_addr  $status  $time_local&#39;;
 access_log logs/access.log  myformat;
 </code></pre></td></tr></table>
 </div>
@@ -611,7 +612,7 @@ access_log logs/access.log  myformat;
 <p>Linux 系统把存储位置设置为空设备</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -619,7 +620,7 @@ access_log logs/access.log  myformat;
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 error_log /dev/null;
 
 http {
@@ -630,7 +631,7 @@ http {
 </div><p>Windows 系统把存储位置设置为空设备</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -638,7 +639,7 @@ http {
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">error_log nul;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">error_log nul;
 
 http {
  # ...
@@ -651,7 +652,7 @@ http {
 <p>Upstream 指定后端服务器地址列表，在 server 中拦截响应请求，并将请求转发到 Upstream 中配置的服务器列表。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -667,7 +668,7 @@ http {
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">upstream balanceServer {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">upstream balanceServer {
  server 10.1.22.33:12345;
  server 10.1.22.34:12345;
  server 10.1.22.35:12345;
@@ -688,7 +689,7 @@ server {
 <h2 id="nginx-常用命令-nginx-常用命令nginx-常用命令"><a href="#nginx-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4" title="nginx 常用命令"></a>nginx 常用命令</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -710,7 +711,7 @@ server {
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 快速关闭 Nginx，可能不保存相关信息，并迅速终止 web 服务</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 快速关闭 Nginx，可能不保存相关信息，并迅速终止 web 服务</span>
 nginx -s stop
 <span class="c1"># 平稳关闭 Nginx，保存相关信息，有安排的结束 web 服务</span>
 nginx -s quit
@@ -736,7 +737,7 @@ nginx -V
 <p>使用vim打开该配置文件，我们一探究竟，不同版本的配置文件可能稍有不同，我的配置文件内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -799,7 +800,7 @@ nginx -V
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># For more information on configuration, see:
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># For more information on configuration, see:
 #   * Official English Documentation: http://nginx.org/en/docs/
 #   * Official Russian Documentation: http://nginx.org/ru/docs/
 
@@ -870,7 +871,7 @@ http {
 <p>首先映入眼帘的这一堆：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -880,7 +881,7 @@ http {
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">user nginx;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">user nginx;
 worker_processes auto;
 error_log /var/log/nginx/error.log;
 pid /run/nginx.pid;
@@ -895,13 +896,13 @@ include /usr/share/nginx/modules/*.conf;
 <h3 id="第二部分events-块">第二部分：events 块：</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">events {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">events {
     worker_connections 1024;
 }
 
@@ -915,14 +916,14 @@ include /usr/share/nginx/modules/*.conf;
 <p>内容太多，略</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">http {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http {
     server {
         }
 }
@@ -951,7 +952,7 @@ include /usr/share/nginx/modules/*.conf;
 <p>然后修改我们的配置文件nginx.conf里面的server块，修改之后的内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -975,7 +976,7 @@ include /usr/share/nginx/modules/*.conf;
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">    server {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">    server {
         listen       8888 ; ##设置我们nginx监听端口为8888
         server_name  [服务器的ip地址];
 
@@ -1004,22 +1005,22 @@ include /usr/share/nginx/modules/*.conf;
 <p>聪明，这里我们再新建一个tomcat容器，端口为8081，同时把在容器中tomcat webapps目录新建一个我们自己的目录，这里叫hello，里面新建一个hello.html文件，内容为</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;h1&gt;I am Hello&lt;h1&gt;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;h1&gt;I am Hello&lt;h1&gt;
 
 </code></pre></td></tr></table>
 </div>
 </div><p>同时我们在端口为8080的tomcat容器中，在webapps新建我们的文件家hi，并新建hi.html文件，内容为</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;h1&gt;I am Hi&lt;h1&gt;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;h1&gt;I am Hi&lt;h1&gt;
 
 </code></pre></td></tr></table>
 </div>
@@ -1028,7 +1029,7 @@ include /usr/share/nginx/modules/*.conf;
 <p>修改我们配置文件中的server快，如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1056,7 +1057,7 @@ include /usr/share/nginx/modules/*.conf;
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">    server {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">    server {
         listen       8888 ; ##设置我们nginx监听端口为8888
         server_name  [服务器的ip地址];
 
@@ -1096,7 +1097,7 @@ include /usr/share/nginx/modules/*.conf;
 <p>语法如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1106,7 +1107,7 @@ include /usr/share/nginx/modules/*.conf;
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">1、= ：用于不含正则表达式的 uri 前，要求请求字符串与 uri 严格匹配，如果匹配
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1、= ：用于不含正则表达式的 uri 前，要求请求字符串与 uri 严格匹配，如果匹配
 成功，就停止继续向下搜索并立即处理该请求。
 2、~：用于表示 uri 包含正则表达式，并且区分大小写。
 3、~*：用于表示 uri 包含正则表达式，并且不区分大小写。
@@ -1126,7 +1127,7 @@ include /usr/share/nginx/modules/*.conf;
 <p>然后修改我们的http块如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1162,7 +1163,7 @@ include /usr/share/nginx/modules/*.conf;
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">http {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http {
 
 ###此处省略一大堆没有改的配置
 
@@ -1209,18 +1210,18 @@ include /usr/share/nginx/modules/*.conf;
 <p>用法:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">     upstream myserver{
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">     upstream myserver{
         server 127.0.0.1:8080 weight =1;
         server 127.0.0.1:8090 weight =2;
       }
-    
+
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -1229,7 +1230,7 @@ include /usr/share/nginx/modules/*.conf;
 <p>用法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1237,12 +1238,12 @@ include /usr/share/nginx/modules/*.conf;
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"> upstream myserver{
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"> upstream myserver{
        ip_hash;#可与weight配合使用
        server 127.0.0.1:8080 weight =1;
        server 127.0.0.1:8090 weight =2;
      }
-    
+
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -1261,7 +1262,7 @@ include /usr/share/nginx/modules/*.conf;
 <p>在html文件夹新建一个html文件，index.html，内容如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1277,7 +1278,7 @@ include /usr/share/nginx/modules/*.conf;
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;!DOCTYPE html&gt;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset=&#34;UTF-8&#34;&gt;
@@ -1297,7 +1298,7 @@ include /usr/share/nginx/modules/*.conf;
 <p>修改server的配置如下:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1326,7 +1327,7 @@ include /usr/share/nginx/modules/*.conf;
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"> server {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"> server {
         listen      8886 ;
         server_name [你的服务器ip地址];
 
@@ -1411,16 +1412,16 @@ include /usr/share/nginx/modules/*.conf;
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/nginx/">nginx</a>
-          <a href="/tags/web/">web</a>
+          <a href="/blog/tags/nginx/">nginx</a>
+          <a href="/blog/tags/web/">web</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/web/tomcat_centos_install/">
+        <a class="prev" href="/blog/post/web/tomcat_centos_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Centos部署tomcat9</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/web/apache_centos_install/">
+        <a class="next" href="/blog/post/web/apache_centos_install/">
             <span class="next-text nav-default">Centos部署apache2&#43;mysql8&#43;php7</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1445,7 +1446,7 @@ include /usr/share/nginx/modules/*.conf;
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1459,15 +1460,15 @@ include /usr/share/nginx/modules/*.conf;
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1494,7 +1495,7 @@ include /usr/share/nginx/modules/*.conf;
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

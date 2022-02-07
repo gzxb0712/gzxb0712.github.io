@@ -25,21 +25,21 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/blog/github_jsdelivr_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/blog/github_jsdelivr_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine打造稳定快速高效免费图床" />
@@ -54,9 +54,10 @@
 作为程序员，你会发现，现在很多论坛和社区都开始支持使用 MarkDown，如果你没使用图床的情况下，你分享同一篇文章，你要在不同的平台，各自重新编辑排版一遍和上传图片一次。
 有了图床，情况就不一样了，Ctrl&#43;C 的方式就搞定了，根本不用再 Check 文章内容一遍。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/blog/github_jsdelivr_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/blog/github_jsdelivr_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-02-02T21:28:04+00:00" />
 <meta property="article:modified_time" content="2020-02-02T21:28:04+00:00" />
+
 <meta itemprop="name" content="GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine打造稳定快速高效免费图床">
 <meta itemprop="description" content="
 
@@ -67,15 +68,10 @@
 因为在不同平台发布同一篇文章的时候，最一个痛苦的点就是，图片存储问题，各个平台的文件存储方式各不相同，无法直接 Ctrl &#43; C 的方式一键搞定，为了解决这个问题，使用 MarkDown &#43; 图床 的方式进行文章的写作，将图片放到一个统一的地方，在文章中引入图片外链。
 所谓图床，就是将图片储存到第三方静态资源库中，其返回给你一个 URL 进行获取图片。MarkDown 支持使用 URL 的方式显示图片，我想这也是程序员为什么对其偏爱的原因之一。
 作为程序员，你会发现，现在很多论坛和社区都开始支持使用 MarkDown，如果你没使用图床的情况下，你分享同一篇文章，你要在不同的平台，各自重新编辑排版一遍和上传图片一次。
-有了图床，情况就不一样了，Ctrl&#43;C 的方式就搞定了，根本不用再 Check 文章内容一遍。">
-<meta itemprop="datePublished" content="2020-02-02T21:28:04+00:00" />
+有了图床，情况就不一样了，Ctrl&#43;C 的方式就搞定了，根本不用再 Check 文章内容一遍。"><meta itemprop="datePublished" content="2020-02-02T21:28:04+00:00" />
 <meta itemprop="dateModified" content="2020-02-02T21:28:04+00:00" />
 <meta itemprop="wordCount" content="1507">
-
-
-
-<meta itemprop="keywords" content="jsDelivr,blog," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="jsDelivr,blog," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine打造稳定快速高效免费图床"/>
 <meta name="twitter:description" content="
 
@@ -101,7 +97,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -111,15 +107,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -127,21 +123,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -158,11 +154,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-02 21:28 </span>
         <div class="post-category">
-            <a href="/categories/blog/"> blog </a>
+            <a href="/blog/categories/blog/"> blog </a>
             </div>
           <span class="more-meta"> 约 1507 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -184,6 +180,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-02-02T21:28:04" title="February 2, 2020">February 2, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -282,12 +283,12 @@
 <p>Text</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">Q：什么是 jsdelivr ?
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Q：什么是 jsdelivr ?
 
 A：jsDelivr 为开发者提供免费公共 CDN 加速服务
 </code></pre></td></tr></table>
@@ -314,7 +315,7 @@ A：jsDelivr 为开发者提供免费公共 CDN 加速服务
 <h2 id="picgo-gihub-相关的配置">picgo gihub 相关的配置</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -330,7 +331,7 @@ A：jsDelivr 为开发者提供免费公共 CDN 加速服务
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">pcigo设置
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">pcigo设置
 https://molunerfinn.com/PicGo/
 ubuntu下载最新版  设置好github相关帐号 然后修改下快捷键
 ctrl+alt+x
@@ -383,16 +384,16 @@ vscode也安装改插件
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/jsDelivr/">jsDelivr</a>
-          <a href="/tags/blog/">blog</a>
+          <a href="/blog/tags/jsDelivr/">jsDelivr</a>
+          <a href="/blog/tags/blog/">blog</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/cdn/ats_install_ops/">
+        <a class="prev" href="/blog/post/cdn/ats_install_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">ansible实现ATS高速CDN安装与管理</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/base/samba_centos_install/">
+        <a class="next" href="/blog/post/base/samba_centos_install/">
             <span class="next-text nav-default">samba在centos中安装</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -417,7 +418,7 @@ vscode也安装改插件
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -431,15 +432,15 @@ vscode也安装改插件
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -466,7 +467,7 @@ vscode也安装改插件
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

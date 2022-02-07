@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/storage/centos_nfs_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/storage/centos_nfs_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="CentOS 7 安装配置 NFS" />
 <meta property="og:description" content="前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/storage/centos_nfs_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/storage/centos_nfs_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-05-02T19:11:30+00:00" />
 <meta property="article:modified_time" content="2020-05-02T19:11:30+00:00" />
+
 <meta itemprop="name" content="CentOS 7 安装配置 NFS">
-<meta itemprop="description" content="前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例">
-<meta itemprop="datePublished" content="2020-05-02T19:11:30+00:00" />
+<meta itemprop="description" content="前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例"><meta itemprop="datePublished" content="2020-05-02T19:11:30+00:00" />
 <meta itemprop="dateModified" content="2020-05-02T19:11:30+00:00" />
 <meta itemprop="wordCount" content="3199">
-
-
-
-<meta itemprop="keywords" content="nfs,storage," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="nfs,storage," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CentOS 7 安装配置 NFS"/>
 <meta name="twitter:description" content="前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-05-02 19:11 </span>
         <div class="post-category">
-            <a href="/categories/storage/"> storage </a>
+            <a href="/blog/categories/storage/"> storage </a>
             </div>
           <span class="more-meta"> 约 3199 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -183,6 +179,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-05-02T19:11:30" title="May 2, 2020">May 2, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -464,7 +465,7 @@ uid=0(root) gid=0(root) groups=0(root)
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -493,7 +494,7 @@ uid=0(root) gid=0(root) groups=0(root)
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; yum info nfs-utils
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; yum info nfs-utils
 
 Available Packages
 Name        : nfs-utils
@@ -526,13 +527,13 @@ Description : The nfs-utils package provides a daemon <span class="k">for</span>
 <p>允许<code>rpcbind.service</code>、<code>nfs.service</code><strong>开机自启</strong>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 允许服务开机自启</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 允许服务开机自启</span>
 &gt; systemctl <span class="nb">enable</span> rpcbind
 &gt; systemctl <span class="nb">enable</span> nfs
 
@@ -541,13 +542,13 @@ Description : The nfs-utils package provides a daemon <span class="k">for</span>
 </div><p>启动相关服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动相关服务</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动相关服务</span>
 &gt; systemctl start rpcbind
 &gt; systemctl start nfs
 
@@ -556,7 +557,7 @@ Description : The nfs-utils package provides a daemon <span class="k">for</span>
 </div><p><strong>防火墙</strong>允许服务通过：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -565,7 +566,7 @@ Description : The nfs-utils package provides a daemon <span class="k">for</span>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 防火墙允许服务通过</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 防火墙允许服务通过</span>
 &gt; firewall-cmd --zone<span class="o">=</span>public --permanent --add-service<span class="o">={</span>rpc-bind,mountd,nfs<span class="o">}</span>
 success
 
@@ -578,7 +579,7 @@ success
 <p>例如需要共享的目录为<code>/mnt/kvm/</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -590,7 +591,7 @@ success
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建 /mnt/kvm 并修改权限</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建 /mnt/kvm 并修改权限</span>
 &gt; <span class="nb">cd</span> /mnt
 /mnt &gt; mkdir kvm
 /mnt &gt; chmod <span class="m">755</span> kvm
@@ -605,7 +606,7 @@ drwxr-xr-x <span class="m">2</span> root root <span class="m">59</span> Oct <spa
 </div><p>之后修改<code>/etc/exports</code>，将<code>/mnt/kvm/</code>添加进去：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -618,7 +619,7 @@ drwxr-xr-x <span class="m">2</span> root root <span class="m">59</span> Oct <spa
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; cat /etc/exports
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; cat /etc/exports
 
 <span class="c1"># 1. 只允许 abelsu7-ubuntu 访问</span>
 /mnt/kvm/ abelsu7-ubuntu<span class="o">(</span>rw,sync,no_root_squash,no_all_squash<span class="o">)</span>
@@ -643,11 +644,11 @@ drwxr-xr-x <span class="m">2</span> root root <span class="m">59</span> Oct <spa
 <p>保存之后，重启<code>nfs</code>服务：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl restart nfs
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl restart nfs
 
 </code></pre></td></tr></table>
 </div>
@@ -655,13 +656,13 @@ drwxr-xr-x <span class="m">2</span> root root <span class="m">59</span> Oct <spa
 <p>在<code>centos-2</code>本地查看：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; showmount -e localhost
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; showmount -e localhost
 Export list <span class="k">for</span> localhost:
 /mnt/kvm abelsu7-ubuntu
 
@@ -671,7 +672,7 @@ Export list <span class="k">for</span> localhost:
 <h4 id="3-1-安装-nfs-utils-31-安装-nfs-utils31-安装-nfs-utils"><a href="#3-1-%E5%AE%89%E8%A3%85-nfs-utils" title="3.1 安装 nfs-utils"></a>3.1 安装 nfs-utils</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -679,7 +680,7 @@ Export list <span class="k">for</span> localhost:
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CentOS/Fedora, etc.</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># CentOS/Fedora, etc.</span>
 &gt; yum install nfs-utils
 
 <span class="c1"># Ubuntu/Debian, etc.</span>
@@ -691,22 +692,22 @@ Export list <span class="k">for</span> localhost:
 <p>设置<code>rpcbind</code>服务<strong>开机启动</strong>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl <span class="nb">enable</span> rpcbind
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl <span class="nb">enable</span> rpcbind
 
 </code></pre></td></tr></table>
 </div>
 </div><p>启动<code>rpcbind</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl start rpcbind
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl start rpcbind
 
 </code></pre></td></tr></table>
 </div>
@@ -717,13 +718,13 @@ Export list <span class="k">for</span> localhost:
 <p>先查看<strong>服务端的共享目录</strong>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; showmount -e centos-2
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; showmount -e centos-2
 Export list <span class="k">for</span> centos-2:
 /mnt/kvm abelsu7-ubuntu
 
@@ -732,12 +733,12 @@ Export list <span class="k">for</span> centos-2:
 </div><p>在客户端<strong>创建并挂载对应目录</strong>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; mkdir -p /mnt/kvm
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; mkdir -p /mnt/kvm
 &gt; mount -t nfs centos-2:/mnt/kvm /mnt/kvm
 
 </code></pre></td></tr></table>
@@ -745,7 +746,7 @@ Export list <span class="k">for</span> centos-2:
 </div><p>最后检查一下是否挂载成功：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -754,7 +755,7 @@ Export list <span class="k">for</span> centos-2:
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; df -hT /mnt/kvm
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; df -hT /mnt/kvm
 Filesystem         Type  Size  Used  Avail  Use%  Mounted on
 centos-2:/mnt/kvm  nfs4  500G  119G   382G   24%  /mnt/kvm
 
@@ -767,7 +768,7 @@ centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">
 <p>在客户端编辑<code>/etc/fstab</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -789,7 +790,7 @@ centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /etc/fstab: static file system information.</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /etc/fstab: static file system information.</span>
 <span class="c1">#</span>
 <span class="c1"># Use &#39;blkid&#39; to print the universally unique identifier for a</span>
 <span class="c1"># device; this may be used with UUID= as a more robust way to name devices</span>
@@ -814,14 +815,14 @@ centos-2:/mnt/kvm                          /mnt/kvm       nfs     defaults      
 </div><p>最后重新加载<code>systemctl</code>，即可实现重启后自动挂载：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl daemon-reload
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; systemctl daemon-reload
 
 &gt; mount <span class="p">|</span> grep /mnt/kvm
 centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">(</span>rw,relatime,vers<span class="o">=</span>4.2,rsize<span class="o">=</span>1048576,wsize<span class="o">=</span>1048576,namlen<span class="o">=</span>255,hard,proto<span class="o">=</span>tcp,timeo<span class="o">=</span>600,retrans<span class="o">=</span>2,sec<span class="o">=</span>sys,clientaddr<span class="o">=</span>222.xxx.xxx.xxx,local_lock<span class="o">=</span>none,addr<span class="o">=</span>116.xxx.xxx.xxx<span class="o">)</span>
@@ -834,12 +835,12 @@ centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">&gt; <span class="nb">time</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/mnt/kvm-lun/test-nfs-speed <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; <span class="nb">time</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/mnt/kvm-lun/test-nfs-speed <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
 &gt; <span class="nb">time</span> dd <span class="k">if</span><span class="o">=</span>/mnt/kvm-lun/test-nfs-speed <span class="nv">of</span><span class="o">=</span>/dev/null <span class="nv">bs</span><span class="o">=</span>8k <span class="nv">count</span><span class="o">=</span><span class="m">1024</span>
 
 </code></pre></td></tr></table>
@@ -922,16 +923,16 @@ centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/nfs/">nfs</a>
-          <a href="/tags/storage/">storage</a>
+          <a href="/blog/tags/nfs/">nfs</a>
+          <a href="/blog/tags/storage/">storage</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/log/k8s_efk_install/">
+        <a class="prev" href="/blog/post/log/k8s_efk_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">K8s 上搭建 EFK 日志系统</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/storage/ceph_octopus_ops/">
+        <a class="next" href="/blog/post/storage/ceph_octopus_ops/">
             <span class="next-text nav-default">cephadm部署和配置Ceph Octopus</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -956,7 +957,7 @@ centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -970,15 +971,15 @@ centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1005,7 +1006,7 @@ centos-2:/mnt/kvm on /mnt/kvm <span class="nb">type</span> nfs4 <span class="o">
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

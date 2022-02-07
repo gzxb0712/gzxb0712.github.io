@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/log/log-pilot_elasticsearch_kibana_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践" />
 <meta property="og:description" content="简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/log/log-pilot_elasticsearch_kibana_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-05-08T21:05:30+00:00" />
 <meta property="article:modified_time" content="2020-05-08T21:05:30+00:00" />
+
 <meta itemprop="name" content="搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践">
-<meta itemprop="description" content="简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集">
-<meta itemprop="datePublished" content="2020-05-08T21:05:30+00:00" />
+<meta itemprop="description" content="简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集"><meta itemprop="datePublished" content="2020-05-08T21:05:30+00:00" />
 <meta itemprop="dateModified" content="2020-05-08T21:05:30+00:00" />
 <meta itemprop="wordCount" content="3111">
-
-
-
-<meta itemprop="keywords" content="log-pilot,log,elk," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="log-pilot,log,elk," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践"/>
 <meta name="twitter:description" content="简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-05-08 21:05 </span>
         <div class="post-category">
-            <a href="/categories/log/"> log </a>
+            <a href="/blog/categories/log/"> log </a>
             </div>
           <span class="more-meta"> 约 3111 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -179,6 +175,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-05-08T21:05:30" title="May 8, 2020">May 8, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -234,7 +235,7 @@
 <h4 id="log-pilot-在k8s上的配置">log-pilot 在k8s上的配置</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -318,7 +319,7 @@
 </span><span class="lnt">82
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; ops-log-pilot-filebeat-ds.yaml <span class="s">&lt;&lt; EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; ops-log-pilot-filebeat-ds.yaml <span class="s">&lt;&lt; EOF
 </span><span class="s">apiVersion: extensions/v1beta1
 </span><span class="s">kind: DaemonSet
 </span><span class="s">metadata:
@@ -405,7 +406,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </div><h4 id="log-pilot-在docker主机上配置">log-pilot 在docker主机上配置</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -420,7 +421,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -d 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker run -d 
    --name log-pilot-filebeat 
    -v /var/run/docker.sock:/var/run/docker.sock 
    -v /etc/localtime:/etc/localtime 
@@ -449,7 +450,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -457,7 +458,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/logslogstash.yml <span class="s">&lt;&lt; EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/logslogstash.yml <span class="s">&lt;&lt; EOF
 </span><span class="s">xpack.monitoring.elasticsearch.url: http://xxxxxxxxxxxxxxxx.es.aliyuncs.com:9200
 </span><span class="s">xpack.monitoring.elasticsearch.username: &#34;user&#34;
 </span><span class="s">xpack.monitoring.elasticsearch.password: &#34;pass&#34;
@@ -468,7 +469,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </div><h4 id="配置文件">配置文件</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -497,7 +498,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/logstash-k8s.conf <span class="s">&lt;&lt; EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/logstash-k8s.conf <span class="s">&lt;&lt; EOF
 </span><span class="s">input {
 </span><span class="s">  beats {
 </span><span class="s">    host =&gt; &#34;0.0.0.0&#34;
@@ -529,7 +530,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </div><h4 id="启动命令">启动命令</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -542,7 +543,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5053:5043 -d 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5053:5043 -d 
     --user root 
     --log-driver json-file 
     --log-opt max-size<span class="o">=</span>10m 
@@ -559,7 +560,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 <h4 id="配置文件-1">配置文件</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -588,7 +589,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/logstash-docker.conf <span class="s">&lt;&lt; EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/logstash-docker.conf <span class="s">&lt;&lt; EOF
 </span><span class="s">input {
 </span><span class="s">  beats {
 </span><span class="s">    host =&gt; &#34;0.0.0.0&#34;
@@ -620,7 +621,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </div><h4 id="启动命令-1">启动命令</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -633,7 +634,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5063:5043 -d 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5063:5043 -d 
     --user root 
     --log-driver json-file 
     --log-opt max-size<span class="o">=</span>10m 
@@ -671,7 +672,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -692,7 +693,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/kibana-es-aliyun.yml <span class="s">&lt;&lt; EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /data/conf/kibana-es-aliyun.yml <span class="s">&lt;&lt; EOF
 </span><span class="s"># Default Kibana configuration from kibana-docker.
 </span><span class="s">server.name: kibana
 </span><span class="s">server.host: &#34;0&#34;
@@ -716,7 +717,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </div><h3 id="kibana-启动命令">kibana 启动命令</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -728,7 +729,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5603:5601 -d 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">docker run -p 5603:5601 -d 
     --user root 
     --log-driver json-file 
     --log-opt max-size<span class="o">=</span>10m 
@@ -752,7 +753,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -760,7 +761,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">   docker run -it -d --name tomcat -p 10080:8080 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">   docker run -it -d --name tomcat -p 10080:8080 
     -v /var/logs/:/usr/local/tomcat/logs 
     --label glinux.logs.catalina<span class="o">=</span>stdout 
     --label glinux.logs.access<span class="o">=</span>/usr/local/tomcat/logs/localhost_access_log.*.txt 
@@ -778,7 +779,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -809,7 +810,7 @@ kubectl apply -f ops-log-pilot-filebeat-ds.yaml
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; tomcat-pod.yaml <span class="s">&lt;&lt; EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; tomcat-pod.yaml <span class="s">&lt;&lt; EOF
 </span><span class="s">apiVersion: v1
 </span><span class="s">kind: Pod
 </span><span class="s">metadata:
@@ -888,17 +889,17 @@ kubectl apply -f tomcat-pod.yaml -n ops
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/log-pilot/">log-pilot</a>
-          <a href="/tags/log/">log</a>
-          <a href="/tags/elk/">elk</a>
+          <a href="/blog/tags/log-pilot/">log-pilot</a>
+          <a href="/blog/tags/log/">log</a>
+          <a href="/blog/tags/elk/">elk</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/log/graylog_centos_install/">
+        <a class="prev" href="/blog/post/log/graylog_centos_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">CentOS7 部署 Graylog3</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/log/elk_centos7_install/">
+        <a class="next" href="/blog/post/log/elk_centos7_install/">
             <span class="next-text nav-default">搭建 ELK 日志系统</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -923,7 +924,7 @@ kubectl apply -f tomcat-pod.yaml -n ops
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -937,15 +938,15 @@ kubectl apply -f tomcat-pod.yaml -n ops
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -972,7 +973,7 @@ kubectl apply -f tomcat-pod.yaml -n ops
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

@@ -2,215 +2,215 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Bill World</title>
-    <link>https://xiebiao.top/categories/</link>
+    <link>https://gzxb0712.gitee.io/blog/categories/</link>
     <description>Recent content in Categories on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 19 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>shell</title>
-      <link>https://xiebiao.top/categories/shell/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/shell/</link>
       <pubDate>Wed, 19 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/shell/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/shell/</guid>
       <description></description>
     </item>
     
     <item>
       <title>go</title>
-      <link>https://xiebiao.top/categories/go/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/go/</link>
       <pubDate>Tue, 18 Aug 2020 19:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/go/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/go/</guid>
       <description></description>
     </item>
     
     <item>
       <title>performance</title>
-      <link>https://xiebiao.top/categories/performance/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/performance/</link>
       <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/performance/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/performance/</guid>
       <description></description>
     </item>
     
     <item>
       <title>log</title>
-      <link>https://xiebiao.top/categories/log/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/log/</link>
       <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/log/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/log/</guid>
       <description></description>
     </item>
     
     <item>
       <title>storage</title>
-      <link>https://xiebiao.top/categories/storage/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/storage/</link>
       <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/storage/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/storage/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cicd</title>
-      <link>https://xiebiao.top/categories/cicd/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/cicd/</link>
       <pubDate>Tue, 04 Aug 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/cicd/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/cicd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cloud</title>
-      <link>https://xiebiao.top/categories/cloud/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/cloud/</link>
       <pubDate>Thu, 23 Jul 2020 20:11:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/cloud/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/cloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>database</title>
-      <link>https://xiebiao.top/categories/database/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/database/</link>
       <pubDate>Sat, 06 Jun 2020 21:08:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/database/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/database/</guid>
       <description></description>
     </item>
     
     <item>
       <title>middleware</title>
-      <link>https://xiebiao.top/categories/middleware/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/middleware/</link>
       <pubDate>Sun, 17 May 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/middleware/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/middleware/</guid>
       <description></description>
     </item>
     
     <item>
       <title>code</title>
-      <link>https://xiebiao.top/categories/code/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/code/</link>
       <pubDate>Wed, 08 Apr 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/code/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>auto</title>
-      <link>https://xiebiao.top/categories/auto/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/auto/</link>
       <pubDate>Mon, 06 Apr 2020 19:07:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/auto/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/auto/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gateway</title>
-      <link>https://xiebiao.top/categories/gateway/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/gateway/</link>
       <pubDate>Sat, 04 Apr 2020 23:00:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/gateway/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/gateway/</guid>
       <description></description>
     </item>
     
     <item>
       <title>center</title>
-      <link>https://xiebiao.top/categories/center/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/center/</link>
       <pubDate>Wed, 01 Apr 2020 22:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/center/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/center/</guid>
       <description></description>
     </item>
     
     <item>
       <title>apm</title>
-      <link>https://xiebiao.top/categories/apm/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/apm/</link>
       <pubDate>Wed, 25 Mar 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/apm/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/apm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>monitor</title>
-      <link>https://xiebiao.top/categories/monitor/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/monitor/</link>
       <pubDate>Sun, 22 Mar 2020 20:15:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/monitor/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/monitor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vm</title>
-      <link>https://xiebiao.top/categories/vm/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/vm/</link>
       <pubDate>Sat, 07 Mar 2020 20:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/vm/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/vm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>web</title>
-      <link>https://xiebiao.top/categories/web/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/web/</link>
       <pubDate>Tue, 03 Mar 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/web/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/web/</guid>
       <description></description>
     </item>
     
     <item>
       <title>lb</title>
-      <link>https://xiebiao.top/categories/lb/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/lb/</link>
       <pubDate>Tue, 25 Feb 2020 19:21:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/lb/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/lb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cdn</title>
-      <link>https://xiebiao.top/categories/cdn/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/cdn/</link>
       <pubDate>Thu, 20 Feb 2020 22:39:09 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/cdn/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/cdn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>blog</title>
-      <link>https://xiebiao.top/categories/blog/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/blog/</link>
       <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/blog/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>base</title>
-      <link>https://xiebiao.top/categories/base/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/base/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/base/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/base/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>https://xiebiao.top/categories/linux/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/linux/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://xiebiao.top/categories/linux/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>生活</title>
-      <link>https://xiebiao.top/categories/%E7%94%9F%E6%B4%BB/</link>
+      <link>https://gzxb0712.gitee.io/blog/categories/%E7%94%9F%E6%B4%BB/</link>
       <pubDate>Thu, 08 Aug 2019 22:25:24 +0800</pubDate>
       
-      <guid>https://xiebiao.top/categories/%E7%94%9F%E6%B4%BB/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/categories/%E7%94%9F%E6%B4%BB/</guid>
       <description></description>
     </item>
     

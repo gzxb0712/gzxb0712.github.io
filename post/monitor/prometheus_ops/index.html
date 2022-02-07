@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/monitor/prometheus_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/monitor/prometheus_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="搭建docker版Prometheus监控报警系统" />
 <meta property="og:description" content="什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/monitor/prometheus_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/monitor/prometheus_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-16T21:05:30+00:00" />
 <meta property="article:modified_time" content="2020-03-16T21:05:30+00:00" />
+
 <meta itemprop="name" content="搭建docker版Prometheus监控报警系统">
-<meta itemprop="description" content="什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu">
-<meta itemprop="datePublished" content="2020-03-16T21:05:30+00:00" />
+<meta itemprop="description" content="什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu"><meta itemprop="datePublished" content="2020-03-16T21:05:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-16T21:05:30+00:00" />
 <meta itemprop="wordCount" content="4519">
-
-
-
-<meta itemprop="keywords" content="Prometheus,monitor," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Prometheus,monitor," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="搭建docker版Prometheus监控报警系统"/>
 <meta name="twitter:description" content="什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-16 21:05 </span>
         <div class="post-category">
-            <a href="/categories/monitor/"> monitor </a>
+            <a href="/blog/categories/monitor/"> monitor </a>
             </div>
           <span class="more-meta"> 约 4519 字 </span>
           <span class="more-meta"> 预计阅读 10 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -159,6 +155,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-03-16T21:05:30" title="March 16, 2020">March 16, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -209,7 +210,7 @@ Prometheus和Heapster(Heapster是K8S的一个子项目，用于获取集群的�
 <p>这里我的服务器IP是10.211.55.25，登入，建立相应文件夹</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -217,7 +218,7 @@ Prometheus和Heapster(Heapster是K8S的一个子项目，用于获取集群的�
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/chenqionghe/promethues
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/chenqionghe/promethues
 mkdir -p /home/chenqionghe/promethues/server
 mkdir -p /home/chenqionghe/promethues/client
 touch /home/chenqionghe/promethues/server/rules.yml
@@ -232,7 +233,7 @@ chmod 777 /home/chenqionghe/promethues/server/rules.yml
 挂载之前需要改变文件权限为777，要不会引起修改宿主机上的文件内容不同步的问题</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -245,7 +246,7 @@ chmod 777 /home/chenqionghe/promethues/server/rules.yml
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">global:
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">global:
   scrape_interval:     15s # 默认抓取间隔, 15秒向目标抓取一次数据。
   external_labels:
     monitor: &#39;codelab-monitor&#39;
@@ -261,7 +262,7 @@ scrape_configs:
 </div><p>运行</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -272,7 +273,7 @@ scrape_configs:
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker rm -f prometheus
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">docker rm -f prometheus
 docker run --name=prometheus -d \
 -p 9090:9090 \
 -v /home/chenqionghe/promethues/server/prometheus.yml:/etc/prometheus/prometheus.yml \
@@ -297,7 +298,7 @@ prom/prometheus:v2.7.2 \
 <h2 id="1通过golang客户端提供metrics">1.通过golang客户端提供metrics</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -316,7 +317,7 @@ prom/prometheus:v2.7.2 \
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/chenqionghe/promethues/client/golang/src
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/chenqionghe/promethues/client/golang/src
 cd !$
 export GOPATH=/home/chenqionghe/promethues/client/golang/
 #克隆项目
@@ -338,13 +339,13 @@ go build -o random main.go
 </div><p>运行3个示例metrics接口</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">./random -listen-address=:8080 &amp;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">./random -listen-address=:8080 &amp;
 ./random -listen-address=:8081 &amp;
 ./random -listen-address=:8082 &amp;
 
@@ -353,14 +354,14 @@ go build -o random main.go
 </div><h2 id="2通过node-exporter提供metrics">2.通过node exporter提供metrics</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run -d \
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">docker run -d \
 --name=node-exporter \
 -p 9100:9100 \
 prom/node-exporter
@@ -370,7 +371,7 @@ prom/node-exporter
 </div><p>然后把这两些接口再次配置到prometheus.yml, 重新载入配置curl -X POST <a href="http://localhost:9090/-/reload">http://localhost:9090/-/reload</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -392,7 +393,7 @@ prom/node-exporter
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">global:
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">global:
   scrape_interval:     15s # 默认抓取间隔, 15秒向目标抓取一次数据。
   external_labels:
     monitor: &#39;codelab-monitor&#39;
@@ -425,13 +426,13 @@ Prometheus采集数据是用的pull也就是拉模型，这从我们刚才设置
 我们来试一下，首先启动Push Gateway</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/chenqionghe/promethues/pushgateway
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/chenqionghe/promethues/pushgateway
 cd !$
 docker run -d -p 9091:9091 --name pushgateway prom/pushgateway
 
@@ -445,11 +446,11 @@ docker run -d -p 9091:9091 --name pushgateway prom/pushgateway
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">echo &#34;cqh_metric 100&#34; | curl --data-binary @- http://ubuntu-linux:9091/metrics/job/cqh
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">echo &#34;cqh_metric 100&#34; | curl --data-binary @- http://ubuntu-linux:9091/metrics/job/cqh
 
 </code></pre></td></tr></table>
 </div>
@@ -458,7 +459,7 @@ docker run -d -p 9091:9091 --name pushgateway prom/pushgateway
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -469,7 +470,7 @@ docker run -d -p 9091:9091 --name pushgateway prom/pushgateway
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cat &lt;&lt;EOF | curl --data-binary @- http://10.211.55.25:9091/metrics/job/cqh/instance/test
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cat &lt;&lt;EOF | curl --data-binary @- http://10.211.55.25:9091/metrics/job/cqh/instance/test
 # 锻炼场所价格
 muscle_metric{label=&#34;gym&#34;} 8800
 # 三大项数据 kg
@@ -491,11 +492,11 @@ Grafana支持热插拔控制面板和可扩展的数据源，目前已经支持G
 <p>我们使用docker安装</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run -d -p 3000:3000 --name grafana grafana/grafana
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">docker run -d -p 3000:3000 --name grafana grafana/grafana
 
 </code></pre></td></tr></table>
 </div>
@@ -530,12 +531,12 @@ Prometheus服务中的警告规则发送警告到Alertmanager。
 <p>创建和配置Alertmanager</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/chenqionghe/promethues/alertmanager
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/chenqionghe/promethues/alertmanager
 cd !$
 
 </code></pre></td></tr></table>
@@ -543,7 +544,7 @@ cd !$
 </div><p>创建配置文件alertmanager.yml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -564,7 +565,7 @@ cd !$
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">global:
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">global:
   resolve_timeout: 5m
 route:
   group_by: [&#39;cqh&#39;]
@@ -589,7 +590,7 @@ inhibit_rules:
 <p>下面运行altermanager</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -597,7 +598,7 @@ inhibit_rules:
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker rm -f alertmanager
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">docker rm -f alertmanager
 docker run -d -p 9093:9093 \
 --name alertmanager \
 -v /home/chenqionghe/promethues/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml \
@@ -611,7 +612,7 @@ prom/alertmanager
 修改规则/home/chenqionghe/promethues/server/rules.yml</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -625,7 +626,7 @@ prom/alertmanager
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">groups:
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">groups:
   - name: cqh
     rules:
       - alert: cqh测试
@@ -643,7 +644,7 @@ prom/alertmanager
 然后再修改prometheus添加altermanager配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -672,7 +673,7 @@ prom/alertmanager
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">global:
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">global:
   scrape_interval:     15s # 默认抓取间隔, 15秒向目标抓取一次数据。
   external_labels:
     monitor: &#39;codelab-monitor&#39;
@@ -750,16 +751,16 @@ alerting:
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/Prometheus/">Prometheus</a>
-          <a href="/tags/monitor/">monitor</a>
+          <a href="/blog/tags/Prometheus/">Prometheus</a>
+          <a href="/blog/tags/monitor/">monitor</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/monitor/helm_prometheus/">
+        <a class="prev" href="/blog/post/monitor/helm_prometheus/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">helm部署prometheus</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/monitor/zabbix5_agent2_install/">
+        <a class="next" href="/blog/post/monitor/zabbix5_agent2_install/">
             <span class="next-text nav-default">Zabbix 5.0 Agent2的安装</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -784,7 +785,7 @@ alerting:
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -798,15 +799,15 @@ alerting:
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -833,7 +834,7 @@ alerting:
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

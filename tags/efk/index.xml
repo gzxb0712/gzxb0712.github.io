@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>efk on Bill World</title>
-    <link>https://xiebiao.top/tags/efk/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/efk/</link>
     <description>Recent content in efk on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 05 May 2020 21:11:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/efk/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 May 2020 21:11:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/efk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>K8s 上搭建 EFK 日志系统</title>
-      <link>https://xiebiao.top/post/log/k8s_efk_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/log/k8s_efk_install/</link>
       <pubDate>Tue, 05 May 2020 21:11:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/log/k8s_efk_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/log/k8s_efk_install/</guid>
       <description>参考博客 https://www.qikqiak.com/post/install-efk-stack-on-k8s/ http://www.mydlq.club/article/13/ https://www.cnblogs.com/leozhanggg/p/12700363.html Kubernetes 中比较流行的日志收集解决方案是 Elasticsearch、Fluentd 和 Kibana（EFK）技术栈，也是官方现在比较推荐</description>
     </item>
     

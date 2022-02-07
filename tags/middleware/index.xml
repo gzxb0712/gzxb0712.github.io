@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>middleware on Bill World</title>
-    <link>https://xiebiao.top/tags/middleware/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/middleware/</link>
     <description>Recent content in middleware on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 17 May 2020 20:03:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/middleware/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 May 2020 20:03:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/middleware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>rabbitmq消息中间件部署</title>
-      <link>https://xiebiao.top/post/middleware/rabbitmq_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/middleware/rabbitmq_ops/</link>
       <pubDate>Sun, 17 May 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/middleware/rabbitmq_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/middleware/rabbitmq_ops/</guid>
       <description>简介 安装 环境依赖 1 yum install erlang -y 安装服务 1 2 3 4 cd /usr/src/ wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.4/rabbitmq-server-3.6.4-1.noarch.rpm yum install rabbitmq-server-3.6.4-1.noarch.rpm -y 启动测试 1 2 3 4 5 6 #启动服务 service rabbitmq-server start #查看服务状态 service rabbitmq-server status 配置管理 增加账号 1 2 3 4 5</description>
     </item>
     
     <item>
       <title>kafka消息中间件部署</title>
-      <link>https://xiebiao.top/post/middleware/kafka_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/middleware/kafka_ops/</link>
       <pubDate>Sat, 16 May 2020 20:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/middleware/kafka_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/middleware/kafka_ops/</guid>
       <description>一、前言 1、Kafka简介 Kafka是一个开源的分布式消息引擎/消息中间件，同时Kafka也是一个流处理平台。Kakfa支持以发布/订阅的方</description>
     </item>
     
     <item>
       <title>Codis分布式集群部署</title>
-      <link>https://xiebiao.top/post/middleware/codis_cluster_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/middleware/codis_cluster_ops/</link>
       <pubDate>Fri, 15 May 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/middleware/codis_cluster_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/middleware/codis_cluster_ops/</guid>
       <description>前言 Codis 3.x 稳定版本已经很久没更新了，虽然有缺点也称不上完美但确实可以有效解决横向扩展问题。Redis 5.0 因为所谓的 政治正确 把 master-slave 名字修改为 master-replica 上了开</description>
     </item>
     

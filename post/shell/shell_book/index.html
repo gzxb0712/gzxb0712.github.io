@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/shell/shell_book/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/shell/shell_book/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="Shell脚本学习" />
 <meta property="og:description" content="01- Shell脚本学习&ndash;入门 简介 Shell是一种脚本语言，那么，就必须有解释器来执行这些脚本。 Unix/Linux上常见的Shel" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/shell/shell_book/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/shell/shell_book/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-08-16T21:01:30+00:00" />
 <meta property="article:modified_time" content="2020-08-16T21:01:30+00:00" />
+
 <meta itemprop="name" content="Shell脚本学习">
-<meta itemprop="description" content="01- Shell脚本学习&ndash;入门 简介 Shell是一种脚本语言，那么，就必须有解释器来执行这些脚本。 Unix/Linux上常见的Shel">
-<meta itemprop="datePublished" content="2020-08-16T21:01:30+00:00" />
+<meta itemprop="description" content="01- Shell脚本学习&ndash;入门 简介 Shell是一种脚本语言，那么，就必须有解释器来执行这些脚本。 Unix/Linux上常见的Shel"><meta itemprop="datePublished" content="2020-08-16T21:01:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-16T21:01:30+00:00" />
 <meta itemprop="wordCount" content="12215">
-
-
-
-<meta itemprop="keywords" content="bash,shell," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="bash,shell," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Shell脚本学习"/>
 <meta name="twitter:description" content="01- Shell脚本学习&ndash;入门 简介 Shell是一种脚本语言，那么，就必须有解释器来执行这些脚本。 Unix/Linux上常见的Shel"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-16 21:01 </span>
         <div class="post-category">
-            <a href="/categories/shell/"> shell </a>
+            <a href="/blog/categories/shell/"> shell </a>
             </div>
           <span class="more-meta"> 约 12215 字 </span>
           <span class="more-meta"> 预计阅读 25 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -228,6 +224,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-08-16T21:01:30" title="August 16, 2020">August 16, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -242,32 +243,32 @@
 <p>输入一些代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="nb">echo</span> <span class="s2">&#34;Hello World !&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>在命令行运行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">chmod +x test.sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chmod +x test.sh
 ./test.sh
 </code></pre></td></tr></table>
 </div>
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Hello World !
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Hello World !
 </code></pre></td></tr></table>
 </div>
 </div><p><code>#!</code> 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即<strong>使用哪一种Shell</strong>。<code>echo</code>命令用于向窗口输出文本。</p>
@@ -275,12 +276,12 @@
 <p>以<code>#</code>开头的行就是注释，会被解释器忽略。sh里没有多行注释，只能每一行加一个#号。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># --------</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># --------</span>
 <span class="c1"># 这是注释块</span>
 <span class="c1"># --------</span>
 </code></pre></td></tr></table>
@@ -289,12 +290,12 @@
 <p><strong>echo</strong>： 是Shell的一个内部指令，用于在屏幕上打印出指定的字符串。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> arg 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> arg 
 <span class="nb">echo</span> -e arg <span class="c1">#执行arg里的转义字符。echo加了-e默认会换行</span>
 <span class="nb">echo</span> arg &gt; myfile <span class="c1">#显示结果重定向至文件，会生成myfile文件</span>
 </code></pre></td></tr></table>
@@ -305,10 +306,10 @@
 <p>如同 <code>echo</code> 命令，<code>printf</code> 命令也可以输出简单的字符串:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">printf</span> <span class="s2">&#34;hello\n&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">printf</span> <span class="s2">&#34;hello\n&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><code>printf</code> 不像 <code>echo</code> 那样会自动换行，必须显式添加换行符(\n)。</p>
@@ -316,12 +317,12 @@
 <p>printf 命令的语法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">printf</span>  format-string  <span class="o">[</span>arguments...<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">printf</span>  format-string  <span class="o">[</span>arguments...<span class="o">]</span>
 
 <span class="c1">#format-string 为格式控制字符串，arguments 为参数列表。功能和用法与c语言的 printf 命令类似。</span>
 </code></pre></td></tr></table>
@@ -335,7 +336,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -370,7 +371,7 @@
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 双引号</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 双引号</span>
 <span class="nb">printf</span> <span class="s2">&#34;%d %s\n&#34;</span> <span class="m">10</span> <span class="s2">&#34;abc&#34;</span>
 <span class="m">10</span> abc
 <span class="c1"># 单引号与双引号效果一样 </span>
@@ -408,7 +409,7 @@ $
 </div><p><strong>read</strong>： 命令行从输入设备读入内容</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -417,7 +418,7 @@ $
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="c1"># Author : lalal</span>
 
@@ -429,7 +430,7 @@ $
 </div><p>运行脚本：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -438,7 +439,7 @@ $
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">chmod +x test.sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chmod +x test.sh
 ./test.sh
 
 What is your name?
@@ -453,10 +454,10 @@ Hello, lalal
 <p>定义变量时，变量名不加美元符号（$），如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">variableName</span><span class="o">=</span><span class="s2">&#34;value&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">variableName</span><span class="o">=</span><span class="s2">&#34;value&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>注意，<strong>变量名和等号之间不能有空格</strong>，这可能和你熟悉的所有编程语言都不一样。有空格会出错。</p>
@@ -474,11 +475,11 @@ Hello, lalal
 <p>变量定义举例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">myUrl</span><span class="o">=</span><span class="s2">&#34;lalal&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">myUrl</span><span class="o">=</span><span class="s2">&#34;lalal&#34;</span>
 <span class="nv">myNum</span><span class="o">=</span><span class="m">100</span>
 </code></pre></td></tr></table>
 </div>
@@ -489,12 +490,12 @@ Hello, lalal
 <p>使用一个定义过的变量，只要在变量名前面加美元符号（$）即可，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">your_name</span><span class="o">=</span><span class="s2">&#34;lalal&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">your_name</span><span class="o">=</span><span class="s2">&#34;lalal&#34;</span>
 <span class="nb">echo</span> <span class="nv">$your_name</span>
 <span class="nb">echo</span> <span class="si">${</span><span class="nv">your_name</span><span class="si">}</span>
 </code></pre></td></tr></table>
@@ -502,13 +503,13 @@ Hello, lalal
 </div><p><strong>变量名外面的花括号是可选的</strong>，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> skill in C PHP Python Java 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> skill in C PHP Python Java 
 <span class="k">do</span>
     <span class="nb">echo</span> <span class="s2">&#34;I am good at </span><span class="si">${</span><span class="nv">skill</span><span class="si">}</span><span class="s2">Script&#34;</span>
 <span class="k">done</span>
@@ -522,12 +523,12 @@ Hello, lalal
 <p>在变量前面加<code>readonly</code> 命令可以将变量定义为只读变量，只读变量的值不能被改变。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">url</span><span class="o">=</span><span class="s2">&#34;http://www.baidu.com&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">url</span><span class="o">=</span><span class="s2">&#34;http://www.baidu.com&#34;</span>
 <span class="nb">readonly</span> url
 <span class="nv">url</span><span class="o">=</span><span class="s2">&#34;http://www.baidu.com&#34;</span>
 </code></pre></td></tr></table>
@@ -535,10 +536,10 @@ Hello, lalal
 </div><p>使用 <code>unset</code> 命令可以删除变量。语法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">unset</span> variable_name
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">unset</span> variable_name
 </code></pre></td></tr></table>
 </div>
 </div><p>变量被删除后不能再次使用；unset 命令不能删除只读变量。</p>
@@ -593,7 +594,7 @@ shell变量是由shell程序设置的特殊变量。shell变量中有一部分�
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -602,7 +603,7 @@ shell变量是由shell程序设置的特殊变量。shell变量中有一部分�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="nb">echo</span> <span class="s2">&#34;File Name: </span><span class="nv">$0</span><span class="s2">&#34;</span>
 <span class="nb">echo</span> <span class="s2">&#34;First Parameter : </span><span class="nv">$1</span><span class="s2">&#34;</span>
 <span class="nb">echo</span> <span class="s2">&#34;Second Parameter : </span><span class="nv">$2</span><span class="s2">&#34;</span>
@@ -614,7 +615,7 @@ shell变量是由shell程序设置的特殊变量。shell变量中有一部分�
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -623,7 +624,7 @@ shell变量是由shell程序设置的特殊变量。shell变量中有一部分�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$./test.sh Zara Ali
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$./test.sh Zara Ali
 File Name : ./test.sh
 First Parameter : Zara
 Second Parameter : Ali
@@ -638,7 +639,7 @@ Total Number of Parameters : <span class="m">2</span>
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -665,7 +666,7 @@ Total Number of Parameters : <span class="m">2</span>
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="nb">echo</span> <span class="s2">&#34;\$*=&#34;</span> <span class="nv">$*</span>
 <span class="nb">echo</span> <span class="s2">&#34;\&#34;\$*\&#34;=&#34;</span> <span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span>
 <span class="nb">echo</span> <span class="s2">&#34;\$@=&#34;</span> <span class="nv">$@</span>
@@ -695,7 +696,7 @@ Total Number of Parameters : <span class="m">2</span>
 </div><p>执行 <code>./test.sh &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;</code>，看到下面的结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -718,7 +719,7 @@ Total Number of Parameters : <span class="m">2</span>
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">$*</span><span class="o">=</span>  a b c d
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">$*</span><span class="o">=</span>  a b c d
 <span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span><span class="o">=</span> a b c d
 <span class="nv">$@</span><span class="o">=</span>  a b c d
 <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span><span class="o">=</span> a b c d
@@ -746,13 +747,13 @@ d
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[[</span> <span class="nv">$?</span> !<span class="o">=</span> <span class="m">0</span> <span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[[</span> <span class="nv">$?</span> !<span class="o">=</span> <span class="m">0</span> <span class="o">]]</span><span class="p">;</span><span class="k">then</span>
   <span class="nb">echo</span> <span class="s2">&#34;error&#34;</span>
   <span class="nb">exit</span> 1<span class="p">;</span>
 <span class="k">fi</span>
@@ -763,7 +764,7 @@ d
 <h2 id="转义字符">转义字符</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -774,7 +775,7 @@ d
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">转义字符	含义
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">转义字符	含义
 <span class="se">\\</span>	反斜杠
 <span class="se">\a</span>	警报，响铃
 <span class="se">\b</span>	退格（删除键）
@@ -789,12 +790,12 @@ d
 <p>举个例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="nv">a</span><span class="o">=</span><span class="m">11</span>
 <span class="nb">echo</span> -e <span class="s2">&#34;a is </span><span class="nv">$a</span><span class="s2"> \n&#34;</span>
 </code></pre></td></tr></table>
@@ -802,19 +803,19 @@ d
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">a is <span class="m">11</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">a is <span class="m">11</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>这里 <code>-e</code> 表示对转义字符进行替换。如果不使用 <code>-e</code> 选项，将会原样输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">a is 11<span class="se">\n</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">a is 11<span class="se">\n</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>可以使用 echo 命令的 <code>-E</code> 选项禁止转义，默认也是不转义的；使用 <code>-n</code> 选项可以禁止插入换行符。</p>
@@ -823,22 +824,22 @@ d
 <p>语法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="sb">`</span><span class="nb">command</span><span class="sb">`</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="sb">`</span><span class="nb">command</span><span class="sb">`</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>注意是反引号，不是单引号，这个键位于 Esc 键下方。</strong></p>
 <p>下面的例子中，将命令执行结果保存在变量中：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="nv">DATE</span><span class="o">=</span><span class="sb">`</span>date<span class="sb">`</span>
 <span class="nb">echo</span> <span class="s2">&#34;Date is </span><span class="nv">$DATE</span><span class="s2">&#34;</span>
 </code></pre></td></tr></table>
@@ -881,7 +882,7 @@ d
 <p><code>php_zip_ins.sh</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -916,7 +917,7 @@ d
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="c1">#zip install</span>
 
 <span class="k">if</span> <span class="o">[</span> -d php-5.4.25/ext/zip <span class="o">]</span><span class="p">;</span><span class="k">then</span>
@@ -959,7 +960,7 @@ ls /usr/local/php/lib/php/extensions/no-debug-zts-20100525/
 <p><code>expr</code> 是一款表达式计算工具，使用它能完成表达式的求值操作。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -972,7 +973,7 @@ ls /usr/local/php/lib/php/extensions/no-debug-zts-20100525/
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 命令行直接计算</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 命令行直接计算</span>
 expr <span class="m">2</span> + <span class="m">2</span>   <span class="c1">#4</span>
 expr <span class="m">3</span> - <span class="m">2</span>   <span class="c1">#1</span>
 expr <span class="m">3</span> / <span class="m">2</span>   <span class="c1">#1</span>
@@ -994,7 +995,7 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 <p><strong>算术运算符列表</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1005,7 +1006,7 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">运算符	说明	    举例
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">运算符	说明	    举例
 +	    加法	<span class="sb">`</span>expr <span class="nv">$a</span> + <span class="nv">$b</span><span class="sb">`</span> 结果为 30。
 -   	减法	<span class="sb">`</span>expr <span class="nv">$a</span> - <span class="nv">$b</span><span class="sb">`</span> 结果为 10。
 *	    乘法	<span class="sb">`</span>expr <span class="nv">$a</span> <span class="se">\*</span> <span class="nv">$b</span><span class="sb">`</span> 结果为  200。
@@ -1020,7 +1021,7 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 <p>关系运算符只支持数字，不支持字符串，除非字符串的值是数字。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1031,7 +1032,7 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span><span class="nv">a</span><span class="o">=</span><span class="m">10</span>
 <span class="nv">b</span><span class="o">=</span><span class="m">20</span>
 <span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> -eq <span class="nv">$b</span> <span class="o">]</span>
@@ -1045,10 +1046,10 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 </div><p>缩成一行可以这样：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span>10<span class="p">;</span><span class="nv">b</span><span class="o">=</span>20<span class="p">;</span><span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> -eq <span class="nv">$b</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$a</span><span class="s2"> -eq </span><span class="nv">$b</span><span class="s2"> : a is equal to b&#34;</span><span class="p">;</span> <span class="k">else</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$a</span><span class="s2"> -eq </span><span class="nv">$b</span><span class="s2">: a is not equal to b&#34;</span><span class="p">;</span> <span class="k">fi</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span>10<span class="p">;</span><span class="nv">b</span><span class="o">=</span>20<span class="p">;</span><span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> -eq <span class="nv">$b</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$a</span><span class="s2"> -eq </span><span class="nv">$b</span><span class="s2"> : a is equal to b&#34;</span><span class="p">;</span> <span class="k">else</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$a</span><span class="s2"> -eq </span><span class="nv">$b</span><span class="s2">: a is not equal to b&#34;</span><span class="p">;</span> <span class="k">fi</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>这里缩写，主要是为了让大家注意：</p>
@@ -1058,7 +1059,7 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 <p><strong>关系运算符列表</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1068,7 +1069,7 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">运算符	说明
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">运算符	说明
 -eq	检测两个数是否相等，相等返回 true。同算数运算符<span class="sb">`</span><span class="o">==</span><span class="sb">`</span>
 -ne	检测两个数是否相等，不相等返回 <span class="nb">true</span>
 -gt	检测左边的数是否大于右边的，如果是，则返回 true。
@@ -1082,13 +1083,13 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 <p><strong>布尔运算符列表</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">运算符	说明
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">运算符	说明
 !	非运算，表达式为 <span class="nb">true</span> 则返回 false，否则返回 true。
 -o	或运算<span class="o">(</span>or<span class="o">)</span>，有一个表达式为 <span class="nb">true</span> 则返回 true。
 -a	与运算<span class="o">(</span>and<span class="o">)</span>，两个表达式都为 <span class="nb">true</span> 才返回 true。
@@ -1096,13 +1097,13 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> <span class="m">3</span> -eq <span class="m">3</span> -a <span class="m">3</span> -lt <span class="m">5</span> <span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> <span class="m">3</span> -eq <span class="m">3</span> -a <span class="m">3</span> -lt <span class="m">5</span> <span class="o">]</span>
 <span class="k">then</span>
     <span class="nb">echo</span> <span class="s1">&#39;ok&#39;</span>
 <span class="k">fi</span><span class="p">;</span>
@@ -1112,7 +1113,7 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 <p><strong>字符串运算符列表</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1120,7 +1121,7 @@ expr <span class="m">3</span> <span class="se">\*</span> <span class="m">2</span
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">运算符	说明	<span class="nv">举例</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">运算符	说明	<span class="nv">举例</span>
 <span class="o">=</span>	检测两个字符串是否相等，相等返回 true。	<span class="o">[</span> <span class="nv">$a</span> <span class="o">=</span> <span class="nv">$b</span> <span class="o">]</span> 返回 false。
 !<span class="o">=</span>	检测两个字符串是否相等，不相等返回 true。	<span class="o">[</span> <span class="nv">$a</span> !<span class="o">=</span> <span class="nv">$b</span> <span class="o">]</span> 返回 true。
 -z	检测字符串长度是否为0，为0返回 true。	<span class="o">[</span> -z <span class="nv">$a</span> <span class="o">]</span> 返回 false。
@@ -1132,7 +1133,7 @@ str	检测字符串是否为空，不为空返回 true。	<span class="o">[</spa
 <p>文件测试运算符用于检测 Unix 文件的各种属性。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1143,7 +1144,7 @@ str	检测字符串是否为空，不为空返回 true。	<span class="o">[</spa
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span><span class="nv">file</span><span class="o">=</span><span class="s2">&#34;/tmp/test.sh&#34;</span>
 
 <span class="k">if</span> <span class="o">[</span> -e <span class="nv">$file</span> <span class="o">]</span>
@@ -1157,7 +1158,7 @@ str	检测字符串是否为空，不为空返回 true。	<span class="o">[</spa
 </div><p>文件测试运算符列表</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1186,7 +1187,7 @@ str	检测字符串是否为空，不为空返回 true。	<span class="o">[</spa
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">操作符	说明	举例
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">操作符	说明	举例
 
 -b file	检测文件是否是块设备文件，如果是，则返回 true。	<span class="o">[</span> -b <span class="nv">$file</span> <span class="o">]</span> 返回 false。
 
@@ -1227,7 +1228,7 @@ str	检测字符串是否为空，不为空返回 true。	<span class="o">[</spa
 <h3 id="拼接字符串">拼接字符串</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1238,7 +1239,7 @@ str	检测字符串是否为空，不为空返回 true。	<span class="o">[</spa
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="nv">str1</span><span class="o">=</span><span class="s1">&#39;i&#39;</span>
 <span class="nv">str2</span><span class="o">=</span><span class="s1">&#39;love&#39;</span>
@@ -1252,12 +1253,12 @@ str	检测字符串是否为空，不为空返回 true。	<span class="o">[</spa
 </div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">i love you
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">i love you
 iloveyou
 i,love,you
 </code></pre></td></tr></table>
@@ -1265,7 +1266,7 @@ i,love,you
 </div><h3 id="获取字符串长度">获取字符串长度</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1274,7 +1275,7 @@ i,love,you
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
 </span><span class="cp"></span>
 <span class="nv">str</span><span class="o">=</span><span class="s1">&#39;i love you&#39;</span>
 
@@ -1286,7 +1287,7 @@ i,love,you
 </div><h3 id="截取字符串">截取字符串</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1296,7 +1297,7 @@ i,love,you
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
 </span><span class="cp"></span>
 <span class="nv">str</span><span class="o">=</span><span class="s1">&#39;i love you&#39;</span>
 
@@ -1309,13 +1310,13 @@ i,love,you
 </div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">love you
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">love you
 lo
 i love you
 i love you
@@ -1324,7 +1325,7 @@ i love you
 </div><h3 id="查找字符串">查找字符串</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1335,7 +1336,7 @@ i love you
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
 </span><span class="cp"></span>
 <span class="nv">str</span><span class="o">=</span><span class="s2">&#34;i love you&#34;</span>
 
@@ -1349,14 +1350,14 @@ i love you
 </div><p>输出:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">3
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">3
 4
 4
 10
@@ -1367,7 +1368,7 @@ i love
 <p>*拓展：<code>expr</code>更多关于字符串用法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1378,7 +1379,7 @@ i love
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">STRING : REGEXP   anchored pattern match of REGEXP in STRING
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">STRING : REGEXP   anchored pattern match of REGEXP in STRING
 
 match STRING REGEXP        same as STRING : REGEXP
 
@@ -1394,25 +1395,25 @@ length STRING              <span class="c1">#字符串长度</span>
 <p>在Shell中，用括号来表示数组，数组元素用<code>空格</code>符号分割开。定义数组的一般形式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">array_name</span><span class="o">=(</span>value1 value2 ... valuen<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">array_name</span><span class="o">=(</span>value1 value2 ... valuen<span class="o">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">array_name</span><span class="o">=(</span>value0 value1 value2 value3<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">array_name</span><span class="o">=(</span>value0 value1 value2 value3<span class="o">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1420,7 +1421,7 @@ length STRING              <span class="c1">#字符串长度</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">array_name</span><span class="o">=(</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">array_name</span><span class="o">=(</span>
     value0
     value1
     value2
@@ -1431,12 +1432,12 @@ length STRING              <span class="c1">#字符串长度</span>
 </div><p>还可以单独定义数组的各个分量：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">array_name<span class="o">[</span>0<span class="o">]=</span>value0
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">array_name<span class="o">[</span>0<span class="o">]=</span>value0
 array_name<span class="o">[</span>1<span class="o">]=</span>value1
 array_name<span class="o">[</span>2<span class="o">]=</span>value2
 </code></pre></td></tr></table>
@@ -1445,7 +1446,7 @@ array_name<span class="o">[</span>2<span class="o">]=</span>value2
 <p>下面来读取数组：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1455,7 +1456,7 @@ array_name<span class="o">[</span>2<span class="o">]=</span>value2
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="si">${</span><span class="nv">array_name</span><span class="p">[2]</span><span class="si">}</span> <span class="c1">#读取下标为2的元素</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="si">${</span><span class="nv">array_name</span><span class="p">[2]</span><span class="si">}</span> <span class="c1">#读取下标为2的元素</span>
 <span class="nb">echo</span> <span class="si">${</span><span class="nv">array_name</span><span class="p">[*]</span><span class="si">}</span> <span class="c1">#读取所有元素</span>
 <span class="nb">echo</span> <span class="si">${</span><span class="nv">array_name</span><span class="p">[@]</span><span class="si">}</span> <span class="c1">#读取所有元素</span>
 
@@ -1468,7 +1469,7 @@ array_name<span class="o">[</span>2<span class="o">]=</span>value2
 </div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1476,7 +1477,7 @@ array_name<span class="o">[</span>2<span class="o">]=</span>value2
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">value2
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">value2
 value0 value1 value2 value3
 value0 value1 value2 value3
 <span class="m">4</span>
@@ -1489,13 +1490,13 @@ value0 value1 value2 value3
 <p>字符串</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">str</span><span class="o">=</span><span class="s2">&#34;hello&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">str</span><span class="o">=</span><span class="s2">&#34;hello&#34;</span>
 <span class="si">${#</span><span class="nv">str</span><span class="si">}</span> <span class="c1"># 读取字符串长度</span>
 <span class="nb">echo</span> <span class="si">${</span><span class="nv">str</span><span class="si">}</span> <span class="c1"># 读取字符串全部</span>
 <span class="nb">echo</span> <span class="si">${</span><span class="nv">str</span><span class="p">:</span><span class="nv">1</span><span class="si">}</span> <span class="c1"># 截取字符串</span>
@@ -1504,7 +1505,7 @@ value0 value1 value2 value3
 </div><p>数组：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1512,7 +1513,7 @@ value0 value1 value2 value3
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">arr</span><span class="o">=(</span>a1 a2 a3<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">arr</span><span class="o">=(</span>a1 a2 a3<span class="o">)</span>
 <span class="nb">echo</span> <span class="si">${#</span><span class="nv">arr</span><span class="p">[*]</span><span class="si">}</span> <span class="c1"># 读取数组长度</span>
 <span class="nb">echo</span> <span class="si">${#</span><span class="nv">arr</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># 读取数组某个元素长度</span>
 
@@ -1527,13 +1528,13 @@ value0 value1 value2 value3
 <p>语法格式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> expression <span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> expression <span class="o">]</span>
 <span class="k">then</span>
    Statement<span class="o">(</span>s<span class="o">)</span> to be executed <span class="k">if</span> expression is <span class="nb">true</span>
 <span class="k">fi</span>
@@ -1543,12 +1544,12 @@ value0 value1 value2 value3
 <p>if 语句通过关系运算符判断表达式的真假来决定执行哪个分支。Shell 有三种 if &hellip; else 语句：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> ... <span class="k">fi</span> 语句
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> ... <span class="k">fi</span> 语句
 <span class="k">if</span> ... <span class="k">else</span> ... <span class="k">fi</span> 语句
 <span class="k">if</span> ... <span class="k">elif</span> ... <span class="k">else</span> ... <span class="k">fi</span> 语句
 </code></pre></td></tr></table>
@@ -1556,7 +1557,7 @@ value0 value1 value2 value3
 </div><p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1571,7 +1572,7 @@ value0 value1 value2 value3
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
 </span><span class="cp"></span>
 <span class="nv">a</span><span class="o">=</span><span class="m">10</span>
 <span class="nv">b</span><span class="o">=</span><span class="m">20</span>
@@ -1589,16 +1590,16 @@ value0 value1 value2 value3
 </div><p><code>if ... else</code> 语句也可以写成一行，以命令的方式来运行:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span>10<span class="p">;</span><span class="nv">b</span><span class="o">=</span>20<span class="p">;</span><span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="o">==</span> <span class="nv">$b</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;a is equal to b&#34;</span><span class="p">;</span><span class="k">else</span> <span class="nb">echo</span> <span class="s2">&#34;a is not equal to b&#34;</span><span class="p">;</span><span class="k">fi</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span>10<span class="p">;</span><span class="nv">b</span><span class="o">=</span>20<span class="p">;</span><span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="o">==</span> <span class="nv">$b</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34;a is equal to b&#34;</span><span class="p">;</span><span class="k">else</span> <span class="nb">echo</span> <span class="s2">&#34;a is not equal to b&#34;</span><span class="p">;</span><span class="k">fi</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p><code>if ... else</code> 语句也经常与 <code>test</code> 命令结合使用，作用与上面一样：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1610,7 +1611,7 @@ value0 value1 value2 value3
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
 </span><span class="cp"></span>
 <span class="nv">a</span><span class="o">=</span><span class="m">10</span>
 <span class="nv">b</span><span class="o">=</span><span class="m">20</span>
@@ -1627,7 +1628,7 @@ value0 value1 value2 value3
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1641,7 +1642,7 @@ value0 value1 value2 value3
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
 </span><span class="cp"></span>
 <span class="nv">grade</span><span class="o">=</span><span class="s2">&#34;B&#34;</span>
 
@@ -1658,7 +1659,7 @@ value0 value1 value2 value3
 </div><p>转换成C语言是：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1675,7 +1676,7 @@ value0 value1 value2 value3
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
     <span class="kt">char</span> <span class="n">grade</span> <span class="o">=</span> <span class="sc">&#39;B&#39;</span><span class="p">;</span>
     <span class="k">switch</span><span class="p">(</span><span class="n">grade</span><span class="p">){</span>
@@ -1699,7 +1700,7 @@ value0 value1 value2 value3
 <p>再举一个例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1715,7 +1716,7 @@ value0 value1 value2 value3
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="nv">option</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">&#34;</span>
 <span class="k">case</span> <span class="si">${</span><span class="nv">option</span><span class="si">}</span> in
    <span class="s2">&#34;-f&#34;</span><span class="o">)</span> <span class="nv">FILE</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span><span class="s2">&#34;</span>
@@ -1734,14 +1735,14 @@ value0 value1 value2 value3
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$./test.sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$./test.sh
 test.sh: usage: <span class="o">[</span> -f filename <span class="o">]</span> <span class="p">|</span> <span class="o">[</span> -d directory <span class="o">]</span>
 
 ./test.sh -f index.html
@@ -1753,7 +1754,7 @@ File name is index.html
 <p>run.sh</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1778,7 +1779,7 @@ File name is index.html
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span>
 usage<span class="o">()</span>
 <span class="o">{</span>
@@ -1806,17 +1807,17 @@ usage<span class="o">()</span>
 </div><p>当我们直接运行<code>run.sh</code>的时候，会调用<code>usage</code>显示帮助；如果输入正确的参数，则会进入正确的流程。运行示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">sh run.sh -s start -e <span class="nb">test</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sh run.sh -s start -e <span class="nb">test</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="for循环">for循环</h2>
 <p>shell的for循环与c、php等语言不同，同Python很类似。下面是语法格式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1825,7 +1826,7 @@ usage<span class="o">()</span>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> 变量 in 列表
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> 变量 in 列表
 <span class="k">do</span>
     command1
     command2
@@ -1837,7 +1838,7 @@ usage<span class="o">()</span>
 </div><p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1845,7 +1846,7 @@ usage<span class="o">()</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash/
 </span><span class="cp"></span>
 <span class="k">for</span> value in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span>
 <span class="k">do</span> 
@@ -1856,14 +1857,14 @@ usage<span class="o">()</span>
 </div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">The value is <span class="m">1</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">The value is <span class="m">1</span>
 The value is <span class="m">2</span>
 The value is <span class="m">3</span>
 The value is <span class="m">4</span>
@@ -1873,13 +1874,13 @@ The value is <span class="m">5</span>
 </div><p>顺序输出字符串中的字符：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> str in <span class="s1">&#39;This is a string&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> str in <span class="s1">&#39;This is a string&#39;</span>
 <span class="k">do</span>
     <span class="nb">echo</span> <span class="nv">$str</span>
 <span class="k">done</span>
@@ -1888,23 +1889,23 @@ The value is <span class="m">5</span>
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">This is a string
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">This is a string
 </code></pre></td></tr></table>
 </div>
 </div><p>遍历目录下的文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="k">for</span> FILE in *
 <span class="k">do</span>
    <span class="nb">echo</span> <span class="nv">$FILE</span>
@@ -1916,19 +1917,19 @@ The value is <span class="m">5</span>
 city.txt</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">beijing
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">beijing
 tianjin
 shanghai
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1937,7 +1938,7 @@ shanghai
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="nv">citys</span><span class="o">=</span><span class="sb">`</span>cat city.txt<span class="sb">`</span>
 <span class="k">for</span> city in <span class="nv">$citys</span>
@@ -1949,12 +1950,12 @@ shanghai
 </div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">beijing
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">beijing
 tianjin
 shanghai
 </code></pre></td></tr></table>
@@ -1964,13 +1965,13 @@ shanghai
 <p>其格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">while</span> <span class="nb">command</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">while</span> <span class="nb">command</span>
 <span class="k">do</span>
    Statement<span class="o">(</span>s<span class="o">)</span> to be executed <span class="k">if</span> <span class="nb">command</span> is <span class="nb">true</span>
 <span class="k">done</span>
@@ -1980,7 +1981,7 @@ shanghai
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1990,7 +1991,7 @@ shanghai
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="nv">c</span><span class="o">=</span>0<span class="p">;</span>
 <span class="k">while</span> <span class="o">[</span> <span class="nv">$c</span> -lt <span class="m">3</span> <span class="o">]</span>
@@ -2003,12 +2004,12 @@ shanghai
 </div><p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Value c is 0
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Value c is 0
 Value c is 1
 Value c is 2
 </code></pre></td></tr></table>
@@ -2019,7 +2020,7 @@ Value c is 2
 <p>将上面while循环的例子改改，就能达到一样的效果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2029,7 +2030,7 @@ Value c is 2
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="nv">c</span><span class="o">=</span>0<span class="p">;</span>
 <span class="k">until</span> <span class="o">[</span> <span class="nv">$c</span> -eq <span class="m">3</span> <span class="o">]</span>
@@ -2043,12 +2044,12 @@ Value c is 2
 <p>输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Value c is 0
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Value c is 0
 Value c is 1
 Value c is 2
 </code></pre></td></tr></table>
@@ -2059,7 +2060,7 @@ Value c is 2
 <p>break命令允许跳出所有循环（终止执行后面的所有循环）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2074,7 +2075,7 @@ Value c is 2
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="nv">i</span><span class="o">=</span><span class="m">0</span>
 <span class="k">while</span> <span class="o">[</span> <span class="nv">$i</span> -lt <span class="m">5</span> <span class="o">]</span>
@@ -2092,21 +2093,21 @@ Value c is 2
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">1
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1
 2
 </code></pre></td></tr></table>
 </div>
 </div><p>在嵌套循环中，break 命令后面还可以跟一个整数，表示跳出第几层循环。例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">break</span> n
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">break</span> n
 </code></pre></td></tr></table>
 </div>
 </div><p>表示跳出第 n 层循环。</p>
@@ -2114,7 +2115,7 @@ Value c is 2
 <p>continue命令与break命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2130,7 +2131,7 @@ Value c is 2
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="nv">i</span><span class="o">=</span><span class="m">0</span>
 <span class="k">while</span> <span class="o">[</span> <span class="nv">$i</span> -lt <span class="m">5</span> <span class="o">]</span>
@@ -2149,13 +2150,13 @@ Value c is 2
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">1
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1
 2
 4
 5
@@ -2167,13 +2168,13 @@ Value c is 2
 <p>Shell 函数的定义格式如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">function</span> function_name <span class="o">()</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">function</span> function_name <span class="o">()</span> <span class="o">{</span>
     list of commands
     <span class="o">[</span> <span class="k">return</span> value <span class="o">]</span>
 <span class="o">}</span>
@@ -2182,7 +2183,7 @@ Value c is 2
 </div><p>其中<code>function</code>关键字是可选的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2191,7 +2192,7 @@ Value c is 2
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 hello<span class="o">(){</span>
 	<span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
@@ -2203,10 +2204,10 @@ hello
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">hello
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">hello
 </code></pre></td></tr></table>
 </div>
 </div><p>调用函数只需要给出函数名，不需要加括号。</p>
@@ -2214,7 +2215,7 @@ hello
 <p>Shell 函数返回值只能是整数，一般用来表示函数执行成功与否，0表示成功，其他值表示失败。如果 return 其他数据，比如一个字符串，往往会得到错误提示：<code>numeric argument required</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2223,7 +2224,7 @@ hello
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="k">function</span> hello<span class="o">(){</span>
 	<span class="k">return</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
@@ -2235,16 +2236,16 @@ hello
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">line 4: <span class="k">return</span>: hello: numeric argument required
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">line 4: <span class="k">return</span>: hello: numeric argument required
 </code></pre></td></tr></table>
 </div>
 </div><p>如果一定要让函数返回字符串，那么可以先定义一个变量，用来接收函数的计算结果，脚本在需要的时候访问这个变量来获得函数返回值。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2255,7 +2256,7 @@ hello
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="k">function</span> hello<span class="o">(){</span>
 	<span class="k">return</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
@@ -2269,19 +2270,19 @@ hello
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">hello
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">hello
 </code></pre></td></tr></table>
 </div>
 </div><p>像删除变量一样，删除函数也可以使用 <code>unset</code> 命令，不过要加上 <code>.f</code> 选项，如下所示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">$unset</span> .f function_name
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">$unset</span> .f function_name
 </code></pre></td></tr></table>
 </div>
 </div><p>如果你希望直接从终端调用函数，可以将函数定义在主目录下的 .profile 文件，这样每次登录后，在命令提示符后面输入函数名字就可以立即调用。</p>
@@ -2289,7 +2290,7 @@ hello
 <p>在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 <code>$n</code> 的形式来获取参数的值，例如，<code>$1</code>表示第一个参数，<code>$2</code>表示第二个参数&hellip;这就是前面讲的特殊变量。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2304,7 +2305,7 @@ hello
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="k">function</span> sum<span class="o">(){</span>
 	<span class="k">case</span> <span class="nv">$#</span> in 
@@ -2322,24 +2323,24 @@ sum <span class="m">1</span> <span class="m">3</span> <span class="m">5</span> <
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">4 params! It&#39;s too much!
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">4 params! It&#39;s too much!
 </code></pre></td></tr></table>
 </div>
 </div><p>注意，<code>$10</code> 不能获取第十个参数，获取第十个参数需要<code>${10}</code>。当<code>n&gt;=10</code>时，需要使用<code>${n}</code>来获取参数。</p>
 <p>另外，还有几个特殊变量用来处理参数，前面已经提到：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">特殊变量	说明
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">特殊变量	说明
 <span class="nv">$#</span>	传递给函数的参数个数。
 <span class="nv">$*</span>	显示所有传递给函数的参数。
 <span class="nv">$@</span>	与<span class="nv">$*</span>相同，但是略有区别，请查看Shell特殊变量。
@@ -2351,7 +2352,7 @@ sum <span class="m">1</span> <span class="m">3</span> <span class="m">5</span> <
 <p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2362,7 +2363,7 @@ sum <span class="m">1</span> <span class="m">3</span> <span class="m">5</span> <
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="k">function</span> sum<span class="o">()</span>
 <span class="o">{</span>
@@ -2382,26 +2383,26 @@ sum <span class="m">1</span> <span class="m">3</span> <span class="m">5</span> <
 <p>命令输出重定向的语法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &gt; file
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &gt; file
 </code></pre></td></tr></table>
 </div>
 </div><p>这样，输出到显示器的内容就可以被重定向到文件。</p>
 <p>例如，下面的命令在显示器上不会看到任何输出：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">who &gt; users
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">who &gt; users
 </code></pre></td></tr></table>
 </div>
 </div><p>打开 users 文件，可以看到下面的内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2410,7 +2411,7 @@ sum <span class="m">1</span> <span class="m">3</span> <span class="m">5</span> <
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat users
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat users
 
 oko         tty01   Sep <span class="m">12</span> 07:30
 ai          tty15   Sep <span class="m">12</span> 13:32
@@ -2422,13 +2423,13 @@ steve       tty25   Sep <span class="m">12</span> 13:03
 </div><p>输出重定向会覆盖文件内容，请看下面的例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> line <span class="m">1</span> &gt; users
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> line <span class="m">1</span> &gt; users
 
 cat users
 line <span class="m">1</span>
@@ -2437,14 +2438,14 @@ line <span class="m">1</span>
 </div><p>如果不希望文件内容被覆盖，可以使用 <code>&gt;&gt;</code> 追加到文件末尾，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> line <span class="m">2</span> &gt;&gt; users
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> line <span class="m">2</span> &gt;&gt; users
 
 cat users
 line <span class="m">1</span>
@@ -2455,10 +2456,10 @@ line <span class="m">2</span>
 <p>和输出重定向一样，Unix 命令也可以从文件获取输入，语法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &lt; file
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &lt; file
 </code></pre></td></tr></table>
 </div>
 </div><p>这样，本来需要从键盘获取输入的命令会转移到文件读取内容。</p>
@@ -2466,22 +2467,22 @@ line <span class="m">2</span>
 <p>例如，计算 users 文件中的行数，可以使用下面的命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">wc -l users
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wc -l users
 <span class="m">2</span> users
 </code></pre></td></tr></table>
 </div>
 </div><p>也可以将输入重定向到 users 文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">wc -l &lt; users
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wc -l &lt; users
 <span class="m">2</span>
 </code></pre></td></tr></table>
 </div>
@@ -2497,45 +2498,45 @@ line <span class="m">2</span>
 <p>如果希望 stderr 重定向到 file，可以这样写：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> <span class="m">2</span> &gt; file
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> <span class="m">2</span> &gt; file
 </code></pre></td></tr></table>
 </div>
 </div><p>如果希望 stderr 追加到 file 文件末尾，可以这样写：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> <span class="m">2</span> &gt;&gt; file
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> <span class="m">2</span> &gt;&gt; file
 </code></pre></td></tr></table>
 </div>
 </div><p>2 表示标准错误文件(stderr)。</p>
 <p>如果希望将 stdout 和 stderr 合并后重定向到 file，可以这样写：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &gt; file 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &gt; file 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>如果希望对 stdin 和 stdout 都重定向，可以这样写：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &lt; file1 &gt;file2
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &lt; file1 &gt;file2
 </code></pre></td></tr></table>
 </div>
 </div><p>command 命令将 stdin 重定向到 file1，将 stdout 重定向到 file2。</p>
 <p><strong>全部可用的重定向命令列表：</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2546,7 +2547,7 @@ line <span class="m">2</span>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">命令	说明
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">命令	说明
 <span class="nb">command</span> &gt; file	将输出重定向到 file。
 <span class="nb">command</span> &lt; file	将输入重定向到 file。
 <span class="nb">command</span> &gt;&gt; file	将输出以追加的方式重定向到 file。
@@ -2561,12 +2562,12 @@ n &lt;<span class="p">&amp;</span> m	将输入文件 m 和 n 合并。
 <p>Here Document 目前没有统一的翻译，这里暂译为<code>嵌入文档</code>。Here Document 是 Shell 中的一种特殊的重定向方式，它的基本的形式如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> <span class="s">&lt;&lt; delimiter
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> <span class="s">&lt;&lt; delimiter
 </span><span class="s">    document
 </span><span class="s">delimiter</span>
 </code></pre></td></tr></table>
@@ -2578,14 +2579,14 @@ n &lt;<span class="p">&amp;</span> m	将输入文件 m 和 n 合并。
 <p>下面的例子，通过 <code>wc -l</code> 命令计算 document 的行数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">wc -l <span class="s">&lt;&lt; EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wc -l <span class="s">&lt;&lt; EOF
 </span><span class="s">    This is a simple lookup program
 </span><span class="s">    for good (and bad) restaurants
 </span><span class="s">    in Cape Town.
@@ -2596,7 +2597,7 @@ n &lt;<span class="p">&amp;</span> m	将输入文件 m 和 n 合并。
 <p>也可以 将 Here Document 用在脚本中，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2604,7 +2605,7 @@ n &lt;<span class="p">&amp;</span> m	将输入文件 m 和 n 合并。
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>cat <span class="s">&lt;&lt; EOF
 </span><span class="s">This is a simple lookup program
 </span><span class="s">for good (and bad) restaurants
@@ -2615,12 +2616,12 @@ n &lt;<span class="p">&amp;</span> m	将输入文件 m 和 n 合并。
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">This is a simple lookup program
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">This is a simple lookup program
 for good (and bad) restaurants
 in Cape Town.
 </code></pre></td></tr></table>
@@ -2629,20 +2630,20 @@ in Cape Town.
 <p>如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到 <code>/dev/null</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &gt; /dev/null
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &gt; /dev/null
 </code></pre></td></tr></table>
 </div>
 </div><p><code>/dev/null</code> 是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到。但是 <code>/dev/null</code> 文件非常有用，将命令的输出重定向到它，会起到<code>禁止输出</code>的效果。</p>
 <p>如果希望屏蔽 stdout 和 stderr，可以这样写：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &gt; /dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">command</span> &gt; /dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>这样不会在屏幕打印任何信息。</p>
@@ -2654,40 +2655,40 @@ in Cape Town.
 被包含文件：sub.sh</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">name=&#34;yjc&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">name=&#34;yjc&#34;
 </code></pre></td></tr></table>
 </div>
 </div><p>主文件：test.sh</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">. ./sub.sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">. ./sub.sh
 <span class="nb">echo</span> <span class="nv">$name</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>运行结果：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yjc
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yjc
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="获取当前正在执行脚本的绝对路径">获取当前正在执行脚本的绝对路径</h2>
 <p>正确的命令是：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">basepath</span><span class="o">=</span><span class="k">$(</span><span class="nb">cd</span> <span class="sb">`</span>dirname <span class="nv">$0</span><span class="sb">`</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">basepath</span><span class="o">=</span><span class="k">$(</span><span class="nb">cd</span> <span class="sb">`</span>dirname <span class="nv">$0</span><span class="sb">`</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>直接使用<code>pwd</code>或者<code>dirname $0</code>是不对的。</p>
@@ -2696,14 +2697,14 @@ in Cape Town.
 <p>方案：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">str</span><span class="o">=</span>/www/html/php/myapp/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">str</span><span class="o">=</span>/www/html/php/myapp/
 <span class="nv">b</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$str</span><span class="p">|</span>sed <span class="s1">&#39;s#/# #g&#39;</span><span class="k">)</span><span class="o">)</span>
 <span class="nv">b_len</span><span class="o">=</span><span class="sb">`</span>expr <span class="si">${#</span><span class="nv">b</span><span class="p">[*]</span><span class="si">}</span> - 1<span class="sb">`</span>
 <span class="nv">app_name</span><span class="o">=</span><span class="si">${</span><span class="nv">b</span><span class="p">[</span><span class="nv">$b_len</span><span class="p">]</span><span class="si">}</span>
@@ -2720,10 +2721,10 @@ in Cape Town.
 <p>Awk基本语法:　</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">awk <span class="s1">&#39;pattern1 {command1;command 2…; command 3}  pattern2 { command …}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">awk <span class="s1">&#39;pattern1 {command1;command 2…; command 3}  pattern2 { command …}&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>pattern表示用来过滤记录的模式,可是是正则表达式，关系运算表达式，也可以什么也没有(表示选中所有记录)。</p>
@@ -2732,7 +2733,7 @@ in Cape Town.
 <p>s.txt</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2746,7 +2747,7 @@ in Cape Town.
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">zhangsan 1977 male computer 83
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">zhangsan 1977 male computer 83
 lisi 1989 male math 99
 wanglijiang 1990 female chinese 78
 xuliang 1977 male economic 89
@@ -2765,7 +2766,7 @@ xiaobao 1990 female chinese 78
 <p>1)直接输出1990年出生的同学:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2773,7 +2774,7 @@ xiaobao 1990 female chinese 78
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;/1990/&#39;</span> s.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;/1990/&#39;</span> s.txt
 
 wanglijiang <span class="m">1990</span> female chinese <span class="m">78</span>
 wanglijiang <span class="m">1990</span> female chinese <span class="m">78</span>
@@ -2784,17 +2785,17 @@ xiaobao <span class="m">1990</span> female chinese <span class="m">78</span>
 </div><p>或者：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ awk &#39;/1990/{print $0}&#39; s.txt
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ awk &#39;/1990/{print $0}&#39; s.txt
 </code></pre></td></tr></table>
 </div>
 </div><p>awk默认把输入的内容以空格拆分出每列。<code>$0</code>表示匹配所有列，<code>print $0</code>将输出所有列，每列分隔符是空格。</p>
 <p>2）对chinese的课程的行输出&quot;语文&quot;：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2802,7 +2803,7 @@ xiaobao <span class="m">1990</span> female chinese <span class="m">78</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;/chinese/{print &#34;语文&#34;}&#39;</span> s.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;/chinese/{print &#34;语文&#34;}&#39;</span> s.txt
 
 语文
 语文
@@ -2813,7 +2814,7 @@ xiaobao <span class="m">1990</span> female chinese <span class="m">78</span>
 </div><p>3）记录的头部和结尾加上一段说明：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2832,7 +2833,7 @@ xiaobao <span class="m">1990</span> female chinese <span class="m">78</span>
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;BEGIN{print &#34;Result of the quiz:\n&#34;}{print $0}END{print &#34;------&#34;}&#39;</span> s.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;BEGIN{print &#34;Result of the quiz:\n&#34;}{print $0}END{print &#34;------&#34;}&#39;</span> s.txt
 Result of the quiz:
 
 zhangsan <span class="m">1977</span> male computer <span class="m">83</span>
@@ -2856,7 +2857,7 @@ xiaobao <span class="m">1990</span> female chinese <span class="m">78</span>
 <p>4)查找女生的成绩且只输出姓名、学科、成绩：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -2864,7 +2865,7 @@ xiaobao <span class="m">1990</span> female chinese <span class="m">78</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;$3==&#34;female&#34;{print $1,$4,$5}&#39;</span> s.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;$3==&#34;female&#34;{print $1,$4,$5}&#39;</span> s.txt
 wanglijiang chinese <span class="m">78</span>
 xuxin english <span class="m">99</span>
 wanglijiang chinese <span class="m">78</span>
@@ -2876,14 +2877,14 @@ xiaobao chinese <span class="m">78</span>
 <p>5)找出1990年出生的学生姓名，并要求匹配正则:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;$2~/1990/{print $1}&#39;</span> s.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;$2~/1990/{print $1}&#39;</span> s.txt
 wanglijiang
 wanglijiang
 xiaobao
@@ -2894,10 +2895,10 @@ xiaobao
 <p>如果需要多选，则改成：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;$2~/(1990|1991)/{print $1}&#39;</span> s.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ awk <span class="s1">&#39;$2~/(1990|1991)/{print $1}&#39;</span> s.txt
 </code></pre></td></tr></table>
 </div>
 </div><p>awk更多内容详见：https://www.cnblogs.com/52fhy/p/5836429.html#autoid-3-4-0</p>
@@ -2939,16 +2940,16 @@ xiaobao
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/bash/">bash</a>
-          <a href="/tags/shell/">shell</a>
+          <a href="/blog/tags/bash/">bash</a>
+          <a href="/blog/tags/shell/">shell</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/shell/sed_awk_doc/">
+        <a class="prev" href="/blog/post/shell/sed_awk_doc/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Linux文本三剑客---grep、sed、awk</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/performance/mysql_perf_doc/">
+        <a class="next" href="/blog/post/performance/mysql_perf_doc/">
             <span class="next-text nav-default">mysql性能优化</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -2973,7 +2974,7 @@ xiaobao
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -2987,15 +2988,15 @@ xiaobao
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -3022,7 +3023,7 @@ xiaobao
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

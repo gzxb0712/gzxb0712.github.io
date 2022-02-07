@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>graylog on Bill World</title>
-    <link>https://xiebiao.top/tags/graylog/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/graylog/</link>
     <description>Recent content in graylog on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 10 May 2020 20:32:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/graylog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 May 2020 20:32:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/graylog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CentOS7 部署 Graylog3</title>
-      <link>https://xiebiao.top/post/log/graylog_centos_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/log/graylog_centos_install/</link>
       <pubDate>Sun, 10 May 2020 20:32:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/log/graylog_centos_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/log/graylog_centos_install/</guid>
       <description>注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；</description>
     </item>
     

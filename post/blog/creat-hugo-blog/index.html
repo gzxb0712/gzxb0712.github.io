@@ -27,21 +27,21 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/blog/creat-hugo-blog/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/blog/creat-hugo-blog/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="Hugo &#43; Github Pages &#43; picgo搭建个人技术博客" />
@@ -53,9 +53,10 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
 Hugo 官方的定义是：
 Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/blog/creat-hugo-blog/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/blog/creat-hugo-blog/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-10-12T20:28:04+00:00" />
 <meta property="article:modified_time" content="2019-10-12T20:28:04+00:00" />
+
 <meta itemprop="name" content="Hugo &#43; Github Pages &#43; picgo搭建个人技术博客">
 <meta itemprop="description" content="
 
@@ -63,15 +64,10 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
 后来看到 Hugo ,号称最快的静态站点生成器后。
 尝试搭建博客，发现不管是运行速度，还是打包速度超级快，果断将个人博客迁移到 Hugo。
 Hugo 官方的定义是：
-Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)">
-<meta itemprop="datePublished" content="2019-10-12T20:28:04+00:00" />
+Hugo is a fast and modern static site generator written in Go, and designed to make website creation fun again.(Hugo 是使用 Go 编写的快速而现代的静态站点生成器，旨在使网站创建变得有趣。)"><meta itemprop="datePublished" content="2019-10-12T20:28:04+00:00" />
 <meta itemprop="dateModified" content="2019-10-12T20:28:04+00:00" />
 <meta itemprop="wordCount" content="1836">
-
-
-
-<meta itemprop="keywords" content="hugo,blog," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="hugo,blog," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hugo &#43; Github Pages &#43; picgo搭建个人技术博客"/>
 <meta name="twitter:description" content="
 
@@ -94,7 +90,7 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -104,15 +100,15 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -120,21 +116,21 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -151,11 +147,11 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
       <div class="post-meta">
         <span class="post-time"> 2019-10-12 20:28 </span>
         <div class="post-category">
-            <a href="/categories/blog/"> blog </a>
+            <a href="/blog/categories/blog/"> blog </a>
             </div>
           <span class="more-meta"> 约 1836 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -187,7 +183,7 @@ Hugo is a fast and modern static site generator written in Go, and designed to m
   </div>
 </div>
   <div class="post-outdated">
-    <div class="hint">
+    <div class="warn">
       <p>【注意】最后更新于 <span class="timeago" datetime="2019-10-12T20:28:04" title="October 12, 2019">October 12, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
     </div>
   </div>
@@ -206,10 +202,10 @@ Hugo 官方的定义是：</p>
 <p>既可以使用 HomeBrew 安装，也可以在 <a href="https://github.com/gohugoio/hugo/releases">https://github.com/gohugoio/hugo/releases</a> 下载二进制包安装</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">brew install hugo
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">brew install hugo
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="windows-安装-hugo">Windows 安装 Hugo</h3>
@@ -217,10 +213,10 @@ Hugo 官方的定义是：</p>
 <p>安装完成后，在命令行输入以下命令验证安装：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">hugo version
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo version
 </code></pre></td></tr></table>
 </div>
 </div><p>输出版本信息表示安装成功，更多安装方式查看 <a href="https://gohugo.io/getting-started/installing">https://gohugo.io/getting-started/installing</a></p>
@@ -231,25 +227,25 @@ Hugo 官方的定义是：</p>
 <p>一个 Hugo 项目就是一个站点，创建命令如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">hugo new site <span class="o">[</span>project-name<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo new site <span class="o">[</span>project-name<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>例如我的站点名称是 <strong>blog</strong>,创建命令如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">hugo new site blog
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo new site blog
 </code></pre></td></tr></table>
 </div>
 </div><p>创建完成后，在 <strong>blog</strong> 文件夹下会生成以下文件结构：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -260,7 +256,7 @@ Hugo 官方的定义是：</p>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">.
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">.
 ├── archetypes # 存放生成博客的模版
 ├── assets # 存放被 Hugo Pipes 处理的文件
 ├── config # 存放 hugo 配置文件 支持 JSON YAML TOML 三种格式配置文件
@@ -281,11 +277,11 @@ Hugo 官方的定义是：</p>
 <p>第一个更好看、功能更加强大，选择了第一个。进入根目录，克隆主题文件就是安装主题。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> blog
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> blog
 git clone https://github.com/olOwOlo/hugo-theme-even themes/even
 </code></pre></td></tr></table>
 </div>
@@ -294,10 +290,10 @@ git clone https://github.com/olOwOlo/hugo-theme-even themes/even
 <p>命令行输入以下命令，启动 Hugo :</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">hugo server --bind 192.168.12.xxx --disableFastRender
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo server --bind 192.168.12.xxx --disableFastRender
 </code></pre></td></tr></table>
 </div>
 </div><p>在浏览器打开 <code>http://localhost:1313/</code> 即可查看效果。</p>
@@ -312,10 +308,10 @@ git clone https://github.com/olOwOlo/hugo-theme-even themes/even
 <p>添加新博客命令比较简单，命令如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">hugo new post/my-first-blog.md
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo new post/my-first-blog.md
 </code></pre></td></tr></table>
 </div>
 </div><p>这个命令会使用模板创建文件，首先查找用户的模板文件，没有就会查找主题的模板文件。</p>
@@ -323,7 +319,7 @@ git clone https://github.com/olOwOlo/hugo-theme-even themes/even
 <p>我的模板配置如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -337,7 +333,7 @@ git clone https://github.com/olOwOlo/hugo-theme-even themes/even
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 ---
 title: &#34;{{ replace .TranslationBaseName &#34;-&#34; &#34; &#34; | title }}&#34;
 date: {{ .Date }}
@@ -356,10 +352,10 @@ categories: []
 <p>为了部署到线上，需要将 Markdown 文件打包成 HTML 文件。打包命令如下，<strong>even</strong> 是主题名：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">hugo -t even
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo -t even
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="部署到-github-pages">部署到 Github Pages</h2>
@@ -367,7 +363,7 @@ categories: []
 <p>我的部署命令如下，更多部署方式查看 <a href="https://gohugo.io/hosting-and-deployment/">https://gohugo.io/hosting-and-deployment/</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -402,7 +398,7 @@ categories: []
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="c1"># 部署到 github pages 脚本</span>
 <span class="c1"># 错误时终止脚本</span>
 <span class="nb">set</span> -e
@@ -460,7 +456,7 @@ git push -f git@github.com:gzxb0712/gzxb0712.github.io.git master
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -484,7 +480,7 @@ git push -f git@github.com:gzxb0712/gzxb0712.github.io.git master
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"> coding<span class="o">(){</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"> coding<span class="o">(){</span>
 <span class="nb">cd</span> /data/hugo
 scp -rp /data/hugo/config.toml.coding /data/hugo/config.toml
 hugo -t even
@@ -555,16 +551,16 @@ coding
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/hugo/">hugo</a>
-          <a href="/tags/blog/">blog</a>
+          <a href="/blog/tags/hugo/">hugo</a>
+          <a href="/blog/tags/blog/">blog</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/base/dns_centos_install/">
+        <a class="prev" href="/blog/post/base/dns_centos_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">dns在centos中安装</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/base/dncp_centos_install/">
+        <a class="next" href="/blog/post/base/dncp_centos_install/">
             <span class="next-text nav-default">dhcp在centos中安装</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -589,7 +585,7 @@ coding
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -603,15 +599,15 @@ coding
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -638,7 +634,7 @@ coding
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

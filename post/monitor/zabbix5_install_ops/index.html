@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/monitor/zabbix5_install_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/monitor/zabbix5_install_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="Zabbix 5.0安装部署和使用教程" />
 <meta property="og:description" content="参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B zabbix 5.0 版本于 5 月 11 日正式发布，是最新的 LTS（长期支持）版本，5.0 带来很多功能和特性，后面会陆续推出文章介绍，下面主要介绍下 5.0 版本" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/monitor/zabbix5_install_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/monitor/zabbix5_install_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-13T18:23:30+00:00" />
 <meta property="article:modified_time" content="2020-03-13T18:23:30+00:00" />
+
 <meta itemprop="name" content="Zabbix 5.0安装部署和使用教程">
-<meta itemprop="description" content="参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B zabbix 5.0 版本于 5 月 11 日正式发布，是最新的 LTS（长期支持）版本，5.0 带来很多功能和特性，后面会陆续推出文章介绍，下面主要介绍下 5.0 版本">
-<meta itemprop="datePublished" content="2020-03-13T18:23:30+00:00" />
+<meta itemprop="description" content="参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B zabbix 5.0 版本于 5 月 11 日正式发布，是最新的 LTS（长期支持）版本，5.0 带来很多功能和特性，后面会陆续推出文章介绍，下面主要介绍下 5.0 版本"><meta itemprop="datePublished" content="2020-03-13T18:23:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-13T18:23:30+00:00" />
 <meta itemprop="wordCount" content="3960">
-
-
-
-<meta itemprop="keywords" content="zabbix,monitor," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="zabbix,monitor," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Zabbix 5.0安装部署和使用教程"/>
 <meta name="twitter:description" content="参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B zabbix 5.0 版本于 5 月 11 日正式发布，是最新的 LTS（长期支持）版本，5.0 带来很多功能和特性，后面会陆续推出文章介绍，下面主要介绍下 5.0 版本"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-13 18:23 </span>
         <div class="post-category">
-            <a href="/categories/monitor/"> monitor </a>
+            <a href="/blog/categories/monitor/"> monitor </a>
             </div>
           <span class="more-meta"> 约 3960 字 </span>
           <span class="more-meta"> 预计阅读 8 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -192,6 +188,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-03-13T18:23:30" title="March 13, 2020">March 13, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -221,13 +222,13 @@
 <p>安装好操作系统后，关闭防火墙和 selinux 并重启</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/&#39; /etc/selinux/config
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/&#39; /etc/selinux/config
 systemctl disable --now firewalld
 reboot
 
@@ -236,13 +237,13 @@ reboot
 </div><p>安装 zabbix rpm 源,鉴于国内网络情况，使用阿里云 zabbix 源</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">rpm -Uvh https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rpm -Uvh https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
 sed -i &#39;s#http://repo.zabbix.com#https://mirrors.aliyun.com/zabbix#&#39; /etc/yum.repos.d/zabbix.repo
 yum clean all
 
@@ -251,91 +252,91 @@ yum clean all
 </div><p>安装 zabbix server 和 agent</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install zabbix-server-mysql zabbix-agent -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum install zabbix-server-mysql zabbix-agent -y
 
 </code></pre></td></tr></table>
 </div>
 </div><p>安装 Software Collections，便于后续安装高版本的 php，默认 yum 安装的 php 版本为 5.4 过低</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install centos-release-scl -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum install centos-release-scl -y
 
 </code></pre></td></tr></table>
 </div>
 </div><p>启用 zabbix 前端源，修改/etc/yum.repos.d/zabbix.repo,将[zabbix-frontend]下的 enabled 改为 1</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">enabled=1
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">enabled=1
 
 </code></pre></td></tr></table>
 </div>
 </div><p>安装 zabbix 前端和相关环境</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install zabbix-web-mysql-scl zabbix-apache-conf-scl -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum install zabbix-web-mysql-scl zabbix-apache-conf-scl -y
 
 </code></pre></td></tr></table>
 </div>
 </div><p>由于使用 yum 安装 zabbix，不自动依赖安装数据库，因此需要手动安装数据库，这里使用 yum 安装 centos7 默认的 mariadb 数据库</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum install mariadb-server -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum install mariadb-server -y
 
 </code></pre></td></tr></table>
 </div>
 </div><p>启动数据库，并配置开机自动启动</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable --now mariadb
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable --now mariadb
 
 </code></pre></td></tr></table>
 </div>
 </div><p>使用以下命令初始化 mariadb 并配置 root 密码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql_secure_installation
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mysql_secure_installation
 
 </code></pre></td></tr></table>
 </div>
 </div><p>使用 root 用户进入 mysql，并建立 zabbix 数据库，注意数据库编码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">create database zabbix character set utf8 collate utf8_bin;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">create database zabbix character set utf8 collate utf8_bin;
 create user zabbix@localhost identified by &#39;password&#39;;
 grant all privileges on zabbix.* to zabbix@localhost;
 quit;
@@ -345,45 +346,45 @@ quit;
 </div><p>使用以下命令导入 zabbix 数据库，zabbix 数据库用户为 zabbix，密码为 password</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbix
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbix
 
 </code></pre></td></tr></table>
 </div>
 </div><p>修改 zabbix server 配置文件/etc/zabbix/zabbix_server.conf 里的数据库密码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">DBPassword=password
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">DBPassword=password
 
 </code></pre></td></tr></table>
 </div>
 </div><p>修改 zabbix 的 php 配置文件 /etc/opt/rh/rh-php72/php-fpm.d/zabbix.conf 里的时区</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">php_value[date.timezone] = Asia/Shanghai
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">php_value[date.timezone] = Asia/Shanghai
 
 </code></pre></td></tr></table>
 </div>
 </div><p>启动相关服务，并配置开机自动启动</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart zabbix-server zabbix-agent httpd rh-php72-php-fpm
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart zabbix-server zabbix-agent httpd rh-php72-php-fpm
 systemctl enable zabbix-server zabbix-agent httpd rh-php72-php-fpm
 
 </code></pre></td></tr></table>
@@ -409,13 +410,13 @@ systemctl enable zabbix-server zabbix-agent httpd rh-php72-php-fpm
 <p>安装好操作系统后，关闭防火墙和 selinux 并重启</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/&#39; /etc/selinux/config
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sed -i &#39;s/SELINUX=enforcing/SELINUX=disabled/&#39; /etc/selinux/config
 systemctl disable --now firewalld
 reboot
 
@@ -424,12 +425,12 @@ reboot
 </div><p>使用 dnf 安装 lnmp 等基础环境包</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">dnf install httpd php php-gd php-ldap php-mysqlnd php-json php-bcmath php-mbstring php-xml mysql mysql-server mysql-devel libevent-devel pcre-devel gcc gcc-c++ make libcurl-devel curl-* net-snmp* libxml2-* wget tar -y
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">dnf install httpd php php-gd php-ldap php-mysqlnd php-json php-bcmath php-mbstring php-xml mysql mysql-server mysql-devel libevent-devel pcre-devel gcc gcc-c++ make libcurl-devel curl-* net-snmp* libxml2-* wget tar -y
 useradd zabbix
 
 </code></pre></td></tr></table>
@@ -437,11 +438,11 @@ useradd zabbix
 </div><p>启动相关组件并配置开机启动</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable --now httpd mysqld php-fpm
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable --now httpd mysqld php-fpm
 
 </code></pre></td></tr></table>
 </div>
@@ -449,7 +450,7 @@ useradd zabbix
 <p>安装好启动 http，mysql 等服务，并使用 mysql_secure_installation 命令初始化 mysql 下载 zabbix5.0 源码，解压并编译</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -460,7 +461,7 @@ useradd zabbix
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cd /opt
 wget https://cdn.zabbix.com/zabbix/sources/stable/5.0/zabbix-5.0.0.tar.gz
 tar zxvf zabbix-5.0.0.tar.gz
 cd zabbix-5.0.0
@@ -474,14 +475,14 @@ make install
 </div><p>使用 mysql 的 root 用户登录 mysql 数据库，建立 zabbix 数据库用户等相关信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">create database zabbix character set utf8 collate utf8_bin;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">create database zabbix character set utf8 collate utf8_bin;
 create user zabbix@localhost identified by &#39;password&#39;;
 grant all privileges on zabbix.* to zabbix@localhost;
 quit
@@ -491,13 +492,13 @@ quit
 </div><p>按照顺序，依次导入 sql</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql -uzabbix -p zabbix &lt; /opt/zabbix-5.0.0/database/mysql/schema.sql
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mysql -uzabbix -p zabbix &lt; /opt/zabbix-5.0.0/database/mysql/schema.sql
 mysql -uzabbix -p zabbix &lt; /opt/zabbix-5.0.0/database/mysql/images.sql
 mysql -uzabbix -p zabbix &lt; /opt/zabbix-5.0.0/database/mysql/data.sql
 
@@ -506,13 +507,13 @@ mysql -uzabbix -p zabbix &lt; /opt/zabbix-5.0.0/database/mysql/data.sql
 </div><p>修改 zabbix server 配置文件/usr/local/zabbix/etc/zabbix_server.conf，修改数据库密码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">...
 DBPassword=password
 ...
 
@@ -521,18 +522,18 @@ DBPassword=password
 </div><p>为 zabibx server 添加 systemd 启动文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /lib/systemd/system/zabbix-server.service
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /lib/systemd/system/zabbix-server.service
 
 </code></pre></td></tr></table>
 </div>
 </div><p>内容如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -558,7 +559,7 @@ DBPassword=password
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[Unit]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[Unit]
 Description=Zabbix Server
 After=syslog.target
 After=network.target
@@ -587,18 +588,18 @@ WantedBy=multi-user.target
 </div><p>为 zabbix agent 添加 systemd 启动文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">vi /lib/systemd/system/zabbix-agent.service
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">vi /lib/systemd/system/zabbix-agent.service
 
 </code></pre></td></tr></table>
 </div>
 </div><p>内容如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -621,7 +622,7 @@ WantedBy=multi-user.target
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[Unit]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[Unit]
 Description=Zabbix Agent
 After=syslog.target
 After=network.target
@@ -647,12 +648,12 @@ WantedBy=multi-user.target
 </div><p>启动 zabbix server 和 zabbix agent,并配置开机启动</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable --now zabbix-server
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl enable --now zabbix-server
 systemctl enable --now zabbix-agent
 
 </code></pre></td></tr></table>
@@ -661,12 +662,12 @@ systemctl enable --now zabbix-agent
 <p>拷贝 zabbix 前端文件到 apache 默认 web 目录</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cp -r /opt/zabbix-5.0.0/ui/* /var/www/html/
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cp -r /opt/zabbix-5.0.0/ui/* /var/www/html/
 chown -R apache:apache /var/www/html/
 
 </code></pre></td></tr></table>
@@ -674,7 +675,7 @@ chown -R apache:apache /var/www/html/
 </div><p>配置 php 参数</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -682,7 +683,7 @@ chown -R apache:apache /var/www/html/
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">sed -i &#39;s#post_max_size = 8M#post_max_size = 16M#&#39; /etc/php.ini
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sed -i &#39;s#post_max_size = 8M#post_max_size = 16M#&#39; /etc/php.ini
 sed -i &#39;s#max_execution_time = 30#max_execution_time = 300#&#39; /etc/php.ini
 sed -i &#39;s#max_input_time = 60#max_input_time = 300#&#39; /etc/php.ini
 sed -i &#39;s#;date.timezone =#date.timezone = Asia/Shanghai#&#39; /etc/php.ini
@@ -697,10 +698,10 @@ systemctl restart php-fpm
 <h2 id="一安装数据源">一、安装数据源</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -708,11 +709,11 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# sed -i &#39;s#http://repo.zabbix.com#https://mirrors.aliyun.com/zabbix#&#39; /etc/yum.repos.d/zabbix.repo 
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# sed -i &#39;s#http://repo.zabbix.com#https://mirrors.aliyun.com/zabbix#&#39; /etc/yum.repos.d/zabbix.repo 
 [root@localhost ~]# yum clean all
 </code></pre></td></tr></table>
 </div>
@@ -735,10 +736,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install mysql-community-*
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install mysql-community-*
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -746,13 +747,13 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# systemctl start mysqld
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# systemctl start mysqld
 [root@localhost ~]# systemctl enable mysqld #查看默认密码
 [root@localhost ~]# cat /var/log/mysqld.log |grep password
 [root@localhost ~]# mysql -uroot -p
@@ -763,10 +764,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; set global validate_password_policy=0;mysql&gt; set global validate_password_number_count=0; mysql&gt; set global validate_password_special_char_count=0;# 修改密码mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;dqzboy123&#39;;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mysql&gt; set global validate_password_policy=0;mysql&gt; set global validate_password_number_count=0; mysql&gt; set global validate_password_special_char_count=0;# 修改密码mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;dqzboy123&#39;;
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -774,10 +775,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install zabbix-server-mysql zabbix-agent
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install zabbix-server-mysql zabbix-agent
 </code></pre></td></tr></table>
 </div>
 </div><p><img src="https://www.dqzboy.com/wp-content/uploads/2020/06/zabbix1.png" alt=""></p>
@@ -787,10 +788,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install centos-release-scl
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install centos-release-scl
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -798,10 +799,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim  /etc/yum.repos.d/zabbix.repo #最后通过 wq 保存
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim  /etc/yum.repos.d/zabbix.repo #最后通过 wq 保存
 </code></pre></td></tr></table>
 </div>
 </div><p><img src="https://www.dqzboy.com/wp-content/uploads/2020/06/zabbix2.png" alt=""></p>
@@ -810,10 +811,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install zabbix-web-mysql-scl zabbix-nginx-conf-scl
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install zabbix-web-mysql-scl zabbix-nginx-conf-scl
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -821,10 +822,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install zabbix-web-pgsql-scl
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# yum install zabbix-web-pgsql-scl
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="四配置数据库">四、配置数据库</h2>
@@ -833,10 +834,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# mysql -uroot -ppasswordmysql&gt; create database zabbix character set utf8 collate utf8_bin;mysql&gt; create user zabbix@localhost identified by &#39;密码&#39;;mysql&gt; grant all privileges on zabbix.* to zabbix@localhost;mysql&gt; quit;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# mysql -uroot -ppasswordmysql&gt; create database zabbix character set utf8 collate utf8_bin;mysql&gt; create user zabbix@localhost identified by &#39;密码&#39;;mysql&gt; grant all privileges on zabbix.* to zabbix@localhost;mysql&gt; quit;
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -844,10 +845,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbixEnter password:   //输入上面创建的zabbix用户密码
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql -uzabbix -p zabbixEnter password:   //输入上面创建的zabbix用户密码
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -855,10 +856,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim /etc/zabbix/zabbix_server.conf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim /etc/zabbix/zabbix_server.conf
 </code></pre></td></tr></table>
 </div>
 </div><p><img src="https://www.dqzboy.com/wp-content/uploads/2020/06/zabbix4.png" alt=""></p>
@@ -868,10 +869,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim /etc/opt/rh/rh-php72/php-fpm.d/zabbix.conflisten.acl_users = apache,nginx......php_value[date.timezone] = Asia/Shanghai
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim /etc/opt/rh/rh-php72/php-fpm.d/zabbix.conflisten.acl_users = apache,nginx......php_value[date.timezone] = Asia/Shanghai
 </code></pre></td></tr></table>
 </div>
 </div><p><img src="https://www.dqzboy.com/wp-content/uploads/2020/06/zabbix5.png" alt=""></p>
@@ -881,10 +882,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim /etc/opt/rh/rh-nginx116/nginx/conf.d/zabbix.conf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim /etc/opt/rh/rh-nginx116/nginx/conf.d/zabbix.conf
 </code></pre></td></tr></table>
 </div>
 </div><p><img src="https://www.dqzboy.com/wp-content/uploads/2020/06/zabbix7.png" alt=""></p>
@@ -894,10 +895,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim /etc/opt/rh/rh-nginx116/nginx/nginx.conf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# vim /etc/opt/rh/rh-nginx116/nginx/nginx.conf
 </code></pre></td></tr></table>
 </div>
 </div><p><img src="https://www.dqzboy.com/wp-content/uploads/2020/06/zabbix8.png" alt=""></p>
@@ -905,24 +906,24 @@ systemctl restart php-fpm
 <h3 id="1启动zabbix-server和agent进程">1、启动Zabbix server和agent进程</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# systemctl restart zabbix-server zabbix-agent rh-nginx116-nginx rh-php72-php-fpm
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# systemctl restart zabbix-server zabbix-agent rh-nginx116-nginx rh-php72-php-fpm
 [root@localhost ~]# systemctl enable zabbix-server zabbix-agent rh-nginx116-nginx rh-php72-php-fpm
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="2防火墙放通相关服务端口">2、防火墙放通相关服务端口</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# firewall-cmd --permanent --zone=public --add-port=10050/tcp
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# firewall-cmd --permanent --zone=public --add-port=10050/tcp
 [root@localhost ~]# firewall-cmd --permanent --zone=public --add-port=80/tcp
 [root@localhost ~]# firewall-cmd --permanent --zone=public --add-port=10051/tcp
 [root@localhost ~]# firewall-cmd --reload
@@ -977,10 +978,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">故障{TRIGGER.STATUS},服务器:{HOST.NAME}发生: {TRIGGER.NAME}故障!
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">故障{TRIGGER.STATUS},服务器:{HOST.NAME}发生: {TRIGGER.NAME}故障!
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -988,7 +989,7 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1002,7 +1003,7 @@ systemctl restart php-fpm
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">++++++++++++++++++++++++
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">++++++++++++++++++++++++
 |     监控触发报警，主机出现故障|
 ++++++++++++++++++++++++
 告警主机：{HOST.NAME}
@@ -1023,10 +1024,10 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">服务器:{HOST.NAME}: {TRIGGER.NAME}已恢复!
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">服务器:{HOST.NAME}: {TRIGGER.NAME}已恢复!
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -1034,7 +1035,7 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1050,7 +1051,7 @@ systemctl restart php-fpm
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">++++++++++++++++++++++++
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">++++++++++++++++++++++++
 |     系统故障修复，主机恢复正常           |
 ++++++++++++++++++++++++
 告警主机：{HOST.NAME}
@@ -1077,7 +1078,7 @@ systemctl restart php-fpm
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1103,7 +1104,7 @@ systemctl restart php-fpm
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@zabbix-server ~]# cd /usr/lib/zabbix/alertscripts/[root@zabbix-server alertscripts]# vim qywechat.py
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@zabbix-server ~]# cd /usr/lib/zabbix/alertscripts/[root@zabbix-server alertscripts]# vim qywechat.py
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import requests
@@ -1157,10 +1158,10 @@ msg(text)
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">故障{TRIGGER.STATUS},服务器:{HOST.NAME}发生: {TRIGGER.NAME}故障!
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">故障{TRIGGER.STATUS},服务器:{HOST.NAME}发生: {TRIGGER.NAME}故障!
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -1168,7 +1169,7 @@ msg(text)
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1182,7 +1183,7 @@ msg(text)
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">++++++++++++++++++++++++
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">++++++++++++++++++++++++
 |     监控触发报警，主机出现故障|
 ++++++++++++++++++++++++
 告警主机：{HOST.NAME}
@@ -1204,10 +1205,10 @@ msg(text)
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">服务器:{HOST.NAME}: {TRIGGER.NAME}已恢复!
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">服务器:{HOST.NAME}: {TRIGGER.NAME}已恢复!
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -1215,7 +1216,7 @@ msg(text)
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1231,7 +1232,7 @@ msg(text)
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">++++++++++++++++++++++++
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">++++++++++++++++++++++++
 |     系统故障修复，主机恢复正常           |
 ++++++++++++++++++++++++
 告警主机：{HOST.NAME}
@@ -1301,16 +1302,16 @@ msg(text)
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/zabbix/">zabbix</a>
-          <a href="/tags/monitor/">monitor</a>
+          <a href="/blog/tags/zabbix/">zabbix</a>
+          <a href="/blog/tags/monitor/">monitor</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/monitor/zabbix5_agent2_install/">
+        <a class="prev" href="/blog/post/monitor/zabbix5_agent2_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Zabbix 5.0 Agent2的安装</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/monitor/open-falcon_install_ops/">
+        <a class="next" href="/blog/post/monitor/open-falcon_install_ops/">
             <span class="next-text nav-default">小米开源监控 Open-Falcon 0.3 部署</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1335,7 +1336,7 @@ msg(text)
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1349,15 +1350,15 @@ msg(text)
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1384,7 +1385,7 @@ msg(text)
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

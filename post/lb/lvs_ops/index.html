@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/lb/lvs_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/lb/lvs_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="LVS 实现四层负载均衡项目实战" />
 <meta property="og:description" content="1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是 www.linuxvirtualserver.org 现在L" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/lb/lvs_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/lb/lvs_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-02-25T19:21:30+00:00" />
 <meta property="article:modified_time" content="2020-02-25T19:21:30+00:00" />
+
 <meta itemprop="name" content="LVS 实现四层负载均衡项目实战">
-<meta itemprop="description" content="1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是 www.linuxvirtualserver.org 现在L">
-<meta itemprop="datePublished" content="2020-02-25T19:21:30+00:00" />
+<meta itemprop="description" content="1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是 www.linuxvirtualserver.org 现在L"><meta itemprop="datePublished" content="2020-02-25T19:21:30+00:00" />
 <meta itemprop="dateModified" content="2020-02-25T19:21:30+00:00" />
 <meta itemprop="wordCount" content="7902">
-
-
-
-<meta itemprop="keywords" content="lvs,lb," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="lvs,lb," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="LVS 实现四层负载均衡项目实战"/>
 <meta name="twitter:description" content="1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是 www.linuxvirtualserver.org 现在L"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-25 19:21 </span>
         <div class="post-category">
-            <a href="/categories/lb/"> lb </a>
+            <a href="/blog/categories/lb/"> lb </a>
             </div>
           <span class="more-meta"> 约 7902 字 </span>
           <span class="more-meta"> 预计阅读 16 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -159,6 +155,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-02-25T19:21:30" title="February 25, 2020">February 25, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -255,11 +256,11 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <h5 id="1lvs-server安装lvs管理软件">1、LVS-server安装lvs管理软件</h5>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yum -y install ipvsadm
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">yum -y install ipvsadm
 
 </code></pre></td></tr></table>
 </div>
@@ -278,7 +279,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <h5 id="2命令选项">2、命令选项</h5>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -313,7 +314,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="p">-</span><span class="n">A</span> <span class="p">--</span><span class="k">add</span><span class="p">-</span><span class="n">service</span> <span class="err">#在服务器列表中新添加一条新的虚拟服务器记录</span>
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="p">-</span><span class="n">A</span> <span class="p">--</span><span class="k">add</span><span class="p">-</span><span class="n">service</span> <span class="err">#在服务器列表中新添加一条新的虚拟服务器记录</span>
 <span class="p">-</span><span class="n">s</span> <span class="p">--</span><span class="n">scheduler</span> <span class="err">#使用的调度算法，</span> <span class="n">rr</span> <span class="p">|</span> <span class="n">wrr</span> <span class="p">|</span> <span class="n">lc</span> <span class="p">|</span> <span class="n">wlc</span> <span class="p">|</span> <span class="n">lblb</span> <span class="p">|</span> <span class="n">lblcr</span> <span class="p">|</span> <span class="n">dh</span> <span class="p">|</span> <span class="n">sh</span> <span class="p">|</span> <span class="n">sed</span> <span class="p">|</span> <span class="n">nq</span> <span class="err">默认调度算法是</span> <span class="n">wlc</span>
 <span class="err">例：</span><span class="n">ipvsadm</span> <span class="p">-</span><span class="n">A</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">1.2</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">s</span> <span class="n">wrr</span>
 
@@ -356,55 +357,55 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <p>无论ipvs使用何种scheduler，其都能够实现在指定时间范围内始终将来自同一个ip地址的请求发往同一个RS；此功能是通过lvs持久连接模板实现，其与调度方法无关；</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">iptables</span> <span class="nt">-t</span> <span class="nt">mangle</span> <span class="nt">-A</span> <span class="nt">PREROUTING</span> <span class="nt">-d</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">100</span> <span class="nt">-p</span> <span class="nt">tcp</span> <span class="nt">--dport</span> <span class="nt">80</span> <span class="nt">-j</span> <span class="nt">MARK</span> <span class="nt">--set-mark</span> <span class="nt">99</span>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="nt">iptables</span> <span class="nt">-t</span> <span class="nt">mangle</span> <span class="nt">-A</span> <span class="nt">PREROUTING</span> <span class="nt">-d</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">100</span> <span class="nt">-p</span> <span class="nt">tcp</span> <span class="nt">--dport</span> <span class="nt">80</span> <span class="nt">-j</span> <span class="nt">MARK</span> <span class="nt">--set-mark</span> <span class="nt">99</span>
 
 </code></pre></td></tr></table>
 </div>
 </div><p>在iptables 打上标记，把80端口标记为99</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"> <span class="nt">iptables</span> <span class="nt">-t</span> <span class="nt">mangle</span> <span class="nt">-A</span> <span class="nt">PREROUTING</span> <span class="nt">-d</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">100-p</span> <span class="nt">tcp</span> <span class="nt">--dport</span> <span class="nt">443</span> <span class="nt">-j</span> <span class="nt">MARK</span> <span class="nt">--set-mark</span> <span class="nt">99</span>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"> <span class="nt">iptables</span> <span class="nt">-t</span> <span class="nt">mangle</span> <span class="nt">-A</span> <span class="nt">PREROUTING</span> <span class="nt">-d</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">100-p</span> <span class="nt">tcp</span> <span class="nt">--dport</span> <span class="nt">443</span> <span class="nt">-j</span> <span class="nt">MARK</span> <span class="nt">--set-mark</span> <span class="nt">99</span>
 
 </code></pre></td></tr></table>
 </div>
 </div><p>在iptables打上标记，把443端口标记为99</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ipvsadm -A -f 99 -s rr -p
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ipvsadm -A -f 99 -s rr -p
 
 </code></pre></td></tr></table>
 </div>
 </div><p>在lvs上建立基于99号标记的虚拟服务</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">ipvsadm</span> <span class="nt">-a</span> <span class="nt">-f</span> <span class="nt">99</span> <span class="nt">-r</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">2</span> <span class="nt">-g</span>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="nt">ipvsadm</span> <span class="nt">-a</span> <span class="nt">-f</span> <span class="nt">99</span> <span class="nt">-r</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">2</span> <span class="nt">-g</span>
 
 </code></pre></td></tr></table>
 </div>
 </div><p>设置后端服务地址</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">ipvsadm</span> <span class="nt">-a</span> <span class="nt">-f</span> <span class="nt">99</span> <span class="nt">-r</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">3</span> <span class="nt">-g</span>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="nt">ipvsadm</span> <span class="nt">-a</span> <span class="nt">-f</span> <span class="nt">99</span> <span class="nt">-r</span> <span class="nt">172</span><span class="p">.</span><span class="nc">16</span><span class="p">.</span><span class="nc">100</span><span class="p">.</span><span class="nc">3</span> <span class="nt">-g</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -419,11 +420,11 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <h5 id="2lvs-server-安装lvs管理软件">2、LVS-server 安装lvs管理软件</h5>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs-server ~]</span><span class="err">#</span> <span class="n">yum</span> <span class="p">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">ipvsadm</span>
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs-server ~]</span><span class="err">#</span> <span class="n">yum</span> <span class="p">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">ipvsadm</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -493,7 +494,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </table>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -532,7 +533,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># 配置real-server （两服务器相同）</span>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># 配置real-server （两服务器相同）</span>
 <span class="o">[</span><span class="n">root</span><span class="vi">@real</span><span class="o">-</span><span class="n">server1</span> <span class="o">~]</span><span class="c1"># yum install httpd -y</span>
 <span class="o">[</span><span class="n">root</span><span class="vi">@real</span><span class="o">-</span><span class="n">server1</span> <span class="o">~]</span><span class="c1"># echo lvs-web1 &gt; /var/www/html/index.html</span>
 <span class="o">[</span><span class="n">root</span><span class="vi">@real</span><span class="o">-</span><span class="n">server1</span> <span class="o">~]</span><span class="c1"># systemctl start httpd</span>
@@ -622,7 +623,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <p>1、准备工作（集群中所有主机）关闭防火墙和selinux</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -631,7 +632,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># cat /etc/hosts</span>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="n">root</span><span class="vi">@lvs</span><span class="o">-</span><span class="n">server</span> <span class="o">~]</span><span class="c1"># cat /etc/hosts</span>
 <span class="mi">127</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span>   <span class="n">localhost</span> <span class="n">localhost</span><span class="o">.</span><span class="n">localdomain</span> <span class="n">localhost4</span> <span class="n">localhost4</span><span class="o">.</span><span class="n">localdomain4</span>
 <span class="o">::</span><span class="mi">1</span>         <span class="n">localhost</span> <span class="n">localhost</span><span class="o">.</span><span class="n">localdomain</span> <span class="n">localhost6</span> <span class="n">localhost6</span><span class="o">.</span><span class="n">localdomain6</span>
 <span class="mi">192</span><span class="o">.</span><span class="mi">168</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="mi">107</span> <span class="n">lvs_server</span>
@@ -644,7 +645,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <p>配置VIP</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -656,7 +657,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ip</span> <span class="n">addr</span> <span class="k">add</span> <span class="n">dev</span> <span class="n">ens32</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">/</span><span class="m">32</span> <span class="err">#设置</span><span class="n">VIP</span>
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ip</span> <span class="n">addr</span> <span class="k">add</span> <span class="n">dev</span> <span class="n">ens32</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">/</span><span class="m">32</span> <span class="err">#设置</span><span class="n">VIP</span>
 <span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">yum</span> <span class="n">install</span> <span class="p">-</span><span class="n">y</span> <span class="n">ipvsadm</span>   <span class="err">#</span><span class="n">RHEL确保LoadBalancer仓库可用</span>
 <span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">ipvsadm</span> <span class="err">#启动</span>
 <span class="err">注意</span><span class="p">:</span><span class="err">启动如果报错</span><span class="p">:</span> <span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">bash</span><span class="p">:</span> <span class="p">/</span><span class="n">etc</span><span class="p">/</span><span class="n">sysconfig</span><span class="p">/</span><span class="n">ipvsadm</span><span class="p">:</span> <span class="err">没有那个文件或目录</span>
@@ -671,7 +672,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </div><p>定义LVS分发策略</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -686,7 +687,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-php" data-lang="php"><span class="o">-</span><span class="nx">A：添加VIP</span>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">-</span><span class="nx">A：添加VIP</span>
 <span class="o">-</span><span class="nx">t：用的是tcp协议</span>
 <span class="o">-</span><span class="nx">a：添加的是lo的vip地址</span>
 <span class="o">-</span><span class="nx">r：转发到realserverip</span>
@@ -703,7 +704,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -733,7 +734,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">C</span>  <span class="err">#清除内核虚拟服务器表中的所有记录。</span>
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">C</span>  <span class="err">#清除内核虚拟服务器表中的所有记录。</span>
 <span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">A</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">s</span> <span class="n">rr</span>    <span class="c1">//wrr加权轮询
 </span><span class="c1"></span><span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">a</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">r</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.108</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">g</span>   <span class="p">/-</span><span class="n">w</span> <span class="m">2</span> <span class="err">权重为</span><span class="m">2</span>
 <span class="na">[root@lvs_server ~]</span><span class="err">#</span> <span class="n">ipvsadm</span> <span class="p">-</span><span class="n">a</span> <span class="p">-</span><span class="n">t</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.200</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">r</span> <span class="m">192.168</span><span class="p">.</span><span class="m">0.109</span><span class="p">:</span><span class="m">80</span> <span class="p">-</span><span class="n">g</span>   <span class="p">/-</span><span class="n">w</span> <span class="m">1</span>
@@ -767,7 +768,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 <p>配置好网站服务器，测试所有RS #为了测试效果，提供不同的页面（以下两台real-server都操作）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -786,7 +787,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># yum install -y nginx</span>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># yum install -y nginx</span>
 <span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># echo &#34;real-server1&#34; &gt;&gt; /usr/share/nginx/html/index.html</span>
 <span class="err">两台机器都安装，按顺序添加不同的主机名以示区分</span>
 <span class="o">[</span><span class="n">root</span><span class="vi">@real_server1</span> <span class="o">~]</span><span class="c1"># ip addr add dev lo 192.168.0.200/32   #在lo接口上绑定VIP</span>
@@ -808,14 +809,14 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 </div><p>4、测试</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">root</span><span class="p">@</span><span class="k">client</span> <span class="o">~]</span><span class="err">#</span> <span class="nt">curl</span> <span class="nt">192</span><span class="p">.</span><span class="nc">168</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">200</span>
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">root</span><span class="p">@</span><span class="k">client</span> <span class="o">~]</span><span class="err">#</span> <span class="nt">curl</span> <span class="nt">192</span><span class="p">.</span><span class="nc">168</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">200</span>
 <span class="nt">real-server1</span>
 <span class="o">[</span><span class="nt">root</span><span class="p">@</span><span class="k">client</span> <span class="o">~]</span><span class="err">#</span> <span class="nt">curl</span> <span class="nt">192</span><span class="p">.</span><span class="nc">168</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">200</span>
 <span class="nt">real-server2</span>
@@ -892,16 +893,16 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/lvs/">lvs</a>
-          <a href="/tags/lb/">lb</a>
+          <a href="/blog/tags/lvs/">lvs</a>
+          <a href="/blog/tags/lb/">lb</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/web/apache_centos_install/">
+        <a class="prev" href="/blog/post/web/apache_centos_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Centos部署apache2&#43;mysql8&#43;php7</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/lb/keepalived_nginx_ops/">
+        <a class="next" href="/blog/post/lb/keepalived_nginx_ops/">
             <span class="next-text nav-default">centos部署keepalived</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -926,7 +927,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -940,15 +941,15 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -975,7 +976,7 @@ LVS/full-nat:双向转换:通过请求报文的源地址为DIP，目标为RIP来
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

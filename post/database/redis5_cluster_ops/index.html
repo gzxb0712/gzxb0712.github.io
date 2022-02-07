@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/database/redis5_cluster_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/database/redis5_cluster_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="Redis 5.0 部署及使用" />
 <meta property="og:description" content="一、简介 1.1 Redis是什么 Redis是一个开源的，使用ANSI C 编写，高性能的Key-Value的NoSQL数据库。 1.2 Redis特点 （1）基" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/database/redis5_cluster_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/database/redis5_cluster_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-06-05T21:09:30+00:00" />
 <meta property="article:modified_time" content="2020-06-05T21:09:30+00:00" />
+
 <meta itemprop="name" content="Redis 5.0 部署及使用">
-<meta itemprop="description" content="一、简介 1.1 Redis是什么 Redis是一个开源的，使用ANSI C 编写，高性能的Key-Value的NoSQL数据库。 1.2 Redis特点 （1）基">
-<meta itemprop="datePublished" content="2020-06-05T21:09:30+00:00" />
+<meta itemprop="description" content="一、简介 1.1 Redis是什么 Redis是一个开源的，使用ANSI C 编写，高性能的Key-Value的NoSQL数据库。 1.2 Redis特点 （1）基"><meta itemprop="datePublished" content="2020-06-05T21:09:30+00:00" />
 <meta itemprop="dateModified" content="2020-06-05T21:09:30+00:00" />
 <meta itemprop="wordCount" content="11896">
-
-
-
-<meta itemprop="keywords" content="Redis,database," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Redis,database," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Redis 5.0 部署及使用"/>
 <meta name="twitter:description" content="一、简介 1.1 Redis是什么 Redis是一个开源的，使用ANSI C 编写，高性能的Key-Value的NoSQL数据库。 1.2 Redis特点 （1）基"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-06-05 21:09 </span>
         <div class="post-category">
-            <a href="/categories/database/"> database </a>
+            <a href="/blog/categories/database/"> database </a>
             </div>
           <span class="more-meta"> 约 11896 字 </span>
           <span class="more-meta"> 预计阅读 24 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -244,6 +240,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-06-05T21:09:30" title="June 5, 2020">June 5, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -273,7 +274,7 @@
 <h2 id="12-redis安装步骤">1.2 redis安装步骤</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -355,7 +356,7 @@
 </span><span class="lnt">80
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 安装步骤</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 安装步骤</span>
 <span class="nb">cd</span> /usr/local/src
 wget http://download.redis.io/releases/redis-5.0.4.tar.gz
 tar -zxv -f redis-5.0.4.tar.gz
@@ -485,11 +486,11 @@ OK
 <p>进入redis根目录，执行命令，加上‘&amp;’号使redis以后台程序方式运行</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"> ./src/redis-server <span class="p">&amp;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"> ./src/redis-server <span class="p">&amp;</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -499,23 +500,23 @@ OK
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">./src/redis-server /etc/redis/6379.conf
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">./src/redis-server /etc/redis/6379.conf
 
 </code></pre></td></tr></table>
 </div>
 </div><p>进入redis根目录，输入命令，如果更改了端口，使用<code>redis-cli</code>客户端连接时，也需要指定端口，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">redis-cli -p <span class="m">6380</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">redis-cli -p <span class="m">6380</span>
 <span class="c1"># redis-cli -h host  -p port -a password</span>
 
 </code></pre></td></tr></table>
@@ -526,7 +527,7 @@ OK
 <p>启动脚本 redis_init_script 位于位于Redis的 /utils/ 目录下，redis_init_script脚本代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -589,7 +590,7 @@ OK
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span><span class="c1">#</span>
 <span class="c1"># Simple Redis init.d script conceived to work on Linux systems</span>
 <span class="c1"># as it does use of the /proc filesystem.</span>
@@ -655,14 +656,14 @@ OK
 </div><p>将启动脚本复制到/etc/init.d目录下，本例将启动脚本命名为redisd（通常都以d结尾表示是后台自启动服务）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span>
 cp redis_init_script /etc/init.d/redisd
 chkconfig redisd on
 service redisd start<span class="p">|</span>stop
@@ -675,13 +676,13 @@ service redisd start<span class="p">|</span>stop
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 断电，非正常关闭，容易导致数据丢失</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 断电，非正常关闭，容易导致数据丢失</span>
 ps -ef <span class="p">|</span> grep redis
 <span class="nb">kill</span> -9 PID
 
@@ -692,7 +693,7 @@ ps -ef <span class="p">|</span> grep redis
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -703,7 +704,7 @@ ps -ef <span class="p">|</span> grep redis
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 正常关闭，数据保存</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 正常关闭，数据保存</span>
 redis-cli shutdown <span class="c1"># 关闭redis服务，通过客户端进行shutdown</span>
 
 <span class="c1"># 如果redis设置了密码，则需要先用客户端登录，然后再进行shutdown</span>
@@ -722,13 +723,13 @@ redis-cli -a password
 <p>在默认情况下，Redis 将数据库快照保存在名字为dump.rdb的二进制文件中，可以在redis.conf配置文件中修改持久化信息。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">save 900 1 表示在900秒内，至少更新了1条数据。Redis就将数据持久化到硬盘
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">save 900 1 表示在900秒内，至少更新了1条数据。Redis就将数据持久化到硬盘
 save 300 10 表示在300内，至少更新了10条数据，Redis就会触发将数据持久化到硬盘
 save 60 10000 表示60秒内，至少更新了10000条数据，Redis就会触发将数据持久化到硬盘
 
@@ -869,35 +870,35 @@ save 60 10000 表示60秒内，至少更新了10000条数据，Redis就会触发
 <p>（1）在/usr/local目录下，创建一个/redis/master-slave目录</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-b" data-lang="b"><span class="c">mkdir </span><span class="nb">-</span><span class="c">p /usr/local/redis/master</span><span class="nb">-</span><span class="c">slave
+<pre tabindex="0" class="chroma"><code class="language-b" data-lang="b"><span class="c">mkdir </span><span class="nb">-</span><span class="c">p /usr/local/redis/master</span><span class="nb">-</span><span class="c">slave
 </span><span class="c">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>（2）在master-slave目录下，创建三个子目录6380、6381、6382</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir <span class="m">6380</span> <span class="m">6381</span> <span class="m">6382</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir <span class="m">6380</span> <span class="m">6381</span> <span class="m">6382</span>
 
 </code></pre></td></tr></table>
 </div>
 </div><p>（3）依次拷贝redis解压目录下的redis.conf配置文件，到这三个子目录中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/src/redis-5.0.4/redis.conf 6380/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/src/redis-5.0.4/redis.conf 6380/
 cp /usr/local/src/redis-5.0.4/redis.conf 6381/
 cp /usr/local/src/redis-5.0.4/redis.conf 6382/
 
@@ -907,12 +908,12 @@ cp /usr/local/src/redis-5.0.4/redis.conf 6382/
 <p>（5）进入6381目录，修改redis.conf，将port端口改成6381，同时指定开启主从复制</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#     主节点ip 主节点端口
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#     主节点ip 主节点端口
 replicaof 127.0.0.1 6380
 
 </code></pre></td></tr></table>
@@ -927,12 +928,12 @@ replicaof 127.0.0.1 6380
 <p>（4）在从节点6381上，读操作执行成功，并且成功从6380上同步了数据；写操作执行失败。（从节点，只能读，不能写）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 写操作执行失败提示</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 写操作执行失败提示</span>
 <span class="o">(</span>error<span class="o">)</span> READONLY You can<span class="err">&#39;</span>t write against a <span class="nb">read</span> only replica.
 
 </code></pre></td></tr></table>
@@ -980,12 +981,12 @@ replicaof 127.0.0.1 6380
 <p>（1）在/usr/local目录下，创建/redis/sentinels/目录</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/local/redis
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/local/redis
 mkdir sentinels
 
 </code></pre></td></tr></table>
@@ -993,12 +994,12 @@ mkdir sentinels
 </div><p>（2）在sentinels目录下，依次创建s1、s2、s3三个子目录中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> sentinels
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> sentinels
 mkdir s1 s2 s3
 
 </code></pre></td></tr></table>
@@ -1006,13 +1007,13 @@ mkdir s1 s2 s3
 </div><p>（3）依次拷贝redis解压目录下的sentinel.conf文件，到这三个子目录中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/src/redis-5.0.4/sentinel.conf s1/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/src/redis-5.0.4/sentinel.conf s1/
 cp /usr/local/src/redis-5.0.4/sentinel.conf s2/
 cp /usr/local/src/redis-5.0.4/sentinel.conf s3/
 
@@ -1021,7 +1022,7 @@ cp /usr/local/src/redis-5.0.4/sentinel.conf s3/
 </div><p>（4）依次修改s1、s2、s3子目录中的sentinel.conf文件，修改端口，并指定要监控的主节点。（从节点不需要指定，sentinel会自动识别）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1037,7 +1038,7 @@ cp /usr/local/src/redis-5.0.4/sentinel.conf s3/
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># s1 哨兵配置</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># s1 哨兵配置</span>
 port <span class="m">26379</span>
 sentinel monitor mymaster 127.0.0.1 <span class="m">6380</span> <span class="m">2</span>
 
@@ -1108,7 +1109,7 @@ sentinel monitor mymaster 127.0.0.1 <span class="m">6380</span> <span class="m">
 <p>（3）将redis解压路径下的配置文件redis.conf，依次拷贝到每个700X目录内，并修改每个700X目录下的redis.conf配置文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1128,7 +1129,7 @@ sentinel monitor mymaster 127.0.0.1 <span class="m">6380</span> <span class="m">
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cd /usr/local/src/redis-5.0.4/cluster</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># cd /usr/local/src/redis-5.0.4/cluster</span>
 <span class="c1"># mkdir {7001,7002,7003,7004,7005,7006}</span>
 <span class="c1"># mkdir -p /var/log/redis/{7001,7002,7003,7004,7005,7006}</span>
 
@@ -1152,7 +1153,7 @@ cluster-config-file nodes-7001.conf <span class="c1"># 该文件中包含集群�
 <p>批量启动脚本：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1167,7 +1168,7 @@ cluster-config-file nodes-7001.conf <span class="c1"># 该文件中包含集群�
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># vim s/usr/local/src/redis-5.0.4/cluster/ctart_cluster.sh</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># vim s/usr/local/src/redis-5.0.4/cluster/ctart_cluster.sh</span>
 <span class="c1">#!/bin/bash</span>
 
 <span class="nb">cd</span> ./7001 <span class="o">&amp;&amp;</span> /usr/local/src/redis-5.0.4/src/redis-server ./redis.conf
@@ -1188,7 +1189,7 @@ cluster-config-file nodes-7001.conf <span class="c1"># 该文件中包含集群�
 <p>关闭脚本：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1197,7 +1198,7 @@ cluster-config-file nodes-7001.conf <span class="c1"># 该文件中包含集群�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># vim /usr/local/src/redis-5.0.4/cluster/shutdown_cluster.sh</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># vim /usr/local/src/redis-5.0.4/cluster/shutdown_cluster.sh</span>
 <span class="c1">#!/bin/bash</span>
 
 pgrep redis-server <span class="p">|</span> xargs -exec <span class="nb">kill</span> -9
@@ -1209,11 +1210,11 @@ pgrep redis-server <span class="p">|</span> xargs -exec <span class="nb">kill</s
 </div><p>执行启动脚本批量启动：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ./start_cluster.sh</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ./start_cluster.sh</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -1221,7 +1222,7 @@ pgrep redis-server <span class="p">|</span> xargs -exec <span class="nb">kill</s
 <p>进入到redis源码存放目录/usr/local/src/redis-5.0.4/src下，把redis-cli文件拷贝到/usr/local/bin/目录下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1237,7 +1238,7 @@ pgrep redis-server <span class="p">|</span> xargs -exec <span class="nb">kill</s
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span>  /usr/local/src/redis-5.0.4/cluster
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span>  /usr/local/src/redis-5.0.4/cluster
 /usr/local/src/redis-5.0.4/src/redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas <span class="m">1</span>
 
 <span class="c1"># --cluster-replicas 1  表示主从配置比，1表示的是1:1，前三个是主，后三个是从</span>
@@ -1258,7 +1259,7 @@ Can I <span class="nb">set</span> the above configuration? <span class="o">(</sp
 <p>或者直接执行命令查询，如下面所示；或者登陆到其中一个集群节点，使用命令<code>cluster nodes</code>进行查询</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1268,7 +1269,7 @@ Can I <span class="nb">set</span> the above configuration? <span class="o">(</sp
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /usr/local/src/redis-5.0.4/src/redis-cli -c -h 127.0.0.1 -p 7001 cluster nodes</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /usr/local/src/redis-5.0.4/src/redis-cli -c -h 127.0.0.1 -p 7001 cluster nodes</span>
 7d388cc31df969d3e1715ce9644318bfd48317b1 127.0.0.1:7004@17004 slave 59b6597448b668a355d85dcc7a0623bc36263e5f <span class="m">0</span> <span class="m">1564918712465</span> <span class="m">4</span> connected
 bbe8b7035bfd31c47bec7d612acc112cd2869368 127.0.0.1:7003@17003 master - <span class="m">0</span> <span class="m">1564918714483</span> <span class="m">3</span> connected 10923-16383
 456921ae96af71d8183101f798cf5ceda4b0381e 127.0.0.1:7005@17005 slave bbe8b7035bfd31c47bec7d612acc112cd2869368 <span class="m">0</span> <span class="m">1564918713000</span> <span class="m">5</span> connected
@@ -1289,7 +1290,7 @@ bbe8b7035bfd31c47bec7d612acc112cd2869368 127.0.0.1:7003@17003 master - <span cla
 <p>其他查询方法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1328,7 +1329,7 @@ bbe8b7035bfd31c47bec7d612acc112cd2869368 127.0.0.1:7003@17003 master - <span cla
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /usr/local/src/redis-5.0.4/src/redis-cli --cluster check 127.0.0.1:7001</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /usr/local/src/redis-5.0.4/src/redis-cli --cluster check 127.0.0.1:7001</span>
 127.0.0.1:7001 <span class="o">(</span>4dad696e...<span class="o">)</span> -&gt; <span class="m">0</span> keys <span class="p">|</span> <span class="m">5461</span> slots <span class="p">|</span> <span class="m">1</span> slaves.
 127.0.0.1:7003 <span class="o">(</span>bbe8b703...<span class="o">)</span> -&gt; <span class="m">0</span> keys <span class="p">|</span> <span class="m">5461</span> slots <span class="p">|</span> <span class="m">1</span> slaves.
 127.0.0.1:7002 <span class="o">(</span>59b65974...<span class="o">)</span> -&gt; <span class="m">0</span> keys <span class="p">|</span> <span class="m">5462</span> slots <span class="p">|</span> <span class="m">1</span> slaves.
@@ -1372,7 +1373,7 @@ M: 59b6597448b668a355d85dcc7a0623bc36263e5f 127.0.0.1:7002
 <h3 id="577-redis-cli集群命令帮助">5.7.7 redis-cli集群命令帮助</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1413,7 +1414,7 @@ M: 59b6597448b668a355d85dcc7a0623bc36263e5f 127.0.0.1:7002
 </span><span class="lnt">39
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /usr/local/src/redis-5.0.4/src/redis-cli --cluster help</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /usr/local/src/redis-5.0.4/src/redis-cli --cluster help</span>
 Cluster Manager Commands:
   create         host1:port1 ... hostN:portN
                  --cluster-replicas &lt;arg&gt;
@@ -1458,11 +1459,11 @@ For check, fix, reshard, del-node, set-timeout you can specify the host and port
 <h3 id="581-添加新主节点">5.8.1 添加新主节点</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">redis-cli --cluster add-node new_host:new_port existing_host:existing_port --cluster-master-id node_id
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">redis-cli --cluster add-node new_host:new_port existing_host:existing_port --cluster-master-id node_id
 
 </code></pre></td></tr></table>
 </div>
@@ -1470,40 +1471,40 @@ For check, fix, reshard, del-node, set-timeout you can specify the host and port
 <p>添加完新节点后，需要对新添加的主节点进行hash槽重新分配，这样该主节点才能存储数据，redis共有16384个槽。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">redis-cli --cluster reshard host:port --cluster-from node_id --cluster-to node_id --cluster-slots &lt;args&gt; --cluster-yes
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">redis-cli --cluster reshard host:port --cluster-from node_id --cluster-to node_id --cluster-slots &lt;args&gt; --cluster-yes
 
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="582-添加新从节点">5.8.2 添加新从节点</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">redis-cli --cluster add-node new_host:new_port existing_host:existing_port --cluster-slave --cluster-master-id node_id
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">redis-cli --cluster add-node new_host:new_port existing_host:existing_port --cluster-slave --cluster-master-id node_id
 
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="583-删除节点">5.8.3 删除节点</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">redis-cli --cluster  del-node host:port node_id
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">redis-cli --cluster  del-node host:port node_id
 
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="584-集群常用命令">5.8.4 集群常用命令</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1598,7 +1599,7 @@ For check, fix, reshard, del-node, set-timeout you can specify the host and port
 </span><span class="lnt">93
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建集群</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建集群</span>
 redis-cli --cluster create host1:port1 ... hostN:portN --cluster-replicas &lt;arg&gt;
 <span class="c1"># 例子</span>
 redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas <span class="m">1</span>
@@ -1701,7 +1702,7 @@ node_id表示的是删除的那个节点的节点id
 <p>若是登录的是集群中的节点，需要加上<code>-c</code>参数；否则不用加该参数</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1709,7 +1710,7 @@ node_id表示的是删除的那个节点的节点id
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 登录集群节点的命令</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 登录集群节点的命令</span>
 redis-cli -c -h ip -p port -a password
 
 <span class="c1"># 登录一般节点或者从节点的命令</span>
@@ -1720,7 +1721,7 @@ redis-cli -h ip -p port -a password
 </div><h3 id="593-如何删除集群中无效的节点">5.9.3 如何删除集群中无效的节点</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1733,7 +1734,7 @@ redis-cli -h ip -p port -a password
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">redis-cli -c -p <span class="m">7001</span> cluster nodes
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">redis-cli -c -p <span class="m">7001</span> cluster nodes
 7020c8df9423686727783c60bd2f0e367634ba84 127.0.0.1:7007@17007 master - <span class="m">0</span> <span class="m">1564925352648</span> <span class="m">7</span> connected 0-499
 4dad696ede24995a57c5fd790faa95c72c187a22 127.0.0.1:7001@17001 myself,master - <span class="m">0</span> <span class="m">1564925349000</span> <span class="m">1</span> connected 500-5460
 5612ffbb0407dbda50828b505a16b39ede51168b 127.0.0.1:7006@17006 slave 4dad696ede24995a57c5fd790faa95c72c187a22 <span class="m">0</span> <span class="m">1564925351000</span> <span class="m">6</span> connected
@@ -1783,16 +1784,16 @@ c3e04f0e8710c25d59703374a224ee8bec776e43 :0@0 master,fail,noaddr - <span class="
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/Redis/">Redis</a>
-          <a href="/tags/database/">database</a>
+          <a href="/blog/tags/Redis/">Redis</a>
+          <a href="/blog/tags/database/">database</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/database/tidb_install_ops/">
+        <a class="prev" href="/blog/post/database/tidb_install_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">TiDB 4.0 安装</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/database/mysql8_install_ops/">
+        <a class="next" href="/blog/post/database/mysql8_install_ops/">
             <span class="next-text nav-default">MySQL 8.0 部署及使用</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1817,7 +1818,7 @@ c3e04f0e8710c25d59703374a224ee8bec776e43 :0@0 master,fail,noaddr - <span class="
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1831,15 +1832,15 @@ c3e04f0e8710c25d59703374a224ee8bec776e43 :0@0 master,fail,noaddr - <span class="
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1866,7 +1867,7 @@ c3e04f0e8710c25d59703374a224ee8bec776e43 :0@0 master,fail,noaddr - <span class="
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

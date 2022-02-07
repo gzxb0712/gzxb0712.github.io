@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/monitor/helm_prometheus/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/monitor/helm_prometheus/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="helm部署prometheus" />
 <meta property="og:description" content="随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/monitor/helm_prometheus/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/monitor/helm_prometheus/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-22T20:15:30+00:00" />
 <meta property="article:modified_time" content="2020-03-22T20:15:30+00:00" />
+
 <meta itemprop="name" content="helm部署prometheus">
-<meta itemprop="description" content="随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据">
-<meta itemprop="datePublished" content="2020-03-22T20:15:30+00:00" />
+<meta itemprop="description" content="随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据"><meta itemprop="datePublished" content="2020-03-22T20:15:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-22T20:15:30+00:00" />
 <meta itemprop="wordCount" content="2482">
-
-
-
-<meta itemprop="keywords" content="prometheus,monitor," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="prometheus,monitor," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="helm部署prometheus"/>
 <meta name="twitter:description" content="随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-22 20:15 </span>
         <div class="post-category">
-            <a href="/categories/monitor/"> monitor </a>
+            <a href="/blog/categories/monitor/"> monitor </a>
             </div>
           <span class="more-meta"> 约 2482 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -164,6 +160,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-03-22T20:15:30" title="March 22, 2020">March 22, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -181,7 +182,7 @@
 <p>安装目录概览 <code>ll /etc/ansible/manifests/prometheus</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -190,7 +191,7 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">drwx------  <span class="m">3</span> root root  <span class="m">4096</span> Jun  <span class="m">3</span> 22:42 grafana/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">drwx------  <span class="m">3</span> root root  <span class="m">4096</span> Jun  <span class="m">3</span> 22:42 grafana/
 -rw-r-----  <span class="m">1</span> root root <span class="m">67875</span> Jun  <span class="m">4</span> 22:47 grafana-dashboards.yaml
 -rw-r-----  <span class="m">1</span> root root   <span class="m">690</span> Jun  <span class="m">4</span> 09:34 grafana-settings.yaml
 -rw-r-----  <span class="m">1</span> root root  <span class="m">1105</span> May <span class="m">30</span> 16:54 prom-alertrules.yaml
@@ -215,7 +216,7 @@ drwx------  <span class="m">3</span> root root  <span class="m">4096</span> Jun 
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -249,7 +250,7 @@ drwx------  <span class="m">3</span> root root  <span class="m">4096</span> Jun 
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">source</span> ~/.bashrc
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">source</span> ~/.bashrc
 $ <span class="nb">cd</span> /etc/ansible/manifests/prometheus
 <span class="c1"># 安装 prometheus chart，如果你的helm安装没有启用tls证书，请忽略--tls参数</span>
 $ helm install  <span class="se">\
@@ -286,7 +287,7 @@ helm install grafana --namespace monitoring <span class="se">\
 </div><h2 id="验证安装">验证安装</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -306,7 +307,7 @@ helm install grafana --namespace monitoring <span class="se">\
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看相关pod和svc</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看相关pod和svc</span>
 $ kubectl get pod,svc -n monitoring 
 NAME                                                     READY     STATUS    RESTARTS   AGE
 grafana-54dc76d47d-2mk55                                 1/1       Running   <span class="m">0</span>          1m
@@ -337,13 +338,13 @@ monitor-prometheus-server               NodePort    10.68.248.94   &lt;none&gt; 
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 修改prometheus</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 修改prometheus</span>
 $ helm upgrade --tls monitor -f prom-settings.yaml -f prom-alertsmanager.yaml -f prom-alertrules.yaml prometheus
 <span class="c1"># 修改grafana</span>
 $ helm upgrade --tls grafana -f grafana-settings.yaml -f grafana-dashboards.yaml grafana
@@ -354,10 +355,10 @@ $ helm upgrade --tls grafana -f grafana-settings.yaml -f grafana-dashboards.yaml
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ helm rollback --tls monitor <span class="o">[</span>REVISION<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ helm rollback --tls monitor <span class="o">[</span>REVISION<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -365,11 +366,11 @@ $ helm upgrade --tls grafana -f grafana-settings.yaml -f grafana-dashboards.yaml
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ helm del --tls monitor --purge
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ helm del --tls monitor --purge
 $ helm del --tls grafana --purge
 </code></pre></td></tr></table>
 </div>
@@ -380,11 +381,11 @@ $ helm del --tls grafana --purge
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 在 master 节点运行</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 在 master 节点运行</span>
 $ systemctl stop kubelet
 </code></pre></td></tr></table>
 </div>
@@ -396,11 +397,11 @@ $ systemctl stop kubelet
 <p>上述配置好群机器人，获得这个机器人对应的Webhook地址，记录下来，后续配置钉钉告警插件要用，格式如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxx
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxx
 https://oapi.dingtalk.com/robot/send?access_token=c9bde9a35dd4031c691ff5310d70202dfe69606e4725169f2121f69d9e69dcbd
 </code></pre></td></tr></table>
 </div>
@@ -409,13 +410,13 @@ https://oapi.dingtalk.com/robot/send?access_token=c9bde9a35dd4031c691ff5310d7020
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 编辑修改文件中 access_token=xxxxxx 为上一步你获得的机器人认证 token</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 编辑修改文件中 access_token=xxxxxx 为上一步你获得的机器人认证 token</span>
 $ vi /etc/ansible/manifests/prometheus/dingtalk-webhook.yaml
 <span class="c1"># 运行插件</span>
 $ kubectl apply -f /etc/ansible/manifests/prometheus/dingtalk-webhook.yaml
@@ -426,7 +427,7 @@ $ kubectl apply -f /etc/ansible/manifests/prometheus/dingtalk-webhook.yaml
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -440,7 +441,7 @@ $ kubectl apply -f /etc/ansible/manifests/prometheus/dingtalk-webhook.yaml
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 修改 alertsmanager 告警配置</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 修改 alertsmanager 告警配置</span>
 $ <span class="nb">cd</span> /etc/ansible/manifests/prometheus
 $ vi prom-alertsmanager.yaml
 <span class="c1"># 增加 receiver dingtalk，然后在 route 配置使用 receiver: dingtalk</span>
@@ -464,7 +465,7 @@ $ helm upgrade --tls monitor -f prom-settings.yaml -f prom-alertsmanager.yaml -f
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -477,7 +478,7 @@ $ helm upgrade --tls monitor -f prom-settings.yaml -f prom-alertsmanager.yaml -f
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">value.yaml:
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">value.yaml:
 <span class="c1"># storageClass: &#34;-&#34;</span>
 storageClass: <span class="s2">&#34;nfs-dynamic-class&#34;</span>
 
@@ -493,7 +494,7 @@ server:
 </div><h4 id="grafana-的dashbord以及账密">grafana 的dashbord以及账密</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -505,7 +506,7 @@ server:
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">##admin</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">##admin</span>
 kubectl get secret --namespace monitoring grafana -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.data.admin-password}&#34;</span> <span class="p">|</span> base64 --decode <span class="p">;</span> <span class="nb">echo</span>
 
 <span class="c1">##url</span>
@@ -524,7 +525,7 @@ grafana.monitoring.svc.cluster.local
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -534,7 +535,7 @@ grafana.monitoring.svc.cluster.local
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">+ $ <span class="nb">cd</span> /etc/ansible/manifests/prometheus
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">+ $ <span class="nb">cd</span> /etc/ansible/manifests/prometheus
 $ vi prom-alertsmanager.yaml
 <span class="c1"># 增加 receiver dingtalk，然后在 route 配置使用 receiver: dingtalk</span>
     receivers:
@@ -551,27 +552,27 @@ $ vi prom-alertsmanager.yaml
 <p>新版本的pushgateway-serviceaccount.yaml已经删除，使用rbac方式，</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /etc/ansible/manifests/prometheus <span class="o">&amp;&amp;</span> mv prometheus prometheus.bak
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /etc/ansible/manifests/prometheus <span class="o">&amp;&amp;</span> mv prometheus prometheus.bak
 helm fetch --untar stable/prometheus <span class="c1">##获取最新的chart，把旧的目录先移开，不然有冲突</span>
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="error-validation-failed-unable-to-recognize--no-matches-for-kind-daemonset-in-version-extensionsv1beta1-unable-to-recognize--no-matches-for-kind-deployment-in-version-extensionsv1beta1">Error: validation failed: [unable to recognize &ldquo;&quot;: no matches for kind &ldquo;DaemonSet&rdquo; in version &ldquo;extensions/v1beta1&rdquo;, unable to recognize &ldquo;&quot;: no matches for kind &ldquo;Deployment&rdquo; in version &ldquo;extensions/v1beta1&rdquo;]</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span>  prometheus/templates <span class="o">&amp;&amp;</span>sed -i <span class="s2">&#34;s#extensions/v1beta1#apps/v1#g&#34;</span> *.yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span>  prometheus/templates <span class="o">&amp;&amp;</span>sed -i <span class="s2">&#34;s#extensions/v1beta1#apps/v1#g&#34;</span> *.yaml
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="error-release-monitor-failed-daemonsetapps-monitor-prometheus-node-exporter-is-invalid-spectemplatemetadatalabels-invalid-value-mapstringstringappprometheus-componentnode-exporter-releasemonitor-selector-does-not-match-template-labels">Error: release monitor failed: DaemonSet.apps &ldquo;monitor-prometheus-node-exporter&rdquo; is invalid: spec.template.metadata.labels: Invalid value: map[string]string{&ldquo;app&rdquo;:&ldquo;prometheus&rdquo;, &ldquo;component&rdquo;:&ldquo;node-exporter&rdquo;, &ldquo;release&rdquo;:&ldquo;monitor&rdquo;}: <code>selector</code> does not match template <code>labels</code></h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -580,7 +581,7 @@ helm fetch --untar stable/prometheus <span class="c1">##获取最新的chart，�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">vim /root/.helm/repository/repositories.yaml 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">vim /root/.helm/repository/repositories.yaml 
 修改url指向官方： url: https://kubernetes-charts.storage.googleapis.com
 helm repo update
 helm del --tls monitor --purge
@@ -593,14 +594,14 @@ helm install --tls         --name monitor         --namespace monitoring        
 <p>error: error validating &ldquo;/etc/ansible/manifests/prometheus/dingtalk-webhook.yaml&rdquo;: error validating data: ValidationError(Deployment.spec): missing required field &ldquo;selector&rdquo; in io.k8s.api.apps.v1.DeploymentSpec; if you choose to ignore these errors, turn validation off with &ndash;validate=false</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Deployment.spec添加：
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Deployment.spec添加：
 spec:
   selector:
     matchLabels:
@@ -611,7 +612,7 @@ spec:
 添加ingress traefik</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -640,7 +641,7 @@ spec:
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">ingress</span><span class="p">:</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">ingress</span><span class="p">:</span><span class="w">
 </span><span class="w"></span><span class="c">#  enabled: false</span><span class="w">
 </span><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
@@ -711,16 +712,16 @@ kubectl -n monitoring create secret tls traefik-cert &ndash;key=tls.key &ndash;c
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/prometheus/">prometheus</a>
-          <a href="/tags/monitor/">monitor</a>
+          <a href="/blog/tags/prometheus/">prometheus</a>
+          <a href="/blog/tags/monitor/">monitor</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/apm/skywalking7_docker_ops/">
+        <a class="prev" href="/blog/post/apm/skywalking7_docker_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">docker部署skywalking7</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/monitor/prometheus_ops/">
+        <a class="next" href="/blog/post/monitor/prometheus_ops/">
             <span class="next-text nav-default">搭建docker版Prometheus监控报警系统</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -745,7 +746,7 @@ kubectl -n monitoring create secret tls traefik-cert &ndash;key=tls.key &ndash;c
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -759,15 +760,15 @@ kubectl -n monitoring create secret tls traefik-cert &ndash;key=tls.key &ndash;c
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -794,7 +795,7 @@ kubectl -n monitoring create secret tls traefik-cert &ndash;key=tls.key &ndash;c
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

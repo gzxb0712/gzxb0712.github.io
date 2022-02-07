@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/lb/keepalived_nginx_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/lb/keepalived_nginx_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="centos部署keepalived" />
 <meta property="og:description" content="前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/lb/keepalived_nginx_ops/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/lb/keepalived_nginx_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-02-22T22:21:37+00:00" />
 <meta property="article:modified_time" content="2020-02-22T22:21:37+00:00" />
+
 <meta itemprop="name" content="centos部署keepalived">
-<meta itemprop="description" content="前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器">
-<meta itemprop="datePublished" content="2020-02-22T22:21:37+00:00" />
+<meta itemprop="description" content="前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器"><meta itemprop="datePublished" content="2020-02-22T22:21:37+00:00" />
 <meta itemprop="dateModified" content="2020-02-22T22:21:37+00:00" />
 <meta itemprop="wordCount" content="4617">
-
-
-
-<meta itemprop="keywords" content="keepalived,lb," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="keepalived,lb," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="centos部署keepalived"/>
 <meta name="twitter:description" content="前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-22 22:21 </span>
         <div class="post-category">
-            <a href="/categories/lb/"> lb </a>
+            <a href="/blog/categories/lb/"> lb </a>
             </div>
           <span class="more-meta"> 约 4617 字 </span>
           <span class="more-meta"> 预计阅读 10 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -167,6 +163,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-02-22T22:21:37" title="February 22, 2020">February 22, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -179,12 +180,12 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># cat /etc/redhat-release
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># cat /etc/redhat-release
 CentOS Linux release 7.6.1810 (Core)
 
 </code></pre></td></tr></table>
@@ -217,14 +218,14 @@ CentOS Linux release 7.6.1810 (Core)
 <h3 id="更换服务器源仓库">更换服务器源仓库</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 # curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 # yum makecache
 # yum -y update
@@ -236,11 +237,11 @@ CentOS Linux release 7.6.1810 (Core)
 <p>Keepalived可以使用yum直接安装，在master服务器和backup服务器执行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install keepalived
 
 </code></pre></td></tr></table>
 </div>
@@ -249,34 +250,34 @@ CentOS Linux release 7.6.1810 (Core)
 <p>安装依赖库</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install openssl-devel libnl3-devel ipset-devel iptables-devel file-devel net-snmp-devel glib2-devel json-c-devel pcre2-devel libnftnl-devel libmnl-devel
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install openssl-devel libnl3-devel ipset-devel iptables-devel file-devel net-snmp-devel glib2-devel json-c-devel pcre2-devel libnftnl-devel libmnl-devel
 
 </code></pre></td></tr></table>
 </div>
 </div><p>下载Keepalived</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># wget https://github.com/acassen/keepalived/archive/v2.0.18.tar.gz
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># wget https://github.com/acassen/keepalived/archive/v2.0.18.tar.gz
 
 </code></pre></td></tr></table>
 </div>
 </div><p>解压Keepalived</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># tar -zxvf v2.0.18.tar.gz
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># tar -zxvf v2.0.18.tar.gz
 # cd keepalived-2.0.18
 
 </code></pre></td></tr></table>
@@ -284,7 +285,7 @@ CentOS Linux release 7.6.1810 (Core)
 </div><p>开始安装</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -292,7 +293,7 @@ CentOS Linux release 7.6.1810 (Core)
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ./build_setup
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># ./build_setup
 ./build_setup:行3: aclocal: 未找到命令
 ./build_setup:行4: autoheader: 未找到命令
 ./build_setup:行5: automake: 未找到命令
@@ -303,23 +304,23 @@ CentOS Linux release 7.6.1810 (Core)
 </div><p>如果出现如上报错，安装autotools系列工具</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install aclocal autoheader automake autoreconf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install aclocal autoheader automake autoreconf
 
 </code></pre></td></tr></table>
 </div>
 </div><p>继续</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ./configure
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># ./configure
 # make &amp;&amp; make install
 
 </code></pre></td></tr></table>
@@ -327,14 +328,14 @@ CentOS Linux release 7.6.1810 (Core)
 </div><p>最后复制相关配置文件到系统默认路径</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># mkdir /etc/keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># mkdir /etc/keepalived
 # cp ./keepalived/etc/keepalived/keepalived.conf /etc/keepalived/
 # cp ./keepalived/etc/init.d/keepalived /etc/init.d/
 # cp ./keepalived/etc/sysconfig/keepalived /etc/sysconfig/
@@ -352,7 +353,7 @@ CentOS Linux release 7.6.1810 (Core)
 <p>首先，我们先确认下网卡及IP</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -362,7 +363,7 @@ CentOS Linux release 7.6.1810 (Core)
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
     inet 127.0.0.1/8 scope host lo
     inet6 ::1/128 scope host
     inet 10.10.0.11/8 brd 10.255.255.255 scope global noprefixroute ens192
@@ -375,18 +376,18 @@ CentOS Linux release 7.6.1810 (Core)
 </div><p>可以看到本次使用的是<code>ens192</code>这块网卡，IP为：10.10.0.11，然后我们编辑keepalived配置文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># vim /etc/keepalived/keepalived.conf
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># vim /etc/keepalived/keepalived.conf
 
 </code></pre></td></tr></table>
 </div>
 </div><p>配置如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -444,7 +445,7 @@ CentOS Linux release 7.6.1810 (Core)
 </span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
 
 global_defs {
    # email 收件人
@@ -513,7 +514,7 @@ vrrp_instance VI_1 {
 <p>修改BACKUP节点Keepalived配置，部署配置如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -538,7 +539,7 @@ vrrp_instance VI_1 {
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
 
 rrp_instance VI_1 {
     # 指定Keepalived的角色，BACKUP表示此主机是备用节点
@@ -569,13 +570,13 @@ rrp_instance VI_1 {
 <p>因为vrrp使用<code>224.0.0.18</code>这个组播地址</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --in-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --in-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
 # firewall-cmd --direct --permanent --add-rule ipv4 filter OUTPUT 0 --out-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
 # firewall-cmd --reload
 
@@ -584,14 +585,14 @@ rrp_instance VI_1 {
 </div><p>查看规则</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># firewall-cmd --direct --get-rules ipv4 filter INPUT
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># firewall-cmd --direct --get-rules ipv4 filter INPUT
 0 --in-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
 # firewall-cmd --direct --get-rules ipv4 filter OUTPUT
 0 --out-interface ens192 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
@@ -602,12 +603,12 @@ rrp_instance VI_1 {
 <p>启动Keepalived并添加到开机自启</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl start keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl start keepalived
 # systemctl enable keepalived
 
 </code></pre></td></tr></table>
@@ -615,7 +616,7 @@ rrp_instance VI_1 {
 </div><p>然后我们再次查看<code>MASTER</code>节点IP可以发现新增了一个</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -626,7 +627,7 @@ rrp_instance VI_1 {
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
     inet 127.0.0.1/8 scope host lo
     inet6 ::1/128 scope host
     inet 10.10.0.11/8 brd 10.255.255.255 scope global noprefixroute ens192
@@ -640,7 +641,7 @@ rrp_instance VI_1 {
 </div><p>同样在<code>BACKUP</code>节点上查看IP结果为</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -650,7 +651,7 @@ rrp_instance VI_1 {
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># ip addr show | grep inet
     inet 127.0.0.1/8 scope host lo
     inet6 ::1/128 scope host
     inet 10.10.0.12/8 brd 10.255.255.255 scope global noprefixroute ens192
@@ -664,18 +665,18 @@ rrp_instance VI_1 {
 <p>安装tcpdump工具</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install tcpdump
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install tcpdump
 
 </code></pre></td></tr></table>
 </div>
 </div><p>在<code>MASTER</code>节点上执行如下命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -686,7 +687,7 @@ rrp_instance VI_1 {
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># tcpdump -i ens192 vrrp -n
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># tcpdump -i ens192 vrrp -n
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on ens192, link-type EN10MB (Ethernet), capture size 262144 bytes
 10:10:24.193943 IP 10.10.0.11 &gt; 224.0.0.18: VRRPv2, Advertisement, vrid 51, prio 100, authtype simple, intvl 1s, length 20
@@ -706,18 +707,18 @@ listening on ens192, link-type EN10MB (Ethernet), capture size 262144 bytes
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># vim /etc/sysconfig/keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># vim /etc/sysconfig/keepalived
 
 </code></pre></td></tr></table>
 </div>
 </div><p>更改如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -734,7 +735,7 @@ listening on ens192, link-type EN10MB (Ethernet), capture size 262144 bytes
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Options for keepalived. See `keepalived --help&#39; output and keepalived(8) and
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># Options for keepalived. See `keepalived --help&#39; output and keepalived(8) and
 # keepalived.conf(5) man pages for a list of all options. Here are the most
 # common ones :
 #
@@ -757,12 +758,12 @@ KEEPALIVED_OPTIONS=&#34;-D&#34;
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">...
 local0.*            /var/log/keepalived.log
 
 </code></pre></td></tr></table>
@@ -772,11 +773,11 @@ local0.*            /var/log/keepalived.log
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl restart rsyslog
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl restart rsyslog
 
 </code></pre></td></tr></table>
 </div>
@@ -785,11 +786,11 @@ local0.*            /var/log/keepalived.log
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl restart keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl restart keepalived
 
 </code></pre></td></tr></table>
 </div>
@@ -798,7 +799,7 @@ local0.*            /var/log/keepalived.log
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -814,7 +815,7 @@ local0.*            /var/log/keepalived.log
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># ls -lh /var/log/keepalived.log
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># ls -lh /var/log/keepalived.log
 -rw-------. 1 root root 14K 9月  30 13:22 /var/log/keepalived.log
 # head -n 10 /var/log/keepalived.log
 Sep 30 13:22:52 master Keepalived[30707]: Starting Keepalived v1.3.5 (03/19,2017), git commit v1.3.5-6-g6fa32f2
@@ -838,11 +839,11 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 
 </code></pre></td></tr></table>
 </div>
@@ -851,11 +852,11 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install nginx
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># yum -y install nginx
 
 </code></pre></td></tr></table>
 </div>
@@ -864,7 +865,7 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -873,7 +874,7 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl start nginx   # 启动Nginx服务
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># systemctl start nginx   # 启动Nginx服务
 # systemctl stop nginx    # 停止Nginx服务
 # systemctl restart nginx # 重启Nginx服务
 # systemctl enable nginx  # 开机自启Nginx服务
@@ -887,11 +888,11 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># curl -i localhost
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># curl -i localhost
 
 </code></pre></td></tr></table>
 </div>
@@ -899,7 +900,7 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 <p>分别在主备服务器的<code>/etc/keepalived</code>目录下创建<code>nginx_check.sh</code>脚本，脚本如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -912,7 +913,7 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="c1"># author:akiya</span>
 <span class="nv">A</span><span class="o">=</span><span class="k">$(</span>ps -C nginx --no-header <span class="p">|</span> wc -l<span class="k">)</span>
 <span class="k">if</span> <span class="o">[</span> <span class="nv">$A</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
@@ -928,11 +929,11 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 </div><p>为脚本添加可执行权限</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># chmod +x /etc/keepalived/nginx_check.sh
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># chmod +x /etc/keepalived/nginx_check.sh
 
 </code></pre></td></tr></table>
 </div>
@@ -941,7 +942,7 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 <p>在<code>/etc/keepalived/keepalived.conf</code>中增加检测脚本配置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -967,7 +968,7 @@ Sep 30 13:22:52 master Keepalived_healthcheckers[30709]: Smtp server port = 25
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">global_defs {
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">global_defs {
    ...
    }
 ...
@@ -1003,14 +1004,14 @@ vrrp_instance VI_1 {
 <p>部分报错相关日志如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Sep 30 14:25:42 master Keepalived_vrrp[30930]:     chk_nginx no match, ignoring...
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Sep 30 14:25:42 master Keepalived_vrrp[30930]:     chk_nginx no match, ignoring...
 Sep 30 14:26:04 master Keepalived_vrrp[30944]:     nginx_check no match, ignoring...
 Sep 30 14:44:18 master Keepalived_vrrp[30980]: Unable to access script `/etc/keepalived/nginx_check.sh`
 Sep 30 14:44:18 master Keepalived_vrrp[30980]: Disabling track script chk_nginx since not found
@@ -1020,11 +1021,11 @@ Sep 30 14:44:18 master Keepalived_vrrp[30980]: Disabling track script chk_nginx 
 </div><p>如果使用yum安装可以在安装前查看下对应的包信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># yum info keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># yum info keepalived
 
 </code></pre></td></tr></table>
 </div>
@@ -1033,7 +1034,7 @@ Sep 30 14:44:18 master Keepalived_vrrp[30980]: Disabling track script chk_nginx 
 <p>解决方法：在配置文件中添加运行检测脚本的用户或组即可</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1043,7 +1044,7 @@ Sep 30 14:44:18 master Keepalived_vrrp[30980]: Disabling track script chk_nginx 
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">! Configuration File for keepalived
 
 global_defs {
 ...
@@ -1090,16 +1091,16 @@ global_defs {
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/keepalived/">keepalived</a>
-          <a href="/tags/lb/">lb</a>
+          <a href="/blog/tags/keepalived/">keepalived</a>
+          <a href="/blog/tags/lb/">lb</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/lb/lvs_ops/">
+        <a class="prev" href="/blog/post/lb/lvs_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">LVS 实现四层负载均衡项目实战</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/cdn/bbr_centos_ops/">
+        <a class="next" href="/blog/post/cdn/bbr_centos_ops/">
             <span class="next-text nav-default">centos7/8开启bbr加速</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1124,7 +1125,7 @@ global_defs {
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1138,15 +1139,15 @@ global_defs {
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1173,7 +1174,7 @@ global_defs {
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

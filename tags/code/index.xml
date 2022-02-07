@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>code on Bill World</title>
-    <link>https://xiebiao.top/tags/code/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/code/</link>
     <description>Recent content in code on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 03 Jul 2020 19:05:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/code/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Jul 2020 19:05:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/code/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>k8s安装gitlab社区中文版</title>
-      <link>https://xiebiao.top/post/cicd/k8s_gitlab_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/k8s_gitlab_ops/</link>
       <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/k8s_gitlab_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/k8s_gitlab_ops/</guid>
       <description>参考： https://www.qikqiak.com/post/gitlab-install-on-k8s/ https://i4t.com/4373.html Gitlab官方提供了 Helm 的方式在 Kubernetes 集群中来快速安装，但是在使用的过程中发现 Helm 提供的 Chart 包中有很多其他额外的配置，所以我们这里使用自定</description>
     </item>
     
     <item>
       <title>centos7安装gitlab社区中文版</title>
-      <link>https://xiebiao.top/post/cicd/gitlab_centos_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/gitlab_centos_ops/</link>
       <pubDate>Thu, 02 Jul 2020 22:19:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/gitlab_centos_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/gitlab_centos_ops/</guid>
       <description>之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官</description>
     </item>
     
     <item>
       <title>sonarqube8 搭建使用</title>
-      <link>https://xiebiao.top/post/code/sonarqube8_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/code/sonarqube8_install/</link>
       <pubDate>Wed, 08 Apr 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/code/sonarqube8_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/code/sonarqube8_install/</guid>
       <description>前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般</description>
     </item>
     
     <item>
       <title>svn 使用详解</title>
-      <link>https://xiebiao.top/post/code/svn_use/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/code/svn_use/</link>
       <pubDate>Tue, 07 Apr 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/code/svn_use/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/code/svn_use/</guid>
       <description>关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式</description>
     </item>
     
     <item>
       <title>git 使用详解</title>
-      <link>https://xiebiao.top/post/code/git_use/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/code/git_use/</link>
       <pubDate>Mon, 06 Apr 2020 19:19:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/code/git_use/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/code/git_use/</guid>
       <description>前言 在 2005 年的某一天，Linux 之父 Linus Torvalds 发布了他的又一个里程碑作品——Git。它的出现改变了软件开发流程，大大地提高了开发流畅度，直到现在仍十</description>
     </item>
     

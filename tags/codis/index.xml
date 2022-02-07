@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>codis on Bill World</title>
-    <link>https://xiebiao.top/tags/codis/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/codis/</link>
     <description>Recent content in codis on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 15 May 2020 19:15:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/codis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 May 2020 19:15:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/codis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Codis分布式集群部署</title>
-      <link>https://xiebiao.top/post/middleware/codis_cluster_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/middleware/codis_cluster_ops/</link>
       <pubDate>Fri, 15 May 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/middleware/codis_cluster_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/middleware/codis_cluster_ops/</guid>
       <description>前言 Codis 3.x 稳定版本已经很久没更新了，虽然有缺点也称不上完美但确实可以有效解决横向扩展问题。Redis 5.0 因为所谓的 政治正确 把 master-slave 名字修改为 master-replica 上了开</description>
     </item>
     

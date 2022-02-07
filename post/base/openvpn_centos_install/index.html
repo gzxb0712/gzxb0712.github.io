@@ -23,21 +23,21 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/base/openvpn_centos_install/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="openvpn在centos搭建实现内网互通" />
@@ -54,9 +54,10 @@ easy-rsa版本 3.0.6
 多个客户端直接可以通过OpenVPN实现内网通信
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/base/openvpn_centos_install/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-01-07T21:05:33+00:00" />
 <meta property="article:modified_time" content="2020-01-07T21:05:33+00:00" />
+
 <meta itemprop="name" content="openvpn在centos搭建实现内网互通">
 <meta itemprop="description" content="
 
@@ -69,15 +70,10 @@ easy-rsa版本 3.0.6
 使用 tap 模式
 客户端IP地址池 10.8.0.0/24
 多个客户端直接可以通过OpenVPN实现内网通信
-">
-<meta itemprop="datePublished" content="2020-01-07T21:05:33+00:00" />
+"><meta itemprop="datePublished" content="2020-01-07T21:05:33+00:00" />
 <meta itemprop="dateModified" content="2020-01-07T21:05:33+00:00" />
 <meta itemprop="wordCount" content="3189">
-
-
-
-<meta itemprop="keywords" content="openvpn,centos,base," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="openvpn,centos,base," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="openvpn在centos搭建实现内网互通"/>
 <meta name="twitter:description" content="
 
@@ -105,7 +101,7 @@ easy-rsa版本 3.0.6
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -115,15 +111,15 @@ easy-rsa版本 3.0.6
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -131,21 +127,21 @@ easy-rsa版本 3.0.6
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -162,12 +158,12 @@ easy-rsa版本 3.0.6
       <div class="post-meta">
         <span class="post-time"> 2020-01-07 21:05 </span>
         <div class="post-category">
-            <a href="/categories/linux/"> linux </a>
-            <a href="/categories/base/"> base </a>
+            <a href="/blog/categories/linux/"> linux </a>
+            <a href="/blog/categories/base/"> base </a>
             </div>
           <span class="more-meta"> 约 3189 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -235,6 +231,11 @@ easy-rsa版本 3.0.6
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-01-07T21:05:33" title="January 7, 2020">January 7, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -254,14 +255,14 @@ easy-rsa版本 3.0.6
 <h2 id="替换为阿里云的源-替换为阿里云的源替换为阿里云的源"><a href="#%E6%9B%BF%E6%8D%A2%E4%B8%BA%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84%E6%BA%90" title="替换为阿里云的源"></a>替换为阿里云的源</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">sed -e <span class="s1">&#39;s, ^#baseurl, baseurl, g&#39;</span> 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed -e <span class="s1">&#39;s, ^#baseurl, baseurl, g&#39;</span> 
  -e <span class="s1">&#39;s, ^metalink, #metalink, g&#39;</span> 
  -e <span class="s1">&#39;s, ^mirrorlist=, #mirrorlist=, g&#39;</span> 
  -e <span class="s1">&#39;s, http://download.fedoraproject.org/pub,https://mirrors.aliyun.com,g&#39;</span> 
@@ -271,18 +272,18 @@ easy-rsa版本 3.0.6
 </div><h2 id="更新软件-更新软件更新软件"><a href="#%E6%9B%B4%E6%96%B0%E8%BD%AF%E4%BB%B6" title="更新软件"></a>更新软件</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">yum makecache
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum makecache
 yum update -y
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="修改sysctl参数-修改sysctl参数修改sysctl参数"><a href="#%E4%BF%AE%E6%94%B9sysctl%E5%8F%82%E6%95%B0" title="修改sysctl参数"></a>修改sysctl参数</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -318,7 +319,7 @@ yum update -y
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/sysctl.d/99-net.conf <span class="s">&lt;&lt;EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/sysctl.d/99-net.conf <span class="s">&lt;&lt;EOF
 </span><span class="s"># 二层的网桥在转发包时也会被iptables的FORWARD规则所过滤
 </span><span class="s">
 </span><span class="s">net.bridge.bridge-nf-call-arptables=1
@@ -357,7 +358,7 @@ yum update -y
 </div><h2 id="修改limits参数-修改limits参数修改limits参数"><a href="#%E4%BF%AE%E6%94%B9limits%E5%8F%82%E6%95%B0" title="修改limits参数"></a>修改limits参数</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -365,7 +366,7 @@ yum update -y
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/security/limits.d/99-centos.conf <span class="s">&lt;&lt;EOF
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/security/limits.d/99-centos.conf <span class="s">&lt;&lt;EOF
 </span><span class="s">
 </span><span class="s">* - nproc 1048576
 </span><span class="s">* - nofile 1048576
@@ -382,11 +383,11 @@ yum update -y
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">cp -r /usr/share/easy-rsa/3.0.6 /etc/openvpn/easy-rsa
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp -r /usr/share/easy-rsa/3.0.6 /etc/openvpn/easy-rsa
 cp /usr/share/doc/easy-rsa-3.0.6/vars.example /etc/openvpn/easy-rsa/vars
 </code></pre></td></tr></table>
 </div>
@@ -400,7 +401,7 @@ cp /usr/share/doc/easy-rsa-3.0.6/vars.example /etc/openvpn/easy-rsa/vars
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -414,7 +415,7 @@ cp /usr/share/doc/easy-rsa-3.0.6/vars.example /etc/openvpn/easy-rsa/vars
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#set_var EASYRSA_REQ_COUNTRY     &#34;US&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#set_var EASYRSA_REQ_COUNTRY     &#34;US&#34;</span>
 <span class="c1">#set_var EASYRSA_REQ_PROVINCE    &#34;California&#34;</span>
 <span class="c1">#set_var EASYRSA_REQ_CITY        &#34;San Francisco&#34;</span>
 <span class="c1">#set_var EASYRSA_REQ_ORG         &#34;Copyleft Certificate Co&#34;</span>
@@ -442,7 +443,7 @@ cp /usr/share/doc/easy-rsa-3.0.6/vars.example /etc/openvpn/easy-rsa/vars
 <h2 id="拷贝证书-拷贝证书拷贝证书"><a href="#%E6%8B%B7%E8%B4%9D%E8%AF%81%E4%B9%A6" title="拷贝证书"></a>拷贝证书</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -452,7 +453,7 @@ cp /usr/share/doc/easy-rsa-3.0.6/vars.example /etc/openvpn/easy-rsa/vars
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir -p /etc/openvpn/pki
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir -p /etc/openvpn/pki
 cp /etc/openvpn/easy-rsa/pki/ca.crt 
  /etc/openvpn/easy-rsa/pki/dh.pem 
  /etc/openvpn/easy-rsa/pki/issued/openvpn-server.crt 
@@ -465,33 +466,33 @@ chown -R root:openvpn /etc/openvpn/pki
 </div><h2 id="创建ta-key-创建takey创建takey"><a href="#%E5%88%9B%E5%BB%BAta-key" title="创建ta.key"></a>创建ta.key</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">openvpn --genkey --secret /etc/openvpn/pki/ta.key
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">openvpn --genkey --secret /etc/openvpn/pki/ta.key
 </code></pre></td></tr></table>
 </div>
 </div><h1 id="配置openvpn-配置openvpn配置openvpn"><a href="#%E9%85%8D%E7%BD%AEOpenVPN" title="配置OpenVPN"></a>配置OpenVPN</h1>
 <h2 id="创建日志目录-创建日志目录创建日志目录"><a href="#%E5%88%9B%E5%BB%BA%E6%97%A5%E5%BF%97%E7%9B%AE%E5%BD%95" title="创建日志目录"></a>创建日志目录</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir -p /var/log/openvpn
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir -p /var/log/openvpn
 chown -R openvpn:openvpn /var/log/openvpn
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="创建客户端配置目录-创建客户端配置目录创建客户端配置目录"><a href="#%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9B%AE%E5%BD%95" title="创建客户端配置目录"></a>创建客户端配置目录</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">
 mkdir -p /etc/openvpn/client/<span class="o">{</span>config, user<span class="o">}</span>
 chown -R root:openvpn /etc/openvpn/client/<span class="o">{</span>config, user<span class="o">}</span>
 </code></pre></td></tr></table>
@@ -499,7 +500,7 @@ chown -R root:openvpn /etc/openvpn/client/<span class="o">{</span>config, user<s
 </div><h2 id="配置openvpn服务器端-配置openvpn服务器端配置openvpn服务器端"><a href="#%E9%85%8D%E7%BD%AEOpenVPN%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF" title="配置OpenVPN服务器端"></a>配置OpenVPN服务器端</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -646,7 +647,7 @@ chown -R root:openvpn /etc/openvpn/client/<span class="o">{</span>config, user<s
 </span><span class="lnt">145
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">
 vim /etc/openvpn/server/srv.conf
  
 
@@ -796,12 +797,12 @@ mute <span class="m">20</span>
 </div><h2 id="启动openvpn-server-启动openvpn-server启动openvpn-server"><a href="#%E5%90%AF%E5%8A%A8OpenVPN-server" title="启动OpenVPN-server"></a>启动OpenVPN-server</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">chown -R root:openvpn /etc/openvpn
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chown -R root:openvpn /etc/openvpn
 systemctl <span class="nb">enable</span> openvpn-server@srv.service
 systemctl start openvpn-server@srv.service
 </code></pre></td></tr></table>
@@ -812,10 +813,10 @@ systemctl start openvpn-server@srv.service
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -d 192.168.0.0/24 -j SNAT --to-source OPENVPN_SERVER_IP
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -d 192.168.0.0/24 -j SNAT --to-source OPENVPN_SERVER_IP
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="定期更新crl-定期更新crl定期更新crl"><a href="#%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0CRL" title="定期更新CRL"></a>定期更新CRL</h2>
@@ -827,7 +828,7 @@ systemctl start openvpn-server@srv.service
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -842,7 +843,7 @@ systemctl start openvpn-server@srv.service
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">openvpn[28570]: TCP connection established with [AF_INET]202.96.128.86:7688
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">openvpn[28570]: TCP connection established with [AF_INET]202.96.128.86:7688
 openvpn[28570]: TCPv4_SERVER link local: (not bound)
 openvpn[28570]: TCPv4_SERVER link remote: [AF_INET]202.96.128.86:7688
 openvpn[28570]: 202.96.128.86:7688 TLS: Initial packet from [AF_INET]202.96.128.86:7688, sid=cec51529 1051f9aa
@@ -862,7 +863,7 @@ openvpn[28570]: TCP/UDP: Closing socket
 <p><code>vim /usr/lib/systemd/system/easyrsa-gen-crl.service</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -877,7 +878,7 @@ openvpn[28570]: TCP/UDP: Closing socket
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>Unit<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>Unit<span class="o">]</span>
 <span class="nv">Description</span><span class="o">=</span>easyrsa-gen-crl
 <span class="o">[</span>Service<span class="o">]</span>
 <span class="nv">Type</span><span class="o">=</span>oneshot
@@ -896,7 +897,7 @@ openvpn[28570]: TCP/UDP: Closing socket
 <p><code>vim /usr/lib/systemd/system/easyrsa-gen-crl.timer</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -910,7 +911,7 @@ openvpn[28570]: TCP/UDP: Closing socket
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>Unit<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>Unit<span class="o">]</span>
 <span class="nv">Description</span><span class="o">=</span>easyrsa-gen-crl
 
 <span class="o">[</span>Timer<span class="o">]</span>
@@ -927,12 +928,12 @@ openvpn[28570]: TCP/UDP: Closing socket
 </div><h3 id="启动timer-启动timer启动timer"><a href="#%E5%90%AF%E5%8A%A8timer" title="启动timer"></a>启动timer</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> easyrsa-gen-crl.timer
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> easyrsa-gen-crl.timer
 systemctl start easyrsa-gen-crl.timer
 
 </code></pre></td></tr></table>
@@ -948,7 +949,7 @@ systemctl start easyrsa-gen-crl.timer
 <p><code>vim /etc/openvpn/templates/ovpn.template</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1003,7 +1004,7 @@ systemctl start easyrsa-gen-crl.timer
 </span><span class="lnt">53
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 配置为客户端模式</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 配置为客户端模式</span>
 
 client
 
@@ -1063,7 +1064,7 @@ auth-nocache
 <p><code>vim /etc/openvpn/templates/ipconfig_push.template</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1080,7 +1081,7 @@ auth-nocache
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 给客户端推送固定的IP地址</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 给客户端推送固定的IP地址</span>
 
 ifconfig-push <span class="c1">#IP地址# 255.255.255.0</span>
 
@@ -1104,12 +1105,12 @@ push <span class="s2">&#34;comp-lzo yes&#34;</span>
 <p><code>vim /etc/openvpn/client/config/user1</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 给客户端推送固定的IP地址10.8.0.100</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 给客户端推送固定的IP地址10.8.0.100</span>
 
 ifconfig-push 10.8.0.100 255.255.255.0
 </code></pre></td></tr></table>
@@ -1117,17 +1118,17 @@ ifconfig-push 10.8.0.100 255.255.255.0
 </div><h2 id="用户管理脚本-用户管理脚本用户管理脚本"><a href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86%E8%84%9A%E6%9C%AC" title="用户管理脚本"></a>用户管理脚本</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">vim /usr/local/bin/ovpn_mgmt.sh
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">vim /usr/local/bin/ovpn_mgmt.sh
 chmod +x /usr/local/bin/ovpn_mgmt.sh
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1283,7 +1284,7 @@ chmod +x /usr/local/bin/ovpn_mgmt.sh
 </span><span class="lnt">154
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="nb">set</span> -e
 
 <span class="c1"># 定义环境变量</span>
@@ -1479,17 +1480,17 @@ main
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/openvpn/">openvpn</a>
-          <a href="/tags/centos/">centos</a>
-          <a href="/tags/base/">base</a>
+          <a href="/blog/tags/openvpn/">openvpn</a>
+          <a href="/blog/tags/centos/">centos</a>
+          <a href="/blog/tags/base/">base</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/base/openvpn_client_connect/">
+        <a class="prev" href="/blog/post/base/openvpn_client_connect/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">openvpn客户端连接设置</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/base/ftp_centos_install/">
+        <a class="next" href="/blog/post/base/ftp_centos_install/">
             <span class="next-text nav-default">ftp在centos中安装</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1514,7 +1515,7 @@ main
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1528,15 +1529,15 @@ main
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1563,7 +1564,7 @@ main
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

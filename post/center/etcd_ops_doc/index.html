@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/center/etcd_ops_doc/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/center/etcd_ops_doc/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="etcd 入门指引" />
 <meta property="og:description" content="背景：近期 k8s 应用中 etcd 的功能存在一些困惑，对其进行来单独的学习，能更深入理解 k8s 中的的一些特性。 一、概述 1.1 etcd 简介 etcd 是 CoreOS 团队于 2013 年 6月发起的开源项" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/center/etcd_ops_doc/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/center/etcd_ops_doc/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-03-28T22:03:30+00:00" />
 <meta property="article:modified_time" content="2020-03-28T22:03:30+00:00" />
+
 <meta itemprop="name" content="etcd 入门指引">
-<meta itemprop="description" content="背景：近期 k8s 应用中 etcd 的功能存在一些困惑，对其进行来单独的学习，能更深入理解 k8s 中的的一些特性。 一、概述 1.1 etcd 简介 etcd 是 CoreOS 团队于 2013 年 6月发起的开源项">
-<meta itemprop="datePublished" content="2020-03-28T22:03:30+00:00" />
+<meta itemprop="description" content="背景：近期 k8s 应用中 etcd 的功能存在一些困惑，对其进行来单独的学习，能更深入理解 k8s 中的的一些特性。 一、概述 1.1 etcd 简介 etcd 是 CoreOS 团队于 2013 年 6月发起的开源项"><meta itemprop="datePublished" content="2020-03-28T22:03:30+00:00" />
 <meta itemprop="dateModified" content="2020-03-28T22:03:30+00:00" />
 <meta itemprop="wordCount" content="5736">
-
-
-
-<meta itemprop="keywords" content="etcd,center," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="etcd,center," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="etcd 入门指引"/>
 <meta name="twitter:description" content="背景：近期 k8s 应用中 etcd 的功能存在一些困惑，对其进行来单独的学习，能更深入理解 k8s 中的的一些特性。 一、概述 1.1 etcd 简介 etcd 是 CoreOS 团队于 2013 年 6月发起的开源项"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-03-28 22:03 </span>
         <div class="post-category">
-            <a href="/categories/center/"> center </a>
+            <a href="/blog/categories/center/"> center </a>
             </div>
           <span class="more-meta"> 约 5736 字 </span>
           <span class="more-meta"> 预计阅读 12 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -196,6 +192,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-03-28T22:03:30" title="March 28, 2020">March 28, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -354,10 +355,10 @@
 <p>可以使用二进制或源码下载安装，但是危害需要自己写配置文件，如何要启动需要自己写服务启动文件，推荐使用 yum 安装方式</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">hostnamectl set-hostname etcd-1wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpmrpm -ivh epel-release-latest-7.noarch.rpm# yum 仓库中的etcd版本为3.3.11，如果需要最新版本的etcd可以进行二进制安装yum -y install etcdsystemctl enable etcd
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">hostnamectl set-hostname etcd-1wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpmrpm -ivh epel-release-latest-7.noarch.rpm# yum 仓库中的etcd版本为3.3.11，如果需要最新版本的etcd可以进行二进制安装yum -y install etcdsystemctl enable etcd
 </code></pre></td></tr></table>
 </div>
 </div><p>可以查看 yum 安装的 etcd 的有效配置文件，根据自己的需求来修改数据存储目录，已经监听端口 url/etcd 的名称等</p>
@@ -392,10 +393,10 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@VM_0_8_centos tmp]# grep -Ev &#34;^#|^$&#34; /etc/etcd/etcd.confETCD_DATA_DIR=&#34;/var/lib/etcd/default.etcd&#34;ETCD_LISTEN_CLIENT_URLS=&#34;http://localhost:2379&#34;ETCD_NAME=&#34;default&#34;ETCD_ADVERTISE_CLIENT_URLS=&#34;http://localhost:2379&#34;[root@VM_0_8_centos tmp]# systemctl status etcd
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@VM_0_8_centos tmp]# grep -Ev &#34;^#|^$&#34; /etc/etcd/etcd.confETCD_DATA_DIR=&#34;/var/lib/etcd/default.etcd&#34;ETCD_LISTEN_CLIENT_URLS=&#34;http://localhost:2379&#34;ETCD_NAME=&#34;default&#34;ETCD_ADVERTISE_CLIENT_URLS=&#34;http://localhost:2379&#34;[root@VM_0_8_centos tmp]# systemctl status etcd
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="42-集群部署">4.2 集群部署</h3>
@@ -406,20 +407,20 @@
 <p>在此示例用三个节点来部署 etcd 集群，各节点修改 hosts</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">cat &gt;&gt; /etc/hosts &lt;&lt; EOF172.16.0.8 etcd-0-8172.16.0.14 etcd-0-14172.16.0.17 etcd-0-17EOF
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cat &gt;&gt; /etc/hosts &lt;&lt; EOF172.16.0.8 etcd-0-8172.16.0.14 etcd-0-14172.16.0.17 etcd-0-17EOF
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="423-etcd-安装">4.2.3 etcd 安装</h4>
 <p>三个节点均安装 etcd</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpmrpm -ivh epel-release-latest-7.noarch.rpmyum -y install etcdsystemctl enable etcdmkdir -p /data/app/etcd/chown etcd:etcd /data/app/etcd/
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpmrpm -ivh epel-release-latest-7.noarch.rpmyum -y install etcdsystemctl enable etcdmkdir -p /data/app/etcd/chown etcd:etcd /data/app/etcd/
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="424-etcd-配置">4.2.4 etcd 配置</h4>
@@ -431,10 +432,10 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-server ~]# hostnamectl set-hostname etcd-0-8[root@etcd-0-8 ~]# egrep &#34;^#|^$&#34; /etc/etcd/etcd.conf -vETCD_DATA_DIR=&#34;/data/app/etcd/&#34;ETCD_LISTEN_PEER_URLS=&#34;http://172.16.0.8:2380&#34;ETCD_LISTEN_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.8:2379&#34;ETCD_NAME=&#34;etcd-0-8&#34;ETCD_INITIAL_ADVERTISE_PEER_URLS=&#34;http://172.16.0.8:2380&#34;ETCD_ADVERTISE_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.8:2379&#34;ETCD_INITIAL_CLUSTER=&#34;etcd-0-8=http://172.16.0.8:2380,etcd-0-17=http://172.16.0.17:2380,etcd-0-14=http://172.16.0.14:2380&#34;ETCD_INITIAL_CLUSTER_TOKEN=&#34;etcd-token&#34;ETCD_INITIAL_CLUSTER_STATE=&#34;new&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-server ~]# hostnamectl set-hostname etcd-0-8[root@etcd-0-8 ~]# egrep &#34;^#|^$&#34; /etc/etcd/etcd.conf -vETCD_DATA_DIR=&#34;/data/app/etcd/&#34;ETCD_LISTEN_PEER_URLS=&#34;http://172.16.0.8:2380&#34;ETCD_LISTEN_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.8:2379&#34;ETCD_NAME=&#34;etcd-0-8&#34;ETCD_INITIAL_ADVERTISE_PEER_URLS=&#34;http://172.16.0.8:2380&#34;ETCD_ADVERTISE_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.8:2379&#34;ETCD_INITIAL_CLUSTER=&#34;etcd-0-8=http://172.16.0.8:2380,etcd-0-17=http://172.16.0.17:2380,etcd-0-14=http://172.16.0.14:2380&#34;ETCD_INITIAL_CLUSTER_TOKEN=&#34;etcd-token&#34;ETCD_INITIAL_CLUSTER_STATE=&#34;new&#34;
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -442,10 +443,10 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-server ~]# hostnamectl set-hostname etcd-0-14[root@etcd-server ~]# mkdir -p /data/app/etcd/[root@etcd-0.14 ~]# egrep &#34;^#|^$&#34; /etc/etcd/etcd.conf -vETCD_DATA_DIR=&#34;/data/app/etcd/&#34;ETCD_LISTEN_PEER_URLS=&#34;http://172.16.0.14:2380&#34;ETCD_LISTEN_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.14:2379&#34;ETCD_NAME=&#34;etcd-0-14&#34;ETCD_INITIAL_ADVERTISE_PEER_URLS=&#34;http://172.16.0.14:2380&#34;ETCD_ADVERTISE_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.14:2379&#34;ETCD_INITIAL_CLUSTER=&#34;etcd-0-8=http://172.16.0.8:2380,etcd-0-17=http://172.16.0.17:2380,etcd-0-14=http://172.16.0.14:2380&#34;ETCD_INITIAL_CLUSTER_TOKEN=&#34;etcd-token&#34;ETCD_INITIAL_CLUSTER_STATE=&#34;new&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-server ~]# hostnamectl set-hostname etcd-0-14[root@etcd-server ~]# mkdir -p /data/app/etcd/[root@etcd-0.14 ~]# egrep &#34;^#|^$&#34; /etc/etcd/etcd.conf -vETCD_DATA_DIR=&#34;/data/app/etcd/&#34;ETCD_LISTEN_PEER_URLS=&#34;http://172.16.0.14:2380&#34;ETCD_LISTEN_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.14:2379&#34;ETCD_NAME=&#34;etcd-0-14&#34;ETCD_INITIAL_ADVERTISE_PEER_URLS=&#34;http://172.16.0.14:2380&#34;ETCD_ADVERTISE_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.14:2379&#34;ETCD_INITIAL_CLUSTER=&#34;etcd-0-8=http://172.16.0.8:2380,etcd-0-17=http://172.16.0.17:2380,etcd-0-14=http://172.16.0.14:2380&#34;ETCD_INITIAL_CLUSTER_TOKEN=&#34;etcd-token&#34;ETCD_INITIAL_CLUSTER_STATE=&#34;new&#34;
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -453,19 +454,19 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-server ~]# hostnamectl set-hostname etcd-0-17[root@etcd-server ~]# mkdir -p /data/app/etcd/[root@etcd-0-17 ~]# egrep &#34;^#|^$&#34; /etc/etcd/etcd.conf -vETCD_DATA_DIR=&#34;/data/app/etcd/&#34;ETCD_LISTEN_PEER_URLS=&#34;http://172.16.0.17:2380&#34;ETCD_LISTEN_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.17:2379&#34;ETCD_NAME=&#34;etcd-0-17&#34;ETCD_INITIAL_ADVERTISE_PEER_URLS=&#34;http://172.16.0.17:2380&#34;ETCD_ADVERTISE_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.17:2379&#34;ETCD_INITIAL_CLUSTER=&#34;etcd-0-8=http://172.16.0.8:2380,etcd-0-17=http://172.16.0.17:2380,etcd-0-14=http://172.16.0.14:2380&#34;ETCD_INITIAL_CLUSTER_TOKEN=&#34;etcd-token&#34;ETCD_INITIAL_CLUSTER_STATE=&#34;new&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-server ~]# hostnamectl set-hostname etcd-0-17[root@etcd-server ~]# mkdir -p /data/app/etcd/[root@etcd-0-17 ~]# egrep &#34;^#|^$&#34; /etc/etcd/etcd.conf -vETCD_DATA_DIR=&#34;/data/app/etcd/&#34;ETCD_LISTEN_PEER_URLS=&#34;http://172.16.0.17:2380&#34;ETCD_LISTEN_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.17:2379&#34;ETCD_NAME=&#34;etcd-0-17&#34;ETCD_INITIAL_ADVERTISE_PEER_URLS=&#34;http://172.16.0.17:2380&#34;ETCD_ADVERTISE_CLIENT_URLS=&#34;http://127.0.0.1:2379,http://172.16.0.17:2379&#34;ETCD_INITIAL_CLUSTER=&#34;etcd-0-8=http://172.16.0.8:2380,etcd-0-17=http://172.16.0.17:2380,etcd-0-14=http://172.16.0.14:2380&#34;ETCD_INITIAL_CLUSTER_TOKEN=&#34;etcd-token&#34;ETCD_INITIAL_CLUSTER_STATE=&#34;new&#34;
 </code></pre></td></tr></table>
 </div>
 </div><p>配置完成后启动服务</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl start etcd
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl start etcd
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="425-查看集群状态">4.2.5 查看集群状态</h4>
@@ -474,10 +475,10 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-0-8 default.etcd]# systemctl status etcd● etcd.service - Etcd Server   Loaded: loaded (/usr/lib/systemd/system/etcd.service; enabled; vendor preset: disabled)   Active: active (running) since 二 2019-12-03 15:55:28 CST; 8s ago Main PID: 24510 (etcd)   CGroup: /system.slice/etcd.service           └─24510 /usr/bin/etcd --name=etcd-0-8 --data-dir=/data/app/etcd/ --listen-client-urls=http://172.16.0.8:237912月 03 15:55:28 etcd-0-8 etcd[24510]: set the initial cluster version to 3.012月 03 15:55:28 etcd-0-8 etcd[24510]: enabled capabilities for version 3.012月 03 15:55:30 etcd-0-8 etcd[24510]: peer 56e0b6dad4c53d42 became active12月 03 15:55:30 etcd-0-8 etcd[24510]: established a TCP streaming connection with peer 56e0b6dad4c53d42 (stream Message reader)12月 03 15:55:30 etcd-0-8 etcd[24510]: established a TCP streaming connection with peer 56e0b6dad4c53d42 (stream Message writer)12月 03 15:55:30 etcd-0-8 etcd[24510]: established a TCP streaming connection with peer 56e0b6dad4c53d42 (stream MsgApp v2 reader)12月 03 15:55:30 etcd-0-8 etcd[24510]: established a TCP streaming connection with peer 56e0b6dad4c53d42 (stream MsgApp v2 writer)12月 03 15:55:32 etcd-0-8 etcd[24510]: updating the cluster version from 3.0 to 3.312月 03 15:55:32 etcd-0-8 etcd[24510]: updated the cluster version from 3.0 to 3.312月 03 15:55:32 etcd-0-8 etcd[24510]: enabled capabilities for version 3.3
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-0-8 default.etcd]# systemctl status etcd● etcd.service - Etcd Server   Loaded: loaded (/usr/lib/systemd/system/etcd.service; enabled; vendor preset: disabled)   Active: active (running) since 二 2019-12-03 15:55:28 CST; 8s ago Main PID: 24510 (etcd)   CGroup: /system.slice/etcd.service           └─24510 /usr/bin/etcd --name=etcd-0-8 --data-dir=/data/app/etcd/ --listen-client-urls=http://172.16.0.8:237912月 03 15:55:28 etcd-0-8 etcd[24510]: set the initial cluster version to 3.012月 03 15:55:28 etcd-0-8 etcd[24510]: enabled capabilities for version 3.012月 03 15:55:30 etcd-0-8 etcd[24510]: peer 56e0b6dad4c53d42 became active12月 03 15:55:30 etcd-0-8 etcd[24510]: established a TCP streaming connection with peer 56e0b6dad4c53d42 (stream Message reader)12月 03 15:55:30 etcd-0-8 etcd[24510]: established a TCP streaming connection with peer 56e0b6dad4c53d42 (stream Message writer)12月 03 15:55:30 etcd-0-8 etcd[24510]: established a TCP streaming connection with peer 56e0b6dad4c53d42 (stream MsgApp v2 reader)12月 03 15:55:30 etcd-0-8 etcd[24510]: established a TCP streaming connection with peer 56e0b6dad4c53d42 (stream MsgApp v2 writer)12月 03 15:55:32 etcd-0-8 etcd[24510]: updating the cluster version from 3.0 to 3.312月 03 15:55:32 etcd-0-8 etcd[24510]: updated the cluster version from 3.0 to 3.312月 03 15:55:32 etcd-0-8 etcd[24510]: enabled capabilities for version 3.3
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -485,10 +486,10 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-0-8 default.etcd]# netstat -lntup |grep etcdtcp        0      0 172.16.0.8:2379         0.0.0.0:*               LISTEN      25167/etcdtcp        0      0 127.0.0.1:2379          0.0.0.0:*               LISTEN      25167/etcdtcp        0      0 172.16.0.8:2380         0.0.0.0:*               LISTEN      25167/etcd
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-0-8 default.etcd]# netstat -lntup |grep etcdtcp        0      0 172.16.0.8:2379         0.0.0.0:*               LISTEN      25167/etcdtcp        0      0 127.0.0.1:2379          0.0.0.0:*               LISTEN      25167/etcdtcp        0      0 172.16.0.8:2380         0.0.0.0:*               LISTEN      25167/etcd
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -496,10 +497,10 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-0-8 default.etcd]# etcdctl member list2d2e457c6a1a76cb: name=etcd-0-8 peerURLs=http://172.16.0.8:2380 clientURLs=http://127.0.0.1:2379,http://172.16.0.8:2379 isLeader=false56e0b6dad4c53d42: name=etcd-0-14 peerURLs=http://172.16.0.14:2380 clientURLs=http://127.0.0.1:2379,http://172.16.0.14:2379 isLeader=trued2d2e9fc758e6790: name=etcd-0-17 peerURLs=http://172.16.0.17:2380 clientURLs=http://127.0.0.1:2379,http://172.16.0.17:2379 isLeader=false[root@etcd-0-8 ~]# etcdctl cluster-healthmember 2d2e457c6a1a76cb is healthy: got healthy result from http://127.0.0.1:2379member 56e0b6dad4c53d42 is healthy: got healthy result from http://127.0.0.1:2379member d2d2e9fc758e6790 is healthy: got healthy result from http://127.0.0.1:2379cluster is healthy
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@etcd-0-8 default.etcd]# etcdctl member list2d2e457c6a1a76cb: name=etcd-0-8 peerURLs=http://172.16.0.8:2380 clientURLs=http://127.0.0.1:2379,http://172.16.0.8:2379 isLeader=false56e0b6dad4c53d42: name=etcd-0-14 peerURLs=http://172.16.0.14:2380 clientURLs=http://127.0.0.1:2379,http://172.16.0.14:2379 isLeader=trued2d2e9fc758e6790: name=etcd-0-17 peerURLs=http://172.16.0.17:2380 clientURLs=http://127.0.0.1:2379,http://172.16.0.17:2379 isLeader=false[root@etcd-0-8 ~]# etcdctl cluster-healthmember 2d2e457c6a1a76cb is healthy: got healthy result from http://127.0.0.1:2379member 56e0b6dad4c53d42 is healthy: got healthy result from http://127.0.0.1:2379member d2d2e9fc758e6790 is healthy: got healthy result from http://127.0.0.1:2379cluster is healthy
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="五简单使用">五、简单使用</h2>
@@ -510,19 +511,19 @@
 <p>指定某个键的值。例如:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl set /testdir/testkey &#34;Hello world&#34;Hello world
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl set /testdir/testkey &#34;Hello world&#34;Hello world
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项包括：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 该键值的超时时间(单位为秒)，不配置(默认为0)则永不超时--swap-with-value value 若该键现在的值是value，则进行设置操作--swap-with-index &#39;0&#39;   若该键现在的索引值是指定索引，则进行设置操作
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 该键值的超时时间(单位为秒)，不配置(默认为0)则永不超时--swap-with-value value 若该键现在的值是value，则进行设置操作--swap-with-index &#39;0&#39;   若该键现在的索引值是指定索引，则进行设置操作
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -531,28 +532,28 @@
 <p>如果给定的键不存在，则创建一个新的键值。例如:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl mk /testdir/testkey &#34;Hello world&#34;Hello world
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl mk /testdir/testkey &#34;Hello world&#34;Hello world
 </code></pre></td></tr></table>
 </div>
 </div><p>当键存在的时候，执行该命令会报错，例如:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl mk /testdir/testkey &#34;Hello world&#34;Error:  105: Key already exists (/testdir/testkey) [8]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl mk /testdir/testkey &#34;Hello world&#34;Error:  105: Key already exists (/testdir/testkey) [8]
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项为:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39;  超时时间(单位为秒），不配置(默认为 0)。则永不超时
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39;  超时时间(单位为秒），不配置(默认为 0)。则永不超时
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -561,19 +562,19 @@
 <p>如果给定的键目录不存在，则创建一个新的键目录。例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl mkdir testdir2
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl mkdir testdir2
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 超时时间(单位为秒)，不配置(默认为0)则永不超时。
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 超时时间(单位为秒)，不配置(默认为0)则永不超时。
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -582,19 +583,19 @@
 <p>创建一个键目录。如果目录不存在就创建，如果目录存在更新目录TTL。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl setdir testdir3
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl setdir testdir3
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项为:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 超时时间(单位为秒)，不配置(默认为0)则永不超时。
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 超时时间(单位为秒)，不配置(默认为0)则永不超时。
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="52-删除">5.2 删除</h3>
@@ -604,28 +605,28 @@
 <p>删除某个键值。例如:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl rm /testdir/testkeyPrevNode.Value: Hello
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl rm /testdir/testkeyPrevNode.Value: Hello
 </code></pre></td></tr></table>
 </div>
 </div><p>当键不存在时，则会报错。例如:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl rm /testdir/testkeyError:  100: Key not found (/testdir/testkey) [7]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl rm /testdir/testkeyError:  100: Key not found (/testdir/testkey) [7]
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--dir 如果键是个空目录或者键值对则删除--recursive 删除目录和所有子键--with-value  检查现有的值是否匹配--with-index &#39;0&#39;检查现有的index是否匹配
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--dir 如果键是个空目录或者键值对则删除--recursive 删除目录和所有子键--with-value  检查现有的值是否匹配--with-index &#39;0&#39;检查现有的index是否匹配
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -634,19 +635,19 @@
 <p>删除一个空目录，或者键值对。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl setdir dir1$ etcdctl rmdir dir1
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl setdir dir1$ etcdctl rmdir dir1
 </code></pre></td></tr></table>
 </div>
 </div><p>若目录不空，会报错:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl set /dir/testkey hihi$ etcdctl rmdir /dirError:  108: Directory not empty (/dir) [17]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl set /dir/testkey hihi$ etcdctl rmdir /dirError:  108: Directory not empty (/dir) [17]
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="53-更新">5.3 更新</h3>
@@ -656,28 +657,28 @@
 <p>当键存在时，更新值内容。例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl update /testdir/testkey &#34;Hello&#34;Hello
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl update /testdir/testkey &#34;Hello&#34;Hello
 </code></pre></td></tr></table>
 </div>
 </div><p>当键不存在时，则会报错。例如:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl update /testdir/testkey2 &#34;Hello&#34;Error:  100: Key not found (/testdir/testkey2) [6]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl update /testdir/testkey2 &#34;Hello&#34;Error:  100: Key not found (/testdir/testkey2) [6]
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项为:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 超时时间(单位为秒)，不配置(默认为 0)则永不超时。
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 超时时间(单位为秒)，不配置(默认为 0)则永不超时。
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -686,19 +687,19 @@
 <p>更新一个已经存在的目录。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl updatedir testdir2
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl updatedir testdir2
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项为:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 超时时间(单位为秒)，不配置(默认为0)则永不超时。
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--ttl &#39;0&#39; 超时时间(单位为秒)，不配置(默认为0)则永不超时。
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="54-查询">5.4 查询</h3>
@@ -708,28 +709,28 @@
 <p>获取指定键的值。例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl get /testdir/testkeyHello world
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl get /testdir/testkeyHello world
 </code></pre></td></tr></table>
 </div>
 </div><p>当键不存在时，则会报错。例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl get /testdir/testkey2Error:  100: Key not found (/testdir/testkey2) [5]
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl get /testdir/testkey2Error:  100: Key not found (/testdir/testkey2) [5]
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项为:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--sort 对结果进行排序--consistent 将请求发给主节点，保证获取内容的一致性。
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--sort 对结果进行排序--consistent 将请求发给主节点，保证获取内容的一致性。
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -739,19 +740,19 @@
 <p>例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl ls/testdir/testdir2/dir$ etcdctl ls dir/dir/testkey
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl ls/testdir/testdir2/dir$ etcdctl ls dir/dir/testkey
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项包括:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--sort 将输出结果排序--recursive 如果目录下有子目录，则递归输出其中的内容-p 对于输出为目录，在最后添加/进行区分
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--sort 将输出结果排序--recursive 如果目录下有子目录，则递归输出其中的内容-p 对于输出为目录，在最后添加/进行区分
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="55-watch">5.5 watch</h3>
@@ -762,10 +763,10 @@
 例如:用户更新testkey键值为Hello watch。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl get /testdir/testkeyHello world$ etcdctl set /testdir/testkey &#34;Hello watch&#34;Hello watch$ etcdctl watch testdir/testkeyHello watch
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl get /testdir/testkeyHello world$ etcdctl set /testdir/testkey &#34;Hello watch&#34;Hello watch$ etcdctl watch testdir/testkeyHello watch
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -773,10 +774,10 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--forever  一直监测直到用户按CTRL+C退出--after-index &#39;0&#39; 在指定index之前一直监测--recursive 返回所有的键值和子键值
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--forever  一直监测直到用户按CTRL+C退出--after-index &#39;0&#39; 在指定index之前一直监测--recursive 返回所有的键值和子键值
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -786,38 +787,38 @@
 例如：用户更新testkey键值。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl exec-watch testdir/testkey -- sh -c &#39;ls&#39;config    Documentation  etcd  etcdctl  README-etcdctl.md  README.md  READMEv2-etcdctl.md
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl exec-watch testdir/testkey -- sh -c &#39;ls&#39;config    Documentation  etcd  etcdctl  README-etcdctl.md  README.md  READMEv2-etcdctl.md
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项包括:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--after-index &#39;0&#39; 在指定 index 之前一直监测--recursive 返回所有的键值和子键值
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--after-index &#39;0&#39; 在指定 index 之前一直监测--recursive 返回所有的键值和子键值
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="56-备份">5.6 备份</h3>
 <p>备份etcd的数据。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl backup --data-dir /var/lib/etcd  --backup-dir /home/etcd_backup
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl backup --data-dir /var/lib/etcd  --backup-dir /home/etcd_backup
 </code></pre></td></tr></table>
 </div>
 </div><p>支持的选项包括:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--data-dir  etcd的数据目录--backup-dir 备份到指定路径
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--data-dir  etcd的数据目录--backup-dir 备份到指定路径
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="57-member">5.7 member</h3>
@@ -825,37 +826,37 @@
 <p>查看集群中存在的节点</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl member list8e9e05c52164694d: name=dev-master-01 peerURLs=http://localhost:2380 clientURLs=http://localhost:2379 isLeader=true
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl member list8e9e05c52164694d: name=dev-master-01 peerURLs=http://localhost:2380 clientURLs=http://localhost:2379 isLeader=true
 </code></pre></td></tr></table>
 </div>
 </div><p>删除集群中存在的节点</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl member remove 8e9e05c52164694dRemoved member 8e9e05c52164694d from cluster
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl member remove 8e9e05c52164694dRemoved member 8e9e05c52164694d from cluster
 </code></pre></td></tr></table>
 </div>
 </div><p>向集群中新加节点</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl member add etcd3 http://192.168.1.100:2380Added member named etcd3 with ID 8e9e05c52164694d to cluster
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ etcdctl member add etcd3 http://192.168.1.100:2380Added member named etcd3 with ID 8e9e05c52164694d to cluster
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="示例">示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 设置一个key值[root@etcd-0-8 ~]# etcdctl set /msg &#34;hello k8s&#34;hello k8s# 获取key的值[root@etcd-0-8 ~]# etcdctl get /msghello k8s# 获取key值的详细信息[root@etcd-0-8 ~]# etcdctl -o extended get /msgKey: /msgCreated-Index: 12Modified-Index: 12TTL: 0Index: 12hello k8s# 获取不存在的key回报错[root@etcd-0-8 ~]# etcdctl get /xxzxError:  100: Key not found (/xxzx) [12]# 设置key的ttl，过期后会被自动删除[root@etcd-0-8 ~]# etcdctl set /testkey &#34;tmp key test&#34; --ttl 5tmp key test[root@etcd-0-8 ~]# etcdctl get /testkeyError:  100: Key not found (/testkey) [14]# key 替换操作[root@etcd-0-8 ~]# etcdctl get /msghello k8s[root@etcd-0-8 ~]# etcdctl set --swap-with-value &#34;hello k8s&#34; /msg &#34;goodbye&#34;goodbye[root@etcd-0-8 ~]# etcdctl get /msggoodbye# mk 仅当key不存在时创建(set对同一个key会覆盖)[root@etcd-0-8 ~]# etcdctl get /msggoodbye[root@etcd-0-8 ~]# etcdctl mk /msg &#34;mktest&#34;Error:  105: Key already exists (/msg) [18][root@etcd-0-8 ~]# etcdctl mk /msg1 &#34;mktest&#34;mktest# 创建自排序的key[root@etcd-0-8 ~]# etcdctl mk --in-order /queue s1s1[root@etcd-0-8 ~]# etcdctl mk --in-order /queue s2s2[root@etcd-0-8 ~]# etcdctl ls --sort /queue/queue/00000000000000000021/queue/00000000000000000022[root@etcd-0-8 ~]# etcdctl get /queue/00000000000000000021s1# 更新key值[root@etcd-0-8 ~]# etcdctl update /msg1 &#34;update test&#34;update test[root@etcd-0-8 ~]# etcdctl get /msg1update test# 更新key的ttl及值[root@etcd-0-8 ~]# etcdctl update --ttl 5 /msg &#34;aaa&#34;aaa# 创建目录[root@etcd-0-8 ~]# etcdctl mkdir /testdir# 删除空目录[root@etcd-0-8 ~]# etcdctl mkdir /test1[root@etcd-0-8 ~]# etcdctl rmdir /test1# 删除非空目录[root@etcd-0-8 ~]# etcdctl get /testdir/testdir: is a directory[root@etcd-0-8 ~]#[root@etcd-0-8 ~]# etcdctl rm --recursive /testdir# 列出目录内容[root@etcd-0-8 ~]# etcdctl ls //tmp/msg1/queue[root@etcd-0-8 ~]# etcdctl ls /tmp/tmp/a/tmp/b# 递归列出目录的内容[root@etcd-0-8 ~]# etcdctl ls --recursive //msg1/queue/queue/00000000000000000021/queue/00000000000000000022/tmp/tmp/b/tmp/a# 监听key，当key发生改变的时候打印出变化[root@etcd-0-8 ~]# etcdctl watch /msg1xxx[root@VM_0_17_centos ~]# etcdctl update /msg1 &#34;xxx&#34;xxx# 监听某个目录，当目录中任何 node 改变的时候，都会打印出来[root@etcd-0-8 ~]# etcdctl watch --recursive /[update] /msg1xxx[root@VM_0_17_centos ~]# etcdctl update /msg1 &#34;xxx&#34;xxx# 一直监听，除非 `CTL + C` 导致退出监听[root@etcd-0-8 ~]# etcdctl watch --forever /# 监听目录，当发生变化时执行一条命令[root@etcd-0-8 ~]# etcdctl exec-watch --recursive / -- sh -c &#34;echo change&#34;change# backup[root@etcd-0-14 ~]# etcdctl backup --data-dir /data/app/etcd --backup-dir /root/etcd_backup2019-12-04 10:25:16.113237 I | ignoring EntryConfChange raft entry2019-12-04 10:25:16.113268 I | ignoring EntryConfChange raft entry2019-12-04 10:25:16.113272 I | ignoring EntryConfChange raft entry2019-12-04 10:25:16.113293 I | ignoring member attribute update on /0/members/2d2e457c6a1a76cb/attributes2019-12-04 10:25:16.113299 I | ignoring member attribute update on /0/members/d2d2e9fc758e6790/attributes2019-12-04 10:25:16.113305 I | ignoring member attribute update on /0/members/56e0b6dad4c53d42/attributes2019-12-04 10:25:16.113310 I | ignoring member attribute update on /0/members/56e0b6dad4c53d42/attributes2019-12-04 10:25:16.113314 I | ignoring member attribute update on /0/members/2d2e457c6a1a76cb/attributes2019-12-04 10:25:16.113319 I | ignoring member attribute update on /0/members/d2d2e9fc758e6790/attributes2019-12-04 10:25:16.113384 I | ignoring member attribute update on /0/members/56e0b6dad4c53d42/attributes# 使用v3版本[root@etcd-0-14 ~]# export ETCDCTL_API=3[root@etcd-0-14 ~]# etcdctl --endpoints=&#34;http://172.16.0.8:2379,http://172.16.0.14:2379,http://172.16.0.17:2379&#34; snapshot save mysnapshot.dbSnapshot saved at mysnapshot.db[root@etcd-0-14 ~]# etcdctl snapshot status mysnapshot.db -w json{&#34;hash&#34;:928285884,&#34;revision&#34;:0,&#34;totalKey&#34;:5,&#34;totalSize&#34;:20480}
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 设置一个key值[root@etcd-0-8 ~]# etcdctl set /msg &#34;hello k8s&#34;hello k8s# 获取key的值[root@etcd-0-8 ~]# etcdctl get /msghello k8s# 获取key值的详细信息[root@etcd-0-8 ~]# etcdctl -o extended get /msgKey: /msgCreated-Index: 12Modified-Index: 12TTL: 0Index: 12hello k8s# 获取不存在的key回报错[root@etcd-0-8 ~]# etcdctl get /xxzxError:  100: Key not found (/xxzx) [12]# 设置key的ttl，过期后会被自动删除[root@etcd-0-8 ~]# etcdctl set /testkey &#34;tmp key test&#34; --ttl 5tmp key test[root@etcd-0-8 ~]# etcdctl get /testkeyError:  100: Key not found (/testkey) [14]# key 替换操作[root@etcd-0-8 ~]# etcdctl get /msghello k8s[root@etcd-0-8 ~]# etcdctl set --swap-with-value &#34;hello k8s&#34; /msg &#34;goodbye&#34;goodbye[root@etcd-0-8 ~]# etcdctl get /msggoodbye# mk 仅当key不存在时创建(set对同一个key会覆盖)[root@etcd-0-8 ~]# etcdctl get /msggoodbye[root@etcd-0-8 ~]# etcdctl mk /msg &#34;mktest&#34;Error:  105: Key already exists (/msg) [18][root@etcd-0-8 ~]# etcdctl mk /msg1 &#34;mktest&#34;mktest# 创建自排序的key[root@etcd-0-8 ~]# etcdctl mk --in-order /queue s1s1[root@etcd-0-8 ~]# etcdctl mk --in-order /queue s2s2[root@etcd-0-8 ~]# etcdctl ls --sort /queue/queue/00000000000000000021/queue/00000000000000000022[root@etcd-0-8 ~]# etcdctl get /queue/00000000000000000021s1# 更新key值[root@etcd-0-8 ~]# etcdctl update /msg1 &#34;update test&#34;update test[root@etcd-0-8 ~]# etcdctl get /msg1update test# 更新key的ttl及值[root@etcd-0-8 ~]# etcdctl update --ttl 5 /msg &#34;aaa&#34;aaa# 创建目录[root@etcd-0-8 ~]# etcdctl mkdir /testdir# 删除空目录[root@etcd-0-8 ~]# etcdctl mkdir /test1[root@etcd-0-8 ~]# etcdctl rmdir /test1# 删除非空目录[root@etcd-0-8 ~]# etcdctl get /testdir/testdir: is a directory[root@etcd-0-8 ~]#[root@etcd-0-8 ~]# etcdctl rm --recursive /testdir# 列出目录内容[root@etcd-0-8 ~]# etcdctl ls //tmp/msg1/queue[root@etcd-0-8 ~]# etcdctl ls /tmp/tmp/a/tmp/b# 递归列出目录的内容[root@etcd-0-8 ~]# etcdctl ls --recursive //msg1/queue/queue/00000000000000000021/queue/00000000000000000022/tmp/tmp/b/tmp/a# 监听key，当key发生改变的时候打印出变化[root@etcd-0-8 ~]# etcdctl watch /msg1xxx[root@VM_0_17_centos ~]# etcdctl update /msg1 &#34;xxx&#34;xxx# 监听某个目录，当目录中任何 node 改变的时候，都会打印出来[root@etcd-0-8 ~]# etcdctl watch --recursive /[update] /msg1xxx[root@VM_0_17_centos ~]# etcdctl update /msg1 &#34;xxx&#34;xxx# 一直监听，除非 `CTL + C` 导致退出监听[root@etcd-0-8 ~]# etcdctl watch --forever /# 监听目录，当发生变化时执行一条命令[root@etcd-0-8 ~]# etcdctl exec-watch --recursive / -- sh -c &#34;echo change&#34;change# backup[root@etcd-0-14 ~]# etcdctl backup --data-dir /data/app/etcd --backup-dir /root/etcd_backup2019-12-04 10:25:16.113237 I | ignoring EntryConfChange raft entry2019-12-04 10:25:16.113268 I | ignoring EntryConfChange raft entry2019-12-04 10:25:16.113272 I | ignoring EntryConfChange raft entry2019-12-04 10:25:16.113293 I | ignoring member attribute update on /0/members/2d2e457c6a1a76cb/attributes2019-12-04 10:25:16.113299 I | ignoring member attribute update on /0/members/d2d2e9fc758e6790/attributes2019-12-04 10:25:16.113305 I | ignoring member attribute update on /0/members/56e0b6dad4c53d42/attributes2019-12-04 10:25:16.113310 I | ignoring member attribute update on /0/members/56e0b6dad4c53d42/attributes2019-12-04 10:25:16.113314 I | ignoring member attribute update on /0/members/2d2e457c6a1a76cb/attributes2019-12-04 10:25:16.113319 I | ignoring member attribute update on /0/members/d2d2e9fc758e6790/attributes2019-12-04 10:25:16.113384 I | ignoring member attribute update on /0/members/56e0b6dad4c53d42/attributes# 使用v3版本[root@etcd-0-14 ~]# export ETCDCTL_API=3[root@etcd-0-14 ~]# etcdctl --endpoints=&#34;http://172.16.0.8:2379,http://172.16.0.14:2379,http://172.16.0.17:2379&#34; snapshot save mysnapshot.dbSnapshot saved at mysnapshot.db[root@etcd-0-14 ~]# etcdctl snapshot status mysnapshot.db -w json{&#34;hash&#34;:928285884,&#34;revision&#34;:0,&#34;totalKey&#34;:5,&#34;totalSize&#34;:20480}
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="六总结">六、总结</h2>
@@ -907,16 +908,16 @@
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/etcd/">etcd</a>
-          <a href="/tags/center/">center</a>
+          <a href="/blog/tags/etcd/">etcd</a>
+          <a href="/blog/tags/center/">center</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/center/zookeeper_ops_doc/">
+        <a class="prev" href="/blog/post/center/zookeeper_ops_doc/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">ZooKeeper 入门指引</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/apm/skywalking8_ops/">
+        <a class="next" href="/blog/post/apm/skywalking8_ops/">
             <span class="next-text nav-default">skywalking8.1部署及使用教程</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -941,7 +942,7 @@
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -955,15 +956,15 @@
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -990,7 +991,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

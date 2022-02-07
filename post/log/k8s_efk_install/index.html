@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/log/k8s_efk_install/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/log/k8s_efk_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="K8s 上搭建 EFK 日志系统" />
 <meta property="og:description" content="参考博客 https://www.qikqiak.com/post/install-efk-stack-on-k8s/ http://www.mydlq.club/article/13/ https://www.cnblogs.com/leozhanggg/p/12700363.html Kubernetes 中比较流行的日志收集解决方案是 Elasticsearch、Fluentd 和 Kibana（EFK）技术栈，也是官方现在比较推荐" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/log/k8s_efk_install/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/log/k8s_efk_install/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-05-05T21:11:30+00:00" />
 <meta property="article:modified_time" content="2020-05-05T21:11:30+00:00" />
+
 <meta itemprop="name" content="K8s 上搭建 EFK 日志系统">
-<meta itemprop="description" content="参考博客 https://www.qikqiak.com/post/install-efk-stack-on-k8s/ http://www.mydlq.club/article/13/ https://www.cnblogs.com/leozhanggg/p/12700363.html Kubernetes 中比较流行的日志收集解决方案是 Elasticsearch、Fluentd 和 Kibana（EFK）技术栈，也是官方现在比较推荐">
-<meta itemprop="datePublished" content="2020-05-05T21:11:30+00:00" />
+<meta itemprop="description" content="参考博客 https://www.qikqiak.com/post/install-efk-stack-on-k8s/ http://www.mydlq.club/article/13/ https://www.cnblogs.com/leozhanggg/p/12700363.html Kubernetes 中比较流行的日志收集解决方案是 Elasticsearch、Fluentd 和 Kibana（EFK）技术栈，也是官方现在比较推荐"><meta itemprop="datePublished" content="2020-05-05T21:11:30+00:00" />
 <meta itemprop="dateModified" content="2020-05-05T21:11:30+00:00" />
 <meta itemprop="wordCount" content="11814">
-
-
-
-<meta itemprop="keywords" content="efk,log," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="efk,log," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="K8s 上搭建 EFK 日志系统"/>
 <meta name="twitter:description" content="参考博客 https://www.qikqiak.com/post/install-efk-stack-on-k8s/ http://www.mydlq.club/article/13/ https://www.cnblogs.com/leozhanggg/p/12700363.html Kubernetes 中比较流行的日志收集解决方案是 Elasticsearch、Fluentd 和 Kibana（EFK）技术栈，也是官方现在比较推荐"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-05-05 21:11 </span>
         <div class="post-category">
-            <a href="/categories/log/"> log </a>
+            <a href="/blog/categories/log/"> log </a>
             </div>
           <span class="more-meta"> 约 11814 字 </span>
           <span class="more-meta"> 预计阅读 24 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -157,6 +153,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-05-05T21:11:30" title="May 5, 2020">May 5, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -188,13 +189,13 @@
 <p>新建一个 kube-logging.yaml 文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">logging</span><span class="w">
@@ -203,7 +204,7 @@
 </div><p>然后通过 kubectl 创建该资源清单，创建一个名为 logging 的 namespace：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -216,7 +217,7 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f kube-logging.yaml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f kube-logging.yaml
 namespace/logging created
 $ kubectl get ns
 NAME           STATUS    AGE
@@ -237,7 +238,7 @@ monitoring     Active    35d
 <p>一个关键点是您应该设置参数<code>discover.zen.minimum_master_nodes=N/2+1</code>，其中<code>N</code>是 Elasticsearch 集群中符合主节点的节点数，比如我们这里3个节点，意味着<code>N</code>应该设置为2。这样，如果一个节点暂时与集群断开连接，则另外两个节点可以选择一个新的主节点，并且集群可以在最后一个节点尝试重新加入时继续运行，在扩展 Elasticsearch 集群时，一定要记住这个参数。 首先创建一个名为 elasticsearch 的无头服务，新建文件 elasticsearch-svc.yaml，文件内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -255,7 +256,7 @@ monitoring     Active    35d
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
 </span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
@@ -277,7 +278,7 @@ monitoring     Active    35d
 <p>使用 kubectl 直接创建上面的服务资源对象：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -285,7 +286,7 @@ monitoring     Active    35d
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f elasticsearch-svc.yaml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f elasticsearch-svc.yaml
 service/elasticsearch created
 $ kubectl get services --namespace<span class="o">=</span>logging
 Output
@@ -301,7 +302,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 <p>新建名为 elasticsearch-statefulset.yaml 的资源清单文件，首先粘贴下面内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -318,7 +319,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StatefulSet</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es</span><span class="w">
@@ -340,7 +341,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 <p>然后定义 Pod 模板部分内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -379,7 +380,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
 </span><span class="w">  </span><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">containers</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
@@ -429,7 +430,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 <p>接下来添加关于 initContainer 的内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -443,7 +444,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
 </span><span class="w">    </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">increase-vm-max-map</span><span class="w">
 </span><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
@@ -466,7 +467,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 <p>现在我们已经定义了主应用容器和它之前运行的 Init Containers 来调整一些必要的系统参数，接下来我们可以添加数据目录的持久化相关的配置，在 StatefulSet 中，使用 volumeClaimTemplates 来定义 volume 模板即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -480,7 +481,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
 </span><span class="w">  </span><span class="nt">volumeClaimTemplates</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span>- <span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">data</span><span class="w">
@@ -498,7 +499,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 <p>完整的 Elasticsearch StatefulSet 资源清单文件内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -573,7 +574,7 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 </span><span class="lnt">73
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StatefulSet</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">es</span><span class="w">
@@ -651,18 +652,18 @@ elasticsearch   ClusterIP   None         &lt;none&gt;        9200/TCP,9300/TCP  
 </div><p>现在直接使用 kubectl 工具部署即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f elasticsearch-statefulset.yaml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f elasticsearch-statefulset.yaml
 statefulset.apps/es created
 </code></pre></td></tr></table>
 </div>
 </div><p>添加成功后，可以看到 logging 命名空间下面的所有的资源对象：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -675,7 +676,7 @@ statefulset.apps/es created
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get sts -n logging
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get sts -n logging
 NAME   READY   AGE
 es     3/3     83m
 $ kubectl get pods -n logging
@@ -691,12 +692,12 @@ elasticsearch   ClusterIP   None             &lt;none&gt;        9200/TCP,9300/T
 </div><p>Pods 部署完成后，我们可以通过请求一个 REST API 来检查 Elasticsearch 集群是否正常运行。使用下面的命令将本地端口9200 转发到 Elasticsearch 节点（如es-0）对应的端口：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl port-forward es-0 9200:9200 --namespace<span class="o">=</span>logging
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl port-forward es-0 9200:9200 --namespace<span class="o">=</span>logging
 Forwarding from 127.0.0.1:9200 -&gt; <span class="m">9200</span>
 Forwarding from <span class="o">[</span>::1<span class="o">]</span>:9200 -&gt; <span class="m">9200</span>
 </code></pre></td></tr></table>
@@ -704,16 +705,16 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:9200 -&gt; <
 </div><p>然后，在另外的终端窗口中，执行如下请求：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ curl http://localhost:9200/_cluster/state?pretty
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ curl http://localhost:9200/_cluster/state?pretty
 </code></pre></td></tr></table>
 </div>
 </div><p>正常来说，应该会看到类似于如下的信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -744,7 +745,7 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:9200 -&gt; <
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">{</span>
   <span class="s2">&#34;cluster_name&#34;</span> : <span class="s2">&#34;k8s-logs&#34;</span>,
   <span class="s2">&#34;compressed_size_in_bytes&#34;</span> : 348,
   <span class="s2">&#34;cluster_uuid&#34;</span> : <span class="s2">&#34;QD06dK7CQgids-GQZooNVw&#34;</span>,
@@ -780,7 +781,7 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:9200 -&gt; <
 <p>Elasticsearch 集群启动成功了，接下来我们可以来部署 Kibana 服务，新建一个名为 kibana.yaml 的文件，对应的文件内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -828,7 +829,7 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:9200 -&gt; <
 </span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kibana</span><span class="w">
@@ -879,12 +880,12 @@ Forwarding from <span class="o">[</span>::1<span class="o">]</span>:9200 -&gt; <
 </div><p>上面我们定义了两个资源对象，一个 Service 和 Deployment，为了测试方便，我们将 Service 设置为了 NodePort 类型，Kibana Pod 中配置都比较简单，唯一需要注意的是我们使用 <code>ELASTICSEARCH_HOSTS</code> 这个环境变量来设置Elasticsearch 集群的端点和端口，直接使用 Kubernetes DNS 即可，此端点对应服务名称为 elasticsearch，由于是一个 headless service，所以该域将解析为3个 Elasticsearch Pod 的 IP 地址列表。 配置完成后，直接使用 kubectl 工具创建：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f kibana.yaml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f kibana.yaml
 service/kibana created
 deployment.apps/kibana created
 </code></pre></td></tr></table>
@@ -892,7 +893,7 @@ deployment.apps/kibana created
 </div><p>创建完成后，可以查看 Kibana Pod 的运行状态：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -904,7 +905,7 @@ deployment.apps/kibana created
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods --namespace<span class="o">=</span>logging
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods --namespace<span class="o">=</span>logging
 NAME                      READY   STATUS    RESTARTS   AGE
 es-0                      1/1     Running   <span class="m">0</span>          85m
 es-1                      1/1     Running   <span class="m">0</span>          84m
@@ -980,7 +981,7 @@ kibana          NodePort    10.111.223.99   &lt;none&gt;        5601:31139/TCP  
 <p>由于 Kubernetes 集群中应用太多，也还有很多历史数据，所以我们可以只将某些应用的日志进行收集，比如我们只采集具有 <code>logging=true</code> 这个 Label 标签的 Pod 日志，这个时候就需要使用 filter，如下所示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -996,7 +997,7 @@ kibana          NodePort    10.111.223.99   &lt;none&gt;        5601:31139/TCP  
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 删除无用的属性</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># 删除无用的属性</span><span class="w">
 </span><span class="w"></span><span class="l">&lt;filter kubernetes.**&gt;</span><span class="w">
 </span><span class="w">  </span>@<span class="l">type record_transformer</span><span class="w">
 </span><span class="w">  </span><span class="l">remove_keys $.docker.container_id,$.kubernetes.container_image_id,$.kubernetes.pod_id,$.kubernetes.namespace_id,$.kubernetes.master_url,$.kubernetes.labels.pod-template-hash</span><span class="w">
@@ -1017,7 +1018,7 @@ kibana          NodePort    10.111.223.99   &lt;none&gt;        5601:31139/TCP  
 <p>首先，我们通过 ConfigMap 对象来指定 Fluentd 配置文件，新建 fluentd-configmap.yaml 文件，文件内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1145,7 +1146,7 @@ kibana          NodePort    10.111.223.99   &lt;none&gt;        5601:31139/TCP  
 </span><span class="lnt">126
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
 </span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">fluentd-config</span><span class="w">
@@ -1277,7 +1278,7 @@ kibana          NodePort    10.111.223.99   &lt;none&gt;        5601:31139/TCP  
 <p>然后新建一个 fluentd-daemonset.yaml 的文件，文件内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1384,7 +1385,7 @@ kibana          NodePort    10.111.223.99   &lt;none&gt;        5601:31139/TCP  
 </span><span class="lnt">105
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ServiceAccount</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">fluentd-es</span><span class="w">
@@ -1494,18 +1495,18 @@ kibana          NodePort    10.111.223.99   &lt;none&gt;        5601:31139/TCP  
 </div><p>我们将上面创建的 fluentd-config 这个 ConfigMap 对象通过 volumes 挂载到了 Fluentd 容器中，另外为了能够灵活控制哪些节点的日志可以被收集，所以我们这里还添加了一个 nodSelector 属性：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">nodeSelector</span><span class="p">:</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">nodeSelector</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">beta.kubernetes.io/fluentd-ds-ready</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>意思就是要想采集节点的日志，那么我们就需要给节点打上上面的标签，比如我们这里只给节点4和节点6打上了该标签：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1516,7 +1517,7 @@ kibana          NodePort    10.111.223.99   &lt;none&gt;        5601:31139/TCP  
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get nodes --show-labels
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get nodes --show-labels
 NAME          STATUS   ROLES    AGE    VERSION   LABELS
 ydzs-master   Ready    master   170d   v1.16.2   beta.kubernetes.io/arch<span class="o">=</span>amd64,beta.kubernetes.io/os<span class="o">=</span>linux,kubernetes.io/arch<span class="o">=</span>amd64,kubernetes.io/hostname<span class="o">=</span>ydzs-master,kubernetes.io/os<span class="o">=</span>linux,node-role.kubernetes.io/master<span class="o">=</span>
 ydzs-node1    Ready    &lt;none&gt;   170d   v1.16.2   beta.kubernetes.io/arch<span class="o">=</span>amd64,beta.kubernetes.io/os<span class="o">=</span>linux,es<span class="o">=</span>log,kubernetes.io/arch<span class="o">=</span>amd64,kubernetes.io/hostname<span class="o">=</span>ydzs-node1,kubernetes.io/os<span class="o">=</span>linux
@@ -1533,24 +1534,24 @@ ydzs-node6    Ready    &lt;none&gt;   96d    v1.16.2   beta.kubernetes.io/arch<s
 <p>另外由于我们的集群使用的是 kubeadm 搭建的，默认情况下 master 节点有污点，所以如果要想也收集 master 节点的日志，则需要添加上容忍：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">tolerations</span><span class="p">:</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">tolerations</span><span class="p">:</span><span class="w">
 </span><span class="w"></span>- <span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">Exists</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>另外需要注意的地方是，我这里的测试环境更改了 docker 的根目录：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ docker info
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ docker info
 ...
 Docker Root Dir: /data/docker
 ...
@@ -1560,7 +1561,7 @@ Docker Root Dir: /data/docker
 <p>分别创建上面的 ConfigMap 对象和 DaemonSet：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1569,7 +1570,7 @@ Docker Root Dir: /data/docker
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f fluentd-configmap.yaml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f fluentd-configmap.yaml
 configmap <span class="s2">&#34;fluentd-config&#34;</span> created
 $ kubectl create -f fluentd-daemonset.yaml
 serviceaccount <span class="s2">&#34;fluentd-es&#34;</span> created
@@ -1581,7 +1582,7 @@ daemonset.apps <span class="s2">&#34;fluentd-es&#34;</span> created
 </div><p>创建完成后，查看对应的 Pods 列表，检查是否部署成功：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1591,7 +1592,7 @@ daemonset.apps <span class="s2">&#34;fluentd-es&#34;</span> created
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods -n logging
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl get pods -n logging
 NAME                      READY   STATUS    RESTARTS   AGE
 es-0                      1/1     Running   <span class="m">0</span>          108m
 es-1                      1/1     Running   <span class="m">0</span>          107m
@@ -1605,7 +1606,7 @@ kibana-5c565c47dd-xj4bd   1/1     Running   <span class="m">0</span>          10
 <p>下面我们部署一个简单的测试应用， 新建 counter.yaml 文件，文件内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1619,7 +1620,7 @@ kibana-5c565c47dd-xj4bd   1/1     Running   <span class="m">0</span>          10
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">counter</span><span class="w">
@@ -1636,13 +1637,13 @@ kibana-5c565c47dd-xj4bd   1/1     Running   <span class="m">0</span>          10
 </div><p>该 Pod 只是简单将日志信息打印到 <code>stdout</code>，所以正常来说 Fluentd 会收集到这个日志数据，在 Kibana 中也就可以找到对应的日志数据了，使用 kubectl 工具创建该 Pod：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f counter.yaml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create -f counter.yaml
 $ kubectl get pods
 NAME                             READY   STATUS    RESTARTS   AGE
 counter                          1/1     Running   <span class="m">0</span>          9h
@@ -1665,13 +1666,13 @@ counter                          1/1     Running   <span class="m">0</span>     
 <p>上面我们已经可以将应用日志收集起来了，下面我们来使用一个应用演示如何分析采集的日志。示例应用会输出如下所示的 JSON 格式的日志信息：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">&#34;LOGLEVEL&#34;</span><span class="p">:</span><span class="s2">&#34;WARNING&#34;</span><span class="p">,</span><span class="nt">&#34;serviceName&#34;</span><span class="p">:</span><span class="s2">&#34;msg-processor&#34;</span><span class="p">,</span><span class="nt">&#34;serviceEnvironment&#34;</span><span class="p">:</span><span class="s2">&#34;staging&#34;</span><span class="p">,</span><span class="nt">&#34;message&#34;</span><span class="p">:</span><span class="s2">&#34;WARNING client connection terminated unexpectedly.&#34;</span><span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">&#34;LOGLEVEL&#34;</span><span class="p">:</span><span class="s2">&#34;WARNING&#34;</span><span class="p">,</span><span class="nt">&#34;serviceName&#34;</span><span class="p">:</span><span class="s2">&#34;msg-processor&#34;</span><span class="p">,</span><span class="nt">&#34;serviceEnvironment&#34;</span><span class="p">:</span><span class="s2">&#34;staging&#34;</span><span class="p">,</span><span class="nt">&#34;message&#34;</span><span class="p">:</span><span class="s2">&#34;WARNING client connection terminated unexpectedly.&#34;</span><span class="p">}</span>
 <span class="p">{</span><span class="nt">&#34;LOGLEVEL&#34;</span><span class="p">:</span><span class="s2">&#34;INFO&#34;</span><span class="p">,</span><span class="nt">&#34;serviceName&#34;</span><span class="p">:</span><span class="s2">&#34;msg-processor&#34;</span><span class="p">,</span><span class="nt">&#34;serviceEnvironment&#34;</span><span class="p">:</span><span class="s2">&#34;staging&#34;</span><span class="p">,</span><span class="nt">&#34;message&#34;</span><span class="p">:</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="nt">&#34;eventsNumber&#34;</span><span class="p">:</span><span class="mi">5</span><span class="p">}</span>
 <span class="p">{</span><span class="nt">&#34;LOGLEVEL&#34;</span><span class="p">:</span><span class="s2">&#34;INFO&#34;</span><span class="p">,</span><span class="nt">&#34;serviceName&#34;</span><span class="p">:</span><span class="s2">&#34;msg-receiver-api&#34;</span><span class="p">:</span><span class="s2">&#34;msg-receiver-api&#34;</span><span class="p">,</span><span class="nt">&#34;serviceEnvironment&#34;</span><span class="p">:</span><span class="s2">&#34;staging&#34;</span><span class="p">,</span><span class="nt">&#34;volume&#34;</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span><span class="nt">&#34;message&#34;</span><span class="p">:</span><span class="s2">&#34;API received messages&#34;</span><span class="p">}</span>
 <span class="p">{</span><span class="nt">&#34;LOGLEVEL&#34;</span><span class="p">:</span><span class="s2">&#34;ERROR&#34;</span><span class="p">,</span><span class="nt">&#34;serviceName&#34;</span><span class="p">:</span><span class="s2">&#34;msg-receiver-api&#34;</span><span class="p">,</span><span class="nt">&#34;serviceEnvironment&#34;</span><span class="p">:</span><span class="s2">&#34;staging&#34;</span><span class="p">,</span><span class="nt">&#34;message&#34;</span><span class="p">:</span><span class="s2">&#34;ERROR Unable to upload files for processing&#34;</span><span class="p">}</span>
@@ -1682,7 +1683,7 @@ counter                          1/1     Running   <span class="m">0</span>     
 <p>由于在 fluentd 配置中我们添加了如下所示的过滤器：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1700,7 +1701,7 @@ counter                          1/1     Running   <span class="m">0</span>     
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">&lt;filter kubernetes.**&gt;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">&lt;filter kubernetes.**&gt;</span><span class="w">
 </span><span class="w">  </span>@<span class="l">id filter_parser</span><span class="w">
 </span><span class="w">  </span>@<span class="l">type parser               </span><span class="w"> </span><span class="c"># multi-format-parser多格式解析器插件</span><span class="w">
 </span><span class="w">  </span><span class="l">key_name log               </span><span class="w"> </span><span class="c"># 在要解析的记录中指定字段名称</span><span class="w">
@@ -1722,7 +1723,7 @@ counter                          1/1     Running   <span class="m">0</span>     
 <p>下面我们将示例应用部署到 Kubernetes 集群中：(dummylogs.yaml)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1765,7 +1766,7 @@ counter                          1/1     Running   <span class="m">0</span>     
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dummylogs</span><span class="w">
@@ -1811,7 +1812,7 @@ counter                          1/1     Running   <span class="m">0</span>     
 </div><p>直接部署上面的应用即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1823,7 +1824,7 @@ counter                          1/1     Running   <span class="m">0</span>     
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl apply -f dummylogs.yaml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl apply -f dummylogs.yaml
 $ kubectl get pods -l <span class="nv">logging</span><span class="o">=</span><span class="nb">true</span>
 NAME                         READY   STATUS    RESTARTS   AGE
 counter                      1/1     Running   <span class="m">0</span>          22h
@@ -1852,10 +1853,10 @@ dummylogs2-d9b978d9b-z2r26   1/1     Running   <span class="m">5</span>         
 <p>如果你的 Elasticsearch 的查询语句比较熟悉的话，使用查询语句能实现的筛选功能更加强大，比如我们要查询 <code>mgs-processor</code> 和 <code>msg-receiver-api</code> 两个服务的日志，则可以使用如下所示的查询语句：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">serviceName:msg-processor OR serviceName:msg-receiver-api
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">serviceName:msg-processor OR serviceName:msg-receiver-api
 </code></pre></td></tr></table>
 </div>
 </div><p>直接搜索框中输入上面的查询语句进行查询即可：</p>
@@ -1895,7 +1896,7 @@ dummylogs2-d9b978d9b-z2r26   1/1     Running   <span class="m">5</span>         
 <p>我们这里将 <code>elastalert</code> 部署到 Kubernetes 集群中，对应的资源清单文件如下所示：(elastalert.yaml)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1999,7 +2000,7 @@ dummylogs2-d9b978d9b-z2r26   1/1     Running   <span class="m">5</span>         
 </span><span class="lnt">102
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">elastalert-config</span><span class="w">
@@ -2106,27 +2107,27 @@ dummylogs2-d9b978d9b-z2r26   1/1     Running   <span class="m">5</span>         
 </div><p>使用邮件进行报警的时候，需要指定一个 <code>smtp_auth_file</code> 的文件，文件中包含用户名和密码：(smtp_auth_file.yaml)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxxxx@qq.com&#34;</span><span class="w">       </span><span class="c"># 发送的邮箱地址</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxxxx@qq.com&#34;</span><span class="w">       </span><span class="c"># 发送的邮箱地址</span><span class="w">
 </span><span class="w"></span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ewwghfhdvjwnbjea&#34;</span><span class="w">   </span><span class="c"># 不是qq邮箱的登录密码，是授权码</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>然后使用上面的文件创建一个对应的 Secret 资源对象：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create secret generic smtp-auth --from-file<span class="o">=</span>smtp_auth_file.yaml -n logging
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl create secret generic smtp-auth --from-file<span class="o">=</span>smtp_auth_file.yaml -n logging
 </code></pre></td></tr></table>
 </div>
 </div><p>然后直接创建上面的 elastalert 应用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2143,7 +2144,7 @@ dummylogs2-d9b978d9b-z2r26   1/1     Running   <span class="m">5</span>         
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl apply -f elastalert.yaml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ kubectl apply -f elastalert.yaml
 $ kubectl get pods -n logging -l <span class="nv">app</span><span class="o">=</span>elastalert
 NAME                          READY   STATUS    RESTARTS   AGE
 elastalert-64ccfbffcf-gd6xz   1/1     Running   <span class="m">0</span>          102s
@@ -2203,16 +2204,16 @@ Done!
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/efk/">efk</a>
-          <a href="/tags/log/">log</a>
+          <a href="/blog/tags/efk/">efk</a>
+          <a href="/blog/tags/log/">log</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/log/elk_centos7_install/">
+        <a class="prev" href="/blog/post/log/elk_centos7_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">搭建 ELK 日志系统</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/storage/centos_nfs_ops/">
+        <a class="next" href="/blog/post/storage/centos_nfs_ops/">
             <span class="next-text nav-default">CentOS 7 安装配置 NFS</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -2237,7 +2238,7 @@ Done!
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -2251,15 +2252,15 @@ Done!
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -2286,7 +2287,7 @@ Done!
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

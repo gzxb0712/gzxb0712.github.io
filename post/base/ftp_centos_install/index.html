@@ -24,21 +24,21 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/base/ftp_centos_install/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/base/ftp_centos_install/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="ftp在centos中安装" />
@@ -46,21 +46,17 @@
 
 安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/base/ftp_centos_install/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/base/ftp_centos_install/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-12-17T22:21:37+00:00" />
 <meta property="article:modified_time" content="2019-12-17T22:21:37+00:00" />
+
 <meta itemprop="name" content="ftp在centos中安装">
 <meta itemprop="description" content="
 
-安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程">
-<meta itemprop="datePublished" content="2019-12-17T22:21:37+00:00" />
+安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程"><meta itemprop="datePublished" content="2019-12-17T22:21:37+00:00" />
 <meta itemprop="dateModified" content="2019-12-17T22:21:37+00:00" />
 <meta itemprop="wordCount" content="3820">
-
-
-
-<meta itemprop="keywords" content="ftp,centos,base," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="ftp,centos,base," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ftp在centos中安装"/>
 <meta name="twitter:description" content="
 
@@ -79,7 +75,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -89,15 +85,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -105,21 +101,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -136,12 +132,12 @@
       <div class="post-meta">
         <span class="post-time"> 2019-12-17 22:21 </span>
         <div class="post-category">
-            <a href="/categories/linux/"> linux </a>
-            <a href="/categories/base/"> base </a>
+            <a href="/blog/categories/linux/"> linux </a>
+            <a href="/blog/categories/base/"> base </a>
             </div>
           <span class="more-meta"> 约 3820 字 </span>
           <span class="more-meta"> 预计阅读 8 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -179,6 +175,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2019-12-17T22:21:37" title="December 17, 2019">December 17, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -187,7 +188,7 @@
 <p>在安装前查看是否已安装vsftpd</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -199,7 +200,7 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 查看是否已安装 方法一
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 查看是否已安装 方法一
 [root@localhost ~]# rpm -q vsftpd
 vsftpd-3.0.2-21.el7.x86_64
 
@@ -214,27 +215,27 @@ vsftpd: version 3.0.2
 </div><h2 id="查看位置">查看位置</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# whereis vsftpd
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">[root@localhost ~]# whereis vsftpd
 vsftpd: /usr/sbin/vsftpd /etc/vsftpd /usr/share/man/man8/vsftpd.8.gz
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="启动vsftpd服务">启动vsftpd服务</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl start vsftpd.service
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl start vsftpd.service
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="关闭firewall和selinux">关闭firewall和SELinux</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -249,7 +250,7 @@ vsftpd: /usr/sbin/vsftpd /etc/vsftpd /usr/share/man/man8/vsftpd.8.gz
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">setenforce 0   # 设置SELinux 成为permissive模式  （关闭SELinux）
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">setenforce 0   # 设置SELinux 成为permissive模式  （关闭SELinux）
 setenforce 1   # 设置SELinux 成为enforcing模式   （开启SELinux）
 
 # 或者修改配置
@@ -267,25 +268,25 @@ setenforce 0
 </div><p>或者设置SELinux</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 getsebool -a | grep ftp
 setsebool -P ftpd_full_access on
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl stop firewalld.service
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl stop firewalld.service
 #停止firewall
 systemctl disable firewalld.service
 #禁止firewall开机启动
@@ -294,11 +295,11 @@ systemctl disable firewalld.service
 </div><p>如果你不愿意关闭防火墙，需要防火墙添加FTP服务。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --permanent --zone=public --add-service=ftp
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">firewall-cmd --permanent --zone=public --add-service=ftp
 firewall-cmd --reload
 </code></pre></td></tr></table>
 </div>
@@ -306,7 +307,7 @@ firewall-cmd --reload
 <p>配置文件<code>/etc/vsftpd/vsftpd.conf</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -317,7 +318,7 @@ firewall-cmd --reload
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">anonymous_enable=NO        # 不允许匿名访问，禁用匿名登录
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">anonymous_enable=NO        # 不允许匿名访问，禁用匿名登录
 chroot_local_user=YES      # 启用限定用户在其主目录下
 use_localtime=YES          # 使用本地时(自行添加)
 chroot_list_enable=YES
@@ -331,7 +332,7 @@ local_umask=022            # 设置本地用户默认文件掩码022
 </div><p>虚拟用户高级参数</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -346,7 +347,7 @@ local_umask=022            # 设置本地用户默认文件掩码022
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">当virtual_use_local_privs=YES 时，虚拟用户和本地用户有相同的权限；
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">当virtual_use_local_privs=YES 时，虚拟用户和本地用户有相同的权限；
 当virtual_use_local_privs=NO  时，虚拟用户和匿名用户有相同的权限，默认是NO。
 当virtual_use_local_privs=YES，write_enable=YES时，虚拟用户具有写权限（上传、下载、删除、重命名）。
 当virtual_use_local_privs=NO，write_enable=YES，anon_world_readable_only=YES，
@@ -365,7 +366,7 @@ anon_other_write_enable=YES时，虚拟用户只能下载、删除和重命名�
 <p>安装完默认情况下是开启匿名登录的，对应的是 <code>/var/ftp</code> 目录，这时只要服务启动了，就可以直接连上FTP了。默认用户名是<code>ftp</code>，密码是空的。如果你在配置里面配置了<code>anonymous_enable=NO</code>，匿名就无法登录。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -383,7 +384,7 @@ anon_other_write_enable=YES时，虚拟用户只能下载、删除和重命名�
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ ftp 192.168.188.114
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ ftp 192.168.188.114
 
 Connected to 192.168.188.114.
 220 (vsFTPd 3.0.2)
@@ -405,7 +406,7 @@ drwxr-xr-x    2 0        0               6 Nov 05 19:43 pub
 <p>多用户配置需要自己手工添加配置，下面内容到vsftpd.conf末尾</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -430,7 +431,7 @@ drwxr-xr-x    2 0        0               6 Nov 05 19:43 pub
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#
 #
 
 use_localtime=YES          # 使用本地时(自行添加)
@@ -459,7 +460,7 @@ connect_timeout=1
 <p>新建系统用户ftpuser，用户目录为<code>/home/vsftpd</code>, 用户登录终端设为/bin/false(即使之不能登录系统)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -477,7 +478,7 @@ connect_timeout=1
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 方法一
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 方法一
 # 创建用户 ftpuser 指定 `/home/vsftpd` 目录
 useradd -g root -M -d /home/vsftpd -s /sbin/nologin ftpuser
 
@@ -499,7 +500,7 @@ chown www:www /home/www -R
 <h3 id="建立虚拟用户文件">建立虚拟用户文件</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -511,7 +512,7 @@ chown www:www /home/www -R
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">touch /etc/vsftpd/vuser_passwd
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">touch /etc/vsftpd/vuser_passwd
 # 编辑虚拟用户名单文件：（
 # 第一行账号，第二行密码，注意：不能使用root做用户名，系统保留）
 vi /etc/vsftpd/vuser_passwd
@@ -526,23 +527,23 @@ hss
 </div><h3 id="生成虚拟用户数据文件">生成虚拟用户数据文件</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">db_load -T -t hash -f /etc/vsftpd/vuser_passwd /etc/vsftpd/vuser_passwd.db
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">db_load -T -t hash -f /etc/vsftpd/vuser_passwd /etc/vsftpd/vuser_passwd.db
 chmod 600 /etc/vsftpd/vuser_passwd.db
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="创建用户配置">创建用户配置</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /etc/vsftpd/vuser_conf  # 建立虚拟用户个人vsftp的配置文件
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /etc/vsftpd/vuser_conf  # 建立虚拟用户个人vsftp的配置文件
 cd /etc/vsftpd/vuser_conf     # 进入目录
 touch hss wcj                 # 这里创建两个虚拟用户配置文件
 </code></pre></td></tr></table>
@@ -550,7 +551,7 @@ touch hss wcj                 # 这里创建两个虚拟用户配置文件
 </div><p>每一个文件配置文件都差不多，只是参数<code>local_root</code>不一样。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -558,7 +559,7 @@ touch hss wcj                 # 这里创建两个虚拟用户配置文件
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">local_root=/home/vsftpd/hss   # 用户 hss 配置目录，这个地方不一样
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">local_root=/home/vsftpd/hss   # 用户 hss 配置目录，这个地方不一样
 write_enable=YES              # 允许本地用户对FTP服务器文件具有写权限
 anon_world_readable_only=NO
 anon_upload_enable=YES        # 允许匿名用户上传文件(须将全局的write_enable=YES,默认YES)
@@ -570,7 +571,7 @@ anon_other_write_enable=YES   # 允许匿名用户删除和重命名权限(自�
 <p>每个用户目录文件夹是有root用户创建的，也就是上面<code>local_root</code>配置目录，其权限应设置为755。因为权限的问题在该文件夹内无法直接上传文件。而如果设置为777则无法访问，这是由于vsftpd的安全性设置。解决上传问题的方法是在local_root文件夹内新建一个upload的文件夹，权限设置为777，可将文件上传到该文件夹。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -587,7 +588,7 @@ anon_other_write_enable=YES   # 允许匿名用户删除和重命名权限(自�
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/vsftpd/hss     # 每个用户对于一个目录，创建两个目录“hss”、“wcj”
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir -p /home/vsftpd/hss     # 每个用户对于一个目录，创建两个目录“hss”、“wcj”
 
 # 下面是目录结构
 /home/vsftpd
@@ -611,21 +612,21 @@ mkdir /var/ftp/upload
 <h3 id="最后重启vsftpd服务器">最后重启vsftpd服务器</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart vsftpd.service
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart vsftpd.service
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="服务运维">服务运维</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart vsftpd.service  # 重启服务
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">systemctl restart vsftpd.service  # 重启服务
 systemctl start vsftpd.service    # 启动服务
 systemctl status vsftpd.service   # 服务状态查看
 </code></pre></td></tr></table>
@@ -633,7 +634,7 @@ systemctl status vsftpd.service   # 服务状态查看
 </div><h2 id="ftp命令">FTP命令</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -669,7 +670,7 @@ systemctl status vsftpd.service   # 服务状态查看
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ftp&gt; ascii  # 设定以ASCII方式传送文件(缺省值)
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ftp&gt; ascii  # 设定以ASCII方式传送文件(缺省值)
 ftp&gt; bell   # 每完成一次文件传送,报警提示.
 ftp&gt; binary # 设定以二进制方式传送文件.
 ftp&gt; bye    # 终止主机FTP进程,并退出FTP管理方式.
@@ -708,12 +709,12 @@ ftp&gt; ! # 从 ftp 子系统退出到外壳。
 </div><h3 id="关闭ftp连接">关闭FTP连接</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">bye
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">bye
 exit
 quit
 </code></pre></td></tr></table>
@@ -721,22 +722,22 @@ quit
 </div><h3 id="下载文件">下载文件</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ftp&gt; get readme.txt # 下载 readme.txt 文件
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ftp&gt; get readme.txt # 下载 readme.txt 文件
 ftp&gt; mget *.txt     # 下载
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="上传文件">上传文件</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ftp&gt; put /path/readme.txt # 上传 readme.txt 文件
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ftp&gt; put /path/readme.txt # 上传 readme.txt 文件
 ftp&gt; mput *.txt           # 可以上传多个文件
 </code></pre></td></tr></table>
 </div>
@@ -794,17 +795,17 @@ ftp&gt; mput *.txt           # 可以上传多个文件
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/ftp/">ftp</a>
-          <a href="/tags/centos/">centos</a>
-          <a href="/tags/base/">base</a>
+          <a href="/blog/tags/ftp/">ftp</a>
+          <a href="/blog/tags/centos/">centos</a>
+          <a href="/blog/tags/base/">base</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/base/openvpn_centos_install/">
+        <a class="prev" href="/blog/post/base/openvpn_centos_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">openvpn在centos搭建实现内网互通</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/base/dns_centos_install/">
+        <a class="next" href="/blog/post/base/dns_centos_install/">
             <span class="next-text nav-default">dns在centos中安装</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -829,7 +830,7 @@ ftp&gt; mput *.txt           # 可以上传多个文件
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -843,15 +844,15 @@ ftp&gt; mput *.txt           # 可以上传多个文件
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -878,7 +879,7 @@ ftp&gt; mput *.txt           # 可以上传多个文件
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

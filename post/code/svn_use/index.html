@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/code/svn_use/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/code/svn_use/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="svn 使用详解" />
 <meta property="og:description" content="关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/code/svn_use/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/code/svn_use/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-04-07T19:11:30+00:00" />
 <meta property="article:modified_time" content="2020-04-07T19:11:30+00:00" />
+
 <meta itemprop="name" content="svn 使用详解">
-<meta itemprop="description" content="关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式">
-<meta itemprop="datePublished" content="2020-04-07T19:11:30+00:00" />
+<meta itemprop="description" content="关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式"><meta itemprop="datePublished" content="2020-04-07T19:11:30+00:00" />
 <meta itemprop="dateModified" content="2020-04-07T19:11:30+00:00" />
 <meta itemprop="wordCount" content="7459">
-
-
-
-<meta itemprop="keywords" content="svn,code," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="svn,code," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="svn 使用详解"/>
 <meta name="twitter:description" content="关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-04-07 19:11 </span>
         <div class="post-category">
-            <a href="/categories/code/"> code </a>
+            <a href="/blog/categories/code/"> code </a>
             </div>
           <span class="more-meta"> 约 7459 字 </span>
           <span class="more-meta"> 预计阅读 15 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -174,6 +170,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-04-07T19:11:30" title="April 7, 2020">April 7, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -227,20 +228,20 @@
 <p>大多数 GNU/Linux 发行版系统自带了Subversion ，所以它很有可能已经安装在你的系统上了。可以使用下面命令检查是否安装了。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn --version
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn --version
 </code></pre></td></tr></table>
 </div>
 </div><p>如果没有安装可以使用命令安装</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ sudo yum install subversion
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ sudo yum install subversion
 dnf install svn 
 </code></pre></td></tr></table>
 </div>
@@ -248,36 +249,36 @@ dnf install svn
 <p>安装命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ sudo apt install subversion
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ sudo apt install subversion
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="svn-服务器配置">SVN 服务器配置</h2>
 <h2 id="新建版本库目录">新建版本库目录</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ mkdir /opt/svn
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ mkdir /opt/svn
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="创建版本库">创建版本库</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svnadmin create /opt/svn/zinaer
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svnadmin create /opt/svn/zinaer
 </code></pre></td></tr></table>
 </div>
 </div><p>在目录 <code>/opt/svn/zinaer/conf</code> 中有 <code>svnserve.conf</code>、<code>passwd</code>、<code>authz</code> 文件配置相关用户和权限。</p>
 <h2 id="服务配置文件-svnserveconf">服务配置文件 <code>svnserve.conf</code></h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -285,7 +286,7 @@ dnf install svn
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">[general]
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">[general]
 anon-access = none
 auth-access = write
 password-db = passwd
@@ -304,12 +305,12 @@ realm = zinaer
 <p>由 <code>svnserve.conf</code> 的配置项 <code>password-db</code> 指定。格式：<code>&lt;用户名&gt; = &lt;口令&gt;</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">[users]
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">[users]
 admin = admin
 zinaer = 123456
 </code></pre></td></tr></table>
@@ -318,7 +319,7 @@ zinaer = 123456
 <p>由 <code>svnserve.conf</code> 的配置项 <code>authz-db</code> 指定。格式：<code>&lt;用户组&gt; = &lt;用户列表&gt;</code>、<code>[&lt;版本库名&gt;:&lt;路径&gt;]</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -326,7 +327,7 @@ zinaer = 123456
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">[groups]
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">[groups]
 g_admin = admin,zinaer
 
 [zinaer:/]
@@ -338,10 +339,10 @@ g_admin = admin,zinaer
 <h2 id="启动服务">启动服务</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svnserve -d -r 目录 --listen-port 端口号
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svnserve -d -r 目录 --listen-port 端口号
 </code></pre></td></tr></table>
 </div>
 </div><p><code>-r</code> 指定版本库根目录 <code>--listen-port</code> 指定 SVN 监听端口，默认监听 3690</p>
@@ -349,16 +350,16 @@ g_admin = admin,zinaer
 <p><strong>方式一：</strong><code>-r</code> 直接指定到版本库（单库模式）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn serve -d -r /opt/svn/zinaer
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn serve -d -r /opt/svn/zinaer
 </code></pre></td></tr></table>
 </div>
 </div><p>authz 配置文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -366,7 +367,7 @@ g_admin = admin,zinaer
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">[groups]
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">[groups]
 admin = admin,zinaer
 dev = zinaer001
 [/]
@@ -378,16 +379,16 @@ zinaer = r
 <p>**方法二：**指定到版本库的上级目录（多库模式）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn serve -d -r /opt/svn
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn serve -d -r /opt/svn
 </code></pre></td></tr></table>
 </div>
 </div><p>authz 配置文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -398,7 +399,7 @@ zinaer = r
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">[groups]
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">[groups]
 admin = admin,zinaer
 dev = zinaer001
 [zinaer:/]
@@ -414,19 +415,19 @@ zinaer001 = r
 <p>我们已经创建了版本库 zinaer，并且启动了服务，URL 为：svn://192.168.10.10/zinaer 用户 zinaer 由读写权限。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn checkout svn://192.168.10.10/zinaer --username zinaer --password 123456
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn checkout svn://192.168.10.10/zinaer --username zinaer --password 123456
 </code></pre></td></tr></table>
 </div>
 </div><p>查看版本库详细信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn info
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn info
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="svn-解决冲突">SVN 解决冲突</h2>
@@ -434,7 +435,7 @@ zinaer001 = r
 <p>现在我们来处理冲突，使用命令查看更改：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -444,7 +445,7 @@ zinaer001 = r
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn diff
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn diff
 Index: hello.txt
 ===================================================================
 --- hello.txt   (revision 3)
@@ -457,7 +458,7 @@ Index: hello.txt
 </div><p>如果我们直接提交会提示什么</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -465,7 +466,7 @@ Index: hello.txt
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;change first&#39;
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;change first&#39;
 Sending        hello.txt
 Transmitting file data .done
 Committing transaction...
@@ -476,7 +477,7 @@ svn: E160028: File &#39;/hello.txt&#39; is out of date
 </div><p>可以看到，不能成功提交。为了避免代码被相互覆盖，SVN 不允许我们这样操作，需要先 update</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -484,7 +485,7 @@ svn: E160028: File &#39;/hello.txt&#39; is out of date
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn update
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn update
 Updating &#39;.&#39;:
 C    hello.txt
 Updated to revision 4.
@@ -497,22 +498,22 @@ Summary of conflicts:
 <p>我们在版本库中添加一个 <code>README.md</code> 文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ cat README.md
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ cat README.md
 # 简明 SVN 教程
 </code></pre></td></tr></table>
 </div>
 </div><p>查看状态</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn status
 ?       README.md
 </code></pre></td></tr></table>
 </div>
@@ -520,18 +521,18 @@ Summary of conflicts:
 <p>将文件加入版本控制</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn add README.md
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn add README.md
 A         README.md
 </code></pre></td></tr></table>
 </div>
 </div><p><code>A</code> 代表加入了版本控制，现在需要将其更新到版本库中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -553,7 +554,7 @@ A         README.md
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add README.md&#39;
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add README.md&#39;
 Adding         README.md
 Transmitting file data .done
 Committing transaction...
@@ -581,41 +582,41 @@ svnserve -d -r /data/svn
 <p>我们对 <code>README.md</code> 文件进行修改并查看状态</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn status
 M       README.md
 </code></pre></td></tr></table>
 </div>
 </div><p>现在我们进行撤销操作，更改到未修改时的状态</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn revert README.md
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn revert README.md
 Reverted &#39;README.md&#39;
 </code></pre></td></tr></table>
 </div>
 </div><p><code>revert</code> 不仅仅可以使单个文件恢复原状，而且可以对整个目录恢复。使用命令 <code>-R</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn revert -R zinaer
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn revert -R zinaer
 </code></pre></td></tr></table>
 </div>
 </div><p>如果想恢复一个已经提交的版本，相当于我们需要撤销旧版本所有的更改然后提交一个新版本。比如：从版本 8 恢复到版本 7</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn merge -r 8:7 README.md
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn merge -r 8:7 README.md
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="svn-查看历史消息">SVN 查看历史消息</h2>
@@ -631,14 +632,14 @@ Reverted &#39;README.md&#39;
 <p>我们在本地创建一个 <code>zhanbai</code> 分支</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ ls
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ ls
 branches/  tags/  trunk/
 
 $ svn copy trunk/ branches/zhanbai
@@ -648,24 +649,24 @@ A         brancheszhanbai
 </div><p>查看状态</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn status
 A  +    brancheszhanbai
 </code></pre></td></tr></table>
 </div>
 </div><p>提交新的分支到版本库</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add zhanbai&#39;
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add zhanbai&#39;
 Adding         brancheszhanbai
 Committing transaction...
 Committed revision 9.
@@ -674,13 +675,13 @@ Committed revision 9.
 </div><p>现在我们开始在 <code>zhanbai</code> 分支进行开发，创建 <code>index.html</code> 文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ cd branches/zhanbai/
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ cd branches/zhanbai/
 
 $ ls
 hello.txt  index.html  README.md
@@ -689,7 +690,7 @@ hello.txt  index.html  README.md
 </div><p>将 <code>index.html</code> 加入版本控制，并提交到版本库中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -702,7 +703,7 @@ hello.txt  index.html  README.md
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn status
 ?       index.html
 
 $ svn add index.html
@@ -718,14 +719,14 @@ Committed revision 10.
 </div><p>切换到 <code>trunk</code> 分支，并更新，然后将 <code>zhanbai</code> 分支合并到 <code>trunk</code> 中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn merge ../branches/zhanbai/
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn merge ../branches/zhanbai/
 --- Merging r10 into &#39;.&#39;:
 A    index.html
 --- Recording mergeinfo for merge of r10 into &#39;.&#39;:
@@ -735,13 +736,13 @@ A    index.html
 </div><p>此时，<code>trunk</code> 中就多了 <code>index.html</code> 文件。然后，将合并号的 <code>trunk</code> 提交到版本库中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add index.html&#39;
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn commit -m &#39;add index.html&#39;
 Adding         index.html
 Committing transaction...
 Committed revision 12.
@@ -751,11 +752,11 @@ Committed revision 12.
 <p>SVN 支持打标签，也就是在项目开发中，开发到一定阶段可以单独一个版本作为发布时，往往可以打包一个固定的版本。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn copy trunk/ tags/v1.0
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn copy trunk/ tags/v1.0
 A         tagsv1.0
 </code></pre></td></tr></table>
 </div>
@@ -763,7 +764,7 @@ A         tagsv1.0
 <p>然后查看状态，提交 <code>tag</code> 到版本库中。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -772,7 +773,7 @@ A         tagsv1.0
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">$ svn status
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$ svn status
 A  +    tagsv1.0
 
 $ svn commit -m &#39;add v1.0&#39;
@@ -784,7 +785,7 @@ Committed revision 13.
 </div><h2 id="svn命令简明教程">svn命令简明教程</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1115,7 +1116,7 @@ Committed revision 13.
 </span><span class="lnt">329
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 1、检出</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 1、检出</span>
 
 svn  co  http://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span>　<span class="o">[</span>本地目录全路径<span class="o">]</span>  --username 用户名 --password 密码
 svn  co  svn://路径<span class="o">(</span>目录或文件的全路径<span class="o">)</span>　<span class="o">[</span>本地目录全路径<span class="o">]</span>  --username 用户名 --password 密码
@@ -1483,16 +1484,16 @@ svn merge branchA branchB  // 把对branchA的修改合并到分支branchB
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/svn/">svn</a>
-          <a href="/tags/code/">code</a>
+          <a href="/blog/tags/svn/">svn</a>
+          <a href="/blog/tags/code/">code</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/code/sonarqube8_install/">
+        <a class="prev" href="/blog/post/code/sonarqube8_install/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">sonarqube8 搭建使用</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/code/git_use/">
+        <a class="next" href="/blog/post/code/git_use/">
             <span class="next-text nav-default">git 使用详解</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1517,7 +1518,7 @@ svn merge branchA branchB  // 把对branchA的修改合并到分支branchB
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1531,15 +1532,15 @@ svn merge branchA branchB  // 把对branchA的修改合并到分支branchB
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -1566,7 +1567,7 @@ svn merge branchA branchB  // 把对branchA的修改合并到分支branchB
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

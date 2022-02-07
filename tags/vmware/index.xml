@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vmware on Bill World</title>
-    <link>https://xiebiao.top/tags/vmware/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/vmware/</link>
     <description>Recent content in vmware on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 07 Mar 2020 20:18:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 07 Mar 2020 20:18:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VMware vSphere ESXi 7.0b部署</title>
-      <link>https://xiebiao.top/post/vm/vsphere_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/vm/vsphere_install/</link>
       <pubDate>Sat, 07 Mar 2020 20:18:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/vm/vsphere_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/vm/vsphere_install/</guid>
       <description>VMware vSphere是一套业内最完整最强健的虚拟化平台。创建资源池来管理计算、 网络和存储容量与易用性，并提供最高水平的服务，每个应用程序工作负载</description>
     </item>
     

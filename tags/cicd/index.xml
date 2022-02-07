@@ -2,80 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cicd on Bill World</title>
-    <link>https://xiebiao.top/tags/cicd/</link>
+    <link>https://gzxb0712.gitee.io/blog/tags/cicd/</link>
     <description>Recent content in cicd on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 04 Aug 2020 19:15:30 +0000</lastBuildDate><atom:link href="https://xiebiao.top/tags/cicd/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Aug 2020 19:15:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/cicd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>jenkins helm安装最佳实践</title>
-      <link>https://xiebiao.top/post/cicd/helm_jenkins_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/helm_jenkins_ops/</link>
       <pubDate>Tue, 04 Aug 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/helm_jenkins_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/helm_jenkins_ops/</guid>
       <description>Jenkins 是什么 是一款开源 CI&amp;amp;CD 软件，用于自动化各种任务，包括构建、测试和部署软件。目前提供超过1000个插件来支持构建、部署、自动化， 满足任何项目的需</description>
     </item>
     
     <item>
       <title>k8s部署drone及runner搭建自己的CI/CD系统</title>
-      <link>https://xiebiao.top/post/cicd/k8s_drone_gitea/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/k8s_drone_gitea/</link>
       <pubDate>Sun, 02 Aug 2020 21:03:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/k8s_drone_gitea/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/k8s_drone_gitea/</guid>
       <description>实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。 首先，配置 he</description>
     </item>
     
     <item>
       <title>centos7/8二进制部署gitea</title>
-      <link>https://xiebiao.top/post/cicd/gitea_bin_install/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/gitea_bin_install/</link>
       <pubDate>Sat, 01 Aug 2020 21:03:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/gitea_bin_install/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/gitea_bin_install/</guid>
       <description>文章目录 Gitea是一个用Go语言编写的自托管开源git服务器，它具有存储库文件编辑器，项目问题跟踪，用户管理，通知，内置Wiki等功能。 G</description>
     </item>
     
     <item>
       <title>k8s安装jenkins最佳实践</title>
-      <link>https://xiebiao.top/post/cicd/k8s_jenkins_cicd/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/k8s_jenkins_cicd/</link>
       <pubDate>Sun, 05 Jul 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/k8s_jenkins_cicd/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/k8s_jenkins_cicd/</guid>
       <description>注意下访问url： http://192.168.2.11:32001/jenkins http://jenkins.test.com/jenkins/ 参考博客 http://www.mydlq.club/article/47/ 目录[-] . 一、Kubernetes 部署 Jenkins . 1、NFS 存储卷创建 Jenkins 目录 . 2、创建 Jenkins 用于存储的 PV、PVC . 3</description>
     </item>
     
     <item>
       <title>jenkins裸机安装最佳实践</title>
-      <link>https://xiebiao.top/post/cicd/jenkins_metal_best_practice/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/jenkins_metal_best_practice/</link>
       <pubDate>Sat, 04 Jul 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/jenkins_metal_best_practice/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/jenkins_metal_best_practice/</guid>
       <description>持续集成 什么是持续集成 Continuous integration （CI） 持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天</description>
     </item>
     
     <item>
       <title>k8s安装gitlab社区中文版</title>
-      <link>https://xiebiao.top/post/cicd/k8s_gitlab_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/k8s_gitlab_ops/</link>
       <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/k8s_gitlab_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/k8s_gitlab_ops/</guid>
       <description>参考： https://www.qikqiak.com/post/gitlab-install-on-k8s/ https://i4t.com/4373.html Gitlab官方提供了 Helm 的方式在 Kubernetes 集群中来快速安装，但是在使用的过程中发现 Helm 提供的 Chart 包中有很多其他额外的配置，所以我们这里使用自定</description>
     </item>
     
     <item>
       <title>centos7安装gitlab社区中文版</title>
-      <link>https://xiebiao.top/post/cicd/gitlab_centos_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/gitlab_centos_ops/</link>
       <pubDate>Thu, 02 Jul 2020 22:19:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/gitlab_centos_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/gitlab_centos_ops/</guid>
       <description>之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官</description>
     </item>
     
     <item>
       <title>drone及gogs搭建自己的CI/CD系统</title>
-      <link>https://xiebiao.top/post/cicd/drone1_install_ops/</link>
+      <link>https://gzxb0712.gitee.io/blog/post/cicd/drone1_install_ops/</link>
       <pubDate>Wed, 01 Jul 2020 21:03:30 +0000</pubDate>
       
-      <guid>https://xiebiao.top/post/cicd/drone1_install_ops/</guid>
+      <guid>https://gzxb0712.gitee.io/blog/post/cicd/drone1_install_ops/</guid>
       <description>drone是一个基于容器的本地持续交付平台，和Jenkins是差不多的，然后配合轻量级的gogs来作为git管理，都是基于golang开发的</description>
     </item>
     

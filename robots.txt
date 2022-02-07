@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://xiebiao.top/sitemap.xml
+Sitemap: https://gzxb0712.gitee.io/blog/sitemap.xml

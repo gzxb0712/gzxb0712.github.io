@@ -23,39 +23,35 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0-DEV with theme even" />
+<meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://xiebiao.top/post/performance/k8s_perf_doc/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/performance/k8s_perf_doc/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+<link rel="manifest" href="/blog/manifest.json">
+<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/reset-even.css">
+<link rel="stylesheet" href="/blog/css/reset-even.css">
 
 
 <meta property="og:title" content="kubernetes集群部署实践性能优化" />
 <meta property="og:description" content="kubernetes集群部署实践性能优化 文章目录 大量kubernetes集群部署运营的相关工作，这里总结一下。 kubernetes大规模集群" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://xiebiao.top/post/performance/k8s_perf_doc/" />
+<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/performance/k8s_perf_doc/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-08-12T21:01:30+00:00" />
 <meta property="article:modified_time" content="2020-08-12T21:01:30+00:00" />
+
 <meta itemprop="name" content="kubernetes集群部署实践性能优化">
-<meta itemprop="description" content="kubernetes集群部署实践性能优化 文章目录 大量kubernetes集群部署运营的相关工作，这里总结一下。 kubernetes大规模集群">
-<meta itemprop="datePublished" content="2020-08-12T21:01:30+00:00" />
+<meta itemprop="description" content="kubernetes集群部署实践性能优化 文章目录 大量kubernetes集群部署运营的相关工作，这里总结一下。 kubernetes大规模集群"><meta itemprop="datePublished" content="2020-08-12T21:01:30+00:00" />
 <meta itemprop="dateModified" content="2020-08-12T21:01:30+00:00" />
 <meta itemprop="wordCount" content="3354">
-
-
-
-<meta itemprop="keywords" content="kubernetes,performance," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="kubernetes,performance," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="kubernetes集群部署实践性能优化"/>
 <meta name="twitter:description" content="kubernetes集群部署实践性能优化 文章目录 大量kubernetes集群部署运营的相关工作，这里总结一下。 kubernetes大规模集群"/>
 
@@ -72,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Bill World</a>
+    <a href="/blog/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -82,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/blog/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/post/">
+      </a><a href="/blog/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/categories/">
+      </a><a href="/blog/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/tags/">
+      </a><a href="/blog/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/about/">
+      </a><a href="/blog/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -98,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Bill World</a>
+  <a href="/blog/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">首页</a>
+        <a class="menu-item-link" href="/blog/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+        <a class="menu-item-link" href="/blog/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">分类</a>
+        <a class="menu-item-link" href="/blog/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">标签</a>
+        <a class="menu-item-link" href="/blog/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">关于我</a>
+        <a class="menu-item-link" href="/blog/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -129,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-12 21:01 </span>
         <div class="post-category">
-            <a href="/categories/performance/"> performance </a>
+            <a href="/blog/categories/performance/"> performance </a>
             </div>
           <span class="more-meta"> 约 3354 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -167,6 +163,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="hint">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2020-08-12T21:01:30" title="August 12, 2020">August 12, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -178,7 +179,7 @@
 <p>增大部分内核选项，在<code>/etc/sysctl.conf</code>文件中添加下面片断：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -202,7 +203,7 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">fs.file-max=1000000
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">fs.file-max=1000000
 # max-file 表示系统级别的能够打开的文件句柄的数量， 一般如果遇到文件句柄达到上限时，会碰到
 # &#34;Too many open files&#34;或者Socket/File: Can’t open so many files等错误。
 # 配置arp cache 大小
@@ -248,14 +249,14 @@ fs.inotify.max_user_watches=524288
 <p>可以通过提高etcd对于对等网络流量优先级来解决这些错误。在 Linux 上，可以使用 tc 对对等流量进行优先级排序：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">tc qdisc add dev eth0 root handle 1: prio bands 3
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tc qdisc add dev eth0 root handle 1: prio bands 3
 tc filter add dev eth0 parent 1: protocol ip prio 1 u32 match ip sport 2380 0xffff flowid 1:1
 tc filter add dev eth0 parent 1: protocol ip prio 1 u32 match ip dport 2380 0xffff flowid 1:1
 tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip sport 2379 0xffff flowid 1:1
@@ -307,22 +308,22 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2379 0xff
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--max-requests-inflight=1500
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--max-requests-inflight=1500
 --max-mutating-requests-inflight=500
 </code></pre></td></tr></table>
 </div>
 </div><p>节点数量大于 3000 时，推荐：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">--max-requests-inflight=3000
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">--max-requests-inflight=3000
 --max-mutating-requests-inflight=1000
 </code></pre></td></tr></table>
 </div>
@@ -365,12 +366,12 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2379 0xff
 <p>在k8s中，会根据pod的limit 和 requests的配置将pod划分为不同的qos类别：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">* Guaranteed
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">* Guaranteed
 * Burstable
 * BestEffort
 </code></pre></td></tr></table>
@@ -390,26 +391,26 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2379 0xff
 <p>备份数据前先找到etcd集群当前的leader：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ETCDCTL_API=3 etcdctl --endpoints=127.0.0.1:2379 --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --cacert=/etc/kubernetes/pki/etcd/ca.crt endpoint --cluster status | grep -v &#39;false&#39; | awk -F &#39;[/ :]&#39; &#39;{print $4}&#39;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ETCDCTL_API=3 etcdctl --endpoints=127.0.0.1:2379 --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key --cacert=/etc/kubernetes/pki/etcd/ca.crt endpoint --cluster status | grep -v &#39;false&#39; | awk -F &#39;[/ :]&#39; &#39;{print $4}&#39;
 </code></pre></td></tr></table>
 </div>
 </div><p>然后登录到leader节点，备份snapshot db文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">rsync -avp /var/lib/etcd/member/snap/db /tmp/etcd_db.bak
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rsync -avp /var/lib/etcd/member/snap/db /tmp/etcd_db.bak
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="还原">还原</h4>
 <p>将备份的snaphost db文件上传到各个etcd节点，使用以下命令还原数据：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -423,7 +424,7 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2379 0xff
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">ETCDCTL_API=3 etcdctl snapshot restore \
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ETCDCTL_API=3 etcdctl snapshot restore \
             /tmp/etcd_db.bak \
             --endpoints=192.168.0.11:2379 \
             --name=192.168.0.11 \
@@ -442,7 +443,7 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2379 0xff
 <h4 id="备份-1">备份</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -509,7 +510,7 @@ tc filter add dev eth0 parent 1: protocol ip prio 2 u32 match ip dport 2379 0xff
 </span><span class="lnt">65
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="nv">harborUsername</span><span class="o">=</span><span class="s1">&#39;admin&#39;</span>
 <span class="nv">harborPassword</span><span class="o">=</span><span class="s1">&#39;Harbor12345&#39;</span>
@@ -579,7 +580,7 @@ rm -f dist/charts.list
 </div><h4 id="还原-1">还原</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -622,7 +623,7 @@ rm -f dist/charts.list
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span>
 <span class="nv">harborUsername</span><span class="o">=</span><span class="s1">&#39;admin&#39;</span>
 <span class="nv">harborPassword</span><span class="o">=</span><span class="s1">&#39;Harbor12345&#39;</span>
@@ -671,70 +672,70 @@ docker login --username <span class="si">${</span><span class="nv">harborUsernam
 <p>首先根据pvc找到对应的pv：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">kubectl -n test get pvc demo-pvc -o jsonpath=&#39;{.spec.volumeName}&#39;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">kubectl -n test get pvc demo-pvc -o jsonpath=&#39;{.spec.volumeName}&#39;
 </code></pre></td></tr></table>
 </div>
 </div><p>找到pv的挂载目录：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mount | grep pvc-xxxxxxxxxxxxxxxxxxx
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mount | grep pvc-xxxxxxxxxxxxxxxxxxx
 </code></pre></td></tr></table>
 </div>
 </div><p>使用rsync命令备份数据：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">rsync -avp --delete /var/lib/kubelet/pods/xxxxxx/volumes/xxxxxxx/   /tmp/pvc-data-bak/test/demo-pvc/
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rsync -avp --delete /var/lib/kubelet/pods/xxxxxx/volumes/xxxxxxx/   /tmp/pvc-data-bak/test/demo-pvc/
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="还原-2">还原</h4>
 <p>首先根据pvc找到对应的pv：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">kubectl -n test get pvc demo-pvc -o jsonpath=&#39;{.spec.volumeName}&#39;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">kubectl -n test get pvc demo-pvc -o jsonpath=&#39;{.spec.volumeName}&#39;
 </code></pre></td></tr></table>
 </div>
 </div><p>找到pv的挂载目录：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">mount | grep pvc-xxxxxxxxxxxxxxxxxxx
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mount | grep pvc-xxxxxxxxxxxxxxxxxxx
 </code></pre></td></tr></table>
 </div>
 </div><p>使用rsync命令备份数据：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">rsync -avp --delete /tmp/pvc-data-bak/test/demo-pvc/ /var/lib/kubelet/pods/xxxxxx/volumes/xxxxxxx/
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rsync -avp --delete /tmp/pvc-data-bak/test/demo-pvc/ /var/lib/kubelet/pods/xxxxxx/volumes/xxxxxxx/
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="备份数据管理">备份数据管理</h3>
 <p>所有备份出的数据可以存放在一个目录下，并使用<a href="https://github.com/restic/restic">restic</a>工具保存到多个后端存储系统上，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 初始化备份仓库
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 初始化备份仓库
 restic --repo sftp:user@host:/srv/restic-repo init
 
 # 将目录备份到备份仓库
@@ -779,16 +780,16 @@ restic --repo sftp:user@host:/srv/restic-repo backup /data/k8s-all-data
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/kubernetes/">kubernetes</a>
-          <a href="/tags/performance/">performance</a>
+          <a href="/blog/tags/kubernetes/">kubernetes</a>
+          <a href="/blog/tags/performance/">performance</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/performance/k8s_redis_perf/">
+        <a class="prev" href="/blog/post/performance/k8s_redis_perf/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">redis集群性能调优</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/performance/linux_perf_60s/">
+        <a class="next" href="/blog/post/performance/linux_perf_60s/">
             <span class="next-text nav-default">CentOS7性能优化</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -813,7 +814,7 @@ restic --repo sftp:user@host:/srv/restic-repo backup /data/k8s-all-data
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -827,15 +828,15 @@ restic --repo sftp:user@host:/srv/restic-repo backup /data/k8s-all-data
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -862,7 +863,7 @@ restic --repo sftp:user@host:/srv/restic-repo backup /data/k8s-all-data
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

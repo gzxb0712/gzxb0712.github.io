@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>elk on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/elk/</link>
+    <link>http://js.xiebiao.top/tags/elk/</link>
     <description>Recent content in elk on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 08 May 2020 21:05:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/elk/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 May 2020 21:05:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/elk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</title>
-      <link>https://gzxb0712.gitee.io/blog/post/log/log-pilot_elasticsearch_kibana_ops/</link>
+      <link>http://js.xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</link>
       <pubDate>Fri, 08 May 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/log/log-pilot_elasticsearch_kibana_ops/</guid>
+      <guid>http://js.xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</guid>
       <description>简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集</description>
     </item>
     
     <item>
       <title>搭建 ELK 日志系统</title>
-      <link>https://gzxb0712.gitee.io/blog/post/log/elk_centos7_install/</link>
+      <link>http://js.xiebiao.top/post/log/elk_centos7_install/</link>
       <pubDate>Wed, 06 May 2020 22:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/log/elk_centos7_install/</guid>
+      <guid>http://js.xiebiao.top/post/log/elk_centos7_install/</guid>
       <description>国内加速 https://mirrors.huaweicloud.com/elasticsearch/ https://mirrors.huaweicloud.com/kibana/ 简介 ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进</description>
     </item>
     

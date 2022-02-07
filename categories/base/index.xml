@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>base on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/categories/base/</link>
+    <link>http://js.xiebiao.top/categories/base/</link>
     <description>Recent content in base on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 01 Feb 2020 20:21:37 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/categories/base/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Feb 2020 20:21:37 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/categories/base/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>samba在centos中安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/samba_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/samba_centos_install/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/samba_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/samba_centos_install/</guid>
       <description>&lt;h2 id=&#34;一简介&#34;&gt;一、简介&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -47,10 +47,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>openvpn客户端连接设置</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/openvpn_client_connect/</link>
+      <link>http://js.xiebiao.top/post/base/openvpn_client_connect/</link>
       <pubDate>Wed, 08 Jan 2020 22:05:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/openvpn_client_connect/</guid>
+      <guid>http://js.xiebiao.top/post/base/openvpn_client_connect/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
@@ -65,10 +65,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>openvpn在centos搭建实现内网互通</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/openvpn_centos_install/</link>
       <pubDate>Tue, 07 Jan 2020 21:05:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/openvpn_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
@@ -85,10 +85,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>ftp在centos中安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/ftp_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/ftp_centos_install/</link>
       <pubDate>Tue, 17 Dec 2019 22:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/ftp_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/ftp_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程&lt;/p&gt;</description>
@@ -96,10 +96,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>dns在centos中安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/dns_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/dns_centos_install/</link>
       <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/dns_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/dns_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;由80年代伯克利大学的学生开发， &lt;strong&gt;揉&lt;/strong&gt; （&lt;strong&gt;伯克利互联网名称域名&lt;/strong&gt;）是开源的 &lt;strong&gt;DNS服务器&lt;/strong&gt; 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 &lt;strong&gt;域名解析&lt;/strong&gt; 服务器是一项有助于解析完全限定域名的服务（&lt;strong&gt;完整域名&lt;/strong&gt;A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。&lt;/p&gt;
@@ -109,10 +109,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>dhcp在centos中安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/dncp_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/dncp_centos_install/</link>
       <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/dncp_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/dncp_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h3 id=&#34;运行系统更新&#34;&gt;运行系统更新&lt;/h3&gt;

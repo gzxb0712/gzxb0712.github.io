@@ -28,18 +28,18 @@
 <meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/cdn/ats_install_ops/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
-<link rel="manifest" href="/blog/manifest.json">
-<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="http://js.xiebiao.top/post/cdn/ats_install_ops/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
+<link href="/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/blog/css/reset-even.css">
+<link rel="stylesheet" href="/css/reset-even.css">
 
 
 <meta property="og:title" content="ansible实现ATS高速CDN安装与管理" />
@@ -52,7 +52,7 @@ ATS下载地址： http://trafficserver.apache.org/
 Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非常成熟的代理/缓存/CDN系统。早在2009年，雅虎使用Traffic Server就可以用150台服务器实现每天400 TB的高速流量分发。经过多年的发展，ATS已经用于非常多的商业CDN分发与大型网络。Traffic Server与Nginx, Varnish三者几乎称霸了世界上所有CDN运营商，而Traffic Server又是这三者之中使用量最大的。与Nginx相比，Traffic Server拥有同样优异的性能显著的更多的功能，更丰富的接口，以及高度自定义的配置。与Varnish相比，Traffic Server对于高并发高负载的处理更为出色。
 使用Traffic Server的CDN/大型网络有Apple, Comcast, Yahoo, Akamai, 以及国内的又拍云等等。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/cdn/ats_install_ops/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="http://js.xiebiao.top/post/cdn/ats_install_ops/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-02-08T21:32:09+00:00" />
 <meta property="article:modified_time" content="2020-02-08T21:32:09+00:00" />
 
@@ -91,7 +91,7 @@ Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非�
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/blog/" class="logo">Bill World</a>
+    <a href="/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -101,15 +101,15 @@ Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非�
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/blog/">
+    <a href="/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/blog/post/">
+      </a><a href="/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/blog/categories/">
+      </a><a href="/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/blog/tags/">
+      </a><a href="/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/blog/about/">
+      </a><a href="/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -117,21 +117,21 @@ Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非�
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/blog/" class="logo">Bill World</a>
+  <a href="/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/blog/">首页</a>
+        <a class="menu-item-link" href="/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/blog/post/">归档</a>
+        <a class="menu-item-link" href="/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/blog/categories/">分类</a>
+        <a class="menu-item-link" href="/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/blog/tags/">标签</a>
+        <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/blog/about/">关于我</a>
+        <a class="menu-item-link" href="/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -148,11 +148,11 @@ Apache Traffic Server由Yahoo于2009年开源，经过现在已经成为了非�
       <div class="post-meta">
         <span class="post-time"> 2020-02-08 21:32 </span>
         <div class="post-category">
-            <a href="/blog/categories/cdn/"> cdn </a>
+            <a href="/categories/cdn/"> cdn </a>
             </div>
           <span class="more-meta"> 约 3309 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -1161,16 +1161,16 @@ add-header Access-Control-Allow-Origin *
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/blog/tags/ats/">ats</a>
-          <a href="/blog/tags/cdn/">cdn</a>
+          <a href="/tags/ats/">ats</a>
+          <a href="/tags/cdn/">cdn</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/blog/post/cdn/varish_ops/">
+        <a class="prev" href="/post/cdn/varish_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">varnish高速CDN部署与管理</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/blog/post/blog/github_jsdelivr_ops/">
+        <a class="next" href="/post/blog/github_jsdelivr_ops/">
             <span class="next-text nav-default">GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine打造稳定快速高效免费图床</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -1195,7 +1195,7 @@ add-header Access-Control-Allow-Origin *
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="http://js.xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -1209,9 +1209,9 @@ add-header Access-Control-Allow-Origin *
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
@@ -1244,7 +1244,7 @@ add-header Access-Control-Allow-Origin *
 
 
 
-<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

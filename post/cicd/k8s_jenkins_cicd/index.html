@@ -26,24 +26,24 @@
 <meta name="generator" content="Hugo 0.93.0-DEV with theme even" />
 
 
-<link rel="canonical" href="https://gzxb0712.gitee.io/blog/post/cicd/k8s_jenkins_cicd/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
-<link rel="manifest" href="/blog/manifest.json">
-<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="http://js.xiebiao.top/post/cicd/k8s_jenkins_cicd/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/blog/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
+<link href="/sass/main.min.32d4dc642fec98c34c80bebb9c784c50771712b4a8a25d9f4dd9cce3534b426e.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
-<link rel="stylesheet" href="/blog/css/reset-even.css">
+<link rel="stylesheet" href="/css/reset-even.css">
 
 
 <meta property="og:title" content="k8s安装jenkins最佳实践" />
 <meta property="og:description" content="注意下访问url： http://192.168.2.11:32001/jenkins http://jenkins.test.com/jenkins/ 参考博客 http://www.mydlq.club/article/47/ 目录[-] . 一、Kubernetes 部署 Jenkins . 1、NFS 存储卷创建 Jenkins 目录 . 2、创建 Jenkins 用于存储的 PV、PVC . 3" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://gzxb0712.gitee.io/blog/post/cicd/k8s_jenkins_cicd/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="http://js.xiebiao.top/post/cicd/k8s_jenkins_cicd/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2020-07-05T19:01:30+00:00" />
 <meta property="article:modified_time" content="2020-07-05T19:01:30+00:00" />
 
@@ -68,7 +68,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/blog/" class="logo">Bill World</a>
+    <a href="/" class="logo">Bill World</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -78,15 +78,15 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/blog/">
+    <a href="/">
         <li class="mobile-menu-item">首页</li>
-      </a><a href="/blog/post/">
+      </a><a href="/post/">
         <li class="mobile-menu-item">归档</li>
-      </a><a href="/blog/categories/">
+      </a><a href="/categories/">
         <li class="mobile-menu-item">分类</li>
-      </a><a href="/blog/tags/">
+      </a><a href="/tags/">
         <li class="mobile-menu-item">标签</li>
-      </a><a href="/blog/about/">
+      </a><a href="/about/">
         <li class="mobile-menu-item">关于我</li>
       </a>
   </ul>
@@ -94,21 +94,21 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/blog/" class="logo">Bill World</a>
+  <a href="/" class="logo">Bill World</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/blog/">首页</a>
+        <a class="menu-item-link" href="/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/blog/post/">归档</a>
+        <a class="menu-item-link" href="/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/blog/categories/">分类</a>
+        <a class="menu-item-link" href="/categories/">分类</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/blog/tags/">标签</a>
+        <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/blog/about/">关于我</a>
+        <a class="menu-item-link" href="/about/">关于我</a>
       </li>
   </ul>
 </nav>
@@ -125,11 +125,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-07-05 19:01 </span>
         <div class="post-category">
-            <a href="/blog/categories/cicd/"> cicd </a>
+            <a href="/categories/cicd/"> cicd </a>
             </div>
           <span class="more-meta"> 约 16648 字 </span>
           <span class="more-meta"> 预计阅读 34 分钟 </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
@@ -2714,16 +2714,16 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/blog/tags/jenkins/">jenkins</a>
-          <a href="/blog/tags/cicd/">cicd</a>
+          <a href="/tags/jenkins/">jenkins</a>
+          <a href="/tags/cicd/">cicd</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/blog/post/cloud/docker_all_ops/">
+        <a class="prev" href="/post/cloud/docker_all_ops/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">docker最佳实践总结</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/blog/post/cicd/jenkins_metal_best_practice/">
+        <a class="next" href="/post/cicd/jenkins_metal_best_practice/">
             <span class="next-text nav-default">jenkins裸机安装最佳实践</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -2748,7 +2748,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
       <a href="https://github.com/gzxb0712" class="iconfont icon-github" title="github"></a>
       <a href="https://juejin.im/user/59aeb829f265da249960595a" class="iconfont icon-juejin" title="juejin"></a>
       <a href="https://www.v2ex.com/member/gzxb0712" class="iconfont icon-v2ex" title="v2ex"></a>
-  <a href="https://gzxb0712.gitee.io/blog/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="http://js.xiebiao.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -2762,9 +2762,9 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/blog/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
   </div>
 
   <span class="copyright-year">
@@ -2797,7 +2797,7 @@ ENTRYPOINT <span class="o">[</span> <span class="s2">&#34;sh&#34;</span>, <span 
 
 
 
-<script type="text/javascript" src="/blog/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 <script type="application/javascript">

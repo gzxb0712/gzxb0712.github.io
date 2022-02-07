@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>etcd on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/etcd/</link>
+    <link>http://js.xiebiao.top/tags/etcd/</link>
     <description>Recent content in etcd on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 22 Jul 2020 21:09:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Jul 2020 21:09:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>etcd3 脚本备份以及恢复</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/etcd3_backup_restore/</link>
+      <link>http://js.xiebiao.top/post/cloud/etcd3_backup_restore/</link>
       <pubDate>Wed, 22 Jul 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/etcd3_backup_restore/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/etcd3_backup_restore/</guid>
       <description>ETCD 简介 ETCD 是用于共享配置和服务发现的分布式，一致性的KV存储系统。ETCD是CoreOS公司发起的一个开源项目，授权协议为Apache。 ETCD 使用</description>
     </item>
     
     <item>
       <title>etcd 入门指引</title>
-      <link>https://gzxb0712.gitee.io/blog/post/center/etcd_ops_doc/</link>
+      <link>http://js.xiebiao.top/post/center/etcd_ops_doc/</link>
       <pubDate>Sat, 28 Mar 2020 22:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/center/etcd_ops_doc/</guid>
+      <guid>http://js.xiebiao.top/post/center/etcd_ops_doc/</guid>
       <description>背景：近期 k8s 应用中 etcd 的功能存在一些困惑，对其进行来单独的学习，能更深入理解 k8s 中的的一些特性。 一、概述 1.1 etcd 简介 etcd 是 CoreOS 团队于 2013 年 6月发起的开源项</description>
     </item>
     

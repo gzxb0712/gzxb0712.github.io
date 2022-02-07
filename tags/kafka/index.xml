@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>kafka on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/kafka/</link>
+    <link>http://js.xiebiao.top/tags/kafka/</link>
     <description>Recent content in kafka on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 16 May 2020 20:01:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 May 2020 20:01:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>kafka消息中间件部署</title>
-      <link>https://gzxb0712.gitee.io/blog/post/middleware/kafka_ops/</link>
+      <link>http://js.xiebiao.top/post/middleware/kafka_ops/</link>
       <pubDate>Sat, 16 May 2020 20:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/middleware/kafka_ops/</guid>
+      <guid>http://js.xiebiao.top/post/middleware/kafka_ops/</guid>
       <description>一、前言 1、Kafka简介 Kafka是一个开源的分布式消息引擎/消息中间件，同时Kafka也是一个流处理平台。Kakfa支持以发布/订阅的方</description>
     </item>
     

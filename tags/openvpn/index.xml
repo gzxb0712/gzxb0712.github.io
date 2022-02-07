@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>openvpn on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/openvpn/</link>
+    <link>http://js.xiebiao.top/tags/openvpn/</link>
     <description>Recent content in openvpn on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 08 Jan 2020 22:05:33 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/openvpn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Jan 2020 22:05:33 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/openvpn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>openvpn客户端连接设置</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/openvpn_client_connect/</link>
+      <link>http://js.xiebiao.top/post/base/openvpn_client_connect/</link>
       <pubDate>Wed, 08 Jan 2020 22:05:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/openvpn_client_connect/</guid>
+      <guid>http://js.xiebiao.top/post/base/openvpn_client_connect/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>openvpn在centos搭建实现内网互通</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/openvpn_centos_install/</link>
       <pubDate>Tue, 07 Jan 2020 21:05:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/openvpn_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;

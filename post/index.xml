@@ -2,620 +2,620 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/post/</link>
+    <link>http://js.xiebiao.top/post/</link>
     <description>Recent content in Posts on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 19 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Shell脚本清单</title>
-      <link>https://gzxb0712.gitee.io/blog/post/shell/bash-cheat-sheet/</link>
+      <link>http://js.xiebiao.top/post/shell/bash-cheat-sheet/</link>
       <pubDate>Wed, 19 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/shell/bash-cheat-sheet/</guid>
+      <guid>http://js.xiebiao.top/post/shell/bash-cheat-sheet/</guid>
       <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70</description>
     </item>
     
     <item>
       <title>go备忘清单笔记</title>
-      <link>https://gzxb0712.gitee.io/blog/post/go/go-cheat-sheet/</link>
+      <link>http://js.xiebiao.top/post/go/go-cheat-sheet/</link>
       <pubDate>Tue, 18 Aug 2020 19:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/go/go-cheat-sheet/</guid>
+      <guid>http://js.xiebiao.top/post/go/go-cheat-sheet/</guid>
       <description>致谢# 本文大部分的示例代码来自于 A Tour of Go，A Tour of Go 是最好的入门指引，如果你是新手，请一定要先学习这个指引。 Go 简介# 命令式语言； 静态类型； 语</description>
     </item>
     
     <item>
       <title>Linux文本三剑客---grep、sed、awk</title>
-      <link>https://gzxb0712.gitee.io/blog/post/shell/sed_awk_doc/</link>
+      <link>http://js.xiebiao.top/post/shell/sed_awk_doc/</link>
       <pubDate>Mon, 17 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/shell/sed_awk_doc/</guid>
+      <guid>http://js.xiebiao.top/post/shell/sed_awk_doc/</guid>
       <description>awk、grep、sed是linux操作文本的三大利器，合称文本三剑客，也是必须掌握的linux命令之一。三者的功能都是处理文本，但侧重点各</description>
     </item>
     
     <item>
       <title>Shell脚本学习</title>
-      <link>https://gzxb0712.gitee.io/blog/post/shell/shell_book/</link>
+      <link>http://js.xiebiao.top/post/shell/shell_book/</link>
       <pubDate>Sun, 16 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/shell/shell_book/</guid>
+      <guid>http://js.xiebiao.top/post/shell/shell_book/</guid>
       <description>01- Shell脚本学习&amp;ndash;入门 简介 Shell是一种脚本语言，那么，就必须有解释器来执行这些脚本。 Unix/Linux上常见的Shel</description>
     </item>
     
     <item>
       <title>mysql性能优化</title>
-      <link>https://gzxb0712.gitee.io/blog/post/performance/mysql_perf_doc/</link>
+      <link>http://js.xiebiao.top/post/performance/mysql_perf_doc/</link>
       <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/performance/mysql_perf_doc/</guid>
+      <guid>http://js.xiebiao.top/post/performance/mysql_perf_doc/</guid>
       <description>记录学习笔记，持续更新。 优化方向# SQL 优化# sql 优化分析 索引优化 优化数据库对象# 优化表的数据类型 表拆分（水平、垂直） 反范式 使用中间表 优化 mysql server# mysql 内</description>
     </item>
     
     <item>
       <title>Linux 性能优化分析工具</title>
-      <link>https://gzxb0712.gitee.io/blog/post/performance/linux_perf_doc/</link>
+      <link>http://js.xiebiao.top/post/performance/linux_perf_doc/</link>
       <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/performance/linux_perf_doc/</guid>
+      <guid>http://js.xiebiao.top/post/performance/linux_perf_doc/</guid>
       <description>分享根据《Linux 性能优化》课程图片整理的笔记。 前言# 实验环境：ubuntu 18.04、切换至 root 权限下操作 查看命令详细使用方法，可以：ma</description>
     </item>
     
     <item>
       <title>redis集群性能调优</title>
-      <link>https://gzxb0712.gitee.io/blog/post/performance/k8s_redis_perf/</link>
+      <link>http://js.xiebiao.top/post/performance/k8s_redis_perf/</link>
       <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/performance/k8s_redis_perf/</guid>
+      <guid>http://js.xiebiao.top/post/performance/k8s_redis_perf/</guid>
       <description>kuberntes中的redis集群性能调优 文章目录 基准测试 逐步优化 优化内核参数 CPU绑核 iptables切换为ipvs 由overlay网络</description>
     </item>
     
     <item>
       <title>kubernetes集群部署实践性能优化</title>
-      <link>https://gzxb0712.gitee.io/blog/post/performance/k8s_perf_doc/</link>
+      <link>http://js.xiebiao.top/post/performance/k8s_perf_doc/</link>
       <pubDate>Wed, 12 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/performance/k8s_perf_doc/</guid>
+      <guid>http://js.xiebiao.top/post/performance/k8s_perf_doc/</guid>
       <description>kubernetes集群部署实践性能优化 文章目录 大量kubernetes集群部署运营的相关工作，这里总结一下。 kubernetes大规模集群</description>
     </item>
     
     <item>
       <title>CentOS7性能优化</title>
-      <link>https://gzxb0712.gitee.io/blog/post/performance/linux_perf_60s/</link>
+      <link>http://js.xiebiao.top/post/performance/linux_perf_60s/</link>
       <pubDate>Wed, 12 Aug 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/performance/linux_perf_60s/</guid>
+      <guid>http://js.xiebiao.top/post/performance/linux_perf_60s/</guid>
       <description>问题背景 当登录到一台有性能问题的Linux服务器，第一分钟要检查什么？ 在Netflix，我们拥有庞大的EC2 Linux虚拟机云，我们有众多性</description>
     </item>
     
     <item>
       <title>HELM部署轻量级日志系统Loki以及Prometheus-Operator</title>
-      <link>https://gzxb0712.gitee.io/blog/post/log/helm_loki_prometheus_oper/</link>
+      <link>http://js.xiebiao.top/post/log/helm_loki_prometheus_oper/</link>
       <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/log/helm_loki_prometheus_oper/</guid>
+      <guid>http://js.xiebiao.top/post/log/helm_loki_prometheus_oper/</guid>
       <description>对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常有助于解决问题，还</description>
     </item>
     
     <item>
       <title>Kubernetes永久存储Rook 1.3.x部署</title>
-      <link>https://gzxb0712.gitee.io/blog/post/storage/rook_install_operator/</link>
+      <link>http://js.xiebiao.top/post/storage/rook_install_operator/</link>
       <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/storage/rook_install_operator/</guid>
+      <guid>http://js.xiebiao.top/post/storage/rook_install_operator/</guid>
       <description>Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和</description>
     </item>
     
     <item>
       <title>jenkins helm安装最佳实践</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cicd/helm_jenkins_ops/</link>
+      <link>http://js.xiebiao.top/post/cicd/helm_jenkins_ops/</link>
       <pubDate>Tue, 04 Aug 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cicd/helm_jenkins_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cicd/helm_jenkins_ops/</guid>
       <description>Jenkins 是什么 是一款开源 CI&amp;amp;CD 软件，用于自动化各种任务，包括构建、测试和部署软件。目前提供超过1000个插件来支持构建、部署、自动化， 满足任何项目的需</description>
     </item>
     
     <item>
       <title>k8s部署drone及runner搭建自己的CI/CD系统</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cicd/k8s_drone_gitea/</link>
+      <link>http://js.xiebiao.top/post/cicd/k8s_drone_gitea/</link>
       <pubDate>Sun, 02 Aug 2020 21:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cicd/k8s_drone_gitea/</guid>
+      <guid>http://js.xiebiao.top/post/cicd/k8s_drone_gitea/</guid>
       <description>实验了一下在 k8s 中部署 CI，在 drone gitlab-ci 和 jenkins 三者中选择了 drone，因为它比较轻量，并且基于 docker，可以用 GitHub 上的仓库，比较方便。 首先，配置 he</description>
     </item>
     
     <item>
       <title>centos7/8二进制部署gitea</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cicd/gitea_bin_install/</link>
+      <link>http://js.xiebiao.top/post/cicd/gitea_bin_install/</link>
       <pubDate>Sat, 01 Aug 2020 21:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cicd/gitea_bin_install/</guid>
+      <guid>http://js.xiebiao.top/post/cicd/gitea_bin_install/</guid>
       <description>文章目录 Gitea是一个用Go语言编写的自托管开源git服务器，它具有存储库文件编辑器，项目问题跟踪，用户管理，通知，内置Wiki等功能。 G</description>
     </item>
     
     <item>
       <title>k8s 备份以及恢复详解</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/k8s_backup_restore/</link>
+      <link>http://js.xiebiao.top/post/cloud/k8s_backup_restore/</link>
       <pubDate>Thu, 23 Jul 2020 20:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/k8s_backup_restore/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/k8s_backup_restore/</guid>
       <description>1 为什么 2 是什么 3 备份与快照 4 物理备份与逻辑备份 5 etcd 备份 6 逻辑备份 7 velero 备份 8 存储的备份 9 csi snapshot 10 参考 为什么 K8S 是软件，软件就会有中间状态和运行数</description>
     </item>
     
     <item>
       <title>etcd3 脚本备份以及恢复</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/etcd3_backup_restore/</link>
+      <link>http://js.xiebiao.top/post/cloud/etcd3_backup_restore/</link>
       <pubDate>Wed, 22 Jul 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/etcd3_backup_restore/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/etcd3_backup_restore/</guid>
       <description>ETCD 简介 ETCD 是用于共享配置和服务发现的分布式，一致性的KV存储系统。ETCD是CoreOS公司发起的一个开源项目，授权协议为Apache。 ETCD 使用</description>
     </item>
     
     <item>
       <title>k8s部署 Ingress 控制器 traefik 2.2.x教程</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/traefik_2.2.8_deploy/</link>
+      <link>http://js.xiebiao.top/post/cloud/traefik_2.2.8_deploy/</link>
       <pubDate>Tue, 21 Jul 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/traefik_2.2.8_deploy/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/traefik_2.2.8_deploy/</guid>
       <description>参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设</description>
     </item>
     
     <item>
       <title>docker最佳实践总结</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/docker_all_ops/</link>
+      <link>http://js.xiebiao.top/post/cloud/docker_all_ops/</link>
       <pubDate>Mon, 20 Jul 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/docker_all_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/docker_all_ops/</guid>
       <description>&amp;raquo;&amp;gt; 目录 &amp;laquo;&amp;lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库</description>
     </item>
     
     <item>
       <title>k8s安装jenkins最佳实践</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cicd/k8s_jenkins_cicd/</link>
+      <link>http://js.xiebiao.top/post/cicd/k8s_jenkins_cicd/</link>
       <pubDate>Sun, 05 Jul 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cicd/k8s_jenkins_cicd/</guid>
+      <guid>http://js.xiebiao.top/post/cicd/k8s_jenkins_cicd/</guid>
       <description>注意下访问url： http://192.168.2.11:32001/jenkins http://jenkins.test.com/jenkins/ 参考博客 http://www.mydlq.club/article/47/ 目录[-] . 一、Kubernetes 部署 Jenkins . 1、NFS 存储卷创建 Jenkins 目录 . 2、创建 Jenkins 用于存储的 PV、PVC . 3</description>
     </item>
     
     <item>
       <title>jenkins裸机安装最佳实践</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cicd/jenkins_metal_best_practice/</link>
+      <link>http://js.xiebiao.top/post/cicd/jenkins_metal_best_practice/</link>
       <pubDate>Sat, 04 Jul 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cicd/jenkins_metal_best_practice/</guid>
+      <guid>http://js.xiebiao.top/post/cicd/jenkins_metal_best_practice/</guid>
       <description>持续集成 什么是持续集成 Continuous integration （CI） 持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员每天至少集成一次，也就意味着每天</description>
     </item>
     
     <item>
       <title>k8s安装gitlab社区中文版</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cicd/k8s_gitlab_ops/</link>
+      <link>http://js.xiebiao.top/post/cicd/k8s_gitlab_ops/</link>
       <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cicd/k8s_gitlab_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cicd/k8s_gitlab_ops/</guid>
       <description>参考： https://www.qikqiak.com/post/gitlab-install-on-k8s/ https://i4t.com/4373.html Gitlab官方提供了 Helm 的方式在 Kubernetes 集群中来快速安装，但是在使用的过程中发现 Helm 提供的 Chart 包中有很多其他额外的配置，所以我们这里使用自定</description>
     </item>
     
     <item>
       <title>centos7安装gitlab社区中文版</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cicd/gitlab_centos_ops/</link>
+      <link>http://js.xiebiao.top/post/cicd/gitlab_centos_ops/</link>
       <pubDate>Thu, 02 Jul 2020 22:19:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cicd/gitlab_centos_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cicd/gitlab_centos_ops/</guid>
       <description>之前公司内部一直用的 SVN ，项目多了，感觉也不好管理。所以这里进行做下 Git 学习以及使用（PS：之前自己也用过 Github）。 服务器最低配置要求（官</description>
     </item>
     
     <item>
       <title>drone及gogs搭建自己的CI/CD系统</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cicd/drone1_install_ops/</link>
+      <link>http://js.xiebiao.top/post/cicd/drone1_install_ops/</link>
       <pubDate>Wed, 01 Jul 2020 21:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cicd/drone1_install_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cicd/drone1_install_ops/</guid>
       <description>drone是一个基于容器的本地持续交付平台，和Jenkins是差不多的，然后配合轻量级的gogs来作为git管理，都是基于golang开发的</description>
     </item>
     
     <item>
       <title>TiDB 4.0 安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/database/tidb_install_ops/</link>
+      <link>http://js.xiebiao.top/post/database/tidb_install_ops/</link>
       <pubDate>Sat, 06 Jun 2020 21:08:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/database/tidb_install_ops/</guid>
+      <guid>http://js.xiebiao.top/post/database/tidb_install_ops/</guid>
       <description>官方文档 简介 TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库， 结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限</description>
     </item>
     
     <item>
       <title>Redis 5.0 部署及使用</title>
-      <link>https://gzxb0712.gitee.io/blog/post/database/redis5_cluster_ops/</link>
+      <link>http://js.xiebiao.top/post/database/redis5_cluster_ops/</link>
       <pubDate>Fri, 05 Jun 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/database/redis5_cluster_ops/</guid>
+      <guid>http://js.xiebiao.top/post/database/redis5_cluster_ops/</guid>
       <description>一、简介 1.1 Redis是什么 Redis是一个开源的，使用ANSI C 编写，高性能的Key-Value的NoSQL数据库。 1.2 Redis特点 （1）基</description>
     </item>
     
     <item>
       <title>MySQL 8.0 部署及使用</title>
-      <link>https://gzxb0712.gitee.io/blog/post/database/mysql8_install_ops/</link>
+      <link>http://js.xiebiao.top/post/database/mysql8_install_ops/</link>
       <pubDate>Thu, 04 Jun 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/database/mysql8_install_ops/</guid>
+      <guid>http://js.xiebiao.top/post/database/mysql8_install_ops/</guid>
       <description>CentOS 7安装MySQL 8.0 这MySQL的默认端口是3306。 Linux上面安装的方式主要分为如下三种： YUM 二进制包 源码包 源码包的安装过于复杂，但是可</description>
     </item>
     
     <item>
       <title>MySQL 5.7 部署及使用</title>
-      <link>https://gzxb0712.gitee.io/blog/post/database/mysql5.7_centos7_install/</link>
+      <link>http://js.xiebiao.top/post/database/mysql5.7_centos7_install/</link>
       <pubDate>Wed, 03 Jun 2020 20:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/database/mysql5.7_centos7_install/</guid>
+      <guid>http://js.xiebiao.top/post/database/mysql5.7_centos7_install/</guid>
       <description>本文测试环境： CentOS 7 64-bit Minimal MySQL 5.7 配置 yum 源 在 https://dev.mysql.com/downloads/repo/yum/ 找到 yum 源 rpm 安装包 rpm 安装包 安装 mysql 源 1 2 3 4 5 # 下载 shell&amp;gt; wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm # 安装 mysql 源 shell&amp;gt; yum localinstall mysql57-community-release-el7-11.noarch.rpm 用下面的命令检查 mysql 源是否安装成</description>
     </item>
     
     <item>
       <title>MongoDB4 部署及使用</title>
-      <link>https://gzxb0712.gitee.io/blog/post/database/mongodb_centos_install/</link>
+      <link>http://js.xiebiao.top/post/database/mongodb_centos_install/</link>
       <pubDate>Tue, 02 Jun 2020 20:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/database/mongodb_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/database/mongodb_centos_install/</guid>
       <description>关键字 CentOS, MongoDB, CentOS 7, MongoDB 4 背景概述 MongoDB 是最流行的 NoSQL，其分片集群横向扩展能在一定数量级解决了大数据量增长问题，异构的文档数据也更适合存储实体属性</description>
     </item>
     
     <item>
       <title>Memcached 使用详解</title>
-      <link>https://gzxb0712.gitee.io/blog/post/database/memcached_install_ops/</link>
+      <link>http://js.xiebiao.top/post/database/memcached_install_ops/</link>
       <pubDate>Mon, 01 Jun 2020 19:17:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/database/memcached_install_ops/</guid>
+      <guid>http://js.xiebiao.top/post/database/memcached_install_ops/</guid>
       <description>何为Memcached？ Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表</description>
     </item>
     
     <item>
       <title>rabbitmq消息中间件部署</title>
-      <link>https://gzxb0712.gitee.io/blog/post/middleware/rabbitmq_ops/</link>
+      <link>http://js.xiebiao.top/post/middleware/rabbitmq_ops/</link>
       <pubDate>Sun, 17 May 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/middleware/rabbitmq_ops/</guid>
+      <guid>http://js.xiebiao.top/post/middleware/rabbitmq_ops/</guid>
       <description>简介 安装 环境依赖 1 yum install erlang -y 安装服务 1 2 3 4 cd /usr/src/ wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.4/rabbitmq-server-3.6.4-1.noarch.rpm yum install rabbitmq-server-3.6.4-1.noarch.rpm -y 启动测试 1 2 3 4 5 6 #启动服务 service rabbitmq-server start #查看服务状态 service rabbitmq-server status 配置管理 增加账号 1 2 3 4 5</description>
     </item>
     
     <item>
       <title>kafka消息中间件部署</title>
-      <link>https://gzxb0712.gitee.io/blog/post/middleware/kafka_ops/</link>
+      <link>http://js.xiebiao.top/post/middleware/kafka_ops/</link>
       <pubDate>Sat, 16 May 2020 20:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/middleware/kafka_ops/</guid>
+      <guid>http://js.xiebiao.top/post/middleware/kafka_ops/</guid>
       <description>一、前言 1、Kafka简介 Kafka是一个开源的分布式消息引擎/消息中间件，同时Kafka也是一个流处理平台。Kakfa支持以发布/订阅的方</description>
     </item>
     
     <item>
       <title>Codis分布式集群部署</title>
-      <link>https://gzxb0712.gitee.io/blog/post/middleware/codis_cluster_ops/</link>
+      <link>http://js.xiebiao.top/post/middleware/codis_cluster_ops/</link>
       <pubDate>Fri, 15 May 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/middleware/codis_cluster_ops/</guid>
+      <guid>http://js.xiebiao.top/post/middleware/codis_cluster_ops/</guid>
       <description>前言 Codis 3.x 稳定版本已经很久没更新了，虽然有缺点也称不上完美但确实可以有效解决横向扩展问题。Redis 5.0 因为所谓的 政治正确 把 master-slave 名字修改为 master-replica 上了开</description>
     </item>
     
     <item>
       <title>轻量级日志系统Loki部署</title>
-      <link>https://gzxb0712.gitee.io/blog/post/log/loki_ops/</link>
+      <link>http://js.xiebiao.top/post/log/loki_ops/</link>
       <pubDate>Mon, 11 May 2020 20:08:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/log/loki_ops/</guid>
+      <guid>http://js.xiebiao.top/post/log/loki_ops/</guid>
       <description>现实中的需求 公司的容器云运行的应用或某一个节点出现了问题，解决的思路 问题首先被prometheus监控 1、metric是来说明当前或者历史达</description>
     </item>
     
     <item>
       <title>CentOS7 部署 Graylog3</title>
-      <link>https://gzxb0712.gitee.io/blog/post/log/graylog_centos_install/</link>
+      <link>http://js.xiebiao.top/post/log/graylog_centos_install/</link>
       <pubDate>Sun, 10 May 2020 20:32:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/log/graylog_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/log/graylog_centos_install/</guid>
       <description>注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；</description>
     </item>
     
     <item>
       <title>搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</title>
-      <link>https://gzxb0712.gitee.io/blog/post/log/log-pilot_elasticsearch_kibana_ops/</link>
+      <link>http://js.xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</link>
       <pubDate>Fri, 08 May 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/log/log-pilot_elasticsearch_kibana_ops/</guid>
+      <guid>http://js.xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</guid>
       <description>简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集</description>
     </item>
     
     <item>
       <title>搭建 ELK 日志系统</title>
-      <link>https://gzxb0712.gitee.io/blog/post/log/elk_centos7_install/</link>
+      <link>http://js.xiebiao.top/post/log/elk_centos7_install/</link>
       <pubDate>Wed, 06 May 2020 22:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/log/elk_centos7_install/</guid>
+      <guid>http://js.xiebiao.top/post/log/elk_centos7_install/</guid>
       <description>国内加速 https://mirrors.huaweicloud.com/elasticsearch/ https://mirrors.huaweicloud.com/kibana/ 简介 ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进</description>
     </item>
     
     <item>
       <title>K8s 上搭建 EFK 日志系统</title>
-      <link>https://gzxb0712.gitee.io/blog/post/log/k8s_efk_install/</link>
+      <link>http://js.xiebiao.top/post/log/k8s_efk_install/</link>
       <pubDate>Tue, 05 May 2020 21:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/log/k8s_efk_install/</guid>
+      <guid>http://js.xiebiao.top/post/log/k8s_efk_install/</guid>
       <description>参考博客 https://www.qikqiak.com/post/install-efk-stack-on-k8s/ http://www.mydlq.club/article/13/ https://www.cnblogs.com/leozhanggg/p/12700363.html Kubernetes 中比较流行的日志收集解决方案是 Elasticsearch、Fluentd 和 Kibana（EFK）技术栈，也是官方现在比较推荐</description>
     </item>
     
     <item>
       <title>CentOS 7 安装配置 NFS</title>
-      <link>https://gzxb0712.gitee.io/blog/post/storage/centos_nfs_ops/</link>
+      <link>http://js.xiebiao.top/post/storage/centos_nfs_ops/</link>
       <pubDate>Sat, 02 May 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/storage/centos_nfs_ops/</guid>
+      <guid>http://js.xiebiao.top/post/storage/centos_nfs_ops/</guid>
       <description>前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例</description>
     </item>
     
     <item>
       <title>cephadm部署和配置Ceph Octopus</title>
-      <link>https://gzxb0712.gitee.io/blog/post/storage/ceph_octopus_ops/</link>
+      <link>http://js.xiebiao.top/post/storage/ceph_octopus_ops/</link>
       <pubDate>Fri, 01 May 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/storage/ceph_octopus_ops/</guid>
+      <guid>http://js.xiebiao.top/post/storage/ceph_octopus_ops/</guid>
       <description>部署工具：cephadm 操作系统：CentOS 8 Ceph版本：Octopus 操作用户：root 部署前，请注意：根据目前（2020年8月）Ce</description>
     </item>
     
     <item>
       <title>sonarqube8 搭建使用</title>
-      <link>https://gzxb0712.gitee.io/blog/post/code/sonarqube8_install/</link>
+      <link>http://js.xiebiao.top/post/code/sonarqube8_install/</link>
       <pubDate>Wed, 08 Apr 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/code/sonarqube8_install/</guid>
+      <guid>http://js.xiebiao.top/post/code/sonarqube8_install/</guid>
       <description>前提# 这篇文章记录的是SonarQube服务搭建的详细过程，应用于云迁移后的PipleLine的代码扫描环节。 笔者有软件版本升级强迫症，一般</description>
     </item>
     
     <item>
       <title>svn 使用详解</title>
-      <link>https://gzxb0712.gitee.io/blog/post/code/svn_use/</link>
+      <link>http://js.xiebiao.top/post/code/svn_use/</link>
       <pubDate>Tue, 07 Apr 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/code/svn_use/</guid>
+      <guid>http://js.xiebiao.top/post/code/svn_use/</guid>
       <description>关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式</description>
     </item>
     
     <item>
       <title>git 使用详解</title>
-      <link>https://gzxb0712.gitee.io/blog/post/code/git_use/</link>
+      <link>http://js.xiebiao.top/post/code/git_use/</link>
       <pubDate>Mon, 06 Apr 2020 19:19:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/code/git_use/</guid>
+      <guid>http://js.xiebiao.top/post/code/git_use/</guid>
       <description>前言 在 2005 年的某一天，Linux 之父 Linus Torvalds 发布了他的又一个里程碑作品——Git。它的出现改变了软件开发流程，大大地提高了开发流畅度，直到现在仍十</description>
     </item>
     
     <item>
       <title>ansible playbook 详解</title>
-      <link>https://gzxb0712.gitee.io/blog/post/auto/ansible_playbook_detail/</link>
+      <link>http://js.xiebiao.top/post/auto/ansible_playbook_detail/</link>
       <pubDate>Mon, 06 Apr 2020 19:07:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/auto/ansible_playbook_detail/</guid>
+      <guid>http://js.xiebiao.top/post/auto/ansible_playbook_detail/</guid>
       <description>执行playbook命令 ansible ­playbook -­i &amp;quot;inventory文件名&amp;quot; playbook.yml ­f 10 (并行级别10) 加参数 1 2 3 4 5 6</description>
     </item>
     
     <item>
       <title>ansible 入门及使用</title>
-      <link>https://gzxb0712.gitee.io/blog/post/auto/ansible_guides/</link>
+      <link>http://js.xiebiao.top/post/auto/ansible_guides/</link>
       <pubDate>Sun, 05 Apr 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/auto/ansible_guides/</guid>
+      <guid>http://js.xiebiao.top/post/auto/ansible_guides/</guid>
       <description>Ansible 是使用 Python 开发的自动化运维工具，如果这么说比较抽象的话，那么可以说 Ansible 可以让服务器管理人员使用文本来管理服务器，编写一段配置文件，在不同的机器</description>
     </item>
     
     <item>
       <title>k8s上使用Helm在线安装kong2</title>
-      <link>https://gzxb0712.gitee.io/blog/post/gateway/helm3_kong2_install/</link>
+      <link>http://js.xiebiao.top/post/gateway/helm3_kong2_install/</link>
       <pubDate>Sat, 04 Apr 2020 23:00:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/gateway/helm3_kong2_install/</guid>
+      <guid>http://js.xiebiao.top/post/gateway/helm3_kong2_install/</guid>
       <description>k8s上使用Helm在线安装kong2.0.4（对应Chart Versions1.1.7） 安装前说明 官方文档问题说明 一、kong使用的pos</description>
     </item>
     
     <item>
       <title>OpenResty搭建高性能服务端</title>
-      <link>https://gzxb0712.gitee.io/blog/post/gateway/openresty_doc/</link>
+      <link>http://js.xiebiao.top/post/gateway/openresty_doc/</link>
       <pubDate>Fri, 03 Apr 2020 22:23:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/gateway/openresty_doc/</guid>
+      <guid>http://js.xiebiao.top/post/gateway/openresty_doc/</guid>
       <description>OpenResty 简介 OpenResty® 是一个基于 Nginx 与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。用于方便地搭建能够处理超</description>
     </item>
     
     <item>
       <title>ZooKeeper 入门指引</title>
-      <link>https://gzxb0712.gitee.io/blog/post/center/zookeeper_ops_doc/</link>
+      <link>http://js.xiebiao.top/post/center/zookeeper_ops_doc/</link>
       <pubDate>Wed, 01 Apr 2020 22:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/center/zookeeper_ops_doc/</guid>
+      <guid>http://js.xiebiao.top/post/center/zookeeper_ops_doc/</guid>
       <description>什么是Apache ZooKeeper？ Apache ZooKeeper是由集群（节点组）使用的一种服务，用于在自身之间协调，并通过稳健的同步技术维护共享</description>
     </item>
     
     <item>
       <title>etcd 入门指引</title>
-      <link>https://gzxb0712.gitee.io/blog/post/center/etcd_ops_doc/</link>
+      <link>http://js.xiebiao.top/post/center/etcd_ops_doc/</link>
       <pubDate>Sat, 28 Mar 2020 22:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/center/etcd_ops_doc/</guid>
+      <guid>http://js.xiebiao.top/post/center/etcd_ops_doc/</guid>
       <description>背景：近期 k8s 应用中 etcd 的功能存在一些困惑，对其进行来单独的学习，能更深入理解 k8s 中的的一些特性。 一、概述 1.1 etcd 简介 etcd 是 CoreOS 团队于 2013 年 6月发起的开源项</description>
     </item>
     
     <item>
       <title>skywalking8.1部署及使用教程</title>
-      <link>https://gzxb0712.gitee.io/blog/post/apm/skywalking8_ops/</link>
+      <link>http://js.xiebiao.top/post/apm/skywalking8_ops/</link>
       <pubDate>Wed, 25 Mar 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/apm/skywalking8_ops/</guid>
+      <guid>http://js.xiebiao.top/post/apm/skywalking8_ops/</guid>
       <description>SkyWalking介绍 SkyWalking是什么？ SkyWalking是一个可观测性分析平台和应用性能管理系统，提供分布式跟踪、服务网格遥</description>
     </item>
     
     <item>
       <title>docker部署skywalking7</title>
-      <link>https://gzxb0712.gitee.io/blog/post/apm/skywalking7_docker_ops/</link>
+      <link>http://js.xiebiao.top/post/apm/skywalking7_docker_ops/</link>
       <pubDate>Mon, 23 Mar 2020 20:19:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/apm/skywalking7_docker_ops/</guid>
+      <guid>http://js.xiebiao.top/post/apm/skywalking7_docker_ops/</guid>
       <description>介绍 SkyWalking：一个APM（应用程序性能监视器）系统，专门为微服务，云原生和基于容器（Docker，Kubernetes，Meso</description>
     </item>
     
     <item>
       <title>helm部署prometheus</title>
-      <link>https://gzxb0712.gitee.io/blog/post/monitor/helm_prometheus/</link>
+      <link>http://js.xiebiao.top/post/monitor/helm_prometheus/</link>
       <pubDate>Sun, 22 Mar 2020 20:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/monitor/helm_prometheus/</guid>
+      <guid>http://js.xiebiao.top/post/monitor/helm_prometheus/</guid>
       <description>随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据</description>
     </item>
     
     <item>
       <title>搭建docker版Prometheus监控报警系统</title>
-      <link>https://gzxb0712.gitee.io/blog/post/monitor/prometheus_ops/</link>
+      <link>http://js.xiebiao.top/post/monitor/prometheus_ops/</link>
       <pubDate>Mon, 16 Mar 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/monitor/prometheus_ops/</guid>
+      <guid>http://js.xiebiao.top/post/monitor/prometheus_ops/</guid>
       <description>什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu</description>
     </item>
     
     <item>
       <title>Zabbix 5.0 Agent2的安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/monitor/zabbix5_agent2_install/</link>
+      <link>http://js.xiebiao.top/post/monitor/zabbix5_agent2_install/</link>
       <pubDate>Sat, 14 Mar 2020 18:45:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/monitor/zabbix5_agent2_install/</guid>
+      <guid>http://js.xiebiao.top/post/monitor/zabbix5_agent2_install/</guid>
       <description>Zabbix Agent2 介绍 Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性： 完成的插件框架支持，可扩张服务及应用监控 支持灵</description>
     </item>
     
     <item>
       <title>Zabbix 5.0安装部署和使用教程</title>
-      <link>https://gzxb0712.gitee.io/blog/post/monitor/zabbix5_install_ops/</link>
+      <link>http://js.xiebiao.top/post/monitor/zabbix5_install_ops/</link>
       <pubDate>Fri, 13 Mar 2020 18:23:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/monitor/zabbix5_install_ops/</guid>
+      <guid>http://js.xiebiao.top/post/monitor/zabbix5_install_ops/</guid>
       <description>参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B zabbix 5.0 版本于 5 月 11 日正式发布，是最新的 LTS（长期支持）版本，5.0 带来很多功能和特性，后面会陆续推出文章介绍，下面主要介绍下 5.0 版本</description>
     </item>
     
     <item>
       <title>小米开源监控 Open-Falcon 0.3 部署</title>
-      <link>https://gzxb0712.gitee.io/blog/post/monitor/open-falcon_install_ops/</link>
+      <link>http://js.xiebiao.top/post/monitor/open-falcon_install_ops/</link>
       <pubDate>Wed, 11 Mar 2020 19:23:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/monitor/open-falcon_install_ops/</guid>
+      <guid>http://js.xiebiao.top/post/monitor/open-falcon_install_ops/</guid>
       <description>文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go</description>
     </item>
     
     <item>
       <title>NetData轻量的性能监控工具安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/monitor/netdata_ops/</link>
+      <link>http://js.xiebiao.top/post/monitor/netdata_ops/</link>
       <pubDate>Tue, 10 Mar 2020 19:25:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/monitor/netdata_ops/</guid>
+      <guid>http://js.xiebiao.top/post/monitor/netdata_ops/</guid>
       <description>前言 对于服务器监控我相信对于一些人来说是感兴趣的，相比于繁琐的 Grafana + Zabbix（白猫的docker安装教程）对于服务器资源的占用，较为轻便监</description>
     </item>
     
     <item>
       <title>VMware vSphere ESXi 7.0b部署</title>
-      <link>https://gzxb0712.gitee.io/blog/post/vm/vsphere_install/</link>
+      <link>http://js.xiebiao.top/post/vm/vsphere_install/</link>
       <pubDate>Sat, 07 Mar 2020 20:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/vm/vsphere_install/</guid>
+      <guid>http://js.xiebiao.top/post/vm/vsphere_install/</guid>
       <description>VMware vSphere是一套业内最完整最强健的虚拟化平台。创建资源池来管理计算、 网络和存储容量与易用性，并提供最高水平的服务，每个应用程序工作负载</description>
     </item>
     
     <item>
       <title>Vagrant 入门指引</title>
-      <link>https://gzxb0712.gitee.io/blog/post/vm/learning-vagrant/</link>
+      <link>http://js.xiebiao.top/post/vm/learning-vagrant/</link>
       <pubDate>Fri, 06 Mar 2020 22:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/vm/learning-vagrant/</guid>
+      <guid>http://js.xiebiao.top/post/vm/learning-vagrant/</guid>
       <description>目录 Vagrant 介绍 安装 Vagrant 和 VirtualBox 2.1. 安装 VirtualBox（支持 Windows/macOS/Linux） 2.2. 安装 Vagrant（支持 Windows/mac</description>
     </item>
     
     <item>
       <title>WebVirtCloud部署笔记</title>
-      <link>https://gzxb0712.gitee.io/blog/post/vm/WebVirtCloud_deploy/</link>
+      <link>http://js.xiebiao.top/post/vm/WebVirtCloud_deploy/</link>
       <pubDate>Fri, 06 Mar 2020 21:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/vm/WebVirtCloud_deploy/</guid>
+      <guid>http://js.xiebiao.top/post/vm/WebVirtCloud_deploy/</guid>
       <description>系统配置 # SELinux 允许WebVirtCloud通行 1 sudo semanage fcontext -a -t httpd_sys_content_t &amp;#34;/srv/webvirtcloud(/.*)&amp;#34; 或关闭SELINUX 1 2 vi /etc/selinux/config 1 2 SELINUX=disabled # 防火墙 允许nginx和novnc通行。 1 2 3</description>
     </item>
     
     <item>
       <title>CentOS7安装KVM虚拟机详解</title>
-      <link>https://gzxb0712.gitee.io/blog/post/vm/CentOS7_install_KVM/</link>
+      <link>http://js.xiebiao.top/post/vm/CentOS7_install_KVM/</link>
       <pubDate>Thu, 05 Mar 2020 19:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/vm/CentOS7_install_KVM/</guid>
+      <guid>http://js.xiebiao.top/post/vm/CentOS7_install_KVM/</guid>
       <description>CentOS7安装KVM虚拟机详解 基于 CentOS Linux release 7.2的环境下命令行的方式安装KVM的详细过程。 目录 检测是否支持KVM 安装 KVM 环境 安装虚拟机 命令行</description>
     </item>
     
     <item>
       <title>Centos部署tomcat9</title>
-      <link>https://gzxb0712.gitee.io/blog/post/web/tomcat_centos_install/</link>
+      <link>http://js.xiebiao.top/post/web/tomcat_centos_install/</link>
       <pubDate>Tue, 03 Mar 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/web/tomcat_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/web/tomcat_centos_install/</guid>
       <description>Apache Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试</description>
     </item>
     
     <item>
       <title>nginx从入门到实战</title>
-      <link>https://gzxb0712.gitee.io/blog/post/web/nginx_base/</link>
+      <link>http://js.xiebiao.top/post/web/nginx_base/</link>
       <pubDate>Sun, 01 Mar 2020 19:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/web/nginx_base/</guid>
+      <guid>http://js.xiebiao.top/post/web/nginx_base/</guid>
       <description>前言 Nginx 现在几乎是众多大型网站的必用技术，大家应该都知道 Nginx 被 F5 收购 的大事件，章亦春也在专心维护 OpenResty 项目构建和谐家园，无论你选择 Nginx 还是 OpenRe</description>
     </item>
     
     <item>
       <title>Centos部署apache2&#43;mysql8&#43;php7</title>
-      <link>https://gzxb0712.gitee.io/blog/post/web/apache_centos_install/</link>
+      <link>http://js.xiebiao.top/post/web/apache_centos_install/</link>
       <pubDate>Fri, 28 Feb 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/web/apache_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/web/apache_centos_install/</guid>
       <description>本篇文章主要为大家详细介绍了centos7利用yum配置php环境的详细步骤，带你过坑~ 安装的mysql版本为Ver 8.0.17 for Linux on x86_64 (MySQL Community Server - GPL) 安装</description>
     </item>
     
     <item>
       <title>LVS 实现四层负载均衡项目实战</title>
-      <link>https://gzxb0712.gitee.io/blog/post/lb/lvs_ops/</link>
+      <link>http://js.xiebiao.top/post/lb/lvs_ops/</link>
       <pubDate>Tue, 25 Feb 2020 19:21:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/lb/lvs_ops/</guid>
+      <guid>http://js.xiebiao.top/post/lb/lvs_ops/</guid>
       <description>1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是 www.linuxvirtualserver.org 现在L</description>
     </item>
     
     <item>
       <title>centos部署keepalived</title>
-      <link>https://gzxb0712.gitee.io/blog/post/lb/keepalived_nginx_ops/</link>
+      <link>http://js.xiebiao.top/post/lb/keepalived_nginx_ops/</link>
       <pubDate>Sat, 22 Feb 2020 22:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/lb/keepalived_nginx_ops/</guid>
+      <guid>http://js.xiebiao.top/post/lb/keepalived_nginx_ops/</guid>
       <description>前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器</description>
     </item>
     
     <item>
       <title>centos7/8开启bbr加速</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cdn/bbr_centos_ops/</link>
+      <link>http://js.xiebiao.top/post/cdn/bbr_centos_ops/</link>
       <pubDate>Thu, 20 Feb 2020 22:39:09 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cdn/bbr_centos_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cdn/bbr_centos_ops/</guid>
       <description>CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过。 CentOS 8 开启 BBR 1 2</description>
     </item>
     
     <item>
       <title>centos部署haproxy</title>
-      <link>https://gzxb0712.gitee.io/blog/post/lb/haproxy_ops/</link>
+      <link>http://js.xiebiao.top/post/lb/haproxy_ops/</link>
       <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/lb/haproxy_ops/</guid>
+      <guid>http://js.xiebiao.top/post/lb/haproxy_ops/</guid>
       <description>haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运行于大部分主</description>
     </item>
     
     <item>
       <title>varnish高速CDN部署与管理</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cdn/varish_ops/</link>
+      <link>http://js.xiebiao.top/post/cdn/varish_ops/</link>
       <pubDate>Sat, 15 Feb 2020 21:39:09 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cdn/varish_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cdn/varish_ops/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;&lt;img src=&#34;https://img.affdalao.com/wp-content/uploads/2019/04/varnish.jpg&#34; alt=&#34;&#34;&gt;
@@ -624,10 +624,10 @@ Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其
     
     <item>
       <title>ansible实现ATS高速CDN安装与管理</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cdn/ats_install_ops/</link>
+      <link>http://js.xiebiao.top/post/cdn/ats_install_ops/</link>
       <pubDate>Sat, 08 Feb 2020 21:32:09 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cdn/ats_install_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cdn/ats_install_ops/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;blockquote&gt;
@@ -640,10 +640,10 @@ Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其
     
     <item>
       <title>GitHub &#43; jsDelivr &#43; PicGo &#43; Imagine打造稳定快速高效免费图床</title>
-      <link>https://gzxb0712.gitee.io/blog/post/blog/github_jsdelivr_ops/</link>
+      <link>http://js.xiebiao.top/post/blog/github_jsdelivr_ops/</link>
       <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/blog/github_jsdelivr_ops/</guid>
+      <guid>http://js.xiebiao.top/post/blog/github_jsdelivr_ops/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h2 id=&#34;前言-前言前言&#34;&gt;&lt;a href=&#34;#%E5%89%8D%E8%A8%80&#34; title=&#34;前言&#34;&gt;&lt;/a&gt;前言&lt;/h2&gt;
@@ -658,10 +658,10 @@ Varnish是一款高性能且开源的反向代理服务器和HTTP加速器，其
     
     <item>
       <title>samba在centos中安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/samba_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/samba_centos_install/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/samba_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/samba_centos_install/</guid>
       <description>&lt;h2 id=&#34;一简介&#34;&gt;一、简介&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -696,10 +696,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>openvpn客户端连接设置</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/openvpn_client_connect/</link>
+      <link>http://js.xiebiao.top/post/base/openvpn_client_connect/</link>
       <pubDate>Wed, 08 Jan 2020 22:05:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/openvpn_client_connect/</guid>
+      <guid>http://js.xiebiao.top/post/base/openvpn_client_connect/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
@@ -714,10 +714,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>openvpn在centos搭建实现内网互通</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/openvpn_centos_install/</link>
       <pubDate>Tue, 07 Jan 2020 21:05:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/openvpn_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/openvpn_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h1 id=&#34;说明&#34;&gt;说明&lt;/h1&gt;
@@ -734,10 +734,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>ftp在centos中安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/ftp_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/ftp_centos_install/</link>
       <pubDate>Tue, 17 Dec 2019 22:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/ftp_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/ftp_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;安装配置vsftpd做FTP服务，我们的Web应用使用git管理进行迭代，公共文件软件存储使用开源网盘Seafile来管理，基本够用。想不到FTP的使用的场景，感觉它好像老去了，虽然现在基本没有用到这个工具，硬件需要使用FTP来下载配置文件，于是研究使用了一下，记录了一下使用过程&lt;/p&gt;</description>
@@ -745,10 +745,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>dns在centos中安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/dns_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/dns_centos_install/</link>
       <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/dns_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/dns_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;由80年代伯克利大学的学生开发， &lt;strong&gt;揉&lt;/strong&gt; （&lt;strong&gt;伯克利互联网名称域名&lt;/strong&gt;）是开源的 &lt;strong&gt;DNS服务器&lt;/strong&gt; 在Linux发行版上提供DNS服务。那么什么是DNS服务器？一 &lt;strong&gt;域名解析&lt;/strong&gt; 服务器是一项有助于解析完全限定域名的服务（&lt;strong&gt;完整域名&lt;/strong&gt;A）转换为IP地址，然后将IP地址反向转换为用户友好的域名。&lt;/p&gt;
@@ -758,10 +758,10 @@ Samba服务器可实现如下功能：WINS和DNS服务； 网络浏览服务； 
     
     <item>
       <title>Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</title>
-      <link>https://gzxb0712.gitee.io/blog/post/blog/creat-hugo-blog/</link>
+      <link>http://js.xiebiao.top/post/blog/creat-hugo-blog/</link>
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/blog/creat-hugo-blog/</guid>
+      <guid>http://js.xiebiao.top/post/blog/creat-hugo-blog/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。&lt;/p&gt;
@@ -773,10 +773,10 @@ Hugo 官方的定义是：&lt;/p&gt;
     
     <item>
       <title>dhcp在centos中安装</title>
-      <link>https://gzxb0712.gitee.io/blog/post/base/dncp_centos_install/</link>
+      <link>http://js.xiebiao.top/post/base/dncp_centos_install/</link>
       <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/base/dncp_centos_install/</guid>
+      <guid>http://js.xiebiao.top/post/base/dncp_centos_install/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;h3 id=&#34;运行系统更新&#34;&gt;运行系统更新&lt;/h3&gt;

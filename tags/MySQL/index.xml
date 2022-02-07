@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MySQL on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/MySQL/</link>
+    <link>http://js.xiebiao.top/tags/MySQL/</link>
     <description>Recent content in MySQL on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/MySQL/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/MySQL/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>mysql性能优化</title>
-      <link>https://gzxb0712.gitee.io/blog/post/performance/mysql_perf_doc/</link>
+      <link>http://js.xiebiao.top/post/performance/mysql_perf_doc/</link>
       <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/performance/mysql_perf_doc/</guid>
+      <guid>http://js.xiebiao.top/post/performance/mysql_perf_doc/</guid>
       <description>记录学习笔记，持续更新。 优化方向# SQL 优化# sql 优化分析 索引优化 优化数据库对象# 优化表的数据类型 表拆分（水平、垂直） 反范式 使用中间表 优化 mysql server# mysql 内</description>
     </item>
     
     <item>
       <title>MySQL 8.0 部署及使用</title>
-      <link>https://gzxb0712.gitee.io/blog/post/database/mysql8_install_ops/</link>
+      <link>http://js.xiebiao.top/post/database/mysql8_install_ops/</link>
       <pubDate>Thu, 04 Jun 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/database/mysql8_install_ops/</guid>
+      <guid>http://js.xiebiao.top/post/database/mysql8_install_ops/</guid>
       <description>CentOS 7安装MySQL 8.0 这MySQL的默认端口是3306。 Linux上面安装的方式主要分为如下三种： YUM 二进制包 源码包 源码包的安装过于复杂，但是可</description>
     </item>
     
     <item>
       <title>MySQL 5.7 部署及使用</title>
-      <link>https://gzxb0712.gitee.io/blog/post/database/mysql5.7_centos7_install/</link>
+      <link>http://js.xiebiao.top/post/database/mysql5.7_centos7_install/</link>
       <pubDate>Wed, 03 Jun 2020 20:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/database/mysql5.7_centos7_install/</guid>
+      <guid>http://js.xiebiao.top/post/database/mysql5.7_centos7_install/</guid>
       <description>本文测试环境： CentOS 7 64-bit Minimal MySQL 5.7 配置 yum 源 在 https://dev.mysql.com/downloads/repo/yum/ 找到 yum 源 rpm 安装包 rpm 安装包 安装 mysql 源 1 2 3 4 5 # 下载 shell&amp;gt; wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm # 安装 mysql 源 shell&amp;gt; yum localinstall mysql57-community-release-el7-11.noarch.rpm 用下面的命令检查 mysql 源是否安装成</description>
     </item>
     

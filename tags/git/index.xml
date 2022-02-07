@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/git/</link>
+    <link>http://js.xiebiao.top/tags/git/</link>
     <description>Recent content in git on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 06 Apr 2020 19:19:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Apr 2020 19:19:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>git 使用详解</title>
-      <link>https://gzxb0712.gitee.io/blog/post/code/git_use/</link>
+      <link>http://js.xiebiao.top/post/code/git_use/</link>
       <pubDate>Mon, 06 Apr 2020 19:19:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/code/git_use/</guid>
+      <guid>http://js.xiebiao.top/post/code/git_use/</guid>
       <description>前言 在 2005 年的某一天，Linux 之父 Linus Torvalds 发布了他的又一个里程碑作品——Git。它的出现改变了软件开发流程，大大地提高了开发流畅度，直到现在仍十</description>
     </item>
     

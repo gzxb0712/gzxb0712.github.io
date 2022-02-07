@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>varnish on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/varnish/</link>
+    <link>http://js.xiebiao.top/tags/varnish/</link>
     <description>Recent content in varnish on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 15 Feb 2020 21:39:09 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/varnish/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Feb 2020 21:39:09 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/varnish/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>varnish高速CDN部署与管理</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cdn/varish_ops/</link>
+      <link>http://js.xiebiao.top/post/cdn/varish_ops/</link>
       <pubDate>Sat, 15 Feb 2020 21:39:09 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cdn/varish_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cdn/varish_ops/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;&lt;img src=&#34;https://img.affdalao.com/wp-content/uploads/2019/04/varnish.jpg&#34; alt=&#34;&#34;&gt;

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nfs on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/nfs/</link>
+    <link>http://js.xiebiao.top/tags/nfs/</link>
     <description>Recent content in nfs on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 02 May 2020 19:11:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 May 2020 19:11:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CentOS 7 安装配置 NFS</title>
-      <link>https://gzxb0712.gitee.io/blog/post/storage/centos_nfs_ops/</link>
+      <link>http://js.xiebiao.top/post/storage/centos_nfs_ops/</link>
       <pubDate>Sat, 02 May 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/storage/centos_nfs_ops/</guid>
+      <guid>http://js.xiebiao.top/post/storage/centos_nfs_ops/</guid>
       <description>前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例</description>
     </item>
     

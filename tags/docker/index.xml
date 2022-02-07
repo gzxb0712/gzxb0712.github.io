@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>docker on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/docker/</link>
+    <link>http://js.xiebiao.top/tags/docker/</link>
     <description>Recent content in docker on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 20 Jul 2020 21:05:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jul 2020 21:05:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>docker最佳实践总结</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/docker_all_ops/</link>
+      <link>http://js.xiebiao.top/post/cloud/docker_all_ops/</link>
       <pubDate>Mon, 20 Jul 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/docker_all_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/docker_all_ops/</guid>
       <description>&amp;raquo;&amp;gt; 目录 &amp;laquo;&amp;lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库</description>
     </item>
     

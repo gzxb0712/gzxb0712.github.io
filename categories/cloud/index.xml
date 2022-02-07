@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cloud on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/categories/cloud/</link>
+    <link>http://js.xiebiao.top/categories/cloud/</link>
     <description>Recent content in cloud on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 23 Jul 2020 20:11:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/categories/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Jul 2020 20:11:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/categories/cloud/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>k8s 备份以及恢复详解</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/k8s_backup_restore/</link>
+      <link>http://js.xiebiao.top/post/cloud/k8s_backup_restore/</link>
       <pubDate>Thu, 23 Jul 2020 20:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/k8s_backup_restore/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/k8s_backup_restore/</guid>
       <description>1 为什么 2 是什么 3 备份与快照 4 物理备份与逻辑备份 5 etcd 备份 6 逻辑备份 7 velero 备份 8 存储的备份 9 csi snapshot 10 参考 为什么 K8S 是软件，软件就会有中间状态和运行数</description>
     </item>
     
     <item>
       <title>etcd3 脚本备份以及恢复</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/etcd3_backup_restore/</link>
+      <link>http://js.xiebiao.top/post/cloud/etcd3_backup_restore/</link>
       <pubDate>Wed, 22 Jul 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/etcd3_backup_restore/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/etcd3_backup_restore/</guid>
       <description>ETCD 简介 ETCD 是用于共享配置和服务发现的分布式，一致性的KV存储系统。ETCD是CoreOS公司发起的一个开源项目，授权协议为Apache。 ETCD 使用</description>
     </item>
     
     <item>
       <title>k8s部署 Ingress 控制器 traefik 2.2.x教程</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/traefik_2.2.8_deploy/</link>
+      <link>http://js.xiebiao.top/post/cloud/traefik_2.2.8_deploy/</link>
       <pubDate>Tue, 21 Jul 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/traefik_2.2.8_deploy/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/traefik_2.2.8_deploy/</guid>
       <description>参考博客 http://www.mydlq.club/article/72/ 目录[-] . 一、Traefik 简介 . 二、Kubernetes 部署 Traefik . 1、创建 CRD 资源 . 2、创建 RBAC 权限 . 3、创建 Traefik 配置文件 . 4、节点设</description>
     </item>
     
     <item>
       <title>docker最佳实践总结</title>
-      <link>https://gzxb0712.gitee.io/blog/post/cloud/docker_all_ops/</link>
+      <link>http://js.xiebiao.top/post/cloud/docker_all_ops/</link>
       <pubDate>Mon, 20 Jul 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/post/cloud/docker_all_ops/</guid>
+      <guid>http://js.xiebiao.top/post/cloud/docker_all_ops/</guid>
       <description>&amp;raquo;&amp;gt; 目录 &amp;laquo;&amp;lt; Docker简介 Docker优势 Docker基本概念 Docker安装使用 Docker常用命令 Docker镜像构建 Docker本地仓库</description>
     </item>
     

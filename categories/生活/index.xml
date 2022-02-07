@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>生活 on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/categories/%E7%94%9F%E6%B4%BB/</link>
+    <link>http://js.xiebiao.top/categories/%E7%94%9F%E6%B4%BB/</link>
     <description>Recent content in 生活 on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 08 Aug 2019 22:25:24 +0800</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/categories/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Aug 2019 22:25:24 +0800</lastBuildDate><atom:link href="http://js.xiebiao.top/categories/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://gzxb0712.gitee.io/blog/about/</link>
+      <link>http://js.xiebiao.top/about/</link>
       <pubDate>Thu, 08 Aug 2019 22:25:24 +0800</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/about/</guid>
+      <guid>http://js.xiebiao.top/about/</guid>
       <description>热爱开源的自动化运维工程师，近期关注K8S,docker，ansible，cicd等。</description>
     </item>
     

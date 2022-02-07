@@ -2,755 +2,755 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Bill World</title>
-    <link>https://gzxb0712.gitee.io/blog/tags/</link>
+    <link>http://js.xiebiao.top/tags/</link>
     <description>Recent content in Tags on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 19 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="https://gzxb0712.gitee.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Aug 2020 21:01:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>bash</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/bash/</link>
+      <link>http://js.xiebiao.top/tags/bash/</link>
       <pubDate>Wed, 19 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/bash/</guid>
+      <guid>http://js.xiebiao.top/tags/bash/</guid>
       <description></description>
     </item>
     
     <item>
       <title>shell</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/shell/</link>
+      <link>http://js.xiebiao.top/tags/shell/</link>
       <pubDate>Wed, 19 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/shell/</guid>
+      <guid>http://js.xiebiao.top/tags/shell/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dev</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/dev/</link>
+      <link>http://js.xiebiao.top/tags/dev/</link>
       <pubDate>Tue, 18 Aug 2020 19:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/dev/</guid>
+      <guid>http://js.xiebiao.top/tags/dev/</guid>
       <description></description>
     </item>
     
     <item>
       <title>go</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/go/</link>
+      <link>http://js.xiebiao.top/tags/go/</link>
       <pubDate>Tue, 18 Aug 2020 19:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/go/</guid>
+      <guid>http://js.xiebiao.top/tags/go/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MySQL</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/MySQL/</link>
+      <link>http://js.xiebiao.top/tags/MySQL/</link>
       <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/MySQL/</guid>
+      <guid>http://js.xiebiao.top/tags/MySQL/</guid>
       <description></description>
     </item>
     
     <item>
       <title>performance</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/performance/</link>
+      <link>http://js.xiebiao.top/tags/performance/</link>
       <pubDate>Thu, 13 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/performance/</guid>
+      <guid>http://js.xiebiao.top/tags/performance/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/linux/</link>
+      <link>http://js.xiebiao.top/tags/linux/</link>
       <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/linux/</guid>
+      <guid>http://js.xiebiao.top/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Redis</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/Redis/</link>
+      <link>http://js.xiebiao.top/tags/Redis/</link>
       <pubDate>Thu, 13 Aug 2020 19:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/Redis/</guid>
+      <guid>http://js.xiebiao.top/tags/Redis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubernetes</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/kubernetes/</link>
+      <link>http://js.xiebiao.top/tags/kubernetes/</link>
       <pubDate>Wed, 12 Aug 2020 21:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/kubernetes/</guid>
+      <guid>http://js.xiebiao.top/tags/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>log</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/log/</link>
+      <link>http://js.xiebiao.top/tags/log/</link>
       <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/log/</guid>
+      <guid>http://js.xiebiao.top/tags/log/</guid>
       <description></description>
     </item>
     
     <item>
       <title>loki</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/loki/</link>
+      <link>http://js.xiebiao.top/tags/loki/</link>
       <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/loki/</guid>
+      <guid>http://js.xiebiao.top/tags/loki/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ceph</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/ceph/</link>
+      <link>http://js.xiebiao.top/tags/ceph/</link>
       <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/ceph/</guid>
+      <guid>http://js.xiebiao.top/tags/ceph/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rook</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/rook/</link>
+      <link>http://js.xiebiao.top/tags/rook/</link>
       <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/rook/</guid>
+      <guid>http://js.xiebiao.top/tags/rook/</guid>
       <description></description>
     </item>
     
     <item>
       <title>storage</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/storage/</link>
+      <link>http://js.xiebiao.top/tags/storage/</link>
       <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/storage/</guid>
+      <guid>http://js.xiebiao.top/tags/storage/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cicd</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/cicd/</link>
+      <link>http://js.xiebiao.top/tags/cicd/</link>
       <pubDate>Tue, 04 Aug 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/cicd/</guid>
+      <guid>http://js.xiebiao.top/tags/cicd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jenkins</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/jenkins/</link>
+      <link>http://js.xiebiao.top/tags/jenkins/</link>
       <pubDate>Tue, 04 Aug 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/jenkins/</guid>
+      <guid>http://js.xiebiao.top/tags/jenkins/</guid>
       <description></description>
     </item>
     
     <item>
       <title>drone</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/drone/</link>
+      <link>http://js.xiebiao.top/tags/drone/</link>
       <pubDate>Sun, 02 Aug 2020 21:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/drone/</guid>
+      <guid>http://js.xiebiao.top/tags/drone/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gitea</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/gitea/</link>
+      <link>http://js.xiebiao.top/tags/gitea/</link>
       <pubDate>Sat, 01 Aug 2020 21:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/gitea/</guid>
+      <guid>http://js.xiebiao.top/tags/gitea/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cloud</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/cloud/</link>
+      <link>http://js.xiebiao.top/tags/cloud/</link>
       <pubDate>Thu, 23 Jul 2020 20:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/cloud/</guid>
+      <guid>http://js.xiebiao.top/tags/cloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>k8s</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/k8s/</link>
+      <link>http://js.xiebiao.top/tags/k8s/</link>
       <pubDate>Thu, 23 Jul 2020 20:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/k8s/</guid>
+      <guid>http://js.xiebiao.top/tags/k8s/</guid>
       <description></description>
     </item>
     
     <item>
       <title>etcd</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/etcd/</link>
+      <link>http://js.xiebiao.top/tags/etcd/</link>
       <pubDate>Wed, 22 Jul 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/etcd/</guid>
+      <guid>http://js.xiebiao.top/tags/etcd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ingress</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/ingress/</link>
+      <link>http://js.xiebiao.top/tags/ingress/</link>
       <pubDate>Tue, 21 Jul 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/ingress/</guid>
+      <guid>http://js.xiebiao.top/tags/ingress/</guid>
       <description></description>
     </item>
     
     <item>
       <title>traefik</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/traefik/</link>
+      <link>http://js.xiebiao.top/tags/traefik/</link>
       <pubDate>Tue, 21 Jul 2020 21:09:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/traefik/</guid>
+      <guid>http://js.xiebiao.top/tags/traefik/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/docker/</link>
+      <link>http://js.xiebiao.top/tags/docker/</link>
       <pubDate>Mon, 20 Jul 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/docker/</guid>
+      <guid>http://js.xiebiao.top/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>code</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/code/</link>
+      <link>http://js.xiebiao.top/tags/code/</link>
       <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/code/</guid>
+      <guid>http://js.xiebiao.top/tags/code/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gitlab</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/gitlab/</link>
+      <link>http://js.xiebiao.top/tags/gitlab/</link>
       <pubDate>Fri, 03 Jul 2020 19:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/gitlab/</guid>
+      <guid>http://js.xiebiao.top/tags/gitlab/</guid>
       <description></description>
     </item>
     
     <item>
       <title>database</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/database/</link>
+      <link>http://js.xiebiao.top/tags/database/</link>
       <pubDate>Sat, 06 Jun 2020 21:08:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/database/</guid>
+      <guid>http://js.xiebiao.top/tags/database/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TiDB</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/TiDB/</link>
+      <link>http://js.xiebiao.top/tags/TiDB/</link>
       <pubDate>Sat, 06 Jun 2020 21:08:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/TiDB/</guid>
+      <guid>http://js.xiebiao.top/tags/TiDB/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MongoDB</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/MongoDB/</link>
+      <link>http://js.xiebiao.top/tags/MongoDB/</link>
       <pubDate>Tue, 02 Jun 2020 20:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/MongoDB/</guid>
+      <guid>http://js.xiebiao.top/tags/MongoDB/</guid>
       <description></description>
     </item>
     
     <item>
       <title>memcached</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/memcached/</link>
+      <link>http://js.xiebiao.top/tags/memcached/</link>
       <pubDate>Mon, 01 Jun 2020 19:17:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/memcached/</guid>
+      <guid>http://js.xiebiao.top/tags/memcached/</guid>
       <description></description>
     </item>
     
     <item>
       <title>middleware</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/middleware/</link>
+      <link>http://js.xiebiao.top/tags/middleware/</link>
       <pubDate>Sun, 17 May 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/middleware/</guid>
+      <guid>http://js.xiebiao.top/tags/middleware/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rabbitmq</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/rabbitmq/</link>
+      <link>http://js.xiebiao.top/tags/rabbitmq/</link>
       <pubDate>Sun, 17 May 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/rabbitmq/</guid>
+      <guid>http://js.xiebiao.top/tags/rabbitmq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kafka</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/kafka/</link>
+      <link>http://js.xiebiao.top/tags/kafka/</link>
       <pubDate>Sat, 16 May 2020 20:01:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/kafka/</guid>
+      <guid>http://js.xiebiao.top/tags/kafka/</guid>
       <description></description>
     </item>
     
     <item>
       <title>codis</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/codis/</link>
+      <link>http://js.xiebiao.top/tags/codis/</link>
       <pubDate>Fri, 15 May 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/codis/</guid>
+      <guid>http://js.xiebiao.top/tags/codis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>graylog</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/graylog/</link>
+      <link>http://js.xiebiao.top/tags/graylog/</link>
       <pubDate>Sun, 10 May 2020 20:32:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/graylog/</guid>
+      <guid>http://js.xiebiao.top/tags/graylog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>elk</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/elk/</link>
+      <link>http://js.xiebiao.top/tags/elk/</link>
       <pubDate>Fri, 08 May 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/elk/</guid>
+      <guid>http://js.xiebiao.top/tags/elk/</guid>
       <description></description>
     </item>
     
     <item>
       <title>log-pilot</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/log-pilot/</link>
+      <link>http://js.xiebiao.top/tags/log-pilot/</link>
       <pubDate>Fri, 08 May 2020 21:05:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/log-pilot/</guid>
+      <guid>http://js.xiebiao.top/tags/log-pilot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>efk</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/efk/</link>
+      <link>http://js.xiebiao.top/tags/efk/</link>
       <pubDate>Tue, 05 May 2020 21:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/efk/</guid>
+      <guid>http://js.xiebiao.top/tags/efk/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nfs</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/nfs/</link>
+      <link>http://js.xiebiao.top/tags/nfs/</link>
       <pubDate>Sat, 02 May 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/nfs/</guid>
+      <guid>http://js.xiebiao.top/tags/nfs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sonarqube</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/sonarqube/</link>
+      <link>http://js.xiebiao.top/tags/sonarqube/</link>
       <pubDate>Wed, 08 Apr 2020 19:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/sonarqube/</guid>
+      <guid>http://js.xiebiao.top/tags/sonarqube/</guid>
       <description></description>
     </item>
     
     <item>
       <title>svn</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/svn/</link>
+      <link>http://js.xiebiao.top/tags/svn/</link>
       <pubDate>Tue, 07 Apr 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/svn/</guid>
+      <guid>http://js.xiebiao.top/tags/svn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/git/</link>
+      <link>http://js.xiebiao.top/tags/git/</link>
       <pubDate>Mon, 06 Apr 2020 19:19:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/git/</guid>
+      <guid>http://js.xiebiao.top/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ansible</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/ansible/</link>
+      <link>http://js.xiebiao.top/tags/ansible/</link>
       <pubDate>Mon, 06 Apr 2020 19:07:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/ansible/</guid>
+      <guid>http://js.xiebiao.top/tags/ansible/</guid>
       <description></description>
     </item>
     
     <item>
       <title>auto</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/auto/</link>
+      <link>http://js.xiebiao.top/tags/auto/</link>
       <pubDate>Mon, 06 Apr 2020 19:07:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/auto/</guid>
+      <guid>http://js.xiebiao.top/tags/auto/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gateway</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/gateway/</link>
+      <link>http://js.xiebiao.top/tags/gateway/</link>
       <pubDate>Sat, 04 Apr 2020 23:00:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/gateway/</guid>
+      <guid>http://js.xiebiao.top/tags/gateway/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kong</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/kong/</link>
+      <link>http://js.xiebiao.top/tags/kong/</link>
       <pubDate>Sat, 04 Apr 2020 23:00:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/kong/</guid>
+      <guid>http://js.xiebiao.top/tags/kong/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OpenResty</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/OpenResty/</link>
+      <link>http://js.xiebiao.top/tags/OpenResty/</link>
       <pubDate>Fri, 03 Apr 2020 22:23:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/OpenResty/</guid>
+      <guid>http://js.xiebiao.top/tags/OpenResty/</guid>
       <description></description>
     </item>
     
     <item>
       <title>center</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/center/</link>
+      <link>http://js.xiebiao.top/tags/center/</link>
       <pubDate>Wed, 01 Apr 2020 22:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/center/</guid>
+      <guid>http://js.xiebiao.top/tags/center/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ZooKeeper</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/ZooKeeper/</link>
+      <link>http://js.xiebiao.top/tags/ZooKeeper/</link>
       <pubDate>Wed, 01 Apr 2020 22:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/ZooKeeper/</guid>
+      <guid>http://js.xiebiao.top/tags/ZooKeeper/</guid>
       <description></description>
     </item>
     
     <item>
       <title>apm</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/apm/</link>
+      <link>http://js.xiebiao.top/tags/apm/</link>
       <pubDate>Wed, 25 Mar 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/apm/</guid>
+      <guid>http://js.xiebiao.top/tags/apm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>skywalking</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/skywalking/</link>
+      <link>http://js.xiebiao.top/tags/skywalking/</link>
       <pubDate>Wed, 25 Mar 2020 20:03:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/skywalking/</guid>
+      <guid>http://js.xiebiao.top/tags/skywalking/</guid>
       <description></description>
     </item>
     
     <item>
       <title>monitor</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/monitor/</link>
+      <link>http://js.xiebiao.top/tags/monitor/</link>
       <pubDate>Sun, 22 Mar 2020 20:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/monitor/</guid>
+      <guid>http://js.xiebiao.top/tags/monitor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>prometheus</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/prometheus/</link>
+      <link>http://js.xiebiao.top/tags/prometheus/</link>
       <pubDate>Sun, 22 Mar 2020 20:15:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/prometheus/</guid>
+      <guid>http://js.xiebiao.top/tags/prometheus/</guid>
       <description></description>
     </item>
     
     <item>
       <title>zabbix</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/zabbix/</link>
+      <link>http://js.xiebiao.top/tags/zabbix/</link>
       <pubDate>Sat, 14 Mar 2020 18:45:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/zabbix/</guid>
+      <guid>http://js.xiebiao.top/tags/zabbix/</guid>
       <description></description>
     </item>
     
     <item>
       <title>open-falcon</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/open-falcon/</link>
+      <link>http://js.xiebiao.top/tags/open-falcon/</link>
       <pubDate>Wed, 11 Mar 2020 19:23:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/open-falcon/</guid>
+      <guid>http://js.xiebiao.top/tags/open-falcon/</guid>
       <description></description>
     </item>
     
     <item>
       <title>NetData</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/NetData/</link>
+      <link>http://js.xiebiao.top/tags/NetData/</link>
       <pubDate>Tue, 10 Mar 2020 19:25:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/NetData/</guid>
+      <guid>http://js.xiebiao.top/tags/NetData/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vm</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/vm/</link>
+      <link>http://js.xiebiao.top/tags/vm/</link>
       <pubDate>Sat, 07 Mar 2020 20:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/vm/</guid>
+      <guid>http://js.xiebiao.top/tags/vm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vmware</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/vmware/</link>
+      <link>http://js.xiebiao.top/tags/vmware/</link>
       <pubDate>Sat, 07 Mar 2020 20:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/vmware/</guid>
+      <guid>http://js.xiebiao.top/tags/vmware/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vagrant</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/vagrant/</link>
+      <link>http://js.xiebiao.top/tags/vagrant/</link>
       <pubDate>Fri, 06 Mar 2020 22:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/vagrant/</guid>
+      <guid>http://js.xiebiao.top/tags/vagrant/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kvm</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/kvm/</link>
+      <link>http://js.xiebiao.top/tags/kvm/</link>
       <pubDate>Fri, 06 Mar 2020 21:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/kvm/</guid>
+      <guid>http://js.xiebiao.top/tags/kvm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>WebVirtCloud</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/WebVirtCloud/</link>
+      <link>http://js.xiebiao.top/tags/WebVirtCloud/</link>
       <pubDate>Fri, 06 Mar 2020 21:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/WebVirtCloud/</guid>
+      <guid>http://js.xiebiao.top/tags/WebVirtCloud/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tomcat</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/tomcat/</link>
+      <link>http://js.xiebiao.top/tags/tomcat/</link>
       <pubDate>Tue, 03 Mar 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/tomcat/</guid>
+      <guid>http://js.xiebiao.top/tags/tomcat/</guid>
       <description></description>
     </item>
     
     <item>
       <title>web</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/web/</link>
+      <link>http://js.xiebiao.top/tags/web/</link>
       <pubDate>Tue, 03 Mar 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/web/</guid>
+      <guid>http://js.xiebiao.top/tags/web/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nginx</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/nginx/</link>
+      <link>http://js.xiebiao.top/tags/nginx/</link>
       <pubDate>Sun, 01 Mar 2020 19:18:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/nginx/</guid>
+      <guid>http://js.xiebiao.top/tags/nginx/</guid>
       <description></description>
     </item>
     
     <item>
       <title>apache</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/apache/</link>
+      <link>http://js.xiebiao.top/tags/apache/</link>
       <pubDate>Fri, 28 Feb 2020 19:11:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/apache/</guid>
+      <guid>http://js.xiebiao.top/tags/apache/</guid>
       <description></description>
     </item>
     
     <item>
       <title>lb</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/lb/</link>
+      <link>http://js.xiebiao.top/tags/lb/</link>
       <pubDate>Tue, 25 Feb 2020 19:21:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/lb/</guid>
+      <guid>http://js.xiebiao.top/tags/lb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>lvs</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/lvs/</link>
+      <link>http://js.xiebiao.top/tags/lvs/</link>
       <pubDate>Tue, 25 Feb 2020 19:21:30 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/lvs/</guid>
+      <guid>http://js.xiebiao.top/tags/lvs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>keepalived</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/keepalived/</link>
+      <link>http://js.xiebiao.top/tags/keepalived/</link>
       <pubDate>Sat, 22 Feb 2020 22:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/keepalived/</guid>
+      <guid>http://js.xiebiao.top/tags/keepalived/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bbr</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/bbr/</link>
+      <link>http://js.xiebiao.top/tags/bbr/</link>
       <pubDate>Thu, 20 Feb 2020 22:39:09 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/bbr/</guid>
+      <guid>http://js.xiebiao.top/tags/bbr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cdn</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/cdn/</link>
+      <link>http://js.xiebiao.top/tags/cdn/</link>
       <pubDate>Thu, 20 Feb 2020 22:39:09 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/cdn/</guid>
+      <guid>http://js.xiebiao.top/tags/cdn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>haproxy</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/haproxy/</link>
+      <link>http://js.xiebiao.top/tags/haproxy/</link>
       <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/haproxy/</guid>
+      <guid>http://js.xiebiao.top/tags/haproxy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>varnish</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/varnish/</link>
+      <link>http://js.xiebiao.top/tags/varnish/</link>
       <pubDate>Sat, 15 Feb 2020 21:39:09 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/varnish/</guid>
+      <guid>http://js.xiebiao.top/tags/varnish/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ats</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/ats/</link>
+      <link>http://js.xiebiao.top/tags/ats/</link>
       <pubDate>Sat, 08 Feb 2020 21:32:09 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/ats/</guid>
+      <guid>http://js.xiebiao.top/tags/ats/</guid>
       <description></description>
     </item>
     
     <item>
       <title>blog</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/blog/</link>
+      <link>http://js.xiebiao.top/tags/blog/</link>
       <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/blog/</guid>
+      <guid>http://js.xiebiao.top/tags/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jsDelivr</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/jsDelivr/</link>
+      <link>http://js.xiebiao.top/tags/jsDelivr/</link>
       <pubDate>Sun, 02 Feb 2020 21:28:04 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/jsDelivr/</guid>
+      <guid>http://js.xiebiao.top/tags/jsDelivr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>base</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/base/</link>
+      <link>http://js.xiebiao.top/tags/base/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/base/</guid>
+      <guid>http://js.xiebiao.top/tags/base/</guid>
       <description></description>
     </item>
     
     <item>
       <title>centos</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/centos/</link>
+      <link>http://js.xiebiao.top/tags/centos/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/centos/</guid>
+      <guid>http://js.xiebiao.top/tags/centos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>samba</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/samba/</link>
+      <link>http://js.xiebiao.top/tags/samba/</link>
       <pubDate>Sat, 01 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/samba/</guid>
+      <guid>http://js.xiebiao.top/tags/samba/</guid>
       <description></description>
     </item>
     
     <item>
       <title>openvpn</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/openvpn/</link>
+      <link>http://js.xiebiao.top/tags/openvpn/</link>
       <pubDate>Wed, 08 Jan 2020 22:05:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/openvpn/</guid>
+      <guid>http://js.xiebiao.top/tags/openvpn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ftp</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/ftp/</link>
+      <link>http://js.xiebiao.top/tags/ftp/</link>
       <pubDate>Tue, 17 Dec 2019 22:21:37 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/ftp/</guid>
+      <guid>http://js.xiebiao.top/tags/ftp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dns</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/dns/</link>
+      <link>http://js.xiebiao.top/tags/dns/</link>
       <pubDate>Mon, 11 Nov 2019 19:21:33 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/dns/</guid>
+      <guid>http://js.xiebiao.top/tags/dns/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hugo</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/hugo/</link>
+      <link>http://js.xiebiao.top/tags/hugo/</link>
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/hugo/</guid>
+      <guid>http://js.xiebiao.top/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dhcp</title>
-      <link>https://gzxb0712.gitee.io/blog/tags/dhcp/</link>
+      <link>http://js.xiebiao.top/tags/dhcp/</link>
       <pubDate>Fri, 11 Oct 2019 20:22:22 +0000</pubDate>
       
-      <guid>https://gzxb0712.gitee.io/blog/tags/dhcp/</guid>
+      <guid>http://js.xiebiao.top/tags/dhcp/</guid>
       <description></description>
     </item>
     

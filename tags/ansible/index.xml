@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ansible on Bill World</title>
-    <link>http://js.xiebiao.top/tags/ansible/</link>
+    <link>https://js.xiebiao.top/tags/ansible/</link>
     <description>Recent content in ansible on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 06 Apr 2020 19:07:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Apr 2020 19:07:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ansible playbook 详解</title>
-      <link>http://js.xiebiao.top/post/auto/ansible_playbook_detail/</link>
+      <link>https://js.xiebiao.top/post/auto/ansible_playbook_detail/</link>
       <pubDate>Mon, 06 Apr 2020 19:07:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/auto/ansible_playbook_detail/</guid>
+      <guid>https://js.xiebiao.top/post/auto/ansible_playbook_detail/</guid>
       <description>执行playbook命令 ansible ­playbook -­i &amp;quot;inventory文件名&amp;quot; playbook.yml ­f 10 (并行级别10) 加参数 1 2 3 4 5 6</description>
     </item>
     
     <item>
       <title>ansible 入门及使用</title>
-      <link>http://js.xiebiao.top/post/auto/ansible_guides/</link>
+      <link>https://js.xiebiao.top/post/auto/ansible_guides/</link>
       <pubDate>Sun, 05 Apr 2020 19:15:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/auto/ansible_guides/</guid>
+      <guid>https://js.xiebiao.top/post/auto/ansible_guides/</guid>
       <description>Ansible 是使用 Python 开发的自动化运维工具，如果这么说比较抽象的话，那么可以说 Ansible 可以让服务器管理人员使用文本来管理服务器，编写一段配置文件，在不同的机器</description>
     </item>
     

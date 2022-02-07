@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>database on Bill World</title>
-    <link>http://js.xiebiao.top/categories/database/</link>
+    <link>https://js.xiebiao.top/categories/database/</link>
     <description>Recent content in database on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 06 Jun 2020 21:08:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/categories/database/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Jun 2020 21:08:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/categories/database/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TiDB 4.0 安装</title>
-      <link>http://js.xiebiao.top/post/database/tidb_install_ops/</link>
+      <link>https://js.xiebiao.top/post/database/tidb_install_ops/</link>
       <pubDate>Sat, 06 Jun 2020 21:08:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/database/tidb_install_ops/</guid>
+      <guid>https://js.xiebiao.top/post/database/tidb_install_ops/</guid>
       <description>官方文档 简介 TiDB 是 PingCAP 公司受 Google Spanner / F1 论文启发而设计的开源分布式 HTAP (Hybrid Transactional and Analytical Processing) 数据库， 结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限</description>
     </item>
     
     <item>
       <title>Redis 5.0 部署及使用</title>
-      <link>http://js.xiebiao.top/post/database/redis5_cluster_ops/</link>
+      <link>https://js.xiebiao.top/post/database/redis5_cluster_ops/</link>
       <pubDate>Fri, 05 Jun 2020 21:09:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/database/redis5_cluster_ops/</guid>
+      <guid>https://js.xiebiao.top/post/database/redis5_cluster_ops/</guid>
       <description>一、简介 1.1 Redis是什么 Redis是一个开源的，使用ANSI C 编写，高性能的Key-Value的NoSQL数据库。 1.2 Redis特点 （1）基</description>
     </item>
     
     <item>
       <title>MySQL 8.0 部署及使用</title>
-      <link>http://js.xiebiao.top/post/database/mysql8_install_ops/</link>
+      <link>https://js.xiebiao.top/post/database/mysql8_install_ops/</link>
       <pubDate>Thu, 04 Jun 2020 21:05:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/database/mysql8_install_ops/</guid>
+      <guid>https://js.xiebiao.top/post/database/mysql8_install_ops/</guid>
       <description>CentOS 7安装MySQL 8.0 这MySQL的默认端口是3306。 Linux上面安装的方式主要分为如下三种： YUM 二进制包 源码包 源码包的安装过于复杂，但是可</description>
     </item>
     
     <item>
       <title>MySQL 5.7 部署及使用</title>
-      <link>http://js.xiebiao.top/post/database/mysql5.7_centos7_install/</link>
+      <link>https://js.xiebiao.top/post/database/mysql5.7_centos7_install/</link>
       <pubDate>Wed, 03 Jun 2020 20:05:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/database/mysql5.7_centos7_install/</guid>
+      <guid>https://js.xiebiao.top/post/database/mysql5.7_centos7_install/</guid>
       <description>本文测试环境： CentOS 7 64-bit Minimal MySQL 5.7 配置 yum 源 在 https://dev.mysql.com/downloads/repo/yum/ 找到 yum 源 rpm 安装包 rpm 安装包 安装 mysql 源 1 2 3 4 5 # 下载 shell&amp;gt; wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm # 安装 mysql 源 shell&amp;gt; yum localinstall mysql57-community-release-el7-11.noarch.rpm 用下面的命令检查 mysql 源是否安装成</description>
     </item>
     
     <item>
       <title>MongoDB4 部署及使用</title>
-      <link>http://js.xiebiao.top/post/database/mongodb_centos_install/</link>
+      <link>https://js.xiebiao.top/post/database/mongodb_centos_install/</link>
       <pubDate>Tue, 02 Jun 2020 20:01:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/database/mongodb_centos_install/</guid>
+      <guid>https://js.xiebiao.top/post/database/mongodb_centos_install/</guid>
       <description>关键字 CentOS, MongoDB, CentOS 7, MongoDB 4 背景概述 MongoDB 是最流行的 NoSQL，其分片集群横向扩展能在一定数量级解决了大数据量增长问题，异构的文档数据也更适合存储实体属性</description>
     </item>
     
     <item>
       <title>Memcached 使用详解</title>
-      <link>http://js.xiebiao.top/post/database/memcached_install_ops/</link>
+      <link>https://js.xiebiao.top/post/database/memcached_install_ops/</link>
       <pubDate>Mon, 01 Jun 2020 19:17:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/database/memcached_install_ops/</guid>
+      <guid>https://js.xiebiao.top/post/database/memcached_install_ops/</guid>
       <description>何为Memcached？ Memcached 是一套开源的高性能分布式内存对象缓存系统，它将所有的数据都存储在内存中，因为在内存中会统一维护一张巨大的Hash表</description>
     </item>
     

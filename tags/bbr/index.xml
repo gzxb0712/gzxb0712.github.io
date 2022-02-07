@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>bbr on Bill World</title>
-    <link>http://js.xiebiao.top/tags/bbr/</link>
+    <link>https://js.xiebiao.top/tags/bbr/</link>
     <description>Recent content in bbr on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 20 Feb 2020 22:39:09 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/bbr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Feb 2020 22:39:09 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/tags/bbr/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>centos7/8开启bbr加速</title>
-      <link>http://js.xiebiao.top/post/cdn/bbr_centos_ops/</link>
+      <link>https://js.xiebiao.top/post/cdn/bbr_centos_ops/</link>
       <pubDate>Thu, 20 Feb 2020 22:39:09 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/cdn/bbr_centos_ops/</guid>
+      <guid>https://js.xiebiao.top/post/cdn/bbr_centos_ops/</guid>
       <description>CentOS 8 默认内核版本为 4.18.x，内核版本高于 4.9 就可以直接开启 BBR，所以 CentOS 8 启用 BBR 非常简单。Vultr VPS CentOS Linux release 8.0.1905 系统测试通过。 CentOS 8 开启 BBR 1 2</description>
     </item>
     

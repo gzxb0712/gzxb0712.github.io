@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>storage on Bill World</title>
-    <link>http://js.xiebiao.top/tags/storage/</link>
+    <link>https://js.xiebiao.top/tags/storage/</link>
     <description>Recent content in storage on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 05 Aug 2020 19:17:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/storage/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Aug 2020 19:17:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/tags/storage/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kubernetes永久存储Rook 1.3.x部署</title>
-      <link>http://js.xiebiao.top/post/storage/rook_install_operator/</link>
+      <link>https://js.xiebiao.top/post/storage/rook_install_operator/</link>
       <pubDate>Wed, 05 Aug 2020 19:17:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/storage/rook_install_operator/</guid>
+      <guid>https://js.xiebiao.top/post/storage/rook_install_operator/</guid>
       <description>Kubernetes永久存储Rook 1.3.x部署 一 Rook概述 1.1 Ceph简介 Ceph是一种高度可扩展的分布式存储解决方案，提供对象、文件和</description>
     </item>
     
     <item>
       <title>CentOS 7 安装配置 NFS</title>
-      <link>http://js.xiebiao.top/post/storage/centos_nfs_ops/</link>
+      <link>https://js.xiebiao.top/post/storage/centos_nfs_ops/</link>
       <pubDate>Sat, 02 May 2020 19:11:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/storage/centos_nfs_ops/</guid>
+      <guid>https://js.xiebiao.top/post/storage/centos_nfs_ops/</guid>
       <description>前言 NFS 是 Network File System 的缩写，即网络文件系统。功能是让客户端通过网络访问不同主机上磁盘里的数据，主要用在类Unix系统上实现文件共享的一种方法。 本例</description>
     </item>
     
     <item>
       <title>cephadm部署和配置Ceph Octopus</title>
-      <link>http://js.xiebiao.top/post/storage/ceph_octopus_ops/</link>
+      <link>https://js.xiebiao.top/post/storage/ceph_octopus_ops/</link>
       <pubDate>Fri, 01 May 2020 19:11:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/storage/ceph_octopus_ops/</guid>
+      <guid>https://js.xiebiao.top/post/storage/ceph_octopus_ops/</guid>
       <description>部署工具：cephadm 操作系统：CentOS 8 Ceph版本：Octopus 操作用户：root 部署前，请注意：根据目前（2020年8月）Ce</description>
     </item>
     

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ZooKeeper on Bill World</title>
-    <link>http://js.xiebiao.top/tags/ZooKeeper/</link>
+    <link>https://js.xiebiao.top/tags/ZooKeeper/</link>
     <description>Recent content in ZooKeeper on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 01 Apr 2020 22:18:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/ZooKeeper/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Apr 2020 22:18:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/tags/ZooKeeper/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ZooKeeper 入门指引</title>
-      <link>http://js.xiebiao.top/post/center/zookeeper_ops_doc/</link>
+      <link>https://js.xiebiao.top/post/center/zookeeper_ops_doc/</link>
       <pubDate>Wed, 01 Apr 2020 22:18:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/center/zookeeper_ops_doc/</guid>
+      <guid>https://js.xiebiao.top/post/center/zookeeper_ops_doc/</guid>
       <description>什么是Apache ZooKeeper？ Apache ZooKeeper是由集群（节点组）使用的一种服务，用于在自身之间协调，并通过稳健的同步技术维护共享</description>
     </item>
     

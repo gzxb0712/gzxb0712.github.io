@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MongoDB on Bill World</title>
-    <link>http://js.xiebiao.top/tags/MongoDB/</link>
+    <link>https://js.xiebiao.top/tags/MongoDB/</link>
     <description>Recent content in MongoDB on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 02 Jun 2020 20:01:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/MongoDB/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Jun 2020 20:01:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/tags/MongoDB/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MongoDB4 部署及使用</title>
-      <link>http://js.xiebiao.top/post/database/mongodb_centos_install/</link>
+      <link>https://js.xiebiao.top/post/database/mongodb_centos_install/</link>
       <pubDate>Tue, 02 Jun 2020 20:01:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/database/mongodb_centos_install/</guid>
+      <guid>https://js.xiebiao.top/post/database/mongodb_centos_install/</guid>
       <description>关键字 CentOS, MongoDB, CentOS 7, MongoDB 4 背景概述 MongoDB 是最流行的 NoSQL，其分片集群横向扩展能在一定数量级解决了大数据量增长问题，异构的文档数据也更适合存储实体属性</description>
     </item>
     

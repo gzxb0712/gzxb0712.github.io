@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>lb on Bill World</title>
-    <link>http://js.xiebiao.top/categories/lb/</link>
+    <link>https://js.xiebiao.top/categories/lb/</link>
     <description>Recent content in lb on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 25 Feb 2020 19:21:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/categories/lb/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Feb 2020 19:21:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/categories/lb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LVS 实现四层负载均衡项目实战</title>
-      <link>http://js.xiebiao.top/post/lb/lvs_ops/</link>
+      <link>https://js.xiebiao.top/post/lb/lvs_ops/</link>
       <pubDate>Tue, 25 Feb 2020 19:21:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/lb/lvs_ops/</guid>
+      <guid>https://js.xiebiao.top/post/lb/lvs_ops/</guid>
       <description>1、LVS 介绍 （1）LVS 是Linux Virtual Server的简称，也就是 Linux 虚拟服务器, 是一个由章文嵩博士发起的自由软件项目，它的官方站点是 www.linuxvirtualserver.org 现在L</description>
     </item>
     
     <item>
       <title>centos部署keepalived</title>
-      <link>http://js.xiebiao.top/post/lb/keepalived_nginx_ops/</link>
+      <link>https://js.xiebiao.top/post/lb/keepalived_nginx_ops/</link>
       <pubDate>Sat, 22 Feb 2020 22:21:37 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/lb/keepalived_nginx_ops/</guid>
+      <guid>https://js.xiebiao.top/post/lb/keepalived_nginx_ops/</guid>
       <description>前言 Keepalived是以VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）协议为实现基础的，这个协议可以认为是实现了路由器</description>
     </item>
     
     <item>
       <title>centos部署haproxy</title>
-      <link>http://js.xiebiao.top/post/lb/haproxy_ops/</link>
+      <link>https://js.xiebiao.top/post/lb/haproxy_ops/</link>
       <pubDate>Wed, 19 Feb 2020 20:21:37 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/lb/haproxy_ops/</guid>
+      <guid>https://js.xiebiao.top/post/lb/haproxy_ops/</guid>
       <description>haproxy是一个使用C语言编写的自由及开放代码软件，其提供高可用性、负载均衡，以及基于TCP和HTTP的应用程序代理，可以运行于大部分主</description>
     </item>
     

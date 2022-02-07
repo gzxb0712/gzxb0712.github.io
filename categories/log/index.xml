@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>log on Bill World</title>
-    <link>http://js.xiebiao.top/categories/log/</link>
+    <link>https://js.xiebiao.top/categories/log/</link>
     <description>Recent content in log on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 11 Aug 2020 20:08:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/categories/log/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Aug 2020 20:08:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/categories/log/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>HELM部署轻量级日志系统Loki以及Prometheus-Operator</title>
-      <link>http://js.xiebiao.top/post/log/helm_loki_prometheus_oper/</link>
+      <link>https://js.xiebiao.top/post/log/helm_loki_prometheus_oper/</link>
       <pubDate>Tue, 11 Aug 2020 20:08:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/log/helm_loki_prometheus_oper/</guid>
+      <guid>https://js.xiebiao.top/post/log/helm_loki_prometheus_oper/</guid>
       <description>对于生产环境以及一个有追求的运维人员来说，哪怕是毫秒级别的宕机也是不能容忍的。对基础设施及应用进行适当的日志记录和监控非常有助于解决问题，还</description>
     </item>
     
     <item>
       <title>轻量级日志系统Loki部署</title>
-      <link>http://js.xiebiao.top/post/log/loki_ops/</link>
+      <link>https://js.xiebiao.top/post/log/loki_ops/</link>
       <pubDate>Mon, 11 May 2020 20:08:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/log/loki_ops/</guid>
+      <guid>https://js.xiebiao.top/post/log/loki_ops/</guid>
       <description>现实中的需求 公司的容器云运行的应用或某一个节点出现了问题，解决的思路 问题首先被prometheus监控 1、metric是来说明当前或者历史达</description>
     </item>
     
     <item>
       <title>CentOS7 部署 Graylog3</title>
-      <link>http://js.xiebiao.top/post/log/graylog_centos_install/</link>
+      <link>https://js.xiebiao.top/post/log/graylog_centos_install/</link>
       <pubDate>Sun, 10 May 2020 20:32:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/log/graylog_centos_install/</guid>
+      <guid>https://js.xiebiao.top/post/log/graylog_centos_install/</guid>
       <description>注意！ 本文只涉及基础服务部署与调配，并未涉及以下内容与功能点： 以手动部署 Binary 包的方式安装各个组件（ES、Filebeat、Graylog 等）；</description>
     </item>
     
     <item>
       <title>搭建log-pilot&#43;elasticsearch&#43;kibana最佳日志实践</title>
-      <link>http://js.xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</link>
+      <link>https://js.xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</link>
       <pubDate>Fri, 08 May 2020 21:05:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</guid>
+      <guid>https://js.xiebiao.top/post/log/log-pilot_elasticsearch_kibana_ops/</guid>
       <description>简介 就docker微服务化而言，研发有需求标准输出，也有需求文件输出，每次登录到服务器上去查看日志又多有不妥；现有的解决方案ELK，每次收集</description>
     </item>
     
     <item>
       <title>搭建 ELK 日志系统</title>
-      <link>http://js.xiebiao.top/post/log/elk_centos7_install/</link>
+      <link>https://js.xiebiao.top/post/log/elk_centos7_install/</link>
       <pubDate>Wed, 06 May 2020 22:11:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/log/elk_centos7_install/</guid>
+      <guid>https://js.xiebiao.top/post/log/elk_centos7_install/</guid>
       <description>国内加速 https://mirrors.huaweicloud.com/elasticsearch/ https://mirrors.huaweicloud.com/kibana/ 简介 ELK是一个日志收集分析的平台，它能收集海量的日志，并将其根据字段切割。一来方便供开发查看日志，定位问题；二来可以根据日志进</description>
     </item>
     
     <item>
       <title>K8s 上搭建 EFK 日志系统</title>
-      <link>http://js.xiebiao.top/post/log/k8s_efk_install/</link>
+      <link>https://js.xiebiao.top/post/log/k8s_efk_install/</link>
       <pubDate>Tue, 05 May 2020 21:11:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/log/k8s_efk_install/</guid>
+      <guid>https://js.xiebiao.top/post/log/k8s_efk_install/</guid>
       <description>参考博客 https://www.qikqiak.com/post/install-efk-stack-on-k8s/ http://www.mydlq.club/article/13/ https://www.cnblogs.com/leozhanggg/p/12700363.html Kubernetes 中比较流行的日志收集解决方案是 Elasticsearch、Fluentd 和 Kibana（EFK）技术栈，也是官方现在比较推荐</description>
     </item>
     

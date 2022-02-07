@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>svn on Bill World</title>
-    <link>http://js.xiebiao.top/tags/svn/</link>
+    <link>https://js.xiebiao.top/tags/svn/</link>
     <description>Recent content in svn on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 07 Apr 2020 19:11:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/svn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Apr 2020 19:11:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/tags/svn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>svn 使用详解</title>
-      <link>http://js.xiebiao.top/post/code/svn_use/</link>
+      <link>https://js.xiebiao.top/post/code/svn_use/</link>
       <pubDate>Tue, 07 Apr 2020 19:11:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/code/svn_use/</guid>
+      <guid>https://js.xiebiao.top/post/code/svn_use/</guid>
       <description>关于版本控制 版本控制是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。 本地版本控制系统 许多人习惯用复制整个项目目录的方式</description>
     </item>
     

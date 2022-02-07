@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>open-falcon on Bill World</title>
-    <link>http://js.xiebiao.top/tags/open-falcon/</link>
+    <link>https://js.xiebiao.top/tags/open-falcon/</link>
     <description>Recent content in open-falcon on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 11 Mar 2020 19:23:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/open-falcon/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Mar 2020 19:23:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/tags/open-falcon/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>小米开源监控 Open-Falcon 0.3 部署</title>
-      <link>http://js.xiebiao.top/post/monitor/open-falcon_install_ops/</link>
+      <link>https://js.xiebiao.top/post/monitor/open-falcon_install_ops/</link>
       <pubDate>Wed, 11 Mar 2020 19:23:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/monitor/open-falcon_install_ops/</guid>
+      <guid>https://js.xiebiao.top/post/monitor/open-falcon_install_ops/</guid>
       <description>文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go</description>
     </item>
     

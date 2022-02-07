@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>monitor on Bill World</title>
-    <link>http://js.xiebiao.top/categories/monitor/</link>
+    <link>https://js.xiebiao.top/categories/monitor/</link>
     <description>Recent content in monitor on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Mar 2020 20:15:30 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/categories/monitor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Mar 2020 20:15:30 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/categories/monitor/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>helm部署prometheus</title>
-      <link>http://js.xiebiao.top/post/monitor/helm_prometheus/</link>
+      <link>https://js.xiebiao.top/post/monitor/helm_prometheus/</link>
       <pubDate>Sun, 22 Mar 2020 20:15:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/monitor/helm_prometheus/</guid>
+      <guid>https://js.xiebiao.top/post/monitor/helm_prometheus/</guid>
       <description>随着heapster项目停止更新并慢慢被metrics-server取代，集群监控这项任务也将最终转移。prometheus的监控理念、数据</description>
     </item>
     
     <item>
       <title>搭建docker版Prometheus监控报警系统</title>
-      <link>http://js.xiebiao.top/post/monitor/prometheus_ops/</link>
+      <link>https://js.xiebiao.top/post/monitor/prometheus_ops/</link>
       <pubDate>Mon, 16 Mar 2020 21:05:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/monitor/prometheus_ops/</guid>
+      <guid>https://js.xiebiao.top/post/monitor/prometheus_ops/</guid>
       <description>什么是Prometheus? Prometheus是由SoundCloud开发的开源监控报警系统和时序列数据库(TSDB)。Prometheu</description>
     </item>
     
     <item>
       <title>Zabbix 5.0 Agent2的安装</title>
-      <link>http://js.xiebiao.top/post/monitor/zabbix5_agent2_install/</link>
+      <link>https://js.xiebiao.top/post/monitor/zabbix5_agent2_install/</link>
       <pubDate>Sat, 14 Mar 2020 18:45:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/monitor/zabbix5_agent2_install/</guid>
+      <guid>https://js.xiebiao.top/post/monitor/zabbix5_agent2_install/</guid>
       <description>Zabbix Agent2 介绍 Zabbix 5.0 版本推出了使用 go 语言重写的 Agent2，也是 5.0 版本新特性，Agent2 有如下特性： 完成的插件框架支持，可扩张服务及应用监控 支持灵</description>
     </item>
     
     <item>
       <title>Zabbix 5.0安装部署和使用教程</title>
-      <link>http://js.xiebiao.top/post/monitor/zabbix5_install_ops/</link>
+      <link>https://js.xiebiao.top/post/monitor/zabbix5_install_ops/</link>
       <pubDate>Fri, 13 Mar 2020 18:23:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/monitor/zabbix5_install_ops/</guid>
+      <guid>https://js.xiebiao.top/post/monitor/zabbix5_install_ops/</guid>
       <description>参考博客 https://www.dqzboy.com/zabbix-5-0%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B zabbix 5.0 版本于 5 月 11 日正式发布，是最新的 LTS（长期支持）版本，5.0 带来很多功能和特性，后面会陆续推出文章介绍，下面主要介绍下 5.0 版本</description>
     </item>
     
     <item>
       <title>小米开源监控 Open-Falcon 0.3 部署</title>
-      <link>http://js.xiebiao.top/post/monitor/open-falcon_install_ops/</link>
+      <link>https://js.xiebiao.top/post/monitor/open-falcon_install_ops/</link>
       <pubDate>Wed, 11 Mar 2020 19:23:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/monitor/open-falcon_install_ops/</guid>
+      <guid>https://js.xiebiao.top/post/monitor/open-falcon_install_ops/</guid>
       <description>文章目录 一、主机准备 二、参考文档 三 、环境配置 3.1 配置阿里YUM源、安装基本工具 3.2 关闭防火墙、Selinux 3.3 修改主机名 3.4 配置时间同步 3.5 安装go</description>
     </item>
     
     <item>
       <title>NetData轻量的性能监控工具安装</title>
-      <link>http://js.xiebiao.top/post/monitor/netdata_ops/</link>
+      <link>https://js.xiebiao.top/post/monitor/netdata_ops/</link>
       <pubDate>Tue, 10 Mar 2020 19:25:30 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/monitor/netdata_ops/</guid>
+      <guid>https://js.xiebiao.top/post/monitor/netdata_ops/</guid>
       <description>前言 对于服务器监控我相信对于一些人来说是感兴趣的，相比于繁琐的 Grafana + Zabbix（白猫的docker安装教程）对于服务器资源的占用，较为轻便监</description>
     </item>
     

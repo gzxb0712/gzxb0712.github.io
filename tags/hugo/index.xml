@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hugo on Bill World</title>
-    <link>http://js.xiebiao.top/tags/hugo/</link>
+    <link>https://js.xiebiao.top/tags/hugo/</link>
     <description>Recent content in hugo on Bill World</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 12 Oct 2019 20:28:04 +0000</lastBuildDate><atom:link href="http://js.xiebiao.top/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Oct 2019 20:28:04 +0000</lastBuildDate><atom:link href="https://js.xiebiao.top/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo &#43; Github Pages &#43; picgo搭建个人技术博客</title>
-      <link>http://js.xiebiao.top/post/blog/creat-hugo-blog/</link>
+      <link>https://js.xiebiao.top/post/blog/creat-hugo-blog/</link>
       <pubDate>Sat, 12 Oct 2019 20:28:04 +0000</pubDate>
       
-      <guid>http://js.xiebiao.top/post/blog/creat-hugo-blog/</guid>
+      <guid>https://js.xiebiao.top/post/blog/creat-hugo-blog/</guid>
       <description>&lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;尝试过 Hexo 、GatsbyJs、 Vuepress 搭建博客后，对这些工具最大的不满，就是运行速度以及打包速度。&lt;/p&gt;

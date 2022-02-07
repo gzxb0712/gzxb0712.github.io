@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://js.xiebiao.top/sitemap.xml
+Sitemap: https://js.xiebiao.top/sitemap.xml
